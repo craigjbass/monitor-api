@@ -41,6 +41,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
+    require_all (2.0.0)
     rerun (0.13.0)
       listen (~> 3.0)
     rspec (3.7.0)
@@ -73,6 +74,7 @@ DEPENDENCIES
   guard-rspec
   pry
   rack-test
+  require_all
   rerun
   rspec
   sinatra
