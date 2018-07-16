@@ -9,6 +9,7 @@ group :test do
   gem 'rack-test'
   gem 'rerun'
   gem 'rspec'
+  gem 'rspec_junit_formatter'
 end
 
 group :development, :test do
