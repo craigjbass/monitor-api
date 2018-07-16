@@ -1,0 +1,11 @@
+version: "3"
+services:
+  web:
+    build: .
+    volumes:
+      - ./:/app
+    ports:
+      - "4567:4567"
+    command: "bundle exec rerun --background 'ash bin/serve.sh'"
+    privileged: true
+
