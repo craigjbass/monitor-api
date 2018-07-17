@@ -1,4 +1,5 @@
 require 'json'
+
 class HomesEngland::Gateway::FileProject
   def initialize(file_path:)
     @file_path = file_path

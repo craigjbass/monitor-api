@@ -2,7 +2,6 @@ class HomesEngland::UseCase::CreateNewProject
 
   def initialize(project_gateway:)
     @project_gateway = project_gateway
-
   end
 
   def execute(type:, baseline:)
