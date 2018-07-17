@@ -28,7 +28,7 @@ class HomesEngland::Gateway::FileProject
 
     project = HomesEngland::Domain::Project.new
     project.type = project_data['type']
-    project.data = deep_symbolize_keys(project_data['data'])
+    project.data = Common::DeepSymbolizeKeys.to_symbolized_hash(project_data['data'])
     project
   end
 
