@@ -17,5 +17,11 @@ class HomesEngland::UseCases
         project_gateway: builder.get_use_case(:project_gateway)
       )
     end
+
+    builder.define_use_case :update_project do
+      HomesEngland::UseCase::UpdateProject.new(
+        project_gateway: builder.get_use_case(:project_gateway)
+      )
+    end
   end
 end
