@@ -1,7 +1,7 @@
 require 'rspec'
 require_relative 'delivery_mechanism_spec_helper'
 
-describe 'Finding a project' do
+describe('Finding a project') do
   let(:project_data) do
     {
       type: 'hif',
@@ -13,19 +13,19 @@ describe 'Finding a project' do
   end
 
   context 'with an invalid id' do
-    let(:find_project_spy) {spy(execute: nil)}
+    let(:find_project_spy) { spy(execute: nil) }
+
+    before do
+      stub_const(
+        'HomesEngland::UseCase::FindProject',
+        double(new: find_project_spy)
+      )
+      get '/project/find'
+      { id: 99 }
+    end
 
     context 'example one' do
-      let(:id) {42}
-
-      before do
-        stub_const(
-          'HomesEngland::UseCase::FindProject',
-          double(new: find_project_spy)
-        )
-        get '/project/find'
-        {id: 99}
-      end
+      let(:id) { 42 }
 
       it 'should should return 404' do
         expect(last_response.status).to eq(404)
@@ -33,34 +33,15 @@ describe 'Finding a project' do
     end
 
     context 'example two' do
-      let(:id) {nil}
-
-      before do
-        stub_const(
-          'HomesEngland::UseCase::FindProject',
-          double(new: find_project_spy)
-        )
-        get '/project/find'
-        {id: 99}
-
-      end
+      let(:id) { nil }
 
       it 'should should return 404' do
         expect(last_response.status).to eq(404)
       end
     end
 
-    context 'example one' do
-      let(:id) {'Cats'}
-
-      before do
-        stub_const(
-          'HomesEngland::UseCase::FindProject',
-          double(new: find_project_spy)
-        )
-        get '/project/find'
-        {id: 99}
-      end
+    context 'example three' do
+      let(:id) { 'Cats' }
 
       it 'should should return 404' do
         expect(last_response.status).to eq(404)
@@ -74,7 +55,6 @@ describe 'Finding a project' do
            project_data.to_json
       response_body = JSON.parse(last_response.body)
       get "/project/find?id=#{response_body['projectId']['id']}"
-
     end
 
     it 'should should return 200' do

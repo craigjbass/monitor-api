@@ -14,8 +14,11 @@ describe 'Getting a HIF project' do
   end
 
   it 'should find a project by its id' do
-    response = get_use_case(:create_new_project).execute(type: '', baseline: {})
+    response = get_use_case(:create_new_project).execute(type: 'hif',
+                                                         baseline: { cats: 'meow' })
     project = get_use_case(:find_project).execute(id: response[:id])
     expect(project).to_not be_nil
+    expect(project.type).to eq('hif')
+    expect(project.data).to eq(cats: 'meow')
   end
 end
