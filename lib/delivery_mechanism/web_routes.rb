@@ -7,18 +7,20 @@ module DeliveryMechanism
     end
 
     get '/project/find' do
-      if request.env['rack.request.query_hash']['id'] == nil
-        return 404
+      if request.env['rack.request.query_hash']['id'].nil?
+        response.status = 404
+      else
+        return_project = @use_case_factory.get_use_case(:find_project).execute(
+          id: params['id'].to_i
+        )
+
+        content_type 'application/json'
+        response.body = {
+          type: return_project.type,
+          data: return_project.data
+        }.to_json
+        response.status = 200
       end
-
-      return_project = @use_case_factory.get_use_case(:find_project).execute(id:params['id'].to_i)
-
-      content_type 'application/json'
-      response.body  ={
-        type: return_project.type,
-        data: return_project.data
-      }.to_json
-      response.status = 200
     end
 
     post '/project/create' do
