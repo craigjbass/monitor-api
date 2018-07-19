@@ -13,26 +13,17 @@ describe 'Updating a HIF Project' do
     File.delete(ENV['PROJECT_FILE_PATH'])
   end
 
-  let(:updated_project){
-    {
-      type: 'new',
-      baseline: {
-        cats:'meow'
-      }
-    }
-  }
   it 'should update a project' do
-    response = get_use_case(:create_new_project).execute(type: 'hif', baseline: { dogs:'woof'})
-    intial_project = get_use_case(:find_project).execute(id: response[:id])
+    response = get_use_case(:create_new_project).execute(type: 'hif', baseline: { dogs: 'woof' })
+    base_project = get_use_case(:find_project).execute(id: response[:id])
+    expect(base_project.type).to eq('hif')
+    expect(base_project.data[:dogs]).to eq('woof')
 
-    get_use_case(:update_project).execute(id: response[:id], project: updated_project)
+    success = get_use_case(:update_project).execute(id: response[:id], project: { type: 'new', baseline: { cats: 'meow' } })
+    expect(success[:success]).to eq('true')
     updated_project = get_use_case(:find_project).execute(id: response[:id])
 
-    expect(intial_project['type']).to eq('hif')
-    expect(intial_project['baseline']['dogs']).to eq('woof')
-
-    expect(updated_project['type']).to eq('new')
-    expect(updated_project['baseline']['cats']).to eq('meow')
-    true.should == false
+    expect(updated_project.type).to eq('new')
+    expect(updated_project.data[:cats]).to eq('meow')
   end
 end

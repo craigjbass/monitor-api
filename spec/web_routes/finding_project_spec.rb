@@ -13,10 +13,10 @@ describe 'Finding a project' do
   end
 
   context 'with an invalid id' do
-    let(:find_project_spy) {spy(execute: nil)}
+    let(:find_project_spy) { spy(execute: nil) }
 
     context 'example one' do
-      let(:id) {42}
+      let(:id) { 42 }
 
       before do
         stub_const(
@@ -24,7 +24,7 @@ describe 'Finding a project' do
           double(new: find_project_spy)
         )
         get '/project/find'
-        {id: 99}
+        { id: 99 }
       end
 
       it 'should should return 404' do
@@ -33,7 +33,7 @@ describe 'Finding a project' do
     end
 
     context 'example two' do
-      let(:id) {nil}
+      let(:id) { nil }
 
       before do
         stub_const(
@@ -41,8 +41,7 @@ describe 'Finding a project' do
           double(new: find_project_spy)
         )
         get '/project/find'
-        {id: 99}
-
+        { id: 99 }
       end
 
       it 'should should return 404' do
@@ -51,7 +50,7 @@ describe 'Finding a project' do
     end
 
     context 'example one' do
-      let(:id) {'Cats'}
+      let(:id) { 'Cats' }
 
       before do
         stub_const(
@@ -59,7 +58,7 @@ describe 'Finding a project' do
           double(new: find_project_spy)
         )
         get '/project/find'
-        {id: 99}
+        { id: 99 }
       end
 
       it 'should should return 404' do
@@ -74,7 +73,6 @@ describe 'Finding a project' do
            project_data.to_json
       response_body = JSON.parse(last_response.body)
       get "/project/find?id=#{response_body['projectId']['id']}"
-
     end
 
     it 'should should return 200' do

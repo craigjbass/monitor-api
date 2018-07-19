@@ -20,15 +20,31 @@ class HomesEngland::Gateway::FileProject
     projects.length - 1
   end
 
+  def update(id:, project:)
+    if id.nil? || project.nil? || saved_projects.nil? || saved_projects[id].nil?
+      { success: 'false' }
+    end
+    projects = saved_projects
+    projects[id] = {
+      type: project[:type],
+      data: project[:baseline]
+    }
+    File.open(@file_path, 'w') do |f|
+      f.write(projects.to_json)
+    end
+    { success: 'true' }
+  end
+
   def find_by(id:)
     return nil unless saved_projects[id]
 
     project_data = saved_projects[id]
 
-
     project = HomesEngland::Domain::Project.new
     project.type = project_data['type']
-    project.data = Common::DeepSymbolizeKeys.to_symbolized_hash(project_data['data'])
+    project.data = Common::DeepSymbolizeKeys.to_symbolized_hash(
+      project_data['data']
+    )
     project
   end
 
@@ -43,7 +59,6 @@ class HomesEngland::Gateway::FileProject
     end
 
     project_data
-
   rescue Errno::ENOENT
     []
   end
@@ -57,7 +72,7 @@ class HomesEngland::Gateway::FileProject
       end
       result
     when Array
-      obj.map {|value| deep_symbolize_keys(value)}
+      obj.map { |value| deep_symbolize_keys(value) }
     else
       obj
     end
