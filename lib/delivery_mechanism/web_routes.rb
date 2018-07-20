@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'sinatra'
 
 module DeliveryMechanism
@@ -7,7 +9,7 @@ module DeliveryMechanism
     end
 
     get '/project/find' do
-      return 404 if request.env['rack.request.query_hash']['id'].nil?
+      return 404 if params['id'].nil?
 
       return_project = @use_case_factory.get_use_case(:find_project).execute(id: params['id'].to_i)
 
@@ -41,16 +43,16 @@ module DeliveryMechanism
 
       if valid_update_request_body(request_body)
         use_case = @use_case_factory.get_use_case(:update_project)
-        success = use_case.execute(
+        update_successful = use_case.execute(
           id: request_body['id'],
           project: {
             type: request_body['project']['type'],
             baseline: request_body['project']['baselineData']
           }
-        )
-        response.status = success[:success] != 'true' ? 404 : 200
+        )[:success]
+        response.status = update_successful ? 200 : 404
       else
-        response.status = 404
+        response.status = 400
       end
     end
 

@@ -8,7 +8,7 @@ describe HomesEngland::UseCase::UpdateProject do
   context 'given any id' do
     let(:project_id) { 42 }
     let(:project_gateway_spy) do
-      double(update: { success: 'false' })
+      double(update: { success: false })
     end
 
     it 'should use update on the project gateway' do
@@ -26,11 +26,11 @@ describe HomesEngland::UseCase::UpdateProject do
     context 'id' do
       let(:project_id) { 42 }
       let(:project_gateway_spy) do
-        double(update: { success: 'false' })
+        double(update: { success: false })
       end
       it 'return a hash with failure' do
         return_hash = use_case.execute(id: project_id, project: updated_project)
-        expect(return_hash).to eq(success: 'false')
+        expect(return_hash).to eq(success: false)
       end
     end
 
@@ -40,13 +40,13 @@ describe HomesEngland::UseCase::UpdateProject do
 
         let(:project_id) { 42 }
         let(:project_gateway_spy) do
-          double(update: { success: 'false' })
+          double(update: { success: false })
         end
         it 'return a hash with failure' do
           return_hash = use_case.execute(
             id: project_id, project: updated_project
           )
-          expect(return_hash).to eq(success: 'false')
+          expect(return_hash).to eq(success: false)
         end
       end
       # Add later: 'which does not match schema'
@@ -56,7 +56,7 @@ describe HomesEngland::UseCase::UpdateProject do
   context 'given a valid id and project ' do
     let(:project_id) { 0 }
     let(:project_gateway_spy) do
-      double(update: { success: 'true' })
+      double(update: { success: true })
     end
 
     it 'return a hash with success' do
@@ -64,7 +64,7 @@ describe HomesEngland::UseCase::UpdateProject do
         id: project_id,
         project: updated_project
       )
-      expect(return_hash).to eq(success: 'true')
+      expect(return_hash).to eq(success: true)
     end
   end
 end

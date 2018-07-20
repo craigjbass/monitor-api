@@ -33,35 +33,35 @@ describe('Updating a project') do
   context 'with invalid' do
     context 'id' do
       context 'which is not in hash' do
-        it 'should return 404' do
+        it 'should return 400' do
           post '/project/update',
                { id: 42,
                  project: {
                    type: new_project_data['type'],
                    baselineData: new_project_data['baselineData']
                  } }.to_json
-          expect(last_response.status).to eq(404)
+          expect(last_response.status).to eq(400)
         end
       end
       context 'which is nil' do
-        it 'should return 404' do
+        it 'should return 400' do
           post '/project/update',
                { id: nil,
                  project: {
                    type: new_project_data['type'],
                    baselineData: new_project_data['baselineData']
                  } }.to_json
-          expect(last_response.status).to eq(404)
+          expect(last_response.status).to eq(400)
         end
       end
     end
 
     context 'project' do
       context 'which is nil' do
-        it 'should return 404' do
+        it 'should return 400' do
           post '/project/update',
                { id: @valid_project_id, project: nil }.to_json
-          expect(last_response.status).to eq(404)
+          expect(last_response.status).to eq(400)
         end
       end
       # Add later: 'which does not match schema'

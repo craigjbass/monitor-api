@@ -20,7 +20,7 @@ describe 'Updating a HIF Project' do
     expect(base_project.data[:dogs]).to eq('woof')
 
     success = get_use_case(:update_project).execute(id: response[:id], project: { type: 'new', baseline: { cats: 'meow' } })
-    expect(success[:success]).to eq('true')
+    expect(success[:success]).to eq(true)
     updated_project = get_use_case(:find_project).execute(id: response[:id])
 
     expect(updated_project.type).to eq('new')

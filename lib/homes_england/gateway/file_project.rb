@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'json'
 
 class HomesEngland::Gateway::FileProject
@@ -13,26 +15,23 @@ class HomesEngland::Gateway::FileProject
       data: project.data
     }
 
-    File.open(@file_path, 'w') do |f|
-      f.write(projects.to_json)
-    end
+    write_projects(projects)
 
     projects.length - 1
   end
 
   def update(id:, project:)
-    if id.nil? || project.nil? || saved_projects.nil? || saved_projects[id].nil?
-      { success: 'false' }
-    end
+    { success: false } if project_exists(id, project)
+
     projects = saved_projects
     projects[id] = {
       type: project[:type],
       data: project[:baseline]
     }
-    File.open(@file_path, 'w') do |f|
-      f.write(projects.to_json)
-    end
-    { success: 'true' }
+
+    write_projects(projects)
+
+    { success: true }
   end
 
   def find_by(id:)
@@ -50,6 +49,16 @@ class HomesEngland::Gateway::FileProject
 
   private
 
+  def write_projects(projects)
+    File.open(@file_path, 'w') do |f|
+      f.write(projects.to_json)
+    end
+  end
+
+  def project_exists(id, project)
+    id.nil? || project.nil? || saved_projects.nil? || saved_projects[id].nil?
+  end
+
   def saved_projects
     project_data = []
 
@@ -61,20 +70,5 @@ class HomesEngland::Gateway::FileProject
     project_data
   rescue Errno::ENOENT
     []
-  end
-
-  def deep_symbolize_keys(obj)
-    case obj
-    when Hash
-      result = {}
-      obj.each do |key, value|
-        result[key.to_sym] = deep_symbolize_keys(value)
-      end
-      result
-    when Array
-      obj.map { |value| deep_symbolize_keys(value) }
-    else
-      obj
-    end
   end
 end
