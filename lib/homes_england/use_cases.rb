@@ -11,5 +11,11 @@ class HomesEngland::UseCases
         project_gateway: builder.get_use_case(:project_gateway)
       )
     end
+
+    builder.define_use_case :find_project do
+      HomesEngland::UseCase::FindProject.new(
+        project_gateway: builder.get_use_case(:project_gateway)
+      )
+    end
   end
 end

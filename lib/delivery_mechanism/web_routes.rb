@@ -6,8 +6,21 @@ module DeliveryMechanism
       @use_case_factory = Dependencies.use_case_factory
     end
 
-    get '/' do
-      'hello world'
+    get '/project/find' do
+      if request.env['rack.request.query_hash']['id'].nil?
+        response.status = 404
+      else
+        return_project = @use_case_factory.get_use_case(:find_project).execute(
+          id: params['id'].to_i
+        )
+
+        content_type 'application/json'
+        response.body = {
+          type: return_project.type,
+          data: return_project.data
+        }.to_json
+        response.status = 200
+      end
     end
 
     post '/project/create' do
