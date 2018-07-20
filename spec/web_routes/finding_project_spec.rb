@@ -1,7 +1,7 @@
 require 'rspec'
 require_relative 'delivery_mechanism_spec_helper'
 
-describe('Finding a project') do
+describe 'Finding a project' do
   let(:project_data) do
     {
       type: 'hif',
@@ -15,17 +15,17 @@ describe('Finding a project') do
   context 'with an invalid id' do
     let(:find_project_spy) { spy(execute: nil) }
 
-    before do
-      stub_const(
-        'HomesEngland::UseCase::FindProject',
-        double(new: find_project_spy)
-      )
-      get '/project/find'
-      { id: 99 }
-    end
-
     context 'example one' do
       let(:id) { 42 }
+
+      before do
+        stub_const(
+          'HomesEngland::UseCase::FindProject',
+          double(new: find_project_spy)
+        )
+        get '/project/find'
+        { id: 99 }
+      end
 
       it 'should should return 404' do
         expect(last_response.status).to eq(404)
@@ -35,13 +35,31 @@ describe('Finding a project') do
     context 'example two' do
       let(:id) { nil }
 
+      before do
+        stub_const(
+          'HomesEngland::UseCase::FindProject',
+          double(new: find_project_spy)
+        )
+        get '/project/find'
+        { id: 99 }
+      end
+
       it 'should should return 404' do
         expect(last_response.status).to eq(404)
       end
     end
 
-    context 'example three' do
+    context 'example one' do
       let(:id) { 'Cats' }
+
+      before do
+        stub_const(
+          'HomesEngland::UseCase::FindProject',
+          double(new: find_project_spy)
+        )
+        get '/project/find'
+        { id: 99 }
+      end
 
       it 'should should return 404' do
         expect(last_response.status).to eq(404)
