@@ -6,6 +6,13 @@ module DeliveryMechanism
   class WebRoutes < Sinatra::Base
     before do
       @use_case_factory = Dependencies.use_case_factory
+      response.headers["Access-Control-Allow-Origin"] = '*'
+    end
+
+    options '*' do
+      response.headers["Access-Control-Allow-Origin"] = '*'
+      response.headers["Access-Control-Allow-Headers"] = "Content-Type, Accept"
+      200
     end
 
     get '/project/find' do
@@ -44,7 +51,7 @@ module DeliveryMechanism
       if valid_update_request_body(request_body)
         use_case = @use_case_factory.get_use_case(:update_project)
         update_successful = use_case.execute(
-          id: request_body['id'],
+          id: request_body['id'].to_i,
           project: {
             type: request_body['project']['type'],
             baseline: request_body['project']['baselineData']
