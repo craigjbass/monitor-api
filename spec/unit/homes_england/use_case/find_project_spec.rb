@@ -7,9 +7,9 @@ describe HomesEngland::UseCase::FindProject do
 
   context 'given an id' do
     let(:project) { { cats: 'meow' } }
-    let(:id){42}
+    let(:id) { 42 }
     it 'gateway find_by method is used' do
-      expect(response).to eq({ cats: 'meow' })
+      expect(response).to eq(cats: 'meow')
     end
   end
 end
