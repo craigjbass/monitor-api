@@ -20,10 +20,12 @@ module DeliveryMechanism
 
       return_project = @use_case_factory.get_use_case(:find_project).execute(id: params['id'].to_i)
 
+      return 404 if return_project.nil?
+
       content_type 'application/json'
       response.body = {
         type: return_project.type,
-        data: return_project.data
+        data: Common::DeepCamelizeKeys.to_camelized_hash(return_project.data)
       }.to_json
       response.status = 200
     end
