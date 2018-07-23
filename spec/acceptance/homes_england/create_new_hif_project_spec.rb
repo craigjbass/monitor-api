@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rspec'
 require_relative '../shared_context/use_case_factory'
 
@@ -23,8 +25,9 @@ describe 'Creating a new HIF FileProject' do
       infrastructures: [
         {
           type: 'Cat Bathroom',
-          description:'Bathroom for Cats',
+          description: 'Bathroom for Cats',
           completion_date: '2018-12-25'
+
         }
       ],
       financials: [
@@ -35,11 +38,22 @@ describe 'Creating a new HIF FileProject' do
       ]
     }
 
-    response = get_use_case(:create_new_project).execute(type: 'hif', baseline: project_baseline)
+    infrastructure_with_template_data_inserted = {
+      type: 'Cat Bathroom',
+      description: 'Bathroom for Cats',
+      completion_date: '2018-12-25',
+      completion_status: nil
+    }
+
+    response = get_use_case(:create_new_project).execute(
+      type: 'hif', baseline: project_baseline
+    )
+
     project = get_use_case(:project_gateway).find_by(id: response[:id])
 
-    expect(response[:id]).to eq(0)
     expect(project.type).to eq('hif')
-    expect(project.data).to eq(project_baseline)
+    expect(project.data[:summary]).to eq(project_baseline[:summary])
+    expect(project.data[:infrastructures].first).to eq(infrastructure_with_template_data_inserted)
+    expect(project.data[:financials]).to eq(project_baseline[:financials])
   end
 end
