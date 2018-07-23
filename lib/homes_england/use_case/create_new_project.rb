@@ -1,13 +1,18 @@
-class HomesEngland::UseCase::CreateNewProject
+# frozen_string_literal: true
 
-  def initialize(project_gateway:)
+class HomesEngland::UseCase::CreateNewProject
+  def initialize(project_gateway:, populate_template_use_case:)
     @project_gateway = project_gateway
+    @populate_template = populate_template_use_case
   end
 
   def execute(type:, baseline:)
+
+    populated_data = @populate_template.execute(type: type, baseline: baseline)
+
     project = HomesEngland::Domain::Project.new
     project.type = type
-    project.data = baseline
+    project.data = populated_data[:populated_data]
 
     id = @project_gateway.create(project)
 
