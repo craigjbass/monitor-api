@@ -3,7 +3,7 @@ describe HomesEngland::Gateway::SequelProject do
 
   let(:project_gateway) { described_class.new(database: database) }
 
-  context 'updating a non existant config' do
+  context 'updating a non existant project' do
     it 'returns unsuccessful' do
       project = HomesEngland::Domain::Project.new.tap do |p|
         p.type = 'Animals'

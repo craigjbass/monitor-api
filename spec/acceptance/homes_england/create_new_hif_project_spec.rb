@@ -6,15 +6,6 @@ require_relative '../shared_context/use_case_factory'
 describe 'Creating a new HIF FileProject' do
   include_context 'use case factory'
 
-  before do
-    ENV['PROJECT_FILE_PATH'] = '/tmp/projects.json'
-    File.open(ENV['PROJECT_FILE_PATH'], 'w') {}
-  end
-
-  after do
-    File.delete(ENV['PROJECT_FILE_PATH'])
-  end
-
   it 'should save project and return a unique id' do
     project_baseline = {
       summary: {
