@@ -58,7 +58,7 @@ module DeliveryMechanism
             type: request_body['project']['type'],
             baseline: request_body['project']['baselineData']
           }
-        )[:success]
+        )[:successful]
         response.status = update_successful ? 200 : 404
       else
         response.status = 400

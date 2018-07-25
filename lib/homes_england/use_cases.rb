@@ -3,9 +3,7 @@
 class HomesEngland::UseCases
   def self.register(builder)
     builder.define_use_case :project_gateway do
-      HomesEngland::Gateway::FileProject.new(
-        file_path: ENV['PROJECT_FILE_PATH']
-      )
+      HomesEngland::Gateway::SequelProject.new(database: builder.database)
     end
 
     builder.define_use_case :template_gateway do
