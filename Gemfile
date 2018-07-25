@@ -2,8 +2,10 @@ source 'https://rubygems.org'
 ruby '2.5.1'
 
 gem 'dry-container'
-gem 'sinatra'
+gem 'pg'
 gem 'require_all'
+gem 'sequel'
+gem 'sinatra'
 
 group :test do
   gem 'guard-rspec', require: false

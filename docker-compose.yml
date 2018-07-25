@@ -1,12 +1,27 @@
 version: "3"
 services:
+  db:
+    image: postgres:9.4.18-alpine
+    environment:
+      - POSTGRES_PASSWORD=super-secret
+      - POSTGRES_DB=monitor_api
+    privileged: true
+    ports:
+      - "15432:5432"
   web:
     build: .
     volumes:
       - ./:/app
     ports:
       - "4567:4567"
+    links:
+      - db
     command: "bundle exec rerun --background 'ash bin/serve.sh'"
     privileged: true
     environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'super-secret'
+      POSTGRES_DB: 'monitor_api'
+      POSTGRES_PORT: 5432
+      POSTGRES_HOST: 'db'
       PROJECT_FILE_PATH: 'projects.json'
