@@ -19,9 +19,5 @@ services:
     command: "bundle exec rerun --background 'ash bin/serve.sh'"
     privileged: true
     environment:
-      POSTGRES_USER: 'postgres'
-      POSTGRES_PASSWORD: 'super-secret'
-      POSTGRES_DB: 'monitor_api'
-      POSTGRES_PORT: 5432
-      POSTGRES_HOST: 'db'
+      DATABASE_URL: 'postgres://postgres:super-secret@db/monitor_api'
       PROJECT_FILE_PATH: 'projects.json'

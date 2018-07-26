@@ -5,11 +5,11 @@ docker-stop:
 	docker-compose stop
 
 serve: docker-stop docker-build
-	docker-compose run --rm --service-ports web 
+	docker-compose run --rm --service-ports web
 
 shell: docker-build
 	docker-compose run --rm web ash
 
 test: docker-stop docker-build
-	docker-compose run --rm web bundle exec guard
+	docker-compose run --rm web ./bin/run_tests.sh
 

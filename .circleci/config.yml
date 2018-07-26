@@ -12,10 +12,7 @@ jobs:
     working_directory: ~/repo
 
     environment:
-      POSTGRES_HOST: localhost
-      POSTGRES_USER: circleci
-      POSTGRES_PASSWORD: super-secret
-      POSTGRES_DB: monitor_api
+      DATABASE_URL: 'postgres://circleci:super-secret@localhost/monitor_api'
 
     steps:
       - checkout

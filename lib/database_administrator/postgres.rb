@@ -16,12 +16,7 @@ module DatabaseAdministrator
     end
 
     def existing_database
-      database = Sequel.postgres(
-        ENV['POSTGRES_DB'],
-        host: ENV['POSTGRES_HOST'],
-        user: ENV['POSTGRES_USER'],
-        password: ENV['POSTGRES_PASSWORD']
-      )
+      database = Sequel.connect(ENV['DATABASE_URL'])
 
       load_extensions_for(database)
 
