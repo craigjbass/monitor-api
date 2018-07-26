@@ -1,6 +1,8 @@
 require 'dry/container'
 
 class UseCaseFactory
+  attr_accessor :database
+
   def initialize
     @container = Dry::Container.new
   end

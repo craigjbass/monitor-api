@@ -1,6 +1,6 @@
 FROM ruby:2.5.1-alpine3.7
 
-RUN apk --no-cache add less
+RUN apk --no-cache add postgresql-dev postgresql-libs postgresql-client less
 
 WORKDIR /app
 COPY Gemfile ./

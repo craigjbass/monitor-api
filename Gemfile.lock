@@ -36,6 +36,7 @@ GEM
     notiffany (0.1.1)
       nenv (~> 0.1)
       shellany (~> 0.0)
+    pg (1.0.0)
     pry (0.11.3)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -66,6 +67,7 @@ GEM
     rspec_junit_formatter (0.4.1)
       rspec-core (>= 2, < 4, != 2.12.0)
     ruby_dep (1.5.0)
+    sequel (5.10.0)
     shellany (0.0.1)
     sinatra (2.0.3)
       mustermann (~> 1.0)
@@ -81,12 +83,14 @@ PLATFORMS
 DEPENDENCIES
   dry-container
   guard-rspec
+  pg
   pry
   rack-test
   require_all
   rerun
   rspec
   rspec_junit_formatter
+  sequel
   sinatra
 
 RUBY VERSION

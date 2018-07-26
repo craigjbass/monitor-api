@@ -4,15 +4,6 @@ require_relative '../shared_context/use_case_factory'
 describe 'Updating a HIF Project' do
   include_context 'use case factory'
 
-  before do
-    ENV['PROJECT_FILE_PATH'] = '/tmp/projects.json'
-    File.open(ENV['PROJECT_FILE_PATH'], 'w') {}
-  end
-
-  after do
-    File.delete(ENV['PROJECT_FILE_PATH'])
-  end
-
   it 'should update a project' do
     project_baseline = {
       summary: {
@@ -33,7 +24,9 @@ describe 'Updating a HIF Project' do
 
     response = get_use_case(:create_new_project).execute(type: 'hif', baseline: project_baseline)
     success = get_use_case(:update_project).execute(id: response[:id], project: { type: 'hif', baseline: { cats: 'meow' } })
-    expect(success[:success]).to eq(true)
+
+    expect(success[:successful]).to eq(true)
+
     updated_project = get_use_case(:find_project).execute(id: response[:id])
 
     expect(updated_project.type).to eq('hif')

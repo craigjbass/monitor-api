@@ -2,69 +2,85 @@ require 'rspec'
 
 describe HomesEngland::UseCase::UpdateProject do
   let(:use_case) { described_class.new(project_gateway: project_gateway_spy) }
+  let(:response) {  use_case.execute(id: project_id, project: updated_project) }
 
-  let(:updated_project) { { type: 'hif', baseline: { ducks: 'quack' } } }
+  before { response }
 
-  context 'given any id' do
+  context 'example one' do
     let(:project_id) { 42 }
-    let(:project_gateway_spy) do
-      double(update: { success: false })
+    let(:updated_project) { { type: 'hif', baseline: { ducks: 'quack' } } }
+
+    context 'given a successful update' do
+      let(:project_gateway_spy) do
+        double(update: { success: true })
+      end
+
+      it 'Should pass the ID to the gateway' do
+        expect(project_gateway_spy).to have_received(:update).with(
+          hash_including(id: 42)
+        )
+      end
+
+      it 'Should pass the project to the gateway' do
+        expect(project_gateway_spy).to have_received(:update) do |request|
+          project = request[:project]
+          expect(project.type).to eq('hif')
+          expect(project.data).to eq(ducks: 'quack')
+        end
+      end
+
+      it 'Should return successful' do
+        expect(response).to eq(successful: true)
+      end
     end
 
-    it 'should use update on the project gateway' do
-      use_case.execute(id: project_id, project: updated_project)
-      expect(project_gateway_spy).to have_received(:update).with(
-        id: 42, project: {
-          type: 'hif', baseline:
-          { ducks: 'quack' }
-        }
-      )
-    end
-  end
-
-  context 'given a invalid' do
-    context 'id' do
-      let(:project_id) { 42 }
+    context 'given an unsuccessful update' do
       let(:project_gateway_spy) do
         double(update: { success: false })
       end
-      it 'return a hash with failure' do
-        return_hash = use_case.execute(id: project_id, project: updated_project)
-        expect(return_hash).to eq(success: false)
-      end
-    end
 
-    context 'project' do
-      context 'which is nil' do
-        let(:updated_project) { nil }
-
-        let(:project_id) { 42 }
-        let(:project_gateway_spy) do
-          double(update: { success: false })
-        end
-        it 'return a hash with failure' do
-          return_hash = use_case.execute(
-            id: project_id, project: updated_project
-          )
-          expect(return_hash).to eq(success: false)
-        end
+      it 'Should return unsuccessful' do
+        expect(response).to eq(successful: false)
       end
-      # Add later: 'which does not match schema'
     end
   end
 
-  context 'given a valid id and project ' do
-    let(:project_id) { 0 }
-    let(:project_gateway_spy) do
-      double(update: { success: true })
+  context 'example two' do
+    let(:project_id) { 123 }
+    let(:updated_project) { { type: 'abc', baseline: { cows: 'moo' } } }
+
+    context 'given a successful update' do
+      let(:project_gateway_spy) do
+        double(update: { success: true })
+      end
+
+      it 'Should pass the ID to the gateway' do
+        expect(project_gateway_spy).to have_received(:update).with(
+          hash_including(id: 123)
+        )
+      end
+
+      it 'Should pass the project to the gateway' do
+        expect(project_gateway_spy).to have_received(:update) do |request|
+          project = request[:project]
+          expect(project.type).to eq('abc')
+          expect(project.data).to eq(cows: 'moo')
+        end
+      end
+
+      it 'Should return successful' do
+        expect(response).to eq(successful: true)
+      end
     end
 
-    it 'return a hash with success' do
-      return_hash = use_case.execute(
-        id: project_id,
-        project: updated_project
-      )
-      expect(return_hash).to eq(success: true)
+    context 'given an unsuccessful update' do
+      let(:project_gateway_spy) do
+        double(update: { success: false })
+      end
+
+      it 'Should return unsuccessful' do
+        expect(response).to eq(successful: false)
+      end
     end
   end
 end

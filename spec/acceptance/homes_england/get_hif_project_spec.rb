@@ -4,15 +4,6 @@ require_relative '../shared_context/use_case_factory'
 describe 'Getting a HIF project' do
   include_context 'use case factory'
 
-  before do
-    ENV['PROJECT_FILE_PATH'] = '/tmp/projects.json'
-    File.open(ENV['PROJECT_FILE_PATH'], 'w') {}
-  end
-
-  after do
-    File.delete(ENV['PROJECT_FILE_PATH'])
-  end
-
   it 'should find a project by its id' do
     project_baseline = {
       summary: {
