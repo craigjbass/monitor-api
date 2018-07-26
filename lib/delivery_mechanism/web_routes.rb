@@ -9,6 +9,10 @@ module DeliveryMechanism
       response.headers["Access-Control-Allow-Origin"] = '*'
     end
 
+    after do
+      @use_case_factory.database.disconnect
+    end
+
     options '*' do
       response.headers["Access-Control-Allow-Origin"] = '*'
       response.headers["Access-Control-Allow-Headers"] = "Content-Type, Accept"
