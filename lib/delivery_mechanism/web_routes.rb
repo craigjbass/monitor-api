@@ -6,7 +6,7 @@ module DeliveryMechanism
   class WebRoutes < Sinatra::Base
     before do
       @use_case_factory = Dependencies.use_case_factory
-      response.headers["Access-Control-Allow-Origin"] = '*'
+      response.headers['Access-Control-Allow-Origin'] = '*'
     end
 
     after do
@@ -14,9 +14,39 @@ module DeliveryMechanism
     end
 
     options '*' do
-      response.headers["Access-Control-Allow-Origin"] = '*'
-      response.headers["Access-Control-Allow-Headers"] = "Content-Type, Accept"
+      response.headers['Access-Control-Allow-Origin'] = '*'
+      response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Accept'
       200
+    end
+
+    post '/return/create' do
+      body = request.body.read
+      if body.to_s.empty?
+        response.status = 400
+
+      else
+        request_body = JSON.parse(body)
+        return_id = @use_case_factory.get_use_case(:create_return).execute(
+          project_id: request_body['project_id'], data:
+          Common::DeepSymbolizeKeys.to_symbolized_hash(request_body['data'])
+        )
+        response.body = { id: return_id[:id]}.to_json
+        response.status = 200
+      end
+      response
+    end
+
+    get '/return/get' do
+      return 400 if params['id'].nil?
+
+      return_hash = @use_case_factory.get_use_case(:get_return).execute(id: params['id'].to_i)
+      unless return_hash.empty?
+        response.body = return_hash.to_json
+        response.status = 200
+      else
+        response.status = 404
+      end
+      response
     end
 
     get '/project/find' do

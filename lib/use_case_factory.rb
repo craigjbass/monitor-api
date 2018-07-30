@@ -8,6 +8,7 @@ class UseCaseFactory
   end
 
   def default_dependencies
+    LocalAuthority::UseCases.register(self)
     HomesEngland::UseCases.register(self)
   end
 
