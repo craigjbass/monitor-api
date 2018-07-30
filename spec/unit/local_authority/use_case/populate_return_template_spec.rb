@@ -12,11 +12,11 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
 
     context 'with matching baseline and template key' do
       let(:template) do
-        LocalAuthority::Domain::ReturnTemplate.new(
-          layout: {
+        LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+          p.layout = {
             cats: nil
           }
-        )
+        end
       end
       let(:baseline) { { cats: 'meow' } }
 
@@ -33,12 +33,12 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
 
     context 'with a baseline missing one top level template key' do
       let(:template) do
-        LocalAuthority::Domain::ReturnTemplate.new(
-          layout: {
+        LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+          p.layout = {
             doggos: nil,
             ducks: 'quack'
           }
-        )
+        end
       end
       let(:baseline) { { doggos: 'woof' } }
 
@@ -49,11 +49,11 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
 
     context 'with field in baseline but not in template' do
       let(:template) do
-        LocalAuthority::Domain::ReturnTemplate.new(
-          layout: {
+        LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+          p.layout = {
             doggos: nil
           }
-        )
+        end
       end
       let(:baseline) { { doggos: 'woof', ducks: 'quack' } }
 
@@ -64,15 +64,15 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
 
     context 'with matching baseline and template nested hash' do
       let(:template) do
-        LocalAuthority::Domain::ReturnTemplate.new(
-          layout: {
+        LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+          p.layout = {
             doggos: nil,
             good_animals: {
               more_doggos: nil,
               less_cats: nil
             }
           }
-        )
+        end
       end
 
       context 'with all fields in baseline' do
@@ -129,11 +129,11 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
 
     context 'with matching baseline and template key' do
       let(:template) do
-        LocalAuthority::Domain::ReturnTemplate.new(
-          layout: {
+        LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+          p.layout = {
             dogs: nil
           }
-        )
+        end
       end
       let(:baseline) { { dogs: 'woof' } }
 
@@ -150,12 +150,12 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
 
     context 'with a baseline missing one top level template key' do
       let(:template) do
-        LocalAuthority::Domain::ReturnTemplate.new(
-          layout: {
+        LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+          p.layout = {
             doggos: nil,
             cows: 'moo'
           }
-        )
+        end
       end
       let(:baseline) { { doggos: 'woof' } }
 
@@ -166,11 +166,11 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
 
     context 'with field in baseline but not in template' do
       let(:template) do
-        LocalAuthority::Domain::ReturnTemplate.new(
-          layout: {
+        LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+          p.layout = {
             cats: nil
           }
-        )
+        end
       end
       let(:baseline) { { cats: 'meow', ducks: 'quack' } }
 
@@ -181,15 +181,15 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
 
     context 'with matching baseline and template nested hash' do
       let(:template) do
-        LocalAuthority::Domain::ReturnTemplate.new(
-          layout: {
+        LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+          p.layout = {
             cows: nil,
             good_animals: {
               more_cows: nil,
               chickens: nil
             }
           }
-        )
+        end
       end
 
       context 'with all fields in baseline' do

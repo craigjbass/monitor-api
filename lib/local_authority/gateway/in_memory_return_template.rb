@@ -3,8 +3,8 @@
 class LocalAuthority::Gateway::InMemoryReturnTemplate
   def find_by(type:)
     return nil unless type == 'hif'
-    LocalAuthority::Domain::ReturnTemplate.new(
-      layout: {
+    LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+      p.layout = {
         summary: {
           project_name: nil,
           description: nil,
@@ -26,6 +26,6 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
           total_amount_changed_reason: nil
         }
       }
-    )
+    end
   end
 end
