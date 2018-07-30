@@ -1,8 +1,10 @@
 class HomesEngland::UseCase::GetReturns
   def initialize(return_gateway:)
+    @return_gateway = return_gateway
   end
 
-  def execute(*)
+  def execute(project_id:)
+    @return_gateway.get_returns(project_id: project_id)
     [{
       project_id: 1,
       data:
