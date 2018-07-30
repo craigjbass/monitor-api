@@ -31,7 +31,9 @@ jobs:
       - run:
           name: Waiting for Postgres to be ready
           command: |
-            bin/run_tests.sh
+            while ! psql $DATABASE_URL -c 'SELECT 1'; do
+                echo 'Waiting for db'; sleep 3;
+            done
       - run:
           name: run tests
           command: |
