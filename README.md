@@ -1,1 +1,32 @@
-# hif-api
+# Local Authority Monitoring API
+
+The role of the Local Authoiry Monitoring API is to create, update and serve Project and Return data for the [Local Authority Monitoring Frontent](https://github.com/madetech/hif-frontend).
+
+The Local Authority Monitoring project's goal is to visualise the status of HIF (and future) contracts for both Local Authorities and Homes England
+
+
+## Current endpoints
+
+- [**post**] `/project/create` Create a new Project from an existing Template and Baseline data and return a unique Project ID.
+- [**post**] `project/update` Update an existing Project.
+- (**get**) `project/find` Get Project data when provided Project ID.
+- [**post**] `return/create` Create a new Return with a Project ID and Return Data. Will return unique Return ID.
+- [**get**] `return/get` Get Return when provided a Return ID.
+
+## Testing the application
+
+Once you have cloned the repository run all tests with the following command: 
+
+`make test`
+
+## Running the application
+
+Once you have cloned the repository you can run the application with the following command: 
+
+
+`make serve`
+
+The application runs on port `3000`
+
+
+
