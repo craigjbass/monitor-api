@@ -1,6 +1,6 @@
 require 'rspec'
 
-describe HomesEngland::UseCase::GetReturns, focus: true do
+describe HomesEngland::UseCase::GetReturns do
 
   let(:all_returns) { [] }
   let(:all_return_objects) { [] }
