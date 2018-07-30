@@ -111,7 +111,50 @@ describe 'Getting multiple returns' do
     }
     ]}
 
-  let(:return_gateway) { spy(get_returns: returns_for_project_1)}
+  let(:return_objects_for_project_1) {[
+    double(
+      project_id: 1,
+      data:
+      {
+        summary: {
+          project_name: 'Cats Protection League',
+          description: 'A new headquarters for all the Cats',
+          lead_authority: 'Made Tech'
+        },
+        infrastructure: {
+          type: 'Cat Bathroom',
+          description: 'Bathroom for Cats',
+          completion_date: '2018-12-25'
+        },
+        financial: {
+          date: '2017-12-25',
+          funded_through_HIF: true
+        }
+      }
+    ),
+    double(
+      project_id: 1,
+      data:
+      {
+        summary: {
+          project_name: 'Cats Embassy',
+          description: 'Embassy for cats in the UK',
+          lead_authority: 'Made Tech'
+        },
+        infrastructure: {
+          type: 'Cat waiting room',
+          description: 'A waiting room for cats',
+          completion_date: '2019-09-01'
+        },
+        financial: {
+          date: '2019-09-01',
+          funded_through_HIF: true
+        }
+      }
+    )
+    ]}
+
+  let(:return_gateway) { spy(get_returns: return_objects_for_project_1)}
 
   before do
       stub_const(

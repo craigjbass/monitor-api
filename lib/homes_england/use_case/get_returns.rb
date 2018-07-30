@@ -4,26 +4,6 @@ class HomesEngland::UseCase::GetReturns
   end
 
   def execute(project_id:)
-    @return_gateway.get_returns(project_id: project_id)
-    [{
-      project_id: 1,
-      data:
-      {
-        summary: {
-          project_name: 'Cats Protection League',
-          description: 'A new headquarters for all the Cats',
-          lead_authority: 'Made Tech'
-        },
-        infrastructure: {
-          type: 'Cat Bathroom',
-          description: 'Bathroom for Cats',
-          completion_date: '2018-12-25'
-        },
-        financial: {
-          date: '2017-12-25',
-          funded_through_HIF: true
-        }
-      }
-    }]
+    @return_gateway.get_returns(project_id: project_id).map { |r| {project_id: r.project_id, data: r.data}}
   end
 end
