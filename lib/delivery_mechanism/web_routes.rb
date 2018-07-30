@@ -30,7 +30,7 @@ module DeliveryMechanism
           project_id: request_body['project_id'], data:
           Common::DeepSymbolizeKeys.to_symbolized_hash(request_body['data'])
         )
-        response.body = { id: return_id[:id]}.to_json
+        response.body = { id: return_id[:id] }.to_json
         response.status = 200
       end
       response
@@ -40,13 +40,27 @@ module DeliveryMechanism
       return 400 if params['id'].nil?
 
       return_hash = @use_case_factory.get_use_case(:get_return).execute(id: params['id'].to_i)
-      unless return_hash.empty?
+      if return_hash.empty?
+        response.status = 404
+      else
         response.body = return_hash.to_json
         response.status = 200
-      else
-        response.status = 404
       end
-      response
+    end
+
+    get '/project/:id/return' do
+      return 400 if params['id'].nil?
+
+      base_return = @use_case_factory.get_use_case(:get_base_return).execute(
+        project_id: params['id'].to_i
+      )
+
+      if base_return.empty?
+        response.status = 404
+      else
+        response.status = 200
+        response.body = { baseReturn: base_return[:base_return] }.to_json
+      end
     end
 
     get '/project/find' do
