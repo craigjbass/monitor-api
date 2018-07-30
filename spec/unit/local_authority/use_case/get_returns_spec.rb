@@ -70,7 +70,6 @@ describe HomesEngland::UseCase::GetReturns do
     end
 
     it 'can get multiple items as an array' do
-      p all_returns
       expect(get_returns.execute(project_id: 1)).to match_array(all_returns)
     end
   end
