@@ -4,6 +4,12 @@ class HomesEngland::UseCase::GetReturns
   end
 
   def execute(project_id:)
-    @return_gateway.get_returns(project_id: project_id).map { |r| {project_id: r.project_id, data: r.data}}
+    @return_gateway.get_returns(project_id: project_id).map do |r|
+      {
+        id: r.id,
+        project_id: r.project_id,
+        data: r.data
+      }
+    end
   end
 end

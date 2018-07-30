@@ -7,61 +7,24 @@ describe HomesEngland::UseCase::GetReturns do
 
   let(:get_returns) { described_class.new(return_gateway: return_gateway) }
 
-  before do
-    stub_const(
-      'HomesEngland::Gateway::ReturnGateway',
-      double(new: return_gateway)
-    )
-  end
-
   context 'with a single item' do
     let(:all_returns) do
       [
         {
+          id: 1,
           project_id: 1,
-          data:
-          {
-            summary: {
-              project_name: 'Cats Protection League',
-              description: 'A new headquarters for all the Cats',
-              lead_authority: 'Made Tech'
-            },
-            infrastructure: {
-              type: 'Cat Bathroom',
-              description: 'Bathroom for Cats',
-              completion_date: '2018-12-25'
-            },
-            financial: {
-              date: '2017-12-25',
-              funded_through_HIF: true
-            }
-          }
+          data: { dogs: 'woof' }
         }
       ]
     end
 
     let(:all_return_objects) do
       [
-        double(
-          project_id: 1,
-          data:
-          {
-            summary: {
-              project_name: 'Cats Protection League',
-              description: 'A new headquarters for all the Cats',
-              lead_authority: 'Made Tech'
-            },
-            infrastructure: {
-              type: 'Cat Bathroom',
-              description: 'Bathroom for Cats',
-              completion_date: '2018-12-25'
-            },
-            financial: {
-              date: '2017-12-25',
-              funded_through_HIF: true
-            }
-          }
-        )
+        LocalAuthority::Domain::Return.new.tap do |r|
+          r.id = 1
+          r.project_id = 1
+          r.data = { dogs: 'woof' }
+        end
       ]
     end
 
@@ -71,7 +34,7 @@ describe HomesEngland::UseCase::GetReturns do
     end
 
     it 'can get a single return as an item in an array' do
-      expect(get_returns.execute(project_id: 1)).to eq(all_returns)
+      expect(get_returns.execute(project_id: 1)).to match_array(all_returns)
     end
   end
 
@@ -79,95 +42,36 @@ describe HomesEngland::UseCase::GetReturns do
     let(:all_returns) do
       [
         {
+          id: 1,
           project_id: 1,
-          data:
-          {
-            summary: {
-              project_name: 'Cats Protection League',
-              description: 'A new headquarters for all the Cats',
-              lead_authority: 'Made Tech'
-            },
-            infrastructure: {
-              type: 'Cat Bathroom',
-              description: 'Bathroom for Cats',
-              completion_date: '2018-12-25'
-            },
-            financial: {
-              date: '2017-12-25',
-              funded_through_HIF: true
-            }
-          }
+          data: { cats: 'meow' }
         },
         {
+          id: 2,
           project_id: 1,
-          data:
-          {
-            summary: {
-              project_name: 'Cats Embassy',
-              description: 'Embassy for cats in the UK',
-              lead_authority: 'Made Tech'
-            },
-            infrastructure: {
-              type: 'Cat waiting room',
-              description: 'A waiting room for cats',
-              completion_date: '2019-09-01'
-            },
-            financial: {
-              date: '2019-09-01',
-              funded_through_HIF: true
-            }
-          }
+          data: { dogs: 'woof' }
         }
       ]
     end
 
     let(:all_return_objects) do
       [
-        double(
-          project_id: 1,
-          data:
-          {
-            summary: {
-              project_name: 'Cats Protection League',
-              description: 'A new headquarters for all the Cats',
-              lead_authority: 'Made Tech'
-            },
-            infrastructure: {
-              type: 'Cat Bathroom',
-              description: 'Bathroom for Cats',
-              completion_date: '2018-12-25'
-            },
-            financial: {
-              date: '2017-12-25',
-              funded_through_HIF: true
-            }
-          }
-        ),
-        double(
-          project_id: 1,
-          data:
-          {
-            summary: {
-              project_name: 'Cats Embassy',
-              description: 'Embassy for cats in the UK',
-              lead_authority: 'Made Tech'
-            },
-            infrastructure: {
-              type: 'Cat waiting room',
-              description: 'A waiting room for cats',
-              completion_date: '2019-09-01'
-            },
-            financial: {
-              date: '2019-09-01',
-              funded_through_HIF: true
-            }
-          }
-        )
+        LocalAuthority::Domain::Return.new.tap do |r|
+          r.id = 1
+          r.project_id = 1
+          r.data = { cats: 'meow' }
+        end,
+        LocalAuthority::Domain::Return.new.tap do |r|
+          r.id = 2
+          r.project_id = 1
+          r.data = { dogs: 'woof' }
+        end
       ]
     end
 
     it 'can get multiple items as an array' do
-      expect(get_returns.execute(project_id: 1)).to eq(all_returns)
+      p all_returns
+      expect(get_returns.execute(project_id: 1)).to match_array(all_returns)
     end
   end
 end
