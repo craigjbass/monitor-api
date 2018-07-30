@@ -23,6 +23,7 @@ jobs:
       - run:
           name: install dependencies
           command: |
+            sudo apt-get install postgresql-client
             bundle install --jobs=4 --retry=3 --path vendor/bundle
       - save_cache:
           paths:
