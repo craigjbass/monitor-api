@@ -4,7 +4,7 @@ require_relative '../shared_context/use_case_factory'
 describe 'Getting multiple returns' do
   include_context 'use case factory'
 
-  let(:returns_for_project_1) {
+  let(:returns_for_project_1) do
     [
       {
         project_id: 1,
@@ -48,7 +48,7 @@ describe 'Getting multiple returns' do
       }
 
     ]
-  }
+  end
   it 'can get multiple returns by project id from a gateway' do
     expect(get_use_case(:create_return).execute(project_id: 1, data:
       {
