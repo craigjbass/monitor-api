@@ -23,6 +23,7 @@ jobs:
       - run:
           name: install dependencies
           command: |
+            sudo apt-get install postgresql-client
             bundle install --jobs=4 --retry=3 --path vendor/bundle
       - save_cache:
           paths:
@@ -31,13 +32,9 @@ jobs:
       - run:
           name: Waiting for Postgres to be ready
           command: |
-            for i in `seq 1 10`;
-            do
-              nc -z localhost 5432 && echo Success && exit 0
-              echo -n .
-              sleep 1
+            while ! psql $DATABASE_URL -c 'SELECT 1'; do
+                echo 'Waiting for db'; sleep 3;
             done
-            echo Failed waiting for Postgres && exit 1
       - run:
           name: run tests
           command: |

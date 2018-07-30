@@ -17,5 +17,14 @@ class LocalAuthority::Gateway::SequelReturn
       r.data = Common::DeepSymbolizeKeys.to_symbolized_hash(row[:data].to_h)
     end
   end
-end
 
+  def get_returns(project_id:)
+    @database[:returns].where(project_id: project_id).all.map do |db_r|
+      LocalAuthority::Domain::Return.new.tap do |r|
+        r.id = db_r[:id]
+        r.project_id = db_r[:project_id]
+        r.data = Common::DeepSymbolizeKeys.to_symbolized_hash(db_r[:data].to_h)
+      end
+    end
+  end
+end
