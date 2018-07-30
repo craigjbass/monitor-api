@@ -15,8 +15,8 @@ describe 'Performing Return on HIF Project' do
     expect(found_return[:data]).to eq(expected_return[:data])
   end
 
-  it 'should keep track of Returns' do
-    project_baseline = {
+  let(:project_baseline) do
+    {
       summary: {
         project_name: 'Cats Protection League',
         description: 'A new headquarters for all the Cats',
@@ -25,91 +25,113 @@ describe 'Performing Return on HIF Project' do
       infrastructure: {
         type: 'Cat Bathroom',
         description: 'Bathroom for Cats',
-        completion_date: '2018-12-25'
+        completion_date: '2018-12-25',
+        planning: {
+          submission_estimated: '2018-06-01'
+        }
       },
       financial: {
-        date: '2017-12-25',
-        funded_through_HIF: true
+        total_amount_estimated: '£ 1000000.00'
       }
     }
+  end
 
+  let(:project_base_return) do
+    {
+      summary: {
+        project_name: 'Cats Protection League',
+        description: 'A new headquarters for all the Cats',
+        lead_authority: 'Made Tech'
+      },
+      infrastructure: {
+        type: 'Cat Bathroom',
+        description: 'Bathroom for Cats',
+        completion_date: '2018-12-25',
+        planning: {
+          submission_estimated: '2018-06-01',
+          submission_actual: nil,
+          submission_delay_reason: nil
+        }
+      },
+      financial: {
+        total_amount_estimated: '£ 1000000.00',
+        total_amount_actual: nil,
+        total_amount_changed_reason: nil
+      }
+    }
+  end
 
-    get_response = get_use_case(:create_new_project).execute(
+  let(:project_id) do
+    get_use_case(:create_new_project).execute(
       type: 'hif', baseline: project_baseline
-    )
+    )[:id]
+  end
 
-    project = get_use_case(:project_gateway).find_by(id: get_response[:id])
+  before do
+    project_id
+  end
 
-    return_one_data = {
-      project_id: get_response[:id],
+  it 'should keep track of Returns' do
+    base_return = get_use_case(:get_base_return).execute(project_id: project_id)
+
+    expect(base_return).to eq(base_return: project_base_return)
+
+    return_one = {
+      project_id: project_id,
       data: {
         summary: {
           project_name: 'Cats Protection League',
           description: 'A new headquarters for all the Cats',
-          lead_authority: 'Made Tech',
-          status: 'CATS!'
+          lead_authority: 'Made Tech'
         },
         infrastructure: {
           type: 'Cat Bathroom',
           description: 'Bathroom for Cats',
-          completion_date: '2018-12-25'
+          completion_date: '2018-12-25',
+          planning: {
+            submission_estimated: '2018-06-01',
+            submission_actual: '2018-07-01',
+            submission_delay_reason: 'Planning office was closed for summer'
+          }
         },
         financial: {
-          date: '2017-12-25',
-          funded_through_HIF: true
+          total_amount_estimated: '£ 1000000.00',
+          total_amount_actual: nil,
+          total_amount_changed_reason: nil
         }
       }
     }
 
-    return_id_one = create_new_return(return_one_data)
-    expect_return_with_id_to_equal(id: return_id_one, expected_return: return_one_data)
+    return_id_one = create_new_return(return_one)
+    expect_return_with_id_to_equal(id: return_id_one, expected_return: return_one)
 
-    return_two_data = {
-      project_id: get_response[:id],
+    return_two = {
+      project_id: project_id,
       data: {
         summary: {
           project_name: 'Cats Protection League',
           description: 'A new headquarters for all the Cats',
-          lead_authority: 'Made Tech',
-          status: 'DOGS!'
+          lead_authority: 'Made Tech'
         },
         infrastructure: {
           type: 'Cat Bathroom',
           description: 'Bathroom for Cats',
-          completion_date: '2018-12-25'
+          completion_date: '2018-12-25',
+          planning: {
+            submission_estimated: '2018-06-01',
+            submission_actual: nil,
+            submission_delay_reason: nil
+          }
         },
         financial: {
-          date: '2017-12-25',
-          funded_through_HIF: true
+          total_amount_estimated: '£ 1000000.00',
+          total_amount_actual: '£ 2000000.00',
+          total_amount_changed_reason: 'Concrete prices went up massively'
         }
       }
     }
 
-    return_id_two = create_new_return(return_two_data)
-    expect_return_with_id_to_equal(id: return_id_two, expected_return: return_two_data)
-
-    return_three_data = {
-      project_id: get_response[:id],
-      data: {
-        summary: {
-          project_name: 'Cats Protection League',
-          description: 'A new headquarters for all the Cats',
-          lead_authority: 'Made Tech',
-          status: 'DUCKs!'
-        },
-        infrastructure: {
-          type: 'Cat Bathroom',
-          description: 'Bathroom for Cats',
-          completion_date: '2018-12-25'
-        },
-        financial: {
-          date: '2017-12-25',
-          funded_through_HIF: true
-        }
-      }
-    }
-
-    return_id_three = create_new_return(return_three_data)
-    expect_return_with_id_to_equal(id: return_id_three, expected_return: return_three_data)
+    return_id_two = create_new_return(return_two)
+    expect_return_with_id_to_equal(id: return_id_two, expected_return: return_two)
   end
 end

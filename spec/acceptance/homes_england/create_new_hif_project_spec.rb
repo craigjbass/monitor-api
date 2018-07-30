@@ -16,29 +16,24 @@ describe 'Creating a new HIF FileProject' do
       infrastructure: {
         type: 'Cat Bathroom',
         description: 'Bathroom for Cats',
-        completion_date: '2018-12-25'
+        completion_date: '2018-12-25',
+        planning: {
+          submission_estimated: '2018-01-01'
+        }
       },
       financial: {
-        date: '2017-12-25',
-        funded_through_HIF: true
+        total_amount_estimated: '£ 1,000,000.00'
       }
-    }
-
-    summary_with_status = {
-      project_name: 'Cats Protection League',
-      description: 'A new headquarters for all the Cats',
-      lead_authority: 'Made Tech',
-      status: 'On Schedule'
     }
 
     response = get_use_case(:create_new_project).execute(
       type: 'hif', baseline: project_baseline
     )
 
-    project = get_use_case(:project_gateway).find_by(id: response[:id])
+    project = get_use_case(:find_project).execute(id: response[:id])
 
     expect(project.type).to eq('hif')
-    expect(project.data[:summary]).to eq(summary_with_status)
+    expect(project.data[:summary]).to eq(project_baseline[:summary])
     expect(project.data[:infrastructure]).to eq(project_baseline[:infrastructure])
     expect(project.data[:financial]).to eq(project_baseline[:financial])
   end
