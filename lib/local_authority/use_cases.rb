@@ -3,7 +3,7 @@
 class LocalAuthority::UseCases
   def self.register(builder)
     builder.define_use_case :return_gateway do
-       LocalAuthority::Gateway::InMemoryReturnGateway.new
+      LocalAuthority::Gateway::SequelReturn.new(database: builder.database)
     end
 
     builder.define_use_case :create_return do

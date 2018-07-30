@@ -6,11 +6,15 @@ class LocalAuthority::UseCase::GetReturn
   end
 
   def execute(id:)
-    gateway_return = @return_gateway.get_return(id: id)
-    if gateway_return.nil?
+    found_return = @return_gateway.find_by(id: id)
+    if found_return.nil?
       {}
     else
-      { project_id: gateway_return.project_id, data: gateway_return.data }
+      {
+        id: found_return.id,
+        project_id: found_return.project_id,
+        data: found_return.data
+      }
     end
   end
 end
