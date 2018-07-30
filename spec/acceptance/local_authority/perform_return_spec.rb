@@ -94,8 +94,7 @@ describe 'Performing Return on HIF Project' do
           project_name: 'Cats Protection League',
           description: 'A new headquarters for all the Cats',
           lead_authority: 'Made Tech',
-          status: 'DUCKs
-!'
+          status: 'DUCKs!'
         },
         infrastructure: {
           type: 'Cat Bathroom',
@@ -114,7 +113,5 @@ describe 'Performing Return on HIF Project' do
     )
 
     expect(get_use_case(:get_return).execute(return_id_three)).to eq(return_three_data)
-
-
   end
 end

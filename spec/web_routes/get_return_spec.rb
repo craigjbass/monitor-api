@@ -3,7 +3,7 @@
 require 'rspec'
 require_relative 'delivery_mechanism_spec_helper'
 
-describe 'Getting returns' do
+describe 'Getting a return' do
   let(:get_return_spy) { spy(execute: returned_hash) }
   let(:returned_hash) { { project_id: 1, data: { cats: 'Meow' } } }
 
