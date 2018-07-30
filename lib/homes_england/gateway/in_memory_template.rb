@@ -10,17 +10,18 @@ class HomesEngland::Gateway::InMemoryTemplate
         summary: {
           project_name: nil,
           description: nil,
-          lead_authority: nil,
-          status: 'On Schedule'
+          lead_authority: nil
         },
         infrastructure: {
           type: nil,
           description: nil,
-          completion_date: nil
+          completion_date: nil,
+          planning: {
+            submission_estimated: nil
+          }
         },
         financial: {
-          date: nil,
-          funded_through_HIF: nil
+          total_amount_estimated: nil
         }
       }
     )
