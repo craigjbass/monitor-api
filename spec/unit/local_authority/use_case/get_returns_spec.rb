@@ -10,7 +10,7 @@ describe HomesEngland::UseCase::GetReturns do
 
   before do
       stub_const(
-        'LocalAuthority::Gateway::ReturnGateway',
+        'HomesEngland::Gateway::ReturnGateway',
         double(new: return_gateway)
       )
   end

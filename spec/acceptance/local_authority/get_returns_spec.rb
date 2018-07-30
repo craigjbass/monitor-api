@@ -50,7 +50,7 @@ describe 'Getting multiple returns' do
     ]
   }
   it 'can get multiple returns by project id from a gateway' do
-    expect(get_use_case(:create_returns)).execute(project_id: 1, data:
+    expect(get_use_case(:create_return).execute(project_id: 1, data:
       {
         summary: {
           project_name: 'Cats Protection League',
@@ -66,9 +66,9 @@ describe 'Getting multiple returns' do
           date: '2017-12-25',
           funded_through_HIF: true
         }
-      })
+      }))
 
-    expect(get_use_case(:create_returns)).execute(project_id: 1, data:
+    expect(get_use_case(:create_return).execute(project_id: 1, data:
       {
         summary: {
           project_name: 'Cats Embassy',
@@ -84,8 +84,8 @@ describe 'Getting multiple returns' do
           date: '2019-09-01',
           funded_through_HIF: true
         }
-      })
-    expect(get_use_case(:create_returns)).execute(project_id: 2, data:
+      }))
+    expect(get_use_case(:create_return).execute(project_id: 2, data:
       {
         summary: {
           project_name: 'Dog Protection League',
@@ -101,7 +101,7 @@ describe 'Getting multiple returns' do
           date: '2019-12-06',
           funded_through_HIF: true
         }
-      })
+      }))
 
     expect(get_use_case(:get_returns).execute(project_id: 1)).to eq(returns_for_project_1)
   end

@@ -34,6 +34,5 @@ class HomesEngland::UseCases
         template_gateway: builder.get_use_case(:template_gateway)
       )
     end
-
   end
 end
