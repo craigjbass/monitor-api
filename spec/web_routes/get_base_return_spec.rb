@@ -14,7 +14,7 @@ describe 'Getting a base return' do
   end
 
   context 'given no matching project id' do
-    let (:project_id) { 1337 }
+    let(:project_id) { 1337 }
     let(:get_base_return_spy) { spy(execute: base_return) }
     let(:base_return) { {} }
 
@@ -28,7 +28,7 @@ describe 'Getting a base return' do
 
   context 'given an existing project id' do
     context 'example one' do
-      let (:project_id) { 42 }
+      let(:project_id) { 42 }
       let(:base_return) do
         {
           base_return: {
@@ -62,7 +62,7 @@ describe 'Getting a base return' do
     end
 
     context 'example two' do
-      let (:project_id) { 99 }
+      let(:project_id) { 99 }
 
       let(:base_return) do
         {
