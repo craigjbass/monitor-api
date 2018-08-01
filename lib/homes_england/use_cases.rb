@@ -12,8 +12,7 @@ class HomesEngland::UseCases
 
     builder.define_use_case :create_new_project do
       HomesEngland::UseCase::CreateNewProject.new(
-        project_gateway: builder.get_use_case(:project_gateway),
-        populate_template_use_case: builder.get_use_case(:populate_template)
+        project_gateway: builder.get_use_case(:project_gateway)
       )
     end
 

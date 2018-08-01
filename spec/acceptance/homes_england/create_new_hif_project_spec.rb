@@ -33,7 +33,6 @@ describe 'Creating a new HIF FileProject' do
     project = get_use_case(:find_project).execute(id: response[:id])
 
     expect(project[:type]).to eq('hif')
-    expect(project[:schema]).not_to be_nil
     expect(project[:data][:summary]).to eq(project_baseline[:summary])
     expect(project[:data][:infrastructure]).to eq(project_baseline[:infrastructure])
     expect(project[:data][:financial]).to eq(project_baseline[:financial])
