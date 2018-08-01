@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
 describe HomesEngland::UseCase::PopulateTemplate do
-  let(:template) {HomesEngland::Domain::Template.new(layout: {})}
+  let(:template) do
+    HomesEngland::Domain::Template.new.tap do |t|
+      t.layout = {}
+    end
+  end
   let(:template_gateway) {double(get_template: template)}
   let(:use_case) {described_class.new(template_gateway: template_gateway)}
   let(:response) do
@@ -20,11 +24,9 @@ describe HomesEngland::UseCase::PopulateTemplate do
 
     context 'with matching baseline and template key' do
       let(:template) do
-        HomesEngland::Domain::Template.new(
-          layout: {
-            cats: nil
-          }
-        )
+        HomesEngland::Domain::Template.new.tap do |t|
+          t.layout = { cats: nil }
+        end
       end
       let(:baseline) {{cats: 'meow'}}
 
@@ -35,12 +37,12 @@ describe HomesEngland::UseCase::PopulateTemplate do
 
     context 'with a baseline missing one top level template key' do
       let(:template) do
-        HomesEngland::Domain::Template.new(
-          layout: {
+        HomesEngland::Domain::Template.new.tap do |t|
+          t.layout = {
             doggos: nil,
             ducks: 'quack'
           }
-        )
+        end
       end
       let(:baseline) {{doggos: 'woof'}}
 
@@ -51,11 +53,11 @@ describe HomesEngland::UseCase::PopulateTemplate do
 
     context 'with field in baseline but not in template' do
       let(:template) do
-        HomesEngland::Domain::Template.new(
-          layout: {
+        HomesEngland::Domain::Template.new.tap do |t|
+          t.layout = {
             doggos: nil
           }
-        )
+        end
       end
       let(:baseline) {{doggos: 'woof', ducks: 'quack'}}
 
@@ -66,15 +68,15 @@ describe HomesEngland::UseCase::PopulateTemplate do
 
     context 'with matching baseline and template nested hash' do
       let(:template) do
-        HomesEngland::Domain::Template.new(
-          layout: {
+        HomesEngland::Domain::Template.new.tap do |t|
+          t.layout = {
             doggos: nil,
             good_animals: {
               more_doggos: nil,
               less_cats: nil
             }
           }
-        )
+        end
       end
       context 'with all fields in baseline' do
         let(:baseline) do
@@ -131,11 +133,11 @@ describe HomesEngland::UseCase::PopulateTemplate do
 
     context 'with matching baseline and template key' do
       let(:template) do
-        HomesEngland::Domain::Template.new(
-          layout: {
+        HomesEngland::Domain::Template.new.tap do |t|
+          t.layout = {
             doggos: nil
           }
-        )
+        end
       end
       let(:baseline) {{doggos: 'woof'}}
 
@@ -146,12 +148,12 @@ describe HomesEngland::UseCase::PopulateTemplate do
 
     context 'with a baseline missing one top level template key' do
       let(:template) do
-        HomesEngland::Domain::Template.new(
-          layout: {
+        HomesEngland::Domain::Template.new.tap do |t|
+          t.layout = {
             doggos: nil,
             cows: 'moo'
           }
-        )
+        end
       end
       let(:baseline) {{doggos: 'woof'}}
 
@@ -162,11 +164,11 @@ describe HomesEngland::UseCase::PopulateTemplate do
 
     context 'with field in baseline but not in template' do
       let(:template) do
-        HomesEngland::Domain::Template.new(
-          layout: {
+        HomesEngland::Domain::Template.new.tap do |t|
+          t.layout = {
             doggos: nil
           }
-        )
+        end
       end
       let(:baseline) {{doggos: 'woof', cows: 'moo'}}
 
@@ -177,15 +179,15 @@ describe HomesEngland::UseCase::PopulateTemplate do
 
     context 'with matching baseline and template nested hash' do
       let(:template) do
-        HomesEngland::Domain::Template.new(
-          layout: {
+        HomesEngland::Domain::Template.new.tap do |t|
+          t.layout = {
             cows: nil,
             more_animals: {
               cats: nil,
               dogs: nil
             }
           }
-        )
+        end
       end
       context 'with all fields in baseline' do
         let(:baseline) do
