@@ -4,6 +4,11 @@ class HomesEngland::UseCase::FindProject
   end
 
   def execute(id:)
-    @project_gateway.find_by(id: id)
+    project = @project_gateway.find_by(id: id)
+    {
+      type: project.type,
+      data: project.data
+    }
   end
 end
+
