@@ -3,12 +3,10 @@
 require 'rspec'
 
 describe HomesEngland::UseCase::CreateNewProject do
-  let(:populate_template_use_case) { double(execute: { populated_data: populated_data }) }
   let(:project_gateway) { double(create: project_id) }
   let(:use_case) do
     described_class.new(
-      project_gateway: project_gateway,
-      populate_template_use_case: populate_template_use_case
+      project_gateway: project_gateway
     )
   end
   let(:response) { use_case.execute(type: type, baseline: baseline) }
@@ -21,17 +19,11 @@ describe HomesEngland::UseCase::CreateNewProject do
     let(:project_id) { 0 }
     let(:type) { 'hif' }
     let(:baseline) { { key: 'value' } }
-    let(:populated_data) { { key: 'newValue' } }
-
-    it 'populate template with baseline data receives type baseline data ' do
-      expect(populate_template_use_case).to have_received(:execute)
-        .with(type: 'hif', baseline: baseline)
-    end
 
     it 'creates the project with populated data' do
       expect(project_gateway).to have_received(:create) do |project|
         expect(project.type).to eq('hif')
-        expect(project.data).to eq(key: 'newValue')
+        expect(project.data).to eq(key: 'value')
       end
     end
 
@@ -41,21 +33,14 @@ describe HomesEngland::UseCase::CreateNewProject do
   end
 
   context 'example two' do
-    let(:populated_data) { { key: 'veryNewValue' } }
-
     let(:project_id) { 42 }
     let(:type) { 'cats' }
     let(:baseline) { { cat: 'meow' } }
 
-    it 'populate template with baseline data receives type baseline data ' do
-      expect(populate_template_use_case).to have_received(:execute)
-        .with(type: 'cats', baseline: baseline)
-    end
-
     it 'creates the project' do
       expect(project_gateway).to have_received(:create) do |project|
         expect(project.type).to eq('cats')
-        expect(project.data).to eq(key: 'veryNewValue')
+        expect(project.data).to eq(cat: 'meow')
       end
     end
 
