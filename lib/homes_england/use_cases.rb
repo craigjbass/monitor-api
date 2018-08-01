@@ -28,10 +28,17 @@ class HomesEngland::UseCases
       )
     end
 
+    builder.define_use_case :get_schema_for_project do
+      HomesEngland::UseCase::GetSchemaForProject.new(
+        template_gateway: builder.get_use_case(:template_gateway)
+      )
+    end
+
     builder.define_use_case :populate_template do
       HomesEngland::UseCase::PopulateTemplate.new(
         template_gateway: builder.get_use_case(:template_gateway)
       )
     end
+
   end
 end

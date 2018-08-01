@@ -52,14 +52,17 @@ module DeliveryMechanism
     get '/project/find' do
       return 404 if params['id'].nil?
 
-      return_project = @use_case_factory.get_use_case(:find_project).execute(id: params['id'].to_i)
+      project = @use_case_factory.get_use_case(:find_project).execute(id: params['id'].to_i)
 
-      return 404 if return_project.nil?
+      return 404 if project.nil?
+
+      schema = @use_case_factory.get_use_case(:get_schema_for_project).execute(type: project[:type])[:schema]
 
       content_type 'application/json'
       response.body = {
-        type: return_project.type,
-        data: Common::DeepCamelizeKeys.to_camelized_hash(return_project.data)
+        type: project[:type],
+        data: Common::DeepCamelizeKeys.to_camelized_hash(project[:data]),
+        schema: schema
       }.to_json
       response.status = 200
     end
