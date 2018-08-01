@@ -29,7 +29,7 @@ describe 'Updating a HIF Project' do
 
     updated_project = get_use_case(:find_project).execute(id: response[:id])
 
-    expect(updated_project.type).to eq('hif')
-    expect(updated_project.data[:cats]).to eq('meow')
+    expect(updated_project[:type]).to eq('hif')
+    expect(updated_project[:data][:cats]).to eq('meow')
   end
 end
