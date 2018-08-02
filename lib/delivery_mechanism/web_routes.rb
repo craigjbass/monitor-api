@@ -63,6 +63,12 @@ module DeliveryMechanism
       end
     end
 
+    get '/project/:id/returns' do
+      returns = @use_case_factory.get_use_case(:get_returns).execute(project_id: params['id'].to_i)
+      response.status = returns.empty? ? 404 : 200
+      response.body = returns.to_json
+    end
+
     get '/project/find' do
       return 404 if params['id'].nil?
 

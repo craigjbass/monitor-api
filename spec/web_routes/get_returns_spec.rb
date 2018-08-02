@@ -1,0 +1,83 @@
+# frozen_string_literal: true
+
+require 'rspec'
+require_relative 'delivery_mechanism_spec_helper'
+
+describe 'Getting return history' do
+  let(:get_returns_spy) { spy(execute: returned_hashes) }
+
+  before do
+    stub_const(
+      'LocalAuthority::UseCase::GetReturns',
+      double(new: get_returns_spy)
+    )
+  end
+
+  context 'example 1' do
+    let(:returned_hashes) { [{ project_id: 1, data: { cats: 'Meow' } }] }
+
+    before do
+      get '/project/1/returns'
+    end
+
+    it 'should respond with 200 for a project that exists' do
+      expect(last_response.status).to eq(200)
+    end
+
+    it 'should respond with an accurate array of hashes' do
+      response = Common::DeepSymbolizeKeys.to_symbolized_hash(
+        JSON.parse(last_response.body)
+      )
+      expect(response).to match_array(
+        [
+          {
+            project_id: 1,
+            data: { cats: 'Meow' }
+          }
+        ]
+      )
+    end
+  end
+
+  context 'example 2' do
+    let(:returned_hashes) { [{ project_id: 3, data: { cows: 'Moo' } }] }
+
+    before do
+      get '/project/3/returns'
+    end
+
+    it 'should respond with 200 for a project that exists' do
+      expect(last_response.status).to eq(200)
+    end
+
+    it 'should respond with an accurate array of hashes' do
+      response = Common::DeepSymbolizeKeys.to_symbolized_hash(
+        JSON.parse(last_response.body)
+      )
+      expect(response).to match_array(
+        [
+          {
+            project_id: 3,
+            data: { cows: 'Moo' }
+          }
+        ]
+      )
+    end
+  end
+
+  context 'without any found hashes' do
+    let(:returned_hashes) { [] }
+
+    before do
+      get '/project/4096/returns'
+    end
+
+    it 'should respond with 404 for a project that does not exist' do
+      expect(last_response.status).to eq(404)
+    end
+
+    it 'should return an empty array' do
+      expect(JSON.parse(last_response.body)).to match_array([])
+    end
+  end
+end

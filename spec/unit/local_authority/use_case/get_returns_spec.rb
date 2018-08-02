@@ -1,6 +1,6 @@
 require 'rspec'
 
-describe HomesEngland::UseCase::GetReturns do
+describe LocalAuthority::UseCase::GetReturns do
   let(:all_returns) { [] }
   let(:all_return_objects) { [] }
   let(:return_gateway) { spy(get_returns: all_return_objects) }

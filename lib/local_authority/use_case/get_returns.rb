@@ -1,4 +1,4 @@
-class HomesEngland::UseCase::GetReturns
+class LocalAuthority::UseCase::GetReturns
   def initialize(return_gateway:)
     @return_gateway = return_gateway
   end
