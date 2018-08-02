@@ -38,14 +38,23 @@ module DeliveryMechanism
 
     get '/return/get' do
       return 400 if params['id'].nil?
+      return_id = params['id'].to_i
 
-      return_hash = @use_case_factory.get_use_case(:get_return).execute(id: params['id'].to_i)
-      if return_hash.empty?
-        response.status = 404
-      else
-        response.body = return_hash.to_json
-        response.status = 200
-      end
+      return_hash = @use_case_factory.get_use_case(:get_return).execute(id: return_id)
+
+      return 404 if return_hash.empty?
+
+      return_schema = @use_case_factory
+        .get_use_case(:get_schema_for_return)
+        .execute(return_id: return_id)[:schema]
+
+      response.body = {
+        project_id: return_hash[:project_id],
+        data: return_hash[:data],
+        schema: return_schema
+      }.to_json
+
+      response.status = 200
     end
 
     get '/project/:id/return' do

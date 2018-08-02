@@ -35,6 +35,14 @@ class LocalAuthority::UseCases
       )
     end
 
+    builder.define_use_case :get_schema_for_return do
+      LocalAuthority::UseCase::GetSchemaForReturn.new(
+        project_gateway: builder.get_use_case(:project_gateway),
+        return_gateway: builder.get_use_case(:return_gateway),
+        template_gateway: builder.get_use_case(:return_template_gateway)
+      )
+    end
+
     builder.define_use_case :get_returns do
       LocalAuthority::UseCase::GetReturns.new(
         return_gateway: builder.get_use_case(:return_gateway)
