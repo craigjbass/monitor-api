@@ -44,12 +44,12 @@ describe 'Updating a project' do
     context 'id' do
       it 'should return 400' do
         post '/project/update',
-          { id: nil,
-            project: {
-            type: new_project_data['type'],
-            baselineData: new_project_data['baselineData']
-          } }.to_json
-          expect(last_response.status).to eq(400)
+             { id: nil,
+               project: {
+                 type: new_project_data['type'],
+                 baselineData: new_project_data['baselineData']
+               } }.to_json
+        expect(last_response.status).to eq(400)
       end
     end
 
@@ -85,7 +85,7 @@ describe 'Updating a project' do
           id: project_id,
           project: {
             type: 'new',
-            baseline: { 'cats' => 'quack', 'dogs' => 'baa'}
+            baseline: { cats: 'quack', dogs: 'baa' }
           }
         )
       )

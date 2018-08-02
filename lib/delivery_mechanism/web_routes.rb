@@ -20,33 +20,45 @@ module DeliveryMechanism
     end
 
     post '/return/update' do
-      request_json = JSON.parse(request.body.read)
-      request_hash = Common::DeepSymbolizeKeys.to_symbolized_hash(request_json)
+      request_hash = get_hash(request)
+      return 400 if request_hash.nil?
       return 404 if request_hash[:return_id].nil? || request_hash[:return_data].nil?
 
       response.status = 200
       response.body = @use_case_factory.get_use_case(:update_return).execute(
         return_id: request_hash[:return_id], data: request_hash[:return_data]
       )
-
-
     end
 
     post '/return/create' do
-      body = request.body.read
-      if body.to_s.empty?
-        response.status = 400
+      request_hash = get_hash(request)
+      return 400 if request_hash.nil?
 
-      else
-        request_body = JSON.parse(body)
-        return_id = @use_case_factory.get_use_case(:create_return).execute(
-          project_id: request_body['project_id'], data:
-          Common::DeepSymbolizeKeys.to_symbolized_hash(request_body['data'])
-        )
-        response.body = { id: return_id[:id] }.to_json
-        response.status = 200
+      return_id = @use_case_factory.get_use_case(:create_return).execute(
+        project_id: request_hash[:project_id],
+        data: request_hash[:data]
+      )
+
+      response.tap do |r|
+        r.body = { id: return_id[:id] }.to_json
+        r.status = 200
       end
-      response
+    end
+
+    post '/return/submit' do
+      request_hash = get_hash(request)
+      return 400 if request_hash.nil?
+
+      @use_case_factory.get_use_case(:submit_return).execute(return_id: request_hash[:id])
+
+      response.status = 200
+    end
+
+    def get_hash(request)
+      body = request.body.read
+      return nil if body.to_s.empty?
+      request_json = JSON.parse(body)
+      Common::DeepSymbolizeKeys.to_symbolized_hash(request_json)
     end
 
     get '/return/get' do
@@ -95,13 +107,13 @@ module DeliveryMechanism
     end
 
     post '/project/create' do
-      request_body = JSON.parse(request.body.read)
+      request_hash = get_hash(request)
 
       use_case = @use_case_factory.get_use_case(:create_new_project)
 
       id = use_case.execute(
-        type: request_body['type'],
-        baseline: Common::DeepSymbolizeKeys.to_symbolized_hash(request_body['baselineData'])
+        type: request_hash[:type],
+        baseline: Common::DeepSymbolizeKeys.to_symbolized_hash(request_hash[:baselineData])
       )
 
       content_type 'application/json'
@@ -112,15 +124,15 @@ module DeliveryMechanism
     end
 
     post '/project/update' do
-      request_body = JSON.parse(request.body.read)
+      request_hash = get_hash(request)
 
-      if valid_update_request_body(request_body)
+      if valid_update_request_body(request_hash)
         use_case = @use_case_factory.get_use_case(:update_project)
         update_successful = use_case.execute(
-          id: request_body['id'].to_i,
+          id: request_hash[:id].to_i,
           project: {
-            type: request_body['project']['type'],
-            baseline: request_body['project']['baselineData']
+            type: request_hash[:project][:type],
+            baseline: request_hash[:project][:baselineData]
           }
         )[:successful]
         response.status = update_successful ? 200 : 404
@@ -132,9 +144,9 @@ module DeliveryMechanism
     private
 
     def valid_update_request_body(request_body)
-      !request_body.dig('id').nil? &&
-        !request_body.dig('project', 'type').nil? &&
-        !request_body.dig('project', 'baselineData').nil?
+      !request_body.dig(:id).nil? &&
+        !request_body.dig(:project, :type).nil? &&
+        !request_body.dig(:project, :baselineData).nil?
     end
   end
 end
