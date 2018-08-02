@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class HomesEngland::Gateway::InMemoryTemplate
-  def initialize; end
-
   def get_template(type:)
     return nil unless type == 'hif'
     hif_template = HomesEngland::Domain::Template.new
@@ -48,19 +46,45 @@ class HomesEngland::Gateway::InMemoryTemplate
           type: 'array',
           title: 'Infrastructures',
           items: [
-            infraType: { type: 'string', title: 'Type' },
-            description: { type: 'string', title: 'Description' }
+            {
+              type: 'object',
+              properties: {
+                type: { type: 'string', title: 'Type' },
+                description: { type: 'string', title: 'Description' },
+                outlinePlanningStatus: {
+                  type: 'object',
+                  title: 'Outline Planning Status',
+                  properties: {
+                    granted: { type: 'boolean', title: 'Granted?' },
+                    targetSubmission: {
+                      type: 'string', format: 'date', title: 'Target date of submission'
+                    },
+                    targetGranted: {
+                      type: 'string', format: 'date', title: 'Target date of planning granted'
+                    },
+                    summaryOfCriticalPath: {
+                      type: 'string', title: 'Target date of submission'
+                    }
+                  }
+                }
+              }
+            }
           ]
         },
         financial: {
           type: 'array',
           title: 'Financials',
           items: [
-            amount: { type: 'string', title: 'Amount' }
+            {
+              type: 'object',
+              properties: {
+                type: { type: 'string', title: 'Type' },
+                description: { type: 'string', title: 'Description' }
+              }
+            }
           ]
         }
-      },
-      required: ['financial', 'infrastructure', 'summary']
+      }
     }
 
     hif_template.layout = {
