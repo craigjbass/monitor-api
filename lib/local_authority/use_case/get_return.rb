@@ -13,7 +13,8 @@ class LocalAuthority::UseCase::GetReturn
       {
         id: found_return.id,
         project_id: found_return.project_id,
-        data: found_return.data
+        data: found_return.data,
+        status: found_return.status
       }
     end
   end
