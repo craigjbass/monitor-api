@@ -1,5 +1,5 @@
 class LocalAuthority::Gateway::SequelReturn
-  def initialize(database: database)
+  def initialize(database:)
     @database = database
   end
 
