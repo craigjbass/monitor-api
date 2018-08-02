@@ -51,6 +51,7 @@ describe 'Getting multiple returns' do
 
     ]
   end
+
   it 'can get multiple returns by project id from a gateway' do
     get_use_case(:create_return).execute(project_id: 1, data:
       {
@@ -105,6 +106,6 @@ describe 'Getting multiple returns' do
         }
       })
 
-    expect(get_use_case(:get_returns).execute(project_id: 1)).to eq(returns_for_project_1)
+    expect(get_use_case(:get_returns).execute(project_id: 1)[:returns]).to match_array(returns_for_project_1)
   end
 end
