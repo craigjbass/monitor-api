@@ -34,7 +34,7 @@ describe LocalAuthority::UseCase::GetReturns do
     end
 
     it 'can get a single return as an item in an array' do
-      expect(get_returns.execute(project_id: 1)).to match_array(all_returns)
+      expect(get_returns.execute(project_id: 1)[:returns]).to match_array(all_returns)
     end
   end
 
@@ -70,7 +70,7 @@ describe LocalAuthority::UseCase::GetReturns do
     end
 
     it 'can get multiple items as an array' do
-      expect(get_returns.execute(project_id: 1)).to match_array(all_returns)
+      expect(get_returns.execute(project_id: 1)[:returns]).to match_array(all_returns)
     end
   end
 end
