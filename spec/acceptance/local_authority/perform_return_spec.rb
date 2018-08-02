@@ -135,9 +135,35 @@ describe 'Performing Return on HIF Project' do
     update_return(id: return_id, data: updated_return_hash)
     expect_return_with_id_to_equal(id: return_id, expected_return: updated_return_hash)
 
-    submit_status = submit_return(id: return_id)
-    expect(submit_status).to eq('Submitted')
+    submitted_return_hash = {
+      project_id: project_id,
+      data: {
+        summary: {
+          project_name: 'Dogs Protection League',
+          description: 'A new headquarters for all the Dogs',
+          lead_authority: 'Made Tech'
+        },
+        infrastructure: {
+          type: 'Dog Bathroom',
+          description: 'Bathroom for Dogs',
+          completion_date: '2018-12-25',
+          planning: {
+            submission_estimated: '2018-06-01',
+            submission_actual: '2018-07-01',
+            submission_delay_reason: 'Planning office was closed for summer'
+          }
+        },
+        financial: {
+          total_amount_estimated: '£ 1000000.00',
+          total_amount_actual: nil,
+          total_amount_changed_reason: nil
+        }
+      },
+      status: 'Submitted'
+    }
 
+    submit_return(id: return_id)
+    expect_return_with_id_to_equal(id: return_id, expected_return: submitted_return_hash)
   end
 
   def update_return(id:, data:)
@@ -145,6 +171,6 @@ describe 'Performing Return on HIF Project' do
   end
 
   def submit_return(id:)
-    get_use_case(:submit_return).execute(id: id)[:status]
+    get_use_case(:submit_return).execute(return_id: id)
   end
 end

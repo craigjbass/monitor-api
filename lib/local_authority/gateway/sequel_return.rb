@@ -35,4 +35,8 @@ class LocalAuthority::Gateway::SequelReturn
   def update(return_id:, data:)
     @database[:returns].where(id: return_id).update(:data => Sequel.pg_json(data[:data]))
   end
+
+  def submit(return_id: )
+    @database[:returns].where(id: return_id).update(:status => 'Submitted')
+  end
 end
