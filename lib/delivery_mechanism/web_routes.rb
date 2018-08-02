@@ -19,6 +19,19 @@ module DeliveryMechanism
       200
     end
 
+    post '/return/update' do
+      request_json = JSON.parse(request.body.read)
+      request_hash = Common::DeepSymbolizeKeys.to_symbolized_hash(request_json)
+      return 404 if request_hash[:return_id].nil? || request_hash[:return_data].nil?
+
+      response.status = 200
+      response.body = @use_case_factory.get_use_case(:update_return).execute(
+        return_id: request_hash[:return_id], data: request_hash[:return_data]
+      )
+
+
+    end
+
     post '/return/create' do
       body = request.body.read
       if body.to_s.empty?
