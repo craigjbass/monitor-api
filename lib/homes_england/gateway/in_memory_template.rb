@@ -15,44 +15,49 @@ class HomesEngland::Gateway::InMemoryTemplate
           type: 'object',
           title: 'Project Summary',
           properties: {
-            BIDReference: { type: 'string', title: 'BID Reference' },
-            projectName: { type: 'string', title: 'Project Name' },
-            leadAuthority: { type: 'string', title: 'Lead Authority' }
-          }
-        },
-        infrastructure: {
-          type: 'object',
-          title: 'Infrastructure',
-          properties: {
-            infraType: { type: 'string', title: 'Type' },
-            description: { type: 'string', title: 'Description' },
-            completionDate: {
-              type: 'string',
-              format: 'date',
-              title: 'Completion Date'
+            BIDReference: {
+              type: 'string', title: 'BID Reference'
             },
-            planning: {
-              type: 'object',
-              title: 'Planning permission',
-              properties: {
-                submissionEstimated: {
-                  type: 'string',
-                  format: 'date',
-                  title: 'Estimated date of submission'
-                }
-              }
+            projectName: {
+              type: 'string', title: 'Project Name'
+            },
+            leadAuthority: {
+              type: 'string', title: 'Lead Authority'
+            },
+            projectDescription: {
+              type: 'string', title: 'Project Description'
+            },
+            noOfHousingSites: {
+              type: 'integer', title: 'Number of housing sites'
+            },
+            totalArea: {
+              type: 'integer', title: 'Total Area (hectares)'
+            },
+            hifFundingAmount: {
+              type: 'integer', title: 'HIF Funding Amount (£)'
+            },
+            descriptionOfInfrastructure: {
+              type: 'string', title: 'Description of HIF Infrastructure to be delivered'
+            },
+            descriptionOfWiderProjectDeliverables: {
+              type: 'string', title: 'Description of wider project deliverables'
             }
           }
+        },
+        infrastructures: {
+          type: 'array',
+          title: 'Infrastructures',
+          items: [
+            infraType: { type: 'string', title: 'Type' },
+            description: { type: 'string', title: 'Description' }
+          ]
         },
         financial: {
-          type: 'object',
-          title: 'Financial information',
-          properties: {
-            totalAmountEstimated: {
-              type: 'string',
-              title: 'Estimated total amount required'
-            }
-          }
+          type: 'array',
+          title: 'Financials',
+          items: [
+            amount: { type: 'string', title: 'Amount' }
+          ]
         }
       },
       required: ['financial', 'infrastructure', 'summary']
