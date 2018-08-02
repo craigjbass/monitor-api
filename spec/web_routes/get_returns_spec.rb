@@ -20,6 +20,10 @@ describe 'Getting return history' do
       get '/project/1/returns'
     end
 
+    it 'passes the correct id to the use case' do
+      expect(get_returns_spy).to have_received(:execute).with(project_id: 1)
+    end
+
     it 'should respond with 200 for a project that exists' do
       expect(last_response.status).to eq(200)
     end
@@ -44,6 +48,10 @@ describe 'Getting return history' do
 
     before do
       get '/project/3/returns'
+    end
+
+    it 'passes the correct id to the use case' do
+      expect(get_returns_spy).to have_received(:execute).with(project_id: 3)
     end
 
     it 'should respond with 200 for a project that exists' do
