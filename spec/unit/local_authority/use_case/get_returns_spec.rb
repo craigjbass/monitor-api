@@ -1,6 +1,6 @@
 require 'rspec'
 
-describe HomesEngland::UseCase::GetReturns do
+describe LocalAuthority::UseCase::GetReturns do
   let(:all_returns) { [] }
   let(:all_return_objects) { [] }
   let(:return_gateway) { spy(get_returns: all_return_objects) }
@@ -34,7 +34,7 @@ describe HomesEngland::UseCase::GetReturns do
     end
 
     it 'can get a single return as an item in an array' do
-      expect(get_returns.execute(project_id: 1)).to match_array(all_returns)
+      expect(get_returns.execute(project_id: 1)[:returns]).to match_array(all_returns)
     end
   end
 
@@ -70,7 +70,7 @@ describe HomesEngland::UseCase::GetReturns do
     end
 
     it 'can get multiple items as an array' do
-      expect(get_returns.execute(project_id: 1)).to match_array(all_returns)
+      expect(get_returns.execute(project_id: 1)[:returns]).to match_array(all_returns)
     end
   end
 end
