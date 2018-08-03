@@ -103,7 +103,7 @@ describe 'Performing Return on HIF Project' do
       status: 'Draft'
     }
 
-    return_id = create_new_return(return_hash)
+    return_id = create_new_return(project_id: return_hash[:project_id], data: return_hash[:data])
     expect_return_with_id_to_equal(id: return_id, expected_return: return_hash)
 
     updated_return_hash = {
