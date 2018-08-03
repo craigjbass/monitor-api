@@ -1,17 +1,15 @@
 # frozen_string_literal: true
 
 class LocalAuthority::UseCase::GetBaseReturn
-  def initialize(populate_return:, project_gateway:)
-    @populate_return = populate_return
+  def initialize(return_gateway:, project_gateway:)
+    @return_gateway = return_gateway
     @project_gateway = project_gateway
   end
 
   def execute(project_id:)
     project = @project_gateway.find_by(id: project_id)
-    return_data = @populate_return.execute(
-      type: project.type, data: project.data
-    )[:populated_data]
+    schema = @return_gateway.find_by(type: project.type)
 
-    { base_return: return_data }
+    { base_return: { id: project_id, data: project.data, schema:schema.schema } }
   end
 end
