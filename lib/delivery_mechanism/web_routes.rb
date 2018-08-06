@@ -41,7 +41,7 @@ module DeliveryMechanism
 
       response.tap do |r|
         r.body = { id: return_id[:id] }.to_json
-        r.status = 200
+        r.status = 201
       end
     end
 
@@ -135,7 +135,7 @@ module DeliveryMechanism
       response.body = {
         projectId: id
       }.to_json
-      response.status = 200
+      response.status = 201
     end
 
     post '/project/update' do
