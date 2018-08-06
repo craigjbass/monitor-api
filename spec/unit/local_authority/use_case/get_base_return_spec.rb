@@ -1,9 +1,10 @@
+
 describe LocalAuthority::UseCase::GetBaseReturn do
+    let(:return_gateway) {spy(find_by: schema)}
   let(:project_gateway_spy) { spy(find_by: project) }
-  let(:populate_return_spy) { spy(execute: populated_return) }
   let(:use_case) do
     described_class.new(
-      populate_return: populate_return_spy,
+      return_gateway: return_gateway,
       project_gateway: project_gateway_spy
     )
   end
@@ -12,73 +13,73 @@ describe LocalAuthority::UseCase::GetBaseReturn do
   before { response }
 
   context 'example one' do
+    let(:schema) do
+      LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+        p.schema = {cats: 'meow'}
+      end
+    end
     let(:project_id) { 1 }
+    let(:data) { { description: 'Super secret project' } }
     let(:project) do
       HomesEngland::Domain::Project.new.tap do |p|
         p.type = 'hif'
-        p.data = { description: 'Super secret project' }
+        p.data = data
       end
     end
-    let(:populated_return) { { populated_data: { cats: 'Are the coolest' } } }
 
     it 'will find the project in the Project Gateway' do
-      expect(project_gateway_spy).to have_received(:find_by).with(id: 1)
+      expect(project_gateway_spy).to have_received(:find_by).with(id: project_id)
     end
 
-    it 'will pass the project type to the populate return use case' do
-      expect(populate_return_spy).to(
-        have_received(:execute).with(
-          hash_including(type: 'hif')
-        )
-      )
+    it 'will call find_by method on Return Gateway' do
+      expect(return_gateway).to have_received(:find_by).with(type: project.type)
     end
 
-    it 'will pass the project data to the populate return use case' do
-      expect(populate_return_spy).to(
-        have_received(:execute).with(
-          hash_including(data: { description: 'Super secret project' })
-        )
-      )
+    it 'will return a hash with correct id' do
+      expect(use_case.execute(project_id: project_id)[:base_return]).to include(id: project_id)
     end
 
-    it 'returns the populated return from the populate return use case' do
-      expect(response).to eq(base_return: { cats: 'Are the coolest' })
+    it 'will return a hash with correct baseline' do
+      expect(use_case.execute(project_id: project_id)[:base_return]).to include(data: data)
+    end
+
+    it 'will return a hash with correct schema' do
+      expect(use_case.execute(project_id: project_id)[:base_return]).to include(schema: schema.schema)
     end
   end
 
   context 'example two' do
-    let(:project_id) { 42 }
+    let(:schema) { LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+      p.schema = {dogs: 'woof'}
+    end
+    }
+    let(:project_id) { 255 }
+    let(:data) { { name: 'Extra secret project' } }
     let(:project) do
       HomesEngland::Domain::Project.new.tap do |p|
-        p.type = 'Woof'
-        p.data = { description: 'Super secret Cat Lab' }
+        p.type = 'hif'
+        p.data = data
       end
     end
 
-    let(:populated_return) { { populated_data: { dogs: 'are also cool' } } }
-
     it 'will find the project in the Project Gateway' do
-      expect(project_gateway_spy).to have_received(:find_by).with(id: 42)
+      expect(project_gateway_spy).to have_received(:find_by).with(id: project_id)
     end
 
-    it 'will pass the project type to the populate return use case' do
-      expect(populate_return_spy).to(
-        have_received(:execute).with(
-          hash_including(type: 'Woof')
-        )
-      )
+    it 'will call find_by method on Return Gateway' do
+      expect(return_gateway).to have_received(:find_by).with(type: project.type)
     end
 
-    it 'will pass the project data to the populate return use case' do
-      expect(populate_return_spy).to(
-        have_received(:execute).with(
-          hash_including(data: { description: 'Super secret Cat Lab' })
-        )
-      )
+    it 'will return a hash with correct id' do
+      expect(use_case.execute(project_id: project_id)[:base_return]).to include(id: project_id)
     end
 
-    it 'returns the populated return from the populate return use case' do
-      expect(response).to eq(base_return: { dogs: 'are also cool' })
+    it 'will return a hash with correct baseline' do
+      expect(use_case.execute(project_id: project_id)[:base_return]).to include(data: data)
+    end
+
+    it 'will return a hash with correct schema' do
+      expect(use_case.execute(project_id: project_id)[:base_return]).to include(schema: schema.schema)
     end
   end
 end

@@ -18,7 +18,7 @@ class LocalAuthority::UseCases
 
     builder.define_use_case :get_base_return do
       LocalAuthority::UseCase::GetBaseReturn.new(
-        populate_return: builder.get_use_case(:populate_return_template),
+        return_gateway: builder.get_use_case(:return_template_gateway),
         project_gateway: builder.get_use_case(:project_gateway)
       )
     end
