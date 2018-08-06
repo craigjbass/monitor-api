@@ -76,6 +76,7 @@ module DeliveryMechanism
       response.body = {
         project_id: return_hash[:project_id],
         data: return_hash[:data],
+        status: return_hash[:status],
         schema: return_schema
       }.to_json
 

@@ -6,7 +6,7 @@ require_relative 'delivery_mechanism_spec_helper'
 describe 'Getting a return' do
   let(:get_return_spy) { spy(execute: returned_hash) }
   let(:get_schema_for_return_spy) { spy(execute: returned_schema) }
-  let(:returned_hash) { { project_id: 1, data: { cats: 'Meow' } } }
+  let(:returned_hash) { { project_id: 1, data: { cats: 'Meow' }, status: 'Draft' } }
   let(:returned_schema) { { schema: { cats: 'string' } } }
 
   before do
@@ -58,6 +58,11 @@ describe 'Getting a return' do
     it 'returns the correct schema' do
       response_body = JSON.parse(last_response.body)
       expect(response_body['schema']).to eq('cats' => 'string')
+    end
+
+    it 'returns the correct schema' do
+      response_body = JSON.parse(last_response.body)
+      expect(response_body['status']).to eq('Draft')
     end
   end
 
