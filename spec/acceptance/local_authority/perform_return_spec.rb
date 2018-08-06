@@ -6,6 +6,14 @@ require_relative '../shared_context/use_case_factory'
 describe 'Performing Return on HIF Project' do
   include_context 'use case factory'
 
+  def update_return(id:, data:)
+    get_use_case(:update_return).execute(return_id: id, data: data[:data])
+  end
+
+  def submit_return(id:)
+    get_use_case(:submit_return).execute(return_id: id)
+  end
+
   def create_new_return(return_data)
     get_use_case(:create_return).execute(return_data)[:id]
   end
@@ -172,7 +180,11 @@ describe 'Performing Return on HIF Project' do
       status: 'Draft'
     }
 
-    return_id = create_new_return(project_id: return_hash[:project_id], data: return_hash[:data])
+    return_id = create_new_return(
+      project_id: return_hash[:project_id],
+      data: return_hash[:data]
+    )
+
     expect_return_with_id_to_equal(id: return_id, expected_return: return_hash)
 
     updated_return_hash = {
@@ -233,13 +245,5 @@ describe 'Performing Return on HIF Project' do
 
     submit_return(id: return_id)
     expect_return_with_id_to_equal(id: return_id, expected_return: submitted_return_hash)
-  end
-
-  def update_return(id:, data:)
-    get_use_case(:update_return).execute(return_id: id, data: data)
-  end
-
-  def submit_return(id:)
-    get_use_case(:submit_return).execute(return_id: id)
   end
 end

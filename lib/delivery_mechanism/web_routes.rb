@@ -24,10 +24,11 @@ module DeliveryMechanism
       return 400 if request_hash.nil?
       return 404 if request_hash[:return_id].nil? || request_hash[:return_data].nil?
 
-      response.status = 200
-      response.body = @use_case_factory.get_use_case(:update_return).execute(
+      @use_case_factory.get_use_case(:update_return).execute(
         return_id: request_hash[:return_id], data: request_hash[:return_data]
       )
+
+      200
     end
 
     post '/return/create' do
@@ -49,7 +50,9 @@ module DeliveryMechanism
       request_hash = get_hash(request)
       return 400 if request_hash.nil?
 
-      @use_case_factory.get_use_case(:submit_return).execute(return_id: request_hash[:id])
+      @use_case_factory.get_use_case(:submit_return).execute(
+        return_id: request_hash[:return_id].to_i
+      )
 
       response.status = 200
     end

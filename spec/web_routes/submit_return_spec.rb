@@ -17,13 +17,13 @@ describe 'Submitting a return' do
   end
 
   it 'submitting a valid id should return 200' do
-    post '/return/submit', {id: 1}.to_json
+    post '/return/submit', {return_id: 1}.to_json
     expect(last_response.status).to eq(200)
   end
 
   context 'example one' do
     it 'will run submit return use case with id' do
-      post '/return/submit', {id: 1}.to_json
+      post '/return/submit', {return_id: 1}.to_json
       expect(submit_return_spy).to have_received(:execute).with(return_id: 1)
     end
   end
@@ -31,7 +31,7 @@ describe 'Submitting a return' do
 
   context 'example two' do
     it 'will run submit return use case with id' do
-      post '/return/submit', {id: 42}.to_json
+      post '/return/submit', {return_id: 42}.to_json
       expect(submit_return_spy).to have_received(:execute).with(return_id: 42)
     end
   end
