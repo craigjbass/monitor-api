@@ -9,69 +9,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
         title: 'HIF Project',
         type: 'object',
         properties: {
-          projectSummary: {
-            type: 'object',
-            title: 'Project Summary',
-            properties: {
-              BIDReference: { type: 'string', title: 'BID Reference' },
-              projectName: { type: 'string', title: 'Project Name' },
-              leadAuthority: { type: 'string', title: 'Lead Authority' }
-            }
-          },
-          infrastructure: {
-            type: 'object',
-            title: 'Infrastructure',
-            properties: {
-              infraType: { type: 'string', title: 'Type' },
-              description: { type: 'string', title: 'Description' },
-              completionDate: {
-                type: 'string',
-                format: 'date',
-                title: 'Completion Date'
-              },
-              planning: {
-                type: 'object',
-                title: 'Planning permission',
-                properties: {
-                  submissionEstimated: {
-                    type: 'string',
-                    format: 'date',
-                    title: 'Estimated date of submission'
-                  },
-                  submissionActual: {
-                    type: 'string',
-                    format: 'date',
-                    title: 'Actual date of submission'
-                  },
-                  submissionDelayReason: {
-                    type: 'string',
-                    format: 'date',
-                    title: 'Reason for delay'
-                  }
-                }
-              }
-            }
-          },
-          financial: {
-            type: 'object',
-            title: 'Financial information',
-            properties: {
-              totalAmountEstimated: {
-                type: 'string',
-                title: 'Estimated total amount required'
-              },
-              totalAmountActual: {
-                type: 'string',
-                title: 'Actual total amount required'
-              },
-              totalAmountChangedReason: {
-                type: 'string',
-                title: 'Reason for change in amount'
-              }
-            }
-          }
-        },
-        required: ['financial', 'infrastructure', 'summary']
+          infrastructures: hif_infrastructures
+        }
       }
 
       p.layout = {
@@ -97,5 +36,51 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
         }
       }
     end
+  end
+
+  def hif_infrastructures
+    {
+      type: 'array',
+      title: 'Infrastructures',
+      items: {
+        type: 'object',
+        properties: {
+          outlinePlanningStatus: {
+            type: 'object',
+            title: 'Outline Planning Status',
+            properties: {
+              targetSubmission: {
+                type: 'string',
+                format: 'date',
+                title: 'If No: Target date of submission'
+              },
+              currentSubmission: {
+                type: 'string',
+                format: 'date',
+                title: 'If No: Target date of submission'
+              },
+              reasonForVarianceSubmission: {
+                type: 'string',
+                title: 'If No: Target date of submission'
+              },
+              targetGranted: {
+                type: 'string',
+                format: 'date',
+                title: 'If No: Target date of planning granted'
+              },
+              currentGranted: {
+                type: 'string',
+                format: 'date',
+                title: 'If No: Target date of submission'
+              },
+              reasonForVarianceGranted: {
+                type: 'string',
+                title: 'If No: Target date of submission'
+              }
+            }
+          }
+        }
+      }
+    }
   end
 end
