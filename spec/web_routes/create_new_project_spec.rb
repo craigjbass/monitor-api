@@ -26,8 +26,8 @@ describe 'Creating a new project' do
       }
     end
 
-    it 'should return a 200 response' do
-      expect(last_response.status).to eq(200)
+    it 'should return a 201 response' do
+      expect(last_response.status).to eq(201)
     end
 
     it 'should call the create_new_project use case' do
@@ -74,8 +74,8 @@ describe 'Creating a new project' do
       }
     end
 
-    it 'should return a 200 response' do
-      expect(last_response.status).to eq(200)
+    it 'should return a 201 response' do
+      expect(last_response.status).to eq(201)
     end
 
     it 'should call the create_new_project use case' do

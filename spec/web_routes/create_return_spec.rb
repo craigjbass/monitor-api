@@ -29,8 +29,8 @@ describe 'Creating returns' do
         expect(create_return_spy).to have_received(:execute).with(project_id: 1, data: {cats: 'Meow'})
       end
 
-      it 'will return a 200 ' do
-        expect(last_response.status).to eq(200)
+      it 'will return a 201' do
+        expect(last_response.status).to eq(201)
       end
 
       it 'will return json with id' do
