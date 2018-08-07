@@ -35,6 +35,12 @@ class LocalAuthority::UseCases
       )
     end
 
+    builder.define_use_case :soft_update_return do
+      LocalAuthority::UseCase::SoftUpdateReturn.new(
+        return_gateway: builder.get_use_case(:return_gateway)
+      )
+    end
+
     builder.define_use_case :get_return do
       LocalAuthority::UseCase::GetReturn.new(
         return_gateway: builder.get_use_case(:return_gateway)

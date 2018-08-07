@@ -147,28 +147,30 @@ describe 'Performing Return on HIF Project' do
 
     return_hash = {
       project_id: project_id,
-      data: {
-        summary: {
-          project_name: 'Cats Protection League',
-          description: 'A new headquarters for all the Cats',
-          lead_authority: 'Made Tech'
-        },
-        infrastructure: {
-          type: 'Cat Bathroom',
-          description: 'Bathroom for Cats',
-          completion_date: '2018-12-25',
-          planning: {
-            submission_estimated: '2018-06-01',
-            submission_actual: '2018-07-01',
-            submission_delay_reason: 'Planning office was closed for summer'
+      data: [
+        {
+          summary: {
+            project_name: 'Cats Protection League',
+            description: 'A new headquarters for all the Cats',
+            lead_authority: 'Made Tech'
+          },
+          infrastructure: {
+            type: 'Cat Bathroom',
+            description: 'Bathroom for Cats',
+            completion_date: '2018-12-25',
+            planning: {
+              submission_estimated: '2018-06-01',
+              submission_actual: '2018-07-01',
+              submission_delay_reason: 'Planning office was closed for summer'
+            }
+          },
+          financial: {
+            total_amount_estimated: '£ 1000000.00',
+            total_amount_actual: nil,
+            total_amount_changed_reason: nil
           }
-        },
-        financial: {
-          total_amount_estimated: '£ 1000000.00',
-          total_amount_actual: nil,
-          total_amount_changed_reason: nil
         }
-      },
+      ],
       status: 'Draft'
     }
 
@@ -177,62 +179,72 @@ describe 'Performing Return on HIF Project' do
 
     updated_return_hash = {
       project_id: project_id,
-      data: {
-        summary: {
-          project_name: 'Dogs Protection League',
-          description: 'A new headquarters for all the Dogs',
-          lead_authority: 'Made Tech'
-        },
-        infrastructure: {
-          type: 'Dog Bathroom',
-          description: 'Bathroom for Dogs',
-          completion_date: '2018-12-25',
-          planning: {
-            submission_estimated: '2018-06-01',
-            submission_actual: '2018-07-01',
-            submission_delay_reason: 'Planning office was closed for summer'
+      data: [
+        {
+          summary: {
+            project_name: 'Dogs Protection League',
+            description: 'A new headquarters for all the Dogs',
+            lead_authority: 'Made Tech'
+          },
+          infrastructure: {
+            type: 'Dog Bathroom',
+            description: 'Bathroom for Dogs',
+            completion_date: '2018-12-25',
+            planning: {
+              submission_estimated: '2018-06-01',
+              submission_actual: '2018-07-01',
+              submission_delay_reason: 'Planning office was closed for summer'
+            }
+          },
+          financial: {
+            total_amount_estimated: '£ 1000000.00',
+            total_amount_actual: nil,
+            total_amount_changed_reason: nil
           }
-        },
-        financial: {
-          total_amount_estimated: '£ 1000000.00',
-          total_amount_actual: nil,
-          total_amount_changed_reason: nil
         }
-      },
+      ],
       status: 'Draft'
     }
-    update_return(id: return_id, data: updated_return_hash)
+    soft_update_return(id: return_id, data: updated_return_hash)
+    #Will return an array of hashes
     expect_return_with_id_to_equal(id: return_id, expected_return: updated_return_hash)
 
     submitted_return_hash = {
+      update_id: 1,
       project_id: project_id,
-      data: {
-        summary: {
-          project_name: 'Dogs Protection League',
-          description: 'A new headquarters for all the Dogs',
-          lead_authority: 'Made Tech'
-        },
-        infrastructure: {
-          type: 'Dog Bathroom',
-          description: 'Bathroom for Dogs',
-          completion_date: '2018-12-25',
-          planning: {
-            submission_estimated: '2018-06-01',
-            submission_actual: '2018-07-01',
-            submission_delay_reason: 'Planning office was closed for summer'
+      data: [
+        {
+          summary: {
+            project_name: 'Dogs Protection League',
+            description: 'A new headquarters for all the Dogs',
+            lead_authority: 'Made Tech'
+          },
+          infrastructure: {
+            type: 'Dog Bathroom',
+            description: 'Bathroom for Dogs',
+            completion_date: '2018-12-25',
+            planning: {
+              submission_estimated: '2018-06-01',
+              submission_actual: '2018-07-01',
+              submission_delay_reason: 'Planning office was closed for summer'
+            }
+          },
+          financial: {
+            total_amount_estimated: '£ 1000000.00',
+            total_amount_actual: nil,
+            total_amount_changed_reason: nil
           }
-        },
-        financial: {
-          total_amount_estimated: '£ 1000000.00',
-          total_amount_actual: nil,
-          total_amount_changed_reason: nil
         }
-      },
+      ],
       status: 'Submitted'
     }
 
     submit_return(id: return_id)
     expect_return_with_id_to_equal(id: return_id, expected_return: submitted_return_hash)
+  end
+
+  def soft_update_return(id:, data:)
+    get_use_case(:soft_update_return).execute(return_id: id, return_data: data)
   end
 
   def update_return(id:, data:)

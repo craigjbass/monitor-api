@@ -31,12 +31,18 @@ class LocalAuthority::Gateway::SequelReturn
     end
   end
 
+  def soft_update(return_id:, return_data:, status:)
+    @database[:return_updates].insert(
+      return_id: return_id,
+      data: Sequel.pg_json(return_data)
+    )
+  end
   # Hard update. To add soft update later.
   def update(return_id:, data:)
     @database[:returns].where(id: return_id).update(:data => Sequel.pg_json(data[:data]))
   end
 
-  def submit(return_id: )
+  def submit(return_id:)
     @database[:returns].where(id: return_id).update(:status => 'Submitted')
   end
 end

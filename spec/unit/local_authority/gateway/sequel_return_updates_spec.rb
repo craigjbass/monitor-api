@@ -20,6 +20,11 @@ describe LocalAuthority::Gateway::SequelReturn do
       expect(found_return.project_id).to eq(1)
       expect(found_return.data).to eq(cats: "meow")
     end
+
+    it 'soft updates the new return' do
+      gateway.soft_update(return_id: return_id, return_data: {cats: "Meow"})
+      expect(gateway.find_by(id: return_id)).to eq(1)
+    end
   end
 
   context 'example two' do
