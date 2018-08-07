@@ -1,21 +1,6 @@
 # frozen_string_literal: true
 
 class LocalAuthority::Gateway::InMemoryReturnTemplate
-  #Change these back to nils later
-  def return_template
-    {
-     infrastructures: [
-       outlinePlanningStatus: {
-         targetSubmission: '',
-         currentSubmission: '',
-         reasonForVarianceSubmission: '',
-         targetGranted: '',
-         currentGranted: '',
-         reasonForVarianceGranted: ''
-       }
-     ]
-   }
-  end
 
   def find_by(type:)
     return nil unless type == 'hif'
