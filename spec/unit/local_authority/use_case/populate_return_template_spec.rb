@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe LocalAuthority::UseCase::PopulateReturnTemplate do
+xdescribe LocalAuthority::UseCase::PopulateReturnTemplate do
   let(:template_gateway_spy) { spy(find_by: template) }
   let(:use_case) { described_class.new(template_gateway: template_gateway_spy) }
   let(:response) { use_case.execute(type: project_type, data: baseline) }

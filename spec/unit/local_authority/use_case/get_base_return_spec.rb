@@ -1,5 +1,5 @@
 
-describe LocalAuthority::UseCase::GetBaseReturn do
+xdescribe LocalAuthority::UseCase::GetBaseReturn do
     let(:return_gateway) {spy(find_by: schema)}
   let(:project_gateway_spy) { spy(find_by: project) }
   let(:use_case) do

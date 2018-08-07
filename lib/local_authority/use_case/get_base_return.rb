@@ -5,7 +5,6 @@ class LocalAuthority::UseCase::GetBaseReturn
     @return_gateway = return_gateway
     @project_gateway = project_gateway
     @populate_return_template = populate_return_template
-    @template_gateway = template_gateway
   end
 
   def execute(project_id:)
