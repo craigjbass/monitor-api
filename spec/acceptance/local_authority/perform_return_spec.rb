@@ -59,76 +59,7 @@ describe 'Performing Return on HIF Project' do
           total_amount_estimated: '£ 1000000.00',
         }
       },
-      schema:{
-        '$schema': 'http://json-schema.org/draft-07/schema',
-        title: 'HIF Project',
-        type: 'object',
-        properties: {
-          projectSummary: {
-            type: 'object',
-            title: 'Project Summary',
-            properties: {
-              BIDReference: { type: 'string', title: 'BID Reference' },
-              projectName: { type: 'string', title: 'Project Name' },
-              leadAuthority: { type: 'string', title: 'Lead Authority' }
-            }
-          },
-          infrastructure: {
-            type: 'object',
-            title: 'Infrastructure',
-            properties: {
-              infraType: { type: 'string', title: 'Type' },
-              description: { type: 'string', title: 'Description' },
-              completionDate: {
-                type: 'string',
-                format: 'date',
-                title: 'Completion Date'
-              },
-              planning: {
-                type: 'object',
-                title: 'Planning permission',
-                properties: {
-                  submissionEstimated: {
-                    type: 'string',
-                    format: 'date',
-                    title: 'Estimated date of submission'
-                  },
-                  submissionActual: {
-                    type: 'string',
-                    format: 'date',
-                    title: 'Actual date of submission'
-                  },
-                  submissionDelayReason: {
-                    type: 'string',
-                    format: 'date',
-                    title: 'Reason for delay'
-                  }
-                }
-              }
-            }
-          },
-          financial: {
-            type: 'object',
-            title: 'Financial information',
-            properties: {
-              totalAmountEstimated: {
-                type: 'string',
-                title: 'Estimated total amount required'
-              },
-              totalAmountActual: {
-                type: 'string',
-                title: 'Actual total amount required'
-              },
-              totalAmountChangedReason: {
-                type: 'string',
-                title: 'Reason for change in amount'
-              }
-            }
-          }
-        },
-        required: ['financial', 'infrastructure', 'summary']
-      }
-  }
+    }
   end
 
   let(:project_id) do
@@ -143,7 +74,7 @@ describe 'Performing Return on HIF Project' do
 
   it 'should keep track of Returns' do
     base_return = get_use_case(:get_base_return).execute(project_id: project_id)
-    expect(base_return).to eq(base_return: project_base_return)
+    expect(base_return[:base_return][:data]).to eq(project_base_return[:data])
 
     return_hash = {
       project_id: project_id,
