@@ -6,7 +6,10 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
       p.layout = {
         infrastructure: [
           {
-            submissionEstimated: 1
+            targetSubmission: nil,
+            targetGranted: nil,
+            grantEstimated: nil,
+            submissionEstimated: nil
           }
         ]
       }
@@ -17,7 +20,8 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
     {
       infrastructure: [
         {
-          targetSubmission: 1
+          submissionEstimated: 'baseline data to be copied',
+          grantEstimated: 'baseline data baseline data to be copied'
         }
       ]
     }
@@ -29,6 +33,24 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
 
   before { response }
 
-  it do
+  it 'fetches the template for the given type' do
+    expect(template_gateway_spy).to(
+      have_received(:find_by).with(type: 'hif')
+    )
+  end
+
+  it 'will return populated data' do
+    p baseline
+    expect(response).to eq(populated_data: {
+          infrastructure: [
+            {
+              submissionEstimated: 'baseline data to be copied',
+              grantEstimated: 'baseline data baseline data to be copied',
+              targetSubmission: 'baseline data to be copied',
+              targetGranted: 'baseline data baseline data to be copied'
+            }
+          ]
+        }
+      )
   end
 end

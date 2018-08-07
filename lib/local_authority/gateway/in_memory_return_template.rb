@@ -16,26 +16,27 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
 
       p.layout = {
         summary: {
-          project_name: nil,
+          projectName: nil,
           description: nil,
-          lead_authority: nil
+          leadAuthority: nil
         },
         infrastructure: [
           {
             type: nil,
             description: nil,
-            completion_date: nil,
-            planning: {
-              submission_estimated: nil,
-              submission_actual: nil,
-              submission_delay_reason: nil
-            }
+            completionDate: nil,
+            submissionEstimated: nil,
+            submissionActual: nil,
+            submissionDelayReason: nil,
+            targetGranted: nil,
+            currentGranted: nil,
+            reasonForVarianceGranted: nil
           }
         ],
         financial: {
-          total_amount_estimated: nil,
-          total_amount_actual: nil,
-          total_amount_changed_reason: nil
+          totalAmountEstimated: nil,
+          totalAmountActual: nil,
+          totalAmountChangedReason: nil
         }
       }
     end
