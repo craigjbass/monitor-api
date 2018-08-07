@@ -5,8 +5,8 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
 
   def execute(type:, data:)
     populated_data = @template_gateway.find_by(type: 'hif').layout
-    populated_data[:infrastructure][:targetSubmission] = data[:infrastructure][:submissionEstimated]
-    populated_data[:infrastructure][:targetGranted] = data[:infrastructure][:grantedEstimated]
+    populated_data[:infrastructure][0][:targetSubmission] = data[:infrastructure][0][:submissionEstimated]
+    populated_data[:infrastructure][0][:targetGranted] = data[:infrastructure][0][:grantedEstimated]
 
     {
       populated_data: populated_data
