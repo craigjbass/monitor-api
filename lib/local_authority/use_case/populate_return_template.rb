@@ -4,8 +4,10 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
   end
 
   def execute(type:, data:)
-    template = @template_gateway.find_by(type: type)
-    populated_data = populate_hash(template.layout.dup, data)
+    populated_data = @template_gateway.return_template
+    populated_data.infrastructure.targetSubmission = data.infrastructure.submissionEstimated
+    populated_data.infrastructure.targetGranted = data.infrastructure.grantedEstimated
+
     {
       populated_data: populated_data
     }

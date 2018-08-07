@@ -10,6 +10,21 @@ class LocalAuthority::UseCase::GetBaseReturn
     project = @project_gateway.find_by(id: project_id)
     schema = @return_gateway.find_by(type: project.type)
 
-    { base_return: { id: project_id, data: project.data, schema:schema.schema } }
+
+    if project.type == 'hif'
+
+      #Take in some baseline project data and return that hash, unknowns can be nil
+
+      return_template_populator = LocalAuthority::UseCase::PopulateReturnTemplate.new(template_gateway: LocalAuthority::Gateway::InMemoryReturnTemplate.new)
+      return_template_populator.execute(type: 'hif', data: project.data)
+    end
+
+
+    #base_return populated with relevent data from the baseline
+    #Return might have new fields but will also want to see original from base
+    #Pull the relevent stuff (just targetSubmission) from the baseline project ^, stuff I don't have in baseline can be nil
+
+
+    { base_return: { id: project_id, data: project.data, schema: schema.schema } }
   end
 end
