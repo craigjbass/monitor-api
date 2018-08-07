@@ -52,7 +52,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
               targetSubmission: {
                 type: 'string',
                 format: 'date',
-                title: 'If No: Target date of submission'
+                title: 'If No: Target date of submission',
+                readonly: true
               },
               currentSubmission: {
                 type: 'string',
@@ -66,7 +67,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
               targetGranted: {
                 type: 'string',
                 format: 'date',
-                title: 'If No: Target date of planning granted'
+                title: 'If No: Target date of planning granted',
+                readonly: true
               },
               currentGranted: {
                 type: 'string',

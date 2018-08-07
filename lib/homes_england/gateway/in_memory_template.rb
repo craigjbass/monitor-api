@@ -13,8 +13,8 @@ class HomesEngland::Gateway::InMemoryTemplate
         infrastructures: hif_infrastructures,
         financial: hif_finances,
         s151: hif_s151,
-        outputs_forecast: outputs_forecast,
-        outputs_actuals: outputs_actuals
+        outputsForecast: outputs_forecast,
+        outputsActuals: outputs_actuals
       }
     }
 
@@ -46,18 +46,19 @@ class HomesEngland::Gateway::InMemoryTemplate
       items: {
         type: 'object',
         properties: {
-          instalments: {
+          period: { type: 'string', title: 'Period' },
+          installments: {
             type: 'array',
             title: 'Instalments',
             items: {
               type: 'object',
               properties: {
-                dateOfInstalment: {
+                dateOfInstallment: {
                   type: 'string',
                   format: 'date',
                   title: 'Date of Instalment'
                 },
-                instalmentAmount: {
+                installmentAmount: {
                   type: 'string',
                   title: 'HIF Funding Profile - Baseline'
                 }
@@ -124,7 +125,7 @@ class HomesEngland::Gateway::InMemoryTemplate
                 title: 'Expected Amount'
               },
               methodOfRecovery: {
-                type: 'boolean',
+                type: 'string',
                 title: 'Method of Recovery?'
               }
             }
@@ -221,7 +222,7 @@ class HomesEngland::Gateway::InMemoryTemplate
           },
           statutoryConsents: {
             type: 'object',
-            title: 'Section 106',
+            title: 'Statutory Consents',
             properties: {
               anyConsents: {
                 type: 'boolean',
@@ -319,7 +320,6 @@ class HomesEngland::Gateway::InMemoryTemplate
                 },
                 summaryOfCriticalPath: {
                   type: 'string',
-                  format: 'date',
                   title: 'Summary of Critical Path'
                 }
               }
@@ -347,24 +347,27 @@ class HomesEngland::Gateway::InMemoryTemplate
               }
             },
             risksToAchievingTimescales: {
-              type: 'object',
+              type: 'array',
               title: 'Risks to achieving timescales',
-              properties: {
-                descriptionOfRisk: {
-                  type: 'string',
-                  title: 'Description Of Risk'
-                },
-                impactOfRisk: {
-                  type: 'string',
-                  title: 'Impact'
-                },
-                likelihoodOfRisk: {
-                  type: 'string',
-                  title: 'Likelihood'
-                },
-                mitigationOfRisk: {
-                  type: 'string',
-                  title: 'Mitigation in place'
+              items: {
+                type: 'object',
+                properties: {
+                  descriptionOfRisk: {
+                    type: 'string',
+                    title: 'Description Of Risk'
+                  },
+                  impactOfRisk: {
+                    type: 'string',
+                    title: 'Impact'
+                  },
+                  likelihoodOfRisk: {
+                    type: 'string',
+                    title: 'Likelihood'
+                  },
+                  mitigationOfRisk: {
+                    type: 'string',
+                    title: 'Mitigation in place'
+                  }
                 }
               }
             }
@@ -456,7 +459,7 @@ class HomesEngland::Gateway::InMemoryTemplate
           title: 'Housing Forecast',
           items: {
             type: 'object',
-            housingStarts: {
+            properties: {
               date: {
                 type: 'string',
                 format: 'date',
@@ -489,7 +492,7 @@ class HomesEngland::Gateway::InMemoryTemplate
           title: 'Site Outputs',
           items: {
             type: 'object',
-            nameOfSite: {
+            properties: {
               siteName: {
                 type: 'string',
                 title: 'Name of site'
