@@ -27,20 +27,18 @@ describe 'Performing Return on HIF Project' do
   let(:project_baseline) do
     {
       summary: {
-        project_name: 'Cats Protection League',
+        projectName: 'Cats Protection League',
         description: 'A new headquarters for all the Cats',
-        lead_authority: 'Made Tech'
+        leadAuthority: 'Made Tech'
       },
-      infrastructure: {
+      infrastructure: [{
         type: 'Cat Bathroom',
         description: 'Bathroom for Cats',
-        completion_date: '2018-12-25',
-        planning: {
-          submission_estimated: '2018-06-01'
-        }
-      },
+        completionDate: '2018-12-25',
+        submissionEstimated: '2018-06-01'
+      }],
       financial: {
-        total_amount_estimated: '£ 1000000.00'
+        totalAmountEstimated: '£ 1000000.00'
       }
     }
   end
@@ -51,20 +49,20 @@ describe 'Performing Return on HIF Project' do
       data:
       {
         summary: {
-          project_name: 'Cats Protection League',
+          projectName: 'Cats Protection League',
           description: 'A new headquarters for all the Cats',
-          lead_authority: 'Made Tech'
+          leadAuthority: 'Made Tech'
         },
-        infrastructure: {
-          type: 'Cat Bathroom',
-          description: 'Bathroom for Cats',
-          completion_date: '2018-12-25',
-          planning: {
-            submission_estimated: '2018-06-01',
+        infrastructure: [
+          {
+            type: 'Cat Bathroom',
+            description: 'Bathroom for Cats',
+            completionDate: '2018-12-25',
+            submissionEstimated: '2018-06-01'
           }
-        },
+        ],
         financial: {
-          total_amount_estimated: '£ 1000000.00',
+          totalAmountEstimated: '£ 1000000.00',
         }
       },
       schema:{
@@ -191,24 +189,24 @@ describe 'Performing Return on HIF Project' do
       project_id: project_id,
       data: {
         summary: {
-          project_name: 'Dogs Protection League',
+          projectName: 'Dogs Protection League',
           description: 'A new headquarters for all the Dogs',
-          lead_authority: 'Made Tech'
+          leadAuthority: 'Made Tech'
         },
-        infrastructure: {
-          type: 'Dog Bathroom',
-          description: 'Bathroom for Dogs',
-          completion_date: '2018-12-25',
-          planning: {
-            submission_estimated: '2018-06-01',
-            submission_actual: '2018-07-01',
-            submission_delay_reason: 'Planning office was closed for summer'
+        infrastructure: [
+          {
+            type: 'Dog Bathroom',
+            description: 'Bathroom for Dogs',
+            completionDate: '2018-12-25',
+            submissionEstimated: '2018-06-01',
+            submissionActual: '2018-07-01',
+            submissionDelayReason: 'Planning office was closed for summer'
           }
-        },
+        ],
         financial: {
-          total_amount_estimated: '£ 1000000.00',
-          total_amount_actual: nil,
-          total_amount_changed_reason: nil
+          totalAmountEstimated: '£ 1000000.00',
+          totalAmountActual: nil,
+          totalAmountChangedReason: nil
         }
       },
       status: 'Draft'
@@ -220,24 +218,22 @@ describe 'Performing Return on HIF Project' do
       project_id: project_id,
       data: {
         summary: {
-          project_name: 'Dogs Protection League',
+          projectName: 'Dogs Protection League',
           description: 'A new headquarters for all the Dogs',
-          lead_authority: 'Made Tech'
+          leadAuthority: 'Made Tech'
         },
-        infrastructure: {
+        infrastructure: [{
           type: 'Dog Bathroom',
           description: 'Bathroom for Dogs',
-          completion_date: '2018-12-25',
-          planning: {
-            submission_estimated: '2018-06-01',
-            submission_actual: '2018-07-01',
-            submission_delay_reason: 'Planning office was closed for summer'
-          }
-        },
+          completionDate: '2018-12-25',
+          submissionEstimated: '2018-06-01',
+          submissionActual: '2018-07-01',
+          submissionDelayReason: 'Planning office was closed for summer'
+        }],
         financial: {
-          total_amount_estimated: '£ 1000000.00',
-          total_amount_actual: nil,
-          total_amount_changed_reason: nil
+          totalAmountEstimated: '£ 1000000.00',
+          totalAmountActual: nil,
+          totalAmountChangedReason: nil
         }
       },
       status: 'Submitted'

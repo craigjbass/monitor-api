@@ -81,16 +81,18 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
           description: nil,
           lead_authority: nil
         },
-        infrastructure: {
-          type: nil,
-          description: nil,
-          completion_date: nil,
-          planning: {
-            submission_estimated: nil,
-            submission_actual: nil,
-            submission_delay_reason: nil
+        infrastructure: [
+          {
+            type: nil,
+            description: nil,
+            completion_date: nil,
+            planning: {
+              submission_estimated: nil,
+              submission_actual: nil,
+              submission_delay_reason: nil
+            }
           }
-        },
+        ],
         financial: {
           total_amount_estimated: nil,
           total_amount_actual: nil,
