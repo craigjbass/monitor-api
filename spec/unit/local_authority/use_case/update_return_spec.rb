@@ -11,14 +11,14 @@ describe LocalAuthority::UseCase::UpdateReturn do
     end
 
     it 'sends the correct id to the return gateway' do
-      expect(update_return).to have_received(:update).with(hash_including(return_id: 12))
+      expect(update_return).to have_received(:update) do |r|
+        r.id = 12
+      end
     end
     it 'sends the project data to the return gateway' do
-      expect(update_return).to have_received(:update).with(hash_including(
-                                                             data: {
-                                                               cats: 'meow'
-                                                             }
-                                                           ))
+      expect(update_return).to have_received(:update) do |r|
+        r.data = {cats: 'meow'}
+      end
     end
   end
 
@@ -30,14 +30,15 @@ describe LocalAuthority::UseCase::UpdateReturn do
     end
 
     it 'sends the correct id to the return gateway' do
-      expect(update_return).to have_received(:update).with(hash_including(return_id: 42))
+      expect(update_return).to have_received(:update) do |r|
+        r.id = 42
+      end
     end
+
     it 'sends the project data to the return gateway' do
-      expect(update_return).to have_received(:update).with(hash_including(
-                                                             data: {
-                                                               dogs: 'woof'
-                                                             }
-                                                           ))
+      expect(update_return).to have_received(:update) do |r|
+        r.data = { dogs: 'woof' }
+      end
     end
   end
 end

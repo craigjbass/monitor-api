@@ -6,6 +6,11 @@ class LocalAuthority::UseCase::UpdateReturn
   end
 
   def execute(return_id:, data:)
-    @return_gateway.update(return_id: return_id,data: data)
+    project_return = LocalAuthority::Domain::Return.new.tap do |r|
+      r.id = return_id
+      r.data = data
+    end
+
+    @return_gateway.update(project_return)
   end
 end
