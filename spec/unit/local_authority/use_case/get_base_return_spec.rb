@@ -1,11 +1,12 @@
 
-xdescribe LocalAuthority::UseCase::GetBaseReturn do
+describe LocalAuthority::UseCase::GetBaseReturn do
     let(:return_gateway) {spy(find_by: schema)}
   let(:project_gateway_spy) { spy(find_by: project) }
   let(:use_case) do
     described_class.new(
       return_gateway: return_gateway,
-      project_gateway: project_gateway_spy
+      project_gateway: project_gateway_spy,
+      populate_return_template: return_gateway
     )
   end
   let(:response) { use_case.execute(project_id: project_id) }
