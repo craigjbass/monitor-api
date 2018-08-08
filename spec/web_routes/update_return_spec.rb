@@ -12,7 +12,7 @@ describe 'Updating a return' do
 
   before do
     stub_const(
-      'LocalAuthority::UseCase::UpdateReturn',
+      'LocalAuthority::UseCase::SoftUpdateReturn',
       double(new: update_return_spy)
     )
   end
@@ -29,7 +29,6 @@ describe 'Updating a return' do
   end
 
   context 'with valid input data' do
-
     it 'return 200' do
       post '/return/update', { return_id: 1, return_data: {} }.to_json
       expect(last_response.status).to eq(200)
@@ -38,19 +37,19 @@ describe 'Updating a return' do
     context 'example one' do
       it 'will run update return use case' do
         post '/return/update', { return_id: 1, return_data: { cats: 'meow' } }.to_json
-        expect(update_return_spy).to have_received(:execute).with(return_id: 1, data: { cats: 'meow' })
+        expect(update_return_spy).to have_received(:execute).with(
+          return_id: 1, return_data: { cats: 'meow' }
+        )
       end
     end
-
 
     context 'example two' do
       it 'will run update return use case' do
         post '/return/update', { return_id: 1, return_data: { dogs: 'woof' } }.to_json
-        expect(update_return_spy).to have_received(:execute).with(return_id: 1, data: { dogs: 'woof' })
+        expect(update_return_spy).to have_received(:execute).with(
+          return_id: 1, return_data: { dogs: 'woof' }
+        )
       end
     end
-
-
-
   end
 end

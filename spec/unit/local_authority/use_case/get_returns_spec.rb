@@ -1,76 +1,322 @@
 require 'rspec'
 
 describe LocalAuthority::UseCase::GetReturns do
-  let(:all_returns) { [] }
-  let(:all_return_objects) { [] }
-  let(:return_gateway) { spy(get_returns: all_return_objects) }
+  let(:return_gateway) { spy(get_returns: found_returns) }
+  let(:return_update_gateway) { spy(updates_for: found_updates) }
+  let(:found_returns) { [] }
+  let(:found_updates) { [] }
 
-  let(:get_returns) { described_class.new(return_gateway: return_gateway) }
+  let(:use_case) do
+    described_class.new(
+      return_gateway: return_gateway,
+      return_update_gateway: return_update_gateway
+    )
+  end
 
-  context 'with a single item' do
-    let(:all_returns) do
-      [
-        {
-          id: 1,
-          project_id: 1,
-          data: { dogs: 'woof' }
-        }
-      ]
-    end
-
-    let(:all_return_objects) do
-      [
-        LocalAuthority::Domain::Return.new.tap do |r|
-          r.id = 1
-          r.project_id = 1
-          r.data = { dogs: 'woof' }
-        end
-      ]
-    end
-
-    it 'sends the correct project_id to return_gateway' do
-      get_returns.execute(project_id: 1)
+  context 'example 1' do
+    it 'finds all returns for the object' do
+      use_case.execute(project_id: 1)
       expect(return_gateway).to have_received(:get_returns).with(project_id: 1)
     end
 
-    it 'can get a single return as an item in an array' do
-      expect(get_returns.execute(project_id: 1)[:returns]).to match_array(all_returns)
+    context 'Given no returns are found' do
+      it 'gets an empty set of matching returns' do
+        result = use_case.execute(project_id: 1)
+        expect(result).to eq(returns: [])
+      end
+    end
+
+    context 'Given a single return is found' do
+      let(:found_returns) do
+        [
+          LocalAuthority::Domain::Return.new.tap do |r|
+            r.id = 2
+            r.project_id = 1
+            r.status = 'Draft'
+          end
+        ]
+      end
+
+      let(:found_updates) do
+        [
+          LocalAuthority::Domain::ReturnUpdate.new.tap do |update|
+            update.data = { cats: 'Meow' }
+          end
+        ]
+      end
+
+      it 'fetches the updates for the return' do
+        use_case.execute(project_id: 1)
+        expect(return_update_gateway).to have_received(:updates_for).with(return_id: 2)
+      end
+
+      it 'gets a single matching return and its updates' do
+        response = use_case.execute(project_id: 1)
+        expect(response).to eq(
+          returns: [
+            {
+              id: 2,
+              project_id: 1,
+              status: 'Draft',
+              updates: [
+                { cats: 'Meow' }
+              ]
+            }
+          ]
+        )
+      end
+
+      context 'Given two updates for the return' do
+        let(:found_updates) do
+          [
+            LocalAuthority::Domain::ReturnUpdate.new.tap do |update|
+              update.data = { cats: 'Meow' }
+            end,
+            LocalAuthority::Domain::ReturnUpdate.new.tap do |update|
+              update.data = { birds: 'chirp' }
+            end
+          ]
+        end
+
+        it 'gets a single matching return and its updates' do
+          response = use_case.execute(project_id: 1)
+          expect(response).to eq(
+            returns: [
+              {
+                id: 2,
+                project_id: 1,
+                status: 'Draft',
+                updates: [
+                  { cats: 'Meow' },
+                  { birds: 'chirp' }
+                ]
+              }
+            ]
+          )
+        end
+      end
+    end
+
+    context 'Given two returns with various numbers of updates' do
+      let(:return_update_gateway) do
+        Class.new do
+          attr_reader :called_with
+
+          def initialize(updates)
+            @updates = updates
+            @called_with = []
+          end
+
+          def updates_for(return_id:)
+            @called_with << return_id
+            @updates.shift
+          end
+        end.new(found_updates)
+      end
+
+      let(:found_returns) do
+        [
+          LocalAuthority::Domain::Return.new.tap do |r|
+            r.id = 2
+            r.project_id = 1
+            r.status = 'Draft'
+          end,
+          LocalAuthority::Domain::Return.new.tap do |r|
+            r.id = 8
+            r.project_id = 6
+            r.status = 'Submitted'
+          end
+        ]
+      end
+
+      let(:found_updates) do
+        [
+          [
+            LocalAuthority::Domain::ReturnUpdate.new.tap do |update|
+              update.return_id = 2
+              update.data = { cats: 'Meow' }
+            end,
+            LocalAuthority::Domain::ReturnUpdate.new.tap do |update|
+              update.return_id = 2
+              update.data = { birds: 'chirp' }
+            end
+          ],
+          [
+            LocalAuthority::Domain::ReturnUpdate.new.tap do |update|
+              update.return_id = 8
+              update.data = { dogs: 'woof' }
+            end,
+            LocalAuthority::Domain::ReturnUpdate.new.tap do |update|
+              update.return_id = 8
+              update.data = { cows: 'moo' }
+            end
+          ]
+        ]
+      end
+
+      it 'gets all updates for both returns' do
+        use_case.execute(project_id: 1)
+
+        expect(return_update_gateway.called_with[0]).to eq(2)
+        expect(return_update_gateway.called_with[1]).to eq(8)
+      end
+
+      it 'returns the returns with matching updates' do
+        response = use_case.execute(project_id: 1)
+
+        expect(response).to eq(
+          returns: [
+            {
+              id: 2,
+              project_id: 1,
+              status: 'Draft',
+              updates: [
+                { cats: 'Meow' },
+                { birds: 'chirp' }
+              ]
+            }, {
+              id: 8,
+              project_id: 6,
+              status: 'Submitted',
+              updates: [
+                { dogs: 'woof' },
+                { cows: 'moo' }
+              ]
+            }
+          ]
+        )
+      end
     end
   end
 
-  context 'with multiple returns in the same project' do
-    let(:all_returns) do
-      [
-        {
-          id: 1,
-          project_id: 1,
-          data: { cats: 'meow' }
-        },
-        {
-          id: 2,
-          project_id: 1,
-          data: { dogs: 'woof' }
-        }
-      ]
+  context 'example 2' do
+    it 'finds all returns for the object' do
+      use_case.execute(project_id: 3)
+      expect(return_gateway).to have_received(:get_returns).with(project_id: 3)
     end
 
-    let(:all_return_objects) do
-      [
-        LocalAuthority::Domain::Return.new.tap do |r|
-          r.id = 1
-          r.project_id = 1
-          r.data = { cats: 'meow' }
-        end,
-        LocalAuthority::Domain::Return.new.tap do |r|
-          r.id = 2
-          r.project_id = 1
-          r.data = { dogs: 'woof' }
+    context 'Given no returns are found' do
+      it 'gets an empty set of matching returns' do
+        result = use_case.execute(project_id: 3)
+        expect(result).to eq(returns: [])
+      end
+    end
+
+    context 'Given a single return is found' do
+      let(:found_returns) do
+        [
+          LocalAuthority::Domain::Return.new.tap do |r|
+            r.id = 4
+            r.project_id = 3
+            r.status = 'Submitted'
+          end
+        ]
+      end
+
+      context 'Given a single update for the return' do
+        let(:found_updates) do
+          [
+            LocalAuthority::Domain::ReturnUpdate.new.tap do |update|
+              update.data = { dogs: 'woof' }
+            end
+          ]
         end
-      ]
+
+        it 'fetches the updates for the return' do
+          use_case.execute(project_id: 3)
+          expect(return_update_gateway).to have_received(:updates_for).with(return_id: 4)
+        end
+
+        it 'gets a single matching return and its updates' do
+          response = use_case.execute(project_id: 3)
+          expect(response).to eq(
+            returns: [
+              {
+                id: 4,
+                project_id: 3,
+                status: 'Submitted',
+                updates: [
+                  { dogs: 'woof' }
+                ]
+              }
+            ]
+          )
+        end
+      end
+
+      context 'Given two updates for the return' do
+        let(:found_updates) do
+          [
+            LocalAuthority::Domain::ReturnUpdate.new.tap do |update|
+              update.data = { dogs: 'woof' }
+            end,
+            LocalAuthority::Domain::ReturnUpdate.new.tap do |update|
+              update.data = { cows: 'moo' }
+            end
+          ]
+        end
+
+        it 'gets a single matching return and its updates' do
+          response = use_case.execute(project_id: 3)
+          expect(response).to eq(
+            returns: [
+              {
+                id: 4,
+                project_id: 3,
+                status: 'Submitted',
+                updates: [
+                  { dogs: 'woof' },
+                  { cows: 'moo'}
+                ]
+              }
+            ]
+          )
+        end
+      end
     end
 
-    it 'can get multiple items as an array' do
-      expect(get_returns.execute(project_id: 1)[:returns]).to match_array(all_returns)
+    context 'Given two returns with various numbers of updates' do
+      let(:found_returns) do
+        [
+          LocalAuthority::Domain::Return.new.tap do |r|
+            r.id = 2
+            r.project_id = 1
+            r.status = 'Draft'
+          end,
+          LocalAuthority::Domain::Return.new.tap do |r|
+            r.id = 8
+            r.project_id = 6
+            r.status = 'Submitted'
+          end
+        ]
+      end
+
+      let(:found_updates) do
+        [
+          LocalAuthority::Domain::ReturnUpdate.new.tap do |update|
+            update.return_id = 2
+            update.data = { cats: 'Meow' }
+          end,
+          LocalAuthority::Domain::ReturnUpdate.new.tap do |update|
+            update.return_id = 2
+            update.data = { birds: 'chirp' }
+          end
+        ]
+      end
+
+      it 'gets all updates for both returns' do
+        use_case.execute(project_id: 1)
+
+        expect(return_update_gateway).to have_received(:updates_for).twice
+
+        expect(return_update_gateway).to(
+          have_received(:updates_for).with(return_id: 2)
+        )
+
+        expect(return_update_gateway).to(
+          have_received(:updates_for).with(return_id: 8)
+        )
+      end
     end
   end
 end

@@ -6,6 +6,12 @@ class LocalAuthority::UseCases
       LocalAuthority::Gateway::SequelReturn.new(database: builder.database)
     end
 
+    builder.define_use_case :return_update_gateway do
+      LocalAuthority::Gateway::SequelReturnUpdate.new(
+        database: builder.database
+      )
+    end
+
     builder.define_use_case :return_template_gateway do
       LocalAuthority::Gateway::InMemoryReturnTemplate.new
     end
@@ -25,7 +31,8 @@ class LocalAuthority::UseCases
 
     builder.define_use_case :create_return do
       LocalAuthority::UseCase::CreateReturn.new(
-        return_gateway: builder.get_use_case(:return_gateway)
+        return_gateway: builder.get_use_case(:return_gateway),
+        return_update_gateway: builder.get_use_case(:return_update_gateway)
       )
     end
 
@@ -37,13 +44,14 @@ class LocalAuthority::UseCases
 
     builder.define_use_case :soft_update_return do
       LocalAuthority::UseCase::SoftUpdateReturn.new(
-        return_gateway: builder.get_use_case(:return_gateway)
+        return_update_gateway: builder.get_use_case(:return_update_gateway)
       )
     end
 
     builder.define_use_case :get_return do
       LocalAuthority::UseCase::GetReturn.new(
-        return_gateway: builder.get_use_case(:return_gateway)
+        return_gateway: builder.get_use_case(:return_gateway),
+        return_update_gateway: builder.get_use_case(:return_update_gateway)
       )
     end
 
@@ -63,7 +71,8 @@ class LocalAuthority::UseCases
 
     builder.define_use_case :get_returns do
       LocalAuthority::UseCase::GetReturns.new(
-        return_gateway: builder.get_use_case(:return_gateway)
+        return_gateway: builder.get_use_case(:return_gateway),
+        return_update_gateway: builder.get_use_case(:return_update_gateway)
       )
     end
   end
