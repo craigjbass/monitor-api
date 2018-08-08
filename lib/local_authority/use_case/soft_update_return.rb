@@ -1,9 +1,14 @@
 class LocalAuthority::UseCase::SoftUpdateReturn
-  def initialize(return_gateway:)
-    @return_gateway = return_gateway
+  def initialize(return_update_gateway:)
+    @return_update_gateway = return_update_gateway
   end
 
   def execute(return_id:, return_data:)
-    @return_gateway.soft_update(return_id: return_id, return_data: return_data, status: 'Draft')
+    update = LocalAuthority::Domain::ReturnUpdate.new.tap do |u|
+      u.return_id = return_id
+      u.data = return_data
+    end
+
+    @return_update_gateway.create(update)
   end
 end
