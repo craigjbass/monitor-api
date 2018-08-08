@@ -20,6 +20,17 @@ describe LocalAuthority::Gateway::SequelReturn do
       expect(found_return.project_id).to eq(1)
       expect(found_return.data).to eq(cats: "meow")
     end
+
+    it 'updates the return' do
+      project_return.id = return_id
+      project_return.data = { dogs: 'woof' }
+
+      gateway.update(project_return)
+
+      found_return = gateway.find_by(id: return_id)
+
+      expect(found_return.data).to eq(dogs: 'woof')
+    end
   end
 
   context 'example two' do
@@ -55,6 +66,23 @@ describe LocalAuthority::Gateway::SequelReturn do
               happy: 'woof'
             }
           }
+        ]
+      )
+    end
+
+    it 'updates the return' do
+      project_return.id = return_id
+      project_return.data[:animals] << {cow: 'moo'}
+
+      gateway.update(project_return)
+
+      found_return = gateway.find_by(id: return_id)
+
+      expect(found_return.data).to eq(
+        animals: [
+          { cat: 'meow' },
+          { dog: { angry: 'bark', happy: 'woof' } },
+          { cow: 'moo' }
         ]
       )
     end
