@@ -6,7 +6,6 @@ class LocalAuthority::UseCase::GetReturns
 
   def execute(project_id:)
     returns = @return_gateway.get_returns(project_id: project_id)
-    return { returns: [] } if returns.empty?
 
     {
       returns: returns.map do |r|
