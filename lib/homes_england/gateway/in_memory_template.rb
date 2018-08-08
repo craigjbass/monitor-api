@@ -47,21 +47,55 @@ class HomesEngland::Gateway::InMemoryTemplate
         type: 'object',
         properties: {
           period: { type: 'string', title: 'Period' },
-          installments: {
+          instalments: {
             type: 'array',
             title: 'Instalments',
             items: {
               type: 'object',
               properties: {
-                dateOfInstallment: {
+                dateOfInstalment: {
                   type: 'string',
                   format: 'date',
                   title: 'Date of Instalment'
                 },
-                installmentAmount: {
+                instalmentAmount: {
                   type: 'string',
                   title: 'HIF Funding Profile - Baseline'
-                }
+                },
+                baselineInstalments:{
+                  type: 'array',
+                  title: 'Baseline Instalments',
+                  items: {
+                    type: 'object',
+                    properties: {
+                      baselineInstalmentYear:{
+                        type:'string',
+                        title:'Baseline Instalment Year'
+                      },
+                      baselineInstalmentQ1:{
+                        type:'string',
+                        title:'Baseline Instalment Q1'
+                      },
+                      baselineInstalmentQ2:{
+                        type:'string',
+                        title:'Baseline Instalment Q2'
+                      },
+                      baselineInstalmentQ3:{
+                        type:'string',
+                        title:'Baseline Instalment Q3'
+                      },
+                      baselineInstalmentQ4:{
+                        type:'string',
+                        title:'Baseline Instalment Q4'
+                      },
+                      baselineInstalmentTotal:{
+                        type:'string',
+                        title:'Baseline Instalment Total'
+                      }
+                    }
+                  }
+              }
+
               }
             }
           },
