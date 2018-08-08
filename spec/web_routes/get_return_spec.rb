@@ -6,7 +6,7 @@ require_relative 'delivery_mechanism_spec_helper'
 describe 'Getting a return' do
   let(:get_return_spy) { spy(execute: returned_hash) }
   let(:get_schema_for_return_spy) { spy(execute: returned_schema) }
-  let(:returned_hash) { { project_id: 1, data: { cats: 'Meow' }, status: 'Draft' } }
+  let(:returned_hash) { { project_id: 1, updates: [{ cats: 'Meow' }], status: 'Draft' } }
   let(:returned_schema) { { schema: { cats: 'string' } } }
 
   before do
