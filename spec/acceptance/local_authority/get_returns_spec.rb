@@ -53,59 +53,37 @@ describe 'Getting multiple returns' do
   end
 
   it 'can get multiple returns by project id from a gateway' do
-    get_use_case(:create_return).execute(project_id: 1, data:
-      {
-        summary: {
-          project_name: 'Cats Protection League',
-          description: 'A new headquarters for all the Cats',
-          lead_authority: 'Made Tech'
-        },
-        infrastructure: {
-          type: 'Cat Bathroom',
-          description: 'Bathroom for Cats',
-          completion_date: '2018-12-25'
-        },
-        financial: {
-          date: '2017-12-25',
-          funded_through_HIF: true
-        }
-      })
+    return1_id = get_use_case(:create_return).execute(
+      project_id: 1, data: { cats: 'meow' }
+    )[:id]
 
-    get_use_case(:create_return).execute(project_id: 1, data:
-      {
-        summary: {
-          project_name: 'Cats Embassy',
-          description: 'Embassy for cats in the UK',
-          lead_authority: 'Made Tech'
-        },
-        infrastructure: {
-          type: 'Cat waiting room',
-          description: 'A waiting room for cats',
-          completion_date: '2019-09-01'
-        },
-        financial: {
-          date: '2019-09-01',
-          funded_through_HIF: true
-        }
-      })
-    get_use_case(:create_return).execute(project_id: 2, data:
-      {
-        summary: {
-          project_name: 'Dog Protection League',
-          description: 'A new headquarters for all the dogs',
-          lead_authority: 'Made Tech'
-        },
-        infrastructure: {
-          type: 'Dog Bathroom',
-          description: 'Dog bathroom',
-          completion_date: '2019-11-06'
-        },
-        financial: {
-          date: '2019-12-06',
-          funded_through_HIF: true
-        }
-      })
+    get_use_case(:submit_return).execute(return_id: return1_id)
 
-    expect(get_use_case(:get_returns).execute(project_id: 1)[:returns]).to match_array(returns_for_project_1)
+    return2_id = get_use_case(:create_return).execute(
+      project_id: 1, data: { dogs: 'woof' }
+    )[:id]
+
+    expected_returns = [
+      {
+        id: return1_id,
+        project_id: 1,
+        updates: [
+          { cats: 'meow' }
+        ],
+        status: 'Submitted'
+      },
+      {
+        id: return2_id,
+        project_id: 1,
+        updates: [
+          { dogs: 'woof' }
+        ],
+        status: 'Draft'
+      }
+    ]
+
+    expect(get_use_case(:get_returns).execute(project_id: 1)[:returns]).to(
+      eq(expected_returns)
+    )
   end
 end
