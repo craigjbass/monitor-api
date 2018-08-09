@@ -9,7 +9,7 @@ class HomesEngland::Gateway::InMemoryTemplate
       title: 'HIF Project',
       type: 'object',
       properties: {
-        projectSummary: hif_summary,
+        summary: hif_summary,
         infrastructures: hif_infrastructures,
         financial: hif_finances,
         s151: hif_s151,
