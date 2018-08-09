@@ -24,8 +24,8 @@ module DeliveryMechanism
       return 400 if request_hash.nil?
       return 404 if request_hash[:return_id].nil? || request_hash[:return_data].nil?
 
-      @use_case_factory.get_use_case(:update_return).execute(
-        return_id: request_hash[:return_id], data: request_hash[:return_data]
+      @use_case_factory.get_use_case(:soft_update_return).execute(
+        return_id: request_hash[:return_id], return_data: request_hash[:return_data]
       )
 
       200
@@ -78,7 +78,7 @@ module DeliveryMechanism
 
       response.body = {
         project_id: return_hash[:project_id],
-        data: return_hash[:data],
+        data: return_hash[:updates].last,
         status: return_hash[:status],
         schema: return_schema
       }.to_json

@@ -56,32 +56,32 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
               targetSubmission: {
                 type: 'string',
                 format: 'date',
-                title: 'If No: Target date of submission',
+                title: 'Target Date of Submission',
                 readonly: true
               },
               currentSubmission: {
                 type: 'string',
                 format: 'date',
-                title: 'If No: Target date of submission'
+                title: 'Current Submission Date'
               },
               reasonForVarianceSubmission: {
                 type: 'string',
-                title: 'If No: Target date of submission'
+                title: 'Reason for submission date variance'
               },
               targetGranted: {
                 type: 'string',
                 format: 'date',
-                title: 'If No: Target date of planning granted',
+                title: 'Target date of planning granted',
                 readonly: true
               },
               currentGranted: {
                 type: 'string',
                 format: 'date',
-                title: 'If No: Target date of submission'
+                title: 'Current planning granted date'
               },
               reasonForVarianceGranted: {
                 type: 'string',
-                title: 'If No: Target date of submission'
+                title: 'Reason for granted date variance'
               }
             }
           }
