@@ -29,7 +29,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
 
   let(:template_gateway_spy) { spy(find_by: template) }
   let(:use_case) { described_class.new(template_gateway: template_gateway_spy) }
-  let(:response) { use_case.execute(type: project_type, data: baseline) }
+  let(:response) { use_case.execute(type: project_type, baseline_data: baseline) }
 
   before { response }
 

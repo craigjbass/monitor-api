@@ -3,13 +3,13 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
     @template_gateway = template_gateway
   end
 
-  def execute(type:, data:)
+  def execute(type:, baseline_data:)
     populated_data = @template_gateway.find_by(type: 'hif').layout
 
-    populated_data[:infrastructure][0][:targetSubmission] = data[:infrastructure][0][:submissionEstimated]
-    populated_data[:infrastructure][0][:targetGranted] = data[:infrastructure][0][:grantEstimated]
-    populated_data[:infrastructure][0][:submissionEstimated] = data[:infrastructure][0][:submissionEstimated]
-    populated_data[:infrastructure][0][:grantEstimated] = data[:infrastructure][0][:grantEstimated]
+    populated_data[:infrastructure][0][:targetSubmission] = baseline_data[:infrastructure][0][:submissionEstimated]
+    populated_data[:infrastructure][0][:targetGranted] = baseline_data[:infrastructure][0][:grantEstimated]
+    populated_data[:infrastructure][0][:submissionEstimated] = baseline_data[:infrastructure][0][:submissionEstimated]
+    populated_data[:infrastructure][0][:grantEstimated] = baseline_data[:infrastructure][0][:grantEstimated]
 
     {
       populated_data: populated_data
