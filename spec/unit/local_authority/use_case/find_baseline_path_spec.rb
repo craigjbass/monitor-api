@@ -1,6 +1,5 @@
-
 #Yes I know this shouldn't be a use case but icba to move it at this point
-describe LocalAuthority::UseCase::FindBaselinePath, focus: true do
+describe LocalAuthority::UseCase::FindBaselinePath do
 
   let(:use_case) { described_class.new.execute(baseline_data, path) }
 
