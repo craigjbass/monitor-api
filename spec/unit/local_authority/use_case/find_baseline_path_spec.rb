@@ -11,7 +11,7 @@ describe LocalAuthority::UseCase::FindBaselinePath do
 
       let(:path) { [:noises, :cat] }
       it 'can find a simple path' do
-        expect(use_case).to eq('meow')
+        expect(use_case).to eq(found: 'meow')
       end
     end
 
@@ -24,7 +24,7 @@ describe LocalAuthority::UseCase::FindBaselinePath do
 
       let(:use_case) { described_class.new.execute(baseline_data, path) }
       it 'can find a simple path' do
-        expect(use_case).to eq('woof')
+        expect(use_case).to eq(found: 'woof')
       end
     end
   end
@@ -37,7 +37,7 @@ describe LocalAuthority::UseCase::FindBaselinePath do
       let(:path) { [:noises, :cat] }
 
       it 'can find a relevent item for a single item array' do
-        expect(use_case).to eq(['meow'])
+        expect(use_case).to eq(found: ['meow'])
       end
     end
 
@@ -48,7 +48,7 @@ describe LocalAuthority::UseCase::FindBaselinePath do
       let(:path) { [:sounds, :dog] }
 
       it 'can find a relevent item for a single item array' do
-        expect(use_case).to eq(['woof'])
+        expect(use_case).to eq(found: ['woof'])
       end
     end
   end
@@ -61,7 +61,7 @@ describe LocalAuthority::UseCase::FindBaselinePath do
       let(:path) { [:noises, :cat] }
 
       it 'can find a relevent item for a single item array' do
-        expect(use_case).to eq(['meow','nyan'])
+        expect(use_case).to eq(found: ['meow','nyan'])
       end
     end
   end
@@ -74,7 +74,7 @@ describe LocalAuthority::UseCase::FindBaselinePath do
       let(:path) { [:noises, :cat, :type] }
 
       it 'can find a relevent item for a single item array' do
-        expect(use_case).to eq(['tabby','tom'])
+        expect(use_case).to eq(found: ['tabby','tom'])
       end
     end
   end
@@ -110,7 +110,7 @@ describe LocalAuthority::UseCase::FindBaselinePath do
       let(:path) { [:noises, :cat, :parents, :type] }
 
       it 'can find a relevent item for a single item array' do
-        expect(use_case).to eq([['tabby','tom'],['aegean','abyssinian']])
+        expect(use_case).to eq(found: [['tabby','tom'],['aegean','abyssinian']])
       end
     end
   end
@@ -136,7 +136,7 @@ describe LocalAuthority::UseCase::FindBaselinePath do
       let(:path) { [:infrastructures, :milestones, :descriptionOfMilestone] }
 
       it 'can find a relevent item for a single item array' do
-        expect(use_case).to eq([["Milestone One", "Milestone Two"]])
+        expect(use_case).to eq(found: [["Milestone One", "Milestone Two"]])
       end
     end
   end

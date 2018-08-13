@@ -14,7 +14,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
     end
   end
   let(:template_gateway) { spy(find_by: found_template) }
-  let(:find_baseline_path) { spy(execute: matching_baseline_data)}
+  let(:find_baseline_path) { spy(execute: { found: matching_baseline_data }) }
   let(:get_schema_copy_paths) { spy(execute: copy_paths)}
   let(:use_case) { described_class.new(template_gateway: template_gateway,
     find_baseline_path: find_baseline_path,
@@ -184,9 +184,9 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
       Class.new do
         def execute(baseline_data, path)
           if path == [:cats, :sound]
-            ["Meow"]
+            { found: ["Meow"] }
           elsif path == [:cats, :breed]
-            ["Tabby"]
+            {found: ["Tabby"] }
           end
         end
       end.new
@@ -281,9 +281,9 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
       Class.new do
         def execute(baseline_data, path)
           if path == [:cats, :sound]
-            "Meow"
+            { found: "Meow" }
           elsif path == [:dogs, :sound]
-            "Woof"
+            { found: "Woof" }
           end
         end
       end.new
@@ -291,7 +291,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
 
     it 'populates a template' do
       result = use_case.execute(type: 'hif', baseline_data: baseline_data)
-      expect(result).to eq({ populated_data: { cat: "Meow", dog: "Woof" }})
+      expect(result).to eq(populated_data: { cat: "Meow", dog: "Woof" })
     end
   end
 

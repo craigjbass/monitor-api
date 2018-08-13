@@ -1,6 +1,6 @@
 class LocalAuthority::UseCase::FindBaselinePath
   def execute(baseline_data, path)
-    search_hash(baseline_data, path)
+    { found: search_hash(baseline_data, path) }
   end
 
   private
