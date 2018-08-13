@@ -1,7 +1,11 @@
-#This needs to be setup to use the gateway
+
 class LocalAuthority::UseCase::GetSchemaCopyPaths
-  def execute(template_schema:)
-    descend_object(template_schema)
+  def initialize(template_gateway:)
+    @template_gateway = template_gateway
+  end
+
+  def execute(type:)
+    descend_object(@template_gateway.find_by(type: type).schema)
   end
 
   private
@@ -16,7 +20,7 @@ class LocalAuthority::UseCase::GetSchemaCopyPaths
         paths += descend_object(value[:items], node_path)
       end
 
-      if !value[:baselineKey].nil?
+      unless value[:baselineKey].nil?
         paths << { to: node_path, from: value[:baselineKey] }
       end
     end

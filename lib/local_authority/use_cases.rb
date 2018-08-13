@@ -21,7 +21,9 @@ class LocalAuthority::UseCases
     end
 
     builder.define_use_case :get_schema_copy_paths do
-      LocalAuthority::UseCase::GetSchemaCopyPaths.new()
+      LocalAuthority::UseCase::GetSchemaCopyPaths.new(
+        template_gateway: builder.get_use_case(:return_template_gateway)
+      )
     end
 
     builder.define_use_case :populate_return_template do

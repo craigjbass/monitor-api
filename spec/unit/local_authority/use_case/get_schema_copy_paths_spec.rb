@@ -1,8 +1,7 @@
-#We want:
-# {to: [PATH,IN,BASELINE], from: [PATH,IN,RETURN]}
 #Gets the source and destination paths to transfer the field given a schema
 describe LocalAuthority::UseCase::GetSchemaCopyPaths do
-  let(:use_case) {described_class.new.execute(template_schema: template_schema)}
+  let(:template_gateway) { spy(find_by: spy(schema: template_schema)) }
+  let(:use_case) { described_class.new(template_gateway: template_gateway).execute(type: '') }
 
   context 'simple schema' do
     context 'example 1' do
@@ -19,7 +18,7 @@ describe LocalAuthority::UseCase::GetSchemaCopyPaths do
         }
       end
       it 'gets paths' do
-        expect(use_case).to eq([{to: [:noise], from: [:cats]}])
+        expect(use_case).to eq([{ to: [:noise], from: [:cats] }])
       end
     end
 

@@ -6,7 +6,7 @@
 describe LocalAuthority::UseCase::PopulateReturnTemplate do
   let(:template_schema) { { properties: {} } }
   let(:matching_baseline_data) { '' }
-  let(:copy_paths) { [ { from: [], to: [] } ] }
+  let(:copy_paths) { [{ from: [], to: [] }] }
 
   let(:found_template) do
     LocalAuthority::Domain::ReturnTemplate.new.tap do |t|
@@ -54,7 +54,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
             }
 
         use_case.execute(type: 'cat', baseline_data: baseline_data)
-        expect(get_schema_copy_paths).to have_received(:execute).with(template_schema: template_schema)
+        expect(get_schema_copy_paths).to have_received(:execute).with(type: 'cat')
       end
     end
 
@@ -69,8 +69,8 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
               ]
             }
 
-        use_case.execute(type: 'cat', baseline_data: baseline_data)
-        expect(get_schema_copy_paths).to have_received(:execute).with(template_schema: template_schema)
+        use_case.execute(type: 'dog', baseline_data: baseline_data)
+        expect(get_schema_copy_paths).to have_received(:execute).with(type: 'dog')
       end
     end
   end
