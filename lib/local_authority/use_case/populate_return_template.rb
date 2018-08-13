@@ -8,9 +8,10 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
   def execute(type:, baseline_data:)
     populated_return = {}
     template_schema = @template_gateway.find_by(type: type).schema
-    @get_schema_copy_paths.execute(type: type).each do |copy_paths|
+    @get_schema_copy_paths.execute(type: type)[:paths].each do |copy_paths|
       path_types = schemaTypes(template_schema, copy_paths[:to]).drop(1)
-      bury_hash(populated_return, copy_paths[:to], path_types, @find_baseline_path.execute(baseline_data, copy_paths[:from]))
+      bury_hash(populated_return, copy_paths[:to], path_types,
+        @find_baseline_path.execute(baseline_data, copy_paths[:from]))
     end
     { populated_data: populated_return }
   end

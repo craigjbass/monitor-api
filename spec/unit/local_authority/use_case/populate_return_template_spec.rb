@@ -6,7 +6,7 @@
 describe LocalAuthority::UseCase::PopulateReturnTemplate do
   let(:template_schema) { { properties: {} } }
   let(:matching_baseline_data) { '' }
-  let(:copy_paths) { [{ from: [], to: [] }] }
+  let(:copy_paths) { { paths: [{ from: [], to: [] }] } }
 
   let(:found_template) do
     LocalAuthority::Domain::ReturnTemplate.new.tap do |t|
@@ -16,7 +16,9 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
   let(:template_gateway) { spy(find_by: found_template) }
   let(:find_baseline_path) { spy(execute: matching_baseline_data)}
   let(:get_schema_copy_paths) { spy(execute: copy_paths)}
-  let(:use_case) { described_class.new(template_gateway: template_gateway, find_baseline_path: find_baseline_path, get_schema_copy_paths: get_schema_copy_paths)}
+  let(:use_case) { described_class.new(template_gateway: template_gateway,
+    find_baseline_path: find_baseline_path,
+    get_schema_copy_paths: get_schema_copy_paths)}
 
 
   context 'finds the template' do
@@ -98,11 +100,11 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
     end
 
     let(:matching_baseline_data) { "Meow" }
-    let(:copy_paths) { [{from: [:cats], to: [:noise]}] }
+    let(:copy_paths) { { paths: [{from: [:cats], to: [:noise]}] } }
 
     it 'populates a simple template' do
       result = use_case.execute(type: 'hif', baseline_data: baseline_data)
-      expect(result).to eq({ populated_data: {noise: "Meow"} })
+      expect(result).to eq(populated_data: {noise: "Meow"})
     end
   end
 
@@ -131,7 +133,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
     end
 
     let(:matching_baseline_data) { "Meow" }
-    let(:copy_paths) { [{from: [:cats, :sound], to: [:noise]}] }
+    let(:copy_paths) { { paths: [{from: [:cats, :sound], to: [:noise]}] } }
 
     it 'populates a simple template' do
       result = use_case.execute(type: 'hif', baseline_data: baseline_data)
@@ -190,8 +192,8 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
       end.new
     end
 
-    let(:copy_paths) { [{from: [:cats, :sound], to: [:cat, :noise]},
-      {from: [:cats, :breed], to: [:cat,:breed]}] }
+    let(:copy_paths) { { paths: [{from: [:cats, :sound], to: [:cat, :noise]},
+      {from: [:cats, :breed], to: [:cat,:breed]}] } }
 
     it 'populates a simple template' do
       result = use_case.execute(type: 'hif', baseline_data: baseline_data)
@@ -230,11 +232,11 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
     end
 
     let(:matching_baseline_data) { "Meow" }
-    let(:copy_paths) { [{from: [:cats, :sound], to: [:noise,:cat]}] }
+    let(:copy_paths) { { paths: [{from: [:cats, :sound], to: [:noise,:cat]}] } }
 
     it 'populates a simple template' do
       result = use_case.execute(type: 'hif', baseline_data: baseline_data)
-      expect(result).to eq({ populated_data: {noise: { cat: "Meow" } }})
+      expect(result).to eq({ populated_data: { noise: { cat: "Meow" } }})
     end
   end
 
@@ -270,10 +272,10 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
         }
       }
     end
-    let(:copy_paths) { [
+    let(:copy_paths) { { paths: [
       {from: [:cats, :sound], to: [:cat]},
       {from: [:dogs, :sound], to: [:dog]}
-    ] }
+    ] } }
 
     let(:find_baseline_path) do
       Class.new do
@@ -289,7 +291,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
 
     it 'populates a template' do
       result = use_case.execute(type: 'hif', baseline_data: baseline_data)
-      expect(result).to eq({ populated_data: {cat: "Meow", dog: "Woof"}})
+      expect(result).to eq({ populated_data: { cat: "Meow", dog: "Woof" }})
     end
   end
 
@@ -325,9 +327,9 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
           }
         }
       end
-    let(:copy_paths) { [
+    let(:copy_paths) { { paths: [
       {from: [:cats, :sound], to: [:kittens, :noise]}
-    ] }
+    ] } }
 
     let(:matching_baseline_data) { ["Meow","Nyan"] }
 
@@ -381,9 +383,9 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
           }
         }
       end
-    let(:copy_paths) { [
+    let(:copy_paths) { { paths: [
       {from: [:cats, :sounds], to: [:kittens, :noises, :sounds]}
-    ] }
+    ] } }
 
     let(:matching_baseline_data) { [["Meow","Nyan"],["Eow","Nya"]] }
 

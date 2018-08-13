@@ -5,7 +5,7 @@ class LocalAuthority::UseCase::GetSchemaCopyPaths
   end
 
   def execute(type:)
-    descend_object(@template_gateway.find_by(type: type).schema)
+    { paths: descend_object(@template_gateway.find_by(type: type).schema) }
   end
 
   private

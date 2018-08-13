@@ -18,7 +18,7 @@ describe LocalAuthority::UseCase::GetSchemaCopyPaths do
         }
       end
       it 'gets paths' do
-        expect(use_case).to eq([{ to: [:noise], from: [:cats] }])
+        expect(use_case).to eq(paths: [{ to: [:noise], from: [:cats] }])
       end
     end
 
@@ -36,7 +36,7 @@ describe LocalAuthority::UseCase::GetSchemaCopyPaths do
         }
       end
       it 'gets paths' do
-        expect(use_case).to eq([{to: [:sounds], from: [:dogs]}])
+        expect(use_case).to eq(paths: [{to: [:sounds], from: [:dogs]}])
       end
     end
   end
@@ -60,7 +60,7 @@ describe LocalAuthority::UseCase::GetSchemaCopyPaths do
         }
       end
       it 'gets paths' do
-        expect(use_case).to match_array([
+        expect(use_case).to eq(paths: [
           { to: [:catNoise], from: [:cats] },
           { to: [:dogNoise], from: [:dogs] },
           { to: [:cowNoise], from: [:cows] },
@@ -87,7 +87,7 @@ describe LocalAuthority::UseCase::GetSchemaCopyPaths do
         }
       end
       it 'gets paths' do
-        expect(use_case).to match_array([
+        expect(use_case).to eq(paths: [
           { to: [:catNoise], from: [:cats] },
           { to: [:cowNoise], from: [:cows] },
           ])
@@ -114,7 +114,7 @@ describe LocalAuthority::UseCase::GetSchemaCopyPaths do
       end
 
       it 'gets paths' do
-        expect(use_case).to match_array([
+        expect(use_case).to eq(paths: [
           { to: [:cat,:breed], from: [:breed] },
           ])
       end
@@ -153,7 +153,7 @@ describe LocalAuthority::UseCase::GetSchemaCopyPaths do
       end
 
       it 'gets paths' do
-        expect(use_case).to match_array([
+        expect(use_case).to eq(paths: [
           { to: [:cat,:parentA, :breed], from: [:parentA] },
           { to: [:cat,:parentB, :breed], from: [:parentB] },
           ])
@@ -186,7 +186,7 @@ describe LocalAuthority::UseCase::GetSchemaCopyPaths do
       end
 
       it 'gets paths' do
-        expect(use_case).to match_array([
+        expect(use_case).to eq(paths: [
           { to: [:parents,:breed], from: [:breed] },
           ])
       end
