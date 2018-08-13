@@ -1,243 +1,416 @@
 # frozen_string_literal: true
 
+# No baselineKey?
+# Arrays
+
 describe LocalAuthority::UseCase::PopulateReturnTemplate do
-  let(:template_gateway_spy) { spy(find_by: template) }
-  let(:use_case) { described_class.new(template_gateway: template_gateway_spy) }
-  let(:response) { use_case.execute(type: project_type, data: baseline) }
+  let(:template_schema) { { properties: {} } }
+  let(:matching_baseline_data) { '' }
+  let(:copy_paths) { { paths: [{ from: [], to: [] }] } }
 
-  before { response }
+  let(:found_template) do
+    LocalAuthority::Domain::ReturnTemplate.new.tap do |t|
+      t.schema = template_schema
+    end
+  end
+  let(:template_gateway) { spy(find_by: found_template) }
+  let(:find_baseline_path) { spy(execute: { found: matching_baseline_data }) }
+  let(:get_schema_copy_paths) { spy(execute: copy_paths)}
+  let(:use_case) { described_class.new(template_gateway: template_gateway,
+    find_baseline_path: find_baseline_path,
+    get_schema_copy_paths: get_schema_copy_paths)}
 
-  context 'example one' do
-    let(:project_type) { 'meow' }
 
-    context 'with matching baseline and template key' do
-      let(:template) do
-        LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
-          p.layout = {
-            cats: nil
-          }
-        end
-      end
-      let(:baseline) { { cats: 'meow' } }
-
-      it 'fetches the template for the given type' do
-        expect(template_gateway_spy).to(
-          have_received(:find_by).with(type: 'meow')
-        )
-      end
-
-      it 'will return populated data' do
-        expect(response).to eq(populated_data: { cats: 'meow' })
+  context 'finds the template' do
+    context 'example 1' do
+      it 'finds the correct template for the type' do
+        use_case.execute(type: 'hif', baseline_data: {})
+        expect(template_gateway).to have_received(:find_by).with(type: 'hif')
       end
     end
 
-    context 'with a baseline missing one top level template key' do
-      let(:template) do
-        LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
-          p.layout = {
-            doggos: nil,
-            ducks: 'quack'
-          }
-        end
-      end
-      let(:baseline) { { doggos: 'woof' } }
-
-      it 'will populate template with baseline with default template values' do
-        expect(response).to eq(populated_data: { doggos: 'woof', ducks: 'quack' })
-      end
-    end
-
-    context 'with field in baseline but not in template' do
-      let(:template) do
-        LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
-          p.layout = {
-            doggos: nil
-          }
-        end
-      end
-      let(:baseline) { { doggos: 'woof', ducks: 'quack' } }
-
-      it 'will populate template with baseline with default template values' do
-        expect(response).to eq(populated_data: { doggos: 'woof' })
-      end
-    end
-
-    context 'with matching baseline and template nested hash' do
-      let(:template) do
-        LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
-          p.layout = {
-            doggos: nil,
-            good_animals: {
-              more_doggos: nil,
-              less_cats: nil
+    context 'example 2' do
+      it 'finds the correct template for the type' do
+        baseline_data = {
+              names: [
+                { pet: 'Mrs Bark' },
+                { pet: 'Meow Meow Fuzzyface' }
+              ]
             }
-          }
-        end
-      end
-
-      context 'with all fields in baseline' do
-        let(:baseline) do
-          {
-            doggos: 'woof',
-            good_animals: {
-              more_doggos: 'more woof',
-              less_cats: 'meow'
-            }
-          }
-        end
-
-        it 'will override template data if keys match' do
-          expect(response).to eq(
-            populated_data: {
-              doggos: 'woof',
-              good_animals: {
-                more_doggos: 'more woof',
-                less_cats: 'meow'
-              }
-            }
-          )
-        end
-      end
-
-      context 'with fields missing from in baseline' do
-        let(:baseline) do
-          {
-            doggos: 'woof',
-            good_animals: {
-              less_cats: 'meow'
-            }
-          }
-        end
-
-        it 'will override template data if keys match' do
-          expect(response).to eq(
-            populated_data: {
-              doggos: 'woof',
-              good_animals: {
-                more_doggos: nil,
-                less_cats: 'meow'
-              }
-            }
-          )
-        end
+        use_case.execute(type: 'cat', baseline_data: baseline_data)
+        expect(template_gateway).to have_received(:find_by).with(type: 'cat')
       end
     end
   end
 
-  context 'example two' do
-    let(:project_type) { 'woof' }
+  context 'finds the path' do
+    context 'example 1' do
+      let(:template_schema) { { properties: {} } }
 
-    context 'with matching baseline and template key' do
-      let(:template) do
-        LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
-          p.layout = {
-            dogs: nil
-          }
-        end
-      end
-      let(:baseline) { { dogs: 'woof' } }
-
-      it 'fetches the template for the given type' do
-        expect(template_gateway_spy).to(
-          have_received(:find_by).with(type: 'woof')
-        )
-      end
-
-      it 'will return populated data' do
-        expect(response).to eq(populated_data: { dogs: 'woof' })
-      end
-    end
-
-    context 'with a baseline missing one top level template key' do
-      let(:template) do
-        LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
-          p.layout = {
-            doggos: nil,
-            cows: 'moo'
-          }
-        end
-      end
-      let(:baseline) { { doggos: 'woof' } }
-
-      it 'will populate template with baseline with default template values' do
-        expect(response).to eq(populated_data: { doggos: 'woof', cows: 'moo' })
-      end
-    end
-
-    context 'with field in baseline but not in template' do
-      let(:template) do
-        LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
-          p.layout = {
-            cats: nil
-          }
-        end
-      end
-      let(:baseline) { { cats: 'meow', ducks: 'quack' } }
-
-      it 'will populate template with baseline with default template values' do
-        expect(response).to eq(populated_data: { cats: 'meow' })
-      end
-    end
-
-    context 'with matching baseline and template nested hash' do
-      let(:template) do
-        LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
-          p.layout = {
-            cows: nil,
-            good_animals: {
-              more_cows: nil,
-              chickens: nil
+      it 'finds the correct path' do
+        baseline_data = {
+              names: [
+                { pet: 'Edgar' },
+                { pet: 'Barker barkington' }
+              ]
             }
-          }
-        end
+
+        use_case.execute(type: 'cat', baseline_data: baseline_data)
+        expect(get_schema_copy_paths).to have_received(:execute).with(type: 'cat')
+      end
+    end
+
+    context 'example 2' do
+      let(:template_schema) { { properties: {} } }
+
+      it 'finds the correct path' do
+        baseline_data = {
+              names: [
+                { pet: 'Mrs Bark' },
+                { pet: 'Meow Meow Fuzzyface' }
+              ]
+            }
+
+        use_case.execute(type: 'dog', baseline_data: baseline_data)
+        expect(get_schema_copy_paths).to have_received(:execute).with(type: 'dog')
+      end
+    end
+  end
+
+  context 'Given a single toplevel baseline key in the schema' do
+      let(:baseline_data) do
+        {
+          cats: "Meow"
+        }
       end
 
-      context 'with all fields in baseline' do
-        let(:baseline) do
+      let(:template_schema) do
+      {
+        submissionEstimated: 'baseline data to be copied',
+        type: 'object',
+        grantEstimated: 'baseline data baseline data to be copied',
+        properties:
+        {
+          noise:
           {
-            cows: 'moo',
-            good_animals: {
-              more_cows: 'more moo',
-              chickens: 'cluck'
-            }
+            baselineKey: [:cats]
           }
-        end
+        }
+      }
+    end
 
-        it 'will override template data if keys match' do
-          expect(response).to eq(
-            populated_data: {
-              cows: 'moo',
-              good_animals: {
-                more_cows: 'more moo',
-                chickens: 'cluck'
+    let(:matching_baseline_data) { "Meow" }
+    let(:copy_paths) { { paths: [{from: [:cats], to: [:noise]}] } }
+
+    it 'populates a simple template' do
+      result = use_case.execute(type: 'hif', baseline_data: baseline_data)
+      expect(result).to eq(populated_data: {noise: "Meow"})
+    end
+  end
+
+  context 'Given a single multilevel baseline key in the schema' do
+      let(:baseline_data) do
+        {
+          cats: {
+            sound: "Meow"
+          }
+        }
+      end
+
+      let(:template_schema) do
+      {
+        submissionEstimated: 'baseline data to be copied',
+        type: 'object',
+        grantEstimated: 'baseline data baseline data to be copied',
+        properties:
+        {
+          noise:
+          {
+            baselineKey: [:cats, :sound]
+          }
+        }
+      }
+    end
+
+    let(:matching_baseline_data) { "Meow" }
+    let(:copy_paths) { { paths: [{from: [:cats, :sound], to: [:noise]}] } }
+
+    it 'populates a simple template' do
+      result = use_case.execute(type: 'hif', baseline_data: baseline_data)
+      expect(result).to eq({ populated_data: {noise: "Meow" } })
+    end
+  end
+
+  context 'given a return with multiple properties on one level in an array' do
+      let(:baseline_data) do
+        {
+          cats: {
+            sound: "Meow",
+            breed: "Tabby"
+          }
+        }
+      end
+
+      let(:template_schema) do
+      {
+        type: 'object',
+        properties:
+        {
+          cat:
+          {
+            type: 'array',
+            items:
+            {
+              type: 'object',
+              properties:
+              {
+                noise:
+                {
+                  baselineKey: [:cats, :sound]
+                },
+                breed:
+                {
+                  baselineKey: [:cats, :breed]
+                }
               }
             }
-          )
+          }
+        }
+
+      }
+    end
+
+    let(:find_baseline_path) do
+      Class.new do
+        def execute(baseline_data, path)
+          if path == [:cats, :sound]
+            { found: ["Meow"] }
+          elsif path == [:cats, :breed]
+            {found: ["Tabby"] }
+          end
         end
+      end.new
+    end
+
+    let(:copy_paths) { { paths: [{from: [:cats, :sound], to: [:cat, :noise]},
+      {from: [:cats, :breed], to: [:cat,:breed]}] } }
+
+    it 'populates a simple template' do
+      result = use_case.execute(type: 'hif', baseline_data: baseline_data)
+      expect(result).to eq({ populated_data: {cat: [{noise: 'Meow', breed: 'Tabby'}]}})
+    end
+  end
+
+  context 'Given a single multilevel return with a baselineKey' do
+      let(:baseline_data) do
+        {
+          cats: {
+            sound: "Meow"
+          }
+        }
       end
 
-      context 'with fields missing from in baseline' do
-        let(:baseline) do
+      let(:template_schema) do
+      {
+        submissionEstimated: 'baseline data to be copied',
+        type: 'object',
+        grantEstimated: 'baseline data baseline data to be copied',
+        properties:
+        {
+          noise:
           {
-            cows: 'moo',
-            good_animals: {
-              chickens: 'cluck'
-            }
-          }
-        end
-
-        it 'will override template data if keys match' do
-          expect(response).to eq(
-            populated_data: {
-              cows: 'moo',
-              good_animals: {
-                more_cows: nil,
-                chickens: 'cluck'
+            type: 'object',
+            properties:
+            {
+              cat: {
+                baselineKey: [:cats, :sound]
               }
             }
-          )
-        end
+          }
+        }
+      }
+    end
+
+    let(:matching_baseline_data) { "Meow" }
+    let(:copy_paths) { { paths: [{from: [:cats, :sound], to: [:noise,:cat]}] } }
+
+    it 'populates a simple template' do
+      result = use_case.execute(type: 'hif', baseline_data: baseline_data)
+      expect(result).to eq({ populated_data: { noise: { cat: "Meow" } }})
+    end
+  end
+
+  context 'Multiple single level keys in the schema' do
+      let(:baseline_data) do
+        {
+          cats:
+          {
+            sound: "Meow"
+          },
+          dogs:
+          {
+            sound: "Woof"
+          }
+        }
       end
+
+      let(:template_schema) do
+      {
+        submissionEstimated: 'baseline data to be copied',
+        type: 'object',
+        grantEstimated: 'baseline data baseline data to be copied',
+        properties:
+        {
+          cat:
+          {
+            baselineKey: [:cats, :sound]
+          },
+          dog:
+          {
+            baselineKey: [:dogs, :sound]
+          }
+        }
+      }
+    end
+    let(:copy_paths) { { paths: [
+      {from: [:cats, :sound], to: [:cat]},
+      {from: [:dogs, :sound], to: [:dog]}
+    ] } }
+
+    let(:find_baseline_path) do
+      Class.new do
+        def execute(baseline_data, path)
+          if path == [:cats, :sound]
+            { found: "Meow" }
+          elsif path == [:dogs, :sound]
+            { found: "Woof" }
+          end
+        end
+      end.new
+    end
+
+    it 'populates a template' do
+      result = use_case.execute(type: 'hif', baseline_data: baseline_data)
+      expect(result).to eq(populated_data: { cat: "Meow", dog: "Woof" })
+    end
+  end
+
+  context 'with an array' do
+      let(:baseline_data) do
+        {
+          cats: [
+            {sound: 'Meow'},
+            {sound: 'Nyan'}
+          ]
+        }
+      end
+
+      let(:template_schema) do
+        {
+          type: 'object',
+          properties:
+          {
+            kittens:
+            {
+              type: 'array',
+              items:
+              {
+                type: 'object',
+                properties:
+                {
+                  noise: {
+                    baselineKey: [:cats, :sound]
+                  }
+                }
+              }
+            }
+          }
+        }
+      end
+    let(:copy_paths) { { paths: [
+      {from: [:cats, :sound], to: [:kittens, :noise]}
+    ] } }
+
+    let(:matching_baseline_data) { ["Meow","Nyan"] }
+
+    it 'populates a single level template' do
+      result = use_case.execute(type: 'hif', baseline_data: baseline_data)
+      expect(result).to eq({ populated_data: {kittens: [{noise: "Meow"}, {noise: "Nyan"}]}})
+    end
+  end
+
+  context 'with a list in an array' do
+      let(:baseline_data) do
+        {
+          cats: [
+            {sound: 'Meow'},
+            {sound: 'Nyan'}
+          ]
+        }
+      end
+
+      let(:template_schema) do
+        {
+          type: 'object',
+          properties:
+          {
+            kittens:
+            {
+              type: 'array',
+              items:
+              {
+                type: 'object',
+                properties:
+                {
+                  noises:
+                  {
+                    type: 'array',
+                    items:
+                    {
+                      type: 'object',
+                      properties:
+                      {
+                        sounds:
+                        {
+                          baselineKey: [:cats, :sounds]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      end
+    let(:copy_paths) { { paths: [
+      {from: [:cats, :sounds], to: [:kittens, :noises, :sounds]}
+    ] } }
+
+    let(:matching_baseline_data) { [["Meow","Nyan"],["Eow","Nya"]] }
+
+    it 'populates a single level template' do
+      result = use_case.execute(type: 'hif', baseline_data: baseline_data)
+      expect(result).to eq({ populated_data: {
+        kittens:
+        [
+          {
+            noises:
+            [
+              {sounds: "Meow"},
+              {sounds: "Nyan"}
+            ]
+          },
+          {
+            noises:
+            [
+              {sounds: "Eow"},
+              {sounds: "Nya"},
+            ]
+          }
+        ]
+      }}
+      )
     end
   end
 end

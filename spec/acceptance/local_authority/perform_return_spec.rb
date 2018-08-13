@@ -33,20 +33,18 @@ describe 'Performing Return on HIF Project' do
   let(:project_baseline) do
     {
       summary: {
-        project_name: 'Cats Protection League',
+        projectName: 'Cats Protection League',
         description: 'A new headquarters for all the Cats',
-        lead_authority: 'Made Tech'
+        leadAuthority: 'Made Tech'
       },
-      infrastructure: {
+      infrastructure: [{
         type: 'Cat Bathroom',
         description: 'Bathroom for Cats',
-        completion_date: '2018-12-25',
-        planning: {
-          submission_estimated: '2018-06-01'
-        }
-      },
+        completionDate: '2018-12-25',
+        submissionEstimated: '2018-06-01'
+      }],
       financial: {
-        total_amount_estimated: '£ 1000000.00'
+        totalAmountEstimated: '£ 1000000.00'
       }
     }
   end
@@ -56,22 +54,16 @@ describe 'Performing Return on HIF Project' do
       id: project_id,
       data:
       {
-        summary: {
-          project_name: 'Cats Protection League',
-          description: 'A new headquarters for all the Cats',
-          lead_authority: 'Made Tech'
-        },
-        infrastructure: {
-          type: 'Cat Bathroom',
-          description: 'Bathroom for Cats',
-          completion_date: '2018-12-25',
-          planning: {
-            submission_estimated: '2018-06-01',
+        infrastructure:
+        [
+          {
+            outlinePlanningStatus:
+            {
+              targetSubmission: "2018-06-01",
+              currentSubmission: "2018-06-01"
+            }
           }
-        },
-        financial: {
-          total_amount_estimated: '£ 1000000.00',
-        }
+        ]
       },
     }
   end
