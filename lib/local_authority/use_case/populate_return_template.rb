@@ -10,7 +10,7 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
     template_schema = @template_gateway.find_by(type: type).schema
     @get_schema_copy_paths.execute(type: type)[:paths].each do |copy_paths|
       path_types = schemaTypes(template_schema, copy_paths[:to]).drop(1)
-      bury_hash(
+      descend_hash_and_bury(
         populated_return,
         copy_paths[:to],
         path_types,
@@ -21,35 +21,68 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
   end
 
   private
-  def bury_hash(hash, path, path_types, value)
-    if path.empty?
+
+  def last_node?(path)
+    path.empty?
+  end
+
+  def node_is_array?(path_types)
+    path_types.first == :array
+  end
+
+  def node_is_object?(path_types)
+    path_types.first == :object
+  end
+
+  def ensure_hash_exists(hash, path)
+    hash[path.first] = {} if hash[path.first].nil?
+  end
+
+  def ensure_array_exists(hash, path)
+    hash[path.first] = [] if hash[path.first].nil?
+  end
+
+  def descend_array(hash, path, path_types, value)
+    hash[path.first] = descend_array_and_bury(
+      hash[path.first],
+      path.drop(1),
+      path_types.drop(1),
+      value
+    )
+  end
+
+  def descend_hash(hash, path, path_types, value)
+    hash[path.first] = descend_hash_and_bury(
+      hash[path.first],
+      path.drop(1),
+      path_types.drop(1),
+      value
+    )
+  end
+
+  #Burying is when we descend through a hash and look for our path where we place
+  #our value if path_types contains arrays descend_array and bury will split up
+  #the array of values that will exist
+  def descend_hash_and_bury(hash, path, path_types, value)
+    if last_node?(path)
       value
     else
-      if path_types.first == :array
-        hash[path.first] = [] if hash[path.first].nil?
-        hash[path.first] = bury_array(
-          hash[path.first],
-          path.drop(1),
-          path_types.drop(1),
-          value
-        )
-      elsif path_types.first == :object
-        hash[path.first] = {} if hash[path.first].nil?
-        hash[path.first] = bury_hash(
-          hash[path.first],
-          path.drop(1),
-          path_types.drop(1),
-          value)
+      if node_is_array?(path_types)
+        ensure_array_exists(hash, path)
+        descend_array(hash, path, path_types, value)
+      elsif node_is_object?(path_types)
+        ensure_hash_exists(hash,path)
+        descend_hash(hash, path, path_types, value)
       end
       hash
     end
   end
 
-  def bury_array(array, path, path_types, value)
+  def descend_array_and_bury(array, path, path_types, value)
     array = [] if array.nil?
     value.zip(array).map do |to_put, hash|
       hash = {} if hash.nil?
-      bury_hash(hash, path, path_types, to_put)
+      descend_hash_and_bury(hash, path, path_types, to_put)
     end
   end
 

@@ -14,12 +14,10 @@ class LocalAuthority::UseCase::FindBaselinePath
   def search_hash(baseline_data, path)
     if path.empty?
       baseline_data
-    else
-      if baseline_data.class == Hash
-        search_hash(baseline_data[path.first], path.drop(1))
-      elsif baseline_data.class == Array
-        search_array(baseline_data, path)
-      end
+    elsif baseline_data.class == Hash
+      search_hash(baseline_data[path.first], path.drop(1))
+    elsif baseline_data.class == Array
+      search_array(baseline_data, path)
     end
   end
 end
