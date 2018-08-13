@@ -9,7 +9,7 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
     populated_return = {}
     template_schema = @template_gateway.find_by(type: type).schema
     @get_schema_copy_paths.execute(type: type)[:paths].each do |copy_paths|
-      path_types = schemaTypes(template_schema, copy_paths[:to]).drop(1)
+      path_types = schema_types(template_schema, copy_paths[:to]).drop(1)
       descend_hash_and_bury(
         populated_return,
         copy_paths[:to],
@@ -86,13 +86,13 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
     end
   end
 
-  def schemaTypes(schema, path)
+  def schema_types(schema, path)
     if path.empty?
       [:object]
     elsif schema[:type] == 'array'
-      [:array] + schemaTypes(schema[:items][:properties][path[0]], path.drop(1))
+      [:array] + schema_types(schema[:items][:properties][path[0]], path.drop(1))
     elsif schema[:type] == 'object'
-      [:object] + schemaTypes(schema[:properties][path[0]], path.drop(1))
+      [:object] + schema_types(schema[:properties][path[0]], path.drop(1))
     end
   end
 end
