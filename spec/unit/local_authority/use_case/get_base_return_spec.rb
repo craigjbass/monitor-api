@@ -95,28 +95,4 @@ describe LocalAuthority::UseCase::GetBaseReturn do
       expect(use_case.execute(project_id: project_id)[:base_return]).to include(schema: schema.schema)
     end
   end
-
-  context 'given the type is not hif' do
-    let(:schema) { LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
-      p.schema = {dogs: 'woof'}
-    end
-    }
-    let(:project_id) { 255 }
-    let(:data) { { name: 'Extra secret project' } }
-    let(:project) do
-      HomesEngland::Domain::Project.new.tap do |p|
-        p.type = 'woof'
-        p.data = data
-      end
-    end
-    let(:populated_return) { nil }
-
-    it 'will not populate the return for the project' do
-      expect(populate_return_spy).not_to have_received(:execute).with(type: project.type, baseline_data: project.data)
-    end
-
-    it 'will return a hash with project baseline data' do
-      expect(use_case.execute(project_id: project_id)[:base_return]).to include(data: project.data)
-    end
-  end
 end

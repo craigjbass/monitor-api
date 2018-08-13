@@ -9,7 +9,6 @@ class LocalAuthority::UseCase::GetSchemaCopyPaths
   def descend_object(template_schema, current_path = [])
     paths = []
     template_schema[:properties].each do |property,value|
-      p value
       node_path = current_path + [property]
       if value[:type] == 'object'
         paths += descend_object(value, node_path)

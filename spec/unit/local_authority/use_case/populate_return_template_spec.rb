@@ -3,9 +3,9 @@
 # No baselineKey?
 # Arrays
 
-describe LocalAuthority::UseCase::PopulateReturnTemplate, focus: true do
+describe LocalAuthority::UseCase::PopulateReturnTemplate do
   let(:template_schema) { { properties: {} } }
-  let(:matching_baseline_data) { "" }
+  let(:matching_baseline_data) { '' }
   let(:copy_paths) { [ { from: [], to: [] } ] }
 
   let(:found_template) do
@@ -102,7 +102,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate, focus: true do
 
     it 'populates a simple template' do
       result = use_case.execute(type: 'hif', baseline_data: baseline_data)
-      expect(result).to eq({noise: "Meow"})
+      expect(result).to eq({ populated_data: {noise: "Meow"} })
     end
   end
 
@@ -135,7 +135,67 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate, focus: true do
 
     it 'populates a simple template' do
       result = use_case.execute(type: 'hif', baseline_data: baseline_data)
-      expect(result).to eq({noise: "Meow" })
+      expect(result).to eq({ populated_data: {noise: "Meow" } })
+    end
+  end
+
+  context 'given a return with multiple properties on one level in an array' do
+      let(:baseline_data) do
+        {
+          cats: {
+            sound: "Meow",
+            breed: "Tabby"
+          }
+        }
+      end
+
+      let(:template_schema) do
+      {
+        type: 'object',
+        properties:
+        {
+          cat:
+          {
+            type: 'array',
+            items:
+            {
+              type: 'object',
+              properties:
+              {
+                noise:
+                {
+                  baselineKey: [:cats, :sound]
+                },
+                breed:
+                {
+                  baselineKey: [:cats, :breed]
+                }
+              }
+            }
+          }
+        }
+
+      }
+    end
+
+    let(:find_baseline_path) do
+      Class.new do
+        def execute(baseline_data, path)
+          if path == [:cats, :sound]
+            ["Meow"]
+          elsif path == [:cats, :breed]
+            ["Tabby"]
+          end
+        end
+      end.new
+    end
+
+    let(:copy_paths) { [{from: [:cats, :sound], to: [:cat, :noise]},
+      {from: [:cats, :breed], to: [:cat,:breed]}] }
+
+    it 'populates a simple template' do
+      result = use_case.execute(type: 'hif', baseline_data: baseline_data)
+      expect(result).to eq({ populated_data: {cat: [{noise: 'Meow', breed: 'Tabby'}]}})
     end
   end
 
@@ -174,7 +234,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate, focus: true do
 
     it 'populates a simple template' do
       result = use_case.execute(type: 'hif', baseline_data: baseline_data)
-      expect(result).to eq({noise: { cat: "Meow" } })
+      expect(result).to eq({ populated_data: {noise: { cat: "Meow" } }})
     end
   end
 
@@ -215,7 +275,6 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate, focus: true do
       {from: [:dogs, :sound], to: [:dog]}
     ] }
 
-    let(:matching_baseline_data) { "Meow" }
     let(:find_baseline_path) do
       Class.new do
         def execute(baseline_data, path)
@@ -230,7 +289,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate, focus: true do
 
     it 'populates a template' do
       result = use_case.execute(type: 'hif', baseline_data: baseline_data)
-      expect(result).to eq({:cat=>"Meow", :dog=>"Woof"})
+      expect(result).to eq({ populated_data: {cat: "Meow", dog: "Woof"}})
     end
   end
 
@@ -274,7 +333,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate, focus: true do
 
     it 'populates a single level template' do
       result = use_case.execute(type: 'hif', baseline_data: baseline_data)
-      expect(result).to eq({kittens: [{noise: "Meow"}, {noise: "Nyan"}]})
+      expect(result).to eq({ populated_data: {kittens: [{noise: "Meow"}, {noise: "Nyan"}]}})
     end
   end
 
@@ -330,7 +389,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate, focus: true do
 
     it 'populates a single level template' do
       result = use_case.execute(type: 'hif', baseline_data: baseline_data)
-      expect(result).to eq({
+      expect(result).to eq({ populated_data: {
         kittens:
         [
           {
@@ -348,7 +407,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate, focus: true do
             ]
           }
         ]
-      }
+      }}
       )
     end
   end

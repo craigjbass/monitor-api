@@ -54,22 +54,16 @@ describe 'Performing Return on HIF Project' do
       id: project_id,
       data:
       {
-        summary: {
-          projectName: 'Cats Protection League',
-          description: 'A new headquarters for all the Cats',
-          leadAuthority: 'Made Tech'
-        },
-        infrastructure: [
+        infrastructure:
+        [
           {
-            type: 'Cat Bathroom',
-            description: 'Bathroom for Cats',
-            completionDate: '2018-12-25',
-            submissionEstimated: '2018-06-01'
+            outlinePlanningStatus:
+            {
+              targetSubmission: "2018-06-01",
+              currentSubmission: "2018-06-01"
+            }
           }
-        ],
-        financial: {
-          totalAmountEstimated: '£ 1000000.00',
-        }
+        ]
       },
     }
   end

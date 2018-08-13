@@ -10,33 +10,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
         title: 'HIF Project',
         type: 'object',
         properties: {
-          infrastructures: hif_infrastructures
-        }
-      }
-
-      p.layout = {
-        summary: {
-          projectName: nil,
-          description: nil,
-          leadAuthority: nil
-        },
-        infrastructure: [
-          {
-            type: nil,
-            description: nil,
-            completionDate: nil,
-            submissionEstimated: nil,
-            submissionActual: nil,
-            submissionDelayReason: nil,
-            targetGranted: nil,
-            currentGranted: nil,
-            reasonForVarianceGranted: nil
-          }
-        ],
-        financial: {
-          totalAmountEstimated: nil,
-          totalAmountActual: nil,
-          totalAmountChangedReason: nil
+          infrastructure: hif_infrastructures
         }
       }
     end
@@ -57,12 +31,14 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                 type: 'string',
                 format: 'date',
                 title: 'Target Date of Submission',
-                readonly: true
+                readonly: true,
+                baselineKey: [:infrastructure,:submissionEstimated]
               },
               currentSubmission: {
                 type: 'string',
                 format: 'date',
-                title: 'Current Submission Date'
+                title: 'Current Submission Date',
+                baselineKey: [:infrastructure,:submissionEstimated]
               },
               reasonForVarianceSubmission: {
                 type: 'string',

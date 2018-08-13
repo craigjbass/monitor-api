@@ -7,14 +7,12 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
 
   def execute(type:, baseline_data:)
     populated_return = {}
-    #return template
     template_schema = @template_gateway.find_by(type: type).schema
     @get_schema_copy_paths.execute(template_schema: template_schema).each do |copy_paths|
       path_types = schemaTypes(template_schema, copy_paths[:to]).drop(1)
-      p path_types
       bury_hash(populated_return, copy_paths[:to], path_types, @find_baseline_path.execute(baseline_data, copy_paths[:from]))
     end
-    populated_return
+    { populated_data: populated_return }
   end
 
   private
@@ -23,9 +21,15 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
       value
     else
       if path_types.first == :array
-        hash[path.first] = bury_array([], path.drop(1), path_types.drop(1), value)
+        if hash[path.first].nil?
+          hash[path.first] = []
+        end
+        hash[path.first] = bury_array(hash[path.first], path.drop(1), path_types.drop(1), value)
       elsif path_types.first == :object
-        hash[path.first] = bury_hash({}, path.drop(1), path_types.drop(1), value)
+        if hash[path.first].nil?
+          hash[path.first] = {}
+        end
+        hash[path.first] = bury_hash(hash[path.first], path.drop(1), path_types.drop(1), value)
       end
       hash
     end
@@ -35,8 +39,14 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
     if path.empty?
       value
     else
-      array = value.map do |v|
-        bury_hash({}, path, path_types, v)
+      if array.nil?
+        array = []
+      end
+      array = value.zip(array).map do |to_put, hash|
+        if hash.nil?
+          hash = {}
+        end
+        bury_hash(hash, path, path_types, to_put)
       end
     end
     array
