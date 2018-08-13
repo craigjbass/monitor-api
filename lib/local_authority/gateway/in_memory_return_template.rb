@@ -20,11 +20,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                 type: {
                   type: 'string',
                   # This is marked as a dropdown but also from baseline?
-                  title: 'Type'
+                  title: 'Type',
+                  baselineKey: [:infrastructures, :type]
                 },
                 description: {
                   type: 'string',
-                  title: 'Description'
+                  title: 'Description',
+                  baselineKey: [:infrastructures, :description]
                 },
                 planning: {
                   type: 'object',
@@ -34,7 +36,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     # from outlinePlanningStatus.granted
                     baselineOutlinePlanningPermissionGranted: {
                       type: 'boolean',
-                      title: 'Outline Planning Permission granted'
+                      title: 'Outline Planning Permission granted',
+                      baselineKey: [:infrastructures, :outlinePlanningStatus, :granted]
                     },
                     planningNotGranted: {
                       type: 'object',
@@ -43,7 +46,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                         # from outlinePlanningStatus.summaryOfCriticalPathInfrastructures
                         baselineSummaryOfCriticalPath: {
                           type: 'string',
-                          title: 'Summary Of Outline Planning Permission Critical Path'
+                          title: 'Summary Of Outline Planning Permission Critical Path',
+                          baselineKey: [:infrastructures, :outlinePlanningStatus, :summaryOfCriticalPathInfrastructures]
                         },
                         fieldOne: {
                           type: 'object',
@@ -58,14 +62,16 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                 baselineFullPlanningPermissionSubmitted: {
                                   type: 'string',
                                   format: 'date',
-                                  title: 'Full Planning Permission submitted date'
+                                  title: 'Full Planning Permission submitted date',
+                                  baselineKey: [:infrastructures, :fullPlanningStatus, :targetSubmission]
                                 },
                                 # Full planning granted date
                                 # fullPlanningStatus.targetGranted
                                 baselineFullPlanningPermissionGranted: {
                                   type: 'string',
                                   format: 'date',
-                                  title: 'Full Planning Permission granted date'
+                                  title: 'Full Planning Permission granted date',
+                                  baselineKey: [:infrastructures, :fullPlanningStatus, :targetGranted]
                                 }
                               }
                             },
@@ -157,12 +163,14 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             # from fullPlanningStatus.granted
                             fullPlanningPermissionGranted: {
                               type: 'boolean',
-                              title: 'Full Planning Permission granted'
+                              title: 'Full Planning Permission granted',
+                              baselineKey: [:infrastructures, :fullPlanningStatus, :granted]
                             },
                             # from fullPlanningStatus.summaryOfCriticalPath
                             fullPlanningPermissionSummaryOfCriticalPath: {
                               type: 'string',
-                              title: 'Summary Of Full Planning Permission Critical Path'
+                              title: 'Summary Of Full Planning Permission Critical Path',
+                              baselineKey: [:infrastructures, :fullPlanningStatus, :summaryOfCriticalPath]
                             }
                           }
                         },
@@ -179,14 +187,16 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                 baselineFullPlanningPermissionSubmitted: {
                                   type: 'string',
                                   format: 'date',
-                                  title: 'Full Planning Permission submitted date'
+                                  title: 'Full Planning Permission submitted date',
+                                  baselineKey: [:infrastructures, :fullPlanningStatus, :targetSubmission]
                                 },
                                 # Full planning granted date
                                 # fullPlanningStatus.targetGranted
                                 baselineFullPlanningPermissionGranted: {
                                   type: 'string',
                                   format: 'date',
-                                  title: 'Full Planning Permission granted date'
+                                  title: 'Full Planning Permission granted date',
+                                  baselineKey: [:infrastructures, :fullPlanningStatus, :targetGranted]
                                 }
                               }
                             },
@@ -280,12 +290,14 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                         # from s106.requirement
                         s106Requirement: {
                           type: 'boolean',
-                          title: 'S016 Requirement'
+                          title: 'S016 Requirement',
+                          baselineKey: [:infrastructures, :s106, :requirement]
                         },
                         # from s106.summaryOfRequirement
                         s106SummaryOfRequirement: {
                           type: 'string',
-                          title: 'Summary of S016 Requirement '
+                          title: 'Summary of S016 Requirement ',
+                          baselineKey: [:infrastructures, :s106, :summaryOfRequirement]
                         },
                         # from statutoryConsents.anyConsents
                         statutoryConsents: {
@@ -294,7 +306,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           properties: {
                             anyStatutoryConsents: {
                               type: 'boolean',
-                              title: 'Statutory consents to be met?'
+                              title: 'Statutory consents to be met?',
+                              baselineKey: [:infrastructures, :statutoryConsents, :anyConsents]
                             }
                           }
                         }
@@ -429,7 +442,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     # from landOwnership.underControlOfLA
                     laHasControlOfSite: {
                       type: 'boolean',
-                      title: 'LA Control of site(s) (related to infrastructure)? '
+                      title: 'LA Control of site(s) (related to infrastructure)? ',
+                      baselineKey: [:infrastructures, :landOwnership, :landAcquisitionRequired]
                     },
                     laDoesNotControlSite: {
                       type: 'object',
@@ -438,12 +452,14 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                         # from  landOwnership.ownershipOfLandOtherThanLA
                         whoOwnsSite: {
                           type: 'string',
-                          title: 'Who owns site?'
+                          title: 'Who owns site?',
+                          baselineKey: [:infrastructures, :landOwnership, :ownershipOfLandOtherThanLA]
                         },
                         # from landOwnership.landAcquisitionRequired
                         landAquisitionRequired: {
                           type: 'boolean',
-                          title: 'Land acquisition required (related to infrastructure)?'
+                          title: 'Land acquisition required (related to infrastructure)?',
+                          baselineKey: [:infrastructures, :landOwnership, :landAcquisitionRequired]
                         }
                       }
                     },
@@ -454,17 +470,20 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                         # from landOwnership.howManySitesToAquire
                         howManySitesToAquire: {
                           type: 'integer',
-                          title: 'Number of Sites to aquire?'
+                          title: 'Number of Sites to aquire?',
+                          baselineKey: [:infrastructures, :landOwnership, :howManySitesToAquire]
                         },
                         # from landOwnership.toBeAquiredBy
                         toBeAquiredBy: {
                           type: 'string',
-                          title: 'Acquired by LA or Developer?'
+                          title: 'Acquired by LA or Developer?',
+                          baselineKey: [:infrastructures, :landOwnership, :toBeAcquiredBy]
                         },
                         # from landOwnership.summaryOfCriticalPath
                         summaryOfAcquisitionRequired: {
                           type: 'string',
-                          title: 'Summary of acquisition required'
+                          title: 'Summary of acquisition required',
+                          baselineKey: [:infrastructures, :landOwnership, :summaryOfCriticalPath]
                         },
                         allLandAssemblyAchieved: {
                           type: 'object',
@@ -474,7 +493,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             landAssemblyBaselineCompletion: {
                               type: 'string',
                               format: 'date',
-                              title: 'Baseline Completion'
+                              title: 'Baseline Completion',
+                              baselineKey: [:infrastructures, :landOwnership, :targetDateToAquire]
                             },
                             # To be calculated
                             landAssemblyVarianceAgainstLastReturn: {
@@ -537,7 +557,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     # from procurement.contractorProcured
                     contractorProcured: {
                       type: 'boolean',
-                      title: 'Infrastructure contractor procured? '
+                      title: 'Infrastructure contractor procured?',
+                      baselineKey: [:infrastructures, :procurement, :contractorProcured]
                     },
                     infrastructureNotProcured: {
                       type: 'object',
@@ -551,7 +572,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             procurementBaselineCompletion: {
                               type: 'string',
                               format: 'date',
-                              title: 'Target date of procuring'
+                              title: 'Target date of procuring',
+                              baselineKey: [:infrastructures, :procurement, :targetDateToAquire]
                             },
                             procurementVarianceAgainstLastReturn: {
                               type: 'string',
@@ -606,6 +628,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           },
                           # from procurement.summaryOfCriticalPath
                           summaryOfCriticalPath: {
+                            baselineKey: [:infrastructures, :procurement, :summaryOfCriticalPath],
                             type: 'string',
                             title: 'Summary of Critical Procurement Path'
                           }
@@ -618,6 +641,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                       properties: {
                         # from procurement.nameOfContractor
                         nameOfContractor: {
+                          baselineKey: [:infrastructures, :procurement, :nameOfContractor],
                           type: 'string',
                           title: 'Name of Contractor'
                         }
@@ -637,12 +661,14 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                         properties: {
                           # from milestones.target
                           milestoneBaselineCompletion: {
+                            baselineKey: [:infrastructures, :milestones, :target],
                             type: 'string',
                             format: 'date',
                             title: 'Baseline Completion '
                           },
                           # from milestones.summaryOfCriticalPath
                           milestoneSummaryOfCriticalPath: {
+                            baselineKey: [:infrastructures, :milestones, :summaryOfCriticalPath],
                             type: 'string',
                             title: 'Summary of Baseline Critical Path'
                           },
@@ -701,6 +727,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                       properties: {
                         milestoneExpectedInfrastructureStartBaseline: {
                           # from milestones.expectedInfrastructureStart
+                          baselineKey: [:infrastructures, :milestones, :expectedInfrastructureStart],
                           type: 'string',
                           title: 'Baseline Start on site'
                         },
@@ -754,6 +781,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                       properties: {
                         milestoneExpectedInfrastructureCompletionBaseline: {
                           # from milestones.expectedInfrastructureCompletion
+                          baselineKey: [:infrastructures, :milestones, :expectedInfrastructureCompletion],
                           type: 'string',
                           title: 'Baseline Completion'
                         },
@@ -822,17 +850,20 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                 type: 'object',
                                 properties: {
                                   # from risksToAchievingTimescales.descriptionOfRisk
+                                  baselineKey: [:infrastructures, :risks, :risksToAchievingTimescales, :descriptionOfRisk],
                                   riskBaselineRisk: {
                                     type: 'string',
                                     title: 'Description Of Risk'
                                   },
                                   # from risksToAchievingTimescales.impactOfRisk
                                   riskBaselineImpact: {
+                                    baselineKey: [:infrastructures, :risks, :risksToAchievingTimescales, :impactOfRisk],
                                     type: 'string',
                                     title: 'Impact'
                                   },
                                   # from risksToAchievingTimescales.likelihoodOfRisk
                                   riskBaselineLikelihood: {
+                                    baselineKey: [:infrastructures, :risks, :risksToAchievingTimescales, :likelihoodOfRisk],
                                     type: 'string',
                                     title: 'Likelihood'
                                   },
@@ -842,6 +873,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   },
                                   # from risksToAchievingTimescales.mitigationOfRisk
                                   riskBaselineMitigationsInPlace: {
+                                    baselineKey: [:infrastructures, :risks, :risksToAchievingTimescales, :mitigationOfRisk],
                                     type: 'string',
                                     title: 'Mitigation in place'
                                   },
@@ -1022,7 +1054,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
               properties: {
                 hifFundingRequest: {
                   type: 'string',
-                  # from s§151
+                  # from s§151 (not done yet)
                   title: 'HIF Funding Request'
                 },
                 hifFundingProfile: {
@@ -1034,7 +1066,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                       fundingYear: {
                         type: 'string',
                         # from items.instalments.baselineInstalments.baselineInstalmentYear
-                        title: 'Funding Year'
+                        title: 'Funding Year',
+                        baselineKey: [:financial, :instalments, :baselineInstalments, :baselineInstalmentYear]
                       },
                       forecast: {
                         type: 'object',
@@ -1043,27 +1076,32 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           forecastQ1: {
                             type: 'string',
                             # from items.instalments.baselineInstalments.baselineInstalmentQ1
-                            title: 'Forecast Q1'
+                            title: 'Forecast Q1',
+                            baselineKey: [:financial, :instalments, :baselineInstalments, :baselineInstalmentQ1]
                           },
                           forecastQ2: {
                             type: 'string',
                             # from items.instalments.baselineInstalments.baselineInstalmentQ2
-                            title: 'Forecast Q2'
+                            title: 'Forecast Q2',
+                            baselineKey: [:financial, :instalments, :baselineInstalments, :baselineInstalmentQ2]
                           },
                           forecastQ3: {
                             type: 'string',
                             # from items.instalments.baselineInstalments.baselineInstalmentQ3
-                            title: 'Forecast Q3'
+                            title: 'Forecast Q3',
+                            baselineKey: [:financial, :instalments, :baselineInstalments, :baselineInstalmentQ3]
                           },
                           forecastQ4: {
                             type: 'string',
                             # from items.instalments.baselineInstalments.baselineInstalmentQ4
-                            title: 'Forecast Q4'
+                            title: 'Forecast Q4',
+                            baselineKey: [:financial, :instalments, :baselineInstalments, :baselineInstalmentQ4]
                           },
                           forecastTotal: {
                             type: 'string',
                             # from items.instalments.baselineInstalments.baselineInstalmentTotal
-                            title: 'Forecast Total'
+                            title: 'Forecast Total',
+                            baselineKey: [:financial, :instalments, :baselineInstalments, :baselineInstalmentTotal]
                           }
                         },
                       },
@@ -1207,6 +1245,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                 properties: {
                                   # finances.costs.costOfInfrastructure
                                   baselineCost: {
+                                    baselineKey: [:financial, :costs, :costOfInfrastructure],
                                     type: 'integer',
                                     title: 'Cost of Infrastructure'
                                   },
@@ -1282,6 +1321,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             properties: {
                               # from costs.fundingstack.totallyFundedThroughHIF
                               totallyFundedThroughHIF: {
+                                baselineKey: [:financial, :costs, :fundingstack, :totallyFundedThroughHIF],
                                 type: 'boolean',
                                 title: 'Totally funded through HIF?'
                               },
@@ -1292,6 +1332,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                 properties: {
                                   # from costs.fundingstack.descriptionOfFundingStack
                                   descriptionOfFundingStack: {
+                                    baselineKey: [:financial, :costs, :fundingstack, :descriptionOfFundingStack],
                                     type: 'string',
                                     title: 'Description of Funding Stack'
                                   },
@@ -1310,6 +1351,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                     properties: {
                                       # from costs.fundingStack.totalPublic.
                                       publicTotalBaselineAmount: {
+                                        baselineKey: [:financial, :costs, :fundingstack, :totalPublic],
                                         type: 'integer',
                                         title: 'Total Public Baseline Amount'
                                       },
@@ -1368,6 +1410,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                     properties: {
                                       # from costs.fundingStack.totalPrivate
                                       privateTotalBaselineAmount: {
+                                        baselineKey: [:financial, :costs, :fundingStack, :totalPrivate],
                                         type: 'integer',
                                         title: 'Total Private Baseline Amount'
                                       },
@@ -1435,6 +1478,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                   properties: {
                     # from costs.recovery.aimToRecover
                     aimToRecover: {
+                      baselineKey: [:financial, :costs, :recovery, :aimToRecover],
                       type: 'boolean',
                       title: 'Aim to recover any funding?'
                     },

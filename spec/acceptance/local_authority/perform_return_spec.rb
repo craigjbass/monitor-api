@@ -3,7 +3,7 @@
 require 'rspec'
 require_relative '../shared_context/use_case_factory'
 
-describe 'Performing Return on HIF Project' do
+describe 'Performing Return on HIF Project', focus: true do
   include_context 'use case factory'
 
   def update_return(id:, data:)
@@ -32,19 +32,237 @@ describe 'Performing Return on HIF Project' do
 
   let(:project_baseline) do
     {
-      summary: {
-        projectName: 'Cats Protection League',
-        description: 'A new headquarters for all the Cats',
-        leadAuthority: 'Made Tech'
+      financial: [
+      {
+        installments: [
+        {
+          dateOfInstallment: "2018-06-01",
+            installmentAmount: "\u00a3 1,000,000"
+        },
+        {
+          dateOfInstallment: "2018-09-01",
+          installmentAmount: "\u00a3 1,000,000"
+        }
+        ],
+        period: "2018/2019"
       },
-      infrastructure: [{
-        type: 'Cat Bathroom',
-        description: 'Bathroom for Cats',
-        completionDate: '2018-12-25',
-        submissionEstimated: '2018-06-01'
-      }],
-      financial: {
-        totalAmountEstimated: '£ 1000000.00'
+      {
+        baselineCashFlow: {
+          summaryOfRequirement: ""
+        },
+        costs: [
+        {
+          costOfInfrastructure: "\u00a3 1,000,000",
+          fundingStack: {
+            descriptionOfFundingStack: "Description",
+            totalPrivate: "\u00a3 500,000",
+            totalPublic: "\u00a3 500,000",
+            totallyFundedThroughHIF: false
+          }
+        }
+        ],
+        installments: [
+        {
+          dateOfInstallment: "2019-06-01",
+          installmentAmount: "\u00a3 1,000,000"
+        },
+        {
+          dateOfInstallment: "2019-09-01",
+          installmentAmount: "\u00a3 1,000,000"
+        }
+        ],
+        period: "2019/2020",
+        recovery: {
+          aimToRecover: true,
+          expectedAmountToRecover: "\u00a3 100,000",
+          methodOfRecovery: "method"
+        }
+      }
+      ],
+      infrastructures: [
+      {
+        description: "A house",
+        expectedInfrastructureCompletion: {
+          targetDateOfAchievingCompletion: "2019-06-01"
+        },
+        expectedInfrastructureStart: {
+          targetDateOfAchievingStart: "2019-01-01"
+        },
+        fullPlanningStatus: {
+          granted: false,
+          grantedReference: "",
+          summaryOfCriticalPath: "Summary of critical path",
+          targetGranted: "2019-01-01",
+          targetSubmission: "2019-01-01"
+        },
+        landOwnership: {
+          howManySitesToAquire: 10,
+          landAcquisitionRequired: true,
+          ownershipOfLandOtherThanLA: "A",
+          summaryOfCriticalPath: "Summary of critical path",
+          targetDateToAquire: "2019-06-01",
+          toBeAcquiredBy: "B",
+          underOntrolOfLA: false
+        },
+        milestones: [
+        {
+          descriptionOfMilestone: "Milestone One",
+          summaryOfCriticalPath: "Do the things",
+          target: "2019-01-01"
+        },
+        {
+          descriptionOfMilestone: "Milestone two",
+          summaryOfCriticalPath: "Do more things",
+          target: "2019-06-01"
+        }
+        ],
+        outlinePlanningStatus: {
+          granted: false,
+          grantedReference: "",
+          summaryOfCriticalPath: "Summary of critical path",
+          targetGranted: "2019-01-01",
+          targetSubmission: "2018-01-01"
+        },
+        procurement: {
+          contractorProcured: true,
+          nameOfContractor: "Super Contractor"
+        },
+        risksToAchievingTimescales: [
+        {
+          descriptionOfRisk: "Risk One",
+          impactOfRisk: "Low",
+          liklihoodOfRisk: "Low",
+          mitigationOfRisk: "Don't do it"
+        },
+        {
+          descriptionOfRisk: "Risk two",
+          impactOfRisk: "High",
+          liklihoodOfRisk: "High",
+          mitigationOfRisk: "Really don't do it"
+        }
+        ],
+        s106: {
+          requirement: true,
+          summaryOfRequirement: "This is a requirement"
+        },
+        statutoryConsents: {
+          anyConsents: true,
+          detailsOfConsent: "Consent details",
+          targetDateToBeMet: "2019-06-01"
+        },
+        type: "house"
+      },{
+        description: "A house",
+          expectedInfrastructureCompletion: {
+            targetDateOfAchievingCompletion: "2019-06-01"
+          },
+          expectedInfrastructureStart: {
+            targetDateOfAchievingStart: "2019-01-01"
+          },
+          fullPlanningStatus: {
+            granted: false,
+            grantedReference: "",
+            summaryOfCriticalPath: "Summary of critical path",
+            targetGranted: "2019-01-01",
+            targetSubmission: "2019-01-01"
+          },
+          landOwnership: {
+            howManySitesToAquire: 10,
+            landAcquisitionRequired: true,
+            ownershipOfLandOtherThanLA: "A",
+            summaryOfCriticalPath: "Summary of critical path",
+            targetDateToAquire: "2019-06-01",
+            toBeAcquiredBy: "B",
+            underOntrolOfLA: false
+          },
+          milestones: [
+          {
+            descriptionOfMilestone: "Milestone One",
+            summaryOfCriticalPath: "Do the things",
+            target: "2019-01-01"
+          },
+          {
+            descriptionOfMilestone: "Milestone two",
+            summaryOfCriticalPath: "Do more things",
+            target: "2019-06-01"
+          }
+          ],
+          outlinePlanningStatus: {
+            granted: false,
+            grantedReference: "",
+            summaryOfCriticalPath: "Summary of critical path",
+            targetGranted: "2019-01-01",
+            targetSubmission: "2020-01-01"
+          },
+          procurement: {
+            contractorProcured: true,
+            nameOfContractor: "Super Contractor"
+          },
+          risksToAchievingTimescales: [
+          {
+            descriptionOfRisk: "Risk One",
+            impactOfRisk: "Low",
+            liklihoodOfRisk: "Low",
+            mitigationOfRisk: "Don't do it"
+          },
+          {
+            descriptionOfRisk: "Risk two",
+            impactOfRisk: "High",
+            liklihoodOfRisk: "High",
+            mitigationOfRisk: "Really don't do it"
+          }
+          ],
+          s106: {
+            requirement: true,
+            summaryOfRequirement: "This is a requirement"
+          },
+          statutoryConsents: {
+            anyConsents: true,
+            detailsOfConsent: "Consent details",
+            targetDateToBeMet: "2019-06-01"
+          },
+          type: "house"
+      }
+      ],
+      outputsActuals: {
+        siteOutputs: [
+        {
+          siteLocalAuthority: "Site Local Authority",
+          siteName: "Site name",
+          siteNumberOfUnits: "10"
+        }
+        ]
+      },
+      outputsForecast: {
+        disposalStrategy: "Disposal strategy",
+        housingForecast: [
+        {
+          housingCompletions: "2019-01-01",
+          housingStarts: "2018-01-01",
+          target: "2019-01-01"
+        },
+        {
+          housingCompletions: "2019-01-01",
+          housingStarts: "2018-01-01",
+          target: "2019-01-01"
+        }
+        ],
+        totalUnits: 10
+      },
+      summary: {
+        BIDReference: "123",
+        descriptionOfInfrastructure: "Example description",
+        descriptionOfWiderProjectDeliverables: "Example description",
+        hifFundingAmount: 1234,
+        leadAuthority: "Made Tech",
+        noOfHousingSites: 1,
+        projectDescription: "An example project",
+        projectName: "Example project",
+        totalArea: 1
+      },
+      s151: {
+        s151FundingEndDate: "2019-01-01",
+        s151ProjectLongstopDate: "2020-01-01"
       }
     }
   end
