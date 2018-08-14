@@ -47,20 +47,53 @@ class HomesEngland::Gateway::InMemoryTemplate
         type: 'object',
         properties: {
           period: { type: 'string', title: 'Period' },
-          installments: {
+          instalments: {
             type: 'array',
             title: 'Instalments',
             items: {
               type: 'object',
               properties: {
-                dateOfInstallment: {
+                dateOfInstalment: {
                   type: 'string',
                   format: 'date',
                   title: 'Date of Instalment'
                 },
-                installmentAmount: {
+                instalmentAmount: {
                   type: 'string',
                   title: 'HIF Funding Profile - Baseline'
+                },
+                baselineInstalments:{
+                  type: 'array',
+                  title: 'Baseline Instalments',
+                  items: {
+                    type: 'object',
+                    properties: {
+                      baselineInstalmentYear:{
+                        type:'string',
+                        title:'Baseline Instalment Year'
+                      },
+                      baselineInstalmentQ1:{
+                        type:'string',
+                        title:'Baseline Instalment Q1'
+                      },
+                      baselineInstalmentQ2:{
+                        type:'string',
+                        title:'Baseline Instalment Q2'
+                      },
+                      baselineInstalmentQ3:{
+                        type:'string',
+                        title:'Baseline Instalment Q3'
+                      },
+                      baselineInstalmentQ4:{
+                        type:'string',
+                        title:'Baseline Instalment Q4'
+                      },
+                      baselineInstalmentTotal:{
+                        type:'string',
+                        title:'Baseline Instalment Total'
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -172,7 +205,7 @@ class HomesEngland::Gateway::InMemoryTemplate
                 format: 'date',
                 title: 'If No: Target date of planning granted'
               },
-              summaryOfCriticalPathInfrastructures: {
+              summaryOfCriticalPath: {
                 type: 'string',
                 title: 'If No: Summary of Critical Path'
               }
@@ -255,22 +288,19 @@ class HomesEngland::Gateway::InMemoryTemplate
                 type: 'boolean',
                 title: 'Is land acquisition required?'
               },
-              howManySitesToAquire: {
+              howManySitesToAcquire: {
                 type: 'integer',
                 title: 'If Yes: How many sites to aquire?'
               },
-
-              toBeAquiredBy: {
+              toBeAcquiredBy: {
                 type: 'string',
                 title: 'If Yes: Is this to be acquired by LA or developer?'
               },
-
-              targetDateToAquire: {
+              targetDateToAcquire: {
                 type: 'string',
                 format: 'date',
                 title: 'If Yes: Target date to aquire sites'
               },
-
               summaryOfCriticalPath: {
                 type: 'string',
                 title: 'If Yes: Summary of Critical Path'
@@ -324,50 +354,50 @@ class HomesEngland::Gateway::InMemoryTemplate
                 }
               }
             },
-            expectedInfrastructureStart: {
-              type: 'object',
-              title: 'Expected infrastructure start on site',
-              properties: {
-                targetDateOfAchievingStart: {
-                  type: 'string',
-                  format: 'date',
-                  title: 'Target date of achieving start'
-                }
+          },
+          expectedInfrastructureStart: {
+            type: 'object',
+            title: 'Expected infrastructure start on site',
+            properties: {
+              targetDateOfAchievingStart: {
+                type: 'string',
+                format: 'date',
+                title: 'Target date of achieving start'
               }
-            },
-            expectedInfrastructureCompletion: {
-              type: 'object',
-              title: 'Expected infrastructure completion',
-              properties: {
-                targetDateOfAchievingCompletion: {
-                  type: 'string',
-                  format: 'date',
-                  title: 'Target date of achieving completion'
-                }
+            }
+          },
+          expectedInfrastructureCompletion: {
+            type: 'object',
+            title: 'Expected infrastructure completion',
+            properties: {
+              targetDateOfAchievingCompletion: {
+                type: 'string',
+                format: 'date',
+                title: 'Target date of achieving completion'
               }
-            },
-            risksToAchievingTimescales: {
-              type: 'array',
-              title: 'Risks to achieving timescales',
-              items: {
-                type: 'object',
-                properties: {
-                  descriptionOfRisk: {
-                    type: 'string',
-                    title: 'Description Of Risk'
-                  },
-                  impactOfRisk: {
-                    type: 'string',
-                    title: 'Impact'
-                  },
-                  likelihoodOfRisk: {
-                    type: 'string',
-                    title: 'Likelihood'
-                  },
-                  mitigationOfRisk: {
-                    type: 'string',
-                    title: 'Mitigation in place'
-                  }
+            }
+          },
+          risksToAchievingTimescales: {
+            type: 'array',
+            title: 'Risks to achieving timescales',
+            items: {
+              type: 'object',
+              properties: {
+                descriptionOfRisk: {
+                  type: 'string',
+                  title: 'Description Of Risk'
+                },
+                impactOfRisk: {
+                  type: 'string',
+                  title: 'Impact'
+                },
+                likelihoodOfRisk: {
+                  type: 'string',
+                  title: 'Likelihood'
+                },
+                mitigationOfRisk: {
+                  type: 'string',
+                  title: 'Mitigation in place'
                 }
               }
             }

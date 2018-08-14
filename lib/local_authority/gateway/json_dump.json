@@ -1,0 +1,920 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "HIF Project",
+  "type": "object",
+  "properties": {
+    "infrastructures": {
+      "type": "array",
+      "title": "Infrastructures",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "planning": {
+            "type": "object",
+            "title": "Planning",
+            "properties": {
+              "baselineOutlinePlanningPermissionGranted": {
+                "type": "boolean",
+                "title": "Outline Planning Permission granted"
+              },
+              "planningNotGranted": {
+                "type": "object",
+                "title": "Planning Not Granted",
+                "properties": {
+                  "baselineSummaryOfCriticalPath": {
+                    "type": "string",
+                    "title": "Summary Of Outline Planning Permission Critical Path"
+                  },
+                  "fieldOne": {
+                    "type": "object",
+                    "title": "Planning Not Granted Field One",
+                    "properties": {
+                      "baselineCompletion": {
+                        "type": "object",
+                        "title": "Baseline Completion",
+                        "properties": {
+                          "baselineFullPlanningPermissionSubmitted": {
+                            "type": "string",
+                            "format": "date",
+                            "title": "Full Planning Permission submitted date"
+                          },
+                          "baselineFullPlanningPermissionGranted": {
+                            "type": "string",
+                            "format": "date",
+                            "title": "Full Planning Permission granted date"
+                          }
+                        }
+                      },
+                      "varianceCalculations": {
+                        "type": "object",
+                        "title": "Variance Calculations",
+                        "properties": {
+                          "varianceAgainstLastReturn": {
+                            "type": "object",
+                            "title": "Variance against Last Return",
+                            "properties": {
+                              "varianceLastReturnFullPlanningPermissionSubmitted": {
+                                "type": "integer",
+                                "readonly": true,
+                                "title": "TO BE CALCULATED - Variance against Last Return submitted date (Week)"
+                              },
+                              "varianceLastReturnFullPlanningPermissionGranted": {
+                                "type": "integer",
+                                "readonly": true,
+                                "title": "TO BE CALCULATED - Variance against Last Return granted date (Weeks)"
+                              }
+                            }
+                          },
+                          "varianceAgainstBaseline": {
+                            "type": "object",
+                            "title": "Variance against Baseline",
+                            "properties": {
+                              "varianceBaselineFullPlanningPermissionSubmitted": {
+                                "type": "integer",
+                                "readonly": true,
+                                "title": "TO BE CALCULATED - Variance against Baseline submitted date (Week)"
+                              },
+                              "varianceBaselineFullPlanningPermissionGranted": {
+                                "type": "integer",
+                                "readonly": true,
+                                "title": "TO BE CALCULATED - Variance against Baseline granted date (Weeks)"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "returnInput": {
+                        "type": "object",
+                        "title": "Return Input",
+                        "properties": {
+                          "statusAgainstLastReturn": {
+                            "title": "Status against last return?",
+                            "type": "string",
+                            "enum": [
+                              "completed",
+                              "on schedule",
+                              "delayed: minimal impact",
+                              "delayed: critical"
+                            ],
+                            "default": "on schedule"
+                          },
+                          "currentReturn": {
+                            "type": "string",
+                            "format": "date",
+                            "title": "Current Return"
+                          },
+                          "reasonForVariance": {
+                            "type": "string",
+                            "format": "date",
+                            "title": "Reason for Variance"
+                          }
+                        }
+                      },
+                      "percentComplete": {
+                        "type": "integer",
+                        "title": "Percent complete"
+                      },
+                      "onCompleted": {
+                        "type": "object",
+                        "title": "On Completed",
+                        "properties": {
+                          "onCompletedDate": {
+                            "type": "string",
+                            "format": "date",
+                            "readonly": true,
+                            "title": "TO BE GENERATED - On Completed date"
+                          },
+                          "onCompletedReference": {
+                            "type": "string",
+                            "readonly": true,
+                            "title": "TO BE GENERATED - On Completed Reference"
+                          }
+                        }
+                      },
+                      "fullPlanningPermissionGranted": {
+                        "type": "boolean",
+                        "title": "Full Planning Permission granted"
+                      },
+                      "fullPlanningPermissionSummaryOfCriticalPath": {
+                        "type": "string",
+                        "title": "Summary Of Full Planning Permission Critical Path"
+                      }
+                    }
+                  },
+                  "fieldTwo": {
+                    "type": "object",
+                    "title": "Planning Not Granted Field Two",
+                    "properties": {
+                      "baselineCompletion": {
+                        "type": "object",
+                        "title": "Baseline Completion",
+                        "properties": {
+                          "baselineFullPlanningPermissionSubmitted": {
+                            "type": "string",
+                            "format": "date",
+                            "title": "Full Planning Permission submitted date"
+                          },
+                          "baselineFullPlanningPermissionGranted": {
+                            "type": "string",
+                            "format": "date",
+                            "title": "Full Planning Permission granted date"
+                          }
+                        }
+                      },
+                      "varianceCalculations": {
+                        "type": "object",
+                        "title": "Variance Calculations",
+                        "properties": {
+                          "varianceAgainstLastReturn": {
+                            "type": "object",
+                            "title": "Variance against Last Return",
+                            "properties": {
+                              "varianceLastReturnFullPlanningPermissionSubmitted": {
+                                "type": "integer",
+                                "readonly": true,
+                                "title": "TO BE CALCULATED - Variance against Last Return submitted date (Week)"
+                              },
+                              "varianceLastReturnFullPlanningPermissionGranted": {
+                                "type": "integer",
+                                "readonly": true,
+                                "title": "TO BE CALCULATED - Variance against Last Return granted date (Weeks)"
+                              }
+                            }
+                          },
+                          "varianceAgainstBaseline": {
+                            "type": "object",
+                            "title": "Variance against Baseline",
+                            "properties": {
+                              "varianceBaselineFullPlanningPermissionSubmitted": {
+                                "type": "integer",
+                                "readonly": true,
+                                "title": "TO BE CALCULATED - Variance against Baseline submitted date (Week)"
+                              },
+                              "varianceBaselineFullPlanningPermissionGranted": {
+                                "type": "integer",
+                                "readonly": true,
+                                "title": "TO BE CALCULATED - Variance against Baseline granted date (Weeks)"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "returnInput": {
+                        "type": "object",
+                        "title": "Return Input",
+                        "properties": {
+                          "statusAgainstLastReturn": {
+                            "title": "Status against last return?",
+                            "type": "string",
+                            "enum": [
+                              "completed",
+                              "on schedule",
+                              "delayed: minimal impact",
+                              "delayed: critical"
+                            ],
+                            "default": "on schedule"
+                          },
+                          "currentReturn": {
+                            "type": "string",
+                            "format": "date",
+                            "title": "Current Return"
+                          },
+                          "reasonForVariance": {
+                            "type": "string",
+                            "format": "date",
+                            "title": "Reason for Variance"
+                          }
+                        }
+                      },
+                      "percentComplete": {
+                        "type": "integer",
+                        "title": "Percent complete"
+                      },
+                      "onCompleted": {
+                        "type": "object",
+                        "title": "On Completed",
+                        "properties": {
+                          "onCompletedDate": {
+                            "type": "string",
+                            "format": "date",
+                            "readonly": true,
+                            "title": "TO BE GENERATED - On Completed date"
+                          },
+                          "onCompletedReference": {
+                            "type": "string",
+                            "readonly": true,
+                            "title": "TO BE GENERATED - On Completed Reference"
+                          }
+                        }
+                      },
+                      "fullPlanningPermissionGranted": {
+                        "type": "boolean",
+                        "title": "Full Planning Permission granted"
+                      },
+                      "fullPlanningPermissionSummaryOfCriticalPath": {
+                        "type": "string",
+                        "title": "Summary Of Full Planning Permission Critical Path"
+                      }
+                    }
+                  }
+                }
+              },
+              "planningGranted": {
+                "type": "object",
+                "title": "Planning Granted",
+                "properties": {
+                  "risksToAchievingTimeScales": {
+                    "type": "array",
+                    "title": "Risks to achieving timescales",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "item": {
+                          "planningGrantedBaselineCompletion": {
+                            "type": "object",
+                            "title": "Planning Granted Baseline Completion",
+                            "properties": {
+                              "baselineFullPlanningPermissionSubmitted": {
+                                "type": "string",
+                                "format": "date",
+                                "title": "Full Planning Permission submitted date"
+                              },
+                              "baselineFullPlanningPermissionGranted": {
+                                "type": "string",
+                                "format": "date",
+                                "title": "Full Planning Permission granted date"
+                              }
+                            }
+                          },
+                          "planningGrantedVarianceCalculations": {
+                            "type": "object",
+                            "title": "Planning Granted Variance Calculations",
+                            "properties": {
+                              "varianceAgainstLastReturn": {
+                                "type": "object",
+                                "title": "Variance against Last Return",
+                                "properties": {
+                                  "varianceLastReturnFullPlanningPermissionSubmitted": {
+                                    "type": "integer",
+                                    "readonly": true,
+                                    "title": "TO BE CALCULATED - Variance against Last Return submitted date (Week)"
+                                  },
+                                  "varianceLastReturnFullPlanningPermissionGranted": {
+                                    "type": "integer",
+                                    "readonly": true,
+                                    "title": "TO BE CALCULATED - Variance against Last Return granted date (Weeks)"
+                                  }
+                                }
+                              },
+                              "varianceAgainstBaseline": {
+                                "type": "object",
+                                "title": "Variance against Baseline",
+                                "properties": {
+                                  "varianceBaselineFullPlanningPermissionSubmitted": {
+                                    "type": "integer",
+                                    "readonly": true,
+                                    "title": "TO BE CALCULATED - Variance against Baseline submitted date (Week)"
+                                  },
+                                  "varianceBaselineFullPlanningPermissionGranted": {
+                                    "type": "integer",
+                                    "readonly": true,
+                                    "title": "TO BE CALCULATED - Variance against Baseline granted date (Weeks)"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "planningGrantedReturnInput": {
+                            "type": "object",
+                            "title": "Planning Granted Return Input",
+                            "properties": {
+                              "statusAgainstLastReturn": {
+                                "title": "Status against last return?",
+                                "type": "string",
+                                "enum": [
+                                  "completed",
+                                  "on schedule",
+                                  "delayed: minimal impact",
+                                  "delayed: critical"
+                                ],
+                                "default": "on schedule"
+                              },
+                              "currentReturn": {
+                                "type": "string",
+                                "format": "date",
+                                "title": "Current Return"
+                              },
+                              "reasonForVariance": {
+                                "type": "string",
+                                "format": "date",
+                                "title": "Reason for Variance"
+                              }
+                            }
+                          },
+                          "percentComplete": {
+                            "type": "integer",
+                            "title": "Percent complete"
+                          },
+                          "planningGrantedOnCompletd": {
+                            "type": "object",
+                            "title": "Planning Granted On Completed",
+                            "properties": {
+                              "onCompletedDate": {
+                                "type": "string",
+                                "format": "date",
+                                "readonly": true,
+                                "title": "TO BE GENERATED - On Completed date"
+                              },
+                              "onCompletedReference": {
+                                "type": "string",
+                                "readonly": true,
+                                "title": "TO BE GENERATED - On Completed Reference"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "landOwnership": {
+            "type": "object",
+            "title": "Land Ownership",
+            "properties": {
+              "laHasControlOfSite": {
+                "type": "boolean",
+                "title": "LA Control of site(s) (related to infrastructure)? "
+              },
+              "laDoesNotControlSite": {
+                "type": "object",
+                "title": "LA Does Not Have Control Of Site",
+                "properties": {
+                  "whoOwnsSite": {
+                    "type": "string",
+                    "title": "Who owns site?"
+                  },
+                  "landAquisitionRequired": {
+                    "type": "boolean",
+                    "title": "Land acquisition required (related to infrastructure)?"
+                  }
+                }
+              },
+              "laDoesHaveControlOfSite": {
+                "type": "object",
+                "title": "LA Does Have Control Of Site",
+                "properties": {
+                  "howManySitesToAquire": {
+                    "type": "integer",
+                    "title": "Number of Sites to aquire?"
+                  },
+                  "toBeAquiredBy": {
+                    "type": "string",
+                    "title": "Acquired by LA or Developer?"
+                  },
+                  "summaryOfAcquisitionRequired": {
+                    "type": "string",
+                    "title": "Summary of acquisition required"
+                  },
+                  "allLandAssemblyAchieved": {
+                    "type": "object",
+                    "title": "All land assembly achieved",
+                    "properties": {
+                      "landAssemblyBaselineCompletion": {
+                        "type": "string",
+                        "format": "date",
+                        "title": "Baseline Completion"
+                      },
+                      "landAssemblyVarianceAgainstLastReturn": {
+                        "type": "string",
+                        "readonly": true,
+                        "title": "TO BE CALCULATED - Variance Against Last Return"
+                      },
+                      "landAssemblyVarianceAgainstBaseReturn": {
+                        "type": "string",
+                        "readonly": true,
+                        "title": "TO BE CALCULATED - Variance Against Base Return"
+                      },
+                      "landAssemblyStatusAgainstLastReturn": {
+                        "statusAgainstLastReturn": {
+                          "title": "Status against last return?",
+                          "type": "string",
+                          "enum": [
+                            "completed",
+                            "on schedule",
+                            "delayed: minimal impact",
+                            "delayed: critical"
+                          ],
+                          "default": "on schedule"
+                        },
+                        "currentReturn": {
+                          "type": "string",
+                          "format": "date",
+                          "title": "Current Return"
+                        },
+                        "reasonForVariance": {
+                          "type": "string",
+                          "format": "date",
+                          "title": "Reason for Variance"
+                        }
+                      },
+                      "percentComplete": {
+                        "type": "integer",
+                        "title": "Percent complete"
+                      },
+                      "landAssemblyCompletedDate": {
+                        "type": "string",
+                        "format": "date",
+                        "readonly": true,
+                        "title": "TO BE GENERATED - On Completed date"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "procurement": {
+            "type": "object",
+            "title": "Procurement",
+            "properties": {
+              "contractorProcured": {
+                "type": "boolean",
+                "title": "Infrastructure contractor procured? "
+              },
+              "infrastructureNotProcured": {
+                "type": "object",
+                "title": "Infrastructure not procured",
+                "properties": {
+                  "type": "object",
+                  "title": "Infrastructure contractor procurement",
+                  "properties": {
+                    "procurementBaselineCompletion": {
+                      "type": "string",
+                      "format": "date",
+                      "title": "Target date of procuring"
+                    },
+                    "procurementVarianceAgainstLastReturn": {
+                      "type": "string",
+                      "readonly": true,
+                      "title": "TO BE CALCULATED - Variance against last return"
+                    },
+                    "procurementVarianceAgainstBaseline": {
+                      "type": "string",
+                      "readonly": true,
+                      "title": "TO BE CALCULATED - Variance against baseline"
+                    },
+                    "procurementStatusAgainstLastReturn": {
+                      "statusAgainstLastReturn": {
+                        "title": "Status against last return?",
+                        "type": "string",
+                        "enum": [
+                          "completed",
+                          "on schedule",
+                          "delayed: minimal impact",
+                          "delayed: critical"
+                        ],
+                        "default": "on schedule"
+                      },
+                      "currentReturn": {
+                        "type": "string",
+                        "format": "date",
+                        "title": "Current Return"
+                      },
+                      "reasonForVariance": {
+                        "type": "string",
+                        "format": "date",
+                        "title": "Reason for Variance"
+                      }
+                    },
+                    "percentComplete": {
+                      "type": "integer",
+                      "title": "Percent complete"
+                    },
+                    "procurementCompletedDate": {
+                      "type": "string",
+                      "readonly": true,
+                      "title": "TO BE GENERATED - Completion Date"
+                    },
+                    "procurementCompletedNameOfContractor": {
+                      "type": "string",
+                      "readonly": true,
+                      "title": "TO BE GENERATED - Completion Name of Contractor"
+                    }
+                  },
+                  "summaryOfCriticalPath": {
+                    "type": "string",
+                    "title": "Summary of Critical Procurement Path"
+                  }
+                }
+              },
+              "infrastructureProcured": {
+                "type": "object",
+                "title": "Infrastructure procured",
+                "properties": {
+                  "nameOfContractor": {
+                    "type": "string",
+                    "title": "Name of Contractor"
+                  }
+                }
+              }
+            }
+          },
+          "milestones": {
+            "keyMilestones": {
+              "type": "array",
+              "title": "Key Project Milestones",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "milestoneBaselineCompletion": {
+                    "type": "string",
+                    "format": "date",
+                    "title": "Baseline Completion "
+                  },
+                  "milestoneSummaryOfCriticalPath": {
+                    "type": "string",
+                    "title": "Summary of Baseline Critical Path"
+                  },
+                  "milestoneVarianceAgainstLastReturn": {
+                    "type": "string",
+                    "readonly": true,
+                    "title": "TO BE CALCULATED - Variance against last return"
+                  },
+                  "milestoneVarianceAgainstBaseline": {
+                    "type": "string",
+                    "readonly": true,
+                    "title": "TO BE CALCULATED - Variance against baseline"
+                  },
+                  "milestoneStatusAgainstLastReturn": {
+                    "statusAgainstLastReturn": {
+                      "title": "Status against last return?",
+                      "type": "string",
+                      "enum": [
+                        "completed",
+                        "on schedule",
+                        "delayed: minimal impact",
+                        "delayed: critical"
+                      ],
+                      "default": "on schedule"
+                    },
+                    "currentReturn": {
+                      "type": "string",
+                      "format": "date",
+                      "title": "Current Return"
+                    },
+                    "reasonForVariance": {
+                      "type": "string",
+                      "format": "date",
+                      "title": "Reason for Variance"
+                    }
+                  },
+                  "milestonePercentCompleted": {
+                    "type": "integer",
+                    "title": "Percent complete"
+                  },
+                  "milestoneCompletedDate": {
+                    "type": "string",
+                    "format": "date",
+                    "readonly": true,
+                    "title": "TO BE GENERATED - On Completed date"
+                  }
+                }
+              }
+            },
+            "expectedInfrastructureStartOnSite": {
+              "type": "object",
+              "title": "Expected infrastructure start on site",
+              "properties": {
+                "milestoneExpectedInfrastructureStartBaseline": {
+                  "type": "string",
+                  "title": "Baseline Start on site"
+                },
+                "milestoneExpectedInfrastructureStartVarianceAgaistLastReturn": {
+                  "type": "string",
+                  "readonly": true,
+                  "title": "TO BE CALCULATED - Variance against last return"
+                },
+                "milestoneExpectedInfrastructureStartVarianceAgaistBaseline": {
+                  "type": "string",
+                  "readonly": true,
+                  "title": "TO BE CALCULATED - Variance against baseline"
+                },
+                "milestoneExpectedInfrastructureStartStatusAgainstLastReturn": {
+                  "statusAgainstLastReturn": {
+                    "title": "Status against last return?",
+                    "type": "string",
+                    "enum": [
+                      "completed",
+                      "on schedule",
+                      "delayed: minimal impact",
+                      "delayed: critical"
+                    ],
+                    "default": "on schedule"
+                  },
+                  "currentReturn": {
+                    "type": "string",
+                    "format": "date",
+                    "title": "Current Return"
+                  },
+                  "reasonForVariance": {
+                    "type": "string",
+                    "format": "date",
+                    "title": "Reason for Variance"
+                  }
+                },
+                "milestoneExpectedInfrastructureStartCompletionDate": {
+                  "type": "string",
+                  "format": "date",
+                  "readonly": true,
+                  "title": "TO BE GENERATED - On Completed date"
+                }
+              }
+            },
+            "expectedCompletionDateOfInfra": {
+              "type": "object",
+              "title": "Expected Completion date of infra",
+              "properties": {
+                "milestoneExpectedInfrastructureCompletionBaseline": {
+                  "type": "string",
+                  "title": "Baseline Completion"
+                },
+                "milestoneExpectedInfrastructureCompletionVarianceAgaistLastReturn": {
+                  "type": "string",
+                  "readonly": true,
+                  "title": "TO BE CALCULATED - Variance against last return"
+                },
+                "milestoneExpectedInfrastructureCompletionVarianceAgaistBaseline": {
+                  "type": "string",
+                  "readonly": true,
+                  "title": "TO BE CALCULATED - Variance against baseline"
+                },
+                "milestoneExpectedInfrastructureCompletionStatusAgainstLastReturn": {
+                  "statusAgainstLastReturn": {
+                    "title": "Status against last return?",
+                    "type": "string",
+                    "enum": [
+                      "completed",
+                      "on schedule",
+                      "delayed: minimal impact",
+                      "delayed: critical"
+                    ],
+                    "default": "on schedule"
+                  },
+                  "currentReturn": {
+                    "type": "string",
+                    "format": "date",
+                    "title": "Current Return"
+                  },
+                  "reasonForVariance": {
+                    "type": "string",
+                    "format": "date",
+                    "title": "Reason for Variance"
+                  }
+                },
+                "milestoneExpectedInfrastructureCompletionCompletionDate": {
+                  "type": "string",
+                  "format": "date",
+                  "readonly": true,
+                  "title": "TO BE GENERATED - On Completed date"
+                }
+              }
+            }
+          },
+          "risks": {
+            "baselineRisks": {
+              "type": "object",
+              "title": "Baseline Risks",
+              "properties": {
+                "type": "array",
+                "title": "Risks",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "item": {
+                      "riskBaselineRisk": {
+                        "type": "string",
+                        "title": "Description Of Risk"
+                      },
+                      "riskBaselineImpact": {
+                        "type": "string",
+                        "title": "Impact"
+                      },
+                      "riskBaselineLikelihood": {
+                        "type": "string",
+                        "title": "Likelihood"
+                      },
+                      "riskCurrentReturnLikelihood": {
+                        "type": "string",
+                        "title": "Current Return Likelihood"
+                      },
+                      "riskBaselineMitigationsInPlace": {
+                        "type": "string",
+                        "title": "Mitigation in place"
+                      },
+                      "riskAnyChange": {
+                        "type": "boolean",
+                        "title": "Any change in risk?"
+                      },
+                      "riskCurrentReturnMitigationsInPlace": {
+                        "type": "string",
+                        "title": "Current Return Mitigations in place"
+                      },
+                      "riskMetDate": {
+                        "type": "string",
+                        "format": "date",
+                        "readonly": true,
+                        "title": "TO BE GENERATED - Risk met date"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "additionalRisks": {
+              "type": "object",
+              "title": "Any additional risks to baseline?",
+              "properties": {
+                "currentRisks": {
+                  "type": "array",
+                  "title": "Current Risks",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "type": "object",
+                      "title": "Current Risks to baseline",
+                      "properties": {
+                        "newRisk": {
+                          "type": "string",
+                          "title": "New risk description"
+                        },
+                        "newRiskImpact": {
+                          "type": "string",
+                          "title": "Impact"
+                        },
+                        "newRiskLikelihood": {
+                          "type": "string",
+                          "title": "Likelihood"
+                        },
+                        "newRiskMitigationsInPlace": {
+                          "type": "string",
+                          "title": "Mitigations in place"
+                        }
+                      }
+                    }
+                  }
+                },
+                "previousRisks": {
+                  "type": "array",
+                  "title": "Previous Risks",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "type": "object",
+                      "title": "Previous Risks to baseline",
+                      "properties": {
+                        "previousRisk": {
+                          "type": "string",
+                          "readonly": true,
+                          "title": "TO BE CALCULATED - Previous risk description"
+                        },
+                        "previousRiskImpact": {
+                          "type": "string",
+                          "readonly": true,
+                          "title": "TO BE CALCULATED - Previous risk impact"
+                        },
+                        "previousRiskLikelihood": {
+                          "type": "string",
+                          "readonly": true,
+                          "title": "TO BE CALCULATED - Previous risk likelihood"
+                        },
+                        "previousRiskCurrentReturnLikelihood": {
+                          "type": "string",
+                          "title": "Current Return Likelihood"
+                        },
+                        "previousRiskMitigationsInPlace": {
+                          "type": "string",
+                          "readonly": true,
+                          "title": "TO BE CALCULATED - Previous Mitigations in place"
+                        },
+                        "previousRiskAnyChanges": {
+                          "type": "boolean",
+                          "title": "Any Change?"
+                        },
+                        "previousRiskCurrentReturnMitigationsInPlace": {
+                          "type": "string",
+                          "title": "Current Return Mitigations in place"
+                        },
+                        "previousRiskMetDate": {
+                          "type": "string",
+                          "format": "date",
+                          "readonly": true,
+                          "title": "TO BE CALCULATED - Risk Met Date"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "progress": {
+            "describeQuarterProgress": {
+              "type": "string",
+              "title": "Describe progress for last quarter"
+            },
+            "progressAgainstActions": {
+              "type": "object",
+              "title": "Progress against Actions",
+              "properties": {
+                "type": "array",
+                "title": "Live Actions",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "liveActionDescription": {
+                      "type": "string",
+                      "readonly": true,
+                      "title": "TO BE CALCULATED - Description of live action"
+                    },
+                    "liveActionMet": {
+                      "type": "boolean",
+                      "title": "Action Met?"
+                    },
+                    "liveActionProgress": {
+                      "type": "string",
+                      "title": "Progress against action if not met"
+                    }
+                  }
+                }
+              }
+            },
+            "actionsForNextQuarter": {
+              "type": "array",
+              "title": "Actions for next quarter",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "action": {
+                    "type": "string",
+                    "title": "Action Description"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
