@@ -3,7 +3,7 @@
 require 'rspec'
 require_relative '../shared_context/use_case_factory'
 
-describe 'Performing Return on HIF Project', focus: true do
+describe 'Performing Return on HIF Project' do
   include_context 'use case factory'
 
   def update_return(id:, data:)
@@ -32,237 +32,139 @@ describe 'Performing Return on HIF Project', focus: true do
 
   let(:project_baseline) do
     {
-      financial: [
-      {
-        installments: [
-        {
-          dateOfInstallment: "2018-06-01",
-            installmentAmount: "\u00a3 1,000,000"
-        },
-        {
-          dateOfInstallment: "2018-09-01",
-          installmentAmount: "\u00a3 1,000,000"
-        }
-        ],
-        period: "2018/2019"
+      summary: {
+        BIDReference: '12345',
+        projectName: 'Project name',
+        leadAuthority: 'Made Tech',
+        projectDescription: 'Descripion of project',
+        noOfHousingSites: 10,
+        totalArea: 10,
+        hifFundingAmount: '10000',
+        descriptionOfInfrastructure: 'An infrastructure',
+        descriptionOfWiderProjectDeliverables: 'Wider infrastructure'
       },
-      {
-        baselineCashFlow: {
-          summaryOfRequirement: ""
-        },
-        costs: [
-        {
-          costOfInfrastructure: "\u00a3 1,000,000",
-          fundingStack: {
-            descriptionOfFundingStack: "Description",
-            totalPrivate: "\u00a3 500,000",
-            totalPublic: "\u00a3 500,000",
-            totallyFundedThroughHIF: false
-          }
-        }
-        ],
-        installments: [
-        {
-          dateOfInstallment: "2019-06-01",
-          installmentAmount: "\u00a3 1,000,000"
-        },
-        {
-          dateOfInstallment: "2019-09-01",
-          installmentAmount: "\u00a3 1,000,000"
-        }
-        ],
-        period: "2019/2020",
-        recovery: {
-          aimToRecover: true,
-          expectedAmountToRecover: "\u00a3 100,000",
-          methodOfRecovery: "method"
-        }
-      }
-      ],
       infrastructures: [
-      {
-        description: "A house",
-        expectedInfrastructureCompletion: {
-          targetDateOfAchievingCompletion: "2019-06-01"
-        },
-        expectedInfrastructureStart: {
-          targetDateOfAchievingStart: "2019-01-01"
-        },
-        fullPlanningStatus: {
-          granted: false,
-          grantedReference: "",
-          summaryOfCriticalPath: "Summary of critical path",
-          targetGranted: "2019-01-01",
-          targetSubmission: "2019-01-01"
-        },
-        landOwnership: {
-          howManySitesToAquire: 10,
-          landAcquisitionRequired: true,
-          ownershipOfLandOtherThanLA: "A",
-          summaryOfCriticalPath: "Summary of critical path",
-          targetDateToAquire: "2019-06-01",
-          toBeAcquiredBy: "B",
-          underOntrolOfLA: false
-        },
-        milestones: [
         {
-          descriptionOfMilestone: "Milestone One",
-          summaryOfCriticalPath: "Do the things",
-          target: "2019-01-01"
-        },
-        {
-          descriptionOfMilestone: "Milestone two",
-          summaryOfCriticalPath: "Do more things",
-          target: "2019-06-01"
-        }
-        ],
-        outlinePlanningStatus: {
-          granted: false,
-          grantedReference: "",
-          summaryOfCriticalPath: "Summary of critical path",
-          targetGranted: "2019-01-01",
-          targetSubmission: "2018-01-01"
-        },
-        procurement: {
-          contractorProcured: true,
-          nameOfContractor: "Super Contractor"
-        },
-        risksToAchievingTimescales: [
-        {
-          descriptionOfRisk: "Risk One",
-          impactOfRisk: "Low",
-          liklihoodOfRisk: "Low",
-          mitigationOfRisk: "Don't do it"
-        },
-        {
-          descriptionOfRisk: "Risk two",
-          impactOfRisk: "High",
-          liklihoodOfRisk: "High",
-          mitigationOfRisk: "Really don't do it"
-        }
-        ],
-        s106: {
-          requirement: true,
-          summaryOfRequirement: "This is a requirement"
-        },
-        statutoryConsents: {
-          anyConsents: true,
-          detailsOfConsent: "Consent details",
-          targetDateToBeMet: "2019-06-01"
-        },
-        type: "house"
-      },{
-        description: "A house",
-          expectedInfrastructureCompletion: {
-            targetDateOfAchievingCompletion: "2019-06-01"
-          },
-          expectedInfrastructureStart: {
-            targetDateOfAchievingStart: "2019-01-01"
+          type: 'A House',
+          description: 'A house of cats',
+          outlinePlanningStatus: {
+            granted: true,
+            grantedReference: 'The Dogs',
+            targetSubmission: '2020-01-01',
+            targetGranted: '2020-01-01',
+            summaryOfCriticalPath: 'Summary of critical path'
           },
           fullPlanningStatus: {
             granted: false,
-            grantedReference: "",
-            summaryOfCriticalPath: "Summary of critical path",
-            targetGranted: "2019-01-01",
-            targetSubmission: "2019-01-01"
+            grantedReference: '1234',
+            targetSubmission: '2020-01-01',
+            targetGranted: '2020-01-01',
+            summaryOfCriticalPath: 'Summary of critical path'
           },
-          landOwnership: {
-            howManySitesToAquire: 10,
-            landAcquisitionRequired: true,
-            ownershipOfLandOtherThanLA: "A",
-            summaryOfCriticalPath: "Summary of critical path",
-            targetDateToAquire: "2019-06-01",
-            toBeAcquiredBy: "B",
-            underOntrolOfLA: false
-          },
-          milestones: [
-          {
-            descriptionOfMilestone: "Milestone One",
-            summaryOfCriticalPath: "Do the things",
-            target: "2019-01-01"
-          },
-          {
-            descriptionOfMilestone: "Milestone two",
-            summaryOfCriticalPath: "Do more things",
-            target: "2019-06-01"
-          }
-          ],
-          outlinePlanningStatus: {
-            granted: false,
-            grantedReference: "",
-            summaryOfCriticalPath: "Summary of critical path",
-            targetGranted: "2019-01-01",
-            targetSubmission: "2020-01-01"
-          },
-          procurement: {
-            contractorProcured: true,
-            nameOfContractor: "Super Contractor"
-          },
-          risksToAchievingTimescales: [
-          {
-            descriptionOfRisk: "Risk One",
-            impactOfRisk: "Low",
-            liklihoodOfRisk: "Low",
-            mitigationOfRisk: "Don't do it"
-          },
-          {
-            descriptionOfRisk: "Risk two",
-            impactOfRisk: "High",
-            liklihoodOfRisk: "High",
-            mitigationOfRisk: "Really don't do it"
-          }
-          ],
           s106: {
             requirement: true,
-            summaryOfRequirement: "This is a requirement"
+            summaryOfRequirement: 'Required'
           },
           statutoryConsents: {
             anyConsents: true,
-            detailsOfConsent: "Consent details",
-            targetDateToBeMet: "2019-06-01"
+            detailsOfConsent: 'Details of consent',
+            targetDateToBeMet: '2020-01-01'
           },
-          type: "house"
-      }
-      ],
-      outputsActuals: {
-        siteOutputs: [
-        {
-          siteLocalAuthority: "Site Local Authority",
-          siteName: "Site name",
-          siteNumberOfUnits: "10"
+          landOwnership: {
+            underControlOfLA: true,
+            ownershipOfLandOtherThanLA: 'Dave',
+            landAcquisitionRequired: true,
+            howManySitesToAcquire: 10,
+            toBeAcquiredBy: 'Dave',
+            targetDateToAcquire: '2020-01-01',
+            summaryOfCriticalPath: 'Summary of critical path',
+            procurement: {
+              contractorProcured: true,
+              nameOfContractor: 'Dave',
+              targetDateToAquire: '2020-01-01',
+              summaryOfCriticalPath: 'Summary of critical path'
+            }
+          },
+          milestones: [
+            {
+              descriptionOfMilestone: 'Milestone One',
+              target: '2020-01-01',
+              summaryOfCriticalPath: 'Summary of critical path'
+            }
+          ],
+          expectedInfrastructureStart: {
+            targetDateOfAchievingStart: '2020-01-01'
+          },
+          expectedInfrastructureCompletion: {
+            targetDateOfAchievingCompletion: '2020-01-01'
+          },
+          risksToAchievingTimescales: [
+            {
+              descriptionOfRisk: 'Risk one',
+              impactOfRisk: 'High',
+              likelihoodOfRisk: 'High',
+              mitigationOfRisk: 'Do not do the thing'
+            }
+          ]
         }
-        ]
+      ],
+      financial: [
+        {
+          period: '2019/2020',
+          instalments: [
+            dateOfInstalment: '2020-01-01',
+            instalmentAmount: '1000',
+            baselineInstalments: [
+              baselineInstalmentYear: '4000',
+              baselineInstalmentQ1: '1000',
+              baselineInstalmentQ2: '1000',
+              baselineInstalmentQ3: '1000',
+              baselineInstalmentQ4: '1000',
+              baselineInstalmentTotal: '1000'
+            ]
+          ],
+          costs: [
+            {
+              costOfInfrastructure: '1000',
+              fundingStack: {
+                totallyFundedThroughHIF: true,
+                descriptionOfFundingStack: 'Stack',
+                totalPublic: '2000',
+                totalPrivate: '2000'
+              }
+            }
+          ],
+          baselineCashFlow: {
+            summaryOfRequirement: 'data-url'
+          },
+          recovery: {
+            aimToRecover: true,
+            expectedAmountToRemove: 10,
+            methodOfRecovery: 'Recovery method'
+          }
+        }
+      ],
+      s151: {
+        s151FundingEndDate: '2020-01-01',
+        s151ProjectLongstopDate: '2020-01-01'
       },
       outputsForecast: {
-        disposalStrategy: "Disposal strategy",
+        totalUnits: 10,
+        disposalStrategy: 'Disposal strategy',
         housingForecast: [
-        {
-          housingCompletions: "2019-01-01",
-          housingStarts: "2018-01-01",
-          target: "2019-01-01"
-        },
-        {
-          housingCompletions: "2019-01-01",
-          housingStarts: "2018-01-01",
-          target: "2019-01-01"
-        }
-        ],
-        totalUnits: 10
+          {
+            date: '2020-01-01',
+            target: '2020-01-01',
+            housingCompletions: '2020-01-01'
+          }
+        ]
       },
-      summary: {
-        BIDReference: "123",
-        descriptionOfInfrastructure: "Example description",
-        descriptionOfWiderProjectDeliverables: "Example description",
-        hifFundingAmount: 1234,
-        leadAuthority: "Made Tech",
-        noOfHousingSites: 1,
-        projectDescription: "An example project",
-        projectName: "Example project",
-        totalArea: 1
-      },
-      s151: {
-        s151FundingEndDate: "2019-01-01",
-        s151ProjectLongstopDate: "2020-01-01"
+      outputsActuals: {
+        siteOutputs: [
+          siteName: 'Site name',
+          siteLocalAuthority: 'Local Authority',
+          siteNumberOfUnits: '123'
+        ]
       }
     }
   end
@@ -272,17 +174,124 @@ describe 'Performing Return on HIF Project', focus: true do
       id: project_id,
       data:
       {
-        infrastructure:
-        [
+        infrastructures: [
           {
-            outlinePlanningStatus:
-            {
-              targetSubmission: "2018-06-01",
-              currentSubmission: "2018-06-01"
+            type: 'A House',
+            description: 'A house of cats',
+            planning: {
+              baselineOutlinePlanningPermissionGranted: true,
+              planningNotGranted: {
+                baselineSummaryOfCriticalPath: 'Summary of critical path',
+                fieldOne: {
+                  baselineCompletion: {
+                    baselineFullPlanningPermissionSubmitted: '2020-01-01',
+                    baselineFullPlanningPermissionGranted: '2020-01-01'
+                  },
+                  fullPlanningPermissionGranted: false,
+                  fullPlanningPermissionSummaryOfCriticalPath: 'Summary of critical path'
+                },
+                fieldTwo: {
+                  baselineCompletion: {
+                    baselineFullPlanningPermissionSubmitted: '2020-01-01',
+                    baselineFullPlanningPermissionGranted: '2020-01-01'
+                  }
+                },
+                s106Requirement: true,
+                s106SummaryOfRequirement: 'Required',
+                statutoryConsents: {
+                  anyStatutoryConsents: true
+                }
+              }
+            },
+            landOwnership: {
+              laHasControlOfSite: true,
+              laDoesNotControlSite: {
+                whoOwnsSite: 'Dave',
+                landAquisitionRequired: true
+              },
+              laDoesHaveControlOfSite: {
+                howManySitesToAquire: 10,
+                toBeAquiredBy: 'Dave',
+                summaryOfAcquisitionRequired: 'Summary of critical path',
+                allLandAssemblyAchieved: {
+                  landAssemblyBaselineCompletion: '2020-01-01'
+                }
+              }
+            },
+            procurement: {
+              contractorProcured: true,
+              infrastructureNotProcured: {
+                infraStructureContractorProcurement: {
+                  procurementBaselineCompletion: '2020-01-01'
+                }
+              },
+              infrastructureProcured: {
+                nameOfContractor: 'Dave'
+              }
+            },
+            milestones: {
+              keyMilestones: [{ milestoneBaselineCompletion: '2020-01-01',
+                                milestoneSummaryOfCriticalPath: 'Summary of critical path' }],
+              expectedInfrastructureStartOnSite: {
+                milestoneExpectedInfrastructureStartBaseline: '2020-01-01'
+              },
+              expectedCompletionDateOfInfra: {
+                milestoneExpectedInfrastructureCompletionBaseline: '2020-01-01'
+              }
+            },
+            risks: {
+              baselineRisks: {
+                risks: [{ items: {
+                  riskBaselineRisk: 'Risk one',
+                  riskBaselineImpact: 'High',
+                  riskBaselineLikelihood: 'High',
+                  riskBaselineMitigationsInPlace: 'Do not do the thing'
+                } }]
+              }
             }
           }
+        ],
+        funding: [
+          { hifFundingProfile: [
+            {
+              fundingYear: ['4000'],
+              forecast: {
+                forecastQ1: ['1000'],
+                forecastQ2: ['1000'],
+                forecastQ3: ['1000'],
+                forecastQ4: ['1000'],
+                forecastTotal: ['1000']
+              }
+            }
+          ],
+            fundingPackages: [
+              {
+                fundingPackage: {
+                  overview: {
+                    overviewCosts: {
+                      baselineCost: '1000'
+                    }
+                  },
+                  fundingStack: {
+                    totallyFundedThroughHIF: true,
+                    notFundedThroughHif: {
+                      descriptionOfFundingStack: 'Stack',
+                      totalPublic: {
+                        publicTotalBaselineAmount: '2000'
+                      },
+                      totalPrivate: {
+                        privateTotalBaselineAmount: '2000'
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            recovery: {
+              aimToRecover: true
+            } }
         ]
-      },
+      }
     }
   end
 
