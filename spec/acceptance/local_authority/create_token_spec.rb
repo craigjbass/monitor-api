@@ -23,7 +23,9 @@ describe 'Creates a token' do
       expect(is_valid_email).to eq(true)
       guid = get_use_case(:create_guid).execute[:guid]
       expect(guid.class).to eq(String)
-      expect(guid.empty?).to eq(false)
+      expect(guid.length).to eq(36)
+      expend_status = get_use_case(:expend_guid).execute(guid: guid)[:status]
+      expect(expend_status).to eq(:success)
     end
   end
 end

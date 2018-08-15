@@ -20,6 +20,9 @@ class LocalAuthority::UseCases
       LocalAuthority::Gateway::InMemoryEmailWhitelistGateway.new
     end
 
+    builder.define_use_case :guid_gateway do
+      LocalAuthority::Gateway::InMemoryGUIDGateway.new
+    end
 
     builder.define_use_case :find_baseline_path do
       LocalAuthority::UseCase::FindBaselinePath.new
@@ -101,7 +104,20 @@ class LocalAuthority::UseCases
     end
 
     builder.define_use_case :create_guid do
-      LocalAuthority::UseCase::CreateGUID.new
+      LocalAuthority::UseCase::CreateAndSaveGUID.new(
+        guid_gateway: builder.get_use_case(
+          :guid_gateway
+        )
+      )
     end
+
+    builder.define_use_case :expend_guid do
+      LocalAuthority::UseCase::ExpendGUID.new(
+        guid_gateway: builder.get_use_case(
+          :guid_gateway
+        )
+      )
+    end
+
   end
 end
