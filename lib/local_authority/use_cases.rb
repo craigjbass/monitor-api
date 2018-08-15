@@ -16,6 +16,11 @@ class LocalAuthority::UseCases
       LocalAuthority::Gateway::InMemoryReturnTemplate.new
     end
 
+    builder.define_use_case :email_whitelist_gateway do
+      LocalAuthority::Gateway::InMemoryEmailWhitelistGateway.new
+    end
+
+
     builder.define_use_case :find_baseline_path do
       LocalAuthority::UseCase::FindBaselinePath.new()
     end
@@ -87,6 +92,16 @@ class LocalAuthority::UseCases
         return_gateway: builder.get_use_case(:return_gateway),
         return_update_gateway: builder.get_use_case(:return_update_gateway)
       )
+    end
+
+    builder.define_use_case :check_email do
+      LocalAuthority::UseCase::CheckEmail.new(
+        email_whitelist_gateway: builder.get_use_case(:email_whitelist_gateway)
+      )
+    end
+
+    builder.define_use_case :create_guid do
+      LocalAuthority::UseCase::CreateGUID.new()
     end
   end
 end
