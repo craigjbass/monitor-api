@@ -14,17 +14,16 @@ describe 'Creates a token' do
 
   context 'with a valid email address' do
     before do
-      ENV['EMAIL_WHITELIST']= "#{valid_email}"
+      ENV['EMAIL_WHITELIST'] = valid_email.to_s
     end
 
-    it 'should create a GUID' do
-
+    it 'should create an Access Token' do
       pp get_use_case(:check_email).execute(email_address: valid_email)
       expect(is_valid_email).to eq(true)
-      guid = get_use_case(:create_guid).execute[:guid]
-      expect(guid.class).to eq(String)
-      expect(guid.length).to eq(36)
-      expend_status = get_use_case(:expend_guid).execute(guid: guid)[:status]
+      access_token = get_use_case(:create_access_token).execute[:access_token]
+      expect(access_token.class).to eq(String)
+      expect(access_token.length).to eq(36)
+      expend_status = get_use_case(:expend_access_token).execute(access_token: access_token)[:status]
       expect(expend_status).to eq(:success)
     end
   end
