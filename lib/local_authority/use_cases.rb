@@ -22,7 +22,7 @@ class LocalAuthority::UseCases
 
 
     builder.define_use_case :find_baseline_path do
-      LocalAuthority::UseCase::FindBaselinePath.new()
+      LocalAuthority::UseCase::FindBaselinePath.new
     end
 
     builder.define_use_case :get_schema_copy_paths do
@@ -101,7 +101,7 @@ class LocalAuthority::UseCases
     end
 
     builder.define_use_case :create_guid do
-      LocalAuthority::UseCase::CreateGUID.new()
+      LocalAuthority::UseCase::CreateGUID.new
     end
   end
 end
