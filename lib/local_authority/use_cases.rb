@@ -24,6 +24,15 @@ class LocalAuthority::UseCases
       LocalAuthority::Gateway::InMemoryAccessTokenGateway.new
     end
 
+    builder.define_use_case :notification_gateway do
+      LocalAuthority::Gateway::GovEmailNotificationGateway.new
+    end
+
+    builder.define_use_case :api_key_gateway do
+      LocalAuthority::Gateway::InMemoryAPIKeyGateway.new
+    end
+
+
     builder.define_use_case :find_baseline_path do
       LocalAuthority::UseCase::FindBaselinePath.new
     end
@@ -116,6 +125,20 @@ class LocalAuthority::UseCases
         access_token_gateway: builder.get_use_case(
           :access_token_gateway
         )
+      )
+    end
+
+    builder.define_use_case :create_api_key do
+      LocalAuthority::UseCase::CreateApiKey.new(
+        api_key_gateway: builder.get_use_case(
+          :api_key_gateway
+        )
+        )
+    end
+
+    builder.define_use_case :send_notification do
+      LocalAuthority::UseCase::SendNotification.new(
+        notification_gateway: builder.get_use_case(:notification_gateway)
       )
     end
 

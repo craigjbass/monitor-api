@@ -2,6 +2,7 @@
 
 require 'rspec'
 
+
 describe LocalAuthority::UseCase::CheckEmail do
   let(:use_case) { described_class.new(email_whitelist_gateway: email_whitelist_gateway_spy) }
 
