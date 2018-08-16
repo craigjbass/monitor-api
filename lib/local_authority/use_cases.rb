@@ -133,12 +133,20 @@ class LocalAuthority::UseCases
         api_key_gateway: builder.get_use_case(
           :api_key_gateway
         )
-        )
+      )
     end
 
     builder.define_use_case :send_notification do
       LocalAuthority::UseCase::SendNotification.new(
         notification_gateway: builder.get_use_case(:notification_gateway)
+      )
+    end
+
+    builder.define_use_case :check_api_key do
+      LocalAuthority::UseCase::CheckApiKey.new(
+        api_key_gateway: builder.get_use_case(
+          :api_key_gateway
+        )
       )
     end
 
