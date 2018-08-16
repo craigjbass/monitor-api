@@ -22,7 +22,6 @@ module DeliveryMechanism
     post '/token/request' do
       request_hash = get_hash(request)
       @use_case_factory.get_use_case(:check_email).execute(email_address: request_hash[:email_address])
-
       @use_case_factory.get_use_case(:send_notification).execute(to: request_hash[:email_address], url: request_hash[:url])
       200
     end
