@@ -21,8 +21,13 @@ module DeliveryMechanism
 
     post '/token/request' do
       request_hash = get_hash(request)
-      @use_case_factory.get_use_case(:check_email).execute(email_address: request_hash[:email_address])
-      @use_case_factory.get_use_case(:send_notification).execute(to: request_hash[:email_address], url: request_hash[:url])
+      if @use_case_factory.get_use_case(:check_email).execute(
+        email_address: request_hash[:email_address]
+      )[:valid]
+        @use_case_factory.get_use_case(:send_notification).execute(
+          to: request_hash[:email_address], url: request_hash[:url]
+        )
+      end
       200
     end
 
@@ -80,8 +85,8 @@ module DeliveryMechanism
       return 404 if return_hash.empty?
 
       return_schema = @use_case_factory
-        .get_use_case(:get_schema_for_return)
-        .execute(return_id: return_id)[:schema]
+                      .get_use_case(:get_schema_for_return)
+                      .execute(return_id: return_id)[:schema]
 
       response.body = {
         project_id: return_hash[:project_id],
