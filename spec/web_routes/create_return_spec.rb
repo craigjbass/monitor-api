@@ -6,15 +6,72 @@ require_relative 'delivery_mechanism_spec_helper'
 describe 'Creating returns' do
   let(:create_return_spy) { spy(execute: { id: 0 }) }
 
+  let(:check_api_key_spy) { spy }
+
+  let(:api_key_gateway_spy) { nil }
+
+  let(:api_key) { 'Cats' }
+
   before do
       stub_const(
         'LocalAuthority::UseCase::CreateReturn',
         double(new: create_return_spy)
       )
+
+      stub_const(
+        'LocalAuthority::UseCase::CheckApiKey',
+        double(new: check_api_key_spy)
+      )
+
+      stub_const(
+        'LocalAuthority::Gateway::InMemoryAPIKeyGateway',
+        double(new: api_key_gateway_spy)
+      )
+  end
+
+  context 'API Key' do
+    before do
+      post '/return/create',
+           { project_id: 1, data: { cats: 'Meow' } }.to_json, 'HTTP_API_KEY' => api_key
+    end
+    
+    context 'is valid' do
+      it 'responds with a 201' do
+        expect(last_response.status).to eq(201)
+      end
+
+      context 'example 1' do
+        it 'runs the check api key use case' do
+          expect(check_api_key_spy).to have_received(:execute).with(api_key: 'Cats')
+        end
+      end
+
+      context 'example 2' do
+        let(:api_key) { 'Dogs' }
+        it 'runs the check api key use case' do
+          expect(check_api_key_spy).to have_received(:execute).with(api_key: 'Dogs')
+        end
+      end
+    end
+
+    context 'is invalid' do
+      let(:check_api_key_spy) { spy(execute: {valid: false}) }
+
+      it 'responds with a 401' do
+        expect(last_response.status).to eq(401)
+      end
+    end
+
+    context 'is not in header' do
+      it 'responds with a 400' do
+        post('/return/create', { project_id: 1, data: { cats: 'Meow' } }.to_json)
+        expect(last_response.status).to eq(400)
+      end
+    end
   end
 
   it 'Will return a 400 if we pass invalid input' do
-    post '/return/create', nil
+    post '/return/create', nil, 'HTTP_API_KEY' => api_key
     expect(last_response.status).to eq(400)
   end
 
@@ -22,7 +79,7 @@ describe 'Creating returns' do
     context 'and valid input' do
       before do
         post '/return/create',
-             { project_id: 1, data: { cats: 'Meow' } }.to_json, 'Content-Type' => 'application/json'
+             { project_id: 1, data: { cats: 'Meow' } }.to_json, 'HTTP_API_KEY' => api_key
       end
 
       it 'passes data to CreateReturn' do

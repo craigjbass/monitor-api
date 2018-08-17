@@ -55,7 +55,23 @@ module DeliveryMechanism
       200
     end
 
+    def guard_access(env, &block)
+      if env['HTTP_API_KEY'].nil?
+        response.status = 400
+      elsif !@use_case_factory.get_use_case(:check_api_key).execute(api_key: env['HTTP_API_KEY'])[:valid]
+        response.status = 401
+      else
+        block
+      end
+    end
+
     post '/return/create' do
+      return 400 if env['HTTP_API_KEY'].nil?
+
+      unless @use_case_factory.get_use_case(:check_api_key).execute(api_key: env['HTTP_API_KEY'])[:valid]
+        return 401
+      end
+
       request_hash = get_hash(request)
       return 400 if request_hash.nil?
 
@@ -151,6 +167,9 @@ module DeliveryMechanism
 
     post '/project/create' do
       request_hash = get_hash(request)
+
+      return 400 if env['HTTP_API_KEY'].nil?
+
       unless @use_case_factory.get_use_case(:check_api_key).execute(api_key: env['HTTP_API_KEY'])[:valid]
         return 401
       end

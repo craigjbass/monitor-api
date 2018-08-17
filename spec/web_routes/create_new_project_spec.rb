@@ -50,7 +50,6 @@ describe 'Creating a new project' do
 
         context 'example 1' do
           it 'runs the check api key use case' do
-            # execute(api_key:)
             expect(check_api_key_spy).to have_received(:execute).with(api_key: 'Cats')
           end
         end
@@ -73,6 +72,7 @@ describe 'Creating a new project' do
 
       context 'is not in header' do
         it 'responds with a 400' do
+          post('/project/create', project_data.to_json)
           expect(last_response.status).to eq(400)
         end
       end
