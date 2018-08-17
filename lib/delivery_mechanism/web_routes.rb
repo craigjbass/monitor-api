@@ -55,34 +55,30 @@ module DeliveryMechanism
       200
     end
 
-    def guard_access(env, &block)
+    def guard_access(env, request, &block)
       if env['HTTP_API_KEY'].nil?
         response.status = 400
       elsif !@use_case_factory.get_use_case(:check_api_key).execute(api_key: env['HTTP_API_KEY'])[:valid]
         response.status = 401
       else
-        block
+        yield request
       end
     end
 
     post '/return/create' do
-      return 400 if env['HTTP_API_KEY'].nil?
+      guard_access env, request do |request|
+        request_hash = get_hash(request)
+        return 400 if request_hash.nil?
 
-      unless @use_case_factory.get_use_case(:check_api_key).execute(api_key: env['HTTP_API_KEY'])[:valid]
-        return 401
-      end
+        return_id = @use_case_factory.get_use_case(:create_return).execute(
+          project_id: request_hash[:project_id],
+          data: request_hash[:data]
+        )
 
-      request_hash = get_hash(request)
-      return 400 if request_hash.nil?
-
-      return_id = @use_case_factory.get_use_case(:create_return).execute(
-        project_id: request_hash[:project_id],
-        data: request_hash[:data]
-      )
-
-      response.tap do |r|
-        r.body = { id: return_id[:id] }.to_json
-        r.status = 201
+        response.tap do |r|
+          r.body = { id: return_id[:id] }.to_json
+          r.status = 201
+        end
       end
     end
 
@@ -166,26 +162,22 @@ module DeliveryMechanism
     end
 
     post '/project/create' do
-      request_hash = get_hash(request)
+      guard_access env, request do
+        request_hash = get_hash(request)
 
-      return 400 if env['HTTP_API_KEY'].nil?
+        use_case = @use_case_factory.get_use_case(:create_new_project)
 
-      unless @use_case_factory.get_use_case(:check_api_key).execute(api_key: env['HTTP_API_KEY'])[:valid]
-        return 401
+        id = use_case.execute(
+          type: request_hash[:type],
+          baseline: Common::DeepSymbolizeKeys.to_symbolized_hash(request_hash[:baselineData])
+        )
+
+        content_type 'application/json'
+        response.body = {
+          projectId: id
+        }.to_json
+        response.status = 201
       end
-
-      use_case = @use_case_factory.get_use_case(:create_new_project)
-
-      id = use_case.execute(
-        type: request_hash[:type],
-        baseline: Common::DeepSymbolizeKeys.to_symbolized_hash(request_hash[:baselineData])
-      )
-
-      content_type 'application/json'
-      response.body = {
-        projectId: id
-      }.to_json
-      response.status = 201
     end
 
     post '/project/update' do
