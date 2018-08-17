@@ -56,7 +56,5 @@ describe 'expending an access token' do
         expect(last_response.status).to eq(401)
       end
     end
-
   end
-
 end

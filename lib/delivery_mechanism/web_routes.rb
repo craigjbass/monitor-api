@@ -151,6 +151,9 @@ module DeliveryMechanism
 
     post '/project/create' do
       request_hash = get_hash(request)
+      unless @use_case_factory.get_use_case(:check_api_key).execute(api_key: env['HTTP_API_KEY'])[:valid]
+        return 401
+      end
 
       use_case = @use_case_factory.get_use_case(:create_new_project)
 
