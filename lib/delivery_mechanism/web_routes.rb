@@ -31,6 +31,18 @@ module DeliveryMechanism
       200
     end
 
+    post '/token/expend' do
+      request_hash = get_hash(request)
+      status = @use_case_factory.get_use_case(:expend_access_token).execute(
+        access_token: request_hash[:access_token]
+      )[:status]
+      if status == :success
+        202
+      else
+        401
+      end
+    end
+
     post '/return/update' do
       request_hash = get_hash(request)
       return 400 if request_hash.nil?
