@@ -21,3 +21,5 @@ services:
     environment:
       DATABASE_URL: 'postgres://postgres:super-secret@db/monitor_api'
       PROJECT_FILE_PATH: 'projects.json'
+      EMAIL_WHITELIST: "${EMAIL_WHITELIST}"
+      GOV_NOTIFY_API_KEY: "${GOV_NOTIFY_API_KEY}"

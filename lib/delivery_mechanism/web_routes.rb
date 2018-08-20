@@ -19,6 +19,32 @@ module DeliveryMechanism
       200
     end
 
+    post '/token/request' do
+      request_hash = get_hash(request)
+      if @use_case_factory.get_use_case(:check_email).execute(
+        email_address: request_hash[:email_address]
+      )[:valid]
+        @use_case_factory.get_use_case(:send_notification).execute(
+          to: request_hash[:email_address], url: request_hash[:url]
+        )
+      end
+      200
+    end
+
+    post '/token/expend' do
+      request_hash = get_hash(request)
+      expend_response = @use_case_factory.get_use_case(:expend_access_token).execute(
+        access_token: request_hash[:access_token]
+      )
+      status = expend_response[:status]
+      if status == :success
+        response.status = 202
+        response.body = { apiKey: expend_response[:api_key] }.to_json
+      else
+        response.status = 401
+      end
+    end
+
     post '/return/update' do
       request_hash = get_hash(request)
       return 400 if request_hash.nil?
@@ -31,18 +57,30 @@ module DeliveryMechanism
       200
     end
 
+    def guard_access(env, request)
+      if env['HTTP_API_KEY'].nil?
+        response.status = 400
+      elsif !@use_case_factory.get_use_case(:check_api_key).execute(api_key: env['HTTP_API_KEY'])[:valid]
+        response.status = 401
+      else
+        yield request
+      end
+    end
+
     post '/return/create' do
-      request_hash = get_hash(request)
-      return 400 if request_hash.nil?
+      guard_access env, request do |request|
+        request_hash = get_hash(request)
+        return 400 if request_hash.nil?
 
-      return_id = @use_case_factory.get_use_case(:create_return).execute(
-        project_id: request_hash[:project_id],
-        data: request_hash[:data]
-      )
+        return_id = @use_case_factory.get_use_case(:create_return).execute(
+          project_id: request_hash[:project_id],
+          data: request_hash[:data]
+        )
 
-      response.tap do |r|
-        r.body = { id: return_id[:id] }.to_json
-        r.status = 201
+        response.tap do |r|
+          r.body = { id: return_id[:id] }.to_json
+          r.status = 201
+        end
       end
     end
 
@@ -73,8 +111,8 @@ module DeliveryMechanism
       return 404 if return_hash.empty?
 
       return_schema = @use_case_factory
-        .get_use_case(:get_schema_for_return)
-        .execute(return_id: return_id)[:schema]
+                      .get_use_case(:get_schema_for_return)
+                      .execute(return_id: return_id)[:schema]
 
       response.body = {
         project_id: return_hash[:project_id],
@@ -126,20 +164,22 @@ module DeliveryMechanism
     end
 
     post '/project/create' do
-      request_hash = get_hash(request)
+      guard_access env, request do
+        request_hash = get_hash(request)
 
-      use_case = @use_case_factory.get_use_case(:create_new_project)
+        use_case = @use_case_factory.get_use_case(:create_new_project)
 
-      id = use_case.execute(
-        type: request_hash[:type],
-        baseline: Common::DeepSymbolizeKeys.to_symbolized_hash(request_hash[:baselineData])
-      )
+        id = use_case.execute(
+          type: request_hash[:type],
+          baseline: Common::DeepSymbolizeKeys.to_symbolized_hash(request_hash[:baselineData])
+        )
 
-      content_type 'application/json'
-      response.body = {
-        projectId: id
-      }.to_json
-      response.status = 201
+        content_type 'application/json'
+        response.body = {
+          projectId: id
+        }.to_json
+        response.status = 201
+      end
     end
 
     post '/project/update' do

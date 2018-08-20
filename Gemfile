@@ -13,6 +13,7 @@ group :test do
   gem 'rerun'
   gem 'rspec'
   gem 'rspec_junit_formatter'
+  gem 'notifications-ruby-client'
 end
 
 group :development, :test do
