@@ -1,5 +1,6 @@
-describe 'expending an access token' do
+# frozen_string_literal: true
 
+describe 'expending an access token' do
   before do
     stub_const(
       'LocalAuthority::UseCase::ExpendAccessToken',
@@ -13,7 +14,10 @@ describe 'expending an access token' do
   end
 
   context 'with a valid access token' do
-    let(:expend_access_token_spy) { spy(execute: {status: :success}) }
+    let(:expend_access_token_spy) do
+      spy(execute: { status: :success,
+                     api_key: 'Doggos' })
+    end
 
     context 'example one' do
       it 'responds with a 202' do
@@ -24,6 +28,14 @@ describe 'expending an access token' do
       it 'calls the expend token usecase' do
         post '/token/expend', { access_token: 'cats' }.to_json
         expect(expend_access_token_spy).to have_received(:execute).with(access_token: 'cats')
+      end
+
+      it 'returns the API key' do
+        post '/token/expend', { access_token: 'cats' }.to_json
+        response = Common::DeepSymbolizeKeys.to_symbolized_hash(
+          JSON.parse(last_response.body)
+        )
+        expect(response[:apiKey]).to eq('Doggos')
       end
     end
 
@@ -41,8 +53,7 @@ describe 'expending an access token' do
   end
 
   context 'with an invalid access token' do
-    let(:expend_access_token_spy) { spy(execute: {status: :failure}) }
-
+    let(:expend_access_token_spy) { spy(execute: { status: :failure }) }
     context 'example one' do
       it 'responds with a 401' do
         post '/token/expend', { access_token: 'cows' }.to_json

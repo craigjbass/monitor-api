@@ -33,13 +33,15 @@ module DeliveryMechanism
 
     post '/token/expend' do
       request_hash = get_hash(request)
-      status = @use_case_factory.get_use_case(:expend_access_token).execute(
+      expend_response = @use_case_factory.get_use_case(:expend_access_token).execute(
         access_token: request_hash[:access_token]
-      )[:status]
+      )
+      status = expend_response[:status]
       if status == :success
-        202
+        response.status = 202
+        response.body = { apiKey: expend_response[:api_key] }.to_json
       else
-        401
+        response.status = 401
       end
     end
 
@@ -55,7 +57,7 @@ module DeliveryMechanism
       200
     end
 
-    def guard_access(env, request, &block)
+    def guard_access(env, request)
       if env['HTTP_API_KEY'].nil?
         response.status = 400
       elsif !@use_case_factory.get_use_case(:check_api_key).execute(api_key: env['HTTP_API_KEY'])[:valid]

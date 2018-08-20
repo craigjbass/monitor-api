@@ -124,7 +124,7 @@ class LocalAuthority::UseCases
       LocalAuthority::UseCase::ExpendAccessToken.new(
         access_token_gateway: builder.get_use_case(
           :access_token_gateway
-        )
+        ),create_api_key: builder.get_use_case(:create_api_key)
       )
     end
 
