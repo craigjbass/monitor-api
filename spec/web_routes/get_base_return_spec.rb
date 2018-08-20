@@ -6,11 +6,20 @@ require_relative 'delivery_mechanism_spec_helper'
 describe 'Getting a base return' do
   let(:get_base_return_spy) { spy(execute: base_return) }
 
+  let(:check_api_key_spy) { spy(execute:{valid: true})}
+
+
   before do
     stub_const(
       'LocalAuthority::UseCase::GetBaseReturn',
       double(new: get_base_return_spy)
     )
+
+    stub_const(
+      'LocalAuthority::UseCase::CheckApiKey',
+      double(new: check_api_key_spy)
+    )
+
   end
 
   context 'given no matching project id' do
@@ -19,7 +28,7 @@ describe 'Getting a base return' do
     let(:base_return) { {} }
 
     before do
-      get "/project/#{project_id}/return"
+      get "project/#{project_id}/return", {}, { 'HTTP_API_KEY' => 'Cats' }
     end
     it 'should return 404' do
       expect(last_response.status).to eq(404)
@@ -39,7 +48,7 @@ describe 'Getting a base return' do
       end
 
       before do
-        get "/project/#{project_id}/return"
+        get "project/#{project_id}/return", {}, { 'HTTP_API_KEY' => 'Cats' }
       end
 
       it 'should return 200' do
@@ -74,7 +83,7 @@ describe 'Getting a base return' do
       end
 
       before do
-        get "/project/#{project_id}/return"
+        get "project/#{project_id}/return", {}, { 'HTTP_API_KEY' => 'Cats' }
       end
 
       it 'should return 200' do
