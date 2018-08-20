@@ -15,7 +15,7 @@ module DeliveryMechanism
 
     options '*' do
       response.headers['Access-Control-Allow-Origin'] = '*'
-      response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Accept'
+      response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Accept, HTTP_API_KEY'
       200
     end
 
