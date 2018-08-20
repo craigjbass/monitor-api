@@ -11,7 +11,7 @@ class LocalAuthority::Gateway::GovEmailNotificationGateway
     @client.send_email(
       email_address: to,
       template_id: @default_template,
-      personalisation: { access_url: url + "/?token=#{access_token}" }
+      personalisation: { access_url: "#{url}/?token=#{access_token}" }
     )
   end
 end
