@@ -5,7 +5,7 @@ class LocalAuthority::UseCase::SendNotification
     @notification_gateway = notification_gateway
   end
 
-  def execute(to:, url:)
-    @notification_gateway.send_notification(to: to, url: url)
+  def execute(to:, url:, access_token:)
+    @notification_gateway.send_notification(to: to, url: url, access_token: access_token)
   end
 end

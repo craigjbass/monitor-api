@@ -20,10 +20,10 @@ describe LocalAuthority::Gateway::GovEmailNotificationGateway do
   context 'example 1' do
     context 'given email address and url' do
       it 'will run send_email with address and url within personalisation hash' do
-        described_class.new.send_notification(to: 'cat@cathouse.com', url: 'http://cats.com')
+        described_class.new.send_notification(to: 'cat@cathouse.com', url: 'http://cats.com', access_token: 'CatAccess')
         expect(send_mail_spy).to have_received(:send_email) do |args|
           expect(args[:email_address]).to eq('cat@cathouse.com')
-          expect(args[:personalisation]).to eq(access_url: 'http://cats.com')
+          expect(args[:personalisation]).to eq(access_url: 'http://cats.com' + '/?token=CatAccess')
         end
       end
     end
@@ -32,10 +32,10 @@ describe LocalAuthority::Gateway::GovEmailNotificationGateway do
   context 'example 2' do
     context 'given email address and url' do
       it 'will run send_email with address and url within personalisation hash' do
-        described_class.new.send_notification(to: 'dog@doghouse.com', url: 'http://dogs.com')
+        described_class.new.send_notification(to: 'dog@doghouse.com', url: 'http://dogs.com', access_token: 'DogAccess')
         expect(send_mail_spy).to have_received(:send_email) do |args|
           expect(args[:email_address]).to eq('dog@doghouse.com')
-          expect(args[:personalisation]).to eq(access_url: 'http://dogs.com')
+          expect(args[:personalisation]).to eq(access_url: 'http://dogs.com' + '/?token=DogAccess')
         end
       end
     end

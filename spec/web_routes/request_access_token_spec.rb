@@ -8,7 +8,7 @@ describe 'requesting an access token' do
   let(:check_email_spy) { spy(execute: { valid: true }) }
   let(:send_notification_spy) { spy }
   let(:valid_email) { 'cats@meow.com' }
-
+  let(:create_token_spy) { spy(execute: { access_token: 'Doggies' }) }
   before do
     stub_const(
       'LocalAuthority::UseCase::CheckEmail',
@@ -29,6 +29,11 @@ describe 'requesting an access token' do
       'LocalAuthority::Gateway::GovEmailNotificationGateway',
       double(new: notification_gateway_spy)
     )
+
+    stub_const(
+      'LocalAuthority::UseCase::CreateAccessToken',
+      double(new: create_token_spy)
+    )
   end
 
   before do
@@ -45,8 +50,12 @@ describe 'requesting an access token' do
       expect(last_response.status).to eq(200)
     end
 
+    it 'run the create access token use case' do
+      expect(create_token_spy).to have_received(:execute)
+    end
+
     it 'passes email address and url to send notification use case' do
-      expect(send_notification_spy).to have_received(:execute).with(to: valid_email, url: 'http://catscatscats.cat')
+      expect(send_notification_spy).to have_received(:execute).with(to: valid_email, url: 'http://catscatscats.cat', access_token: 'Doggies')
     end
   end
 
@@ -57,7 +66,8 @@ describe 'requesting an access token' do
     end
 
     it 'returns a 200' do
-      expect(last_response.status).to eq(200)
+      expect(last_response.status)
+        .to eq(200)
     end
 
     it 'does not pass email address and url to send notification use case' do

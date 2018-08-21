@@ -15,7 +15,7 @@ module DeliveryMechanism
 
     options '*' do
       response.headers['Access-Control-Allow-Origin'] = '*'
-      response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Accept'
+      response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Accept, API_KEY'
       200
     end
 
@@ -25,7 +25,9 @@ module DeliveryMechanism
         email_address: request_hash[:email_address]
       )[:valid]
         @use_case_factory.get_use_case(:send_notification).execute(
-          to: request_hash[:email_address], url: request_hash[:url]
+          to: request_hash[:email_address], url: request_hash[:url],
+          access_token:
+            @use_case_factory.get_use_case(:create_access_token).execute[:access_token]
         )
       end
       200
@@ -125,17 +127,19 @@ module DeliveryMechanism
     end
 
     get '/project/:id/return' do
-      return 400 if params['id'].nil?
+      guard_access env, request do
+        return 400 if params['id'].nil?
 
-      base_return = @use_case_factory.get_use_case(:get_base_return).execute(
-        project_id: params['id'].to_i
-      )
+        base_return = @use_case_factory.get_use_case(:get_base_return).execute(
+          project_id: params['id'].to_i
+        )
 
-      if base_return.empty?
-        response.status = 404
-      else
-        response.status = 200
-        response.body = { baseReturn: base_return[:base_return] }.to_json
+        if base_return.empty?
+          response.status = 404
+        else
+          response.status = 200
+          response.body = { baseReturn: base_return[:base_return] }.to_json
+        end
       end
     end
 
@@ -164,22 +168,20 @@ module DeliveryMechanism
     end
 
     post '/project/create' do
-      guard_access env, request do
-        request_hash = get_hash(request)
+      request_hash = get_hash(request)
 
-        use_case = @use_case_factory.get_use_case(:create_new_project)
+      use_case = @use_case_factory.get_use_case(:create_new_project)
 
-        id = use_case.execute(
-          type: request_hash[:type],
-          baseline: Common::DeepSymbolizeKeys.to_symbolized_hash(request_hash[:baselineData])
-        )
+      id = use_case.execute(
+        type: request_hash[:type],
+        baseline: Common::DeepSymbolizeKeys.to_symbolized_hash(request_hash[:baselineData])
+      )
 
-        content_type 'application/json'
-        response.body = {
-          projectId: id
-        }.to_json
-        response.status = 201
-      end
+      content_type 'application/json'
+      response.body = {
+        projectId: id
+      }.to_json
+      response.status = 201
     end
 
     post '/project/update' do
