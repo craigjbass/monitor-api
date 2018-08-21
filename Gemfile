@@ -6,6 +6,7 @@ gem 'pg'
 gem 'require_all'
 gem 'sequel'
 gem 'sinatra'
+gem 'notifications-ruby-client'
 
 group :test do
   gem 'guard-rspec', require: false
@@ -13,7 +14,7 @@ group :test do
   gem 'rerun'
   gem 'rspec'
   gem 'rspec_junit_formatter'
-  gem 'notifications-ruby-client'
+
 end
 
 group :development, :test do
