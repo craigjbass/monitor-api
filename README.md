@@ -15,18 +15,15 @@ The Local Authority Monitoring project's goal is to visualise the status of HIF 
 
 ## Testing the application
 
-Once you have cloned the repository run all tests with the following command: 
+Once you have cloned the repository run all tests with the following command:
 
 `make test`
 
 ## Running the application
 
-Once you have cloned the repository you can run the application with the following command: 
+Once you have cloned the repository you can run the application with the following command:
 
 
 `make serve`
 
-The application runs on port `3000`
-
-
-
+The application runs on port `4567`
