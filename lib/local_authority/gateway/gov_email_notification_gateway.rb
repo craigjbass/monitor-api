@@ -3,7 +3,7 @@
 require 'notifications/client'
 class LocalAuthority::Gateway::GovEmailNotificationGateway
   def initialize
-    @client = Notifications::Client.new(ENV.fetch('GOV_NOTIFY_API_KEY'))
+    @client = Notifications::Client.new(ENV.fetch('GOV_NOTIFY_API_KEY'), base_url=ENV['GOV_NOTIFY_API_URL'])
     @default_template = 'b8fc89b6-79c6-491f-9872-60e110130e4a'
   end
 
