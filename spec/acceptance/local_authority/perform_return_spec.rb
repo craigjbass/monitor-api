@@ -396,6 +396,53 @@ describe 'Performing Return on HIF Project' do
 
     submit_return(id: return_id)
     expect_return_to_be_submitted(id: return_id)
+
+    second_return = {
+      project_id: project_id,
+      data: {
+        summary: {
+          project_name: 'Dogs Protection League',
+          description: 'A new headquarters for all the Dogs',
+          lead_authority: 'Made Tech'
+        },
+        infrastructure: {
+          type: 'Dog Bathroom',
+          description: 'Bathroom for Dogs',
+          completion_date: '2018-12-25',
+          planning: {
+            submission_estimated: '2018-06-01',
+            submission_actual: '2018-07-01',
+            submission_delay_reason: 'Planning office was closed for summer'
+          }
+        },
+        financial: {
+          total_amount_estimated: '£ 1000000.00',
+          total_amount_actual: nil,
+          total_amount_changed_reason: nil
+        }
+      }
+    }
+
+    second_return_id = create_new_return(
+      project_id: second_return[:project_id],
+      data: initial_return[:data]
+    )
+
+    expected_second_return = {
+      project_id: project_id,
+      status: 'Draft',
+      updates: [
+        second_return[:data]
+      ]
+    }
+
+    expect_return_with_id_to_equal(
+      id: second_return_id,
+      expected_return: expected_second_return
+    )
+
+    submit_return(id: second_return_id)
+    expect_return_to_be_submitted(id: second_return_id)
   end
 
   def soft_update_return(id:, data:)

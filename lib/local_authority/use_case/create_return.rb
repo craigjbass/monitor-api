@@ -8,7 +8,6 @@ class LocalAuthority::UseCase::CreateReturn
     created_return_id = create_return_for_project(project_id)
     create_return_update(created_return_id, data)
 
-
     { id: created_return_id }
   end
 

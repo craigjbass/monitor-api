@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-# No baselineKey?
-# Arrays
-
 describe LocalAuthority::UseCase::PopulateReturnTemplate do
   let(:template_schema) { { properties: {} } }
   let(:matching_baseline_data) { '' }
@@ -15,10 +12,12 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
   end
   let(:template_gateway) { spy(find_by: found_template) }
   let(:find_baseline_path) { spy(execute: { found: matching_baseline_data }) }
-  let(:get_schema_copy_paths) { spy(execute: copy_paths)}
-  let(:use_case) { described_class.new(template_gateway: template_gateway,
+  let(:get_schema_copy_paths) { spy(execute: copy_paths) }
+  let(:use_case) do
+    described_class.new(template_gateway: template_gateway,
     find_baseline_path: find_baseline_path,
-    get_schema_copy_paths: get_schema_copy_paths)}
+    get_schema_copy_paths: get_schema_copy_paths)
+  end
 
 
   context 'finds the template' do
@@ -93,18 +92,18 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
         {
           noise:
           {
-            baselineKey: [:cats]
+            sourceKey: [:baseline_data, :cats]
           }
         }
       }
     end
 
     let(:matching_baseline_data) { "Meow" }
-    let(:copy_paths) { { paths: [{from: [:cats], to: [:noise]}] } }
+    let(:copy_paths) { { paths: [{ from: [:cats], to: [:noise] }] } }
 
     it 'populates a simple template' do
       result = use_case.execute(type: 'hif', baseline_data: baseline_data)
-      expect(result).to eq(populated_data: {noise: "Meow"})
+      expect(result).to eq(populated_data: { noise: "Meow" })
     end
   end
 
@@ -126,7 +125,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
         {
           noise:
           {
-            baselineKey: [:cats, :sound]
+            sourceKey: [:baseline_data, :cats, :sound]
           }
         }
       }
@@ -166,11 +165,11 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
               {
                 noise:
                 {
-                  baselineKey: [:cats, :sound]
+                  sourceKey: [:baseline_data, :cats, :sound]
                 },
                 breed:
                 {
-                  baselineKey: [:cats, :breed]
+                  sourceKey: [:baseline_data, :cats, :breed]
                 }
               }
             }
@@ -223,7 +222,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
             properties:
             {
               cat: {
-                baselineKey: [:cats, :sound]
+                sourceKey: [:baseline_data, :cats, :sound]
               }
             }
           }
@@ -263,11 +262,11 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
         {
           cat:
           {
-            baselineKey: [:cats, :sound]
+            sourceKey: [:baseline_data, :cats, :sound]
           },
           dog:
           {
-            baselineKey: [:dogs, :sound]
+            sourceKey: [:baseline_data, :dogs, :sound]
           }
         }
       }
@@ -319,7 +318,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
                 properties:
                 {
                   noise: {
-                    baselineKey: [:cats, :sound]
+                    sourceKey: [:baseline_data, :cats, :sound]
                   }
                 }
               }
@@ -372,7 +371,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
                       {
                         sounds:
                         {
-                          baselineKey: [:cats, :sounds]
+                          sourceKey: [:baseline_data, :cats, :sounds]
                         }
                       }
                     }
@@ -411,6 +410,44 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
         ]
       }}
       )
+    end
+  end
+
+  context 'Creating a return from another return' do
+    let(:template_schema) do
+      {
+        type: 'object',
+        properties:
+        {
+          noise:
+          {
+            sourceKey: [:return_data, :cat]
+          }
+        }
+      }
+    end
+
+    let(:baseline_data) { {} }
+    let(:return_data) do
+      {
+        cat: "Meow"
+      }
+    end
+
+    let(:copy_paths) do
+        {
+          paths:
+          [
+            {from: [:return_data, :cat], to: [:cat]}
+          ]
+        }
+    end
+
+    let(:matching_baseline_data) { "Meow" }
+
+    it 'is a simple return' do
+      result = use_case.execute(type: 'hif', baseline_data: baseline_data, return_data: return_data)
+      expect(result).to eq(populated_data: { cat: "Meow" })
     end
   end
 end

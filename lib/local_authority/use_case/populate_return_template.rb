@@ -5,16 +5,19 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
     @get_schema_copy_paths = get_schema_copy_paths
   end
 
-  def execute(type:, baseline_data:)
+  def execute(type:, baseline_data:, return_data: {})
+    source_data = { baseline_data: baseline_data, return_data: return_data }
     populated_return = {}
     template_schema = @template_gateway.find_by(type: type).schema
-    @get_schema_copy_paths.execute(type: type)[:paths].each do |copy_paths|
+    paths = @get_schema_copy_paths.execute(type: type)[:paths]
+    paths.each do |copy_paths|
       path_types = schema_types(template_schema, copy_paths[:to]).drop(1)
+      found_data = @find_baseline_path.execute(source_data, copy_paths[:from])[:found]
       descend_hash_and_bury(
         populated_return,
         copy_paths[:to],
         path_types,
-        @find_baseline_path.execute(baseline_data, copy_paths[:from])[:found]
+        found_data
       )
     end
     { populated_data: populated_return }

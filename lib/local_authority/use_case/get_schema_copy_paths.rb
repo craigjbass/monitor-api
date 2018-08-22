@@ -20,8 +20,8 @@ class LocalAuthority::UseCase::GetSchemaCopyPaths
         paths += descend_object(value[:items], node_path)
       end
 
-      unless value[:baselineKey].nil?
-        paths << { to: node_path, from: value[:baselineKey] }
+      unless value[:sourceKey].nil?
+        paths << { to: node_path, from: value[:sourceKey] }
       end
     end
     paths

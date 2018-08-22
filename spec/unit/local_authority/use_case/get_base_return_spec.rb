@@ -1,8 +1,10 @@
 
+#We now need to get the last update and factor it into our populate
 describe LocalAuthority::UseCase::GetBaseReturn do
-  let(:return_gateway) {spy(find_by: schema)}
+  let(:return_gateway) { spy(find_by: schema) }
   let(:project_gateway_spy) { spy(find_by: project) }
   let(:populate_return_spy) { spy(execute: populated_return) }
+
   let(:use_case) do
     described_class.new(
       return_gateway: return_gateway,
