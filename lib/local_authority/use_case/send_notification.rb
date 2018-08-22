@@ -6,6 +6,7 @@ class LocalAuthority::UseCase::SendNotification
   end
 
   def execute(to:, url:, access_token:)
-    @notification_gateway.send_notification(to: to, url: url, access_token: access_token)
+    url_to_send = url.gsub(/\/?\?.*/, '') #Removes URL params and forward slash prefix if present
+    @notification_gateway.send_notification(to: to, url: url_to_send, access_token: access_token)
   end
 end
