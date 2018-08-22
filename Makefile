@@ -5,7 +5,7 @@ docker-stop:
 	docker-compose stop
 
 serve: docker-stop docker-build
-	docker-compose run --rm --service-ports web
+	docker-compose up 
 
 shell: docker-build
 	docker-compose run --rm web ash

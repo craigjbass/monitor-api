@@ -16,10 +16,21 @@ services:
       - "4567:4567"
     links:
       - db
+      - notify_simulator
     command: "bundle exec rerun --background 'ash bin/serve.sh'"
     privileged: true
     environment:
       DATABASE_URL: 'postgres://postgres:super-secret@db/monitor_api'
       PROJECT_FILE_PATH: 'projects.json'
+      GOV_NOTIFY_API_URL: 'http://notify_simulator'
       EMAIL_WHITELIST: "${EMAIL_WHITELIST}"
       GOV_NOTIFY_API_KEY: "${GOV_NOTIFY_API_KEY}"
+
+  notify_simulator:
+    build: .
+    volumes:
+      - ./:/app
+    ports:
+      - "7654:4567"
+    privileged: true
+    command: "bundle exec rerun --background -- ruby ./simulators/notify.rb -o 0.0.0.0 -p 80"
