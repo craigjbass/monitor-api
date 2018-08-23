@@ -131,4 +131,16 @@ describe LocalAuthority::UseCase::FindPathData do
       expect(use_case).to eq(found: [["Milestone One", "Milestone Two"]])
     end
   end
+
+  context 'non-existent path' do
+    let(:baseline_data) do
+      {
+        infrastructures: []
+      }
+    end
+    let(:path) { [:infrastructures, :milestones, :descriptionOfMilestone] }
+    it 'finds nothing' do
+      expect(use_case).to eq({})
+    end
+  end
 end

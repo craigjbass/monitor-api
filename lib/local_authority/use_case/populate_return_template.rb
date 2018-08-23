@@ -67,12 +67,14 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
   end
 
   def descend_array(hash, path, path_types, value)
-    hash[path.first] = descend_array_and_bury(
-      hash[path.first],
-      path.drop(1),
-      path_types.drop(1),
-      value
-    )
+    if value.class == Array
+      hash[path.first] = descend_array_and_bury(
+        hash[path.first],
+        path.drop(1),
+        path_types.drop(1),
+        value
+      )
+    end
   end
 
   def descend_hash(hash, path, path_types, value)
@@ -116,7 +118,12 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
     elsif schema[:type] == 'array'
       [:array] + schema_types(schema[:items][:properties][path[0]], path.drop(1))
     elsif schema[:type] == 'object'
-      [:object] + schema_types(schema[:properties][path[0]], path.drop(1))
+      acquired_path = schema_types(schema[:properties][path[0]], path.drop(1))
+      if acquired_path.nil?
+        [:object]
+      else
+        [:object] + acquired_path
+      end
     end
   end
 end

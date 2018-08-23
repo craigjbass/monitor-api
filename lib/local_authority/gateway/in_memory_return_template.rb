@@ -1299,7 +1299,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   hifSpendLastReturn: {
                                     type: 'integer',
                                     readonly: true,
-                                    title: 'TO BE CALCULATED - Current HIF spend since last return'
+                                    title: 'TO BE CALCULATED - Current HIF spend since last return',
+                                    sourceKey: [:return_data, :funding, :fundingPackages, :fundingPackage, :overview, :hifSpendSinceLastReturn, :hifSpendCurrentReturn]
                                   },
                                   hifSpendVariance: {
                                     type: 'integer',

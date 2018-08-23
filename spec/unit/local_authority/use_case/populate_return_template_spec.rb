@@ -450,4 +450,76 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
       expect(result).to eq(populated_data: { cat: "Meow" })
     end
   end
+
+  context 'creating a return to a non-existent simple two level path' do
+    let(:template_schema) do
+      {
+        type: 'object',
+        properties:
+        {
+          cat:
+          {
+            sourceKey: [:return_data, :cats, :name]
+          }
+        }
+      }
+    end
+
+    let(:baseline_data) { {} }
+    let(:return_data) { {cats: []} }
+
+    let(:copy_paths) do
+        {
+          paths:
+          [
+            {from: [:return_data, :cats, :name], to: [:cat,:something]}
+          ]
+        }
+    end
+
+    it 'gives an empty populated_data' do
+      result = use_case.execute(type: 'hif', baseline_data: baseline_data, return_data: return_data)
+      expect(result).to eq(populated_data: {})
+    end
+  end
+
+  context 'creating a return with a non-existent source path that contains an array' do
+    let(:template_schema) do
+      {
+        type: 'object',
+        properties:
+        {
+          cats:
+          {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: {
+                cat: {
+                  sourceKey: [:return_data, :cats, :name]
+                }
+              }
+            }
+          }
+        }
+      }
+    end
+
+    let(:baseline_data) { {} }
+    let(:return_data) { {cats: []} }
+
+    let(:copy_paths) do
+        {
+          paths:
+          [
+            {from: [:return_data, :cats, :name], to: [:cats,:cat]}
+          ]
+        }
+    end
+
+    it 'gives an empty populated_data' do
+      result = use_case.execute(type: 'hif', baseline_data: baseline_data, return_data: return_data)
+      expect(result).to eq(populated_data: {cats: []})
+    end
+  end
 end

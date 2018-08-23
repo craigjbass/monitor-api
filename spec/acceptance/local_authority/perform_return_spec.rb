@@ -295,6 +295,136 @@ describe 'Performing Return on HIF Project' do
     }
   end
 
+  let(:expected_second_base_return) do
+    {
+      id: project_id,
+      data:
+      {
+        infrastructures: [
+          {
+            type: 'A House',
+            description: 'A house of cats',
+            planning: {
+              baselineOutlinePlanningPermissionGranted: true,
+              planningNotGranted: {
+                baselineSummaryOfCriticalPath: 'Summary of critical path',
+                fieldOne: {
+                  baselineCompletion: {
+                    baselineFullPlanningPermissionSubmitted: '2020-01-01',
+                    baselineFullPlanningPermissionGranted: '2020-01-01'
+                  },
+                  fullPlanningPermissionGranted: false,
+                  fullPlanningPermissionSummaryOfCriticalPath: 'Summary of critical path'
+                },
+                fieldTwo: {
+                  baselineCompletion: {
+                    baselineFullPlanningPermissionSubmitted: '2020-01-01',
+                    baselineFullPlanningPermissionGranted: '2020-01-01'
+                  }
+                },
+                s106Requirement: true,
+                s106SummaryOfRequirement: 'Required',
+                statutoryConsents: {
+                  anyStatutoryConsents: true
+                }
+              }
+            },
+            landOwnership: {
+              laHasControlOfSite: true,
+              laDoesNotControlSite: {
+                whoOwnsSite: 'Dave',
+                landAquisitionRequired: true
+              },
+              laDoesHaveControlOfSite: {
+                howManySitesToAquire: 10,
+                toBeAquiredBy: 'Dave',
+                summaryOfAcquisitionRequired: 'Summary of critical path',
+                allLandAssemblyAchieved: {
+                  landAssemblyBaselineCompletion: '2020-01-01'
+                }
+              }
+            },
+            procurement: {
+              contractorProcured: true,
+              infrastructureNotProcured: {
+                infraStructureContractorProcurement: {
+                  procurementBaselineCompletion: '2020-01-01'
+                }
+              },
+              infrastructureProcured: {
+                nameOfContractor: 'Dave'
+              }
+            },
+            milestones: {
+              keyMilestones: [{ milestoneBaselineCompletion: '2020-01-01',
+                                milestoneSummaryOfCriticalPath: 'Summary of critical path' }],
+              expectedInfrastructureStartOnSite: {
+                milestoneExpectedInfrastructureStartBaseline: '2020-01-01'
+              },
+              expectedCompletionDateOfInfra: {
+                milestoneExpectedInfrastructureCompletionBaseline: '2020-01-01'
+              }
+            },
+            risks: {
+              baselineRisks: {
+                risks: [{ items: {
+                  riskBaselineRisk: 'Risk one',
+                  riskBaselineImpact: 'High',
+                  riskBaselineLikelihood: 'High',
+                  riskBaselineMitigationsInPlace: 'Do not do the thing'
+                } }]
+              }
+            }
+          }
+        ],
+        funding: [
+          { hifFundingProfile: [
+            {
+              fundingYear: ['4000'],
+              forecast: {
+                forecastQ1: ['1000'],
+                forecastQ2: ['1000'],
+                forecastQ3: ['1000'],
+                forecastQ4: ['1000'],
+                forecastTotal: ['1000']
+              }
+            }
+          ],
+            fundingPackages: [
+              {
+                fundingPackage: {
+                  overview: {
+                    overviewCosts: {
+                      baselineCost: '1000'
+                    },
+                    hifSpendSinceLastReturn: {
+                      hifSpendLastReturn: '25565'
+                    }
+                  },
+                  fundingStack: {
+                    totallyFundedThroughHIF: true,
+                    notFundedThroughHif: {
+                      descriptionOfFundingStack: 'Stack',
+                      totalPublic: {
+                        publicTotalBaselineAmount: '2000'
+                      },
+                      totalPrivate: {
+                        privateTotalBaselineAmount: '2000'
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            recovery: {
+              aimToRecover: true
+            } }
+        ]
+      }
+    }
+  end
+
+
   let(:project_id) do
     get_use_case(:create_new_project).execute(
       type: 'hif', baseline: project_baseline
@@ -369,6 +499,19 @@ describe 'Performing Return on HIF Project' do
           submission_delay_reason: 'Planning office was closed for summer'
         }
       },
+      funding: [
+        {
+          fundingPackages: [
+            fundingPackage: {
+              overview: {
+                hifSpendSinceLastReturn: {
+                  hifSpendCurrentReturn: '25565'
+                }
+              }
+            }
+          ]
+        }
+      ],
       financial: {
         total_amount_estimated: '£ 1000000.00',
         total_amount_actual: nil,
@@ -397,52 +540,8 @@ describe 'Performing Return on HIF Project' do
     submit_return(id: return_id)
     expect_return_to_be_submitted(id: return_id)
 
-    second_return = {
-      project_id: project_id,
-      data: {
-        summary: {
-          project_name: 'Dogs Protection League',
-          description: 'A new headquarters for all the Dogs',
-          lead_authority: 'Made Tech'
-        },
-        infrastructure: {
-          type: 'Dog Bathroom',
-          description: 'Bathroom for Dogs',
-          completion_date: '2018-12-25',
-          planning: {
-            submission_estimated: '2018-06-01',
-            submission_actual: '2018-07-01',
-            submission_delay_reason: 'Planning office was closed for summer'
-          }
-        },
-        financial: {
-          total_amount_estimated: '£ 1000000.00',
-          total_amount_actual: nil,
-          total_amount_changed_reason: nil
-        }
-      }
-    }
-
-    second_return_id = create_new_return(
-      project_id: second_return[:project_id],
-      data: second_return[:data]
-    )
-
-    expected_second_return = {
-      project_id: project_id,
-      status: 'Draft',
-      updates: [
-        second_return[:data]
-      ]
-    }
-
-    expect_return_with_id_to_equal(
-      id: second_return_id,
-      expected_return: expected_second_return
-    )
-
-    submit_return(id: second_return_id)
-    expect_return_to_be_submitted(id: second_return_id)
+    second_base_return = get_use_case(:get_base_return).execute(project_id: project_id)
+    expect(second_base_return[:base_return][:data]).to eq(expected_second_base_return[:data])
   end
 
   def soft_update_return(id:, data:)

@@ -34,6 +34,7 @@ class LocalAuthority::UseCase::GetBaseReturn
         baseline_data: project.data,
         return_data: return_data
       )[:populated_data]
+
     else
       @populate_return_template.execute(
         type: project.type,
