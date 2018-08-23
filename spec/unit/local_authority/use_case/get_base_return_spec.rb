@@ -254,6 +254,53 @@ describe LocalAuthority::UseCase::GetBaseReturn do
         )
       end
 
+      context 'draft returns' do
+        let(:returned_return) do
+          {
+            id: 0,
+            project_id: project_id,
+            status: 'Submitted',
+            updates: [
+              {
+                duck: 'Quack'
+              }
+            ]
+          }
+        end
+
+        let(:second_returned_return) do
+          {
+            id: 1,
+            project_id: project_id,
+            status: 'Draft',
+            updates: [
+              {
+                cow: 'Moo'
+              }
+            ]
+          }
+        end
+
+        let(:get_returns_spy) do
+          spy(execute:
+              {
+                returns:
+                [
+                  returned_return,
+                  second_returned_return
+                ]
+              })
+        end
+
+        it 'executes the populate return template use case' do
+          expect(populate_return_spy).to have_received(:execute).with(
+            type: project.type,
+            baseline_data: project.data,
+            return_data: returned_return[:updates][-1]
+          )
+        end
+      end
+
       context 'multiple returns' do
         let(:returned_return) do
           {

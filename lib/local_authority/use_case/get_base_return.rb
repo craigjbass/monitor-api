@@ -24,7 +24,13 @@ class LocalAuthority::UseCase::GetBaseReturn
   end
 
   def get_return_data_for_project(project_id)
-    @get_returns.execute(project_id: project_id).dig(:returns, -1, :updates, -1)
+    submitted_returns = @get_returns.execute(
+      project_id: project_id
+    )[:returns]&.select do |return_data|
+      return_data[:status] == 'Submitted'
+    end
+
+    submitted_returns&.dig(-1, :updates, -1)
   end
 
   def populate_return(project, return_data)
@@ -34,7 +40,6 @@ class LocalAuthority::UseCase::GetBaseReturn
         baseline_data: project.data,
         return_data: return_data
       )[:populated_data]
-
     else
       @populate_return_template.execute(
         type: project.type,

@@ -540,6 +540,12 @@ describe 'Performing Return on HIF Project' do
     submit_return(id: return_id)
     expect_return_to_be_submitted(id: return_id)
 
+    #A draft
+    create_new_return(
+      project_id: initial_return[:project_id],
+      data: initial_return[:data]
+    )
+
     second_base_return = get_use_case(:get_base_return).execute(project_id: project_id)
     expect(second_base_return[:base_return][:data]).to eq(expected_second_base_return[:data])
   end
