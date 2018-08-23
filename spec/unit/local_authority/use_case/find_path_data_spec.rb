@@ -1,4 +1,4 @@
-describe LocalAuthority::UseCase::FindBaselinePath do
+describe LocalAuthority::UseCase::FindPathData do
 
   let(:use_case) { described_class.new.execute(baseline_data, path) }
 

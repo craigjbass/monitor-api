@@ -11,11 +11,11 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
     end
   end
   let(:template_gateway) { spy(find_by: found_template) }
-  let(:find_baseline_path) { spy(execute: { found: matching_baseline_data }) }
+  let(:find_path_data) { spy(execute: { found: matching_baseline_data }) }
   let(:get_schema_copy_paths) { spy(execute: copy_paths) }
   let(:use_case) do
     described_class.new(template_gateway: template_gateway,
-    find_baseline_path: find_baseline_path,
+    find_path_data: find_path_data,
     get_schema_copy_paths: get_schema_copy_paths)
   end
 
@@ -179,7 +179,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
       }
     end
 
-    let(:find_baseline_path) do
+    let(:find_path_data) do
       Class.new do
         def execute(baseline_data, path)
           if path == [:cats, :sound]
@@ -276,7 +276,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
       {from: [:dogs, :sound], to: [:dog]}
     ] } }
 
-    let(:find_baseline_path) do
+    let(:find_path_data) do
       Class.new do
         def execute(baseline_data, path)
           if path == [:cats, :sound]
