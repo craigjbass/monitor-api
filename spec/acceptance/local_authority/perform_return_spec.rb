@@ -425,7 +425,7 @@ describe 'Performing Return on HIF Project' do
 
     second_return_id = create_new_return(
       project_id: second_return[:project_id],
-      data: initial_return[:data]
+      data: second_return[:data]
     )
 
     expected_second_return = {

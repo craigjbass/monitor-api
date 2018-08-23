@@ -1,18 +1,18 @@
 
 #We now need to get the last update and factor it into our populate
-describe LocalAuthority::UseCase::GetBaseReturn, focus: true do
+describe LocalAuthority::UseCase::GetBaseReturn do
   let(:return_gateway) { spy(find_by: schema) }
   let(:project_gateway_spy) { spy(find_by: project) }
   let(:populate_return_spy) { spy(execute: populated_return) }
 
-  let(:get_returns) { spy(execute: {}) }
+  let(:get_returns_spy) { spy(execute: {}) }
 
   let(:use_case) do
     described_class.new(
       return_gateway: return_gateway,
       project_gateway: project_gateway_spy,
       populate_return_template: populate_return_spy,
-      get_returns: get_returns
+      get_returns: get_returns_spy
     )
   end
   let(:response) { use_case.execute(project_id: project_id) }
@@ -108,7 +108,6 @@ describe LocalAuthority::UseCase::GetBaseReturn, focus: true do
       end
     end
 
-    let(:project_id) { 1 }
     let(:data) { { description: 'Super secret project' } }
 
     let(:project) do
@@ -118,21 +117,7 @@ describe LocalAuthority::UseCase::GetBaseReturn, focus: true do
       end
     end
 
-    let(:returned_return) do
-      {
-        id: 0,
-        project_id: project_id,
-        status: 'Submitted',
-        updates: [
-          {
-            cat: 'Meow'
-          }
-        ]
-      }
-    end
-
-    #get_returns is executed by .execute(project_id:)
-    let(:get_returns) do
+    let(:get_returns_spy) do
       spy(execute:
           {
             returns:
@@ -144,8 +129,202 @@ describe LocalAuthority::UseCase::GetBaseReturn, focus: true do
 
     let(:populated_return) { { populated_data: { cat: 'Meow' } } }
 
-    #Need to ensure we
-    # 1. Execute get_returns
-    # 2. Execute populate_data with return_data as well as baseline_data
+    context 'example 1' do
+      let(:returned_return) do
+        {
+          id: 0,
+          project_id: project_id,
+          status: 'Submitted',
+          updates: [
+            {
+              cat: 'Meow'
+            }
+          ]
+        }
+      end
+      let(:project_id) { 1 }
+      it 'executes the get returns use case with the project id' do
+        expect(get_returns_spy).to have_received(:execute).with(project_id: 1)
+      end
+
+      it 'executes the populate return template use case with data from a return' do
+        expect(populate_return_spy).to have_received(:execute).with(
+          type: project.type,
+          baseline_data: project.data,
+          return_data: returned_return[:updates][-1]
+        )
+      end
+
+      context 'multiple returns' do
+        let(:returned_return) do
+          {
+            id: 0,
+            project_id: project_id,
+            status: 'Submitted',
+            updates: [
+              {
+                dog: 'Woof'
+              }
+            ]
+          }
+        end
+
+        let(:second_returned_return) do
+          {
+            id: 1,
+            project_id: project_id,
+            status: 'Submitted',
+            updates: [
+              {
+                cat: 'Meow'
+              }
+            ]
+          }
+        end
+
+        let(:get_returns_spy) do
+          spy(execute:
+              {
+                returns:
+                [
+                  returned_return,
+                  second_returned_return
+                ]
+              })
+        end
+
+        it 'executes the populate return template use case' do
+          expect(populate_return_spy).to have_received(:execute).with(
+            type: project.type,
+            baseline_data: project.data,
+            return_data: second_returned_return[:updates][-1]
+          )
+        end
+
+        context 'multiple updates' do
+          let(:second_returned_return) do
+            {
+              id: 1,
+              project_id: project_id,
+              status: 'Submitted',
+              updates: [
+                {
+                  bird: 'tweet'
+                },
+                {
+                  alpaca: 'Hum'
+                }
+              ]
+            }
+          end
+          it 'executes the populate return template use case' do
+            expect(populate_return_spy).to have_received(:execute).with(
+              type: project.type,
+              baseline_data: project.data,
+              return_data: second_returned_return[:updates][-1]
+            )
+          end
+        end
+      end
+    end
+
+    context 'example 2' do
+      let(:returned_return) do
+        {
+          id: 0,
+          project_id: project_id,
+          status: 'Submitted',
+          updates: [
+            {
+              dog: 'Woof'
+            }
+          ]
+        }
+      end
+      let(:project_id) { 3 }
+      it 'executes the get returns use case with the project id' do
+        expect(get_returns_spy).to have_received(:execute).with(project_id: 3)
+      end
+
+      it 'executes the populate return template use case with data from a return' do
+        expect(populate_return_spy).to have_received(:execute).with(
+          type: project.type,
+          baseline_data: project.data,
+          return_data: returned_return[:updates][-1]
+        )
+      end
+
+      context 'multiple returns' do
+        let(:returned_return) do
+          {
+            id: 0,
+            project_id: project_id,
+            status: 'Submitted',
+            updates: [
+              {
+                duck: 'Quack'
+              }
+            ]
+          }
+        end
+
+        let(:second_returned_return) do
+          {
+            id: 1,
+            project_id: project_id,
+            status: 'Submitted',
+            updates: [
+              {
+                cow: 'Moo'
+              }
+            ]
+          }
+        end
+
+        let(:get_returns_spy) do
+          spy(execute:
+              {
+                returns:
+                [
+                  returned_return,
+                  second_returned_return
+                ]
+              })
+        end
+
+        it 'executes the populate return template use case' do
+          expect(populate_return_spy).to have_received(:execute).with(
+            type: project.type,
+            baseline_data: project.data,
+            return_data: second_returned_return[:updates][-1]
+          )
+        end
+
+        context 'multiple updates' do
+          let(:second_returned_return) do
+            {
+              id: 1,
+              project_id: project_id,
+              status: 'Submitted',
+              updates: [
+                {
+                  guppy: 'Pop'
+                },
+                {
+                  llama: 'Buzz'
+                }
+              ]
+            }
+          end
+          it 'executes the populate return template use case' do
+            expect(populate_return_spy).to have_received(:execute).with(
+              type: project.type,
+              baseline_data: project.data,
+              return_data: second_returned_return[:updates][-1]
+            )
+          end
+        end
+      end
+    end
   end
 end

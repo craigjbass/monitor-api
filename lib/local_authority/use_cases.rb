@@ -55,7 +55,8 @@ class LocalAuthority::UseCases
       LocalAuthority::UseCase::GetBaseReturn.new(
         return_gateway: builder.get_use_case(:return_template_gateway),
         project_gateway: builder.get_use_case(:project_gateway),
-        populate_return_template: builder.get_use_case(:populate_return_template)
+        populate_return_template: builder.get_use_case(:populate_return_template),
+        get_returns: builder.get_use_case(:get_returns)
       )
     end
 
