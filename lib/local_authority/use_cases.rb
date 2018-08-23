@@ -33,8 +33,8 @@ class LocalAuthority::UseCases
     end
 
 
-    builder.define_use_case :find_baseline_path do
-      LocalAuthority::UseCase::FindBaselinePath.new
+    builder.define_use_case :find_path_data do
+      LocalAuthority::UseCase::FindPathData.new
     end
 
     builder.define_use_case :get_schema_copy_paths do
@@ -46,7 +46,7 @@ class LocalAuthority::UseCases
     builder.define_use_case :populate_return_template do
       LocalAuthority::UseCase::PopulateReturnTemplate.new(
         template_gateway: builder.get_use_case(:return_template_gateway),
-        find_baseline_path: builder.get_use_case(:find_baseline_path),
+        find_path_data: builder.get_use_case(:find_path_data),
         get_schema_copy_paths: builder.get_use_case(:get_schema_copy_paths)
       )
     end
@@ -55,7 +55,8 @@ class LocalAuthority::UseCases
       LocalAuthority::UseCase::GetBaseReturn.new(
         return_gateway: builder.get_use_case(:return_template_gateway),
         project_gateway: builder.get_use_case(:project_gateway),
-        populate_return_template: builder.get_use_case(:populate_return_template)
+        populate_return_template: builder.get_use_case(:populate_return_template),
+        get_returns: builder.get_use_case(:get_returns)
       )
     end
 

@@ -12,7 +12,7 @@ describe LocalAuthority::UseCase::GetSchemaCopyPaths do
           {
             noise:
             {
-              baselineKey: [:cats]
+              sourceKey: [:cats]
             }
           }
         }
@@ -30,7 +30,7 @@ describe LocalAuthority::UseCase::GetSchemaCopyPaths do
           {
             sounds:
             {
-              baselineKey: [:dogs]
+              sourceKey: [:dogs]
             }
           }
         }
@@ -47,13 +47,13 @@ describe LocalAuthority::UseCase::GetSchemaCopyPaths do
         type: 'object',
         properties: {
           catNoise: {
-            baselineKey: [:cats]
+            sourceKey: [:cats]
           },
           dogNoise: {
-            baselineKey: [:dogs]
+            sourceKey: [:dogs]
           },
           cowNoise: {
-            baselineKey: [:cows]
+            sourceKey: [:cows]
           }
         }
       }
@@ -73,12 +73,12 @@ describe LocalAuthority::UseCase::GetSchemaCopyPaths do
         type: 'object',
         properties: {
           catNoise: {
-            baselineKey: [:cats]
+            sourceKey: [:cats]
           },
           dogNoise: {
           },
           cowNoise: {
-            baselineKey: [:cows]
+            sourceKey: [:cows]
           }
         }
       }
@@ -100,7 +100,7 @@ describe LocalAuthority::UseCase::GetSchemaCopyPaths do
             type: 'object',
             properties: {
               breed: {
-                baselineKey: [:breed]
+                sourceKey: [:breed]
               }
             }
           }
@@ -127,7 +127,7 @@ describe LocalAuthority::UseCase::GetSchemaCopyPaths do
                 type: 'object',
                 properties: {
                   breed: {
-                    baselineKey: [:parentA]
+                    sourceKey: [:parentA]
                   }
                 }
               },
@@ -135,7 +135,7 @@ describe LocalAuthority::UseCase::GetSchemaCopyPaths do
                 type: 'object',
                 properties: {
                   breed: {
-                    baselineKey: [:parentB]
+                    sourceKey: [:parentB]
                   }
                 }
               }
@@ -167,7 +167,7 @@ describe LocalAuthority::UseCase::GetSchemaCopyPaths do
               properties:
               {
                 breed: {
-                  baselineKey: [:breed]
+                  sourceKey: [:breed]
                 }
               }
             }

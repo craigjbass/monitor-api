@@ -1,26 +1,50 @@
 class LocalAuthority::UseCase::PopulateReturnTemplate
-  def initialize(template_gateway:, find_baseline_path:, get_schema_copy_paths:)
+  def initialize(template_gateway:, find_path_data:, get_schema_copy_paths:)
     @template_gateway = template_gateway
-    @find_baseline_path = find_baseline_path
+    @find_path_data = find_path_data
     @get_schema_copy_paths = get_schema_copy_paths
   end
 
-  def execute(type:, baseline_data:)
+  def execute(type:, baseline_data:, return_data: {})
+    source_data = create_root(baseline_data, return_data)
     populated_return = {}
+
     template_schema = @template_gateway.find_by(type: type).schema
-    @get_schema_copy_paths.execute(type: type)[:paths].each do |copy_paths|
-      path_types = schema_types(template_schema, copy_paths[:to]).drop(1)
-      descend_hash_and_bury(
-        populated_return,
-        copy_paths[:to],
-        path_types,
-        @find_baseline_path.execute(baseline_data, copy_paths[:from])[:found]
+    paths = @get_schema_copy_paths.execute(type: type)[:paths]
+
+    paths.each do |copy_path_pair|
+      populated_return = copy_data(
+        copy_path_pair,
+        source_data,
+        template_schema,
+        populated_return
       )
     end
+
     { populated_data: populated_return }
   end
 
   private
+
+  def create_root(baseline_data, return_data)
+    { baseline_data: baseline_data, return_data: return_data }
+  end
+
+  def copy_data(copy_path_pair, source_data, template_schema, return_data)
+    path_types = schema_types(template_schema, copy_path_pair[:to]).drop(1)
+
+    found_data = @find_path_data.execute(
+      source_data,
+      copy_path_pair[:from]
+    )[:found]
+
+    descend_hash_and_bury(
+      return_data,
+      copy_path_pair[:to],
+      path_types,
+      found_data
+    )
+  end
 
   def last_node?(path)
     path.empty?
@@ -43,12 +67,14 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
   end
 
   def descend_array(hash, path, path_types, value)
-    hash[path.first] = descend_array_and_bury(
-      hash[path.first],
-      path.drop(1),
-      path_types.drop(1),
-      value
-    )
+    if value.class == Array
+      hash[path.first] = descend_array_and_bury(
+        hash[path.first],
+        path.drop(1),
+        path_types.drop(1),
+        value
+      )
+    end
   end
 
   def descend_hash(hash, path, path_types, value)
@@ -92,7 +118,12 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
     elsif schema[:type] == 'array'
       [:array] + schema_types(schema[:items][:properties][path[0]], path.drop(1))
     elsif schema[:type] == 'object'
-      [:object] + schema_types(schema[:properties][path[0]], path.drop(1))
+      acquired_path = schema_types(schema[:properties][path[0]], path.drop(1))
+      if acquired_path.nil?
+        [:object]
+      else
+        [:object] + acquired_path
+      end
     end
   end
 end

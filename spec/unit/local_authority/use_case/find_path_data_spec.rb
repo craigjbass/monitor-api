@@ -1,4 +1,4 @@
-describe LocalAuthority::UseCase::FindBaselinePath do
+describe LocalAuthority::UseCase::FindPathData do
 
   let(:use_case) { described_class.new.execute(baseline_data, path) }
 
@@ -129,6 +129,18 @@ describe LocalAuthority::UseCase::FindBaselinePath do
 
     it 'can find a relevent item for a single item array' do
       expect(use_case).to eq(found: [["Milestone One", "Milestone Two"]])
+    end
+  end
+
+  context 'non-existent path' do
+    let(:baseline_data) do
+      {
+        infrastructures: []
+      }
+    end
+    let(:path) { [:infrastructures, :milestones, :descriptionOfMilestone] }
+    it 'finds nothing' do
+      expect(use_case).to eq({})
     end
   end
 end
