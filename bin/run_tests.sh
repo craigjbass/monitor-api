@@ -14,4 +14,3 @@ while ! psql $DATABASE_URL -c 'SELECT 1'; do
 done
 
 bundle exec guard
-

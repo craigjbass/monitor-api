@@ -1,4 +1,4 @@
-describe LocalAuthority::Gateway::SequelEmailWhitelistGateway, focus: true do
+describe LocalAuthority::Gateway::SequelEmailWhitelistGateway do
   include_context 'with database'
 
   let(:gateway) { described_class.new(database: database) }

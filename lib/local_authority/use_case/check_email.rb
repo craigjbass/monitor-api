@@ -6,7 +6,7 @@ class LocalAuthority::UseCase::CheckEmail
   end
 
   def execute(email_address:)
-    returned_id = @email_whitelist_gateway.find_by(email_address)
-    { valid: !returned_id.nil? }
+    user = @email_whitelist_gateway.find_by(email_address)
+    { valid: !user.nil? }
   end
 end

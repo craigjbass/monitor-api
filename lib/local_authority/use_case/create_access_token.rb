@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require 'securerandom'
-class LocalAuthority::UseCase::CreateAccessToken
 
+class LocalAuthority::UseCase::CreateAccessToken
   def initialize(access_token_gateway:)
     @access_token_gateway = access_token_gateway
   end

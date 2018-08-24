@@ -17,7 +17,9 @@ class LocalAuthority::UseCases
     end
 
     builder.define_use_case :email_whitelist_gateway do
-      LocalAuthority::Gateway::SequelEmailWhitelistGateway.new
+      LocalAuthority::Gateway::SequelEmailWhitelistGateway.new(
+        database: builder.database
+      )
     end
 
     builder.define_use_case :access_token_gateway do
