@@ -10,6 +10,6 @@ class LocalAuthority::UseCase::CreateAccessToken
   def execute
     access_token = SecureRandom.uuid
     @access_token_gateway.save(access_token: access_token)
-    { access_token: access_token}
+    { access_token: access_token }
   end
 end

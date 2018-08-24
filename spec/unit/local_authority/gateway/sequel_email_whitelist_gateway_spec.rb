@@ -1,9 +1,9 @@
-describe LocalAuthority::Gateway::InMemoryEmailWhitelistGateway do
+describe LocalAuthority::Gateway::SequelEmailWhitelistGateway, focus: true do
   let(:gateway) { described_class.new }
 
   context 'example one' do
     before do
-      ENV['EMAIL_WHITELIST'] = 'example@example.com'
+      gateway.add('example@example.com')
     end
 
     it 'returns an id for a given email' do
@@ -19,7 +19,8 @@ describe LocalAuthority::Gateway::InMemoryEmailWhitelistGateway do
 
   context 'example two' do
     before do
-      ENV['EMAIL_WHITELIST'] = 'hello@world.com:cats@cathouse.com'
+      gateway.add('hello@world.com')
+      gateway.add('cats@cathouse.com')
     end
 
     it 'returns an id for a given email' do
