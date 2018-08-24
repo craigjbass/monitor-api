@@ -28,7 +28,7 @@ module DatabaseAdministrator
 
     def load_extensions_for(database)
       database.extension :pg_json
+      database.extension :pg_array
     end
   end
 end
-
