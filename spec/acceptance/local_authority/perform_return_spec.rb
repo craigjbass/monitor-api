@@ -45,8 +45,10 @@ describe 'Performing Return on HIF Project' do
       },
       infrastructures: [
         {
+
           type: 'A House',
           description: 'A house of cats',
+
           outlinePlanningStatus: {
             granted: true,
             grantedReference: 'The Dogs',
@@ -176,8 +178,10 @@ describe 'Performing Return on HIF Project' do
       {
         infrastructures: [
           {
-            type: 'A House',
-            description: 'A house of cats',
+            summary: {
+              type: 'A House',
+              description: 'A house of cats'
+            },
             planning: {
               baselineOutlinePlanningPermissionGranted: true,
               planningNotGranted: {
@@ -302,8 +306,10 @@ describe 'Performing Return on HIF Project' do
       {
         infrastructures: [
           {
-            type: 'A House',
-            description: 'A house of cats',
+            summary: {
+              type: 'A House',
+              description: 'A house of cats'
+            },
             planning: {
               baselineOutlinePlanningPermissionGranted: true,
               planningNotGranted: {
@@ -424,7 +430,6 @@ describe 'Performing Return on HIF Project' do
     }
   end
 
-
   let(:project_id) do
     get_use_case(:create_new_project).execute(
       type: 'hif', baseline: project_baseline
@@ -540,7 +545,7 @@ describe 'Performing Return on HIF Project' do
     submit_return(id: return_id)
     expect_return_to_be_submitted(id: return_id)
 
-    #A draft
+    # A draft
     create_new_return(
       project_id: initial_return[:project_id],
       data: initial_return[:data]

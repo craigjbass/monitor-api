@@ -15,18 +15,24 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
             type: 'array',
             title: 'Infrastructures',
             items: {
+              title: 'Infrastructure',
               type: 'object',
               properties: {
-                type: {
-                  type: 'string',
-                  # This is marked as a dropdown but also from baseline?
-                  title: 'Type',
-                  sourceKey: [:baseline_data, :infrastructures, :type]
-                },
-                description: {
-                  type: 'string',
-                  title: 'Description',
-                  sourceKey: [:baseline_data, :infrastructures, :description]
+                summary: {
+                  type: 'object',
+                  title: 'Summary',
+                  properties: {
+                    type: {
+                      type: 'string',
+                      title: 'Type',
+                      sourceKey: [:baseline_data, :infrastructures, :type]
+                    },
+                    description: {
+                      type: 'string',
+                      title: 'Description',
+                      sourceKey: [:baseline_data, :infrastructures, :description]
+                    },
+                  }
                 },
                 planning: {
                   type: 'object',
@@ -82,6 +88,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                 varianceAgainstLastReturn: {
                                   type: 'object',
                                   title: 'Variance against Last Return',
+                                  horizontal: true,
                                   properties: {
                                     varianceLastReturnFullPlanningPermissionSubmitted: {
                                       type: 'integer',
@@ -98,6 +105,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                 varianceAgainstBaseline: {
                                   type: 'object',
                                   title: 'Variance against Baseline',
+                                  horizontal: true,
                                   properties: {
                                     varianceBaselineFullPlanningPermissionSubmitted: {
                                       type: 'integer',
@@ -1050,12 +1058,19 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
             type: 'array',
             title: 'HIF Funding',
             items: {
+              title: 'Funding Stack',
               type: 'object',
               properties: {
-                hifFundingRequest: {
-                  type: 'string',
-                  # from s§151 (not done yet)
-                  title: 'HIF Funding Request'
+                summary: {
+                  title: 'Summary',
+                  type: 'object',
+                  properties: {
+                    hifFundingRequest: {
+                      type: 'string',
+                      # from s§151 (not done yet)
+                      title: 'HIF Funding Request'
+                    }
+                  }
                 },
                 hifFundingProfile: {
                   type: 'array',
@@ -1139,13 +1154,19 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     }
                   },
                 },
-                hifConfirmNoChanges: {
-                  type: 'boolean',
-                  title: 'Please confirm there are no changes to be made to the funding profile'
-                },
-                hifIfFundingChangeRequested: {
-                  type: 'string',
-                  title: 'If change requested, reason for request'
+                changes: {
+                  type: 'object',
+                  title: 'Changes',
+                  properties: {
+                    hifConfirmNoChanges: {
+                      type: 'boolean',
+                      title: 'Please confirm there are no changes to be made to the funding profile'
+                    },
+                    hifIfFundingChangeRequested: {
+                      type: 'string',
+                      title: 'If change requested, reason for request'
+                    },
+                  }
                 },
                 hifRequestedProfile: {
                   type: 'array',
@@ -1221,9 +1242,15 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     }
                   }
                 },
-                changeInPeriod: {
-                  type: 'string',
-                  title: 'Mitigation in place to reduce further slippage'
+                changeMitigation: {
+                  type: 'object',
+                  title: 'Change Mitigation',
+                  properties: {
+                    changeInPeriod: {
+                      type: 'string',
+                      title: 'Mitigation in place to reduce further slippage'
+                    },
+                  }
                 },
                 fundingPackages: {
                   type: 'array',
