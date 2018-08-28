@@ -175,127 +175,125 @@ describe 'Performing Return on HIF Project' do
     {
       id: project_id,
       data:
-      {
-        infrastructures: [
-          {
-            summary: {
-              type: 'A House',
-              description: 'A house of cats'
-            },
-            planning: {
-              baselineOutlinePlanningPermissionGranted: true,
-              planningNotGranted: {
-                baselineSummaryOfCriticalPath: 'Summary of critical path',
-                fieldOne: {
-                  baselineCompletion: {
-                    baselineFullPlanningPermissionSubmitted: '2020-01-01',
-                    baselineFullPlanningPermissionGranted: '2020-01-01'
+        {
+          infrastructures: [
+            {
+              summary: {
+                type: 'A House',
+                description: 'A house of cats'
+              },
+              planning: {
+                baselineOutlinePlanningPermissionGranted: true,
+                planningNotGranted: {
+                  baselineSummaryOfCriticalPath: 'Summary of critical path',
+                  fieldOne: {
+                    baselineCompletion: {
+                      baselineFullPlanningPermissionSubmitted: '2020-01-01',
+                      baselineFullPlanningPermissionGranted: '2020-01-01'
+                    },
+                    fullPlanningPermissionGranted: false,
+                    fullPlanningPermissionSummaryOfCriticalPath: 'Summary of critical path'
                   },
-                  fullPlanningPermissionGranted: false,
-                  fullPlanningPermissionSummaryOfCriticalPath: 'Summary of critical path'
+                  fieldTwo: {
+                    baselineCompletion: {
+                      baselineFullPlanningPermissionSubmitted: '2020-01-01',
+                      baselineFullPlanningPermissionGranted: '2020-01-01'
+                    }
+                  },
+                  s106Requirement: true,
+                  s106SummaryOfRequirement: 'Required',
+                  statutoryConsents: {
+                    anyStatutoryConsents: true
+                  }
+                }
+              },
+              landOwnership: {
+                laHasControlOfSite: true,
+                laDoesNotControlSite: {
+                  whoOwnsSite: 'Dave',
+                  landAquisitionRequired: true
                 },
-                fieldTwo: {
-                  baselineCompletion: {
-                    baselineFullPlanningPermissionSubmitted: '2020-01-01',
-                    baselineFullPlanningPermissionGranted: '2020-01-01'
+                laDoesHaveControlOfSite: {
+                  howManySitesToAquire: 10,
+                  toBeAquiredBy: 'Dave',
+                  summaryOfAcquisitionRequired: 'Summary of critical path',
+                  allLandAssemblyAchieved: {
+                    landAssemblyBaselineCompletion: '2020-01-01'
+                  }
+                }
+              },
+              procurement: {
+                contractorProcured: true,
+                infrastructureNotProcured: {
+                  infraStructureContractorProcurement: {
+                    procurementBaselineCompletion: '2020-01-01'
                   }
                 },
-                s106Requirement: true,
-                s106SummaryOfRequirement: 'Required',
-                statutoryConsents: {
-                  anyStatutoryConsents: true
-                }
-              }
-            },
-            landOwnership: {
-              laHasControlOfSite: true,
-              laDoesNotControlSite: {
-                whoOwnsSite: 'Dave',
-                landAquisitionRequired: true
-              },
-              laDoesHaveControlOfSite: {
-                howManySitesToAquire: 10,
-                toBeAquiredBy: 'Dave',
-                summaryOfAcquisitionRequired: 'Summary of critical path',
-                allLandAssemblyAchieved: {
-                  landAssemblyBaselineCompletion: '2020-01-01'
-                }
-              }
-            },
-            procurement: {
-              contractorProcured: true,
-              infrastructureNotProcured: {
-                infraStructureContractorProcurement: {
-                  procurementBaselineCompletion: '2020-01-01'
+                infrastructureProcured: {
+                  nameOfContractor: 'Dave'
                 }
               },
-              infrastructureProcured: {
-                nameOfContractor: 'Dave'
-              }
-            },
-            milestones: {
-              keyMilestones: [{ milestoneBaselineCompletion: '2020-01-01',
-                                milestoneSummaryOfCriticalPath: 'Summary of critical path' }],
-              expectedInfrastructureStartOnSite: {
-                milestoneExpectedInfrastructureStartBaseline: '2020-01-01'
+              milestones: {
+                keyMilestones: [{ milestoneBaselineCompletion: '2020-01-01',
+                                  milestoneSummaryOfCriticalPath: 'Summary of critical path' }],
+                expectedInfrastructureStartOnSite: {
+                  milestoneExpectedInfrastructureStartBaseline: '2020-01-01'
+                },
+                expectedCompletionDateOfInfra: {
+                  milestoneExpectedInfrastructureCompletionBaseline: '2020-01-01'
+                }
               },
-              expectedCompletionDateOfInfra: {
-                milestoneExpectedInfrastructureCompletionBaseline: '2020-01-01'
-              }
-            },
-            risks: {
-              baselineRisks: {
-                risks: [{ items: {
-                  riskBaselineRisk: 'Risk one',
-                  riskBaselineImpact: 'High',
-                  riskBaselineLikelihood: 'High',
-                  riskBaselineMitigationsInPlace: 'Do not do the thing'
-                } }]
-              }
-            }
-          }
-        ],
-        funding: [
-          { hifFundingProfile: [
-            {
-              fundingYear: ['4000'],
-              forecast: {
-                forecastQ1: ['1000'],
-                forecastQ2: ['1000'],
-                forecastQ3: ['1000'],
-                forecastQ4: ['1000'],
-                forecastTotal: ['1000']
+              risks: {
+                baselineRisks: {
+                  risks: [{ items: {
+                    riskBaselineRisk: 'Risk one',
+                    riskBaselineImpact: 'High',
+                    riskBaselineLikelihood: 'High',
+                    riskBaselineMitigationsInPlace: 'Do not do the thing'
+                  } }]
+                }
               }
             }
           ],
-            fundingPackages: [
-              {
-                fundingPackage: {
-                  overview: {
-                    overviewCosts: {
-                      baselineCost: '1000'
+          funding: [
+            {
+              hifFundingProfiles: {
+                hifFundingProfile: [
+                  {
+                    fundingYear: ['4000'],
+                    forecast: {
+                      forecastQ1: ['1000'],
+                      forecastQ2: ['1000'],
+                      forecastQ3: ['1000'],
+                      forecastQ4: ['1000'],
+                      forecastTotal: ['1000']
                     }
-                  },
-                  fundingStack: {
-                    totallyFundedThroughHIF: true,
-                    notFundedThroughHif: {
-                      descriptionOfFundingStack: 'Stack',
-                      totalPublic: {
-                        publicTotalBaselineAmount: '2000'
-                      },
-                      totalPrivate: {
-                        privateTotalBaselineAmount: '2000'
+                  }
+                ]
+              }, fundingPackages: [
+                {
+                  fundingPackage: {
+                    overview: {
+                      overviewCosts: {
+                        baselineCost: '1000'
+                      }
+                    },
+                    fundingStack: {
+                      totallyFundedThroughHIF: true,
+                      notFundedThroughHif: {
+                        descriptionOfFundingStack: 'Stack',
+                        totalPublic: {
+                          publicTotalBaselineAmount: '2000'
+                        },
+                        totalPrivate: { privateTotalBaselineAmount: '2000' }
                       }
                     }
                   }
                 }
-              }
-            ],
-            recovery: {
-              aimToRecover: true
-            } }
-        ]
-      }
+              ], recovery: { aimToRecover: true }
+            }
+          ]
+        }
     }
   end
 
@@ -303,130 +301,130 @@ describe 'Performing Return on HIF Project' do
     {
       id: project_id,
       data:
-      {
-        infrastructures: [
-          {
-            summary: {
-              type: 'A House',
-              description: 'A house of cats'
-            },
-            planning: {
-              baselineOutlinePlanningPermissionGranted: true,
-              planningNotGranted: {
-                baselineSummaryOfCriticalPath: 'Summary of critical path',
-                fieldOne: {
-                  baselineCompletion: {
-                    baselineFullPlanningPermissionSubmitted: '2020-01-01',
-                    baselineFullPlanningPermissionGranted: '2020-01-01'
+        {
+          infrastructures: [
+            {
+              summary: {
+                type: 'A House',
+                description: 'A house of cats'
+              },
+              planning: {
+                baselineOutlinePlanningPermissionGranted: true,
+                planningNotGranted: {
+                  baselineSummaryOfCriticalPath: 'Summary of critical path',
+                  fieldOne: {
+                    baselineCompletion: {
+                      baselineFullPlanningPermissionSubmitted: '2020-01-01',
+                      baselineFullPlanningPermissionGranted: '2020-01-01'
+                    },
+                    fullPlanningPermissionGranted: false,
+                    fullPlanningPermissionSummaryOfCriticalPath: 'Summary of critical path'
                   },
-                  fullPlanningPermissionGranted: false,
-                  fullPlanningPermissionSummaryOfCriticalPath: 'Summary of critical path'
+                  fieldTwo: {
+                    baselineCompletion: {
+                      baselineFullPlanningPermissionSubmitted: '2020-01-01',
+                      baselineFullPlanningPermissionGranted: '2020-01-01'
+                    }
+                  },
+                  s106Requirement: true,
+                  s106SummaryOfRequirement: 'Required',
+                  statutoryConsents: {
+                    anyStatutoryConsents: true
+                  }
+                }
+              },
+              landOwnership: {
+                laHasControlOfSite: true,
+                laDoesNotControlSite: {
+                  whoOwnsSite: 'Dave',
+                  landAquisitionRequired: true
                 },
-                fieldTwo: {
-                  baselineCompletion: {
-                    baselineFullPlanningPermissionSubmitted: '2020-01-01',
-                    baselineFullPlanningPermissionGranted: '2020-01-01'
+                laDoesHaveControlOfSite: {
+                  howManySitesToAquire: 10,
+                  toBeAquiredBy: 'Dave',
+                  summaryOfAcquisitionRequired: 'Summary of critical path',
+                  allLandAssemblyAchieved: {
+                    landAssemblyBaselineCompletion: '2020-01-01'
+                  }
+                }
+              },
+              procurement: {
+                contractorProcured: true,
+                infrastructureNotProcured: {
+                  infraStructureContractorProcurement: {
+                    procurementBaselineCompletion: '2020-01-01'
                   }
                 },
-                s106Requirement: true,
-                s106SummaryOfRequirement: 'Required',
-                statutoryConsents: {
-                  anyStatutoryConsents: true
-                }
-              }
-            },
-            landOwnership: {
-              laHasControlOfSite: true,
-              laDoesNotControlSite: {
-                whoOwnsSite: 'Dave',
-                landAquisitionRequired: true
-              },
-              laDoesHaveControlOfSite: {
-                howManySitesToAquire: 10,
-                toBeAquiredBy: 'Dave',
-                summaryOfAcquisitionRequired: 'Summary of critical path',
-                allLandAssemblyAchieved: {
-                  landAssemblyBaselineCompletion: '2020-01-01'
-                }
-              }
-            },
-            procurement: {
-              contractorProcured: true,
-              infrastructureNotProcured: {
-                infraStructureContractorProcurement: {
-                  procurementBaselineCompletion: '2020-01-01'
+                infrastructureProcured: {
+                  nameOfContractor: 'Dave'
                 }
               },
-              infrastructureProcured: {
-                nameOfContractor: 'Dave'
-              }
-            },
-            milestones: {
-              keyMilestones: [{ milestoneBaselineCompletion: '2020-01-01',
-                                milestoneSummaryOfCriticalPath: 'Summary of critical path' }],
-              expectedInfrastructureStartOnSite: {
-                milestoneExpectedInfrastructureStartBaseline: '2020-01-01'
+              milestones: {
+                keyMilestones: [{ milestoneBaselineCompletion: '2020-01-01',
+                                  milestoneSummaryOfCriticalPath: 'Summary of critical path' }],
+                expectedInfrastructureStartOnSite: {
+                  milestoneExpectedInfrastructureStartBaseline: '2020-01-01'
+                },
+                expectedCompletionDateOfInfra: {
+                  milestoneExpectedInfrastructureCompletionBaseline: '2020-01-01'
+                }
               },
-              expectedCompletionDateOfInfra: {
-                milestoneExpectedInfrastructureCompletionBaseline: '2020-01-01'
-              }
-            },
-            risks: {
-              baselineRisks: {
-                risks: [{ items: {
-                  riskBaselineRisk: 'Risk one',
-                  riskBaselineImpact: 'High',
-                  riskBaselineLikelihood: 'High',
-                  riskBaselineMitigationsInPlace: 'Do not do the thing'
-                } }]
-              }
-            }
-          }
-        ],
-        funding: [
-          { hifFundingProfile: [
-            {
-              fundingYear: ['4000'],
-              forecast: {
-                forecastQ1: ['1000'],
-                forecastQ2: ['1000'],
-                forecastQ3: ['1000'],
-                forecastQ4: ['1000'],
-                forecastTotal: ['1000']
+              risks: {
+                baselineRisks: {
+                  risks: [{ items: {
+                    riskBaselineRisk: 'Risk one',
+                    riskBaselineImpact: 'High',
+                    riskBaselineLikelihood: 'High',
+                    riskBaselineMitigationsInPlace: 'Do not do the thing'
+                  } }]
+                }
               }
             }
           ],
-            fundingPackages: [
-              {
-                fundingPackage: {
-                  overview: {
-                    overviewCosts: {
-                      baselineCost: '1000'
-                    },
-                    hifSpendSinceLastReturn: {
-                      hifSpendLastReturn: '25565'
+          funding: [
+            {
+              hifFundingProfiles: {
+                hifFundingProfile: [
+                  {
+                    fundingYear: ['4000'], forecast: {
+                      forecastQ1: ['1000'],
+                      forecastQ2: ['1000'],
+                      forecastQ3: ['1000'],
+                      forecastQ4: ['1000'],
+                      forecastTotal: ['1000']
                     }
-                  },
-                  fundingStack: {
-                    totallyFundedThroughHIF: true,
-                    notFundedThroughHif: {
-                      descriptionOfFundingStack: 'Stack',
-                      totalPublic: {
-                        publicTotalBaselineAmount: '2000'
+                  }
+                ]
+              },
+              fundingPackages: [
+                {
+                  fundingPackage: {
+                    overview: {
+                      overviewCosts: {
+                        baselineCost: '1000'
                       },
-                      totalPrivate: {
-                        privateTotalBaselineAmount: '2000'
+                      hifSpendSinceLastReturn: {
+                        hifSpendLastReturn: '25565'
+                      }
+                    },
+                    fundingStack: {
+                      totallyFundedThroughHIF: true,
+                      notFundedThroughHif: {
+                        descriptionOfFundingStack: 'Stack',
+                        totalPublic: {
+                          publicTotalBaselineAmount: '2000'
+                        },
+                        totalPrivate: {
+                          privateTotalBaselineAmount: '2000'
+                        }
                       }
                     }
                   }
                 }
-              }
-            ],
-            recovery: {
-              aimToRecover: true
-            } }
-        ]
-      }
+              ], recovery: { aimToRecover: true }
+            }
+          ]
+        }
     }
   end
 
