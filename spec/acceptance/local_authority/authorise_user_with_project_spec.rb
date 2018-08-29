@@ -19,8 +19,6 @@ xdescribe 'Authorises the user' do
 
       expect(is_valid_email).to eq(true)
       access_token = get_use_case(:create_access_token).execute(project_id: 1)[:access_token]
-      expect(access_token.class).to eq(String)
-      expect(access_token.length).to eq(36)
 
       expend_status = get_use_case(:expend_access_token).execute(access_token: access_token, project_id: 1)[:status]
       expect(expend_status).to eq(:success)
@@ -28,8 +26,6 @@ xdescribe 'Authorises the user' do
 
     it 'should create a valid api key for project 1' do
       api_key = get_use_case(:create_api_key).execute(project_id: 1)[:api_key]
-      expect(api_key.class).to eq(String)
-      expect(api_key.length).to eq(36)
 
       expect(get_use_case(:check_api_key).execute(api_key: api_key, project_id: 1)).to eq(valid: true)
     end
@@ -45,8 +41,6 @@ xdescribe 'Authorises the user' do
     it 'should be unable to create a valid access token for project 1' do
       expect(is_valid_email).to eq(false)
       access_token = get_use_case(:create_access_token).execute(project_id: 1)[:access_token]
-      expect(access_token.class).to eq(String)
-      expect(access_token.length).to eq(36)
 
       expend_status = get_use_case(:expend_access_token).execute(access_token: access_token, project_id: 1)[:status]
       expect(expend_status).to eq(:failure)
@@ -54,8 +48,6 @@ xdescribe 'Authorises the user' do
 
     it 'should be unable to create a valid api key for project 1' do
       api_key = get_use_case(:create_api_key).execute(project_id: 1)[:api_key]
-      expect(api_key.class).to eq(String)
-      expect(api_key.length).to eq(36)
 
       expect(get_use_case(:check_api_key).execute(api_key: api_key, project_id: 1)).to eq(valid: false)
     end
