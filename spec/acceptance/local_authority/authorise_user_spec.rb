@@ -12,11 +12,9 @@ describe 'Authorises the user' do
     get_use_case(:check_email).execute(email_address: valid_email)[:valid]
   end
 
-  before do
-    ENV['EMAIL_WHITELIST'] = valid_email.to_s
-  end
-
   it 'should create a valid access token' do
+    get_use_case(:add_user).execute(email: valid_email)
+
     expect(is_valid_email).to eq(true)
     access_token = get_use_case(:create_access_token).execute[:access_token]
     expect(access_token.class).to eq(String)

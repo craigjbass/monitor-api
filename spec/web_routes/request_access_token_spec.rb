@@ -9,6 +9,7 @@ describe 'requesting an access token' do
   let(:send_notification_spy) { spy }
   let(:valid_email) { 'cats@meow.com' }
   let(:create_token_spy) { spy(execute: { access_token: 'Doggies' }) }
+  
   before do
     stub_const(
       'LocalAuthority::UseCase::CheckEmail',
@@ -37,7 +38,6 @@ describe 'requesting an access token' do
   end
 
   before do
-    ENV['EMAIL_WHITELIST'] = 'cats@meow.com'
     post '/token/request', { email_address: valid_email, url: 'http://catscatscats.cat' }.to_json
   end
 

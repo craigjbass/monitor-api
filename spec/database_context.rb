@@ -5,4 +5,3 @@ RSpec.shared_context 'with database' do
     @database.transaction(rollback: :always) { example.run }
   end
 end
-

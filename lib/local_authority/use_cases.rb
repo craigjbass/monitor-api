@@ -16,8 +16,10 @@ class LocalAuthority::UseCases
       LocalAuthority::Gateway::InMemoryReturnTemplate.new
     end
 
-    builder.define_use_case :email_whitelist_gateway do
-      LocalAuthority::Gateway::InMemoryEmailWhitelistGateway.new
+    builder.define_use_case :users_gateway do
+      LocalAuthority::Gateway::SequelUsers.new(
+        database: builder.database
+      )
     end
 
     builder.define_use_case :access_token_gateway do
@@ -109,7 +111,7 @@ class LocalAuthority::UseCases
 
     builder.define_use_case :check_email do
       LocalAuthority::UseCase::CheckEmail.new(
-        email_whitelist_gateway: builder.get_use_case(:email_whitelist_gateway)
+        users_gateway: builder.get_use_case(:users_gateway)
       )
     end
 

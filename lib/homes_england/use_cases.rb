@@ -40,5 +40,10 @@ class HomesEngland::UseCases
       )
     end
 
+    builder.define_use_case :add_user do
+      HomesEngland::UseCase::AddUser.new(
+        user_gateway: builder.get_use_case(:users_gateway)
+      )
+    end
   end
 end
