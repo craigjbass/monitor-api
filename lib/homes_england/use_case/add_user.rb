@@ -4,6 +4,10 @@ class HomesEngland::UseCase::AddUser
   end
 
   def execute(email:)
-    @user_gateway.create(email)
+    @user_gateway.create(
+      LocalAuthority::Domain::User.new.tap do |u|
+        u.email = email
+      end
+    )
   end
 end

@@ -1,10 +1,17 @@
-describe LocalAuthority::Gateway::SequelEmailWhitelistGateway do
+describe LocalAuthority::Gateway::SequelUsers do
   include_context 'with database'
 
   let(:gateway) { described_class.new(database: database) }
 
   context 'example one' do
-    let(:new_user_id) { gateway.create('example@example.com', [1]) }
+    let(:new_user_id) do
+      gateway.create(
+        LocalAuthority::Domain::User.new.tap do |u|
+          u.email = 'example@example.com'
+          u.projects = [1]
+        end
+      )
+    end
 
     it 'returns an id for a given email' do
       created_user_id = new_user_id
@@ -26,7 +33,13 @@ describe LocalAuthority::Gateway::SequelEmailWhitelistGateway do
   end
 
   context 'example two' do
-    let(:new_user_id) { gateway.create('cats@cathouse.com') }
+    let(:new_user_id) do
+      gateway.create(
+        LocalAuthority::Domain::User.new.tap do |u|
+          u.email = 'cats@cathouse.com'
+        end
+      )
+    end
 
     it 'returns an id for a given email' do
       created_user_id = new_user_id

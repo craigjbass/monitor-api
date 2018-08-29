@@ -1,4 +1,4 @@
-class LocalAuthority::Gateway::SequelEmailWhitelistGateway
+class LocalAuthority::Gateway::SequelUsers
   def initialize(database:)
     @database = database
   end
@@ -14,15 +14,15 @@ class LocalAuthority::Gateway::SequelEmailWhitelistGateway
     end
   end
 
-  def create(email, projects = [])
-    if projects.empty?
+  def create(user)
+    if user.projects.nil?
       @database[:users].insert(
-        email: email
+        email: user.email
       )
     else
       @database[:users].insert(
-        email: email,
-        projects: Sequel.pg_array(projects)
+        email: user.email,
+        projects: Sequel.pg_array(user.projects)
       )
     end
   end
