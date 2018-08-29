@@ -1,4 +1,4 @@
-describe LocalAuthority::Gateway::SequelUsers, :focus do
+describe LocalAuthority::Gateway::SequelUsers do
   include_context 'with database'
 
   let(:gateway) { described_class.new(database: database) }

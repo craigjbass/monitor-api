@@ -5,15 +5,25 @@ describe LocalAuthority::Gateway::InMemoryAccessTokenGateway do
   after do
     gateway.clear
   end
+
   before do
     gateway.clear
-    gateway.save(access_token: access_token_one)
-    gateway.save(access_token: access_token_two)
+    gateway.create(access_token_one)
+    gateway.create(access_token_two)
   end
+
   context 'with saved ids' do
     context 'example one' do
-      let(:access_token_one) { 'cats' }
-      let(:access_token_two) { 'dogs' }
+      let(:access_token_one) do
+        LocalAuthority::Domain::AccessToken.new.tap do |token|
+          token.uuid = 'cats'
+        end
+      end
+      let(:access_token_two) do
+        LocalAuthority::Domain::AccessToken.new.tap do |token|
+          token.uuid = 'dogs'
+        end
+      end
 
       it 'can find saved access tokens' do
         expect(gateway.find_by(access_token: access_token_one)).to eq(0)
@@ -27,8 +37,16 @@ describe LocalAuthority::Gateway::InMemoryAccessTokenGateway do
     end
 
     context 'example two' do
-      let(:access_token_one) { 'cows' }
-      let(:access_token_two) { 'sheep' }
+      let(:access_token_one) do
+        LocalAuthority::Domain::AccessToken.new.tap do |token|
+          token.uuid = 'cows'
+        end
+      end
+      let(:access_token_two) do
+        LocalAuthority::Domain::AccessToken.new.tap do |token|
+          token.uuid = 'sheep'
+        end
+      end
 
       it 'can find saved access tokens' do
         expect(gateway.find_by(access_token: access_token_one)).to eq(0)
@@ -42,9 +60,17 @@ describe LocalAuthority::Gateway::InMemoryAccessTokenGateway do
     end
 
     context 'after clear has run' do
-      let(:access_token_one) { 'cows' }
-      let(:access_token_two) { 'sheep' }
-
+      let(:access_token_one) do
+        LocalAuthority::Domain::AccessToken.new.tap do |token|
+          token.uuid = 'cows'
+        end
+      end
+      let(:access_token_two) do
+        LocalAuthority::Domain::AccessToken.new.tap do |token|
+          token.uuid = 'sheep'
+        end
+      end
+      
       before do
         gateway.clear
       end

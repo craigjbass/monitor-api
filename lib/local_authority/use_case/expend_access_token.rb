@@ -6,10 +6,10 @@ class LocalAuthority::UseCase::ExpendAccessToken
     @create_api_key = create_api_key
   end
 
-  def execute(access_token:)
+  def execute(access_token:, project_id:)
     exists = !@access_token_gateway.find_by(access_token: access_token).nil?
     if exists
-      api_key = @create_api_key.execute[:api_key]
+      api_key = @create_api_key.execute(project_id: project_id)[:api_key]
       @access_token_gateway.delete(access_token: access_token)
       { status: :success, api_key: api_key }
     else

@@ -1,7 +1,7 @@
 class LocalAuthority::Gateway::InMemoryAccessTokenGateway
   @@access_token = []
 
-  def save(access_token:)
+  def create(access_token)
     @@access_token << access_token
   end
 
