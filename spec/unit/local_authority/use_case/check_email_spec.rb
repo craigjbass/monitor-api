@@ -10,12 +10,12 @@ describe LocalAuthority::UseCase::CheckEmail do
     let(:users_gateway_spy) { spy }
     it 'example 1' do
       use_case.execute(email_address: 'example@example.com')
-      expect(users_gateway_spy).to have_received(:find_by).with('example@example.com')
+      expect(users_gateway_spy).to have_received(:find_by).with(email: 'example@example.com')
     end
 
     it 'example 2' do
       use_case.execute(email_address: 'hello@world.com')
-      expect(users_gateway_spy).to have_received(:find_by).with('hello@world.com')
+      expect(users_gateway_spy).to have_received(:find_by).with(email: 'hello@world.com')
     end
   end
 

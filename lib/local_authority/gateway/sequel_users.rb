@@ -3,7 +3,7 @@ class LocalAuthority::Gateway::SequelUsers
     @database = database
   end
 
-  def find_by(email)
+  def find_by(email:)
     user = @database[:users].first(email: email)
     return nil if user.nil?
 

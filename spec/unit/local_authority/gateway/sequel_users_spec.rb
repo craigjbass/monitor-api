@@ -15,19 +15,19 @@ describe LocalAuthority::Gateway::SequelUsers do
 
     it 'returns an id for a given email' do
       created_user_id = new_user_id
-      user = gateway.find_by('example@example.com')
+      user = gateway.find_by(email: 'example@example.com')
       expect(user.id).to eq(created_user_id)
     end
 
     it 'return nil when the email is not found' do
       new_user_id
-      user = gateway.find_by('cats@cathouse.com')
+      user = gateway.find_by(email: 'cats@cathouse.com')
       expect(user).to eq(nil)
     end
 
     it 'grants permission for an email to access a given project' do
       new_user_id
-      user = gateway.find_by('example@example.com')
+      user = gateway.find_by(email: 'example@example.com')
       expect(user.projects).to eq([1])
     end
   end
@@ -43,19 +43,19 @@ describe LocalAuthority::Gateway::SequelUsers do
 
     it 'returns an id for a given email' do
       created_user_id = new_user_id
-      user = gateway.find_by('cats@cathouse.com')
+      user = gateway.find_by(email: 'cats@cathouse.com')
       expect(user.id).to eq(created_user_id)
     end
 
     it 'return nil when the email is not found' do
       new_user_id
-      user = gateway.find_by('example@example.com')
+      user = gateway.find_by(email: 'example@example.com')
       expect(user).to eq(nil)
     end
 
     it 'grants permission for an email to access a given project' do
       new_user_id
-      user = gateway.find_by('cats@cathouse.com')
+      user = gateway.find_by(email: 'cats@cathouse.com')
       expect(user.projects).to eq([])
     end
   end
