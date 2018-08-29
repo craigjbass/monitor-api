@@ -1,4 +1,4 @@
-describe LocalAuthority::Gateway::SequelUsers do
+describe LocalAuthority::Gateway::SequelUsers, :focus do
   include_context 'with database'
 
   let(:gateway) { described_class.new(database: database) }
@@ -29,6 +29,15 @@ describe LocalAuthority::Gateway::SequelUsers do
       new_user_id
       user = gateway.find_by(email: 'example@example.com')
       expect(user.projects).to eq([1])
+    end
+
+    it 'updates the user' do
+      new_user_id
+      user_to_update = gateway.find_by(email: 'example@example.com')
+      user_to_update.projects = [2, 4, 8, 16]
+      gateway.update(user_to_update)
+      user = gateway.find_by(email: 'example@example.com')
+      expect(user.projects).to eq([2, 4, 8, 16])
     end
   end
 
