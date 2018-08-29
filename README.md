@@ -1,6 +1,6 @@
-# Local Authority Monitoring API
+# Monitoring API
 
-The role of the Local Authority Monitoring API is to create, update and serve Project and Return data for the [Local Authority Monitoring Frontent](https://github.com/madetech/hif-frontend).
+The role of the Local Authority Monitoring API is to create, update and serve Project and Return data for the [Local Authority Monitoring Frontent](https://github.com/homes-england/monitor-frontend).
 
 The Local Authority Monitoring project's goal is to visualise the status of HIF (and future) contracts for both Local Authorities and Homes England
 
