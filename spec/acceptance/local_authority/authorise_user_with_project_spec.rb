@@ -3,7 +3,7 @@
 require 'rspec'
 require_relative '../shared_context/use_case_factory'
 
-xdescribe 'Authorises the user' do
+describe 'Authorises the user' do
   include_context 'use case factory'
 
   context 'valid user' do
@@ -15,7 +15,7 @@ xdescribe 'Authorises the user' do
 
     it 'should create a valid access token for project 1' do
       get_use_case(:add_user).execute(email: valid_email)
-      get_use_case(:add_user_to_project).execute(project_id: 1)
+      get_use_case(:add_user_to_project).execute(email: valid_email, project_id: 1)
 
       expect(is_valid_email).to eq(true)
       access_token = get_use_case(:create_access_token).execute(project_id: 1)[:access_token]

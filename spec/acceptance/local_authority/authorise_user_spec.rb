@@ -3,7 +3,7 @@
 require 'rspec'
 require_relative '../shared_context/use_case_factory'
 
-describe 'Authorises the user' do
+xdescribe 'Authorises the user' do
   include_context 'use case factory'
 
   let(:valid_email) { 'hello@world.com' }
