@@ -21,22 +21,21 @@ module DeliveryMechanism
 
     post '/token/request' do
       request_hash = get_hash(request)
-      if @use_case_factory.get_use_case(:check_email).execute(
-        email_address: request_hash[:email_address]
-      )[:valid]
-        @use_case_factory.get_use_case(:send_notification).execute(
-          to: request_hash[:email_address], url: request_hash[:url],
-          access_token:
-            @use_case_factory.get_use_case(:create_access_token).execute[:access_token]
-        )
-      end
-      200
+
+      controller = DeliveryMechanism::Controllers::PostRequestToken.new(
+        check_email: @use_case_factory.get_use_case(:check_email),
+        send_notification: @use_case_factory.get_use_case(:send_notification),
+        create_access_token: @use_case_factory.get_use_case(:create_access_token)
+      )
+
+      controller.execute(request_hash, response)
     end
 
     post '/token/expend' do
       request_hash = get_hash(request)
       expend_response = @use_case_factory.get_use_case(:expend_access_token).execute(
-        access_token: request_hash[:access_token]
+        access_token: request_hash[:access_token],
+        project_id: request_hash[:project_id].to_i
       )
       status = expend_response[:status]
       if status == :success
