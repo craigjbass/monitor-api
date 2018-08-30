@@ -26,13 +26,17 @@ describe LocalAuthority::Gateway::InMemoryAccessTokenGateway do
       end
 
       it 'can find saved access tokens' do
-        expect(gateway.find_by(access_token: access_token_one)).to eq(0)
-        expect(gateway.find_by(access_token: access_token_two)).to eq(1)
+        expect(gateway.find_by(uuid: access_token_one.uuid).uuid).to eq(
+          access_token_one.uuid
+        )
+        expect(gateway.find_by(uuid: access_token_two.uuid).uuid).to eq(
+          access_token_two.uuid
+        )
       end
 
       it 'can delete saved access tokens' do
-        gateway.delete(access_token: access_token_one)
-        expect(gateway.find_by(access_token: access_token_one)).to eq(nil)
+        gateway.delete(uuid: access_token_one.uuid)
+        expect(gateway.find_by(uuid: access_token_one.uuid)).to eq(nil)
       end
     end
 
@@ -49,13 +53,13 @@ describe LocalAuthority::Gateway::InMemoryAccessTokenGateway do
       end
 
       it 'can find saved access tokens' do
-        expect(gateway.find_by(access_token: access_token_one)).to eq(0)
-        expect(gateway.find_by(access_token: access_token_two)).to eq(1)
+        expect(gateway.find_by(uuid: access_token_one.uuid).uuid).to eq(access_token_one.uuid)
+        expect(gateway.find_by(uuid: access_token_two.uuid).uuid).to eq(access_token_two.uuid)
       end
 
       it 'can delete saved access tokens' do
-        gateway.delete(access_token: access_token_one)
-        expect(gateway.find_by(access_token: access_token_one)).to eq(nil)
+        gateway.delete(uuid: access_token_one.uuid)
+        expect(gateway.find_by(uuid: access_token_one.uuid)).to eq(nil)
       end
     end
 
@@ -76,8 +80,8 @@ describe LocalAuthority::Gateway::InMemoryAccessTokenGateway do
       end
 
       it 'can not find saved ids' do
-        expect(gateway.find_by(access_token: access_token_one)).to eq(nil)
-        expect(gateway.find_by(access_token: access_token_two)).to eq(nil)
+        expect(gateway.find_by(uuid: access_token_one.uuid)).to eq(nil)
+        expect(gateway.find_by(uuid: access_token_two.uuid)).to eq(nil)
       end
     end
   end

@@ -5,12 +5,12 @@ class LocalAuthority::Gateway::InMemoryAccessTokenGateway
     @@access_token << access_token
   end
 
-  def find_by(access_token:)
-    @@access_token.index(access_token)
+  def find_by(uuid:)
+    @@access_token.find {|token| token.uuid == uuid}
   end
 
-  def delete(access_token:)
-    @@access_token.delete(access_token)
+  def delete(uuid:)
+    @@access_token.delete_if {|token| token.uuid == uuid}
   end
 
   def clear
