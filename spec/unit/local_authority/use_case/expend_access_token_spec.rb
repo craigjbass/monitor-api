@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-#Update to only permit access for the given project_id
-#Also this is not triangulated enough
-
 describe LocalAuthority::UseCase::ExpendAccessToken do
   let(:access_token_gateway_spy) do
     spy(
