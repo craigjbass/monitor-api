@@ -25,6 +25,7 @@ services:
       GOV_NOTIFY_API_URL: 'http://notify_simulator'
       EMAIL_WHITELIST: 'test@test.test'
       GOV_NOTIFY_API_KEY: 'cafe-cafecafe-cafe-cafe-cafe-cafecafecafe-cafecafe-cafe-cafe-cafe-cafecafecafe'
+      HMAC_SECRET: 'E'
 
   notify_simulator:
     build: .
