@@ -13,6 +13,7 @@ class LocalAuthority::Gateway::SequelReturn
   def find_by(id:)
     row = @database[:returns].where(id: id).first
     LocalAuthority::Domain::Return.new.tap do |r|
+      r.id = row[:id]
       r.project_id = row[:project_id]
       r.status = row[:status]
     end
@@ -29,6 +30,6 @@ class LocalAuthority::Gateway::SequelReturn
   end
 
   def submit(return_id:)
-    @database[:returns].where(id: return_id).update(:status => 'Submitted')
+    @database[:returns].where(id: return_id).update(status: 'Submitted')
   end
 end
