@@ -20,6 +20,7 @@ describe LocalAuthority::Gateway::SequelReturn do
     it 'finds the created return' do
       found_return = gateway.find_by(id: return_id)
 
+      expect(found_return.id).to eq(return_id)
       expect(found_return.project_id).to eq(1)
       expect(found_return.status).to eq('Draft')
     end
@@ -39,6 +40,7 @@ describe LocalAuthority::Gateway::SequelReturn do
     it 'finds the created return' do
       found_return = gateway.find_by(id: return_id)
 
+      expect(found_return.id).to eq(return_id)
       expect(found_return.project_id).to eq(3)
       expect(found_return.status).to eq('Submitted')
     end
