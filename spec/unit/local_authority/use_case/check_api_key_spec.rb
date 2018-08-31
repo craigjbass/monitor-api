@@ -1,53 +1,90 @@
 describe LocalAuthority::UseCase::CheckApiKey do
+  let(:use_case) { described_class.new }
 
-  let(:use_case) { described_class.new(api_key_gateway: api_key_gateway_spy) }
+  def api_key_for_project(project, api_key=ENV['HMAC_SECRET'])
+    JWT.encode({project_id: project}, api_key, 'HS512')
+  end
 
-  context 'example 1' do
-    let(:api_key_gateway_spy) { spy }
+  context 'Example one' do
+    before { ENV['HMAC_SECRET'] = 'Cats' }
 
-    it 'calls the gateway' do
-      use_case.execute(api_key: 'cats')
-      expect(api_key_gateway_spy).to have_received(:find_by).with(api_key: 'cats')
-    end
+    context 'Given an invalid api key' do
+      context 'That is not a JWT token' do
+        it 'Returns invalid' do
+          response = use_case.execute(api_key: 'cats', project_id: 1)
+          expect(response[:valid]).to eq(false)
+        end
+      end
 
-    context 'the api_key exists' do
-      let(:api_key_gateway_spy) { spy(find_by: 0) }
+      context 'That is signed by a different key' do
+        it 'returns invalid' do
+          api_key = api_key_for_project(1, 'dogs')
 
-      it 'returns the correct hash' do
-        expect(use_case.execute(api_key: 'cats')).to eq({valid: true})
+          response = use_case.execute(api_key: api_key, project_id: 1)
+          expect(response[:valid]).to eq(false)
+        end
       end
     end
 
-    context 'the api key is non-existent' do
-      let(:api_key_gateway_spy) { spy(find_by: nil) }
+    context 'given a valid api key' do
+      context 'For a different project' do
+        it 'Returns invalid' do
+          api_key = api_key_for_project(1)
 
-      it 'returns the correct hash' do
-        expect(use_case.execute(api_key: 'ducks')).to eq({valid: false})
+          response = use_case.execute(api_key: api_key, project_id: 5)
+          expect(response[:valid]).to eq(false)
+        end
+      end
+
+      context 'For the correct project' do
+        it 'Returns valid' do
+          api_key = api_key_for_project(1)
+
+          response = use_case.execute(api_key: api_key, project_id: 1)
+          expect(response[:valid]).to eq(true)
+        end
       end
     end
   end
 
-  context 'example 2' do
-    let(:api_key_gateway_spy) { spy }
+  context 'Example two' do
+    before { ENV['HMAC_SECRET'] = 'Dogs' }
 
-    it 'calls the gateway' do
-      use_case.execute(api_key: 'dogs')
-      expect(api_key_gateway_spy).to have_received(:find_by).with(api_key: 'dogs')
-    end
+    context 'Given an invalid api key' do
+      context 'That is not a JWT token' do
+        it 'Returns invalid' do
+          response = use_case.execute(api_key: 'dogs', project_id: 5)
+          expect(response[:valid]).to eq(false)
+        end
+      end
 
-    context 'the api_key exists' do
-      let(:api_key_gateway_spy) { spy(find_by: 1) }
+      context 'That is signed by a different key' do
+        it 'returns invalid' do
+          api_key = api_key_for_project(5, 'meow')
 
-      it 'returns the correct hash' do
-        expect(use_case.execute(api_key: 'wolf')).to eq({valid: true})
+          response = use_case.execute(api_key: api_key, project_id: 5)
+          expect(response[:valid]).to eq(false)
+        end
       end
     end
 
-    context 'the api key is non-existent' do
-      let(:api_key_gateway_spy) { spy(find_by: nil) }
+    context 'given a valid api key' do
+      context 'For a different project' do
+        it 'Returns invalid' do
+          api_key = api_key_for_project(5)
 
-      it 'returns the correct hash' do
-        expect(use_case.execute(api_key: 'cow')).to eq({valid: false})
+          response = use_case.execute(api_key: api_key, project_id: 1)
+          expect(response[:valid]).to eq(false)
+        end
+      end
+
+      context 'For the correct project' do
+        it 'Returns valid' do
+          api_key = api_key_for_project(5)
+
+          response = use_case.execute(api_key: api_key, project_id: 5)
+          expect(response[:valid]).to eq(true)
+        end
       end
     end
   end

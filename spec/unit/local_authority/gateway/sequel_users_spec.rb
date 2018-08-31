@@ -30,6 +30,15 @@ describe LocalAuthority::Gateway::SequelUsers do
       user = gateway.find_by(email: 'example@example.com')
       expect(user.projects).to eq([1])
     end
+
+    it 'updates the user' do
+      new_user_id
+      user_to_update = gateway.find_by(email: 'example@example.com')
+      user_to_update.projects = [2, 4, 8, 16]
+      gateway.update(user_to_update)
+      user = gateway.find_by(email: 'example@example.com')
+      expect(user.projects).to eq([2, 4, 8, 16])
+    end
   end
 
   context 'example two' do

@@ -132,11 +132,7 @@ class LocalAuthority::UseCases
     end
 
     builder.define_use_case :create_api_key do
-      LocalAuthority::UseCase::CreateApiKey.new(
-        api_key_gateway: builder.get_use_case(
-          :api_key_gateway
-        )
-      )
+      LocalAuthority::UseCase::CreateApiKey.new
     end
 
     builder.define_use_case :send_notification do
@@ -146,12 +142,7 @@ class LocalAuthority::UseCases
     end
 
     builder.define_use_case :check_api_key do
-      LocalAuthority::UseCase::CheckApiKey.new(
-        api_key_gateway: builder.get_use_case(
-          :api_key_gateway
-        )
-      )
+      LocalAuthority::UseCase::CheckApiKey.new
     end
-
   end
 end

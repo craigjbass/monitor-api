@@ -6,11 +6,13 @@ class LocalAuthority::UseCase::ExpendAccessToken
     @create_api_key = create_api_key
   end
 
-  def execute(access_token:)
-    exists = !@access_token_gateway.find_by(access_token: access_token).nil?
-    if exists
-      api_key = @create_api_key.execute[:api_key]
-      @access_token_gateway.delete(access_token: access_token)
+  def execute(access_token:, project_id:)
+    access_token = @access_token_gateway.find_by(uuid: access_token)
+    return { status: :failure, api_key: '' } unless access_token
+
+    if access_token.project_id == project_id
+      api_key = @create_api_key.execute(project_id: project_id)[:api_key]
+      @access_token_gateway.delete(uuid: access_token.uuid)
       { status: :success, api_key: api_key }
     else
       { status: :failure, api_key: '' }

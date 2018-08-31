@@ -1,20 +1,49 @@
 describe LocalAuthority::UseCase::CreateApiKey do
-  let(:api_key_gateway_spy) { spy }
-  let(:use_case) { described_class.new(api_key_gateway: api_key_gateway_spy).execute }
+  let(:use_case) { described_class.new }
 
-  context 'calls the api_key gateway' do
-    it 'is a valid API key' do
-      use_case
-      expect(api_key_gateway_spy).to have_received(:save) do |arg|
-        expect(arg[:api_key].length).to eq(36)
-        expect(arg[:api_key].class).to eq(String)
-      end
+  context 'Example one' do
+    before do
+      ENV['HMAC_SECRET'] = 'cats'
     end
 
-    it 'does not generate the same key twice' do
-      expect(described_class.new(api_key_gateway: api_key_gateway_spy).execute).to_not eq(
-         described_class.new(api_key_gateway: api_key_gateway_spy).execute
-       )
+    it 'Returns an API key' do
+      expect(use_case.execute(project_id:  1)[:api_key]).not_to be_nil
+    end
+
+    it 'Stores the project id within the api key' do
+      api_key = use_case.execute(project_id: 1)[:api_key]
+
+      decoded_key = JWT.decode(
+        api_key,
+        'cats',
+        true,
+        algorithm: 'HS512'
+      )
+      
+      expect(decoded_key[0]['project_id']).to eq(1)
+    end
+  end
+
+  context 'Example two' do
+    before do
+      ENV['HMAC_SECRET'] = 'dogs'
+    end
+
+    it 'Returns an API key' do
+      expect(use_case.execute(project_id:  5)[:api_key]).not_to be_nil
+    end
+
+    it 'Stores the project id within the api key' do
+      api_key = use_case.execute(project_id: 5)[:api_key]
+
+      decoded_key = JWT.decode(
+        api_key,
+        'dogs',
+        true,
+        algorithm: 'HS512'
+      )
+      
+      expect(decoded_key[0]['project_id']).to eq(5)
     end
   end
 end
