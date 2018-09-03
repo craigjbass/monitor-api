@@ -1,5 +1,5 @@
 class LocalAuthority::UseCase::CheckApiKey
-  def execute(api_key:,project_id:)
+  def execute(api_key:, project_id:)
     begin
       api_key_project_id = payload(api_key)['project_id']
 
@@ -9,7 +9,7 @@ class LocalAuthority::UseCase::CheckApiKey
     end
   end
 
-  private 
+  private
 
   def payload(api_key)
     JWT.decode(
