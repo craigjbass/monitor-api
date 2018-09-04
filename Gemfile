@@ -7,6 +7,7 @@ gem 'require_all'
 gem 'sequel'
 gem 'sinatra'
 gem 'notifications-ruby-client'
+gem 'json-schema'
 
 group :test do
   gem 'guard-rspec', require: false

@@ -62,6 +62,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                         fieldOne: {
                           type: 'object',
                           title: 'Planning Not Granted Field One',
+                          required: ['percentComplete'],
                           properties: {
                             baselineCompletion: {
                               type: 'object',
@@ -155,7 +156,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             },
                             percentComplete: {
                               type: 'integer',
-                              title: 'Percent complete'
+                              title: 'Percent complete',
                             },
                             onCompleted: {
                               type: 'object',
