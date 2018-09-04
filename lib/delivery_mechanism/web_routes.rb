@@ -58,19 +58,8 @@ module DeliveryMechanism
       200
     end
 
-    def guard_access(env, request)
-      if env['HTTP_API_KEY'].nil?
-        response.status = 400
-      elsif !@use_case_factory.get_use_case(:check_api_key).execute(api_key: env['HTTP_API_KEY'])[:valid]
-        response.status = 401
-      else
-        yield request
-      end
-    end
-
     post '/return/create' do
-      guard_access env, request do |request|
-        request_hash = get_hash(request)
+      guard_access env, params, request do |request_hash|
         return 400 if request_hash.nil?
 
         return_id = @use_case_factory.get_use_case(:create_return).execute(
@@ -126,7 +115,7 @@ module DeliveryMechanism
     end
 
     get '/project/:id/return' do
-      guard_access env, request do
+      guard_access env, params, request do |request_hash|
         return 400 if params['id'].nil?
 
         base_return = @use_case_factory.get_use_case(:get_base_return).execute(
@@ -198,6 +187,53 @@ module DeliveryMechanism
         response.status = update_successful ? 200 : 404
       else
         response.status = 400
+      end
+    end
+
+    def guard_access(env, params, request)
+      request_hash = get_hash(request)
+      access_status = get_access_status(env, params, request_hash)
+
+      if access_status == :bad_request
+        response.status = 400
+      elsif access_status == :forbidden
+        response.status = 401
+      else
+        yield request_hash
+      end
+    end
+
+    def get_access_status(env, params, request_hash)
+      if request.request_method == 'POST'
+        check_post_access(env, request_hash)
+      else
+        check_get_access(env, params)
+      end
+    end
+
+    def check_post_access(env, request_hash)
+      if env['HTTP_API_KEY'].nil? || request_hash.nil?
+        :bad_request
+      elsif !@use_case_factory.get_use_case(:check_api_key).execute(
+        api_key: env['HTTP_API_KEY'],
+        project_id: request_hash[:project_id].to_i
+      )[:valid]
+        :forbidden
+      else
+        :proceed
+      end
+    end
+
+    def check_get_access(env, params)
+      if env['HTTP_API_KEY'].nil? || params['id'].nil?
+        :bad_request
+      elsif !@use_case_factory.get_use_case(:check_api_key).execute(
+        api_key: env['HTTP_API_KEY'],
+        project_id: params['id'].to_i
+      )[:valid]
+        :forbiddenn
+      else
+        :proceed
       end
     end
 
