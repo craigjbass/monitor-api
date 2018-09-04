@@ -216,7 +216,7 @@ module DeliveryMechanism
         :bad_request
       elsif !@use_case_factory.get_use_case(:check_api_key).execute(
         api_key: env['HTTP_API_KEY'],
-        project_id: request_hash[:project_id]
+        project_id: request_hash[:project_id].to_i
       )[:valid]
         :forbidden
       else
