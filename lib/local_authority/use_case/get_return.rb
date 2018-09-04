@@ -14,9 +14,15 @@ class LocalAuthority::UseCase::GetReturn
     updates = @return_update_gateway.updates_for(return_id: id)
 
 
-    previous_return_data = @get_returns.execute(project_id: project_id).dig(:returns, 0, :updates,-1,:data)
+    previous_return = @get_returns.execute(project_id: project_id)[:returns].select do |return_data|
+      return_data[:id] < found_return.id && return_data[:status] == 'Submitted'
+    end
 
-    @calculate_return.execute(return_data_with_no_calculations: updates[-1]&.data, previous_return: previous_return_data)
+    previous_return_data = previous_return.dig(-1, :updates, -1)
+    # The acceptance spec doesn't have :data that's why it's not working, find out which one is correct
+
+    updates[-1]&.data = @calculate_return.execute(return_data_with_no_calculations: updates[-1]&.data, previous_return: previous_return_data)[:calculated_return]
+
 
     if found_return.nil?
       {}

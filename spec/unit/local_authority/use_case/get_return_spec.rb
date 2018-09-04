@@ -2,7 +2,7 @@
 
 require 'rspec'
 
-describe LocalAuthority::UseCase::GetReturn, :focus do
+describe LocalAuthority::UseCase::GetReturn do
   let(:return_gateway) do
     spy(find_by: return_object)
   end
@@ -12,11 +12,11 @@ describe LocalAuthority::UseCase::GetReturn, :focus do
   end
 
   let(:calculate_return_spy) do
-    spy(execute: {})
+    spy(execute: {calculated_return: {}})
   end
 
   let(:get_returns_spy) do
-    spy(execute: {})
+    spy(execute: { returns: [] })
   end
 
   let(:use_case) do
@@ -40,9 +40,7 @@ describe LocalAuthority::UseCase::GetReturn, :focus do
         project_id: 0,
         status: 'Submitted',
         updates: [
-          {
-            data: { cats: 'meow' }
-          }
+          { cats: 'meow' }
         ]
       }
     end
@@ -53,18 +51,9 @@ describe LocalAuthority::UseCase::GetReturn, :focus do
         project_id: 0,
         status: 'Draft',
         updates: [
-          {
-            data: { dogs: 'woof' }
-          }
+          { dogs: 'woof' }
         ]
       }
-    end
-
-    let(:return_object) do
-      LocalAuthority::Domain::Return.new.tap do |r|
-        r.id = 10
-        r.project_id = 0
-      end
     end
 
     let(:get_returns_spy) do
@@ -77,6 +66,15 @@ describe LocalAuthority::UseCase::GetReturn, :focus do
         }
       )
     end
+
+    let(:return_object) do
+      LocalAuthority::Domain::Return.new.tap do |r|
+        r.id = 10
+        r.project_id = 0
+      end
+    end
+
+
 
     let(:return_updates) do
       [
@@ -101,6 +99,8 @@ describe LocalAuthority::UseCase::GetReturn, :focus do
     end
 
     context 'given no updates' do
+      let(:return_updates) { [] }
+
       it 'returns an empty array' do
         expect(response[:updates]).to eq([])
       end
@@ -110,13 +110,14 @@ describe LocalAuthority::UseCase::GetReturn, :focus do
       let(:return_updates) do
         [
           LocalAuthority::Domain::ReturnUpdate.new.tap do |update|
-            update.data = { cats: 'meow' }
+            update.data = { dogs: 'woof' }
           end
         ]
       end
 
       it 'returns an array with one hash' do
-        expect(response[:updates]).to eq([{ cats: 'meow' }])
+        expect(response[:updates].length).to eq(1)
+        expect(response[:updates].first[:dogs]).to eq('woof')
       end
     end
 
@@ -133,19 +134,56 @@ describe LocalAuthority::UseCase::GetReturn, :focus do
       end
 
       it 'returns an array with two hashes' do
-        expect(response[:updates]).to eq([{ cats: 'meow' }, { dogs: 'woof' }])
+        expect(response[:updates].length).to eq(2)
+        expect(response[:updates][0]).to eq(cats: 'meow')
+        expect(response[:updates][1][:dogs]).to eq('woof')
       end
     end
 
     it 'will execute calculate return usecase' do
       expect(calculate_return_spy).to have_received(:execute).with(
         return_data_with_no_calculations: { dogs: 'woof' },
-        previous_return: {cats: 'meow'}
+        previous_return: { cats: 'meow' }
       )
     end
 
     it 'will execute get_returns' do
       expect(get_returns_spy).to have_received(:execute).with(project_id: 0)
+    end
+    let(:calculate_return_spy) do
+      spy(execute: {
+        calculated_return: {
+          dogs: 'woof',
+          infrastructures: {
+            planning: {
+              planningNotGranted: {
+                varianceCalculations: {
+                  varianceAgainstLastReturn: {
+                    varianceLastReturnFullPlanningPermissionSubmitted: nil
+                  }
+                }
+              }
+            }
+          }
+        }
+      })
+    end
+
+    it 'will return the calculated data in the latest update' do
+      expect(response[:updates][-1]).to eq(
+        dogs: 'woof',
+        infrastructures: {
+          planning: {
+            planningNotGranted: {
+              varianceCalculations: {
+                varianceAgainstLastReturn: {
+                  varianceLastReturnFullPlanningPermissionSubmitted: nil
+                }
+              }
+            }
+          }
+        }
+      )
     end
   end
 
@@ -159,6 +197,13 @@ describe LocalAuthority::UseCase::GetReturn, :focus do
       end
     end
     let(:return_updates) { [] }
+    let(:get_returns_spy) do
+      spy(
+        execute: {
+          returns: []
+        }
+      )
+    end
 
     it 'will pass the correct id to the return gateway' do
       expect(return_gateway).to have_received(:find_by).with(id: 50)
@@ -181,6 +226,10 @@ describe LocalAuthority::UseCase::GetReturn, :focus do
     end
 
     context 'given one update' do
+      let(:calculate_return_spy) do
+        spy(execute: { calculated_return: {dogs: 'woof'} })
+      end
+
       let(:return_updates) do
         [
           LocalAuthority::Domain::ReturnUpdate.new.tap do |update|
@@ -195,6 +244,10 @@ describe LocalAuthority::UseCase::GetReturn, :focus do
     end
 
     context 'given two updates' do
+      let(:calculate_return_spy) do
+        spy(execute: {calculated_return: {cows: 'moo'}})
+      end
+
       let(:return_updates) do
         [
           LocalAuthority::Domain::ReturnUpdate.new.tap do |update|
@@ -213,6 +266,87 @@ describe LocalAuthority::UseCase::GetReturn, :focus do
 
     it 'will execute get_returns' do
       expect(get_returns_spy).to have_received(:execute).with(project_id: 1)
+    end
+
+    context 'given three returns' do
+      let(:initial_return_hash) do
+        {
+          id: 8,
+          project_id: 0,
+          status: 'Submitted',
+          updates: [
+            { cats: 'meow' }
+          ]
+        }
+      end
+
+      let(:previous_return_hash) do
+        {
+          id: 9,
+          project_id: 0,
+          status: 'Submitted',
+          updates: [
+            { cows: 'moo' }
+          ]
+        }
+      end
+
+      let(:return_hash) do
+        {
+          id: 50,
+          project_id: 0,
+          status: 'Draft',
+          updates: [
+            { pigs: 'squeal' }
+          ]
+        }
+      end
+
+      let(:return_updates) do
+        [
+          LocalAuthority::Domain::ReturnUpdate.new.tap do |update|
+            update.data = { pigs: 'squeal' }
+          end
+        ]
+      end
+
+      let(:get_returns_spy) do
+        spy(
+          execute: {
+            returns: [
+              initial_return_hash,
+              previous_return_hash,
+              return_hash
+            ]
+          }
+        )
+      end
+
+      it 'will execute calculate return usecase' do
+        expect(calculate_return_spy).to have_received(:execute).with(
+          return_data_with_no_calculations: { pigs: 'squeal' },
+          previous_return: { cows: 'moo' }
+        )
+      end
+
+      context 'given a prior draft return' do
+        let(:previous_return_hash) do
+          {
+            id: 9,
+            project_id: 0,
+            status: 'Draft',
+            updates: [
+              { cows: 'moo' }
+            ]
+          }
+        end
+        it 'does not base data off of a draft' do
+          expect(calculate_return_spy).to have_received(:execute).with(
+            return_data_with_no_calculations: { pigs: 'squeal' },
+            previous_return: { cats: 'meow' }
+          )
+        end
+      end
     end
   end
 end

@@ -9,9 +9,11 @@ describe LocalAuthority::UseCase::CalculateHIFReturn do
       infrastructures: {
         planning: {
           planningNotGranted: {
-            varianceCalculations: {
-              varianceAgainstLastReturn: {
-                varianceLastReturnFullPlanningPermissionSubmitted: nil
+            fieldOne: {
+              varianceCalculations: {
+                varianceAgainstLastReturn: {
+                  varianceLastReturnFullPlanningPermissionSubmitted: nil
+                }
               }
             }
           }
@@ -31,11 +33,11 @@ describe LocalAuthority::UseCase::CalculateHIFReturn do
               fieldOne: {
                 returnInput: {
                   CurrentReturn: '18/08/2000'
-                }
-              },
-              varianceCalculations: {
-                varianceAgainstLastReturn: {
-                  varianceLastReturnFullPlanningPermissionSubmitted: nil
+                },
+                varianceCalculations: {
+                  varianceAgainstLastReturn: {
+                    varianceLastReturnFullPlanningPermissionSubmitted: nil
+                  }
                 }
               }
             }
@@ -50,6 +52,11 @@ describe LocalAuthority::UseCase::CalculateHIFReturn do
               fieldOne: {
                 returnInput: {
                   CurrentReturn: '18/08/2000'
+                },
+                varianceCalculations: {
+                  varianceAgainstLastReturn: {
+                    varianceLastReturnFullPlanningPermissionSubmitted: nil
+                  }
                 }
               }
             }
@@ -73,11 +80,11 @@ describe LocalAuthority::UseCase::CalculateHIFReturn do
               fieldOne: {
                 returnInput: {
                   CurrentReturn: '03/11/1982'
-                }
-              },
-              varianceCalculations: {
-                varianceAgainstLastReturn: {
-                  varianceLastReturnFullPlanningPermissionSubmitted: nil
+                },
+                varianceCalculations: {
+                  varianceAgainstLastReturn: {
+                    varianceLastReturnFullPlanningPermissionSubmitted: nil
+                  }
                 }
               }
             }
@@ -117,11 +124,11 @@ describe LocalAuthority::UseCase::CalculateHIFReturn do
                 fieldOne: {
                   returnInput: {
                     CurrentReturn: '03/11/1982'
-                  }
-                },
-                varianceCalculations: {
-                  varianceAgainstLastReturn: {
-                    varianceLastReturnFullPlanningPermissionSubmitted: '1'
+                  },
+                  varianceCalculations: {
+                    varianceAgainstLastReturn: {
+                      varianceLastReturnFullPlanningPermissionSubmitted: '1'
+                    }
                   }
                 }
               }
@@ -174,11 +181,11 @@ describe LocalAuthority::UseCase::CalculateHIFReturn do
                 fieldOne: {
                   returnInput: {
                     CurrentReturn: '03/11/1982'
-                  }
-                },
-                varianceCalculations: {
-                  varianceAgainstLastReturn: {
-                    varianceLastReturnFullPlanningPermissionSubmitted: '2'
+                  },
+                  varianceCalculations: {
+                    varianceAgainstLastReturn: {
+                      varianceLastReturnFullPlanningPermissionSubmitted: '2'
+                    }
                   }
                 }
               }

@@ -7,9 +7,11 @@ class LocalAuthority::UseCase::CalculateHIFReturn
       infrastructures: {
         planning: {
           planningNotGranted: {
-            varianceCalculations: {
-              varianceAgainstLastReturn: {
-                varianceLastReturnFullPlanningPermissionSubmitted: nil
+            fieldOne: {
+              varianceCalculations: {
+                varianceAgainstLastReturn: {
+                  varianceLastReturnFullPlanningPermissionSubmitted: nil
+                }
               }
             }
           }
@@ -31,11 +33,16 @@ class LocalAuthority::UseCase::CalculateHIFReturn
   end
 
   def get_currentReturn(return_data)
-    return_data.dig(:infrastructures,:planning,:planningNotGranted,:fieldOne,:returnInput,:CurrentReturn)
+    return_data&.dig(:infrastructures,
+      :planning,
+      :planningNotGranted,
+      :fieldOne,
+      :returnInput,
+      :CurrentReturn)
   end
 
   def update_varianceLastReturnFullPlanningPermissionSubmitted(returnData, value)
-    returnData[:infrastructures][:planning][:planningNotGranted][:varianceCalculations][:varianceAgainstLastReturn][:varianceLastReturnFullPlanningPermissionSubmitted] = value
+    returnData[:infrastructures][:planning][:planningNotGranted][:fieldOne][:varianceCalculations][:varianceAgainstLastReturn][:varianceLastReturnFullPlanningPermissionSubmitted] = value
   end
 
   def week_difference(date_as_string_one:, date_as_string_two:)
