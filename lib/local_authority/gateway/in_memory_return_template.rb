@@ -7,7 +7,6 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
     return nil unless type == 'hif'
     LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
       p.schema = {
-        '$schema': 'http://json-schema.org/draft-07/schema',
         title: 'HIF Project',
         type: 'object',
         properties: {
