@@ -172,6 +172,15 @@ module DeliveryMechanism
       response.status = 201
     end
 
+    post '/project/:id/add_users' do
+      guard_admin_access env, params, request do |request_hash|
+        controller = DeliveryMechanism::Controllers::PostProjectToUsers.new(
+          add_user_to_project: @use_case_factory.get_use_case(:add_user_to_project),
+        )
+        controller.execute(params, request_hash, response)
+      end
+    end
+
     post '/project/update' do
       request_hash = get_hash(request)
 
@@ -187,6 +196,18 @@ module DeliveryMechanism
         response.status = update_successful ? 200 : 404
       else
         response.status = 400
+      end
+    end
+
+    def guard_admin_access(env, params, request)
+      return 401 if authorization_header_not_present?
+      admin_auth_key = env['HTTP_API_KEY']
+
+      if valid_admin_api_key?(key: admin_auth_key)
+        request_hash = get_hash(request)
+        yield request_hash
+      else
+        response.status = 401
       end
     end
 
@@ -238,6 +259,15 @@ module DeliveryMechanism
     end
 
     private
+
+    def authorization_header_not_present?
+      env['HTTP_API_KEY'].nil?
+    end
+
+    def valid_admin_api_key?(key:)
+      return false unless key == ENV['ADMIN_HTTP_API_KEY']
+      true
+    end
 
     def valid_update_request_body(request_body)
       !request_body.dig(:id).nil? &&
