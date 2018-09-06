@@ -174,17 +174,10 @@ module DeliveryMechanism
 
     post '/project/:id/add_users' do
       guard_admin_access env, params, request do |request_hash|
-        user_emails = request_hash[:users]
-
-        return 400 unless user_emails.instance_of? Array
-        cleaned_up_emails = user_emails.map(&:strip).reject(&:empty?)
-        return 400 if cleaned_up_emails.empty?
-
-        use_case = @use_case_factory.get_use_case(:add_user_to_project)
-        cleaned_up_emails.each do |email|
-          use_case.execute({ email: email, project_id: params[:id].to_i })
-        end
-        200
+        controller = DeliveryMechanism::Controllers::PostProjectToUsers.new(
+          add_user_to_project: @use_case_factory.get_use_case(:add_user_to_project),
+        )
+        controller.execute(params, request_hash, response)
       end
     end
 
@@ -207,26 +200,15 @@ module DeliveryMechanism
     end
 
     def guard_admin_access(env, params, request)
-      request_hash = get_hash(request)
-      access_status = get_admin_access_status(env, params, request_hash)
+      return 401 if authorization_header_not_present?
+      admin_auth_key = env['HTTP_API_KEY']
 
-      if access_status == :bad_request
-        response.status = 400
-      elsif access_status == :forbidden
-        response.status = 401
-      else
+      if valid_admin_api_key?(key: admin_auth_key)
+        request_hash = get_hash(request)
         yield request_hash
+      else
+        response.status = 401
       end
-    end
-
-    def get_admin_access_status(env, params, request_hash)
-      check_admin_post_access(env, request_hash) if request.request_method == 'POST'
-    end
-
-    def check_admin_post_access(env, request_hash)
-      return :bad_request unless request_hash[:admin_api_key]
-      return :forbidden unless request_hash[:admin_api_key] == ENV['ADMIN_HTTP_API_KEY']
-      :proceed
     end
 
     def guard_access(env, params, request)
@@ -277,6 +259,15 @@ module DeliveryMechanism
     end
 
     private
+
+    def authorization_header_not_present?
+      env['HTTP_API_KEY'].nil?
+    end
+
+    def valid_admin_api_key?(key:)
+      return false unless key == ENV['ADMIN_HTTP_API_KEY']
+      true
+    end
 
     def valid_update_request_body(request_body)
       !request_body.dig(:id).nil? &&
