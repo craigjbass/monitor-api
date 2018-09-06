@@ -1,6 +1,7 @@
 require 'loader'
 require 'pry'
 require_relative 'database_context'
+require_relative 'admin_context'
 
 RSpec.configure do |config|
   database = DatabaseAdministrator::Postgres.new.fresh_database

@@ -4,19 +4,7 @@ require 'rspec'
 require_relative 'delivery_mechanism_spec_helper'
 
 describe 'Adding users to a project' do
-  let(:valid_admin_api_key) { 'supersecret' }
-
-  def set_correct_auth_header
-    header 'API_KEY', 'supersecret'
-  end
-
-  def set_incorrect_auth_header
-    header 'API_KEY', 'wrongsecret'
-  end
-
-  before do
-    ENV['ADMIN_HTTP_API_KEY'] = valid_admin_api_key
-  end
+  include_context 'as admin'
 
   context 'when incorrect authorization provided' do
     let(:body) { { users: ['person1@mt.com'] } }

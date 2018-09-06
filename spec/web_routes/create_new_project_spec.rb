@@ -4,16 +4,11 @@ require 'rspec'
 require_relative 'delivery_mechanism_spec_helper'
 
 describe 'Creating a new project' do
-  let(:create_new_project_spy) { spy(execute: project_id) }
-  let(:valid_admin_api_key) { 'supersecret' }
+  include_context 'as admin'
 
-  def set_correct_auth_header
-    header 'API_KEY', 'supersecret'
-  end
+  let(:create_new_project_spy) { spy(execute: project_id) }
 
   before do
-    ENV['ADMIN_HTTP_API_KEY'] = valid_admin_api_key
-
     set_correct_auth_header
 
     stub_const(
