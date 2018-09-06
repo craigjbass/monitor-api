@@ -32,7 +32,7 @@ describe LocalAuthority::UseCase::CalculateHIFReturn do
             planningNotGranted: {
               fieldOne: {
                 returnInput: {
-                  CurrentReturn: '18/08/2000'
+                  currentReturn: '18/08/2000'
                 },
                 varianceCalculations: {
                   varianceAgainstLastReturn: {
@@ -51,7 +51,7 @@ describe LocalAuthority::UseCase::CalculateHIFReturn do
             planningNotGranted: {
               fieldOne: {
                 returnInput: {
-                  CurrentReturn: '18/08/2000'
+                  currentReturn: '18/08/2000'
                 },
                 varianceCalculations: {
                   varianceAgainstLastReturn: {
@@ -79,7 +79,7 @@ describe LocalAuthority::UseCase::CalculateHIFReturn do
             planningNotGranted: {
               fieldOne: {
                 returnInput: {
-                  CurrentReturn: '03/11/1982'
+                  currentReturn: '03/11/1982'
                 },
                 varianceCalculations: {
                   varianceAgainstLastReturn: {
@@ -98,7 +98,7 @@ describe LocalAuthority::UseCase::CalculateHIFReturn do
             planningNotGranted: {
               fieldOne: {
                 returnInput: {
-                  CurrentReturn: '03/11/1982'
+                  currentReturn: '03/11/1982'
                 }
               }
             }
@@ -123,7 +123,7 @@ describe LocalAuthority::UseCase::CalculateHIFReturn do
               planningNotGranted: {
                 fieldOne: {
                   returnInput: {
-                    CurrentReturn: '03/11/1982'
+                    currentReturn: '03/11/1982'
                   },
                   varianceCalculations: {
                     varianceAgainstLastReturn: {
@@ -142,7 +142,7 @@ describe LocalAuthority::UseCase::CalculateHIFReturn do
               planningNotGranted: {
                 fieldOne: {
                   returnInput: {
-                    CurrentReturn: '03/11/1982'
+                    currentReturn: '03/11/1982'
                   }
                 }
               }
@@ -156,7 +156,7 @@ describe LocalAuthority::UseCase::CalculateHIFReturn do
               planningNotGranted: {
                 fieldOne: {
                   returnInput: {
-                    CurrentReturn: '25/10/1982'
+                    currentReturn: '25/10/1982'
                   }
                 }
               }
@@ -180,7 +180,7 @@ describe LocalAuthority::UseCase::CalculateHIFReturn do
               planningNotGranted: {
                 fieldOne: {
                   returnInput: {
-                    CurrentReturn: '03/11/1982'
+                    currentReturn: '03/11/1982'
                   },
                   varianceCalculations: {
                     varianceAgainstLastReturn: {
@@ -199,7 +199,7 @@ describe LocalAuthority::UseCase::CalculateHIFReturn do
               planningNotGranted: {
                 fieldOne: {
                   returnInput: {
-                    CurrentReturn: '03/11/1982'
+                    currentReturn: '03/11/1982'
                   }
                 }
               }
@@ -213,7 +213,7 @@ describe LocalAuthority::UseCase::CalculateHIFReturn do
               planningNotGranted: {
                 fieldOne: {
                   returnInput: {
-                    CurrentReturn: '18/10/1982'
+                    currentReturn: '18/10/1982'
                   }
                 }
               }

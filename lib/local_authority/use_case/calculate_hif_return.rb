@@ -19,17 +19,33 @@ class LocalAuthority::UseCase::CalculateHIFReturn
       }
     }
 
-    new_return_data = deep_merge(return_data_with_no_calculations, expected_return_data)
+    new_return_data = deep_merge(
+      return_data_with_no_calculations,
+      expected_return_data
+    )
     update_varianceLastReturnFullPlanningPermissionSubmitted(
       new_return_data,
-      get_currentReturn(previous_return).nil? ? nil : week_difference(
-        date_as_string_one: get_currentReturn(return_data_with_no_calculations),
-        date_as_string_two: get_currentReturn(previous_return)
+      calculate_varianceLastReturnFullPlanningPermissionSubmitted(
+        return_data_with_no_calculations,
+        previous_return
       )
     )
     {
       calculated_return: new_return_data
     }
+  end
+
+  private
+
+  def calculate_varianceLastReturnFullPlanningPermissionSubmitted(
+    return_data_with_no_calculations,
+    previous_return
+  )
+    return nil if get_currentReturn(previous_return).nil?
+    week_difference(
+      date_as_string_one: get_currentReturn(return_data_with_no_calculations),
+      date_as_string_two: get_currentReturn(previous_return)
+    )
   end
 
   def get_currentReturn(return_data)
@@ -38,7 +54,7 @@ class LocalAuthority::UseCase::CalculateHIFReturn
       :planningNotGranted,
       :fieldOne,
       :returnInput,
-      :CurrentReturn)
+      :currentReturn)
   end
 
   def update_varianceLastReturnFullPlanningPermissionSubmitted(returnData, value)

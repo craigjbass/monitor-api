@@ -13,7 +13,7 @@ describe 'Calculated return' do
           planningNotGranted: {
             fieldOne: {
               returnInput: {
-                CurrentReturn: '18/08/2000'
+                currentReturn: '18/08/2000'
               }
             }
           }
@@ -27,7 +27,7 @@ describe 'Calculated return' do
           planningNotGranted: {
             fieldOne: {
               returnInput: {
-                CurrentReturn: '25/08/2000'
+                currentReturn: '25/08/2000'
               }
             }
           }
@@ -41,7 +41,7 @@ describe 'Calculated return' do
           planningNotGranted: {
             fieldOne: {
               returnInput: {
-                CurrentReturn: '25/08/2000'
+                currentReturn: '25/08/2000'
               },
               varianceCalculations: {
                 varianceAgainstLastReturn: {
