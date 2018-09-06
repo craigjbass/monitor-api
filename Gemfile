@@ -15,7 +15,7 @@ group :test do
   gem 'rerun'
   gem 'rspec'
   gem 'rspec_junit_formatter'
-
+  gem 'timecop'
 end
 
 group :development, :test do
