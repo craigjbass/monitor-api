@@ -19,6 +19,24 @@ describe LocalAuthority::UseCase::ValidateReturn do
     use_case.execute(type: project_type, return_data: {})
   end
 
+  context 'calling return template gateway' do
+    context 'example 1' do
+      let(:project_type) { 'cats' }
+      it 'should call return template gateway with type' do
+        use_case.execute(type: project_type, return_data: {})
+        expect(return_template_gateway_spy).to have_received(:find_by).with(type: project_type)
+      end
+    end
+
+    context 'example 2' do
+      let(:project_type) { 'dogs' }
+      it 'should call return template gateway with type' do
+        use_case.execute(type: project_type, return_data: {})
+        expect(return_template_gateway_spy).to have_received(:find_by).with(type: project_type)
+      end
+    end
+  end
+
   shared_examples_for 'required field validation' do
     context 'given a valid return' do
       it 'should return a hash with a valid field as true' do
@@ -83,6 +101,7 @@ describe LocalAuthority::UseCase::ValidateReturn do
       end
 
       context 'example 2' do
+        it_should_behave_like 'required field validation'
         let(:template) do
           LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
             p.schema = {
@@ -113,24 +132,6 @@ describe LocalAuthority::UseCase::ValidateReturn do
 
         let(:invalid_return_data_paths) do
           [[:catsComplete]]
-        end
-      end
-    end
-
-    context 'calling return template gateway' do
-      context 'example 1' do
-        let(:project_type) { 'cats' }
-        it 'should call return template gateway with type' do
-          use_case.execute(type: project_type, return_data: {})
-          expect(return_template_gateway_spy).to have_received(:find_by).with(type: project_type)
-        end
-      end
-
-      context 'example 2' do
-        let(:project_type) { 'dogs' }
-        it 'should call return template gateway with type' do
-          use_case.execute(type: project_type, return_data: {})
-          expect(return_template_gateway_spy).to have_received(:find_by).with(type: project_type)
         end
       end
     end
