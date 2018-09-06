@@ -172,6 +172,22 @@ module DeliveryMechanism
       response.status = 201
     end
 
+    post '/project/:id/add_users' do
+      guard_admin_access env, params, request do |request_hash|
+        user_emails = request_hash[:users]
+
+        return 400 unless user_emails.instance_of? Array
+        cleaned_up_emails = user_emails.map(&:strip).reject(&:empty?)
+        return 400 if cleaned_up_emails.empty?
+
+        use_case = @use_case_factory.get_use_case(:add_user_to_project)
+        cleaned_up_emails.each do |email|
+          use_case.execute({ email: email, project_id: params[:id].to_i })
+        end
+        200
+      end
+    end
+
     post '/project/update' do
       request_hash = get_hash(request)
 
@@ -188,6 +204,29 @@ module DeliveryMechanism
       else
         response.status = 400
       end
+    end
+
+    def guard_admin_access(env, params, request)
+      request_hash = get_hash(request)
+      access_status = get_admin_access_status(env, params, request_hash)
+
+      if access_status == :bad_request
+        response.status = 400
+      elsif access_status == :forbidden
+        response.status = 401
+      else
+        yield request_hash
+      end
+    end
+
+    def get_admin_access_status(env, params, request_hash)
+      check_admin_post_access(env, request_hash) if request.request_method == 'POST'
+    end
+
+    def check_admin_post_access(env, request_hash)
+      return :bad_request unless request_hash[:admin_api_key]
+      return :forbidden unless request_hash[:admin_api_key] == ENV['ADMIN_HTTP_API_KEY']
+      :proceed
     end
 
     def guard_access(env, params, request)
