@@ -115,8 +115,7 @@ module DeliveryMechanism
     end
 
     post '/return/validate' do
-      guard_access env, request do
-        request_hash = get_hash(request)
+      guard_access env, params, request do |request_hash|
         if invalid_validation_hash(request_hash: request_hash)
           return 400
         else
