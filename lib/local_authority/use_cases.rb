@@ -144,5 +144,11 @@ class LocalAuthority::UseCases
     builder.define_use_case :check_api_key do
       LocalAuthority::UseCase::CheckApiKey.new
     end
+
+    builder.define_use_case :validate_return do
+      LocalAuthority::UseCase::ValidateReturn.new(
+        return_template_gateway: builder.get_use_case(:return_template_gateway)
+      )
+    end
   end
 end
