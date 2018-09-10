@@ -58,79 +58,33 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           sourceKey: [:baseline_data, :infrastructures, :outlinePlanningStatus, :summaryOfCriticalPath],
                           readonly: true
                         },
-                        fieldOne: {
+                        outlinePlanning: {
                           type: 'object',
-                          title: 'Planning Not Granted Field One',
+                          title: 'Outline Planning (INFO: only show if planning not granted)',
                           required: ['percentComplete'],
                           properties: {
-                            baselineCompletion: {
+                            submitted: {
+                              title: 'Planning permission Submitted',
                               type: 'object',
-                              title: 'Baseline Completion',
+                              horizontal: true,
                               properties: {
-                                # Full planning submitted date
-                                # fullPlanningStatus.targetSubmission
                                 baselineFullPlanningPermissionSubmitted: {
                                   type: 'string',
                                   format: 'date',
                                   title: 'Full Planning Permission submitted date',
-                                  sourceKey: [:baseline_data, :infrastructures, :fullPlanningStatus, :targetSubmission],
+                                  sourceKey: [:baseline_data, :infrastructures, :outlinePlanningStatus, :targetSubmission],
                                   readonly: true
                                 },
-                                # Full planning granted date
-                                # fullPlanningStatus.targetGranted
-                                baselineFullPlanningPermissionGranted: {
-                                  type: 'string',
-                                  format: 'date',
-                                  title: 'Full Planning Permission granted date',
-                                  sourceKey: [:baseline_data, :infrastructures, :fullPlanningStatus, :targetGranted],
-                                  readonly: true
-                                }
-                              }
-                            },
-                            varianceCalculations: {
-                              type: 'object',
-                              title: 'Variance Calculations',
-                              properties: {
-                                varianceAgainstLastReturn: {
-                                  type: 'object',
-                                  title: 'Variance against Last Return',
-                                  horizontal: true,
-                                  properties: {
-                                    varianceLastReturnFullPlanningPermissionSubmitted: {
-                                      type: 'integer',
-                                      readonly: true,
-                                      title: 'TO BE CALCULATED - Variance against Last Return submitted date (Week)'
-                                    },
-                                    varianceLastReturnFullPlanningPermissionGranted: {
-                                      type: 'integer',
-                                      readonly: true,
-                                      title: 'TO BE CALCULATED - Variance against Last Return granted date (Weeks)'
-                                    }
-                                  }
+                                varianceBaselineFullPlanningPermissionSubmitted: {
+                                  type: 'integer',
+                                  readonly: true,
+                                  title: 'Variance against Baseline submitted date (Week) (Calculated)'
                                 },
-                                varianceAgainstBaseline: {
-                                  type: 'object',
-                                  title: 'Variance against Baseline',
-                                  horizontal: true,
-                                  properties: {
-                                    varianceBaselineFullPlanningPermissionSubmitted: {
-                                      type: 'integer',
-                                      readonly: true,
-                                      title: 'TO BE CALCULATED - Variance against Baseline submitted date (Week)'
-                                    },
-                                    varianceBaselineFullPlanningPermissionGranted: {
-                                      type: 'integer',
-                                      readonly: true,
-                                      title: 'TO BE CALCULATED - Variance against Baseline granted date (Weeks)'
-                                    }
-                                  }
-                                }
-                              }
-                            },
-                            returnInput: {
-                              type: 'object',
-                              title: 'Return Input',
-                              properties: {
+                                varianceLastReturnFullPlanningPermissionSubmitted: {
+                                  type: 'integer',
+                                  readonly: true,
+                                  title: 'Variance against Last Return submitted date (Week) (Calculated)'
+                                },
                                 statusAgainstLastReturn: {
                                   title: 'Status against last return?',
                                   type: 'string',
@@ -150,28 +104,76 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                 reasonForVariance: {
                                   type: 'string',
                                   title: 'Reason for Variance'
-                                }
-                              }
-                            },
-                            percentComplete: {
-                              type: 'integer',
-                              title: 'Percent complete',
-                            },
-                            onCompleted: {
-                              type: 'object',
-                              title: 'On Completed',
-                              properties: {
+                                },
+                                percentComplete: {
+                                  type: 'integer',
+                                  title: 'Percent complete'
+                                },
                                 onCompletedDate: {
                                   type: 'string',
                                   format: 'date',
                                   readonly: true,
-                                  title: 'TO BE GENERATED - On Completed date'
+                                  title: 'Completed date (Calculated)'
                                 },
                                 onCompletedReference: {
                                   type: 'string',
                                   readonly: true,
-                                  title: 'TO BE GENERATED - On Completed Reference'
+                                  title: 'Completed Reference (Calculated)'
                                 }
+                              },
+                            },
+                            granted: {
+                              title: 'Planning Permission Granted',
+                              type: 'object',
+                              horizontal: true,
+                              properties: {
+                                baselineFullPlanningPermissionGranted: {
+                                  type: 'string',
+                                  format: 'date',
+                                  title: 'Full Planning Permission granted date',
+                                  sourceKey: [:baseline_data, :infrastructures, :outlinePlanningStatus, :targetGranted],
+                                  readonly: true
+                                },
+                                varianceBaselineFullPlanningPermissionGranted: {
+                                  type: 'integer',
+                                  readonly: true,
+                                  title: 'Variance against Baseline granted date (Weeks) (Calculated)'
+                                },
+                                varianceLastReturnFullPlanningPermissionGranted: {
+                                  type: 'integer',
+                                  readonly: true,
+                                  title: 'Variance against Last Return granted date (Weeks) (Calculated)'
+                                },
+                                statusAgainstLastReturn: {
+                                  title: 'Status against last return?',
+                                  type: 'string',
+                                  enum: [
+                                    'completed',
+                                    'on schedule',
+                                    'delayed: minimal impact',
+                                    'delayed: critical'
+                                  ],
+                                  default: 'on schedule'
+                                },
+                                currentReturn: {
+                                  type: 'string',
+                                  format: 'date',
+                                  title: 'Current Return'
+                                },
+                                reasonForVariance: {
+                                  type: 'string',
+                                  title: 'Reason for Variance'
+                                },
+                                percentComplete: {
+                                  type: 'integer',
+                                  title: 'Percent complete'
+                                },
+                                onCompletedDate: {
+                                  type: 'string',
+                                  format: 'date',
+                                  readonly: true,
+                                  title: 'Completed date (Calculated)'
+                                },
                               }
                             },
                             # from fullPlanningStatus.granted
@@ -190,16 +192,15 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             }
                           }
                         },
-                        fieldTwo: {
+                        fullPlanning: {
                           type: 'object',
-                          title: 'Planning Not Granted Field Two',
+                          title: 'Full Planning (INFO: Only show if planning not granted)',
                           properties: {
-                            baselineCompletion: {
+                            submitted: {
+                              title: 'Planning permission Submitted',
                               type: 'object',
-                              title: 'Baseline Completion',
+                              horizontal: true,
                               properties: {
-                                # Full planning submitted date
-                                # fullPlanningStatus.targetSubmission
                                 baselineFullPlanningPermissionSubmitted: {
                                   type: 'string',
                                   format: 'date',
@@ -207,59 +208,16 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   sourceKey: [:baseline_data, :infrastructures, :fullPlanningStatus, :targetSubmission],
                                   readonly: true
                                 },
-                                # Full planning granted date
-                                # fullPlanningStatus.targetGranted
-                                baselineFullPlanningPermissionGranted: {
-                                  type: 'string',
-                                  format: 'date',
-                                  title: 'Full Planning Permission granted date',
-                                  sourceKey: [:baseline_data, :infrastructures, :fullPlanningStatus, :targetGranted],
-                                  readonly: true
-                                }
-                              }
-                            },
-                            varianceCalculations: {
-                              type: 'object',
-                              title: 'Variance Calculations',
-                              properties: {
-                                varianceAgainstLastReturn: {
-                                  type: 'object',
-                                  title: 'Variance against Last Return',
-                                  properties: {
-                                    varianceLastReturnFullPlanningPermissionSubmitted: {
-                                      type: 'integer',
-                                      readonly: true,
-                                      title: 'TO BE CALCULATED - Variance against Last Return submitted date (Week)'
-                                    },
-                                    varianceLastReturnFullPlanningPermissionGranted: {
-                                      type: 'integer',
-                                      readonly: true,
-                                      title: 'TO BE CALCULATED - Variance against Last Return granted date (Weeks)'
-                                    }
-                                  }
+                                varianceBaselineFullPlanningPermissionSubmitted: {
+                                  type: 'integer',
+                                  readonly: true,
+                                  title: 'Variance against Baseline submitted date (Week) (Calculated)'
                                 },
-                                varianceAgainstBaseline: {
-                                  type: 'object',
-                                  title: 'Variance against Baseline',
-                                  properties: {
-                                    varianceBaselineFullPlanningPermissionSubmitted: {
-                                      type: 'integer',
-                                      readonly: true,
-                                      title: 'TO BE CALCULATED - Variance against Baseline submitted date (Week)'
-                                    },
-                                    varianceBaselineFullPlanningPermissionGranted: {
-                                      type: 'integer',
-                                      readonly: true,
-                                      title: 'TO BE CALCULATED - Variance against Baseline granted date (Weeks)'
-                                    }
-                                  }
-                                }
-                              }
-                            },
-                            returnInput: {
-                              type: 'object',
-                              title: 'Return Input',
-                              properties: {
+                                varianceLastReturnFullPlanningPermissionSubmitted: {
+                                  type: 'integer',
+                                  readonly: true,
+                                  title: 'Variance against Last Return submitted date (Week) (Calculated)'
+                                },
                                 statusAgainstLastReturn: {
                                   title: 'Status against last return?',
                                   type: 'string',
@@ -279,36 +237,98 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                 reasonForVariance: {
                                   type: 'string',
                                   title: 'Reason for Variance'
-                                }
-                              }
-                            },
-                            percentComplete: {
-                              type: 'integer',
-                              title: 'Percent complete'
-                            },
-                            onCompleted: {
-                              type: 'object',
-                              title: 'On Completed',
-                              properties: {
+                                },
+                                percentComplete: {
+                                  type: 'integer',
+                                  title: 'Percent complete'
+                                },
                                 onCompletedDate: {
                                   type: 'string',
                                   format: 'date',
                                   readonly: true,
-                                  title: 'TO BE GENERATED - On Completed date'
+                                  title: 'Completed date (Calculated)'
                                 },
                                 onCompletedReference: {
                                   type: 'string',
                                   readonly: true,
-                                  title: 'TO BE GENERATED - On Completed Reference'
+                                  title: 'Completed Reference (Calculated)'
                                 }
+                              },
+                            },
+                            granted: {
+                              title: 'Planning Permission Granted',
+                              type: 'object',
+                              horizontal: true,
+                              properties: {
+                                baselineFullPlanningPermissionGranted: {
+                                  type: 'string',
+                                  format: 'date',
+                                  title: 'Full Planning Permission granted date',
+                                  sourceKey: [:baseline_data, :infrastructures, :fullPlanningStatus, :targetGranted],
+                                  readonly: true
+                                },
+                                varianceBaselineFullPlanningPermissionGranted: {
+                                  type: 'integer',
+                                  readonly: true,
+                                  title: 'Variance against Baseline granted date (Weeks) (Calculated)'
+                                },
+                                varianceLastReturnFullPlanningPermissionGranted: {
+                                  type: 'integer',
+                                  readonly: true,
+                                  title: 'Variance against Last Return granted date (Weeks) (Calculated)'
+                                },
+                                statusAgainstLastReturn: {
+                                  title: 'Status against last return?',
+                                  type: 'string',
+                                  enum: [
+                                    'completed',
+                                    'on schedule',
+                                    'delayed: minimal impact',
+                                    'delayed: critical'
+                                  ],
+                                  default: 'on schedule'
+                                },
+                                currentReturn: {
+                                  type: 'string',
+                                  format: 'date',
+                                  title: 'Current Return'
+                                },
+                                reasonForVariance: {
+                                  type: 'string',
+                                  title: 'Reason for Variance'
+                                },
+                                percentComplete: {
+                                  type: 'integer',
+                                  title: 'Percent complete'
+                                },
+                                onCompletedDate: {
+                                  type: 'string',
+                                  format: 'date',
+                                  readonly: true,
+                                  title: 'Completed date (Calculated)'
+                                },
                               }
+                            },
+                            # from fullPlanningStatus.granted
+                            fullPlanningPermissionGranted: {
+                              type: 'boolean',
+                              title: 'Full Planning Permission granted',
+                              sourceKey: [:baseline_data, :infrastructures, :fullPlanningStatus, :granted],
+                              readonly: true
+                            },
+                            # from fullPlanningStatus.summaryOfCriticalPath
+                            fullPlanningPermissionSummaryOfCriticalPath: {
+                              type: 'string',
+                              title: 'Summary Of Full Planning Permission Critical Path',
+                              sourceKey: [:baseline_data, :infrastructures, :fullPlanningStatus, :summaryOfCriticalPath],
+                              readonly: true
                             }
                           }
                         },
                         # from s106.requirement
                         s106Requirement: {
                           type: 'boolean',
-                          title: 'S016 Requirement',
+                          title: 'S106 Requirement',
                           sourceKey: [:baseline_data, :infrastructures, :s106, :requirement],
                           readonly: true
                         },
@@ -329,6 +349,51 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                               title: 'Statutory consents to be met?',
                               sourceKey: [:baseline_data, :infrastructures, :statutoryConsents, :anyConsents],
                               readonly: true
+                            },
+                            statutoryConsents: {
+                              title: 'Current Statutory Consents',
+                              type: 'array',
+                              addable: true, 
+                              items: {
+                                type: 'object',
+                                properties: {
+                                  baselineCompletion: {
+                                    title: 'Baseline completion',
+                                    type: 'string',
+                                    format: 'date'
+                                  },
+                                  varianceAgainstBaseline: {
+                                    title: 'Variance against baseline (Calculated)',
+                                    type: 'integer',
+                                    readonly: true
+                                  },
+                                  varianceAgainstLastReturn: {
+                                    title: 'Variance against last return (Calculated)',
+                                    type: 'integer',
+                                    readonly: true
+                                  },
+                                  statusAgainstLastReturn: status_against_last_return,
+                                  baselineCompletion: {
+                                    title: 'Current return',
+                                    type: 'string',
+                                    format: 'date'
+                                  },
+                                  varianceReason: {
+                                    title: 'Reason for variance',
+                                    type: 'string'
+                                  },
+                                  percentComplete: {
+                                    title: 'Percentage complete',
+                                    type: 'integer'
+                                  },
+                                  completionDate: {
+                                    title: 'Completion date (Calculated)',
+                                    type: 'string',
+                                    format: 'date',
+                                    readonly: true
+                                  }
+                                }
+                              }
                             }
                           }
                         }
@@ -375,12 +440,12 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       varianceLastReturnFullPlanningPermissionSubmitted: {
                                         type: 'integer',
                                         readonly: true,
-                                        title: 'TO BE CALCULATED - Variance against Last Return submitted date (Week)'
+                                        title: 'Variance against Last Return submitted date (Week) (Calculated)'
                                       },
                                       varianceLastReturnFullPlanningPermissionGranted: {
                                         type: 'integer',
                                         readonly: true,
-                                        title: 'TO BE CALCULATED - Variance against Last Return granted date (Weeks)'
+                                        title: 'Variance against Last Return granted date (Weeks) (Calculated)'
                                       }
                                     }
                                   },
@@ -391,12 +456,12 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       varianceBaselineFullPlanningPermissionSubmitted: {
                                         type: 'integer',
                                         readonly: true,
-                                        title: 'TO BE CALCULATED - Variance against Baseline submitted date (Week)'
+                                        title: 'Variance against Baseline submitted date (Week) (Calculated)'
                                       },
                                       varianceBaselineFullPlanningPermissionGranted: {
                                         type: 'integer',
                                         readonly: true,
-                                        title: 'TO BE CALCULATED - Variance against Baseline granted date (Weeks)'
+                                        title: 'Variance against Baseline granted date (Weeks) (Calculated)'
                                       }
                                     }
                                   }
@@ -440,12 +505,12 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                     type: 'string',
                                     format: 'date',
                                     readonly: true,
-                                    title: 'TO BE GENERATED - On Completed date'
+                                    title: 'On Completed date (Calculated)'
                                   },
                                   onCompletedReference: {
                                     type: 'string',
                                     readonly: true,
-                                    title: 'TO BE GENERATED - On Completed Reference'
+                                    title: 'On Completed Reference (Calculated)'
                                   }
                                 }
                               }
@@ -515,6 +580,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                         allLandAssemblyAchieved: {
                           type: 'object',
                           title: 'All land assembly achieved',
+                          horizontal: true,
                           properties: {
                             # from landOwnership.toBeAquiredBy
                             landAssemblyBaselineCompletion: {
@@ -528,39 +594,33 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             landAssemblyVarianceAgainstLastReturn: {
                               type: 'string',
                               readonly: true,
-                              title: 'TO BE CALCULATED - Variance Against Last Return'
+                              title: 'Variance Against Last Return (Calculated)'
                             },
                             # To be calculated
                             landAssemblyVarianceAgainstBaseReturn: {
                               type: 'string',
                               readonly: true,
-                              title: 'TO BE CALCULATED - Variance Against Base Return'
+                              title: 'Variance Against Base Return (Calculated)'
                             },
-                            landAssemblyStatusAgainstLastReturn: {
-                              title: 'Land Assembly Status Against Last Return',
-                              type: 'object',
-                              properties: {
-                                statusAgainstLastReturn: {
-                                  title: 'Status against last return?',
-                                  type: 'string',
-                                  enum: [
-                                    'completed',
-                                    'on schedule',
-                                    'delayed: minimal impact',
-                                    'delayed: critical'
-                                  ],
-                                  default: 'on schedule'
-                                },
-                                currentReturn: {
-                                  type: 'string',
-                                  format: 'date',
-                                  title: 'Current Return'
-                                },
-                                reasonForVariance: {
-                                  type: 'string',
-                                  title: 'Reason for Variance'
-                                }
-                              }
+                            statusAgainstLastReturn: {
+                              title: 'Status against last return?',
+                              type: 'string',
+                              enum: [
+                                'completed',
+                                'on schedule',
+                                'delayed: minimal impact',
+                                'delayed: critical'
+                              ],
+                              default: 'on schedule'
+                            },
+                            currentReturn: {
+                              type: 'string',
+                              format: 'date',
+                              title: 'Current Return'
+                            },
+                            reasonForVariance: {
+                              type: 'string',
+                              title: 'Reason for Variance'
                             },
                             percentComplete: {
                               type: 'integer',
@@ -570,7 +630,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                               type: 'string',
                               format: 'date',
                               readonly: true,
-                              title: 'TO BE GENERATED - On Completed date'
+                              title: 'On Completed date (Calculated)'
                             }
                           }
                         }
@@ -608,12 +668,12 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             procurementVarianceAgainstLastReturn: {
                               type: 'string',
                               readonly: true,
-                              title: 'TO BE CALCULATED - Variance against last return'
+                              title: 'Variance against last return (Calculated)'
                             },
                             procurementVarianceAgainstBaseline: {
                               type: 'string',
                               readonly: true,
-                              title: 'TO BE CALCULATED - Variance against baseline'
+                              title: 'Variance against baseline (Calculated)'
                             },
                             procurementStatusAgainstLastReturn: {
                               type: 'object',
@@ -648,12 +708,12 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             procurementCompletedDate: {
                               type: 'string',
                               readonly: true,
-                              title: 'TO BE GENERATED - Completion Date'
+                              title: 'Completion Date (Calculated)'
                             },
                             procurementCompletedNameOfContractor: {
                               type: 'string',
                               readonly: true,
-                              title: 'TO BE GENERATED - Completion Name of Contractor'
+                              title: 'Completion Name of Contractor (Calculated)'
                             }
                           },
                           # from procurement.summaryOfCriticalPath
@@ -709,12 +769,12 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           milestoneVarianceAgainstLastReturn: {
                             type: 'string',
                             readonly: true,
-                            title: 'TO BE CALCULATED - Variance against last return',
+                            title: 'Variance against last return (Calculated)',
                           },
                           milestoneVarianceAgainstBaseline: {
                             type: 'string',
                             readonly: true,
-                            title: 'TO BE CALCULATED - Variance against baseline'
+                            title: 'Variance against baseline (Calculated)'
                           },
                           milestoneStatusAgainstLastReturn: {
                             type: 'object',
@@ -750,7 +810,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             type: 'string',
                             format: 'date',
                             readonly: true,
-                            title: 'TO BE GENERATED - On Completed date'
+                            title: 'On Completed date (Calculated)'
                           }
                         }
                       }
@@ -769,12 +829,12 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                         milestoneExpectedInfrastructureStartVarianceAgaistLastReturn: {
                           type: 'string',
                           readonly: true,
-                          title: 'TO BE CALCULATED - Variance against last return'
+                          title: 'Variance against last return (Calculated)'
                         },
                         milestoneExpectedInfrastructureStartVarianceAgaistBaseline: {
                           type: 'string',
                           readonly: true,
-                          title: 'TO BE CALCULATED - Variance against baseline'
+                          title: 'Variance against baseline (Calculated)'
                         },
                         milestoneExpectedInfrastructureStartStatusAgainstLastReturn: {
                           type: 'object',
@@ -806,7 +866,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           type: 'string',
                           format: 'date',
                           readonly: true,
-                          title: 'TO BE GENERATED - On Completed date'
+                          title: 'On Completed date (Calculated)'
                         }
                       }
                     },
@@ -824,12 +884,12 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                         milestoneExpectedInfrastructureCompletionVarianceAgaistLastReturn: {
                           type: 'string',
                           readonly: true,
-                          title: 'TO BE CALCULATED - Variance against last return'
+                          title: 'Variance against last return (Calculated)'
                         },
                         milestoneExpectedInfrastructureCompletionVarianceAgaistBaseline: {
                           type: 'string',
                           readonly: true,
-                          title: 'TO BE CALCULATED - Variance against baseline'
+                          title: 'Variance against baseline (Calculated)'
                         },
                         milestoneExpectedInfrastructureCompletionStatusAgainstLastReturn: {
                           type: 'object',
@@ -861,7 +921,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           type: 'string',
                           format: 'date',
                           readonly: true,
-                          title: 'TO BE GENERATED - On Completed date'
+                          title: 'On Completed date (Calculated)'
                         }
                       }
                     }
@@ -929,7 +989,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                     type: 'string',
                                     format: 'date',
                                     readonly: true,
-                                    title: 'TO BE GENERATED - Risk met date'
+                                    title: 'Risk met date (Calculated)'
                                   }
                                 }
                               }
@@ -941,6 +1001,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     additionalRisks: {
                       type: 'object',
                       title: 'Any additional risks to baseline?',
+                      addable: true,
                       properties: {
                         currentRisks: {
                           type: 'array',
@@ -987,17 +1048,17 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   previousRisk: {
                                     type: 'string',
                                     readonly: true,
-                                    title: 'TO BE CALCULATED - Previous risk description'
+                                    title: 'Previous risk description (Calculated)'
                                   },
                                   previousRiskImpact: {
                                     type: 'string',
                                     readonly: true,
-                                    title: 'TO BE CALCULATED - Previous risk impact'
+                                    title: 'Previous risk impact (Calculated)'
                                   },
                                   previousRiskLikelihood: {
                                     type: 'string',
                                     readonly: true,
-                                    title: 'TO BE CALCULATED - Previous risk likelihood'
+                                    title: 'Previous risk likelihood (Calculated)'
                                   },
                                   previousRiskCurrentReturnLikelihood: {
                                     type: 'string',
@@ -1006,7 +1067,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   previousRiskMitigationsInPlace: {
                                     type: 'string',
                                     readonly: true,
-                                    title: 'TO BE CALCULATED - Previous Mitigations in place'
+                                    title: 'Previous Mitigations in place (Calculated)'
                                   },
                                   previousRiskAnyChanges: {
                                     type: 'boolean',
@@ -1020,7 +1081,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                     type: 'string',
                                     format: 'date',
                                     readonly: true,
-                                    title: 'TO BE CALCULATED - Risk Met Date'
+                                    title: 'Risk Met Date (Calculated)'
                                   }
                                 }
                               }
@@ -1053,7 +1114,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                 type: 'string',
                                 readonly: true,
                                 # from actions for next quarter
-                                title: 'TO BE CALCULATED - Description of live action'
+                                title: 'Description of live action (Calculated)'
                               },
                               liveActionMet: {
                                 type: 'boolean',
@@ -1170,27 +1231,27 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                               forecastQ1: {
                                 type: 'string',
                                 readonly: true,
-                                title: 'TO BE CALCULATED - Actual Q1'
+                                title: 'Actual Q1 (Calculated)'
                               },
                               forecastQ2: {
                                 type: 'string',
                                 readonly: true,
-                                title: 'TO BE CALCULATED - Actual Q2'
+                                title: 'Actual Q2 (Calculated)'
                               },
                               forecastQ3: {
                                 type: 'string',
                                 readonly: true,
-                                title: 'TO BE CALCULATED - Actual Q3'
+                                title: 'Actual Q3 (Calculated)'
                               },
                               forecastQ4: {
                                 type: 'string',
                                 readonly: true,
-                                title: 'TO BE CALCULATED - Actual Q4'
+                                title: 'Actual Q4 (Calculated)'
                               },
                               forecastTotal: {
                                 type: 'string',
                                 readonly: true,
-                                title: 'TO BE CALCULATED - Actual Total'
+                                title: 'Actual Total (Calculated)'
                               }
                             }
                           }
@@ -1253,7 +1314,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                               },
                               newProfileTotal: {
                                 type: 'string',
-                                title: 'TO BE CALCULATED - New Profile Total'
+                                title: 'New Profile Total (Calculated)'
                               }
                             }
                           },
@@ -1264,27 +1325,27 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                               varianceQ1: {
                                 type: 'string',
                                 readonly: true,
-                                title: 'TO BE CALCULATED - Variance Q1'
+                                title: 'Variance Q1 (Calculated)'
                               },
                               varianceQ2: {
                                 type: 'string',
                                 readonly: true,
-                                title: 'TO BE CALCULATED - Variance Q2'
+                                title: 'Variance Q2 (Calculated)'
                               },
                               varianceQ3: {
                                 type: 'string',
                                 readonly: true,
-                                title: 'TO BE CALCULATED - Variance Q3'
+                                title: 'Variance Q3 (Calculated)'
                               },
                               varianceQ4: {
                                 type: 'string',
                                 readonly: true,
-                                title: 'TO BE CALCULATED - Variance Q4'
+                                title: 'Variance Q4 (Calculated)'
                               },
                               varianceTotal: {
                                 type: 'string',
                                 readonly: true,
-                                title: 'TO BE CALCULATED - Variance Total'
+                                title: 'Variance Total (Calculated)'
                               }
                             }
                           }
@@ -1335,17 +1396,17 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   lastCostReturn: {
                                     type: 'integer',
                                     readonly: true,
-                                    title: 'TO BE CALCULATED - Last Cost Return'
+                                    title: 'Last Cost Return (Calculated)'
                                   },
                                   varianceCostAgainstBaseline: {
                                     type: 'integer',
                                     readonly: true,
-                                    title: 'TO BE CALCULATED - Variance against Baseline'
+                                    title: 'Variance against Baseline (Calculated)'
                                   },
                                   varianceCostAgainstLastReturn: {
                                     type: 'integer',
                                     readonly: true,
-                                    title: 'TO BE CALCULATED - Variance against last Return'
+                                    title: 'Variance against last Return (Calculated)'
                                   },
                                   reasonForCostVariance: {
                                     type: 'string',
@@ -1358,12 +1419,12 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   costFinalAmount: {
                                     type: 'integer',
                                     readonly: true,
-                                    title: 'TO BE CALCULATED - Cost Final Amount'
+                                    title: 'Cost Final Amount (Calculated)'
                                   },
                                   costReasonForVariance: {
                                     type: 'string',
                                     readonly: true,
-                                    title: 'TO BE CALCULATED - Reason for Variance'
+                                    title: 'Reason for Variance (Calculated)'
                                   }
                                 }
                               },
@@ -1378,18 +1439,18 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   hifSpendLastReturn: {
                                     type: 'integer',
                                     readonly: true,
-                                    title: 'TO BE CALCULATED - Current HIF spend since last return',
+                                    title: 'Current HIF spend since last return (Calculated)',
                                     sourceKey: [:return_data, :funding, :fundingPackages, :fundingPackage, :overview, :hifSpendSinceLastReturn, :hifSpendCurrentReturn]
                                   },
                                   hifSpendVariance: {
                                     type: 'integer',
                                     readonly: true,
-                                    title: 'TO BE CALCULATED - Current HIF spend variance'
+                                    title: 'Current HIF spend variance (Calculated)'
                                   },
                                   hifSpendRemaining: {
                                     type: 'integer',
                                     readonly: true,
-                                    title: 'TO BE CALCULATED - Current HIF spend remaining'
+                                    title: 'Current HIF spend remaining (Calculated)'
                                   }
                                 }
                               }
@@ -1445,17 +1506,17 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       publicTotalLastReturn: {
                                         type: 'integer',
                                         readonly: true,
-                                        title: 'TO BE CALCULATED - Total Last Return'
+                                        title: 'Total Last Return (Calculated)'
                                       },
                                       publicVarianceAgainstBaseline: {
                                         type: 'integer',
                                         readonly: true,
-                                        title: 'TO BE CALCULATED - Variance against Baseline'
+                                        title: 'Variance against Baseline (Calculated)'
                                       },
                                       publicVarianceAgainstLastReturn: {
                                         type: 'integer',
                                         readonly: true,
-                                        title: 'TO BE CALCULATED - Variance against Last Return'
+                                        title: 'Variance against Last Return (Calculated)'
                                       },
                                       publicReasonForVariance: {
                                         type: 'string',
@@ -1468,22 +1529,22 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       publicSecuredAgaintBaselinePercent: {
                                         type: 'integer',
                                         readonly: true,
-                                        title: 'TO BE CALCULATED - Secured against Baseline'
+                                        title: 'Secured against Baseline (Calculated)'
                                       },
                                       publicIncreaseOnLastReturnAmount: {
                                         type: 'integer',
                                         readonly: true,
-                                        title: 'TO BE CALCULATED - Increase on Last Return Amount'
+                                        title: 'Increase on Last Return Amount (Calculated)'
                                       },
                                       publicIncreaseOnLastReturnPercent: {
                                         type: 'integer',
                                         readonly: true,
-                                        title: 'TO BE CALCULATED - Increase on Last Return Percent'
+                                        title: 'Increase on Last Return Percent (Calculated)'
                                       },
                                       publicRemainingToBeSecured: {
                                         type: 'integer',
                                         readonly: true,
-                                        title: 'TO BE CALCULATED - Remaining to be secured'
+                                        title: 'Remaining to be secured (Calculated)'
                                       }
                                     }
                                   },
@@ -1505,17 +1566,17 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       privateTotalLastReturn: {
                                         type: 'integer',
                                         readonly: true,
-                                        title: 'TO BE CALCULATED - Total Last Return'
+                                        title: 'Total Last Return (Calculated)'
                                       },
                                       privateVarianceAgainstBaseline: {
                                         type: 'integer',
                                         readonly: true,
-                                        title: 'TO BE CALCULATED - Variance against Baseline'
+                                        title: 'Variance against Baseline (Calculated)'
                                       },
                                       privateVarianceAgainstLastReturn: {
                                         type: 'integer',
                                         readonly: true,
-                                        title: 'TO BE CALCULATED - Variance against Last Return'
+                                        title: 'Variance against Last Return (Calculated)'
                                       },
                                       privateReasonForVariance: {
                                         type: 'string',
@@ -1528,22 +1589,22 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       privateSecuredAgaintBaselinePercent: {
                                         type: 'integer',
                                         readonly: true,
-                                        title: 'TO BE CALCULATED - Secured against Baseline'
+                                        title: 'Secured against Baseline (Calculated)'
                                       },
                                       privateIncreaseOnLastReturnAmount: {
                                         type: 'integer',
                                         readonly: true,
-                                        title: 'TO BE CALCULATED - Increase on Last Return Amount'
+                                        title: 'Increase on Last Return Amount (Calculated)'
                                       },
                                       privateIncreaseOnLastReturnPercent: {
                                         type: 'integer',
                                         readonly: true,
-                                        title: 'TO BE CALCULATED - Increase on Last Return Percent'
+                                        title: 'Increase on Last Return Percent (Calculated)'
                                       },
                                       privateRemainingToBeSecured: {
                                         type: 'integer',
                                         readonly: true,
-                                        title: 'TO BE CALCULATED - Remaining to be secured'
+                                        title: 'Remaining to be secured (Calculated)'
                                       }
                                     }
                                   }
@@ -1603,5 +1664,21 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
         }
       }
     end
+  end
+
+  private
+
+  def status_against_last_return
+    {
+      title: 'Status against last return?',
+      type: 'string',
+      enum: [
+        'completed',
+        'on schedule',
+        'delayed: minimal impact',
+        'delayed: critical'
+      ],
+      default: 'on schedule'
+    }
   end
 end

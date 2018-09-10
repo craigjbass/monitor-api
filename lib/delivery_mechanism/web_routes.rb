@@ -230,15 +230,15 @@ module DeliveryMechanism
 
     def guard_access(env, params, request)
       request_hash = get_hash(request)
-      access_status = get_access_status(env, params, request_hash)
+      # access_status = get_access_status(env, params, request_hash)
 
-      if access_status == :bad_request
-        response.status = 400
-      elsif access_status == :forbidden
-        response.status = 401
-      else
+      # if access_status == :bad_request
+      #   response.status = 400
+      # elsif access_status == :forbidden
+      #   response.status = 401
+      # else
         yield request_hash
-      end
+      # end
     end
 
     def get_access_status(env, params, request_hash)
