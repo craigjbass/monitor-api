@@ -35,7 +35,7 @@ describe 'Checking if Return is valid' do
 
   context 'API key' do
     before do
-      post '/return/validate', { type: type, returnData: return_data }.to_json, 'HTTP_API_KEY' => api_key
+      post '/return/validate', { type: type, data: return_data }.to_json, 'HTTP_API_KEY' => api_key
     end
 
     context 'is valid' do
@@ -77,7 +77,7 @@ describe 'Checking if Return is valid' do
       let(:invalid_paths) { [] }
 
       before do
-        post '/return/validate', { type: type, returnData: return_data }.to_json, 'HTTP_API_KEY' => api_key
+        post '/return/validate', { type: type, data: return_data }.to_json, 'HTTP_API_KEY' => api_key
       end
 
       it 'will run validate return use case' do
@@ -105,7 +105,7 @@ describe 'Checking if Return is valid' do
     context 'given invalid return' do
       let(:valid_response) { false }
       before do
-        post '/return/validate', { type: type, returnData: return_data }.to_json, 'HTTP_API_KEY' => api_key
+        post '/return/validate', { type: type, data: return_data }.to_json, 'HTTP_API_KEY' => api_key
       end
 
       it 'will run validate return use case' do
@@ -154,7 +154,7 @@ describe 'Checking if Return is valid' do
 
     context 'with no type' do
       before do
-        post '/return/validate', { returnData: return_data }.to_json, 'HTTP_API_KEY' => api_key
+        post '/return/validate', { data: return_data }.to_json, 'HTTP_API_KEY' => api_key
       end
       it 'returns 400' do
         expect(last_response.status).to eq(400)

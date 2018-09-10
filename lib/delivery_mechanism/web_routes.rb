@@ -120,7 +120,7 @@ module DeliveryMechanism
           return 400
         else
           validate_response = @use_case_factory.get_use_case(:validate_return).execute(type: request_hash[:type],
-                                                                                       return_data: request_hash[:returnData])
+                                                                                       return_data: request_hash[:data])
           response.status = 200
           response.body = { valid: validate_response[:valid], invalidPaths: validate_response[:invalid_paths] }.to_json
         end
@@ -128,7 +128,7 @@ module DeliveryMechanism
     end
 
     def invalid_validation_hash(request_hash:)
-      request_hash.nil? || request_hash.key?(:type) == false || request_hash.key?(:returnData) == false
+      request_hash.nil? || request_hash.key?(:type) == false || request_hash.key?(:data) == false
     end
 
     get '/project/:id/return' do
