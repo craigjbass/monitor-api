@@ -126,14 +126,16 @@ module DeliveryMechanism
     end
 
     post '/return/validate' do
-      request_hash = get_hash(request)
-      if invalid_validation_hash(request_hash: request_hash)
-        return 400
-      else
-        validate_response = @use_case_factory.get_use_case(:validate_return).execute(type: request_hash[:type],
-                                                                                     return_data: request_hash[:returnData])
-        response.status = 200
-        response.body = { valid: validate_response[:valid], invalidPaths: validate_response[:invalid_paths] }.to_json
+      guard_access env, request do
+        request_hash = get_hash(request)
+        if invalid_validation_hash(request_hash: request_hash)
+          return 400
+        else
+          validate_response = @use_case_factory.get_use_case(:validate_return).execute(type: request_hash[:type],
+                                                                                       return_data: request_hash[:returnData])
+          response.status = 200
+          response.body = { valid: validate_response[:valid], invalidPaths: validate_response[:invalid_paths] }.to_json
+        end
       end
     end
 
