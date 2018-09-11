@@ -45,7 +45,6 @@ describe 'Performing Return on HIF Project' do
       },
       infrastructures: [
         {
-
           type: 'A House',
           description: 'A house of cats',
 
@@ -450,25 +449,27 @@ describe 'Performing Return on HIF Project' do
           description: 'A new headquarters for all the Cats',
           lead_authority: 'Made Tech'
         },
-        infrastructures: {
-          type: 'Cat Bathroom',
-          description: 'Bathroom for Cats',
-          completion_date: '2018-12-25',
-          planning: {
-            submission_estimated: '2018-06-01',
-            submission_actual: '2018-07-01',
-            submission_delay_reason: 'Planning office was closed for summer',
-            planningNotGranted: {
-              fieldOne: {
-                varianceCalculations: {
-                  varianceAgainstLastReturn: {
-                    varianceLastReturnFullPlanningPermissionSubmitted: nil
+        infrastructures: [
+          {
+            type: 'Cat Bathroom',
+            description: 'Bathroom for Cats',
+            completion_date: '2018-12-25',
+            planning: {
+              submission_estimated: '2018-06-01',
+              submission_actual: '2018-07-01',
+              submission_delay_reason: 'Planning office was closed for summer',
+              planningNotGranted: {
+                fieldOne: {
+                  varianceCalculations: {
+                    varianceAgainstLastReturn: {
+                      varianceLastReturnFullPlanningPermissionSubmitted: nil
+                    }
                   }
                 }
               }
             }
           }
-        },
+        ],
         financial: {
           total_amount_estimated: '£ 1000000.00',
           total_amount_actual: nil,
@@ -501,25 +502,27 @@ describe 'Performing Return on HIF Project' do
         description: 'A new headquarters for all the Dogs',
         lead_authority: 'Made Tech'
       },
-      infrastructures: {
-        type: 'Dog Bathroom',
-        description: 'Bathroom for Dogs',
-        completion_date: '2018-12-25',
-        planning: {
-          submission_estimated: '2018-06-01',
-          submission_actual: '2018-07-01',
-          submission_delay_reason: 'Planning office was closed for summer',
-          planningNotGranted: {
-            fieldOne: {
-              varianceCalculations: {
-                varianceAgainstLastReturn: {
-                  varianceLastReturnFullPlanningPermissionSubmitted: nil
+      infrastructures: [
+        {
+          type: 'Dog Bathroom',
+          description: 'Bathroom for Dogs',
+          completion_date: '2018-12-25',
+          planning: {
+            submission_estimated: '2018-06-01',
+            submission_actual: '2018-07-01',
+            submission_delay_reason: 'Planning office was closed for summer',
+            planningNotGranted: {
+              fieldOne: {
+                varianceCalculations: {
+                  varianceAgainstLastReturn: {
+                    varianceLastReturnFullPlanningPermissionSubmitted: nil
+                  }
                 }
               }
             }
           }
         }
-      },
+      ],
       funding: [
         {
           fundingPackages: [

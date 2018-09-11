@@ -2,7 +2,7 @@
 
 require 'rspec'
 
-describe LocalAuthority::UseCase::CalculateHIFReturn, :focus do
+describe LocalAuthority::UseCase::CalculateHIFReturn do
   let(:use_case) { described_class.new }
   it 'will return a hash with calculated_return' do
     expected_return_data = {

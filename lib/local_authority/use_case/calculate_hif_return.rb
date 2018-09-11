@@ -63,7 +63,6 @@ class LocalAuthority::UseCase::CalculateHIFReturn
   end
 
   def update_varianceLastReturnFullPlanningPermissionSubmitted(returnData, value)
-    p returnData[:infrastructures][0][:planning][:planningNotGranted][:fieldOne] #Sometimes this is all that exists
     returnData[:infrastructures][0][:planning][:planningNotGranted][:fieldOne][:varianceCalculations][:varianceAgainstLastReturn][:varianceLastReturnFullPlanningPermissionSubmitted] = value
   end
 
