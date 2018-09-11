@@ -8,51 +8,57 @@ describe 'Calculated return' do
 
   it 'creates a return with calculated fields' do
     initial_return_input_data = {
-      infrastructures: {
-        planning: {
-          planningNotGranted: {
-            fieldOne: {
-              returnInput: {
-                currentReturn: '18/08/2000'
-              }
-            }
-          }
-        }
-      }
-    }
-
-    secondary_return_input_data = {
-      infrastructures: {
-        planning: {
-          planningNotGranted: {
-            fieldOne: {
-              returnInput: {
-                currentReturn: '25/08/2000'
-              }
-            }
-          }
-        }
-      }
-    }
-
-    expected_return_data = {
-      infrastructures: {
-        planning: {
-          planningNotGranted: {
-            fieldOne: {
-              returnInput: {
-                currentReturn: '25/08/2000'
-              },
-              varianceCalculations: {
-                varianceAgainstLastReturn: {
-                  # Variance against Last Return submitted date (weeks)
-                  varianceLastReturnFullPlanningPermissionSubmitted: '1'
+      infrastructures: [
+        {
+          planning: {
+            planningNotGranted: {
+              fieldOne: {
+                returnInput: {
+                  currentReturn: '18/08/2000'
                 }
               }
             }
           }
         }
-      }
+      ]
+    }
+
+    secondary_return_input_data = {
+      infrastructures: [
+        {
+          planning: {
+            planningNotGranted: {
+              fieldOne: {
+                returnInput: {
+                  currentReturn: '25/08/2000'
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+
+    expected_return_data = {
+      infrastructures: [
+        {
+          planning: {
+            planningNotGranted: {
+              fieldOne: {
+                returnInput: {
+                  currentReturn: '25/08/2000'
+                },
+                varianceCalculations: {
+                  varianceAgainstLastReturn: {
+                    # Variance against Last Return submitted date (weeks)
+                    varianceLastReturnFullPlanningPermissionSubmitted: '1'
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
     }
 
     return1_id = get_use_case(:create_return).execute(

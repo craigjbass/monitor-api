@@ -4,25 +4,29 @@ require 'date'
 class LocalAuthority::UseCase::CalculateHIFReturn
   def execute(return_data_with_no_calculations:, previous_return:)
     expected_return_data = {
-      infrastructures: {
-        planning: {
-          planningNotGranted: {
-            fieldOne: {
-              varianceCalculations: {
-                varianceAgainstLastReturn: {
-                  varianceLastReturnFullPlanningPermissionSubmitted: nil
+          planning: {
+            planningNotGranted: {
+              fieldOne: {
+                varianceCalculations: {
+                  varianceAgainstLastReturn: {
+                    varianceLastReturnFullPlanningPermissionSubmitted: nil
+                  }
                 }
               }
             }
           }
         }
-      }
-    }
 
-    new_return_data = deep_merge(
-      return_data_with_no_calculations,
+    if return_data_with_no_calculations[:infrastructures].nil?
+      return_data_with_no_calculations[:infrastructures] = []
+    end
+
+    return_data_with_no_calculations[:infrastructures][0] = deep_merge(
+      return_data_with_no_calculations.dig(:infrastructures, 0).to_h,
       expected_return_data
     )
+    new_return_data = return_data_with_no_calculations
+
     update_varianceLastReturnFullPlanningPermissionSubmitted(
       new_return_data,
       calculate_varianceLastReturnFullPlanningPermissionSubmitted(
@@ -50,6 +54,7 @@ class LocalAuthority::UseCase::CalculateHIFReturn
 
   def get_currentReturn(return_data)
     return_data&.dig(:infrastructures,
+      0,
       :planning,
       :planningNotGranted,
       :fieldOne,
@@ -58,7 +63,8 @@ class LocalAuthority::UseCase::CalculateHIFReturn
   end
 
   def update_varianceLastReturnFullPlanningPermissionSubmitted(returnData, value)
-    returnData[:infrastructures][:planning][:planningNotGranted][:fieldOne][:varianceCalculations][:varianceAgainstLastReturn][:varianceLastReturnFullPlanningPermissionSubmitted] = value
+    p returnData[:infrastructures][0][:planning][:planningNotGranted][:fieldOne] #Sometimes this is all that exists
+    returnData[:infrastructures][0][:planning][:planningNotGranted][:fieldOne][:varianceCalculations][:varianceAgainstLastReturn][:varianceLastReturnFullPlanningPermissionSubmitted] = value
   end
 
   def week_difference(date_as_string_one:, date_as_string_two:)
