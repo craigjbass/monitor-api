@@ -30,42 +30,85 @@ describe 'Creating returns' do
   end
 
   context 'API Key' do
-    before do
-      post '/return/create',
-           { project_id: 1, data: { cats: 'Meow' } }.to_json, 'HTTP_API_KEY' => api_key
-    end
-    
-    context 'is valid' do
-      it 'responds with a 201' do
-        expect(last_response.status).to eq(201)
+    context 'example 1' do
+      before do
+        post '/return/create',
+             { project_id: 1, data: { cats: 'Meow' } }.to_json, 'HTTP_API_KEY' => api_key
       end
 
-      context 'example 1' do
-        it 'runs the check api key use case' do
-          expect(check_api_key_spy).to have_received(:execute).with(api_key: 'Cats')
+      context 'is valid' do
+        it 'responds with a 201' do
+          expect(last_response.status).to eq(201)
+        end
+
+        context 'example 1' do
+          it 'runs the check api key use case' do
+            expect(check_api_key_spy).to have_received(:execute).with(api_key: 'Cats', project_id: 1)
+          end
+        end
+
+        context 'example 2' do
+          let(:api_key) { 'Dogs' }
+          it 'runs the check api key use case' do
+            expect(check_api_key_spy).to have_received(:execute).with(api_key: 'Dogs', project_id: 1)
+          end
         end
       end
 
-      context 'example 2' do
-        let(:api_key) { 'Dogs' }
-        it 'runs the check api key use case' do
-          expect(check_api_key_spy).to have_received(:execute).with(api_key: 'Dogs')
+      context 'is invalid' do
+        let(:check_api_key_spy) { spy(execute: {valid: false}) }
+
+        it 'responds with a 401' do
+          expect(last_response.status).to eq(401)
+        end
+      end
+
+      context 'is not in header' do
+        it 'responds with a 400' do
+          post('/return/create', { project_id: 1, data: { cats: 'Meow' } }.to_json)
+          expect(last_response.status).to eq(400)
         end
       end
     end
 
-    context 'is invalid' do
-      let(:check_api_key_spy) { spy(execute: {valid: false}) }
-
-      it 'responds with a 401' do
-        expect(last_response.status).to eq(401)
+    context 'example 2' do
+      before do
+        post '/return/create',
+             { project_id: 6, data: { cats: 'Meow' } }.to_json, 'HTTP_API_KEY' => api_key
       end
-    end
 
-    context 'is not in header' do
-      it 'responds with a 400' do
-        post('/return/create', { project_id: 1, data: { cats: 'Meow' } }.to_json)
-        expect(last_response.status).to eq(400)
+      context 'is valid' do
+        it 'responds with a 201' do
+          expect(last_response.status).to eq(201)
+        end
+
+        context 'example 1' do
+          it 'runs the check api key use case' do
+            expect(check_api_key_spy).to have_received(:execute).with(api_key: 'Cats', project_id: 6)
+          end
+        end
+
+        context 'example 2' do
+          let(:api_key) { 'Dogs' }
+          it 'runs the check api key use case' do
+            expect(check_api_key_spy).to have_received(:execute).with(api_key: 'Dogs', project_id: 6)
+          end
+        end
+      end
+
+      context 'is invalid' do
+        let(:check_api_key_spy) { spy(execute: {valid: false}) }
+
+        it 'responds with a 401' do
+          expect(last_response.status).to eq(401)
+        end
+      end
+
+      context 'is not in header' do
+        it 'responds with a 400' do
+          post('/return/create', { project_id: 6, data: { cats: 'Meow' } }.to_json)
+          expect(last_response.status).to eq(400)
+        end
       end
     end
   end

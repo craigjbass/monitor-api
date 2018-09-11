@@ -150,5 +150,11 @@ class LocalAuthority::UseCases
     builder.define_use_case :calculate_hif_return do
       LocalAuthority::UseCase::CalculateHIFReturn.new
     end
+    
+    builder.define_use_case :validate_return do
+      LocalAuthority::UseCase::ValidateReturn.new(
+        return_template_gateway: builder.get_use_case(:return_template_gateway)
+      )
+    end
   end
 end

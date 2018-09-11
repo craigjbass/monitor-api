@@ -58,19 +58,8 @@ module DeliveryMechanism
       200
     end
 
-    def guard_access(env, request)
-      if env['HTTP_API_KEY'].nil?
-        response.status = 400
-      elsif !@use_case_factory.get_use_case(:check_api_key).execute(api_key: env['HTTP_API_KEY'])[:valid]
-        response.status = 401
-      else
-        yield request
-      end
-    end
-
     post '/return/create' do
-      guard_access env, request do |request|
-        request_hash = get_hash(request)
+      guard_access env, params, request do |request_hash|
         return 400 if request_hash.nil?
 
         return_id = @use_case_factory.get_use_case(:create_return).execute(
@@ -125,8 +114,25 @@ module DeliveryMechanism
       response.status = 200
     end
 
+    post '/return/validate' do
+      guard_access env, params, request do |request_hash|
+        if invalid_validation_hash(request_hash: request_hash)
+          return 400
+        else
+          validate_response = @use_case_factory.get_use_case(:validate_return).execute(type: request_hash[:type],
+                                                                                       return_data: request_hash[:data])
+          response.status = 200
+          response.body = { valid: validate_response[:valid], invalidPaths: validate_response[:invalid_paths] }.to_json
+        end
+      end
+    end
+
+    def invalid_validation_hash(request_hash:)
+      request_hash.nil? || request_hash.key?(:type) == false || request_hash.key?(:data) == false
+    end
+
     get '/project/:id/return' do
-      guard_access env, request do
+      guard_access env, params, request do |request_hash|
         return 400 if params['id'].nil?
 
         base_return = @use_case_factory.get_use_case(:get_base_return).execute(
@@ -183,6 +189,15 @@ module DeliveryMechanism
       response.status = 201
     end
 
+    post '/project/:id/add_users' do
+      guard_admin_access env, params, request do |request_hash|
+        controller = DeliveryMechanism::Controllers::PostProjectToUsers.new(
+          add_user_to_project: @use_case_factory.get_use_case(:add_user_to_project),
+        )
+        controller.execute(params, request_hash, response)
+      end
+    end
+
     post '/project/update' do
       request_hash = get_hash(request)
 
@@ -201,7 +216,75 @@ module DeliveryMechanism
       end
     end
 
+    def guard_admin_access(env, params, request)
+      return 401 if authorization_header_not_present?
+      admin_auth_key = env['HTTP_API_KEY']
+
+      if valid_admin_api_key?(key: admin_auth_key)
+        request_hash = get_hash(request)
+        yield request_hash
+      else
+        response.status = 401
+      end
+    end
+
+    def guard_access(env, params, request)
+      request_hash = get_hash(request)
+      access_status = get_access_status(env, params, request_hash)
+
+      if access_status == :bad_request
+        response.status = 400
+      elsif access_status == :forbidden
+        response.status = 401
+      else
+        yield request_hash
+      end
+    end
+
+    def get_access_status(env, params, request_hash)
+      if request.request_method == 'POST'
+        check_post_access(env, request_hash)
+      else
+        check_get_access(env, params)
+      end
+    end
+
+    def check_post_access(env, request_hash)
+      if env['HTTP_API_KEY'].nil? || request_hash.nil?
+        :bad_request
+      elsif !@use_case_factory.get_use_case(:check_api_key).execute(
+        api_key: env['HTTP_API_KEY'],
+        project_id: request_hash[:project_id].to_i
+      )[:valid]
+        :forbidden
+      else
+        :proceed
+      end
+    end
+
+    def check_get_access(env, params)
+      if env['HTTP_API_KEY'].nil? || params['id'].nil?
+        :bad_request
+      elsif !@use_case_factory.get_use_case(:check_api_key).execute(
+        api_key: env['HTTP_API_KEY'],
+        project_id: params['id'].to_i
+      )[:valid]
+        :forbiddenn
+      else
+        :proceed
+      end
+    end
+
     private
+
+    def authorization_header_not_present?
+      env['HTTP_API_KEY'].nil?
+    end
+
+    def valid_admin_api_key?(key:)
+      return false unless key == ENV['ADMIN_HTTP_API_KEY']
+      true
+    end
 
     def valid_update_request_body(request_body)
       !request_body.dig(:id).nil? &&
