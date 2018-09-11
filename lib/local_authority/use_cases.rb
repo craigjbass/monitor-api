@@ -84,9 +84,7 @@ class LocalAuthority::UseCases
     builder.define_use_case :get_return do
       LocalAuthority::UseCase::GetReturn.new(
         return_gateway: builder.get_use_case(:return_gateway),
-        return_update_gateway: builder.get_use_case(:return_update_gateway),
-        calculate_return: builder.get_use_case(:calculate_hif_return),
-        get_returns: builder.get_use_case(:get_returns)
+        return_update_gateway: builder.get_use_case(:return_update_gateway)
       )
     end
 
@@ -147,10 +145,6 @@ class LocalAuthority::UseCases
       LocalAuthority::UseCase::CheckApiKey.new
     end
 
-    builder.define_use_case :calculate_hif_return do
-      LocalAuthority::UseCase::CalculateHIFReturn.new
-    end
-    
     builder.define_use_case :validate_return do
       LocalAuthority::UseCase::ValidateReturn.new(
         return_template_gateway: builder.get_use_case(:return_template_gateway)

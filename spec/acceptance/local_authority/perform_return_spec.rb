@@ -450,23 +450,14 @@ describe 'Performing Return on HIF Project' do
           description: 'A new headquarters for all the Cats',
           lead_authority: 'Made Tech'
         },
-        infrastructures: {
+        infrastructure: {
           type: 'Cat Bathroom',
           description: 'Bathroom for Cats',
           completion_date: '2018-12-25',
           planning: {
             submission_estimated: '2018-06-01',
             submission_actual: '2018-07-01',
-            submission_delay_reason: 'Planning office was closed for summer',
-            planningNotGranted: {
-              fieldOne: {
-                varianceCalculations: {
-                  varianceAgainstLastReturn: {
-                    varianceLastReturnFullPlanningPermissionSubmitted: nil
-                  }
-                }
-              }
-            }
+            submission_delay_reason: 'Planning office was closed for summer'
           }
         },
         financial: {
@@ -501,23 +492,14 @@ describe 'Performing Return on HIF Project' do
         description: 'A new headquarters for all the Dogs',
         lead_authority: 'Made Tech'
       },
-      infrastructures: {
+      infrastructure: {
         type: 'Dog Bathroom',
         description: 'Bathroom for Dogs',
         completion_date: '2018-12-25',
         planning: {
           submission_estimated: '2018-06-01',
           submission_actual: '2018-07-01',
-          submission_delay_reason: 'Planning office was closed for summer',
-          planningNotGranted: {
-            fieldOne: {
-              varianceCalculations: {
-                varianceAgainstLastReturn: {
-                  varianceLastReturnFullPlanningPermissionSubmitted: nil
-                }
-              }
-            }
-          }
+          submission_delay_reason: 'Planning office was closed for summer'
         }
       },
       funding: [
