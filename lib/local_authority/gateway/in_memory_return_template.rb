@@ -1166,6 +1166,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           actual: {
                             type: 'object',
                             title: 'Actual',
+                            horizontal: true,
                             properties: {
                               forecastQ1: {
                                 type: 'string',
