@@ -6,6 +6,8 @@ require_relative '../shared_context/use_case_factory'
 describe 'Performing Return on HIF Project' do
   include_context 'use case factory'
 
+  before { ENV['HMAC_SECRET'] = 'Meow' }
+
   def update_return(id:, data:)
     get_use_case(:update_return).execute(return_id: id, data: data[:data])
   end
@@ -543,8 +545,24 @@ describe 'Performing Return on HIF Project' do
       }
     }
 
-    soft_update_return(id: return_id, data: updated_return_data)
-    soft_update_return(id: return_id, data: updated_return_data)
+    # Create a use case for checking that a return can be created
+    user1_time = Time.new(2002, 10, 31) # This user opened it at this time
+    user1_api_key = get_use_case(:create_api_key).execute(project_id: project_id)
+
+    user2_time = Time.new(2002, 11, 1)
+    user2_api_key = get_use_case(:create_api_key).execute(project_id: project_id)
+
+    # This should save a timestamp with the update
+    soft_update_return(
+      id: return_id,
+      data: updated_return_data,
+      api_key: user2_api_key
+    )
+    soft_update_return(
+      id: return_id,
+      data: updated_return_data,
+      api_key: user2_api_key
+    )
 
     expected_updated_return = {
       project_id: project_id,
@@ -555,6 +573,15 @@ describe 'Performing Return on HIF Project' do
         updated_return_data
       ]
     }
+
+    expect_return_with_id_to_equal(
+      id: return_id,
+      expected_return: expected_updated_return
+    )
+
+    expect(get_use_case(:return_is_updateable).execute(
+      return_id: return_id,
+      last_opened_or_updated: user1_time, api_key: user1_api_key)).to eq({updateable: false})
 
     expect_return_with_id_to_equal(
       id: return_id,
@@ -574,8 +601,8 @@ describe 'Performing Return on HIF Project' do
     expect(second_base_return[:base_return][:data]).to eq(expected_second_base_return[:data])
   end
 
-  def soft_update_return(id:, data:)
-    get_use_case(:soft_update_return).execute(return_id: id, return_data: data)
+  def soft_update_return(id:, data:, api_key:)
+    get_use_case(:soft_update_return).execute(return_id: id, return_data: data, api_key: api_key)
   end
 
   def update_return(id:, data:)
