@@ -113,8 +113,12 @@ class HomesEngland::Gateway::InMemoryTemplate
                   title: 'Totally funded through HIF',
                   properties: {
                     totallyFundedThroughHIF: {
-                      type: 'boolean',
-                      title: 'Totally funded through HIF?'
+                      type: 'string',
+                      title: 'Totally funded through HIF?',
+                      items: {
+                        type: 'string',
+                        enum: ['Yes', 'No']
+                      }
                     },
                     descriptionOfFundingStack: {
                       type: 'string',
@@ -150,8 +154,12 @@ class HomesEngland::Gateway::InMemoryTemplate
             title: 'Recovery',
             properties: {
               aimToRecover: {
-                type: 'boolean',
-                title: 'Aim to Recover?'
+                type: 'string',
+                title: 'Aim to Recover?',
+                items: {
+                  type: 'string',
+                  enum: ['Yes', 'No']
+                }
               },
               expectedAmountToRemove: {
                 type: 'integer',
@@ -188,8 +196,12 @@ class HomesEngland::Gateway::InMemoryTemplate
             title: 'Outline Planning Status',
             properties: {
               granted: {
-                type: 'boolean',
-                title: 'Granted?'
+                type: 'string',
+                title: 'Granted?',
+                items: {
+                  type: 'string',
+                  enum: ['Yes', 'No']
+                }
               },
               grantedReference: {
                 type: 'string',
@@ -216,8 +228,12 @@ class HomesEngland::Gateway::InMemoryTemplate
             title: 'Full Planning Status',
             properties: {
               granted: {
-                type: 'boolean',
-                title: 'Granted?'
+                type: 'string',
+                title: 'Granted?',
+                items: {
+                  type: 'string',
+                  enum: ['Yes', 'No']
+                }
               },
               grantedReference: {
                 type: 'string',
@@ -244,8 +260,12 @@ class HomesEngland::Gateway::InMemoryTemplate
             title: 'Section 106',
             properties: {
               requirement: {
-                type: 'boolean',
-                title: 'A requirement?'
+                type: 'string',
+                title: 'A requirement?',
+                items: {
+                  type: 'string',
+                  enum: ['Yes', 'No']
+                }
               },
               summaryOfRequirement: {
                 type: 'string',
@@ -258,8 +278,12 @@ class HomesEngland::Gateway::InMemoryTemplate
             title: 'Statutory Consents',
             properties: {
               anyConsents: {
-                type: 'boolean',
-                title: 'Any Statutory Consents?'
+                type: 'string',
+                title: 'Any Statutory Consents?',
+                items: {
+                  type: 'string',
+                  enum: ['Yes', 'No']
+                }
               },
               detailsOfConsent: {
                 type: 'string',
@@ -277,16 +301,24 @@ class HomesEngland::Gateway::InMemoryTemplate
             title: 'Land Ownership',
             properties: {
               underControlOfLA: {
-                type: 'boolean',
-                title: 'Is land under control of the Local Authority'
+                type: 'string',
+                title: 'Is land under control of the Local Authority',
+                items: {
+                  type: 'string',
+                  enum: ['Yes', 'No']
+                }
               },
               ownershipOfLandOtherThanLA: {
                 type: 'string',
                 title: 'If No: who owns it?'
               },
               landAcquisitionRequired: {
-                type: 'boolean',
-                title: 'Is land acquisition required?'
+                type: 'string',
+                title: 'Is land acquisition required?',
+                items: {
+                  type: 'string',
+                  enum: ['Yes', 'No']
+                }
               },
               howManySitesToAcquire: {
                 type: 'integer',
@@ -312,8 +344,12 @@ class HomesEngland::Gateway::InMemoryTemplate
             title: 'Procurement',
             properties: {
               contractorProcured: {
-                type: 'boolean',
-                title: 'Is the infrastructure contractor procured?'
+                type: 'string',
+                title: 'Is the infrastructure contractor procured?',
+                items: {
+                  type: 'string',
+                  enum: ['Yes', 'No']
+                }
               },
 
               nameOfContractor: {

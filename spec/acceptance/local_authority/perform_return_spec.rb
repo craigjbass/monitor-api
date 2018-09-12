@@ -49,38 +49,38 @@ describe 'Performing Return on HIF Project' do
           description: 'A house of cats',
 
           outlinePlanningStatus: {
-            granted: true,
+            granted: 'Yes',
             grantedReference: 'The Dogs',
             targetSubmission: '2020-01-01',
             targetGranted: '2020-01-01',
             summaryOfCriticalPath: 'Summary of critical path'
           },
           fullPlanningStatus: {
-            granted: false,
+            granted: 'No',
             grantedReference: '1234',
             targetSubmission: '2020-01-01',
             targetGranted: '2020-01-01',
             summaryOfCriticalPath: 'Summary of critical path'
           },
           s106: {
-            requirement: true,
+            requirement: 'Yes',
             summaryOfRequirement: 'Required'
           },
           statutoryConsents: {
-            anyConsents: true,
+            anyConsents: 'Yes',
             detailsOfConsent: 'Details of consent',
             targetDateToBeMet: '2020-01-01'
           },
           landOwnership: {
-            underControlOfLA: true,
+            underControlOfLA: 'Yes',
             ownershipOfLandOtherThanLA: 'Dave',
-            landAcquisitionRequired: true,
+            landAcquisitionRequired: 'Yes',
             howManySitesToAcquire: 10,
             toBeAcquiredBy: 'Dave',
             targetDateToAcquire: '2020-01-01',
             summaryOfCriticalPath: 'Summary of critical path',
             procurement: {
-              contractorProcured: true,
+              contractorProcured: 'Yes',
               nameOfContractor: 'Dave',
               targetDateToAquire: '2020-01-01',
               summaryOfCriticalPath: 'Summary of critical path'
@@ -128,7 +128,7 @@ describe 'Performing Return on HIF Project' do
             {
               costOfInfrastructure: '1000',
               fundingStack: {
-                totallyFundedThroughHIF: true,
+                totallyFundedThroughHIF: 'Yes',
                 descriptionOfFundingStack: 'Stack',
                 totalPublic: '2000',
                 totalPrivate: '2000'
@@ -139,7 +139,7 @@ describe 'Performing Return on HIF Project' do
             summaryOfRequirement: 'data-url'
           },
           recovery: {
-            aimToRecover: true,
+            aimToRecover: 'Yes',
             expectedAmountToRemove: 10,
             methodOfRecovery: 'Recovery method'
           }
@@ -176,16 +176,16 @@ describe 'Performing Return on HIF Project' do
     )[:id]
   end
 
-  let(:expected_base_return) do 
+  let(:expected_base_return) do
     JSON.parse(
-      File.open("#{__dir__}/../../fixtures/base_return.json").read, 
+      File.open("#{__dir__}/../../fixtures/base_return.json").read,
       symbolize_names: true
     )
   end
 
   let(:expected_second_base_return) do
     JSON.parse(
-      File.open("#{__dir__}/../../fixtures/second_base_return.json").read, 
+      File.open("#{__dir__}/../../fixtures/second_base_return.json").read,
       symbolize_names: true
     )
   end

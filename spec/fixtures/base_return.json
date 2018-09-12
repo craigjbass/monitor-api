@@ -1,9 +1,12 @@
 {
   "infrastructures": [
     {
-      "summary": { "type": "A House", "description": "A house of cats" },
+      "summary": {
+        "type": "A House",
+        "description": "A house of cats"
+      },
       "planning": {
-        "baselineOutlinePlanningPermissionGranted": true,
+        "baselineOutlinePlanningPermissionGranted": "Yes",
         "planningNotGranted": {
           "baselineSummaryOfCriticalPath": "Summary of critical path",
           "outlinePlanning": {
@@ -13,7 +16,7 @@
             "granted": {
               "baselineFullPlanningPermissionGranted": "2020-01-01"
             },
-            "fullPlanningPermissionGranted": false,
+            "fullPlanningPermissionGranted": "No",
             "fullPlanningPermissionSummaryOfCriticalPath": "Summary of critical path"
           },
           "fullPlanning": {
@@ -23,19 +26,21 @@
             "granted": {
               "baselineFullPlanningPermissionGranted": "2020-01-01"
             },
-            "fullPlanningPermissionGranted": false,
+            "fullPlanningPermissionGranted": "No",
             "fullPlanningPermissionSummaryOfCriticalPath": "Summary of critical path"
           },
-          "s106Requirement": true,
+          "s106Requirement": "Yes",
           "s106SummaryOfRequirement": "Required",
-          "statutoryConsents": { "anyStatutoryConsents": true }
+          "statutoryConsents": {
+            "anyStatutoryConsents": "Yes"
+          }
         }
       },
       "landOwnership": {
-        "laHasControlOfSite": true,
+        "laHasControlOfSite": "Yes",
         "laDoesNotControlSite": {
           "whoOwnsSite": "Dave",
-          "landAquisitionRequired": true
+          "landAquisitionRequired": "Yes"
         },
         "laDoesHaveControlOfSite": {
           "howManySitesToAquire": 10,
@@ -47,13 +52,15 @@
         }
       },
       "procurement": {
-        "contractorProcured": true,
+        "contractorProcured": "Yes",
         "infrastructureNotProcured": {
           "infraStructureContractorProcurement": {
             "procurementBaselineCompletion": "2020-01-01"
           }
         },
-        "infrastructureProcured": { "nameOfContractor": "Dave" }
+        "infrastructureProcured": {
+          "nameOfContractor": "Dave"
+        }
       },
       "milestones": {
         "keyMilestones": [
@@ -87,13 +94,25 @@
       "hifFundingProfiles": {
         "hifFundingProfile": [
           {
-            "fundingYear": ["4000"],
+            "fundingYear": [
+              "4000"
+            ],
             "forecast": {
-              "forecastQ1": ["1000"],
-              "forecastQ2": ["1000"],
-              "forecastQ3": ["1000"],
-              "forecastQ4": ["1000"],
-              "forecastTotal": ["1000"]
+              "forecastQ1": [
+                "1000"
+              ],
+              "forecastQ2": [
+                "1000"
+              ],
+              "forecastQ3": [
+                "1000"
+              ],
+              "forecastQ4": [
+                "1000"
+              ],
+              "forecastTotal": [
+                "1000"
+              ]
             }
           }
         ]
@@ -101,19 +120,30 @@
       "fundingPackages": [
         {
           "fundingPackage": {
-            "overview": { "overviewCosts": { "baselineCost": "1000" } },
+            "overview": {
+              "overviewCosts": {
+                "baselineCost": "1000"
+              }
+            },
             "fundingStack": {
-              "totallyFundedThroughHIF": true,
+              "totallyFundedThroughHIF": "Yes",
               "notFundedThroughHif": {
                 "descriptionOfFundingStack": "Stack",
-                "totalPublic": { "publicTotalBaselineAmount": "2000" },
-                "totalPrivate": { "privateTotalBaselineAmount": "2000" }
+                "totalPublic": {
+                  "publicTotalBaselineAmount": "2000"
+                },
+                "totalPrivate": {
+                  "privateTotalBaselineAmount": "2000"
+                }
               }
             }
           }
         }
       ],
-      "recovery": { "aimToRecover": true, "amountToRecover": 10 }
+      "recovery": {
+        "aimToRecover": "Yes",
+        "amountToRecover": 10
+      }
     }
   ]
 }

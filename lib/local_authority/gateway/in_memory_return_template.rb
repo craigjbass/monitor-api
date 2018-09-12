@@ -42,10 +42,14 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     # Baseline
                     # from outlinePlanningStatus.granted
                     baselineOutlinePlanningPermissionGranted: {
-                      type: 'boolean',
+                      type: 'string',
                       title: 'Outline Planning Permission granted',
                       sourceKey: [:baseline_data, :infrastructures, :outlinePlanningStatus, :granted],
-                      readonly: true
+                      readonly: true,
+                      items: {
+                        type: 'string',
+                        enum: ['Yes', 'No']
+                      }
                     },
                     planningNotGranted: {
                       type: 'object',
@@ -178,10 +182,14 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             },
                             # from fullPlanningStatus.granted
                             fullPlanningPermissionGranted: {
-                              type: 'boolean',
+                              type: 'string',
                               title: 'Full Planning Permission granted',
                               sourceKey: [:baseline_data, :infrastructures, :fullPlanningStatus, :granted],
-                              readonly: true
+                              readonly: true,
+                              items: {
+                                type: 'string',
+                                enum: ['Yes', 'No']
+                              }
                             },
                             # from fullPlanningStatus.summaryOfCriticalPath
                             fullPlanningPermissionSummaryOfCriticalPath: {
@@ -311,10 +319,14 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             },
                             # from fullPlanningStatus.granted
                             fullPlanningPermissionGranted: {
-                              type: 'boolean',
+                              type: 'string',
                               title: 'Full Planning Permission granted',
                               sourceKey: [:baseline_data, :infrastructures, :fullPlanningStatus, :granted],
-                              readonly: true
+                              readonly: true,
+                              items: {
+                                type: 'string',
+                                enum: ['Yes', 'No']
+                              }
                             },
                             # from fullPlanningStatus.summaryOfCriticalPath
                             fullPlanningPermissionSummaryOfCriticalPath: {
@@ -327,10 +339,14 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                         },
                         # from s106.requirement
                         s106Requirement: {
-                          type: 'boolean',
+                          type: 'string',
                           title: 'S106 Requirement',
                           sourceKey: [:baseline_data, :infrastructures, :s106, :requirement],
-                          readonly: true
+                          readonly: true,
+                          items: {
+                            type: 'string',
+                            enum: ['Yes', 'No']
+                          }
                         },
                         # from s106.summaryOfRequirement
                         s106SummaryOfRequirement: {
@@ -345,10 +361,14 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           title: 'Statutory Consents',
                           properties: {
                             anyStatutoryConsents: {
-                              type: 'boolean',
+                              type: 'string',
                               title: 'Statutory consents to be met?',
                               sourceKey: [:baseline_data, :infrastructures, :statutoryConsents, :anyConsents],
-                              readonly: true
+                              readonly: true,
+                              items: {
+                                type: 'string',
+                                enum: ['Yes', 'No']
+                              }
                             },
                             statutoryConsents: {
                               title: 'Current Statutory Consents',
@@ -527,10 +547,14 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                   properties: {
                     # from landOwnership.underControlOfLA
                     laHasControlOfSite: {
-                      type: 'boolean',
+                      type: 'string',
                       title: 'LA Control of site(s) (related to infrastructure)? ',
                       sourceKey: [:baseline_data, :infrastructures, :landOwnership, :landAcquisitionRequired],
-                      readonly: true
+                      readonly: true,
+                      items: {
+                        type: 'string',
+                        enum: ['Yes', 'No']
+                      }
                     },
                     laDoesNotControlSite: {
                       type: 'object',
@@ -545,10 +569,14 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                         },
                         # from landOwnership.landAcquisitionRequired
                         landAquisitionRequired: {
-                          type: 'boolean',
+                          type: 'string',
                           title: 'Land acquisition required (related to infrastructure)?',
                           sourceKey: [:baseline_data, :infrastructures, :landOwnership, :landAcquisitionRequired],
-                          readonly: true
+                          readonly: true,
+                          items: {
+                            type: 'string',
+                            enum: ['Yes', 'No']
+                          }
                         }
                       }
                     },
@@ -644,10 +672,14 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                   properties: {
                     # from procurement.contractorProcured
                     contractorProcured: {
-                      type: 'boolean',
+                      type: 'string',
                       title: 'Infrastructure contractor procured?',
                       sourceKey: [:baseline_data, :infrastructures, :landOwnership, :procurement, :contractorProcured],
-                      readonly: true
+                      readonly: true,
+                      items: {
+                        type: 'string',
+                        enum: ['Yes', 'No']
+                      }
                     },
                     infrastructureNotProcured: {
                       type: 'object',
@@ -1048,8 +1080,12 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             readonly: true
                           },
                           riskAnyChange: {
-                            type: 'boolean',
-                            title: 'Any change in risk?'
+                            type: 'string',
+                            title: 'Any change in risk?',
+                            items: {
+                              type: 'string',
+                              enum: ['Yes', 'No']
+                            }
                           },
                           riskCurrentReturnMitigationsInPlace: {
                             type: 'string',
@@ -1130,8 +1166,12 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             readonly: true
                           },
                           riskAnyChange: {
-                            type: 'boolean',
-                            title: 'Any change in risk?'
+                            type: 'string',
+                            title: 'Any change in risk?',
+                            items: {
+                              type: 'string',
+                              enum: ['Yes', 'No']
+                            }
                           },
                           riskCurrentReturnMitigationsInPlace: {
                             type: 'string',
@@ -1171,8 +1211,12 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             title: 'Description of live action (Calculated)'
                           },
                           met: {
-                            type: 'boolean',
-                            title: 'Action Met?'
+                            type: 'string',
+                            title: 'Action Met?',
+                            items: {
+                              type: 'string',
+                              enum: ['Yes', 'No']
+                            }
                           },
                           progress: {
                             type: 'string',
@@ -1507,9 +1551,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                               # from costs.fundingstack.totallyFundedThroughHIF
                               totallyFundedThroughHIF: {
                                 sourceKey: [:baseline_data, :financial, :costs, :fundingStack, :totallyFundedThroughHIF],
-                                type: 'boolean',
+                                type: 'string',
                                 title: 'Totally funded through HIF?',
-                                readonly: true
+                                readonly: true,
+                                items: {
+                                  type: 'string',
+                                  enum: ['Yes', 'No']
+                                }
                               },
                               # if totallFundedThroughHIF == false
                               notFundedThroughHif: {
@@ -1524,8 +1572,12 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                     readonly: true
                                   },
                                   riskToFundingPackage: {
-                                    type: 'boolean',
-                                    title: 'Risk to funding package'
+                                    type: 'string',
+                                    title: 'Risk to funding package',
+                                    items: {
+                                      type: 'string',
+                                      enum: ['Yes', 'No']
+                                    }
                                   },
                                   # if riskToFundingPackage = true
                                   riskToFundingPackageDescription: {
@@ -1670,9 +1722,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     # from costs.recovery.aimToRecover
                     aimToRecover: {
                       sourceKey: [:baseline_data, :financial, :recovery, :aimToRecover],
-                      type: 'boolean',
+                      type: 'string',
                       title: 'Aim to recover any funding?',
-                      readonly: true
+                      readonly: true,
+                      items: {
+                        type: 'string',
+                        enum: ['Yes', 'No']
+                      }
                     },
                     amountToRecover: {
                       sourceKey: [:baseline_data, :financial, :recovery, :expectedAmountToRemove],
