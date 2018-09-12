@@ -28,7 +28,7 @@ class LocalAuthority::UseCase::CalculateHIFReturn
       current_date = get_currentReturn(new_return_data, i)
 
 
-      update_varianceLastReturnFullPlanningPermissionSubmitted(
+      update_variance_last_return_full_planning_permission_submitted(
         new_return_data,
         i,
         week_difference(
@@ -55,7 +55,7 @@ class LocalAuthority::UseCase::CalculateHIFReturn
       :currentReturn)
   end
 
-  def update_varianceLastReturnFullPlanningPermissionSubmitted(return_data, infrastructure_index, value)
+  def update_variance_last_return_full_planning_permission_submitted(return_data, infrastructure_index, value)
     return_data[:infrastructures][
       infrastructure_index][
       :planning][
