@@ -353,7 +353,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             statutoryConsents: {
                               title: 'Current Statutory Consents',
                               type: 'array',
-                              addable: true, 
+                              addable: true,
                               items: {
                                 type: 'object',
                                 properties: {
@@ -373,7 +373,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                     readonly: true
                                   },
                                   statusAgainstLastReturn: status_against_last_return,
-                                  baselineCompletion: {
+                                  currentReturn: {
                                     title: 'Current return',
                                     type: 'string',
                                     format: 'date'
@@ -750,14 +750,21 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                       title: 'Key Project Milestones',
                       items: {
                         type: 'object',
+                        horizontal: true,
                         properties: {
                           # from milestones.target
+                          description: {
+                            sourceKey: [:baseline_data, :infrastructures, :milestones, :descriptionOfMilestone],
+                            readonly: true,
+                            type: 'string',
+                            title: 'Description'
+                          },
                           milestoneBaselineCompletion: {
                             sourceKey: [:baseline_data, :infrastructures, :milestones, :target],
                             readonly: true,
                             type: 'string',
                             format: 'date',
-                            title: 'Baseline Completion '
+                            title: 'Completion Date'
                           },
                           # from milestones.summaryOfCriticalPath
                           milestoneSummaryOfCriticalPath: {
@@ -776,31 +783,102 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             readonly: true,
                             title: 'Variance against baseline (Calculated)'
                           },
-                          milestoneStatusAgainstLastReturn: {
-                            type: 'object',
-                            title: 'Milestone Status Against Last Return',
-                            properties: {
-                              statusAgainstLastReturn: {
-                                title: 'Status against last return?',
-                                type: 'string',
-                                enum: [
-                                  'completed',
-                                  'on schedule',
-                                  'delayed: minimal impact',
-                                  'delayed: critical'
-                                ],
-                                default: 'on schedule'
-                              },
-                              currentReturn: {
-                                type: 'string',
-                                format: 'date',
-                                title: 'Current Return'
-                              },
-                              reasonForVariance: {
-                                type: 'string',
-                                title: 'Reason for Variance'
-                              }
-                            }
+                          statusAgainstLastReturn: status_against_last_return,
+                          currentReturn: {
+                            type: 'string',
+                            format: 'date',
+                            title: 'Current Return'
+                          },
+                          reasonForVariance: {
+                            type: 'string',
+                            title: 'Reason for Variance'
+                          },
+                          milestonePercentCompleted: {
+                            type: 'integer',
+                            title: 'Percent complete'
+                          },
+                          milestoneCompletedDate: {
+                            type: 'string',
+                            format: 'date',
+                            readonly: true,
+                            title: 'On Completed date (Calculated)'
+                          }
+                        }
+                      }
+                    },
+                    additionalMilestones: {
+                      type: 'array',
+                      title: 'Additional Milestones',
+                      addable: true,
+                      items: {
+                        type: 'object',
+                        horizontal: true,
+                        properties: {
+                          # from milestones.target
+                          description: {
+                            type: 'string',
+                            title: 'Description'
+                          },
+                          completion: {
+                            type: 'string',
+                            format: 'date',
+                            title: 'Target date of completion'
+                          },
+                          # from milestones.summaryOfCriticalPath
+                          criticalPath: {
+                            type: 'string',
+                            title: 'Summary of Critical Path',
+                          }
+                        }
+                      }
+                    },
+                    previousMilestones: {
+                      type: 'array',
+                      title: 'Previous Milestones',
+                      items: {
+                        type: 'object',
+                        horizontal: true,
+                        properties: {
+                          # from milestones.target
+                          description: {
+                            sourceKey: [:return_data, :infrastructures, :milestones, :additionalMilestones, :description],
+                            readonly: true,
+                            type: 'string',
+                            title: 'Description'
+                          },
+                          milestoneBaselineCompletion: {
+                            sourceKey: [:return_data, :infrastructures, :milestones, :additionalMilestones, :completion],
+                            readonly: true,
+                            type: 'string',
+                            format: 'date',
+                            title: 'Completion Date'
+                          },
+                          # from milestones.summaryOfCriticalPath
+                          milestoneSummaryOfCriticalPath: {
+                            sourceKey: [:return_data, :infrastructures, :milestones, :additionalMilestones, :criticalPath],
+                            type: 'string',
+                            title: 'Summary of Baseline Critical Path',
+                            readonly: true
+                          },
+                          milestoneVarianceAgainstLastReturn: {
+                            type: 'string',
+                            readonly: true,
+                            title: 'Variance against last return (Calculated)',
+                          },
+                          milestoneVarianceAgainstBaseline: {
+                            type: 'string',
+                            readonly: true,
+                            title: 'Variance against baseline (Calculated)'
+                          },
+                          statusAgainstLastReturn: status_against_last_return,
+                          currentReturn: {
+                            type: 'string',
+                            format: 'date',
+                            title: 'Current Return'
+                          },
+                          reasonForVariance: {
+                            type: 'string',
+                            title: 'Reason for Variance'
                           },
                           milestonePercentCompleted: {
                             type: 'integer',
@@ -932,160 +1010,138 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                   title: 'Risks',
                   properties: {
                     baselineRisks: {
-                      type: 'object',
+                      type: 'array',
                       title: 'Baseline Risks',
-                      properties: {
-                        risks: {
-                          type: 'array',
-                          title: 'Risks',
-                          items: {
-                            type: 'object',
-                            properties: {
-                              items: {
-                                title: 'Risk',
-                                type: 'object',
-                                properties: {
-                                  # from risksToAchievingTimescales.descriptionOfRisk
-                                  riskBaselineRisk: {
-                                  sourceKey: [:baseline_data, :infrastructures, :risksToAchievingTimescales, :descriptionOfRisk],
-                                    type: 'string',
-                                    title: 'Description Of Risk',
-                                    readonly: true
-                                  },
-                                  # from risksToAchievingTimescales.impactOfRisk
-                                  riskBaselineImpact: {
-                                    sourceKey: [:baseline_data, :infrastructures, :risksToAchievingTimescales, :impactOfRisk],
-                                    type: 'string',
-                                    title: 'Impact',
-                                    readonly: true
-                                  },
-                                  # from risksToAchievingTimescales.likelihoodOfRisk
-                                  riskBaselineLikelihood: {
-                                    sourceKey: [:baseline_data, :infrastructures, :risksToAchievingTimescales, :likelihoodOfRisk],
-                                    type: 'string',
-                                    title: 'Likelihood',
-                                    readonly: true
-                                  },
-                                  riskCurrentReturnLikelihood: {
-                                    type: 'string',
-                                    title: 'Current Return Likelihood'
-                                  },
-                                  # from risksToAchievingTimescales.mitigationOfRisk
-                                  riskBaselineMitigationsInPlace: {
-                                    sourceKey: [:baseline_data, :infrastructures, :risksToAchievingTimescales, :mitigationOfRisk],
-                                    type: 'string',
-                                    title: 'Mitigation in place',
-                                    readonly: true
-                                  },
-                                  riskAnyChange: {
-                                    type: 'boolean',
-                                    title: 'Any change in risk?'
-                                  },
-                                  riskCurrentReturnMitigationsInPlace: {
-                                    type: 'string',
-                                    title: 'Current Return Mitigations in place'
-                                  },
-                                  riskMetDate: {
-                                    type: 'string',
-                                    format: 'date',
-                                    readonly: true,
-                                    title: 'Risk met date (Calculated)'
-                                  }
-                                }
-                              }
-                            }
+                      items: {
+                        type: 'object',
+                        horizontal: true,
+                        properties: {
+                          riskBaselineRisk: {
+                          sourceKey: [:baseline_data, :infrastructures, :risksToAchievingTimescales, :descriptionOfRisk],
+                            type: 'string',
+                            title: 'Description Of Risk',
+                            readonly: true
+                          },
+                          # from risksToAchievingTimescales.impactOfRisk
+                          riskBaselineImpact: {
+                            sourceKey: [:baseline_data, :infrastructures, :risksToAchievingTimescales, :impactOfRisk],
+                            type: 'string',
+                            title: 'Impact',
+                            readonly: true
+                          },
+                          # from risksToAchievingTimescales.likelihoodOfRisk
+                          riskBaselineLikelihood: {
+                            sourceKey: [:baseline_data, :infrastructures, :risksToAchievingTimescales, :likelihoodOfRisk],
+                            type: 'string',
+                            title: 'Likelihood',
+                            readonly: true
+                          },
+                          riskCurrentReturnLikelihood: {
+                            type: 'string',
+                            title: 'Current Return Likelihood'
+                          },
+                          # from risksToAchievingTimescales.mitigationOfRisk
+                          riskBaselineMitigationsInPlace: {
+                            sourceKey: [:baseline_data, :infrastructures, :risksToAchievingTimescales, :mitigationOfRisk],
+                            type: 'string',
+                            title: 'Mitigation in place',
+                            readonly: true
+                          },
+                          riskAnyChange: {
+                            type: 'boolean',
+                            title: 'Any change in risk?'
+                          },
+                          riskCurrentReturnMitigationsInPlace: {
+                            type: 'string',
+                            title: 'Current Return Mitigations in place'
+                          },
+                          riskMetDate: {
+                            type: 'string',
+                            format: 'date',
+                            readonly: true,
+                            title: 'Risk met date (Calculated)'
                           }
                         }
                       }
                     },
                     additionalRisks: {
-                      type: 'object',
+                      type: 'array',
                       title: 'Any additional risks to baseline?',
                       addable: true,
-                      properties: {
-                        currentRisks: {
-                          type: 'array',
-                          title: 'Current Risks',
-                          items: {
-                            type: 'object',
-                            title: 'Risk',
-                            properties: {
-                              currentRisksToBaseline: {
-                                type: 'object',
-                                title: 'Current Risks to baseline',
-                                properties: {
-                                  newRisk: {
-                                    type: 'string',
-                                    title: 'New risk description'
-                                  },
-                                  newRiskImpact: {
-                                    type: 'string',
-                                    title: 'Impact'
-                                  },
-                                  newRiskLikelihood: {
-                                    type: 'string',
-                                    title: 'Likelihood'
-                                  },
-                                  newRiskMitigationsInPlace: {
-                                    type: 'string',
-                                    title: 'Mitigations in place'
-                                  }
-                                }
-                              }
-                            }
+                      items: {
+                        type: 'object',
+                        horizontal: true,
+                        properties: {
+                          description: {
+                            type: 'string',
+                            title: 'Description'
+                          },
+                          impact: {
+                            type: 'integer',
+                            title: 'Impact'
+                          },
+                          likelihood: {
+                            type: 'integer',
+                            title: 'Likelihood'
+                          },
+                          mitigations: {
+                            type: 'string',
+                            title: 'Mitigations in place'
                           }
-                        },
-                        previousRisks: {
-                          type: 'array',
-                          title: 'Previous Risks',
-                          items: {
-                            type: 'object',
-                            properties: {
-                              previousRisksToBaseline: {
-                                type: 'object',
-                                title: 'Previous Risks to baseline',
-                                properties: {
-                                  previousRisk: {
-                                    type: 'string',
-                                    readonly: true,
-                                    title: 'Previous risk description (Calculated)'
-                                  },
-                                  previousRiskImpact: {
-                                    type: 'string',
-                                    readonly: true,
-                                    title: 'Previous risk impact (Calculated)'
-                                  },
-                                  previousRiskLikelihood: {
-                                    type: 'string',
-                                    readonly: true,
-                                    title: 'Previous risk likelihood (Calculated)'
-                                  },
-                                  previousRiskCurrentReturnLikelihood: {
-                                    type: 'string',
-                                    title: 'Current Return Likelihood'
-                                  },
-                                  previousRiskMitigationsInPlace: {
-                                    type: 'string',
-                                    readonly: true,
-                                    title: 'Previous Mitigations in place (Calculated)'
-                                  },
-                                  previousRiskAnyChanges: {
-                                    type: 'boolean',
-                                    title: 'Any Change?'
-                                  },
-                                  previousRiskCurrentReturnMitigationsInPlace: {
-                                    type: 'string',
-                                    title: 'Current Return Mitigations in place'
-                                  },
-                                  previousRiskMetDate: {
-                                    type: 'string',
-                                    format: 'date',
-                                    readonly: true,
-                                    title: 'Risk Met Date (Calculated)'
-                                  }
-                                }
-                              }
-                            }
+                        }
+                      }
+                    },
+                    previousRisks: {
+                      type: 'array',
+                      title: 'Previous Risks',
+                      items: {
+                        type: 'object',
+                        horizontal: true,
+                        properties: {
+                          riskBaselineRisk: {
+                            sourceKey: [:return_data, :infrastructures, :risks, :additionalRisks, :description],
+                            type: 'string',
+                            title: 'Description Of Risk',
+                            readonly: true
+                          },
+                          # from risksToAchievingTimescales.impactOfRisk
+                          riskBaselineImpact: {
+                            sourceKey: [:return_data, :infrastructures, :risks, :additionalRisks, :impact],
+                            type: 'string',
+                            title: 'Impact',
+                            readonly: true
+                          },
+                          # from risksToAchievingTimescales.likelihoodOfRisk
+                          riskBaselineLikelihood: {
+                            sourceKey: [:return_data, :infrastructures, :risks, :additionalRisks, :likelihood],
+                            type: 'string',
+                            title: 'Likelihood',
+                            readonly: true
+                          },
+                          riskCurrentReturnLikelihood: {
+                            type: 'string',
+                            title: 'Current Return Likelihood'
+                          },
+                          # from risksToAchievingTimescales.mitigationOfRisk
+                          riskBaselineMitigationsInPlace: {
+                            sourceKey: [:return_data, :infrastructures, :risks, :additionalRisks, :mitigations],
+                            type: 'string',
+                            title: 'Mitigation in place',
+                            readonly: true
+                          },
+                          riskAnyChange: {
+                            type: 'boolean',
+                            title: 'Any change in risk?'
+                          },
+                          riskCurrentReturnMitigationsInPlace: {
+                            type: 'string',
+                            title: 'Current Return Mitigations in place'
+                          },
+                          riskMetDate: {
+                            type: 'string',
+                            format: 'date',
+                            readonly: true,
+                            title: 'Risk met date (Calculated)'
                           }
                         }
                       }
@@ -1101,30 +1157,26 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                       title: 'Describe progress for last quarter'
                     },
                     progressAgainstActions: {
-                      type: 'object',
+                      type: 'array',
                       title: 'Progress against Actions',
-                      properties: {
-                        liveActions: {
-                          type: 'array',
-                          title: 'Live Actions',
-                          items: {
-                            type: 'object',
-                            properties: {
-                              liveActionDescription: {
-                                type: 'string',
-                                readonly: true,
-                                # from actions for next quarter
-                                title: 'Description of live action (Calculated)'
-                              },
-                              liveActionMet: {
-                                type: 'boolean',
-                                title: 'Action Met?'
-                              },
-                              liveActionProgress: {
-                                type: 'string',
-                                title: 'Progress against action if not met'
-                              }
-                            }
+                      items: {
+                        type: 'object',
+                        horizontal: true,
+                        properties: {
+                          description: {
+                            sourceKey: [:return_data, :infrastructures, :progress, :actionsForNextQuarter, :description],
+                            type: 'string',
+                            readonly: true,
+                            # from actions for next quarter
+                            title: 'Description of live action (Calculated)'
+                          },
+                          met: {
+                            type: 'boolean',
+                            title: 'Action Met?'
+                          },
+                          progress: {
+                            type: 'string',
+                            title: 'Progress against action if not met'
                           }
                         }
                       }
@@ -1132,10 +1184,11 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     actionsForNextQuarter: {
                       type: 'array',
                       title: 'Actions for next quarter',
+                      addable: true,
                       items: {
                         type: 'object',
                         properties: {
-                          action: {
+                          description: {
                             type: 'string',
                             title: 'Action Description'
                           }
