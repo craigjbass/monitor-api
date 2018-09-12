@@ -3,7 +3,34 @@ require 'date'
 
 class LocalAuthority::UseCase::CalculateHIFReturn
   def execute(return_data_with_no_calculations:, previous_return:)
+    #This is not at all reusable because it needs deep copying
     expected_return_data = {
+      planning: {
+        planningNotGranted: {
+          fieldOne: {
+            varianceCalculations: {
+              varianceAgainstLastReturn: {
+                varianceLastReturnFullPlanningPermissionSubmitted: nil
+              }
+            }
+          }
+        }
+      }
+    }
+
+    if return_data_with_no_calculations[:infrastructures].nil?
+      return_data_with_no_calculations[:infrastructures] = []
+    end
+
+    return_data_with_no_calculations[:infrastructures].each_with_index do |value, i|
+      return_data_with_no_calculations[:infrastructures][i] = deep_merge(
+        return_data_with_no_calculations.dig(:infrastructures, i).to_h,
+        expected_return_data
+      )
+
+      return_data_with_no_calculations[:infrastructures][i] = deep_merge(
+        return_data_with_no_calculations[:infrastructures][i],
+        {
           planning: {
             planningNotGranted: {
               fieldOne: {
@@ -16,26 +43,40 @@ class LocalAuthority::UseCase::CalculateHIFReturn
             }
           }
         }
+      )
 
-    if return_data_with_no_calculations[:infrastructures].nil?
-      return_data_with_no_calculations[:infrastructures] = []
+      last_date = previous_return&.dig(:infrastructures,
+        i,
+        :planning,
+        :planningNotGranted,
+        :fieldOne,
+        :returnInput,
+        :currentReturn)
+
+      current_date = return_data_with_no_calculations.dig(:infrastructures,
+        i,
+        :planning,
+        :planningNotGranted,
+        :fieldOne,
+        :returnInput,
+        :currentReturn)
+
+
+      return_data_with_no_calculations[:infrastructures][
+        i][
+          :planning][
+            :planningNotGranted][
+              :fieldOne][
+                :varianceCalculations][
+                  :varianceAgainstLastReturn][
+                    :varianceLastReturnFullPlanningPermissionSubmitted] = week_difference(
+                      date_as_string_one: current_date,
+                      date_as_string_two: last_date).to_s unless last_date.nil?
+
     end
 
-    return_data_with_no_calculations[:infrastructures][0] = deep_merge(
-      return_data_with_no_calculations.dig(:infrastructures, 0).to_h,
-      expected_return_data
-    )
-    new_return_data = return_data_with_no_calculations
-
-    update_varianceLastReturnFullPlanningPermissionSubmitted(
-      new_return_data,
-      calculate_varianceLastReturnFullPlanningPermissionSubmitted(
-        return_data_with_no_calculations,
-        previous_return
-      )
-    )
     {
-      calculated_return: new_return_data
+      calculated_return: return_data_with_no_calculations
     }
   end
 
