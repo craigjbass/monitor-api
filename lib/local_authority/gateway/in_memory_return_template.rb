@@ -1318,36 +1318,33 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                   title: 'Changes',
                   properties: {
                     hifConfirmNoChanges: {
-                      type: 'boolean',
-                      title: 'Please confirm there are no changes to be made to the funding profile'
+                      type: 'string',
+                      title: 'Please confirm there are no changes to be made to the funding profile',
+                      enum: ['Confirm', 'Changes requested']
                     },
                     hifIfFundingChangeRequested: {
                       type: 'string',
                       title: 'If change requested, reason for request'
                     },
-                  }
-                },
-                hifRequestedProfiles: {
-                  type: 'object',
-                  title: 'Requested Profiles',
-                  properties: {
+                    changeMitigation: {
+                      type: 'string',
+                      title: 'Mitigation in place to reduce further slippage'
+                    },
                     hifRequestedProfile: {
                       type: 'array',
-                      title: 'Requested profile',
+                      title: 'Funding Change',
+                      addable: true,
                       items: {
                         type: 'object',
                         properties: {
                           fundingYear: {
                             type: 'string',
-                            title: 'Requested Year'
-                          },
-                          changeInPeriod: {
-                            type: 'boolean',
-                            title: 'Change in Period'
+                            title: 'Requested period'
                           },
                           newProfile: {
                             type: 'object',
                             title: 'New Profile',
+                            horizontal: true,
                             properties: {
                               newProfileQ1: {
                                 type: 'string',
@@ -1374,6 +1371,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           variance: {
                             type: 'object',
                             title: 'Variance',
+                            horizontal: true,
                             properties: {
                               varianceQ1: {
                                 type: 'string',
@@ -1407,16 +1405,6 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     }
                   }
                 },
-                changeMitigation: {
-                  type: 'object',
-                  title: 'Change Mitigation',
-                  properties: {
-                    changeInPeriod: {
-                      type: 'string',
-                      title: 'Mitigation in place to reduce further slippage'
-                    },
-                  }
-                },
                 fundingPackages: {
                   type: 'array',
                   title: 'Funding Packages',
@@ -1434,6 +1422,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                               overviewCosts: {
                                 type: 'object',
                                 title: 'Overview Costs',
+                                horizontal: true,
                                 properties: {
                                   # finances.costs.costOfInfrastructure
                                   baselineCost: {
@@ -1484,6 +1473,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                               hifSpendSinceLastReturn: {
                                 type: 'object',
                                 title: 'HIF Spend since last return',
+                                horizontal: true,
                                 properties: {
                                   hifSpendCurrentReturn: {
                                     type: 'integer',
@@ -1544,6 +1534,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   totalPublic: {
                                     type: 'object',
                                     title: 'Total Public',
+                                    horizontal: true,
                                     properties: {
                                       # from costs.fundingStack.totalPublic.
                                       publicTotalBaselineAmount: {
@@ -1604,6 +1595,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   totalPrivate: {
                                     type: 'object',
                                     title: 'Total Private',
+                                    horizontal: true,
                                     properties: {
                                       # from costs.fundingStack.totalPrivate
                                       privateTotalBaselineAmount: {
@@ -1679,6 +1671,12 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                       sourceKey: [:baseline_data, :financial, :recovery, :aimToRecover],
                       type: 'boolean',
                       title: 'Aim to recover any funding?',
+                      readonly: true
+                    },
+                    amountToRecover: {
+                      sourceKey: [:baseline_data, :financial, :recovery, :expectedAmountToRemove],
+                      title: 'Amount to recover',
+                      type: 'string',
                       readonly: true
                     },
                     # if aimToRecover is true

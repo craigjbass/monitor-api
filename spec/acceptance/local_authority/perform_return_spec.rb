@@ -171,267 +171,24 @@ describe 'Performing Return on HIF Project' do
     }
   end
 
-  let(:project_base_return) do
-    {
-      id: project_id,
-      data:
-        {
-          infrastructures: [
-            {
-              summary: {
-                type: 'A House',
-                description: 'A house of cats'
-              },
-              planning: {
-                baselineOutlinePlanningPermissionGranted: true,
-                planningNotGranted: {
-                  baselineSummaryOfCriticalPath: 'Summary of critical path',
-                  fieldOne: {
-                    baselineCompletion: {
-                      baselineFullPlanningPermissionSubmitted: '2020-01-01',
-                      baselineFullPlanningPermissionGranted: '2020-01-01'
-                    },
-                    fullPlanningPermissionGranted: false,
-                    fullPlanningPermissionSummaryOfCriticalPath: 'Summary of critical path'
-                  },
-                  fieldTwo: {
-                    baselineCompletion: {
-                      baselineFullPlanningPermissionSubmitted: '2020-01-01',
-                      baselineFullPlanningPermissionGranted: '2020-01-01'
-                    }
-                  },
-                  s106Requirement: true,
-                  s106SummaryOfRequirement: 'Required',
-                  statutoryConsents: {
-                    anyStatutoryConsents: true
-                  }
-                }
-              },
-              landOwnership: {
-                laHasControlOfSite: true,
-                laDoesNotControlSite: {
-                  whoOwnsSite: 'Dave',
-                  landAquisitionRequired: true
-                },
-                laDoesHaveControlOfSite: {
-                  howManySitesToAquire: 10,
-                  toBeAquiredBy: 'Dave',
-                  summaryOfAcquisitionRequired: 'Summary of critical path',
-                  allLandAssemblyAchieved: {
-                    landAssemblyBaselineCompletion: '2020-01-01'
-                  }
-                }
-              },
-              procurement: {
-                contractorProcured: true,
-                infrastructureNotProcured: {
-                  infraStructureContractorProcurement: {
-                    procurementBaselineCompletion: '2020-01-01'
-                  }
-                },
-                infrastructureProcured: {
-                  nameOfContractor: 'Dave'
-                }
-              },
-              milestones: {
-                keyMilestones: [{ milestoneBaselineCompletion: '2020-01-01',
-                                  milestoneSummaryOfCriticalPath: 'Summary of critical path' }],
-                expectedInfrastructureStartOnSite: {
-                  milestoneExpectedInfrastructureStartBaseline: '2020-01-01'
-                },
-                expectedCompletionDateOfInfra: {
-                  milestoneExpectedInfrastructureCompletionBaseline: '2020-01-01'
-                }
-              },
-              risks: {
-                baselineRisks: {
-                  risks: [{ items: {
-                    riskBaselineRisk: 'Risk one',
-                    riskBaselineImpact: 'High',
-                    riskBaselineLikelihood: 'High',
-                    riskBaselineMitigationsInPlace: 'Do not do the thing'
-                  } }]
-                }
-              }
-            }
-          ],
-          funding: [
-            {
-              hifFundingProfiles: {
-                hifFundingProfile: [
-                  {
-                    fundingYear: ['4000'],
-                    forecast: {
-                      forecastQ1: ['1000'],
-                      forecastQ2: ['1000'],
-                      forecastQ3: ['1000'],
-                      forecastQ4: ['1000'],
-                      forecastTotal: ['1000']
-                    }
-                  }
-                ]
-              }, fundingPackages: [
-                {
-                  fundingPackage: {
-                    overview: {
-                      overviewCosts: {
-                        baselineCost: '1000'
-                      }
-                    },
-                    fundingStack: {
-                      totallyFundedThroughHIF: true,
-                      notFundedThroughHif: {
-                        descriptionOfFundingStack: 'Stack',
-                        totalPublic: {
-                          publicTotalBaselineAmount: '2000'
-                        },
-                        totalPrivate: { privateTotalBaselineAmount: '2000' }
-                      }
-                    }
-                  }
-                }
-              ], recovery: { aimToRecover: true }
-            }
-          ]
-        }
-    }
-  end
-
-  let(:expected_second_base_return) do
-    {
-      id: project_id,
-      data:
-        {
-          infrastructures: [
-            {
-              summary: {
-                type: 'A House',
-                description: 'A house of cats'
-              },
-              planning: {
-                baselineOutlinePlanningPermissionGranted: true,
-                planningNotGranted: {
-                  baselineSummaryOfCriticalPath: 'Summary of critical path',
-                  fieldOne: {
-                    baselineCompletion: {
-                      baselineFullPlanningPermissionSubmitted: '2020-01-01',
-                      baselineFullPlanningPermissionGranted: '2020-01-01'
-                    },
-                    fullPlanningPermissionGranted: false,
-                    fullPlanningPermissionSummaryOfCriticalPath: 'Summary of critical path'
-                  },
-                  fieldTwo: {
-                    baselineCompletion: {
-                      baselineFullPlanningPermissionSubmitted: '2020-01-01',
-                      baselineFullPlanningPermissionGranted: '2020-01-01'
-                    }
-                  },
-                  s106Requirement: true,
-                  s106SummaryOfRequirement: 'Required',
-                  statutoryConsents: {
-                    anyStatutoryConsents: true
-                  }
-                }
-              },
-              landOwnership: {
-                laHasControlOfSite: true,
-                laDoesNotControlSite: {
-                  whoOwnsSite: 'Dave',
-                  landAquisitionRequired: true
-                },
-                laDoesHaveControlOfSite: {
-                  howManySitesToAquire: 10,
-                  toBeAquiredBy: 'Dave',
-                  summaryOfAcquisitionRequired: 'Summary of critical path',
-                  allLandAssemblyAchieved: {
-                    landAssemblyBaselineCompletion: '2020-01-01'
-                  }
-                }
-              },
-              procurement: {
-                contractorProcured: true,
-                infrastructureNotProcured: {
-                  infraStructureContractorProcurement: {
-                    procurementBaselineCompletion: '2020-01-01'
-                  }
-                },
-                infrastructureProcured: {
-                  nameOfContractor: 'Dave'
-                }
-              },
-              milestones: {
-                keyMilestones: [{ milestoneBaselineCompletion: '2020-01-01',
-                                  milestoneSummaryOfCriticalPath: 'Summary of critical path' }],
-                expectedInfrastructureStartOnSite: {
-                  milestoneExpectedInfrastructureStartBaseline: '2020-01-01'
-                },
-                expectedCompletionDateOfInfra: {
-                  milestoneExpectedInfrastructureCompletionBaseline: '2020-01-01'
-                }
-              },
-              risks: {
-                baselineRisks: {
-                  risks: [{ items: {
-                    riskBaselineRisk: 'Risk one',
-                    riskBaselineImpact: 'High',
-                    riskBaselineLikelihood: 'High',
-                    riskBaselineMitigationsInPlace: 'Do not do the thing'
-                  } }]
-                }
-              }
-            }
-          ],
-          funding: [
-            {
-              hifFundingProfiles: {
-                hifFundingProfile: [
-                  {
-                    fundingYear: ['4000'], forecast: {
-                      forecastQ1: ['1000'],
-                      forecastQ2: ['1000'],
-                      forecastQ3: ['1000'],
-                      forecastQ4: ['1000'],
-                      forecastTotal: ['1000']
-                    }
-                  }
-                ]
-              },
-              fundingPackages: [
-                {
-                  fundingPackage: {
-                    overview: {
-                      overviewCosts: {
-                        baselineCost: '1000'
-                      },
-                      hifSpendSinceLastReturn: {
-                        hifSpendLastReturn: '25565'
-                      }
-                    },
-                    fundingStack: {
-                      totallyFundedThroughHIF: true,
-                      notFundedThroughHif: {
-                        descriptionOfFundingStack: 'Stack',
-                        totalPublic: {
-                          publicTotalBaselineAmount: '2000'
-                        },
-                        totalPrivate: {
-                          privateTotalBaselineAmount: '2000'
-                        }
-                      }
-                    }
-                  }
-                }
-              ], recovery: { aimToRecover: true }
-            }
-          ]
-        }
-    }
-  end
-
   let(:project_id) do
     get_use_case(:create_new_project).execute(
       type: 'hif', baseline: project_baseline
     )[:id]
+  end
+
+  let(:expected_base_return) do 
+    JSON.parse(
+      File.open("#{__dir__}/../../fixtures/base_return.json").read, 
+      symbolize_names: true
+    )
+  end
+
+  let(:expected_second_base_return) do
+    JSON.parse(
+      File.open("#{__dir__}/../../fixtures/second_base_return.json").read, 
+      symbolize_names: true
+    )
   end
 
   before do
@@ -440,7 +197,7 @@ describe 'Performing Return on HIF Project' do
 
   it 'should keep track of Returns' do
     base_return = get_use_case(:get_base_return).execute(project_id: project_id)
-    expect(base_return[:base_return][:data]).to eq(project_base_return[:data])
+    expect(base_return[:base_return][:data]).to eq(expected_base_return)
 
     initial_return = {
       project_id: project_id,
@@ -550,7 +307,7 @@ describe 'Performing Return on HIF Project' do
     )
 
     second_base_return = get_use_case(:get_base_return).execute(project_id: project_id)
-    expect(second_base_return[:base_return][:data]).to eq(expected_second_base_return[:data])
+    expect(second_base_return[:base_return][:data]).to eq(expected_second_base_return)
   end
 
   def soft_update_return(id:, data:)
