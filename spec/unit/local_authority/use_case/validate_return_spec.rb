@@ -64,6 +64,42 @@ describe LocalAuthority::UseCase::ValidateReturn do
   end
 
   context 'required field validation' do
+    context 'nils should be acceptable values' do
+      context 'example 1' do
+        it_should_behave_like 'required field validation'
+        let(:template) do
+          LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+            p.schema = {
+              title: 'HIF Project',
+              type: 'object',
+              required: [:complete],
+              properties: {
+                complete: {
+                  type: 'boolean',
+                  title: 'Complete'
+                }
+              }
+            }
+          end
+        end
+
+        let(:valid_return_data) do
+          {
+            complete: nil
+          }
+        end
+
+        let(:invalid_return_data) do
+          {
+
+          }
+        end
+
+        let(:invalid_return_data_paths) do
+          [[:complete]]
+        end
+      end
+    end
     context 'single field' do
       context 'example 1' do
         it_should_behave_like 'required field validation'

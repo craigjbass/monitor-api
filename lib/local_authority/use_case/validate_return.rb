@@ -8,9 +8,10 @@ class LocalAuthority::UseCase::ValidateReturn
 
   def execute(type:, return_data:)
     schema = @return_template_gateway.find_by(type: type)
-    valid = JSON::Validator.validate(schema.schema.to_json, return_data)
-    invalid_paths = valid ? [] : get_paths_from_error_messages(schema, return_data)
-    { valid: valid,
+    invalid_paths = get_paths_from_error_messages(schema, return_data) || []
+
+    #:valid provides false positives if error messages are given that aren't parsed
+    { valid: invalid_paths == [],
       invalid_paths: invalid_paths }
   end
 
