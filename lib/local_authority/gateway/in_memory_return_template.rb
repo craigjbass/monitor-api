@@ -61,12 +61,12 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                         outlinePlanning: {
                           type: 'object',
                           title: 'Outline Planning (INFO: only show if planning not granted)',
-                          required: ['percentComplete'],
                           properties: {
                             submitted: {
                               title: 'Planning permission Submitted',
                               type: 'object',
                               horizontal: true,
+                              required: ['percentComplete'],
                               properties: {
                                 baselineFullPlanningPermissionSubmitted: {
                                   type: 'string',

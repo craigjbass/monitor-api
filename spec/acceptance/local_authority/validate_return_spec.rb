@@ -20,19 +20,21 @@ describe 'Validates HIF return' do
               baselineOutlinePlanningPermissionGranted: true,
               planningNotGranted: {
                 baselineSummaryOfCriticalPath: 'Summary of critical path',
-                fieldOne: {
-                  baselineCompletion: {
-                    baselineFullPlanningPermissionSubmitted: '2020-01-01',
-                    baselineFullPlanningPermissionGranted: '2020-01-01'
+                outlinePlanning: {
+                  submitted: {
+                    baselineCompletion: {
+                      baselineFullPlanningPermissionSubmitted: '2020-01-01',
+                      baselineFullPlanningPermissionGranted: '2020-01-01'
+                    },
+                    fullPlanningPermissionGranted: false,
+                    fullPlanningPermissionSummaryOfCriticalPath: 'Summary of critical path'
                   },
-                  fullPlanningPermissionGranted: false,
-                  fullPlanningPermissionSummaryOfCriticalPath: 'Summary of critical path'
-                },
-                fieldTwo: {
-                  baselineCompletion: {
-                    baselineFullPlanningPermissionSubmitted: '2020-01-01',
-                    baselineFullPlanningPermissionGranted: '2020-01-01'
-                  }
+                  granted: {
+                    baselineCompletion: {
+                      baselineFullPlanningPermissionSubmitted: '2020-01-01',
+                      baselineFullPlanningPermissionGranted: '2020-01-01'
+                    }
+                  },
                 },
                 s106Requirement: true,
                 s106SummaryOfRequirement: 'Required',
@@ -133,7 +135,7 @@ describe 'Validates HIF return' do
     it 'should return invalid if fails validation' do
       valid_return = get_use_case(:validate_return).execute(type: 'hif', return_data: project_base_return_invalid)
       expect(valid_return[:valid]).to eq(false)
-      expect(valid_return[:invalid_paths]).to eq([[:infrastructures, 0, :planning, :planningNotGranted, :fieldOne, :percentComplete]])
+      expect(valid_return[:invalid_paths]).to eq([[:infrastructures, 0, :planning, :planningNotGranted, :outlinePlanning, :submitted, :percentComplete]])
     end
   end
 end
