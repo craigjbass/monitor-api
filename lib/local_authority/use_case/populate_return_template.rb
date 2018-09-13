@@ -11,7 +11,6 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
 
     template_schema = @template_gateway.find_by(type: type).schema
     paths = @get_schema_copy_paths.execute(type: type)[:paths]
-
     paths.each do |copy_path_pair|
       populated_return = copy_data(
         copy_path_pair,
@@ -37,6 +36,9 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
       source_data,
       copy_path_pair[:from]
     )[:found]
+
+    p path_types
+    p found_data, copy_path_pair[:to]
 
     descend_hash_and_bury(
       return_data,
@@ -113,12 +115,31 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
   end
 
   def schema_types(schema, path)
-    if path.empty?
+
+    if schema.nil?
+      #Maybe a good idea to replace this with a custom exception
+      [:not_found]
+    elsif path.empty?
       [:object]
     elsif schema[:type] == 'array'
+      # This is failing because it isn't going to find the path because it only descends on properties not on dependencies stuff, we need to
+      # begin on properties and then rescue with the other thingy
       [:array] + schema_types(schema[:items][:properties][path[0]], path.drop(1))
     elsif schema[:type] == 'object'
-      acquired_path = schema_types(schema[:properties][path[0]], path.drop(1))
+      acquired_path = [:not_found]
+
+      unless schema.dig(:properties, path[0]).nil?
+        acquired_path = schema_types(schema[:properties][path[0]], path.drop(1))
+      end
+      # If our initial attempt to acquire a path from properties failed look for it under dependencies
+      if !schema[:dependencies].nil? && acquired_path[-1] == :not_found
+        schema[:dependencies].each do |_key, value|
+          value[:oneOf].each do |possibility|
+            acquired_path = schema_types(possibility[:properties][path[0]], path.drop(1))
+          end
+        end
+      end
+
       if acquired_path.nil?
         [:object]
       else
