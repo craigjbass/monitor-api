@@ -1,20 +1,27 @@
 class LocalAuthority::Domain::ReturnTemplate
   attr_accessor :layout, :schema
 
-  def invalid_paths(return_data)
-    get_paths_from_error_messages(return_data) || []
+  def invalid_paths(the_return)
+    messages = validation_messages_for(the_return)
+
+    paths = messages.map do |m|
+      json_properties = json_properties_for(m)
+      path_for(json_properties) unless json_properties.nil?
+    end.compact
+
+    paths || []
   end
 
   private
 
-  def validate(return_data)
+  def validation_messages_for(return_data)
     JSON::Validator.fully_validate(
       schema.to_json,
       return_data
     )
   end
 
-  def message_get_json_properties(message)
+  def json_properties_for(message)
     ignore_json_property_root = %r{#/}
     capture_json_property = %r{([\w/]*)}
     ignore_until = /.*/
@@ -45,19 +52,10 @@ class LocalAuthority::Domain::ReturnTemplate
     array_of_paths.flatten
   end
 
-  def json_properties_to_path(properties)
+  def path_for(properties)
     json_paths = properties.map do |property|
       json_property_name_to_path(property)
     end
     join_path_array(json_paths)
-  end
-
-  def get_paths_from_error_messages(return_data)
-    validation_messages = validate(return_data)
-
-    validation_messages.map do |message|
-      properties = message_get_json_properties(message)
-      json_properties_to_path(properties) unless properties.nil?
-    end.compact
   end
 end
