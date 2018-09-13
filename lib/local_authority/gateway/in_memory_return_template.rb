@@ -44,6 +44,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                       type: 'string',
                       title: 'Outline Planning Permission granted',
                       sourceKey: %i[baseline_data infrastructures outlinePlanningStatus granted],
+                      readonly: true,
                       enum: %w[Yes No]
                     }
 
