@@ -1,9 +1,13 @@
 describe LocalAuthority::UseCase::CheckApiKey do
   let(:use_case) { described_class.new }
 
+  def one_hour_in_seconds
+    3600
+  end
+
   def api_key_for_project(project, api_key=ENV['HMAC_SECRET'])
-    expiry = (Time.now.to_i + 3600) * 3600
-    JWT.encode({project_id: project, exp: expiry}, api_key, 'HS512')
+    one_hour_from_now = (Time.now.to_i + one_hour_in_seconds)
+    JWT.encode({project_id: project, exp: one_hour_from_now}, api_key, 'HS512')
   end
 
   context 'Example one' do
@@ -25,16 +29,14 @@ describe LocalAuthority::UseCase::CheckApiKey do
           expect(response[:valid]).to eq(false)
         end
       end
-      
+
       context 'That is expired' do
         it 'returns invalid' do
-          expiry = Time.new(2010, 01, 01).to_i * 3600
-
           api_key = JWT.encode(
             {
               project_id: 1, exp: Time.new(2010, 01, 01).to_i
-            }, 
-            ENV['HMAC_SECRET'], 
+            },
+            ENV['HMAC_SECRET'],
             'HS512'
           )
 
