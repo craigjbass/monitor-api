@@ -2,24 +2,26 @@ class LocalAuthority::Domain::ReturnTemplate
   attr_accessor :layout, :schema
 
   def invalid_paths(the_return)
-    messages = validation_messages_for(the_return)
-
-    paths = messages
-      .map { |m| m.invalid_path if m.invalid_path? }
-      .compact
+    paths = []
+    foreach_validation_message_of(the_return) do |message|
+      paths.push(message.invalid_path) if message.invalid_path?
+    end
+    paths = paths.compact
 
     paths || []
   end
 
   private
 
-  def validation_messages_for(return_data)
+  def foreach_validation_message_of(return_data)
     messages = JSON::Validator.fully_validate(
       schema.to_json,
       return_data
     )
 
-    messages.map { |m| ValidationMessage.new(m) }
+    messages.each do |m|
+      yield ValidationMessage.new(m)
+    end
   end
 
   class ValidationMessage
