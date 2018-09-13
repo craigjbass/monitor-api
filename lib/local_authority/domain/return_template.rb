@@ -3,7 +3,7 @@ class LocalAuthority::Domain::ReturnTemplate
 
   def invalid_paths(the_return)
     paths = []
-    foreach_validation_message_of(the_return) do |message|
+    validation_messages_for(the_return).each do |message|
       paths.push(message.invalid_path) if message.invalid_path?
     end
     paths = paths.compact
@@ -13,14 +13,24 @@ class LocalAuthority::Domain::ReturnTemplate
 
   private
 
-  def foreach_validation_message_of(return_data)
-    messages = JSON::Validator.fully_validate(
-      schema.to_json,
-      return_data
+  def validation_messages_for(return_data)
+    ValidationMessages.new(
+      JSON::Validator.fully_validate(
+        schema.to_json,
+        return_data
+      )
     )
+  end
 
-    messages.each do |m|
-      yield ValidationMessage.new(m)
+  class ValidationMessages
+    def initialize(messages)
+      @messages = messages
+    end
+
+    def each
+      @messages.each do |m|
+        yield ValidationMessage.new(m)
+      end
     end
   end
 
