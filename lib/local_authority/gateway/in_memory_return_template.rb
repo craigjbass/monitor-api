@@ -498,18 +498,20 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                     }
                                   }
                                 },
-                                title: 'Full Planning Permission',
-                                type: 'object',
-                                properties: {
-                                  # from s106.requirement
-                                  s106Requirement: {
-                                    type: 'string',
-                                    title: 'S106 Requirement',
-                                    sourceKey: %i[baseline_data infrastructures s106 requirement],
-                                    readonly: true,
-                                    items: {
+                                fullPlanningPermission: {
+                                  title: 'Full Planning Permission',
+                                  type: 'object',
+                                  properties: {
+                                    # from s106.requirement
+                                    s106Requirement: {
                                       type: 'string',
-                                      enum: %w[Yes No]
+                                      title: 'S106 Requirement',
+                                      sourceKey: %i[baseline_data infrastructures s106 requirement],
+                                      readonly: true,
+                                      items: {
+                                        type: 'string',
+                                        enum: %w[Yes No]
+                                      }
                                     }
                                   }
                                 },
