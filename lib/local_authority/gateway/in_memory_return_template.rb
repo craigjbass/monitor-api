@@ -316,189 +316,191 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                         }
                                       }
                                     },
-                                    title: 'Full Planning Permission',
-                                    type: 'object',
-                                    properties: {
-                                      # from fullPlanningStatus.granted
-                                      fullPlanningPermissionGranted: {
-                                        type: 'string',
-                                        title: 'Full Planning Permission granted',
-                                        sourceKey: %i[baseline_data infrastructures fullPlanningStatus granted],
-                                        readonly: true,
-                                        items: {
+                                    fullPlanningPermission:{
+                                      title: 'Full Planning Permission',
+                                      type: 'object',
+                                      properties: {
+                                        # from fullPlanningStatus.granted
+                                        fullPlanningPermissionGranted: {
                                           type: 'string',
-                                          enum: %w[Yes No]
+                                          title: 'Full Planning Permission granted',
+                                          sourceKey: %i[baseline_data infrastructures fullPlanningStatus granted],
+                                          readonly: true,
+                                          items: {
+                                            type: 'string',
+                                            enum: %w[Yes No]
+                                          }
                                         }
-                                      }
-                                    },
-                                    dependencies: {
-                                      fullPlanningPermissionGranted: {
-                                        oneOf: [
-                                          {
-                                            properties: {
-                                              fullPlanningPermissionGranted: {
-                                                enum: ['Yes']
-                                              }
-                                            }
-                                            # If planning permission granted we do not need to show anything
-                                          },
-                                          {
-                                            properties: {
-                                              fullPlanningPermissionGranted: {
-                                                enum: ['No']
-                                              }
-                                            },
-                                            # from fullPlanningStatus.summaryOfCriticalPath
-                                            fullPlanningPermissionSummaryOfCriticalPath: {
-                                              type: 'string',
-                                              title: 'Summary Of Full Planning Permission Critical Path',
-                                              sourceKey: %i[baseline_data infrastructures fullPlanningStatus summaryOfCriticalPath],
-                                              readonly: true
-                                            },
-                                            fullPlanning: {
-                                              type: 'object',
-                                              title: 'Full Planning (INFO: Only show if planning not granted)',
+                                      },
+                                      dependencies: {
+                                        fullPlanningPermissionGranted: {
+                                          oneOf: [
+                                            {
                                               properties: {
-                                                submitted: {
-                                                  title: 'Planning permission Submitted',
-                                                  type: 'object',
-                                                  horizontal: true,
-                                                  properties: {
-                                                    baselineFullPlanningPermissionSubmitted: {
-                                                      type: 'string',
-                                                      format: 'date',
-                                                      title: 'Full Planning Permission submitted date',
-                                                      sourceKey: %i[baseline_data infrastructures fullPlanningStatus targetSubmission],
-                                                      readonly: true
-                                                    },
-                                                    varianceBaselineFullPlanningPermissionSubmitted: {
-                                                      type: 'integer',
-                                                      readonly: true,
-                                                      title: 'Variance against Baseline submitted date (Week) (Calculated)'
-                                                    },
-                                                    varianceLastReturnFullPlanningPermissionSubmitted: {
-                                                      type: 'integer',
-                                                      readonly: true,
-                                                      title: 'Variance against Last Return submitted date (Week) (Calculated)'
-                                                    },
-                                                    statusAgainstLastReturn: {
-                                                      title: 'Status against last return?',
-                                                      type: 'string',
-                                                      enum: [
-                                                        'completed',
-                                                        'on schedule',
-                                                        'delayed: minimal impact',
-                                                        'delayed: critical'
-                                                      ],
-                                                      default: 'on schedule'
-                                                    },
-                                                    currentReturn: {
-                                                      type: 'string',
-                                                      format: 'date',
-                                                      title: 'Current Return'
-                                                    },
-                                                    reasonForVariance: {
-                                                      type: 'string',
-                                                      title: 'Reason for Variance'
-                                                    },
-                                                    percentComplete: {
-                                                      type: 'integer',
-                                                      title: 'Percent complete'
-                                                    },
-                                                    onCompletedDate: {
-                                                      type: 'string',
-                                                      format: 'date',
-                                                      readonly: true,
-                                                      title: 'Completed date (Calculated)'
-                                                    },
-                                                    onCompletedReference: {
-                                                      type: 'string',
-                                                      readonly: true,
-                                                      title: 'Completed Reference (Calculated)'
-                                                    }
-                                                  }
-                                                },
-                                                granted: {
-                                                  title: 'Planning Permission Granted',
-                                                  type: 'object',
-                                                  horizontal: true,
-                                                  properties: {
-                                                    baselineFullPlanningPermissionGranted: {
-                                                      type: 'string',
-                                                      format: 'date',
-                                                      title: 'Full Planning Permission granted date',
-                                                      sourceKey: %i[baseline_data infrastructures fullPlanningStatus targetGranted],
-                                                      readonly: true
-                                                    },
-                                                    varianceBaselineFullPlanningPermissionGranted: {
-                                                      type: 'integer',
-                                                      readonly: true,
-                                                      title: 'Variance against Baseline granted date (Weeks) (Calculated)'
-                                                    },
-                                                    varianceLastReturnFullPlanningPermissionGranted: {
-                                                      type: 'integer',
-                                                      readonly: true,
-                                                      title: 'Variance against Last Return granted date (Weeks) (Calculated)'
-                                                    },
-                                                    statusAgainstLastReturn: {
-                                                      title: 'Status against last return?',
-                                                      type: 'string',
-                                                      enum: [
-                                                        'completed',
-                                                        'on schedule',
-                                                        'delayed: minimal impact',
-                                                        'delayed: critical'
-                                                      ],
-                                                      default: 'on schedule'
-                                                    },
-                                                    currentReturn: {
-                                                      type: 'string',
-                                                      format: 'date',
-                                                      title: 'Current Return'
-                                                    },
-                                                    reasonForVariance: {
-                                                      type: 'string',
-                                                      title: 'Reason for Variance'
-                                                    },
-                                                    percentComplete: {
-                                                      type: 'integer',
-                                                      title: 'Percent complete'
-                                                    },
-                                                    onCompletedDate: {
-                                                      type: 'string',
-                                                      format: 'date',
-                                                      readonly: true,
-                                                      title: 'Completed date (Calculated)'
-                                                    }
-                                                  }
-                                                },
-                                                # from fullPlanningStatus.granted
                                                 fullPlanningPermissionGranted: {
-                                                  type: 'string',
-                                                  title: 'Full Planning Permission granted',
-                                                  sourceKey: %i[baseline_data infrastructures fullPlanningStatus granted],
-                                                  readonly: true,
-                                                  items: {
+                                                  enum: ['Yes']
+                                                }
+                                              }
+                                              # If planning permission granted we do not need to show anything
+                                            },
+                                            {
+                                              properties: {
+                                                fullPlanningPermissionGranted: {
+                                                  enum: ['No']
+                                                }
+                                              },
+                                              # from fullPlanningStatus.summaryOfCriticalPath
+                                              fullPlanningPermissionSummaryOfCriticalPath: {
+                                                type: 'string',
+                                                title: 'Summary Of Full Planning Permission Critical Path',
+                                                sourceKey: %i[baseline_data infrastructures fullPlanningStatus summaryOfCriticalPath],
+                                                readonly: true
+                                              },
+                                              fullPlanning: {
+                                                type: 'object',
+                                                title: 'Full Planning (INFO: Only show if planning not granted)',
+                                                properties: {
+                                                  submitted: {
+                                                    title: 'Planning permission Submitted',
+                                                    type: 'object',
+                                                    horizontal: true,
+                                                    properties: {
+                                                      baselineFullPlanningPermissionSubmitted: {
+                                                        type: 'string',
+                                                        format: 'date',
+                                                        title: 'Full Planning Permission submitted date',
+                                                        sourceKey: %i[baseline_data infrastructures fullPlanningStatus targetSubmission],
+                                                        readonly: true
+                                                      },
+                                                      varianceBaselineFullPlanningPermissionSubmitted: {
+                                                        type: 'integer',
+                                                        readonly: true,
+                                                        title: 'Variance against Baseline submitted date (Week) (Calculated)'
+                                                      },
+                                                      varianceLastReturnFullPlanningPermissionSubmitted: {
+                                                        type: 'integer',
+                                                        readonly: true,
+                                                        title: 'Variance against Last Return submitted date (Week) (Calculated)'
+                                                      },
+                                                      statusAgainstLastReturn: {
+                                                        title: 'Status against last return?',
+                                                        type: 'string',
+                                                        enum: [
+                                                          'completed',
+                                                          'on schedule',
+                                                          'delayed: minimal impact',
+                                                          'delayed: critical'
+                                                        ],
+                                                        default: 'on schedule'
+                                                      },
+                                                      currentReturn: {
+                                                        type: 'string',
+                                                        format: 'date',
+                                                        title: 'Current Return'
+                                                      },
+                                                      reasonForVariance: {
+                                                        type: 'string',
+                                                        title: 'Reason for Variance'
+                                                      },
+                                                      percentComplete: {
+                                                        type: 'integer',
+                                                        title: 'Percent complete'
+                                                      },
+                                                      onCompletedDate: {
+                                                        type: 'string',
+                                                        format: 'date',
+                                                        readonly: true,
+                                                        title: 'Completed date (Calculated)'
+                                                      },
+                                                      onCompletedReference: {
+                                                        type: 'string',
+                                                        readonly: true,
+                                                        title: 'Completed Reference (Calculated)'
+                                                      }
+                                                    }
+                                                  },
+                                                  granted: {
+                                                    title: 'Planning Permission Granted',
+                                                    type: 'object',
+                                                    horizontal: true,
+                                                    properties: {
+                                                      baselineFullPlanningPermissionGranted: {
+                                                        type: 'string',
+                                                        format: 'date',
+                                                        title: 'Full Planning Permission granted date',
+                                                        sourceKey: %i[baseline_data infrastructures fullPlanningStatus targetGranted],
+                                                        readonly: true
+                                                      },
+                                                      varianceBaselineFullPlanningPermissionGranted: {
+                                                        type: 'integer',
+                                                        readonly: true,
+                                                        title: 'Variance against Baseline granted date (Weeks) (Calculated)'
+                                                      },
+                                                      varianceLastReturnFullPlanningPermissionGranted: {
+                                                        type: 'integer',
+                                                        readonly: true,
+                                                        title: 'Variance against Last Return granted date (Weeks) (Calculated)'
+                                                      },
+                                                      statusAgainstLastReturn: {
+                                                        title: 'Status against last return?',
+                                                        type: 'string',
+                                                        enum: [
+                                                          'completed',
+                                                          'on schedule',
+                                                          'delayed: minimal impact',
+                                                          'delayed: critical'
+                                                        ],
+                                                        default: 'on schedule'
+                                                      },
+                                                      currentReturn: {
+                                                        type: 'string',
+                                                        format: 'date',
+                                                        title: 'Current Return'
+                                                      },
+                                                      reasonForVariance: {
+                                                        type: 'string',
+                                                        title: 'Reason for Variance'
+                                                      },
+                                                      percentComplete: {
+                                                        type: 'integer',
+                                                        title: 'Percent complete'
+                                                      },
+                                                      onCompletedDate: {
+                                                        type: 'string',
+                                                        format: 'date',
+                                                        readonly: true,
+                                                        title: 'Completed date (Calculated)'
+                                                      }
+                                                    }
+                                                  },
+                                                  # from fullPlanningStatus.granted
+                                                  fullPlanningPermissionGranted: {
                                                     type: 'string',
-                                                    enum: %w[Yes No]
+                                                    title: 'Full Planning Permission granted',
+                                                    sourceKey: %i[baseline_data infrastructures fullPlanningStatus granted],
+                                                    readonly: true,
+                                                    items: {
+                                                      type: 'string',
+                                                      enum: %w[Yes No]
+                                                    }
+                                                  },
+                                                  # from fullPlanningStatus.summaryOfCriticalPath
+                                                  fullPlanningPermissionSummaryOfCriticalPath: {
+                                                    type: 'string',
+                                                    title: 'Summary Of Full Planning Permission Critical Path',
+                                                    sourceKey: %i[baseline_data infrastructures fullPlanningStatus summaryOfCriticalPath],
+                                                    readonly: true
                                                   }
-                                                },
-                                                # from fullPlanningStatus.summaryOfCriticalPath
-                                                fullPlanningPermissionSummaryOfCriticalPath: {
-                                                  type: 'string',
-                                                  title: 'Summary Of Full Planning Permission Critical Path',
-                                                  sourceKey: %i[baseline_data infrastructures fullPlanningStatus summaryOfCriticalPath],
-                                                  readonly: true
                                                 }
                                               }
                                             }
-                                          }
-                                        ]
+                                          ]
+                                        }
                                       }
                                     }
                                   }
                                 },
-                                fullPlanningPermission: {
+                                section106: {
                                   title: 'Full Planning Permission',
                                   type: 'object',
                                   properties: {
@@ -513,96 +515,96 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                         enum: %w[Yes No]
                                       }
                                     }
-                                  }
-                                },
-                                dependencies: {
-                                  s106Requirement: {
-                                    oneOf: [
-                                      {
-                                        properties: {
-                                          s106Requirement: {
-                                            enum: ['No']
-                                          }
-                                        }
-                                        # If no s106 we do not need to show anything
-                                      },
-                                      {
-                                        properties: {
-                                          s106Requirement: {
-                                            enum: ['Yes']
-                                          }
-                                        },
-                                        # from s106.summaryOfRequirement
-                                        s106SummaryOfRequirement: {
-                                          type: 'string',
-                                          title: 'Summary of S016 Requirement ',
-                                          sourceKey: %i[baseline_data infrastructures s106 summaryOfRequirement],
-                                          readonly: true
-                                        },
-                                        # from statutoryConsents.anyConsents
-                                        statutoryConsents: {
-                                          type: 'object',
-                                          title: 'Statutory Consents',
+                                  },
+                                  dependencies: {
+                                    s106Requirement: {
+                                      oneOf: [
+                                        {
                                           properties: {
-                                            anyStatutoryConsents: {
-                                              type: 'string',
-                                              title: 'Statutory consents to be met?',
-                                              sourceKey: %i[baseline_data infrastructures statutoryConsents anyConsents],
-                                              readonly: true,
-                                              items: {
+                                            s106Requirement: {
+                                              enum: ['No']
+                                            }
+                                          }
+                                          # If no s106 we do not need to show anything
+                                        },
+                                        {
+                                          properties: {
+                                            s106Requirement: {
+                                              enum: ['Yes']
+                                            }
+                                          },
+                                          # from s106.summaryOfRequirement
+                                          s106SummaryOfRequirement: {
+                                            type: 'string',
+                                            title: 'Summary of S016 Requirement ',
+                                            sourceKey: %i[baseline_data infrastructures s106 summaryOfRequirement],
+                                            readonly: true
+                                          },
+                                          # from statutoryConsents.anyConsents
+                                          statutoryConsents: {
+                                            type: 'object',
+                                            title: 'Statutory Consents',
+                                            properties: {
+                                              anyStatutoryConsents: {
                                                 type: 'string',
-                                                enum: %w[Yes No]
-                                              }
-                                            },
-                                            statutoryConsents: {
-                                              title: 'Current Statutory Consents',
-                                              type: 'array',
-                                              addable: true,
-                                              items: {
-                                                type: 'object',
-                                                properties: {
-                                                  baselineCompletion: {
-                                                    title: 'Baseline completion',
-                                                    type: 'string',
-                                                    format: 'date'
-                                                  },
-                                                  varianceAgainstBaseline: {
-                                                    title: 'Variance against baseline (Calculated)',
-                                                    type: 'integer',
-                                                    readonly: true
-                                                  },
-                                                  varianceAgainstLastReturn: {
-                                                    title: 'Variance against last return (Calculated)',
-                                                    type: 'integer',
-                                                    readonly: true
-                                                  },
-                                                  statusAgainstLastReturn: status_against_last_return,
-                                                  currentReturn: {
-                                                    title: 'Current return',
-                                                    type: 'string',
-                                                    format: 'date'
-                                                  },
-                                                  varianceReason: {
-                                                    title: 'Reason for variance',
-                                                    type: 'string'
-                                                  },
-                                                  percentComplete: {
-                                                    title: 'Percentage complete',
-                                                    type: 'integer'
-                                                  },
-                                                  completionDate: {
-                                                    title: 'Completion date (Calculated)',
-                                                    type: 'string',
-                                                    format: 'date',
-                                                    readonly: true
+                                                title: 'Statutory consents to be met?',
+                                                sourceKey: %i[baseline_data infrastructures statutoryConsents anyConsents],
+                                                readonly: true,
+                                                items: {
+                                                  type: 'string',
+                                                  enum: %w[Yes No]
+                                                }
+                                              },
+                                              statutoryConsents: {
+                                                title: 'Current Statutory Consents',
+                                                type: 'array',
+                                                addable: true,
+                                                items: {
+                                                  type: 'object',
+                                                  properties: {
+                                                    baselineCompletion: {
+                                                      title: 'Baseline completion',
+                                                      type: 'string',
+                                                      format: 'date'
+                                                    },
+                                                    varianceAgainstBaseline: {
+                                                      title: 'Variance against baseline (Calculated)',
+                                                      type: 'integer',
+                                                      readonly: true
+                                                    },
+                                                    varianceAgainstLastReturn: {
+                                                      title: 'Variance against last return (Calculated)',
+                                                      type: 'integer',
+                                                      readonly: true
+                                                    },
+                                                    statusAgainstLastReturn: status_against_last_return,
+                                                    currentReturn: {
+                                                      title: 'Current return',
+                                                      type: 'string',
+                                                      format: 'date'
+                                                    },
+                                                    varianceReason: {
+                                                      title: 'Reason for variance',
+                                                      type: 'string'
+                                                    },
+                                                    percentComplete: {
+                                                      title: 'Percentage complete',
+                                                      type: 'integer'
+                                                    },
+                                                    completionDate: {
+                                                      title: 'Completion date (Calculated)',
+                                                      type: 'string',
+                                                      format: 'date',
+                                                      readonly: true
+                                                    }
                                                   }
                                                 }
                                               }
                                             }
                                           }
                                         }
-                                      }
-                                    ]
+                                      ]
+                                    }
                                   }
                                 }
                               }
