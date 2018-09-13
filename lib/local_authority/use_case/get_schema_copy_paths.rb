@@ -25,9 +25,8 @@ class LocalAuthority::UseCase::GetSchemaCopyPaths
       end
     end
 
-    template_schema[:dependencies]&.each do |property, value|
+    template_schema[:dependencies]&.each do |_property, value|
       value[:oneOf].each do |item|
-        p item
         paths += descend_object(item, current_path)
       end
     end
