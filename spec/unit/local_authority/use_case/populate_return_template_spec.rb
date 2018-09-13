@@ -563,4 +563,55 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
       expect(result).to eq(populated_data: {cat: "tom"})
     end
   end
+
+  context 'creating a return with a path in a dependency in an array' do
+    let(:template_schema) do
+      {
+        type: 'object',
+        properties: {
+          top: {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: {
+
+              },
+              dependencies:
+              {
+                cats:
+                {
+                  oneOf: [
+                    type: 'object',
+                    properties: {
+                      name: {
+                        sourceKey: [:baseline_data, :cats, :name]
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    end
+
+    let(:baseline_data) {  {cats: {name: "tom"}} }
+    let(:matching_baseline_data) { ["tom"] }
+    let(:return_data) { {} }
+
+    let(:copy_paths) do
+        {
+          paths:
+          [
+            {from: [:baseline_data, :cats, :name], to: [:top, :name]}
+          ]
+        }
+    end
+
+    it 'gives appropriate data' do
+      result = use_case.execute(type: 'hif', baseline_data: baseline_data, return_data: return_data)
+      expect(result).to eq(populated_data: {top: [{name: "tom"}]})
+    end
+  end
 end

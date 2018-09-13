@@ -37,9 +37,6 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
       copy_path_pair[:from]
     )[:found]
 
-    p path_types
-    p found_data, copy_path_pair[:to]
-
     descend_hash_and_bury(
       return_data,
       copy_path_pair[:to],
@@ -99,7 +96,7 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
         ensure_array_exists(hash, path)
         descend_array(hash, path, path_types, value)
       elsif node_is_object?(path_types)
-        ensure_hash_exists(hash,path)
+        ensure_hash_exists(hash, path)
         descend_hash(hash, path, path_types, value)
       end
       hash
@@ -109,22 +106,34 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
   def descend_array_and_bury(array, path, path_types, value)
     array = [] if array.nil?
     value.zip(array).map do |to_put, hash|
+
       hash = {} if hash.nil?
       descend_hash_and_bury(hash, path, path_types, to_put)
     end
   end
 
   def schema_types(schema, path)
-
     if schema.nil?
       #Maybe a good idea to replace this with a custom exception
       [:not_found]
     elsif path.empty?
       [:object]
     elsif schema[:type] == 'array'
-      # This is failing because it isn't going to find the path because it only descends on properties not on dependencies stuff, we need to
-      # begin on properties and then rescue with the other thingy
-      [:array] + schema_types(schema[:items][:properties][path[0]], path.drop(1))
+      acquired_path = [:not_found]
+
+      unless schema.dig(:items, :properties, path[0]).nil?
+        acquired_path = [:array] + schema_types(schema[:items][:properties][path[0]], path.drop(1))
+      end
+
+      if !schema[:items][:dependencies].nil? && acquired_path[-1] == :not_found
+        schema[:items][:dependencies].each do |_key, value|
+          value[:oneOf].each do |possibility|
+            acquired_path = [:array] + schema_types(possibility[:properties][path[0]], path.drop(1))
+          end
+        end
+      end
+      acquired_path
+
     elsif schema[:type] == 'object'
       acquired_path = [:not_found]
 
