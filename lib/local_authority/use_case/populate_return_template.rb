@@ -134,9 +134,7 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
 
       if hash_has_path(schema, [:items, :dependencies]) && path_not_found?(acquired_path)
         schema.dig(:items, :dependencies).values.each do |value|
-          value[:oneOf].each do |possibility|
-            acquired_path = [:array] + schema_types(possibility.dig(:properties, path[0]), path.drop(1))
-          end
+          acquired_path = [:array] + browse_possible_states(value, path)
         end
       end
       acquired_path
@@ -150,9 +148,7 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
 
       if hash_has_path(schema, [:dependencies]) && path_not_found?(acquired_path)
         schema[:dependencies].values.each do |value|
-          value[:oneOf].each do |possibility|
-            acquired_path = schema_types(possibility.dig(:properties, path[0]), path.drop(1))
-          end
+          acquired_path = browse_possible_states(value, path)
         end
       end
 
@@ -162,5 +158,12 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
         [:object] + acquired_path
       end
     end
+  end
+
+  def browse_possible_states(schema, path)
+    possibilities = schema[:oneOf].map do |possibility|
+      schema_types(possibility.dig(:properties, path[0]), path.drop(1))
+    end
+    possibilities.last
   end
 end
