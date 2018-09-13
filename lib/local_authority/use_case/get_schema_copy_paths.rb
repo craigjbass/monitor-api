@@ -12,7 +12,7 @@ class LocalAuthority::UseCase::GetSchemaCopyPaths
 
   def descend_object(template_schema, current_path = [])
     paths = []
-    template_schema[:properties].each do |property,value|
+    template_schema[:properties].each do |property, value|
       node_path = current_path + [property]
       if value[:type] == 'object'
         paths += descend_object(value, node_path)
@@ -22,6 +22,12 @@ class LocalAuthority::UseCase::GetSchemaCopyPaths
 
       unless value[:sourceKey].nil?
         paths << { to: node_path, from: value[:sourceKey] }
+      end
+    end
+
+    template_schema[:dependencies]&.each do |_property, value|
+      value[:oneOf].each do |item|
+        paths += descend_object(item, current_path)
       end
     end
     paths
