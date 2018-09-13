@@ -56,10 +56,7 @@ class LocalAuthority::UseCase::ValidateReturn
   end
 
   def get_paths_from_error_messages(schema, return_data)
-    validation_messages = JSON::Validator.fully_validate(
-      schema.schema.to_json,
-      return_data
-    )
+    validation_messages = schema.validate(return_data)
 
     validation_messages.map do |message|
       properties = message_get_json_properties(message)
