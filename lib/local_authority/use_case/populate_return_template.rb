@@ -112,23 +112,30 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
     end
   end
 
+  def path_not_found?(path)
+    path[-1] == :not_found
+  end
+
+  def hash_has_path(hash, path)
+    hash.dig(*path).nil? != true
+  end
+
   def schema_types(schema, path)
     if schema.nil?
-      #Maybe a good idea to replace this with a custom exception
       [:not_found]
     elsif path.empty?
       [:object]
     elsif schema[:type] == 'array'
       acquired_path = [:not_found]
 
-      unless schema.dig(:items, :properties, path[0]).nil?
-        acquired_path = [:array] + schema_types(schema[:items][:properties][path[0]], path.drop(1))
+      if hash_has_path(schema, [:items, :properties, path[0]])
+        acquired_path = [:array] + schema_types(schema.dig(:items, :properties, path[0]), path.drop(1))
       end
 
-      if !schema[:items][:dependencies].nil? && acquired_path[-1] == :not_found
-        schema[:items][:dependencies].each do |_key, value|
+      if hash_has_path(schema, [:items, :dependencies]) && path_not_found?(acquired_path)
+        schema.dig(:items, :dependencies).values.each do |value|
           value[:oneOf].each do |possibility|
-            acquired_path = [:array] + schema_types(possibility[:properties][path[0]], path.drop(1))
+            acquired_path = [:array] + schema_types(possibility.dig(:properties, path[0]), path.drop(1))
           end
         end
       end
@@ -137,14 +144,14 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
     elsif schema[:type] == 'object'
       acquired_path = [:not_found]
 
-      unless schema.dig(:properties, path[0]).nil?
+      if hash_has_path(schema, [:properties, path[0]])
         acquired_path = schema_types(schema[:properties][path[0]], path.drop(1))
       end
-      # If our initial attempt to acquire a path from properties failed look for it under dependencies
-      if !schema[:dependencies].nil? && acquired_path[-1] == :not_found
-        schema[:dependencies].each do |_key, value|
+
+      if hash_has_path(schema, [:dependencies]) && path_not_found?(acquired_path)
+        schema[:dependencies].values.each do |value|
           value[:oneOf].each do |possibility|
-            acquired_path = schema_types(possibility[:properties][path[0]], path.drop(1))
+            acquired_path = schema_types(possibility.dig(:properties, path[0]), path.drop(1))
           end
         end
       end

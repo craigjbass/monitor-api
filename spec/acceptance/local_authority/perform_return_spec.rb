@@ -194,12 +194,9 @@ describe 'Performing Return on HIF Project' do
     project_id
   end
 
-  it 'should keep track of Returns', :focus do
+  it 'should keep track of Returns' do
     base_return = get_use_case(:get_base_return).execute(project_id: project_id)
-    pp "Real:"
-    pp base_return[:base_return][:data]
-    pp "Expected:"
-    pp expected_base_return
+
     expect(base_return[:base_return][:data]).to eq(expected_base_return)
 
     initial_return = {
