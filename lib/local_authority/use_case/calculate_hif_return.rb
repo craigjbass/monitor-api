@@ -54,18 +54,19 @@ class LocalAuthority::UseCase::CalculateHIFReturn
       :planningNotGranted,
       :fieldOne,
       :returnInput,
-      :currentReturn)
+      :currentReturn
+    )
   end
 
   def update_variance_last_return_full_planning_permission_submitted(return_data, infrastructure_index, value)
-    return_data[:infrastructures][
-      infrastructure_index][
-      :planning][
-      :planningNotGranted][
-      :fieldOne][
-      :varianceCalculations][
-      :varianceAgainstLastReturn][
-      :varianceLastReturnFullPlanningPermissionSubmitted] = value
+    return_data[:infrastructures]\
+      [infrastructure_index]\
+      [:planning]\
+      [:planningNotGranted]\
+      [:fieldOne]\
+      [:varianceCalculations]\
+      [:varianceAgainstLastReturn]\
+      [:varianceLastReturnFullPlanningPermissionSubmitted] = value
   end
 
   def week_difference(date_as_string_one:, date_as_string_two:)
