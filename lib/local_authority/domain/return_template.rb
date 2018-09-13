@@ -2,11 +2,9 @@ class LocalAuthority::Domain::ReturnTemplate
   attr_accessor :layout, :schema
 
   def invalid_paths(the_return)
-    paths = []
-    validation_messages_for(the_return).each do |message|
-      paths.push(message.invalid_path) if message.invalid_path?
-    end
-    paths = paths.compact
+    messages = validation_messages_for(the_return)
+
+    paths = messages.map { |m| m.invalid_path? ? m.invalid_path : nil }.compact
 
     paths || []
   end
@@ -27,8 +25,8 @@ class LocalAuthority::Domain::ReturnTemplate
       @messages = messages
     end
 
-    def each
-      @messages.each do |m|
+    def map
+      @messages.map do |m|
         yield ValidationMessage.new(m)
       end
     end
