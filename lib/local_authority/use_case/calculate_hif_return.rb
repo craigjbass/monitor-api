@@ -3,9 +3,11 @@ require 'date'
 
 class LocalAuthority::UseCase::CalculateHIFReturn
   using LocalAuthority::Refinement::HashDeepMerge
+  using LocalAuthority::Refinement::DeepCopy
 
   def execute(return_data_with_no_calculations:, previous_return:)
-    new_return_data = return_data_with_no_calculations
+    new_return_data = return_data_with_no_calculations.deep_copy
+
     new_return_data[:infrastructures] = [] if new_return_data[:infrastructures].nil?
 
     new_return_data[:infrastructures].each_with_index do |_value, i|
@@ -39,7 +41,7 @@ class LocalAuthority::UseCase::CalculateHIFReturn
     end
 
     {
-      calculated_return: return_data_with_no_calculations
+      calculated_return: new_return_data
     }
   end
 
