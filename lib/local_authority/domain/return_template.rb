@@ -38,6 +38,10 @@ class LocalAuthority::Domain::ReturnTemplate
     private
 
     def json_properties
+      @json_properties ||= parse_message
+    end
+
+    def parse_message
       ignore_json_property_root = %r{#/}
       capture_json_property = %r{([\w/]*)}
       ignore_until = /.*/
@@ -52,7 +56,7 @@ class LocalAuthority::Domain::ReturnTemplate
         '
       /x
 
-      @json_properties ||= @message.match(message_parse_regex)&.captures&.to_a&.reject(&:empty?)
+      @message.match(message_parse_regex)&.captures&.to_a&.reject(&:empty?)
     end
 
     def json_property_name_to_path(property)
