@@ -161,9 +161,7 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
   end
 
   def browse_possible_states(schema, path)
-    possibilities = schema[:oneOf].map do |possibility|
-      schema_types(possibility.dig(:properties, path[0]), path.drop(1))
-    end
-    possibilities.last
+    # This will break if the dependency we're searching for is in anything other than the last
+    schema_types(schema[:oneOf].last.dig(:properties, path[0]), path.drop(1))
   end
 end
