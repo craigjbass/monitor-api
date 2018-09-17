@@ -533,10 +533,12 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
           cats:
           {
             oneOf: [
-              type: 'object',
-              properties: {
-                cat: {
-                  sourceKey: [:baseline_data, :cats, :name]
+              {
+                type: 'object',
+                properties: {
+                  cat: {
+                    sourceKey: [:baseline_data, :cats, :name]
+                  }
                 }
               }
             ]
@@ -581,10 +583,12 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
                 cats:
                 {
                   oneOf: [
-                    type: 'object',
-                    properties: {
-                      name: {
-                        sourceKey: [:baseline_data, :cats, :name]
+                    {
+                      type: 'object',
+                      properties: {
+                        name: {
+                          sourceKey: [:baseline_data, :cats, :name]
+                        }
                       }
                     }
                   ]
@@ -601,17 +605,75 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
     let(:return_data) { {} }
 
     let(:copy_paths) do
-        {
-          paths:
-          [
-            {from: [:baseline_data, :cats, :name], to: [:top, :name]}
-          ]
-        }
+      {
+        paths:
+        [
+          {from: [:baseline_data, :cats, :name], to: [:top, :name]}
+        ]
+      }
     end
 
     it 'gives appropriate data' do
       result = use_case.execute(type: 'hif', baseline_data: baseline_data, return_data: return_data)
       expect(result).to eq(populated_data: {top: [{name: "tom"}]})
+    end
+  end
+
+  context 'given a schema with multiple states' do
+    let(:template_schema) do
+      {
+        type: 'object',
+        properties: {
+          top: {
+            type: 'object',
+            properties: {
+
+            },
+            dependencies:
+            {
+              dogs:
+              {
+                oneOf: [
+                  {
+                    type: 'object',
+                    properties: {
+                      name: {
+                        sourceKey: [:baseline_data, :dogs, :name]
+                      }
+                    }
+                  },
+                  {
+                    type: 'object',
+                    properties: {
+                      breed: {
+                        type: 'string'
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    end
+
+    let(:baseline_data) {  {dogs: {name: "tom"}} }
+    let(:matching_baseline_data) { "tom" }
+    let(:return_data) { {} }
+
+    let(:copy_paths) do
+      {
+        paths:
+        [
+          {from: [:baseline_data, :dogs, :name], to: [:top, :name]}
+        ]
+      }
+    end
+
+    it 'gives appropriate data' do
+      result = use_case.execute(type: 'hif', baseline_data: baseline_data, return_data: return_data)
+      expect(result).to eq(populated_data: {top: {name: "tom"}})
     end
   end
 end
