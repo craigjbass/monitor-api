@@ -7,7 +7,7 @@
       },
       "planning": {
         "outlinePlanning": {
-          "baselineOutlinePlanningPermissionGranted": "Yes",
+          "baselineOutlinePlanningPermissionGranted": "No",
           "baselineSummaryOfCriticalPath": "Summary of critical path",
           "planningSubmitted": {
             "baselineSubmitted": "2020-01-01"
