@@ -6,29 +6,27 @@
         "description": "A house of cats"
       },
       "planning": {
-        "baselineOutlinePlanningPermissionGranted": "Yes",
-        "planningNotGranted": {
+        "outlinePlanning": {
+          "baselineOutlinePlanningPermissionGranted": "Yes",
           "baselineSummaryOfCriticalPath": "Summary of critical path",
-          "outlinePlanning": {
-            "submitted": {
-              "baselineFullPlanningPermissionSubmitted": "2020-01-01"
-            },
-            "granted": {
-              "baselineFullPlanningPermissionGranted": "2020-01-01"
-            },
-            "fullPlanningPermissionGranted": "No",
-            "fullPlanningPermissionSummaryOfCriticalPath": "Summary of critical path"
+          "planningSubmitted": {
+            "baselineSubmitted": "2020-01-01"
           },
-          "fullPlanning": {
-            "submitted": {
-              "baselineFullPlanningPermissionSubmitted": "2020-01-01"
-            },
-            "granted": {
-              "baselineFullPlanningPermissionGranted": "2020-01-01"
-            },
-            "fullPlanningPermissionGranted": "No",
-            "fullPlanningPermissionSummaryOfCriticalPath": "Summary of critical path"
+          "planningGranted": {
+            "baselineGranted": "2020-01-01"
+          }
+        },
+        "fullPlanning": {
+          "fullPlanningPermissionGranted": "No",
+          "fullPlanningPermissionSummaryOfCriticalPath": "Summary of critical path",
+          "submitted": {
+            "baselineFullPlanningPermissionSubmitted": "2020-01-01"
           },
+          "granted": {
+            "baselineFullPlanningPermissionGranted": "2020-01-01"
+          }
+        },
+        "section106": {
           "s106Requirement": "Yes",
           "s106SummaryOfRequirement": "Required",
           "statutoryConsents": {
@@ -40,9 +38,7 @@
         "laHasControlOfSite": "Yes",
         "laDoesNotControlSite": {
           "whoOwnsSite": "Dave",
-          "landAquisitionRequired": "Yes"
-        },
-        "laDoesHaveControlOfSite": {
+          "landAcquisitionRequired": "Yes",
           "howManySitesToAquire": 10,
           "toBeAquiredBy": "Dave",
           "summaryOfAcquisitionRequired": "Summary of critical path",
@@ -54,9 +50,8 @@
       "procurement": {
         "contractorProcured": "Yes",
         "infrastructureNotProcured": {
-          "infraStructureContractorProcurement": {
-            "procurementBaselineCompletion": "2020-01-01"
-          }
+          "summaryOfCriticalPath": "Summary of critical meow",
+          "procurementBaselineCompletion": "2020-01-01"
         },
         "infrastructureProcured": {
           "nameOfContractor": "Dave"

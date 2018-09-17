@@ -438,7 +438,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
         {
           paths:
           [
-            {from: [:return_data, :cat], to: [:cat]}
+            {from: [:return_data, :cat], to: [:noise]}
           ]
         }
     end
@@ -447,7 +447,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
 
     it 'is a simple return' do
       result = use_case.execute(type: 'hif', baseline_data: baseline_data, return_data: return_data)
-      expect(result).to eq(populated_data: { cat: "Meow" })
+      expect(result).to eq(populated_data: { noise: "Meow" })
     end
   end
 
@@ -496,7 +496,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
               type: 'object',
               properties: {
                 cat: {
-                  sourceKey: [:return_data, :cats, :name]
+                  sourceKey: [:baseline_data, :cats, :name]
                 }
               }
             }
@@ -505,8 +505,9 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
       }
     end
 
-    let(:baseline_data) { {} }
-    let(:return_data) { {cats: []} }
+    let(:matching_baseline_data) { "Meow" }
+    let(:baseline_data) { {cats: [{name: "Meow"}]} }
+    let(:return_data) { {} }
 
     let(:copy_paths) do
         {
@@ -520,6 +521,159 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
     it 'gives an empty populated_data' do
       result = use_case.execute(type: 'hif', baseline_data: baseline_data, return_data: return_data)
       expect(result).to eq(populated_data: {cats: []})
+    end
+  end
+
+  context 'creating a return with a path in a dependency' do
+    let(:template_schema) do
+      {
+        type: 'object',
+        dependencies:
+        {
+          cats:
+          {
+            oneOf: [
+              {
+                type: 'object',
+                properties: {
+                  cat: {
+                    sourceKey: [:baseline_data, :cats, :name]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    end
+
+    let(:baseline_data) { {cats: {name: "tom"}} }
+    let(:matching_baseline_data) { "tom" }
+    let(:return_data) { {} }
+
+    let(:copy_paths) do
+        {
+          paths:
+          [
+            {from: [:return_data, :cats, :name], to: [:cat]}
+          ]
+        }
+    end
+
+    it 'gives an empty populated_data' do
+      result = use_case.execute(type: 'hif', baseline_data: baseline_data, return_data: return_data)
+      expect(result).to eq(populated_data: {cat: "tom"})
+    end
+  end
+
+  context 'creating a return with a path in a dependency in an array' do
+    let(:template_schema) do
+      {
+        type: 'object',
+        properties: {
+          top: {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: {
+
+              },
+              dependencies:
+              {
+                cats:
+                {
+                  oneOf: [
+                    {
+                      type: 'object',
+                      properties: {
+                        name: {
+                          sourceKey: [:baseline_data, :cats, :name]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    end
+
+    let(:baseline_data) {  {cats: {name: "tom"}} }
+    let(:matching_baseline_data) { ["tom"] }
+    let(:return_data) { {} }
+
+    let(:copy_paths) do
+      {
+        paths:
+        [
+          {from: [:baseline_data, :cats, :name], to: [:top, :name]}
+        ]
+      }
+    end
+
+    it 'gives appropriate data' do
+      result = use_case.execute(type: 'hif', baseline_data: baseline_data, return_data: return_data)
+      expect(result).to eq(populated_data: {top: [{name: "tom"}]})
+    end
+  end
+
+  context 'given a schema with multiple states' do
+    let(:template_schema) do
+      {
+        type: 'object',
+        properties: {
+          top: {
+            type: 'object',
+            properties: {
+
+            },
+            dependencies:
+            {
+              dogs:
+              {
+                oneOf: [
+                  {
+                    type: 'object',
+                    properties: {
+                      name: {
+                        sourceKey: [:baseline_data, :dogs, :name]
+                      }
+                    }
+                  },
+                  {
+                    type: 'object',
+                    properties: {
+                      breed: {
+                        type: 'string'
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    end
+
+    let(:baseline_data) {  {dogs: {name: "tom"}} }
+    let(:matching_baseline_data) { "tom" }
+    let(:return_data) { {} }
+
+    let(:copy_paths) do
+      {
+        paths:
+        [
+          {from: [:baseline_data, :dogs, :name], to: [:top, :name]}
+        ]
+      }
+    end
+
+    it 'gives appropriate data' do
+      result = use_case.execute(type: 'hif', baseline_data: baseline_data, return_data: return_data)
+      expect(result).to eq(populated_data: {top: {name: "tom"}})
     end
   end
 end

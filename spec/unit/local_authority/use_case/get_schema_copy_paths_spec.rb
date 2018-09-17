@@ -1,4 +1,6 @@
-#Gets the source and destination paths to transfer the field given a schema
+# frozen_string_literal: true
+
+# Gets the source and destination paths to transfer the field given a schema
 describe LocalAuthority::UseCase::GetSchemaCopyPaths do
   let(:template_gateway) { spy(find_by: spy(schema: template_schema)) }
   let(:use_case) { described_class.new(template_gateway: template_gateway).execute(type: '') }
@@ -36,7 +38,7 @@ describe LocalAuthority::UseCase::GetSchemaCopyPaths do
         }
       end
       it 'gets paths' do
-        expect(use_case).to eq(paths: [{to: [:sounds], from: [:dogs]}])
+        expect(use_case).to eq(paths: [{ to: [:sounds], from: [:dogs] }])
       end
     end
   end
@@ -60,10 +62,10 @@ describe LocalAuthority::UseCase::GetSchemaCopyPaths do
     end
     it 'gets paths' do
       expect(use_case).to eq(paths: [
-        { to: [:catNoise], from: [:cats] },
-        { to: [:dogNoise], from: [:dogs] },
-        { to: [:cowNoise], from: [:cows] },
-        ])
+                               { to: [:catNoise], from: [:cats] },
+                               { to: [:dogNoise], from: [:dogs] },
+                               { to: [:cowNoise], from: [:cows] }
+                             ])
     end
   end
 
@@ -85,9 +87,9 @@ describe LocalAuthority::UseCase::GetSchemaCopyPaths do
     end
     it 'gets paths' do
       expect(use_case).to eq(paths: [
-        { to: [:catNoise], from: [:cats] },
-        { to: [:cowNoise], from: [:cows] },
-        ])
+                               { to: [:catNoise], from: [:cats] },
+                               { to: [:cowNoise], from: [:cows] }
+                             ])
     end
   end
 
@@ -110,8 +112,8 @@ describe LocalAuthority::UseCase::GetSchemaCopyPaths do
 
     it 'gets paths' do
       expect(use_case).to eq(paths: [
-        { to: [:cat,:breed], from: [:breed] },
-        ])
+                               { to: %i[cat breed], from: [:breed] }
+                             ])
     end
   end
 
@@ -147,9 +149,9 @@ describe LocalAuthority::UseCase::GetSchemaCopyPaths do
 
     it 'gets paths' do
       expect(use_case).to eq(paths: [
-        { to: [:cat,:parentA, :breed], from: [:parentA] },
-        { to: [:cat,:parentB, :breed], from: [:parentB] },
-        ])
+                               { to: %i[cat parentA breed], from: [:parentA] },
+                               { to: %i[cat parentB breed], from: [:parentB] }
+                             ])
     end
   end
 
@@ -178,8 +180,121 @@ describe LocalAuthority::UseCase::GetSchemaCopyPaths do
 
     it 'gets paths' do
       expect(use_case).to eq(paths: [
-        { to: [:parents,:breed], from: [:breed] },
-        ])
+                               { to: %i[parents breed], from: [:breed] }
+                             ])
+    end
+  end
+
+  context 'schema within dependencies' do
+    let(:template_schema) do
+      {
+        type: 'object',
+        properties:
+          {
+            cows:
+              {
+                type: 'string',
+                enum: %w[
+                  Yes
+                  No
+                ]
+              }
+          },
+        dependencies: {
+          cows: {
+            oneOf: [
+              {
+                properties: {
+                  cows: {
+                    enum: ['Yes']
+                  },
+                  optionA:
+                    {
+                      sourceKey: [:cats]
+                    }
+                }
+              },
+              {
+                properties: {
+                  cows: {
+                    enum: ['No']
+                  },
+                  optionB:
+                    {
+                      sourceKey: [:dogs]
+                    }
+                }
+              }
+            ]
+          }
+        }
+      }
+    end
+
+    it 'gets paths' do
+      expect(use_case).to eq(paths: [
+                               { to: %i[optionA], from: [:cats] },
+                               { to: %i[optionB], from: [:dogs] }
+                             ])
+    end
+  end
+
+  context 'schema within nested dependencies' do
+    let(:template_schema) do
+      {
+        type: 'object',
+        properties:
+          {
+            cows:
+              {
+                type: 'string',
+                enum: %w[
+                  Yes
+                  No
+                ]
+              }
+          },
+        dependencies: {
+          cows: {
+            oneOf: [
+              {
+                properties: {
+                  cows: {
+                    enum: ['Yes']
+                  },
+                  optionA:
+                  {
+                    sourceKey: [:cats]
+                  }
+                }
+              },
+              {
+                properties: {
+                  cows: {
+                    enum: ['No']
+                  },
+                  optionB:
+                  {
+                    type: 'object',
+                    properties: {
+                      woof: {
+                        sourceKey: [:dogs]
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    end
+
+    it 'gets paths' do
+      expect(use_case).to eq(paths: [
+                               { to: %i[optionA], from: [:cats] },
+                               { to: %i[optionB woof], from: [:dogs] }
+                             ])
     end
   end
 end
