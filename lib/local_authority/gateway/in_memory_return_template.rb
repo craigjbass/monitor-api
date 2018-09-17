@@ -181,6 +181,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   }
                                 },
                               }
+                            },
+                            {
+                              properties: {
+                                baselineOutlinePlanningPermissionGranted: {
+                                  enum: ['Yes']
+                                }
+                              }
                             }
                           ]
                         }
@@ -424,6 +431,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   }
                                 }
                               }
+                            },
+                            {
+                              properties: {
+                                s106Requirement: {
+                                  enum: ['No']
+                                }
+                              }
                             }
                           ]
                         }
@@ -558,10 +572,24 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                           }
                                         }
                                       }
+                                    },
+                                    {
+                                      properties: {
+                                        landAcquisitionRequired: {
+                                          enum: ['No']
+                                        }
+                                      }
                                     }
                                   ]
                                 }
                               }
+                            }
+                          }
+                        },
+                        {
+                          properties: {
+                            laHasControlOfSite: {
+                              enum: ['Yes']
                             }
                           }
                         }

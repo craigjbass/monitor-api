@@ -49,7 +49,7 @@ describe 'Performing Return on HIF Project' do
           description: 'A house of cats',
 
           outlinePlanningStatus: {
-            granted: 'Yes',
+            granted: 'No',
             grantedReference: 'The Dogs',
             targetSubmission: '2020-01-01',
             targetGranted: '2020-01-01',
