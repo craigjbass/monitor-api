@@ -83,7 +83,7 @@ describe 'Performing Return on HIF Project' do
               contractorProcured: 'Yes',
               nameOfContractor: 'Dave',
               targetDateToAquire: '2020-01-01',
-              summaryOfCriticalPath: 'Summary of critical path'
+              summaryOfCriticalPath: 'Summary of critical meow'
             }
           },
           milestones: [
@@ -196,9 +196,6 @@ describe 'Performing Return on HIF Project' do
 
   it 'should keep track of Returns' do
     base_return = get_use_case(:get_base_return).execute(project_id: project_id)
-    a =  base_return[:base_return][:data]
-    e =  expected_base_return
-    binding.pry
     expect(base_return[:base_return][:data]).to eq(expected_base_return)
 
     initial_return = {

@@ -50,9 +50,8 @@
       "procurement": {
         "contractorProcured": "Yes",
         "infrastructureNotProcured": {
-          "infraStructureContractorProcurement": {
-            "procurementBaselineCompletion": "2020-01-01"
-          }
+          "summaryOfCriticalPath": "Summary of critical meow",
+          "procurementBaselineCompletion": "2020-01-01"
         },
         "infrastructureProcured": {
           "nameOfContractor": "Dave"
