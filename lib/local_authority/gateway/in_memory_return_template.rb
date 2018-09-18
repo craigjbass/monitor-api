@@ -82,11 +82,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                     varianceBaselineFullPlanningPermissionSubmitted: {
                                       type: 'integer',
                                       readonly: true,
+                                      hidden: true,
                                       title: 'Variance against Baseline submitted date (Week) (Calculated)'
                                     },
                                     varianceLastReturnFullPlanningPermissionSubmitted: {
                                       type: 'integer',
                                       readonly: true,
+                                      hidden: true,
                                       title: 'Variance against Last Return submitted date (Week) (Calculated)'
                                     },
                                     statusAgainstLastReturn: {
@@ -117,11 +119,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       type: 'string',
                                       format: 'date',
                                       readonly: true,
+                                      hidden: true,
                                       title: 'Completed date (Calculated)'
                                     },
                                     onCompletedReference: {
                                       type: 'string',
                                       readonly: true,
+                                      hidden: true,
                                       title: 'Completed Reference (Calculated)'
                                     }
                                   }
@@ -141,11 +145,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                     varianceBaselineFullPlanningPermissionGranted: {
                                       type: 'integer',
                                       readonly: true,
+                                      hidden: true,
                                       title: 'Variance against Baseline granted date (Weeks) (Calculated)'
                                     },
                                     varianceLastReturnFullPlanningPermissionGranted: {
                                       type: 'integer',
                                       readonly: true,
+                                      hidden: true,
                                       title: 'Variance against Last Return granted date (Weeks) (Calculated)'
                                     },
                                     statusAgainstLastReturn: {
@@ -176,6 +182,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       type: 'string',
                                       format: 'date',
                                       readonly: true,
+                                      hidden: true,
                                       title: 'Completed date (Calculated)'
                                     }
                                   }
@@ -234,11 +241,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                     varianceBaselineFullPlanningPermissionSubmitted: {
                                       type: 'integer',
                                       readonly: true,
+                                      hidden: true,
                                       title: 'Variance against Baseline submitted date (Week) (Calculated)'
                                     },
                                     varianceLastReturnFullPlanningPermissionSubmitted: {
                                       type: 'integer',
                                       readonly: true,
+                                      hidden: true,
                                       title: 'Variance against Last Return submitted date (Week) (Calculated)'
                                     },
                                     statusAgainstLastReturn: {
@@ -269,11 +278,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       type: 'string',
                                       format: 'date',
                                       readonly: true,
+                                      hidden: true,
                                       title: 'Completed date (Calculated)'
                                     },
                                     onCompletedReference: {
                                       type: 'string',
                                       readonly: true,
+                                      hidden: true,
                                       title: 'Completed Reference (Calculated)'
                                     }
                                   }
@@ -293,11 +304,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                     varianceBaselineFullPlanningPermissionGranted: {
                                       type: 'integer',
                                       readonly: true,
+                                      hidden: true,
                                       title: 'Variance against Baseline granted date (Weeks) (Calculated)'
                                     },
                                     varianceLastReturnFullPlanningPermissionGranted: {
                                       type: 'integer',
                                       readonly: true,
+                                      hidden: true,
                                       title: 'Variance against Last Return granted date (Weeks) (Calculated)'
                                     },
                                     statusAgainstLastReturn: {
@@ -328,6 +341,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       type: 'string',
                                       format: 'date',
                                       readonly: true,
+                                      hidden: true,
                                       title: 'Completed date (Calculated)'
                                     }
                                   }
@@ -396,11 +410,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                             format: 'date'
                                           },
                                           varianceAgainstBaseline: {
+                                            hidden: true,
                                             title: 'Variance against baseline (Calculated)',
                                             type: 'integer',
                                             readonly: true
                                           },
                                           varianceAgainstLastReturn: {
+                                            hidden: true,
                                             title: 'Variance against last return (Calculated)',
                                             type: 'integer',
                                             readonly: true
@@ -420,6 +436,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                             type: 'integer'
                                           },
                                           completionDate: {
+                                            hidden: true,
                                             title: 'Completion date (Calculated)',
                                             type: 'string',
                                             format: 'date',
@@ -531,12 +548,14 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                             landAssemblyVarianceAgainstLastReturn: {
                                               type: 'string',
                                               readonly: true,
+                                              hidden: true,
                                               title: 'Variance Against Last Return (Calculated)'
                                             },
                                             # To be calculated
                                             landAssemblyVarianceAgainstBaseReturn: {
                                               type: 'string',
                                               readonly: true,
+                                              hidden: true,
                                               title: 'Variance Against Base Return (Calculated)'
                                             },
                                             statusAgainstLastReturn: {
@@ -567,6 +586,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                               type: 'string',
                                               format: 'date',
                                               readonly: true,
+                                              hidden: true,
                                               title: 'On Completed date (Calculated)'
                                             }
                                           }
@@ -645,11 +665,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                         procurementVarianceAgainstLastReturn: {
                           type: 'string',
                           readonly: true,
+                          hidden: true,
                           title: 'Variance against last return (Calculated)'
                         },
                         procurementVarianceAgainstBaseline: {
                           type: 'string',
                           readonly: true,
+                          hidden: true,
                           title: 'Variance against baseline (Calculated)'
                         },
                         procurementStatusAgainstLastReturn: {
@@ -685,11 +707,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                         procurementCompletedDate: {
                           type: 'string',
                           readonly: true,
+                          hidden: true,
                           title: 'Completion Date (Calculated)'
                         },
                         procurementCompletedNameOfContractor: {
                           type: 'string',
                           readonly: true,
+                          hidden: true,
                           title: 'Completion Name of Contractor (Calculated)'
                         }
                       }
@@ -731,11 +755,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           milestoneVarianceAgainstLastReturn: {
                             type: 'string',
                             readonly: true,
+                            hidden: true,
                             title: 'Variance against last return (Calculated)'
                           },
                           milestoneVarianceAgainstBaseline: {
                             type: 'string',
                             readonly: true,
+                            hidden: true,
                             title: 'Variance against baseline (Calculated)'
                           },
                           statusAgainstLastReturn: status_against_last_return,
@@ -756,6 +782,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             type: 'string',
                             format: 'date',
                             readonly: true,
+                            hidden: true,
                             title: 'On Completed date (Calculated)'
                           }
                         }
@@ -818,11 +845,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           milestoneVarianceAgainstLastReturn: {
                             type: 'string',
                             readonly: true,
+                            hidden: true,
                             title: 'Variance against last return (Calculated)'
                           },
                           milestoneVarianceAgainstBaseline: {
                             type: 'string',
                             readonly: true,
+                            hidden: true,
                             title: 'Variance against baseline (Calculated)'
                           },
                           statusAgainstLastReturn: status_against_last_return,
@@ -843,6 +872,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             type: 'string',
                             format: 'date',
                             readonly: true,
+                            hidden: true,
                             title: 'On Completed date (Calculated)'
                           }
                         }
@@ -862,11 +892,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                         milestoneExpectedInfrastructureStartVarianceAgaistLastReturn: {
                           type: 'string',
                           readonly: true,
+                          hidden: true,
                           title: 'Variance against last return (Calculated)'
                         },
                         milestoneExpectedInfrastructureStartVarianceAgaistBaseline: {
                           type: 'string',
                           readonly: true,
+                          hidden: true,
                           title: 'Variance against baseline (Calculated)'
                         },
                         milestoneExpectedInfrastructureStartStatusAgainstLastReturn: {
@@ -899,6 +931,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           type: 'string',
                           format: 'date',
                           readonly: true,
+                          hidden: true,
                           title: 'On Completed date (Calculated)'
                         }
                       }
@@ -917,11 +950,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                         milestoneExpectedInfrastructureCompletionVarianceAgaistLastReturn: {
                           type: 'string',
                           readonly: true,
+                          hidden: true,
                           title: 'Variance against last return (Calculated)'
                         },
                         milestoneExpectedInfrastructureCompletionVarianceAgaistBaseline: {
                           type: 'string',
                           readonly: true,
+                          hidden: true,
                           title: 'Variance against baseline (Calculated)'
                         },
                         milestoneExpectedInfrastructureCompletionStatusAgainstLastReturn: {
@@ -954,6 +989,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           type: 'string',
                           format: 'date',
                           readonly: true,
+                          hidden: true,
                           title: 'On Completed date (Calculated)'
                         }
                       }
@@ -1018,6 +1054,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             type: 'string',
                             format: 'date',
                             readonly: true,
+                            hidden: true,
                             title: 'Risk met date (Calculated)'
                           }
                         }
@@ -1104,6 +1141,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             type: 'string',
                             format: 'date',
                             readonly: true,
+                            hidden: true,
                             title: 'Risk met date (Calculated)'
                           }
                         }
