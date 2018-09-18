@@ -159,7 +159,10 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
   end
 
   def get_path_types_from_array_last_dependency(path, schema)
-    [:array] + get_state_path(schema.dig(:items, :dependencies).values.last, path)
+    schema.dig(:items, :dependencies).values.each do |value|
+      path_types = get_state_path(value, path)
+      return [:array] + path_types if path_found?(path_types)
+    end
   end
 
   def array_has_item_dependencies?(schema)

@@ -901,4 +901,81 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
       expect(result).to eq(populated_data: { top: { name: 'Meow', breed: 'Tabby' } })
     end
   end
+
+  context 'creating a return with a path with multiple dependencies in an array' do
+    let(:template_schema) do
+      {
+        type: 'object',
+        properties: {
+          top: {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: {
+
+              },
+              dependencies:
+              {
+                cats:
+                {
+                  oneOf: [
+                    {
+                      type: 'object',
+                      properties: {
+                        name: {
+                          sourceKey: %i[baseline_data cats name]
+                        }
+                      }
+                    }
+                  ]
+                },
+                dogs:
+                {
+                  oneOf: [
+                    {
+                      type: 'object',
+                      properties: {
+                        breed: {
+                          sourceKey: %i[baseline_data cats breed]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    end
+
+    let(:baseline_data) { { cats: { name: 'tom' } } }
+    let(:find_path_data) do
+      Class.new do
+        def execute(_baseline_data, path)
+          if path == %i[baseline_data cats name]
+            { found: ['Timmy'] }
+          elsif path == %i[baseline_data cats breed]
+            { found: ['Tom'] }
+          end
+        end
+      end.new
+    end
+    let(:return_data) { {} }
+
+    let(:copy_paths) do
+      {
+        paths:
+        [
+          { from: %i[baseline_data cats name], to: %i[top name] },
+          { from: %i[baseline_data cats breed], to: %i[top breed] }
+        ]
+      }
+    end
+
+    it 'gives appropriate data' do
+      result = use_case.execute(type: 'hif', baseline_data: baseline_data, return_data: return_data)
+      expect(result).to eq(populated_data: { top: [{ name: 'Timmy', breed: 'Tom' }] })
+    end
+  end
 end
