@@ -202,7 +202,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     },
                     fullPlanning: {
                       type: 'object',
-                      title: 'Outline Planning',
+                      title: 'Full Planning',
                       properties: {
                         fullPlanningPermissionGranted: {
                           type: 'string',
