@@ -15,10 +15,9 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
   let(:get_schema_copy_paths) { spy(execute: copy_paths) }
   let(:use_case) do
     described_class.new(template_gateway: template_gateway,
-    find_path_data: find_path_data,
-    get_schema_copy_paths: get_schema_copy_paths)
+                        find_path_data: find_path_data,
+                        get_schema_copy_paths: get_schema_copy_paths)
   end
-
 
   context 'finds the template' do
     context 'example 1' do
@@ -31,11 +30,11 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
     context 'example 2' do
       it 'finds the correct template for the type' do
         baseline_data = {
-              names: [
-                { pet: 'Mrs Bark' },
-                { pet: 'Meow Meow Fuzzyface' }
-              ]
-            }
+          names: [
+            { pet: 'Mrs Bark' },
+            { pet: 'Meow Meow Fuzzyface' }
+          ]
+        }
         use_case.execute(type: 'cat', baseline_data: baseline_data)
         expect(template_gateway).to have_received(:find_by).with(type: 'cat')
       end
@@ -48,11 +47,11 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
 
       it 'finds the correct path' do
         baseline_data = {
-              names: [
-                { pet: 'Edgar' },
-                { pet: 'Barker barkington' }
-              ]
-            }
+          names: [
+            { pet: 'Edgar' },
+            { pet: 'Barker barkington' }
+          ]
+        }
 
         use_case.execute(type: 'cat', baseline_data: baseline_data)
         expect(get_schema_copy_paths).to have_received(:execute).with(type: 'cat')
@@ -64,11 +63,11 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
 
       it 'finds the correct path' do
         baseline_data = {
-              names: [
-                { pet: 'Mrs Bark' },
-                { pet: 'Meow Meow Fuzzyface' }
-              ]
-            }
+          names: [
+            { pet: 'Mrs Bark' },
+            { pet: 'Meow Meow Fuzzyface' }
+          ]
+        }
 
         use_case.execute(type: 'dog', baseline_data: baseline_data)
         expect(get_schema_copy_paths).to have_received(:execute).with(type: 'dog')
@@ -77,13 +76,13 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
   end
 
   context 'Given a single toplevel baseline key in the schema' do
-      let(:baseline_data) do
-        {
-          cats: "Meow"
-        }
-      end
+    let(:baseline_data) do
+      {
+        cats: 'Meow'
+      }
+    end
 
-      let(:template_schema) do
+    let(:template_schema) do
       {
         submissionEstimated: 'baseline data to be copied',
         type: 'object',
@@ -92,31 +91,31 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
         {
           noise:
           {
-            sourceKey: [:baseline_data, :cats]
+            sourceKey: %i[baseline_data cats]
           }
         }
       }
     end
 
-    let(:matching_baseline_data) { "Meow" }
+    let(:matching_baseline_data) { 'Meow' }
     let(:copy_paths) { { paths: [{ from: [:cats], to: [:noise] }] } }
 
     it 'populates a simple template' do
       result = use_case.execute(type: 'hif', baseline_data: baseline_data)
-      expect(result).to eq(populated_data: { noise: "Meow" })
+      expect(result).to eq(populated_data: { noise: 'Meow' })
     end
   end
 
   context 'Given a single multilevel baseline key in the schema' do
-      let(:baseline_data) do
-        {
-          cats: {
-            sound: "Meow"
-          }
+    let(:baseline_data) do
+      {
+        cats: {
+          sound: 'Meow'
         }
-      end
+      }
+    end
 
-      let(:template_schema) do
+    let(:template_schema) do
       {
         submissionEstimated: 'baseline data to be copied',
         type: 'object',
@@ -125,32 +124,32 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
         {
           noise:
           {
-            sourceKey: [:baseline_data, :cats, :sound]
+            sourceKey: %i[baseline_data cats sound]
           }
         }
       }
     end
 
-    let(:matching_baseline_data) { "Meow" }
-    let(:copy_paths) { { paths: [{from: [:cats, :sound], to: [:noise]}] } }
+    let(:matching_baseline_data) { 'Meow' }
+    let(:copy_paths) { { paths: [{ from: %i[cats sound], to: [:noise] }] } }
 
     it 'populates a simple template' do
       result = use_case.execute(type: 'hif', baseline_data: baseline_data)
-      expect(result).to eq({ populated_data: {noise: "Meow" } })
+      expect(result).to eq(populated_data: { noise: 'Meow' })
     end
   end
 
   context 'given a return with multiple properties on one level in an array' do
-      let(:baseline_data) do
-        {
-          cats: {
-            sound: "Meow",
-            breed: "Tabby"
-          }
+    let(:baseline_data) do
+      {
+        cats: {
+          sound: 'Meow',
+          breed: 'Tabby'
         }
-      end
+      }
+    end
 
-      let(:template_schema) do
+    let(:template_schema) do
       {
         type: 'object',
         properties:
@@ -165,11 +164,11 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
               {
                 noise:
                 {
-                  sourceKey: [:baseline_data, :cats, :sound]
+                  sourceKey: %i[baseline_data cats sound]
                 },
                 breed:
                 {
-                  sourceKey: [:baseline_data, :cats, :breed]
+                  sourceKey: %i[baseline_data cats breed]
                 }
               }
             }
@@ -181,35 +180,37 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
 
     let(:find_path_data) do
       Class.new do
-        def execute(baseline_data, path)
-          if path == [:cats, :sound]
-            { found: ["Meow"] }
-          elsif path == [:cats, :breed]
-            {found: ["Tabby"] }
+        def execute(_baseline_data, path)
+          if path == %i[cats sound]
+            { found: ['Meow'] }
+          elsif path == %i[cats breed]
+            { found: ['Tabby'] }
           end
         end
       end.new
     end
 
-    let(:copy_paths) { { paths: [{from: [:cats, :sound], to: [:cat, :noise]},
-      {from: [:cats, :breed], to: [:cat,:breed]}] } }
+    let(:copy_paths) do
+      { paths: [{ from: %i[cats sound], to: %i[cat noise] },
+                { from: %i[cats breed], to: %i[cat breed] }] }
+    end
 
     it 'populates a simple template' do
       result = use_case.execute(type: 'hif', baseline_data: baseline_data)
-      expect(result).to eq({ populated_data: {cat: [{noise: 'Meow', breed: 'Tabby'}]}})
+      expect(result).to eq(populated_data: { cat: [{ noise: 'Meow', breed: 'Tabby' }] })
     end
   end
 
   context 'Given a single multilevel return with a baselineKey' do
-      let(:baseline_data) do
-        {
-          cats: {
-            sound: "Meow"
-          }
+    let(:baseline_data) do
+      {
+        cats: {
+          sound: 'Meow'
         }
-      end
+      }
+    end
 
-      let(:template_schema) do
+    let(:template_schema) do
       {
         submissionEstimated: 'baseline data to be copied',
         type: 'object',
@@ -222,7 +223,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
             properties:
             {
               cat: {
-                sourceKey: [:baseline_data, :cats, :sound]
+                sourceKey: %i[baseline_data cats sound]
               }
             }
           }
@@ -230,30 +231,30 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
       }
     end
 
-    let(:matching_baseline_data) { "Meow" }
-    let(:copy_paths) { { paths: [{from: [:cats, :sound], to: [:noise,:cat]}] } }
+    let(:matching_baseline_data) { 'Meow' }
+    let(:copy_paths) { { paths: [{ from: %i[cats sound], to: %i[noise cat] }] } }
 
     it 'populates a simple template' do
       result = use_case.execute(type: 'hif', baseline_data: baseline_data)
-      expect(result).to eq({ populated_data: { noise: { cat: "Meow" } }})
+      expect(result).to eq(populated_data: { noise: { cat: 'Meow' } })
     end
   end
 
   context 'Multiple single level keys in the schema' do
-      let(:baseline_data) do
+    let(:baseline_data) do
+      {
+        cats:
         {
-          cats:
-          {
-            sound: "Meow"
-          },
-          dogs:
-          {
-            sound: "Woof"
-          }
+          sound: 'Meow'
+        },
+        dogs:
+        {
+          sound: 'Woof'
         }
-      end
+      }
+    end
 
-      let(:template_schema) do
+    let(:template_schema) do
       {
         submissionEstimated: 'baseline data to be copied',
         type: 'object',
@@ -262,27 +263,29 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
         {
           cat:
           {
-            sourceKey: [:baseline_data, :cats, :sound]
+            sourceKey: %i[baseline_data cats sound]
           },
           dog:
           {
-            sourceKey: [:baseline_data, :dogs, :sound]
+            sourceKey: %i[baseline_data dogs sound]
           }
         }
       }
     end
-    let(:copy_paths) { { paths: [
-      {from: [:cats, :sound], to: [:cat]},
-      {from: [:dogs, :sound], to: [:dog]}
-    ] } }
+    let(:copy_paths) do
+      { paths: [
+        { from: %i[cats sound], to: [:cat] },
+        { from: %i[dogs sound], to: [:dog] }
+      ] }
+    end
 
     let(:find_path_data) do
       Class.new do
-        def execute(baseline_data, path)
-          if path == [:cats, :sound]
-            { found: "Meow" }
-          elsif path == [:dogs, :sound]
-            { found: "Woof" }
+        def execute(_baseline_data, path)
+          if path == %i[cats sound]
+            { found: 'Meow' }
+          elsif path == %i[dogs sound]
+            { found: 'Woof' }
           end
         end
       end.new
@@ -290,89 +293,90 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
 
     it 'populates a template' do
       result = use_case.execute(type: 'hif', baseline_data: baseline_data)
-      expect(result).to eq(populated_data: { cat: "Meow", dog: "Woof" })
+      expect(result).to eq(populated_data: { cat: 'Meow', dog: 'Woof' })
     end
   end
 
   context 'with an array' do
-      let(:baseline_data) do
-        {
-          cats: [
-            {sound: 'Meow'},
-            {sound: 'Nyan'}
-          ]
-        }
-      end
+    let(:baseline_data) do
+      {
+        cats: [
+          { sound: 'Meow' },
+          { sound: 'Nyan' }
+        ]
+      }
+    end
 
-      let(:template_schema) do
+    let(:template_schema) do
+      {
+        type: 'object',
+        properties:
         {
-          type: 'object',
-          properties:
+          kittens:
           {
-            kittens:
+            type: 'array',
+            items:
             {
-              type: 'array',
-              items:
+              type: 'object',
+              properties:
               {
-                type: 'object',
-                properties:
-                {
-                  noise: {
-                    sourceKey: [:baseline_data, :cats, :sound]
-                  }
+                noise: {
+                  sourceKey: %i[baseline_data cats sound]
                 }
               }
             }
           }
         }
-      end
-    let(:copy_paths) { { paths: [
-      {from: [:cats, :sound], to: [:kittens, :noise]}
-    ] } }
+      }
+    end
+    let(:copy_paths) do
+      { paths: [
+        { from: %i[cats sound], to: %i[kittens noise] }
+      ] }
+    end
 
-    let(:matching_baseline_data) { ["Meow","Nyan"] }
+    let(:matching_baseline_data) { %w[Meow Nyan] }
 
     it 'populates a single level template' do
       result = use_case.execute(type: 'hif', baseline_data: baseline_data)
-      expect(result).to eq({ populated_data: {kittens: [{noise: "Meow"}, {noise: "Nyan"}]}})
+      expect(result).to eq(populated_data: { kittens: [{ noise: 'Meow' }, { noise: 'Nyan' }] })
     end
   end
 
   context 'with a list in an array' do
-      let(:baseline_data) do
-        {
-          cats: [
-            {sound: 'Meow'},
-            {sound: 'Nyan'}
-          ]
-        }
-      end
+    let(:baseline_data) do
+      {
+        cats: [
+          { sound: 'Meow' },
+          { sound: 'Nyan' }
+        ]
+      }
+    end
 
-      let(:template_schema) do
+    let(:template_schema) do
+      {
+        type: 'object',
+        properties:
         {
-          type: 'object',
-          properties:
+          kittens:
           {
-            kittens:
+            type: 'array',
+            items:
             {
-              type: 'array',
-              items:
+              type: 'object',
+              properties:
               {
-                type: 'object',
-                properties:
+                noises:
                 {
-                  noises:
+                  type: 'array',
+                  items:
                   {
-                    type: 'array',
-                    items:
+                    type: 'object',
+                    properties:
                     {
-                      type: 'object',
-                      properties:
+                      sounds:
                       {
-                        sounds:
-                        {
-                          sourceKey: [:baseline_data, :cats, :sounds]
-                        }
+                        sourceKey: %i[baseline_data cats sounds]
                       }
                     }
                   }
@@ -381,35 +385,37 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
             }
           }
         }
-      end
-    let(:copy_paths) { { paths: [
-      {from: [:cats, :sounds], to: [:kittens, :noises, :sounds]}
-    ] } }
+      }
+    end
+    let(:copy_paths) do
+      { paths: [
+        { from: %i[cats sounds], to: %i[kittens noises sounds] }
+      ] }
+    end
 
-    let(:matching_baseline_data) { [["Meow","Nyan"],["Eow","Nya"]] }
+    let(:matching_baseline_data) { [%w[Meow Nyan], %w[Eow Nya]] }
 
     it 'populates a single level template' do
       result = use_case.execute(type: 'hif', baseline_data: baseline_data)
-      expect(result).to eq({ populated_data: {
-        kittens:
-        [
-          {
-            noises:
-            [
-              {sounds: "Meow"},
-              {sounds: "Nyan"}
-            ]
-          },
-          {
-            noises:
-            [
-              {sounds: "Eow"},
-              {sounds: "Nya"},
-            ]
-          }
-        ]
-      }}
-      )
+      expect(result).to eq(populated_data: {
+                             kittens:
+                             [
+                               {
+                                 noises:
+                                 [
+                                   { sounds: 'Meow' },
+                                   { sounds: 'Nyan' }
+                                 ]
+                               },
+                               {
+                                 noises:
+                                 [
+                                   { sounds: 'Eow' },
+                                   { sounds: 'Nya' }
+                                 ]
+                               }
+                             ]
+                           })
     end
   end
 
@@ -421,7 +427,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
         {
           noise:
           {
-            sourceKey: [:return_data, :cat]
+            sourceKey: %i[return_data cat]
           }
         }
       }
@@ -430,24 +436,24 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
     let(:baseline_data) { {} }
     let(:return_data) do
       {
-        cat: "Meow"
+        cat: 'Meow'
       }
     end
 
     let(:copy_paths) do
-        {
-          paths:
-          [
-            {from: [:return_data, :cat], to: [:noise]}
-          ]
-        }
+      {
+        paths:
+        [
+          { from: %i[return_data cat], to: [:noise] }
+        ]
+      }
     end
 
-    let(:matching_baseline_data) { "Meow" }
+    let(:matching_baseline_data) { 'Meow' }
 
     it 'is a simple return' do
       result = use_case.execute(type: 'hif', baseline_data: baseline_data, return_data: return_data)
-      expect(result).to eq(populated_data: { noise: "Meow" })
+      expect(result).to eq(populated_data: { noise: 'Meow' })
     end
   end
 
@@ -459,22 +465,22 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
         {
           cat:
           {
-            sourceKey: [:return_data, :cats, :name]
+            sourceKey: %i[return_data cats name]
           }
         }
       }
     end
 
     let(:baseline_data) { {} }
-    let(:return_data) { {cats: []} }
+    let(:return_data) { { cats: [] } }
 
     let(:copy_paths) do
-        {
-          paths:
-          [
-            {from: [:return_data, :cats, :name], to: [:cat,:something]}
-          ]
-        }
+      {
+        paths:
+        [
+          { from: %i[return_data cats name], to: %i[cat something] }
+        ]
+      }
     end
 
     it 'gives an empty populated_data' do
@@ -496,7 +502,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
               type: 'object',
               properties: {
                 cat: {
-                  sourceKey: [:baseline_data, :cats, :name]
+                  sourceKey: %i[baseline_data cats name]
                 }
               }
             }
@@ -505,22 +511,22 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
       }
     end
 
-    let(:matching_baseline_data) { "Meow" }
-    let(:baseline_data) { {cats: [{name: "Meow"}]} }
+    let(:matching_baseline_data) { 'Meow' }
+    let(:baseline_data) { { cats: [{ name: 'Meow' }] } }
     let(:return_data) { {} }
 
     let(:copy_paths) do
-        {
-          paths:
-          [
-            {from: [:return_data, :cats, :name], to: [:cats,:cat]}
-          ]
-        }
+      {
+        paths:
+        [
+          { from: %i[return_data cats name], to: %i[cats cat] }
+        ]
+      }
     end
 
     it 'gives an empty populated_data' do
       result = use_case.execute(type: 'hif', baseline_data: baseline_data, return_data: return_data)
-      expect(result).to eq(populated_data: {cats: []})
+      expect(result).to eq(populated_data: { cats: [] })
     end
   end
 
@@ -537,7 +543,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
                 type: 'object',
                 properties: {
                   cat: {
-                    sourceKey: [:baseline_data, :cats, :name]
+                    sourceKey: %i[baseline_data cats name]
                   }
                 }
               }
@@ -547,22 +553,22 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
       }
     end
 
-    let(:baseline_data) { {cats: {name: "tom"}} }
-    let(:matching_baseline_data) { "tom" }
+    let(:baseline_data) { { cats: { name: 'tom' } } }
+    let(:matching_baseline_data) { 'tom' }
     let(:return_data) { {} }
 
     let(:copy_paths) do
-        {
-          paths:
-          [
-            {from: [:return_data, :cats, :name], to: [:cat]}
-          ]
-        }
+      {
+        paths:
+        [
+          { from: %i[return_data cats name], to: [:cat] }
+        ]
+      }
     end
 
     it 'gives an empty populated_data' do
       result = use_case.execute(type: 'hif', baseline_data: baseline_data, return_data: return_data)
-      expect(result).to eq(populated_data: {cat: "tom"})
+      expect(result).to eq(populated_data: { cat: 'tom' })
     end
   end
 
@@ -587,7 +593,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
                       type: 'object',
                       properties: {
                         name: {
-                          sourceKey: [:baseline_data, :cats, :name]
+                          sourceKey: %i[baseline_data cats name]
                         }
                       }
                     }
@@ -600,22 +606,22 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
       }
     end
 
-    let(:baseline_data) {  {cats: {name: "tom"}} }
-    let(:matching_baseline_data) { ["tom"] }
+    let(:baseline_data) { { cats: { name: 'tom' } } }
+    let(:matching_baseline_data) { ['tom'] }
     let(:return_data) { {} }
 
     let(:copy_paths) do
       {
         paths:
         [
-          {from: [:baseline_data, :cats, :name], to: [:top, :name]}
+          { from: %i[baseline_data cats name], to: %i[top name] }
         ]
       }
     end
 
     it 'gives appropriate data' do
       result = use_case.execute(type: 'hif', baseline_data: baseline_data, return_data: return_data)
-      expect(result).to eq(populated_data: {top: [{name: "tom"}]})
+      expect(result).to eq(populated_data: { top: [{ name: 'tom' }] })
     end
   end
 
@@ -638,7 +644,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
                     type: 'object',
                     properties: {
                       name: {
-                        sourceKey: [:baseline_data, :dogs, :name]
+                        sourceKey: %i[baseline_data dogs name]
                       }
                     }
                   },
@@ -658,22 +664,241 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
       }
     end
 
-    let(:baseline_data) {  {dogs: {name: "tom"}} }
-    let(:matching_baseline_data) { "tom" }
+    let(:baseline_data) { { dogs: { name: 'tom' } } }
+    let(:matching_baseline_data) { 'tom' }
     let(:return_data) { {} }
 
     let(:copy_paths) do
       {
         paths:
         [
-          {from: [:baseline_data, :dogs, :name], to: [:top, :name]}
+          { from: %i[baseline_data dogs name], to: %i[top name] }
         ]
       }
     end
 
     it 'gives appropriate data' do
       result = use_case.execute(type: 'hif', baseline_data: baseline_data, return_data: return_data)
-      expect(result).to eq(populated_data: {top: {name: "tom"}})
+      expect(result).to eq(populated_data: { top: { name: 'tom' } })
+    end
+  end
+
+  context 'given a schema with multiple dependencies' do
+    let(:template_schema) do
+      {
+        type: 'object',
+        properties: {
+          top: {
+            type: 'object',
+            properties: {
+
+            },
+            dependencies:
+            {
+              dogs:
+              {
+                oneOf: [
+                  {
+                    type: 'object',
+                    properties: {
+                      name: {
+                        sourceKey: %i[baseline_data cats name]
+                      }
+                    }
+                  }
+                ]
+              },
+              cats:
+              {
+                oneOf: [
+                  {
+                    type: 'object'
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    end
+
+    let(:baseline_data) { { cats: { name: 'tom' } } }
+    let(:matching_baseline_data) { 'tom' }
+    let(:return_data) { {} }
+
+    let(:copy_paths) do
+      {
+        paths:
+        [
+          { from: %i[baseline_data dogs name], to: %i[top name] }
+        ]
+      }
+    end
+
+    it 'gives appropriate data' do
+      result = use_case.execute(type: 'hif', baseline_data: baseline_data, return_data: return_data)
+      expect(result).to eq(populated_data: { top: { name: 'tom' } })
+    end
+  end
+
+  context 'given a schema with multiple dependencies and paths' do
+    let(:template_schema) do
+      {
+        type: 'object',
+        properties: {
+          top: {
+            type: 'object',
+            properties: {
+
+            },
+            dependencies:
+            {
+              dogs:
+              {
+                oneOf: [
+                  {
+                    type: 'object',
+                    properties: {
+                      name: {
+                        sourceKey: %i[baseline_data cats name]
+                      }
+                    }
+                  },
+                  {
+                    type: 'object',
+                    properties: {
+                      breed: {
+                        sourceKey: %i[baseline_data cats breed]
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    end
+
+    let(:baseline_data) do
+      {
+        cats: {
+          name: 'Meow',
+          breed: 'Tabby'
+        }
+      }
+    end
+    let(:return_data) { {} }
+
+    let(:find_path_data) do
+      Class.new do
+        def execute(_baseline_data, path)
+          if path == %i[baseline_data cats name]
+            { found: 'Meow' }
+          elsif path == %i[baseline_data cats breed]
+            { found: 'Tabby' }
+          end
+        end
+      end.new
+    end
+
+    let(:copy_paths) do
+      {
+        paths:
+        [
+          { from: %i[baseline_data cats name], to: %i[top name] },
+          { from: %i[baseline_data cats breed], to: %i[top breed] }
+        ]
+      }
+    end
+
+    it 'gives appropriate data' do
+      result = use_case.execute(type: 'hif', baseline_data: baseline_data, return_data: return_data)
+      expect(result).to eq(populated_data: { top: { name: 'Meow', breed: 'Tabby' } })
+    end
+  end
+
+  context 'given a schema with multiple dependencies and paths' do
+    let(:template_schema) do
+      {
+        type: 'object',
+        properties: {
+          top: {
+            type: 'object',
+            properties: {
+
+            },
+            dependencies:
+            {
+              dogs:
+              {
+                oneOf: [
+                  {
+                    type: 'object',
+                    properties: {
+                      name: {
+                        sourceKey: %i[baseline_data dogs name]
+                      }
+                    }
+                  }
+                ]
+              },
+              cats:
+              {
+                oneOf: [
+                  {
+                    type: 'object',
+                    properties: {
+                      breed: {
+                        sourceKey: %i[baseline_data cats breed]
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    end
+
+    let(:baseline_data) do
+      {
+        dogs: {
+          name: 'Meow'
+        },
+        cats: {
+          breed: 'Tabby'
+        }
+      }
+    end
+    let(:return_data) { {} }
+
+    let(:find_path_data) do
+      Class.new do
+        def execute(_baseline_data, path)
+          if path == %i[baseline_data dogs name]
+            { found: 'Meow' }
+          elsif path == %i[baseline_data cats breed]
+            { found: 'Tabby' }
+          end
+        end
+      end.new
+    end
+
+    let(:copy_paths) do
+      {
+        paths:
+        [
+          { from: %i[baseline_data dogs name], to: %i[top name] },
+          { from: %i[baseline_data cats breed], to: %i[top breed] }
+        ]
+      }
+    end
+
+    it 'gives appropriate data' do
+      result = use_case.execute(type: 'hif', baseline_data: baseline_data, return_data: return_data)
+      expect(result).to eq(populated_data: { top: { name: 'Meow', breed: 'Tabby' } })
     end
   end
 end
