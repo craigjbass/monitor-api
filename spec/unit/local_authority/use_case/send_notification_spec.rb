@@ -23,6 +23,14 @@ describe LocalAuthority::UseCase::SendNotification do
       end
     end
 
+    it 'cleans urls with trailing slashes' do
+      use_case.execute(to: 'cats@cathouse.com', url: 'http://hif.homesengland.org.uk/projects/15/', access_token:'cats')
+      expect(email_notification_gateway_spy).to have_received(:send_notification) do |args|
+        expect(args[:to]).to eq('cats@cathouse.com')
+        expect(args[:url]).to eq('http://hif.homesengland.org.uk/projects/15')
+        expect(args[:access_token]).to eq('cats')
+      end
+    end
   end
 
   context 'example two' do
@@ -40,6 +48,15 @@ describe LocalAuthority::UseCase::SendNotification do
       expect(email_notification_gateway_spy).to have_received(:send_notification) do |args|
         expect(args[:to]).to eq('cats@cathouse.com')
         expect(args[:url]).to eq('http://hif.homesengland.org.uk/projects/15')
+        expect(args[:access_token]).to eq('cats')
+      end
+    end
+
+    it 'cleans urls with trailing slashes' do
+      use_case.execute(to: 'cats@cathouse.com', url: 'http://hif.homesengland.org.uk/projects/25565/', access_token:'cats')
+      expect(email_notification_gateway_spy).to have_received(:send_notification) do |args|
+        expect(args[:to]).to eq('cats@cathouse.com')
+        expect(args[:url]).to eq('http://hif.homesengland.org.uk/projects/25565')
         expect(args[:access_token]).to eq('cats')
       end
     end
