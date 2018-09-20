@@ -342,8 +342,8 @@ describe LocalAuthority::UseCase::CalculateHIFReturn do
     end
 
     context 'example two' do
-      it 'should return a populated field if there is previous return data' do
-        expected_return_data = {
+      let(:expected_return_data) do
+        {
           infrastructures: [
             {
               planning: {
@@ -379,8 +379,10 @@ describe LocalAuthority::UseCase::CalculateHIFReturn do
             }
           ]
         }
+      end
 
-        return_data_with_no_calculation = {
+      let(:return_data_with_no_calculation) do
+        {
           infrastructures: [
             {
               planning: {
@@ -406,8 +408,10 @@ describe LocalAuthority::UseCase::CalculateHIFReturn do
             }
           ]
         }
+      end
 
-        previous_return = {
+      let(:previous_return) do
+        {
           infrastructures: [
             {
               planning: {
@@ -433,13 +437,25 @@ describe LocalAuthority::UseCase::CalculateHIFReturn do
             }
           ]
         }
+      end
 
-        return_data = use_case.execute(
+      let(:return_data) do
+        use_case.execute(
           return_data_with_no_calculations: return_data_with_no_calculation,
           previous_return: previous_return
         )
+      end
 
+      before { return_data }
+
+      it 'should return a populated field if there is previous return data' do
         expect(return_data[:calculated_return]).to eq(expected_return_data)
+      end
+
+      it 'should not mutate the request hash' do
+        expect(return_data_with_no_calculation).not_to(
+          eq(return_data[:calculated_return])
+        )
       end
     end
   end
