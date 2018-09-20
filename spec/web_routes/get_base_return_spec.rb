@@ -19,7 +19,6 @@ describe 'Getting a base return' do
       'LocalAuthority::UseCase::CheckApiKey',
       double(new: check_api_key_spy)
     )
-
   end
 
   context 'given no matching project id' do
