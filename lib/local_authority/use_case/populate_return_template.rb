@@ -159,7 +159,10 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
   end
 
   def get_path_types_from_array_last_dependency(path, schema)
-    [:array] + get_last_state_path(schema.dig(:items, :dependencies).values.last, path)
+    schema.dig(:items, :dependencies).values.each do |value|
+      path_types = get_state_path(value, path)
+      return [:array] + path_types if path_found?(path_types)
+    end
   end
 
   def array_has_item_dependencies?(schema)
@@ -175,7 +178,10 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
   end
 
   def get_path_types_object_last_dependency(path, schema)
-    get_last_state_path(schema[:dependencies].values.last, path)
+    schema[:dependencies].values.each do |value|
+      path_types = get_state_path(value, path)
+      return path_types if path_found?(path_types)
+    end
   end
 
   def get_path_types_from_object_properties(path, schema)
@@ -190,14 +196,16 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
     hash_has_path(schema, [:properties, path.first])
   end
 
-  def get_last_state_path(schema, path)
+  def get_state_path(schema, path)
     schema[:oneOf].each do |value|
-      path = get_path_from_object(value,path)
-      return path if path_found?(path)
+      path_types = get_path_from_object(value, path)
+      return path_types if path_found?(path_types)
     end
+    [:not_found]
   end
 
   def get_path_from_object(value, path)
-    schema_types(value.dig(:properties, path.first), path.drop(1))
+    property = value.dig(:properties, path.first)
+    schema_types(property, path.drop(1))
   end
 end
