@@ -17,6 +17,9 @@ class LocalAuthority::UseCase::SendNotification
   private
 
   def remove_trailing_slash_and_query_parameters(url)
-    url.gsub(/\/?\?.*/, '')
+    optional_slash = %r{/?}
+    query_parameters = /\?.*/
+    trailing_slash_regex = %r{/$}
+    url.gsub(/#{optional_slash}#{query_parameters}|#{trailing_slash_regex}/, '')
   end
 end
