@@ -19,6 +19,13 @@ module DeliveryMechanism
       200
     end
 
+    get '/baseline/:type' do
+      schema = @use_case_factory.get_use_case(:get_schema_for_project).execute(type: params['type'])
+      return 404 if schema.nil?
+      response.body = schema.schema.to_json
+      response.status = 200
+    end
+
     post '/token/request' do
       request_hash = get_hash(request)
 
