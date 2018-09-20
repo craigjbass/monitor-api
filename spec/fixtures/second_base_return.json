@@ -10,20 +10,20 @@
           "baselineOutlinePlanningPermissionGranted": "No",
           "baselineSummaryOfCriticalPath": "Summary of critical path",
           "planningSubmitted": {
-            "baselineSubmitted": "2020-01-01"
+            "baseline": "2020-01-01"
           },
           "planningGranted": {
-            "baselineGranted": "2020-01-01"
+            "baseline": "2020-01-01"
           }
         },
         "fullPlanning": {
           "fullPlanningPermissionGranted": "No",
           "fullPlanningPermissionSummaryOfCriticalPath": "Summary of critical path",
           "submitted": {
-            "baselineFullPlanningPermissionSubmitted": "2020-01-01"
+            "baseline": "2020-01-01"
           },
           "granted": {
-            "baselineFullPlanningPermissionGranted": "2020-01-01"
+            "baseline": "2020-01-01"
           }
         },
         "section106": {
@@ -43,7 +43,7 @@
           "toBeAquiredBy": "Dave",
           "summaryOfAcquisitionRequired": "Summary of critical path",
           "allLandAssemblyAchieved": {
-            "landAssemblyBaselineCompletion": "2020-01-01"
+            "baseline": "2020-01-01"
           }
         }
       },
