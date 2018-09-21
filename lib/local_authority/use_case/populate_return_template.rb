@@ -44,14 +44,13 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
   end
 
   def descend_array(hash, path, path_types, value)
-    if value.class == Array
-      hash[path.first] = descend_array_and_bury(
-        hash[path.first],
-        path.drop(1),
-        path_types.drop(1),
-        value
-      )
-    end
+    return unless value.class == Array
+    hash[path.first] = descend_array_and_bury(
+      hash[path.first],
+      path.drop(1),
+      path_types.drop(1),
+      value
+    )
   end
 
   def descend_hash(hash, path, path_types, value)
@@ -89,6 +88,31 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
     end
   end
 
+  def create_root(baseline_data, return_data)
+    { baseline_data: baseline_data, return_data: return_data }
+  end
+
+  def last_node?(path)
+    path.empty?
+  end
+
+  def node_is_array?(path_types)
+    path_types.first == :array
+  end
+
+  def node_is_object?(path_types)
+    path_types.first == :object
+  end
+
+  def ensure_hash_exists(hash, path)
+    hash[path.first] = {} if hash[path.first].nil?
+  end
+
+  def ensure_array_exists(hash, path)
+    hash[path.first] = [] if hash[path.first].nil?
+  end
+
+  # ! THE FOLLOWING IS CURRENTLY BEING MIGRATED TO A USE CASE !#
   def schema_types(schema, path)
     return [:not_found] if schema.nil?
     return [:object] if path.empty?
@@ -122,34 +146,6 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
     [:object] + acquired_path
   end
 
-  def create_root(baseline_data, return_data)
-    { baseline_data: baseline_data, return_data: return_data }
-  end
-
-  def last_node?(path)
-    path.empty?
-  end
-
-  def node_is_array?(path_types)
-    path_types.first == :array
-  end
-
-  def node_is_object?(path_types)
-    path_types.first == :object
-  end
-
-  def ensure_hash_exists(hash, path)
-    hash[path.first] = {} if hash[path.first].nil?
-  end
-
-  def ensure_array_exists(hash, path)
-    hash[path.first] = [] if hash[path.first].nil?
-  end
-
-  def hash_has_path(hash, path)
-    hash.dig(*path).nil? != true
-  end
-
   def path_not_found?(path)
     path.last == :not_found
   end
@@ -166,7 +162,7 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
   end
 
   def array_has_item_dependencies?(schema)
-    hash_has_path(schema, %i[items dependencies])
+    Common::HashUtils.hash_has_path(schema, %i[items dependencies])
   end
 
   def get_path_types_from_array_properties(path, schema)
@@ -174,7 +170,7 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
   end
 
   def array_has_property?(path, schema)
-    hash_has_path(schema, [:items, :properties, path.first])
+    Common::HashUtils.hash_has_path(schema, [:items, :properties, path.first])
   end
 
   def get_path_types_object_last_dependency(path, schema)
@@ -189,11 +185,11 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
   end
 
   def object_has_dependencies(schema)
-    hash_has_path(schema, [:dependencies])
+    Common::HashUtils.hash_has_path(schema, [:dependencies])
   end
 
   def object_has_property(path, schema)
-    hash_has_path(schema, [:properties, path.first])
+    Common::HashUtils.hash_has_path(schema, [:properties, path.first])
   end
 
   def get_state_path(schema, path)
