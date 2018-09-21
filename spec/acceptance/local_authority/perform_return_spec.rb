@@ -49,7 +49,7 @@ describe 'Performing Return on HIF Project' do
           description: 'A house of cats',
 
           outlinePlanningStatus: {
-            granted: 'Yes',
+            granted: 'No',
             grantedReference: 'The Dogs',
             targetSubmission: '2020-01-01',
             targetGranted: '2020-01-01',
@@ -83,7 +83,7 @@ describe 'Performing Return on HIF Project' do
               contractorProcured: 'Yes',
               nameOfContractor: 'Dave',
               targetDateToAquire: '2020-01-01',
-              summaryOfCriticalPath: 'Summary of critical path'
+              summaryOfCriticalPath: 'Summary of critical meow'
             }
           },
           milestones: [

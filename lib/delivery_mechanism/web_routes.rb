@@ -19,6 +19,13 @@ module DeliveryMechanism
       200
     end
 
+    get '/baseline/:type' do
+      schema = @use_case_factory.get_use_case(:get_schema_for_project).execute(type: params['type'])
+      return 404 if schema.nil?
+      response.body = schema.schema.to_json
+      response.status = 200
+    end
+
     post '/token/request' do
       request_hash = get_hash(request)
 
@@ -172,20 +179,15 @@ module DeliveryMechanism
     end
 
     post '/project/create' do
-      request_hash = get_hash(request)
+      guard_admin_access env, params, request do |request_hash|
+        contoller = DeliveryMechanism::Controllers::PostCreateProject.new(
+          create_new_project: @use_case_factory.get_use_case(:create_new_project)
+        )
 
-      use_case = @use_case_factory.get_use_case(:create_new_project)
+        content_type 'application/json'
 
-      id = use_case.execute(
-        type: request_hash[:type],
-        baseline: Common::DeepSymbolizeKeys.to_symbolized_hash(request_hash[:baselineData])
-      )
-
-      content_type 'application/json'
-      response.body = {
-        projectId: id
-      }.to_json
-      response.status = 201
+        contoller.execute(params, request_hash, response)
+      end
     end
 
     post '/project/:id/add_users' do

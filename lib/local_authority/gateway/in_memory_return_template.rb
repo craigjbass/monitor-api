@@ -2,7 +2,6 @@
 
 # noinspection RubyScope
 class LocalAuthority::Gateway::InMemoryReturnTemplate
-
   def find_by(type:)
     return nil unless type == 'hif'
     LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
@@ -24,15 +23,15 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     type: {
                       type: 'string',
                       title: 'Type',
-                      sourceKey: [:baseline_data, :infrastructures, :type],
+                      sourceKey: %i[baseline_data infrastructures type],
                       readonly: true
                     },
                     description: {
                       type: 'string',
                       title: 'Description',
-                      sourceKey: [:baseline_data, :infrastructures, :description],
+                      sourceKey: %i[baseline_data infrastructures description],
                       readonly: true
-                    },
+                    }
                   }
                 },
                 planning: {
@@ -41,501 +40,423 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                   properties: {
                     # Baseline
                     # from outlinePlanningStatus.granted
-                    baselineOutlinePlanningPermissionGranted: {
-                      type: 'string',
-                      title: 'Outline Planning Permission granted',
-                      sourceKey: [:baseline_data, :infrastructures, :outlinePlanningStatus, :granted],
-                      readonly: true,
-                      items: {
-                        type: 'string',
-                        enum: ['Yes', 'No']
+                    outlinePlanning: {
+                      type: 'object',
+                      title: 'Outline Planning',
+                      properties: {
+                        baselineOutlinePlanningPermissionGranted: {
+                          type: 'string',
+                          title: 'Outline Planning Permission granted',
+                          sourceKey: %i[baseline_data infrastructures outlinePlanningStatus granted],
+                          readonly: true,
+                          enum: %w[Yes No]
+                        }
+                      },
+                      dependencies: {
+                        baselineOutlinePlanningPermissionGranted: {
+                          oneOf: [
+                            {
+                              properties: {
+                                baselineOutlinePlanningPermissionGranted: {
+                                  enum: ['No']
+                                },
+                                baselineSummaryOfCriticalPath: {
+                                  type: 'string',
+                                  title: 'Summary Of Outline Planning Permission Critical Path',
+                                  sourceKey: %i[baseline_data infrastructures outlinePlanningStatus summaryOfCriticalPath],
+                                  readonly: true
+                                },
+                                planningSubmitted: {
+                                  title: 'Planning permission Submitted',
+                                  type: 'object',
+                                  horizontal: true,
+                                  required: ['percentComplete'],
+                                  properties: {
+                                    baselineSubmitted: {
+                                      type: 'string',
+                                      format: 'date',
+                                      title: 'Full Planning Permission submitted date',
+                                      sourceKey: %i[baseline_data infrastructures outlinePlanningStatus targetSubmission],
+                                      readonly: true
+                                    },
+                                    varianceBaselineFullPlanningPermissionSubmitted: {
+                                      type: 'integer',
+                                      readonly: true,
+                                      hidden: true,
+                                      title: 'Variance against Baseline submitted date (Week) (Calculated)'
+                                    },
+                                    varianceLastReturnFullPlanningPermissionSubmitted: {
+                                      type: 'integer',
+                                      readonly: true,
+                                      hidden: true,
+                                      title: 'Variance against Last Return submitted date (Week) (Calculated)'
+                                    },
+                                    statusAgainstLastReturn: {
+                                      title: 'Status against last return?',
+                                      type: 'string',
+                                      enum: [
+                                        'completed',
+                                        'on schedule',
+                                        'delayed: minimal impact',
+                                        'delayed: critical'
+                                      ],
+                                      default: 'on schedule'
+                                    },
+                                    currentReturn: {
+                                      type: 'string',
+                                      format: 'date',
+                                      title: 'Current Return'
+                                    },
+                                    reasonForVariance: {
+                                      type: 'string',
+                                      title: 'Reason for Variance'
+                                    },
+                                    percentComplete: {
+                                      type: 'integer',
+                                      title: 'Percent complete'
+                                    },
+                                    onCompletedDate: {
+                                      type: 'string',
+                                      format: 'date',
+                                      readonly: true,
+                                      hidden: true,
+                                      title: 'Completed date (Calculated)'
+                                    },
+                                    onCompletedReference: {
+                                      type: 'string',
+                                      readonly: true,
+                                      hidden: true,
+                                      title: 'Completed Reference (Calculated)'
+                                    }
+                                  }
+                                },
+                                planningGranted: {
+                                  title: 'Planning Permission Granted',
+                                  type: 'object',
+                                  horizontal: true,
+                                  properties: {
+                                    baselineGranted: {
+                                      type: 'string',
+                                      format: 'date',
+                                      title: 'Outline Planning Permission granted date',
+                                      sourceKey: %i[baseline_data infrastructures outlinePlanningStatus targetGranted],
+                                      readonly: true
+                                    },
+                                    varianceBaselineFullPlanningPermissionGranted: {
+                                      type: 'integer',
+                                      readonly: true,
+                                      hidden: true,
+                                      title: 'Variance against Baseline granted date (Weeks) (Calculated)'
+                                    },
+                                    varianceLastReturnFullPlanningPermissionGranted: {
+                                      type: 'integer',
+                                      readonly: true,
+                                      hidden: true,
+                                      title: 'Variance against Last Return granted date (Weeks) (Calculated)'
+                                    },
+                                    statusAgainstLastReturn: {
+                                      title: 'Status against last return?',
+                                      type: 'string',
+                                      enum: [
+                                        'completed',
+                                        'on schedule',
+                                        'delayed: minimal impact',
+                                        'delayed: critical'
+                                      ],
+                                      default: 'on schedule'
+                                    },
+                                    currentReturn: {
+                                      type: 'string',
+                                      format: 'date',
+                                      title: 'Current Return'
+                                    },
+                                    reasonForVariance: {
+                                      type: 'string',
+                                      title: 'Reason for Variance'
+                                    },
+                                    percentComplete: {
+                                      type: 'integer',
+                                      title: 'Percent complete'
+                                    },
+                                    onCompletedDate: {
+                                      type: 'string',
+                                      format: 'date',
+                                      readonly: true,
+                                      hidden: true,
+                                      title: 'Completed date (Calculated)'
+                                    }
+                                  }
+                                },
+                              }
+                            },
+                            {
+                              properties: {
+                                baselineOutlinePlanningPermissionGranted: {
+                                  enum: ['Yes']
+                                }
+                              }
+                            }
+                          ]
+                        }
                       }
                     },
-                    planningNotGranted: {
+                    fullPlanning: {
                       type: 'object',
-                      title: 'Planning Not Granted',
+                      title: 'Full Planning',
                       properties: {
-                        # from outlinePlanningStatus.summaryOfCriticalPathInfrastructures
-                        baselineSummaryOfCriticalPath: {
+                        fullPlanningPermissionGranted: {
                           type: 'string',
-                          title: 'Summary Of Outline Planning Permission Critical Path',
-                          sourceKey: [:baseline_data, :infrastructures, :outlinePlanningStatus, :summaryOfCriticalPath],
-                          readonly: true
-                        },
-                        outlinePlanning: {
-                          type: 'object',
-                          title: 'Outline Planning (INFO: only show if planning not granted)',
-                          properties: {
-                            submitted: {
-                              title: 'Planning permission Submitted',
-                              type: 'object',
-                              horizontal: true,
-                              required: ['percentComplete'],
+                          title: 'Full Planning Permission granted',
+                          sourceKey: %i[baseline_data infrastructures fullPlanningStatus granted],
+                          readonly: true,
+                          enum: %w[Yes No]
+                        }
+                      },
+                      dependencies: {
+                        fullPlanningPermissionGranted: {
+                          oneOf: [
+                            {
                               properties: {
-                                baselineFullPlanningPermissionSubmitted: {
+                                fullPlanningPermissionGranted: {
+                                  enum: ['No']
+                                },
+                                fullPlanningPermissionSummaryOfCriticalPath: {
                                   type: 'string',
-                                  format: 'date',
-                                  title: 'Full Planning Permission submitted date',
-                                  sourceKey: [:baseline_data, :infrastructures, :outlinePlanningStatus, :targetSubmission],
+                                  title: 'Summary Of Full Planning Permission Critical Path',
+                                  sourceKey: %i[baseline_data infrastructures fullPlanningStatus summaryOfCriticalPath],
                                   readonly: true
                                 },
-                                varianceBaselineFullPlanningPermissionSubmitted: {
-                                  type: 'integer',
-                                  readonly: true,
-                                  title: 'Variance against Baseline submitted date (Week) (Calculated)'
+                                submitted: {
+                                  title: 'Planning permission Submitted',
+                                  type: 'object',
+                                  horizontal: true,
+                                  properties: {
+                                    baselineFullPlanningPermissionSubmitted: {
+                                      type: 'string',
+                                      format: 'date',
+                                      title: 'Full Planning Permission submitted date',
+                                      sourceKey: %i[baseline_data infrastructures fullPlanningStatus targetSubmission],
+                                      readonly: true
+                                    },
+                                    varianceBaselineFullPlanningPermissionSubmitted: {
+                                      type: 'integer',
+                                      readonly: true,
+                                      hidden: true,
+                                      title: 'Variance against Baseline submitted date (Week) (Calculated)'
+                                    },
+                                    varianceLastReturnFullPlanningPermissionSubmitted: {
+                                      type: 'integer',
+                                      readonly: true,
+                                      hidden: true,
+                                      title: 'Variance against Last Return submitted date (Week) (Calculated)'
+                                    },
+                                    statusAgainstLastReturn: {
+                                      title: 'Status against last return?',
+                                      type: 'string',
+                                      enum: [
+                                        'completed',
+                                        'on schedule',
+                                        'delayed: minimal impact',
+                                        'delayed: critical'
+                                      ],
+                                      default: 'on schedule'
+                                    },
+                                    currentReturn: {
+                                      type: 'string',
+                                      format: 'date',
+                                      title: 'Current Return'
+                                    },
+                                    reasonForVariance: {
+                                      type: 'string',
+                                      title: 'Reason for Variance'
+                                    },
+                                    percentComplete: {
+                                      type: 'integer',
+                                      title: 'Percent complete'
+                                    },
+                                    onCompletedDate: {
+                                      type: 'string',
+                                      format: 'date',
+                                      readonly: true,
+                                      hidden: true,
+                                      title: 'Completed date (Calculated)'
+                                    },
+                                    onCompletedReference: {
+                                      type: 'string',
+                                      readonly: true,
+                                      hidden: true,
+                                      title: 'Completed Reference (Calculated)'
+                                    }
+                                  }
                                 },
-                                varianceLastReturnFullPlanningPermissionSubmitted: {
-                                  type: 'integer',
-                                  readonly: true,
-                                  title: 'Variance against Last Return submitted date (Week) (Calculated)'
-                                },
-                                statusAgainstLastReturn: {
-                                  title: 'Status against last return?',
-                                  type: 'string',
-                                  enum: [
-                                    'completed',
-                                    'on schedule',
-                                    'delayed: minimal impact',
-                                    'delayed: critical'
-                                  ],
-                                  default: 'on schedule'
-                                },
-                                currentReturn: {
-                                  type: 'string',
-                                  format: 'date',
-                                  title: 'Current Return'
-                                },
-                                reasonForVariance: {
-                                  type: 'string',
-                                  title: 'Reason for Variance'
-                                },
-                                percentComplete: {
-                                  type: 'integer',
-                                  title: 'Percent complete'
-                                },
-                                onCompletedDate: {
-                                  type: 'string',
-                                  format: 'date',
-                                  readonly: true,
-                                  title: 'Completed date (Calculated)'
-                                },
-                                onCompletedReference: {
-                                  type: 'string',
-                                  readonly: true,
-                                  title: 'Completed Reference (Calculated)'
-                                }
-                              },
-                            },
-                            granted: {
-                              title: 'Planning Permission Granted',
-                              type: 'object',
-                              horizontal: true,
-                              properties: {
-                                baselineFullPlanningPermissionGranted: {
-                                  type: 'string',
-                                  format: 'date',
-                                  title: 'Full Planning Permission granted date',
-                                  sourceKey: [:baseline_data, :infrastructures, :outlinePlanningStatus, :targetGranted],
-                                  readonly: true
-                                },
-                                varianceBaselineFullPlanningPermissionGranted: {
-                                  type: 'integer',
-                                  readonly: true,
-                                  title: 'Variance against Baseline granted date (Weeks) (Calculated)'
-                                },
-                                varianceLastReturnFullPlanningPermissionGranted: {
-                                  type: 'integer',
-                                  readonly: true,
-                                  title: 'Variance against Last Return granted date (Weeks) (Calculated)'
-                                },
-                                statusAgainstLastReturn: {
-                                  title: 'Status against last return?',
-                                  type: 'string',
-                                  enum: [
-                                    'completed',
-                                    'on schedule',
-                                    'delayed: minimal impact',
-                                    'delayed: critical'
-                                  ],
-                                  default: 'on schedule'
-                                },
-                                currentReturn: {
-                                  type: 'string',
-                                  format: 'date',
-                                  title: 'Current Return'
-                                },
-                                reasonForVariance: {
-                                  type: 'string',
-                                  title: 'Reason for Variance'
-                                },
-                                percentComplete: {
-                                  type: 'integer',
-                                  title: 'Percent complete'
-                                },
-                                onCompletedDate: {
-                                  type: 'string',
-                                  format: 'date',
-                                  readonly: true,
-                                  title: 'Completed date (Calculated)'
+                                granted: {
+                                  title: 'Planning Permission Granted',
+                                  type: 'object',
+                                  horizontal: true,
+                                  properties: {
+                                    baselineFullPlanningPermissionGranted: {
+                                      type: 'string',
+                                      format: 'date',
+                                      title: 'Full Planning Permission granted date',
+                                      sourceKey: %i[baseline_data infrastructures fullPlanningStatus targetGranted],
+                                      readonly: true
+                                    },
+                                    varianceBaselineFullPlanningPermissionGranted: {
+                                      type: 'integer',
+                                      readonly: true,
+                                      hidden: true,
+                                      title: 'Variance against Baseline granted date (Weeks) (Calculated)'
+                                    },
+                                    varianceLastReturnFullPlanningPermissionGranted: {
+                                      type: 'integer',
+                                      readonly: true,
+                                      hidden: true,
+                                      title: 'Variance against Last Return granted date (Weeks) (Calculated)'
+                                    },
+                                    statusAgainstLastReturn: {
+                                      title: 'Status against last return?',
+                                      type: 'string',
+                                      enum: [
+                                        'completed',
+                                        'on schedule',
+                                        'delayed: minimal impact',
+                                        'delayed: critical'
+                                      ],
+                                      default: 'on schedule'
+                                    },
+                                    currentReturn: {
+                                      type: 'string',
+                                      format: 'date',
+                                      title: 'Current Return'
+                                    },
+                                    reasonForVariance: {
+                                      type: 'string',
+                                      title: 'Reason for Variance'
+                                    },
+                                    percentComplete: {
+                                      type: 'integer',
+                                      title: 'Percent complete'
+                                    },
+                                    onCompletedDate: {
+                                      type: 'string',
+                                      format: 'date',
+                                      readonly: true,
+                                      hidden: true,
+                                      title: 'Completed date (Calculated)'
+                                    }
+                                  }
                                 },
                               }
-                            },
-                            # from fullPlanningStatus.granted
-                            fullPlanningPermissionGranted: {
-                              type: 'string',
-                              title: 'Full Planning Permission granted',
-                              sourceKey: [:baseline_data, :infrastructures, :fullPlanningStatus, :granted],
-                              readonly: true,
-                              items: {
-                                type: 'string',
-                                enum: ['Yes', 'No']
-                              }
-                            },
-                            # from fullPlanningStatus.summaryOfCriticalPath
-                            fullPlanningPermissionSummaryOfCriticalPath: {
-                              type: 'string',
-                              title: 'Summary Of Full Planning Permission Critical Path',
-                              sourceKey: [:baseline_data, :infrastructures, :fullPlanningStatus, :summaryOfCriticalPath],
-                              readonly: true
                             }
-                          }
-                        },
-                        fullPlanning: {
-                          type: 'object',
-                          title: 'Full Planning (INFO: Only show if planning not granted)',
-                          properties: {
-                            submitted: {
-                              title: 'Planning permission Submitted',
-                              type: 'object',
-                              horizontal: true,
-                              properties: {
-                                baselineFullPlanningPermissionSubmitted: {
-                                  type: 'string',
-                                  format: 'date',
-                                  title: 'Full Planning Permission submitted date',
-                                  sourceKey: [:baseline_data, :infrastructures, :fullPlanningStatus, :targetSubmission],
-                                  readonly: true
-                                },
-                                varianceBaselineFullPlanningPermissionSubmitted: {
-                                  type: 'integer',
-                                  readonly: true,
-                                  title: 'Variance against Baseline submitted date (Week) (Calculated)'
-                                },
-                                varianceLastReturnFullPlanningPermissionSubmitted: {
-                                  type: 'integer',
-                                  readonly: true,
-                                  title: 'Variance against Last Return submitted date (Week) (Calculated)'
-                                },
-                                statusAgainstLastReturn: {
-                                  title: 'Status against last return?',
-                                  type: 'string',
-                                  enum: [
-                                    'completed',
-                                    'on schedule',
-                                    'delayed: minimal impact',
-                                    'delayed: critical'
-                                  ],
-                                  default: 'on schedule'
-                                },
-                                currentReturn: {
-                                  type: 'string',
-                                  format: 'date',
-                                  title: 'Current Return'
-                                },
-                                reasonForVariance: {
-                                  type: 'string',
-                                  title: 'Reason for Variance'
-                                },
-                                percentComplete: {
-                                  type: 'integer',
-                                  title: 'Percent complete'
-                                },
-                                onCompletedDate: {
-                                  type: 'string',
-                                  format: 'date',
-                                  readonly: true,
-                                  title: 'Completed date (Calculated)'
-                                },
-                                onCompletedReference: {
-                                  type: 'string',
-                                  readonly: true,
-                                  title: 'Completed Reference (Calculated)'
-                                }
-                              },
-                            },
-                            granted: {
-                              title: 'Planning Permission Granted',
-                              type: 'object',
-                              horizontal: true,
-                              properties: {
-                                baselineFullPlanningPermissionGranted: {
-                                  type: 'string',
-                                  format: 'date',
-                                  title: 'Full Planning Permission granted date',
-                                  sourceKey: [:baseline_data, :infrastructures, :fullPlanningStatus, :targetGranted],
-                                  readonly: true
-                                },
-                                varianceBaselineFullPlanningPermissionGranted: {
-                                  type: 'integer',
-                                  readonly: true,
-                                  title: 'Variance against Baseline granted date (Weeks) (Calculated)'
-                                },
-                                varianceLastReturnFullPlanningPermissionGranted: {
-                                  type: 'integer',
-                                  readonly: true,
-                                  title: 'Variance against Last Return granted date (Weeks) (Calculated)'
-                                },
-                                statusAgainstLastReturn: {
-                                  title: 'Status against last return?',
-                                  type: 'string',
-                                  enum: [
-                                    'completed',
-                                    'on schedule',
-                                    'delayed: minimal impact',
-                                    'delayed: critical'
-                                  ],
-                                  default: 'on schedule'
-                                },
-                                currentReturn: {
-                                  type: 'string',
-                                  format: 'date',
-                                  title: 'Current Return'
-                                },
-                                reasonForVariance: {
-                                  type: 'string',
-                                  title: 'Reason for Variance'
-                                },
-                                percentComplete: {
-                                  type: 'integer',
-                                  title: 'Percent complete'
-                                },
-                                onCompletedDate: {
-                                  type: 'string',
-                                  format: 'date',
-                                  readonly: true,
-                                  title: 'Completed date (Calculated)'
-                                },
-                              }
-                            },
-                            # from fullPlanningStatus.granted
-                            fullPlanningPermissionGranted: {
-                              type: 'string',
-                              title: 'Full Planning Permission granted',
-                              sourceKey: [:baseline_data, :infrastructures, :fullPlanningStatus, :granted],
-                              readonly: true,
-                              items: {
-                                type: 'string',
-                                enum: ['Yes', 'No']
-                              }
-                            },
-                            # from fullPlanningStatus.summaryOfCriticalPath
-                            fullPlanningPermissionSummaryOfCriticalPath: {
-                              type: 'string',
-                              title: 'Summary Of Full Planning Permission Critical Path',
-                              sourceKey: [:baseline_data, :infrastructures, :fullPlanningStatus, :summaryOfCriticalPath],
-                              readonly: true
-                            }
-                          }
-                        },
+                          ]
+                        }
+                      }
+                    },
+                    section106: {
+                      title: 'Section 106',
+                      type: 'object',
+                      properties: {
                         # from s106.requirement
                         s106Requirement: {
                           type: 'string',
                           title: 'S106 Requirement',
-                          sourceKey: [:baseline_data, :infrastructures, :s106, :requirement],
+                          sourceKey: %i[baseline_data infrastructures s106 requirement],
                           readonly: true,
                           items: {
                             type: 'string',
-                            enum: ['Yes', 'No']
-                          }
-                        },
-                        # from s106.summaryOfRequirement
-                        s106SummaryOfRequirement: {
-                          type: 'string',
-                          title: 'Summary of S016 Requirement ',
-                          sourceKey: [:baseline_data, :infrastructures, :s106, :summaryOfRequirement],
-                          readonly: true
-                        },
-                        # from statutoryConsents.anyConsents
-                        statutoryConsents: {
-                          type: 'object',
-                          title: 'Statutory Consents',
-                          properties: {
-                            anyStatutoryConsents: {
-                              type: 'string',
-                              title: 'Statutory consents to be met?',
-                              sourceKey: [:baseline_data, :infrastructures, :statutoryConsents, :anyConsents],
-                              readonly: true,
-                              items: {
-                                type: 'string',
-                                enum: ['Yes', 'No']
-                              }
-                            },
-                            statutoryConsents: {
-                              title: 'Current Statutory Consents',
-                              type: 'array',
-                              addable: true,
-                              items: {
-                                type: 'object',
-                                properties: {
-                                  baselineCompletion: {
-                                    title: 'Baseline completion',
-                                    type: 'string',
-                                    format: 'date'
-                                  },
-                                  varianceAgainstBaseline: {
-                                    title: 'Variance against baseline (Calculated)',
-                                    type: 'integer',
-                                    readonly: true
-                                  },
-                                  varianceAgainstLastReturn: {
-                                    title: 'Variance against last return (Calculated)',
-                                    type: 'integer',
-                                    readonly: true
-                                  },
-                                  statusAgainstLastReturn: status_against_last_return,
-                                  currentReturn: {
-                                    title: 'Current return',
-                                    type: 'string',
-                                    format: 'date'
-                                  },
-                                  varianceReason: {
-                                    title: 'Reason for variance',
-                                    type: 'string'
-                                  },
-                                  percentComplete: {
-                                    title: 'Percentage complete',
-                                    type: 'integer'
-                                  },
-                                  completionDate: {
-                                    title: 'Completion date (Calculated)',
-                                    type: 'string',
-                                    format: 'date',
-                                    readonly: true
-                                  }
-                                }
-                              }
-                            }
+                            enum: %w[Yes No]
                           }
                         }
-                      }
-                    },
-                    planningGranted: {
-                      type: 'object',
-                      title: 'Planning Granted',
-                      properties: {
-                        risksToAchievingTimeScales: {
-                          type: 'array',
-                          title: 'Risks to achieving timescales',
-                          items: {
-                            type: 'object',
-                            properties: {
-                              planningGrantedBaselineCompletion: {
-                                type: 'object',
-                                title: 'Planning Granted Baseline Completion',
-                                properties: {
-                                  # Full planning submitted date
-                                  # fullPlanningStatus.targetSubmission
-                                  baselineFullPlanningPermissionSubmitted: {
-                                    type: 'string',
-                                    format: 'date',
-                                    title: 'Full Planning Permission submitted date'
-                                  },
-                                  # Full planning granted date
-                                  # fullPlanningStatus.targetGranted
-                                  baselineFullPlanningPermissionGranted: {
-                                    type: 'string',
-                                    format: 'date',
-                                    title: 'Full Planning Permission granted date'
-                                  }
-                                }
-                              },
-                              planningGrantedVarianceCalculations: {
-                                type: 'object',
-                                title: 'Planning Granted Variance Calculations',
-                                properties: {
-                                  varianceAgainstLastReturn: {
-                                    type: 'object',
-                                    title: 'Variance against Last Return',
-                                    properties: {
-                                      varianceLastReturnFullPlanningPermissionSubmitted: {
-                                        type: 'integer',
-                                        readonly: true,
-                                        title: 'Variance against Last Return submitted date (Week) (Calculated)'
-                                      },
-                                      varianceLastReturnFullPlanningPermissionGranted: {
-                                        type: 'integer',
-                                        readonly: true,
-                                        title: 'Variance against Last Return granted date (Weeks) (Calculated)'
+                      },
+                      dependencies: {
+                        s106Requirement: {
+                          oneOf: [
+                            {
+                              properties: {
+                                s106Requirement: {
+                                  enum: ['Yes']
+                                },
+                                s106SummaryOfRequirement: {
+                                  type: 'string',
+                                  title: 'Summary of S016 Requirement ',
+                                  sourceKey: %i[baseline_data infrastructures s106 summaryOfRequirement],
+                                  readonly: true
+                                },
+                                # from statutoryConsents.anyConsents
+                                statutoryConsents: {
+                                  type: 'object',
+                                  title: 'Statutory Consents',
+                                  properties: {
+                                    anyStatutoryConsents: {
+                                      type: 'string',
+                                      title: 'Statutory consents to be met?',
+                                      sourceKey: %i[baseline_data infrastructures statutoryConsents anyConsents],
+                                      readonly: true,
+                                      items: {
+                                        type: 'string',
+                                        enum: %w[Yes No]
+                                      }
+                                    },
+                                    statutoryConsents: {
+                                      title: 'Current Statutory Consents',
+                                      type: 'array',
+                                      addable: true,
+                                      items: {
+                                        type: 'object',
+                                        properties: {
+                                          baselineCompletion: {
+                                            title: 'Baseline completion',
+                                            type: 'string',
+                                            format: 'date'
+                                          },
+                                          varianceAgainstBaseline: {
+                                            hidden: true,
+                                            title: 'Variance against baseline (Calculated)',
+                                            type: 'integer',
+                                            readonly: true
+                                          },
+                                          varianceAgainstLastReturn: {
+                                            hidden: true,
+                                            title: 'Variance against last return (Calculated)',
+                                            type: 'integer',
+                                            readonly: true
+                                          },
+                                          statusAgainstLastReturn: status_against_last_return,
+                                          currentReturn: {
+                                            title: 'Current return',
+                                            type: 'string',
+                                            format: 'date'
+                                          },
+                                          varianceReason: {
+                                            title: 'Reason for variance',
+                                            type: 'string'
+                                          },
+                                          percentComplete: {
+                                            title: 'Percentage complete',
+                                            type: 'integer'
+                                          },
+                                          completionDate: {
+                                            hidden: true,
+                                            title: 'Completion date (Calculated)',
+                                            type: 'string',
+                                            format: 'date',
+                                            readonly: true
+                                          }
+                                        }
                                       }
                                     }
-                                  },
-                                  varianceAgainstBaseline: {
-                                    type: 'object',
-                                    title: 'Variance against Baseline',
-                                    properties: {
-                                      varianceBaselineFullPlanningPermissionSubmitted: {
-                                        type: 'integer',
-                                        readonly: true,
-                                        title: 'Variance against Baseline submitted date (Week) (Calculated)'
-                                      },
-                                      varianceBaselineFullPlanningPermissionGranted: {
-                                        type: 'integer',
-                                        readonly: true,
-                                        title: 'Variance against Baseline granted date (Weeks) (Calculated)'
-                                      }
-                                    }
-                                  }
-                                }
-                              },
-                              planningGrantedReturnInput: {
-                                type: 'object',
-                                title: 'Planning Granted Return Input',
-                                properties: {
-                                  statusAgainstLastReturn: {
-                                    title: 'Status against last return?',
-                                    type: 'string',
-                                    enum: [
-                                      'completed',
-                                      'on schedule',
-                                      'delayed: minimal impact',
-                                      'delayed: critical'
-                                    ],
-                                    default: 'on schedule'
-                                  },
-                                  currentReturn: {
-                                    type: 'string',
-                                    format: 'date',
-                                    title: 'Current Return'
-                                  },
-                                  reasonForVariance: {
-                                    type: 'string',
-                                    title: 'Reason for Variance'
-                                  }
-                                }
-                              },
-                              percentComplete: {
-                                type: 'integer',
-                                title: 'Percent complete'
-                              },
-                              planningGrantedOnCompletd: {
-                                type: 'object',
-                                title: 'Planning Granted On Completed',
-                                properties: {
-                                  onCompletedDate: {
-                                    type: 'string',
-                                    format: 'date',
-                                    readonly: true,
-                                    title: 'On Completed date (Calculated)'
-                                  },
-                                  onCompletedReference: {
-                                    type: 'string',
-                                    readonly: true,
-                                    title: 'On Completed Reference (Calculated)'
                                   }
                                 }
                               }
+                            },
+                            {
+                              properties: {
+                                s106Requirement: {
+                                  enum: ['No']
+                                }
+                              }
                             }
-                          }
+                          ]
                         }
                       }
                     }
@@ -549,87 +470,214 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     laHasControlOfSite: {
                       type: 'string',
                       title: 'LA Control of site(s) (related to infrastructure)? ',
-                      sourceKey: [:baseline_data, :infrastructures, :landOwnership, :landAcquisitionRequired],
+                      sourceKey: %i[baseline_data infrastructures landOwnership landAcquisitionRequired],
+                      readonly: true,
+                      enum: %w[Yes No]
+                    }
+                  },
+                  dependencies: {
+                    laHasControlOfSite: {
+                      oneOf: [
+                        {
+                          properties: {
+                            laHasControlOfSite: {
+                              enum: ['No']
+                            },
+                            laDoesNotControlSite: {
+                              type: 'object',
+                              title: 'Land ownership',
+                              properties: {
+                                # from  landOwnership.ownershipOfLandOtherThanLA
+                                whoOwnsSite: {
+                                  type: 'string',
+                                  title: 'Who owns site?',
+                                  sourceKey: %i[baseline_data infrastructures landOwnership ownershipOfLandOtherThanLA],
+                                  readonly: true
+                                },
+                                # from landOwnership.landAcquisitionRequired
+                                landAcquisitionRequired: {
+                                  type: 'string',
+                                  title: 'Land acquisition required (related to infrastructure)?',
+                                  sourceKey: %i[baseline_data infrastructures landOwnership landAcquisitionRequired],
+                                  readonly: true,
+                                  enum: %w[Yes No]
+                                }
+                              },
+                              dependencies: { 
+                                landAcquisitionRequired: {
+                                  oneOf: [
+                                    {
+                                      properties: {
+                                        landAcquisitionRequired: {
+                                          enum: ['Yes']
+                                        },
+                                        howManySitesToAquire: {
+                                          type: 'integer',
+                                          title: 'Number of Sites to aquire?',
+                                          sourceKey: %i[baseline_data infrastructures landOwnership howManySitesToAcquire],
+                                          readonly: true
+                                        },
+                                        # from landOwnership.toBeAquiredBy
+                                        toBeAquiredBy: {
+                                          type: 'string',
+                                          title: 'Acquired by LA or Developer?',
+                                          sourceKey: %i[baseline_data infrastructures landOwnership toBeAcquiredBy],
+                                          readonly: true
+                                        },
+                                        # from landOwnership.summaryOfCriticalPath
+                                        summaryOfAcquisitionRequired: {
+                                          type: 'string',
+                                          title: 'Summary of acquisition required',
+                                          sourceKey: %i[baseline_data infrastructures landOwnership summaryOfCriticalPath],
+                                          readonly: true
+                                        },
+                                        allLandAssemblyAchieved: {
+                                          type: 'object',
+                                          title: 'All land assembly achieved',
+                                          horizontal: true,
+                                          properties: {
+                                            # from landOwnership.toBeAquiredBy
+                                            landAssemblyBaselineCompletion: {
+                                              type: 'string',
+                                              format: 'date',
+                                              title: 'Baseline Completion',
+                                              sourceKey: %i[baseline_data infrastructures landOwnership targetDateToAcquire],
+                                              readonly: true
+                                            },
+                                            # To be calculated
+                                            landAssemblyVarianceAgainstLastReturn: {
+                                              type: 'string',
+                                              readonly: true,
+                                              hidden: true,
+                                              title: 'Variance Against Last Return (Calculated)'
+                                            },
+                                            # To be calculated
+                                            landAssemblyVarianceAgainstBaseReturn: {
+                                              type: 'string',
+                                              readonly: true,
+                                              hidden: true,
+                                              title: 'Variance Against Base Return (Calculated)'
+                                            },
+                                            statusAgainstLastReturn: {
+                                              title: 'Status against last return?',
+                                              type: 'string',
+                                              enum: [
+                                                'completed',
+                                                'on schedule',
+                                                'delayed: minimal impact',
+                                                'delayed: critical'
+                                              ],
+                                              default: 'on schedule'
+                                            },
+                                            currentReturn: {
+                                              type: 'string',
+                                              format: 'date',
+                                              title: 'Current Return'
+                                            },
+                                            reasonForVariance: {
+                                              type: 'string',
+                                              title: 'Reason for Variance'
+                                            },
+                                            percentComplete: {
+                                              type: 'integer',
+                                              title: 'Percent complete'
+                                            },
+                                            landAssemblyCompletedDate: {
+                                              type: 'string',
+                                              format: 'date',
+                                              readonly: true,
+                                              hidden: true,
+                                              title: 'On Completed date (Calculated)'
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      properties: {
+                                        landAcquisitionRequired: {
+                                          enum: ['No']
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          properties: {
+                            laHasControlOfSite: {
+                              enum: ['Yes']
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                procurement: {
+                  type: 'object',
+                  title: 'Procurement',
+                  properties: {
+                    contractorProcured: {
+                      type: 'string',
+                      title: 'Infrastructure contractor procured?',
+                      sourceKey: %i[baseline_data infrastructures landOwnership procurement contractorProcured],
                       readonly: true,
                       items: {
                         type: 'string',
-                        enum: ['Yes', 'No']
-                      }
+                        enum: %w[Yes No]
+                      },
                     },
-                    laDoesNotControlSite: {
+                    infrastructureProcured: {
                       type: 'object',
-                      title: 'LA Does Not Have Control Of Site',
+                      title: 'Infrastructure procured',
+                      description: 'If the infrastrcture has been procured...',
                       properties: {
-                        # from  landOwnership.ownershipOfLandOtherThanLA
-                        whoOwnsSite: {
+                        nameOfContractor: {
+                          sourceKey: %i[baseline_data infrastructures landOwnership procurement nameOfContractor],
                           type: 'string',
-                          title: 'Who owns site?',
-                          sourceKey: [:baseline_data, :infrastructures, :landOwnership, :ownershipOfLandOtherThanLA],
+                          title: 'Name of Contractor',
                           readonly: true
-                        },
-                        # from landOwnership.landAcquisitionRequired
-                        landAquisitionRequired: {
-                          type: 'string',
-                          title: 'Land acquisition required (related to infrastructure)?',
-                          sourceKey: [:baseline_data, :infrastructures, :landOwnership, :landAcquisitionRequired],
-                          readonly: true,
-                          items: {
-                            type: 'string',
-                            enum: ['Yes', 'No']
-                          }
                         }
                       }
                     },
-                    laDoesHaveControlOfSite: {
+                    infrastructureNotProcured: {
                       type: 'object',
-                      title: 'LA Does Have Control Of Site',
+                      title: 'Infrastructure not procured',
+                      description: 'If the infrastructure is not procured...',
                       properties: {
-                        # from landOwnership.howManySitesToAquire
-                        howManySitesToAquire: {
-                          type: 'integer',
-                          title: 'Number of Sites to aquire?',
-                          sourceKey: [:baseline_data, :infrastructures, :landOwnership, :howManySitesToAcquire],
-                          readonly: true
-                        },
-                        # from landOwnership.toBeAquiredBy
-                        toBeAquiredBy: {
+                        procurementBaselineCompletion: {
                           type: 'string',
-                          title: 'Acquired by LA or Developer?',
-                          sourceKey: [:baseline_data, :infrastructures, :landOwnership, :toBeAcquiredBy],
+                          format: 'date',
+                          title: 'Target date of procuring',
+                          sourceKey: %i[baseline_data infrastructures landOwnership procurement targetDateToAquire],
                           readonly: true
                         },
-                        # from landOwnership.summaryOfCriticalPath
-                        summaryOfAcquisitionRequired: {
+                        summaryOfCriticalPath: {
+                          sourceKey: %i[baseline_data infrastructures landOwnership procurement summaryOfCriticalPath],
                           type: 'string',
-                          title: 'Summary of acquisition required',
-                          sourceKey: [:baseline_data, :infrastructures, :landOwnership, :summaryOfCriticalPath],
+                          title: 'Summary of Critical Procurement Path',
                           readonly: true
                         },
-                        allLandAssemblyAchieved: {
+                        procurementVarianceAgainstLastReturn: {
+                          type: 'string',
+                          readonly: true,
+                          hidden: true,
+                          title: 'Variance against last return (Calculated)'
+                        },
+                        procurementVarianceAgainstBaseline: {
+                          type: 'string',
+                          readonly: true,
+                          hidden: true,
+                          title: 'Variance against baseline (Calculated)'
+                        },
+                        procurementStatusAgainstLastReturn: {
                           type: 'object',
-                          title: 'All land assembly achieved',
-                          horizontal: true,
+                          title: 'Procurement Status Against Last Return',
                           properties: {
-                            # from landOwnership.toBeAquiredBy
-                            landAssemblyBaselineCompletion: {
-                              type: 'string',
-                              format: 'date',
-                              title: 'Baseline Completion',
-                              sourceKey: [:baseline_data, :infrastructures, :landOwnership, :targetDateToAcquire],
-                              readonly: true
-                            },
-                            # To be calculated
-                            landAssemblyVarianceAgainstLastReturn: {
-                              type: 'string',
-                              readonly: true,
-                              title: 'Variance Against Last Return (Calculated)'
-                            },
-                            # To be calculated
-                            landAssemblyVarianceAgainstBaseReturn: {
-                              type: 'string',
-                              readonly: true,
-                              title: 'Variance Against Base Return (Calculated)'
-                            },
                             statusAgainstLastReturn: {
                               title: 'Status against last return?',
                               type: 'string',
@@ -649,129 +697,28 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             reasonForVariance: {
                               type: 'string',
                               title: 'Reason for Variance'
-                            },
-                            percentComplete: {
-                              type: 'integer',
-                              title: 'Percent complete'
-                            },
-                            landAssemblyCompletedDate: {
-                              type: 'string',
-                              format: 'date',
-                              readonly: true,
-                              title: 'On Completed date (Calculated)'
                             }
                           }
-                        }
-                      }
-                    }
-                  }
-                },
-                procurement: {
-                  type: 'object',
-                  title: 'Procurement',
-                  properties: {
-                    # from procurement.contractorProcured
-                    contractorProcured: {
-                      type: 'string',
-                      title: 'Infrastructure contractor procured?',
-                      sourceKey: [:baseline_data, :infrastructures, :landOwnership, :procurement, :contractorProcured],
-                      readonly: true,
-                      items: {
-                        type: 'string',
-                        enum: ['Yes', 'No']
-                      }
-                    },
-                    infrastructureNotProcured: {
-                      type: 'object',
-                      title: 'Infrastructure not procured',
-                      properties: {
-                        infraStructureContractorProcurement: {
-                          type: 'object',
-                          title: 'Infrastructure contractor procurement',
-                          properties: {
-                            # from procurement.targetDateToAquire
-                            procurementBaselineCompletion: {
-                              type: 'string',
-                              format: 'date',
-                              title: 'Target date of procuring',
-                              sourceKey: [:baseline_data, :infrastructures, :landOwnership,  :procurement, :targetDateToAquire],
-                              readonly: true
-                            },
-                            procurementVarianceAgainstLastReturn: {
-                              type: 'string',
-                              readonly: true,
-                              title: 'Variance against last return (Calculated)'
-                            },
-                            procurementVarianceAgainstBaseline: {
-                              type: 'string',
-                              readonly: true,
-                              title: 'Variance against baseline (Calculated)'
-                            },
-                            procurementStatusAgainstLastReturn: {
-                              type: 'object',
-                              title: 'Procurement Status Against Last Return',
-                              properties: {
-                                statusAgainstLastReturn: {
-                                  title: 'Status against last return?',
-                                  type: 'string',
-                                  enum: [
-                                    'completed',
-                                    'on schedule',
-                                    'delayed: minimal impact',
-                                    'delayed: critical'
-                                  ],
-                                  default: 'on schedule'
-                                },
-                                currentReturn: {
-                                  type: 'string',
-                                  format: 'date',
-                                  title: 'Current Return'
-                                },
-                                reasonForVariance: {
-                                  type: 'string',
-                                  title: 'Reason for Variance'
-                                }
-                              }
-                            },
-                            percentComplete: {
-                              type: 'integer',
-                              title: 'Percent complete'
-                            },
-                            procurementCompletedDate: {
-                              type: 'string',
-                              readonly: true,
-                              title: 'Completion Date (Calculated)'
-                            },
-                            procurementCompletedNameOfContractor: {
-                              type: 'string',
-                              readonly: true,
-                              title: 'Completion Name of Contractor (Calculated)'
-                            }
-                          },
-                          # from procurement.summaryOfCriticalPath
-                          summaryOfCriticalPath: {
-                            sourceKey: [:baseline_data, :infrastructures, :landOwnership,:procurement, :summaryOfCriticalPath],
-                            type: 'string',
-                            title: 'Summary of Critical Procurement Path',
-                            readonly: true
-                          }
-                        }
-                      }
-                    },
-                    infrastructureProcured: {
-                      type: 'object',
-                      title: 'Infrastructure procured',
-                      properties: {
-                        # from procurement.nameOfContractor
-                        nameOfContractor: {
-                          sourceKey: [:baseline_data, :infrastructures, :landOwnership,:procurement, :nameOfContractor],
+                        },
+                        percentComplete: {
+                          type: 'integer',
+                          title: 'Percent complete'
+                        },
+                        procurementCompletedDate: {
                           type: 'string',
-                          title: 'Name of Contractor',
-                          readonly: true
+                          readonly: true,
+                          hidden: true,
+                          title: 'Completion Date (Calculated)'
+                        },
+                        procurementCompletedNameOfContractor: {
+                          type: 'string',
+                          readonly: true,
+                          hidden: true,
+                          title: 'Completion Name of Contractor (Calculated)'
                         }
                       }
                     }
-                  }
+                  },
                 },
                 milestones: {
                   type: 'object',
@@ -786,13 +733,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                         properties: {
                           # from milestones.target
                           description: {
-                            sourceKey: [:baseline_data, :infrastructures, :milestones, :descriptionOfMilestone],
+                            sourceKey: %i[baseline_data infrastructures milestones descriptionOfMilestone],
                             readonly: true,
                             type: 'string',
                             title: 'Description'
                           },
                           milestoneBaselineCompletion: {
-                            sourceKey: [:baseline_data, :infrastructures, :milestones, :target],
+                            sourceKey: %i[baseline_data infrastructures milestones target],
                             readonly: true,
                             type: 'string',
                             format: 'date',
@@ -800,7 +747,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           },
                           # from milestones.summaryOfCriticalPath
                           milestoneSummaryOfCriticalPath: {
-                            sourceKey: [:baseline_data, :infrastructures, :milestones, :summaryOfCriticalPath],
+                            sourceKey: %i[baseline_data infrastructures milestones summaryOfCriticalPath],
                             type: 'string',
                             title: 'Summary of Baseline Critical Path',
                             readonly: true
@@ -808,11 +755,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           milestoneVarianceAgainstLastReturn: {
                             type: 'string',
                             readonly: true,
-                            title: 'Variance against last return (Calculated)',
+                            hidden: true,
+                            title: 'Variance against last return (Calculated)'
                           },
                           milestoneVarianceAgainstBaseline: {
                             type: 'string',
                             readonly: true,
+                            hidden: true,
                             title: 'Variance against baseline (Calculated)'
                           },
                           statusAgainstLastReturn: status_against_last_return,
@@ -833,6 +782,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             type: 'string',
                             format: 'date',
                             readonly: true,
+                            hidden: true,
                             title: 'On Completed date (Calculated)'
                           }
                         }
@@ -859,7 +809,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           # from milestones.summaryOfCriticalPath
                           criticalPath: {
                             type: 'string',
-                            title: 'Summary of Critical Path',
+                            title: 'Summary of Critical Path'
                           }
                         }
                       }
@@ -873,13 +823,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                         properties: {
                           # from milestones.target
                           description: {
-                            sourceKey: [:return_data, :infrastructures, :milestones, :additionalMilestones, :description],
+                            sourceKey: %i[return_data infrastructures milestones additionalMilestones description],
                             readonly: true,
                             type: 'string',
                             title: 'Description'
                           },
                           milestoneBaselineCompletion: {
-                            sourceKey: [:return_data, :infrastructures, :milestones, :additionalMilestones, :completion],
+                            sourceKey: %i[return_data infrastructures milestones additionalMilestones completion],
                             readonly: true,
                             type: 'string',
                             format: 'date',
@@ -887,7 +837,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           },
                           # from milestones.summaryOfCriticalPath
                           milestoneSummaryOfCriticalPath: {
-                            sourceKey: [:return_data, :infrastructures, :milestones, :additionalMilestones, :criticalPath],
+                            sourceKey: %i[return_data infrastructures milestones additionalMilestones criticalPath],
                             type: 'string',
                             title: 'Summary of Baseline Critical Path',
                             readonly: true
@@ -895,11 +845,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           milestoneVarianceAgainstLastReturn: {
                             type: 'string',
                             readonly: true,
-                            title: 'Variance against last return (Calculated)',
+                            hidden: true,
+                            title: 'Variance against last return (Calculated)'
                           },
                           milestoneVarianceAgainstBaseline: {
                             type: 'string',
                             readonly: true,
+                            hidden: true,
                             title: 'Variance against baseline (Calculated)'
                           },
                           statusAgainstLastReturn: status_against_last_return,
@@ -920,6 +872,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             type: 'string',
                             format: 'date',
                             readonly: true,
+                            hidden: true,
                             title: 'On Completed date (Calculated)'
                           }
                         }
@@ -931,7 +884,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                       properties: {
                         milestoneExpectedInfrastructureStartBaseline: {
                           # from milestones.expectedInfrastructureStart
-                          sourceKey: [:baseline_data, :infrastructures, :expectedInfrastructureStart, :targetDateOfAchievingStart],
+                          sourceKey: %i[baseline_data infrastructures expectedInfrastructureStart targetDateOfAchievingStart],
                           type: 'string',
                           title: 'Baseline Start on site',
                           readonly: true
@@ -939,11 +892,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                         milestoneExpectedInfrastructureStartVarianceAgaistLastReturn: {
                           type: 'string',
                           readonly: true,
+                          hidden: true,
                           title: 'Variance against last return (Calculated)'
                         },
                         milestoneExpectedInfrastructureStartVarianceAgaistBaseline: {
                           type: 'string',
                           readonly: true,
+                          hidden: true,
                           title: 'Variance against baseline (Calculated)'
                         },
                         milestoneExpectedInfrastructureStartStatusAgainstLastReturn: {
@@ -976,6 +931,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           type: 'string',
                           format: 'date',
                           readonly: true,
+                          hidden: true,
                           title: 'On Completed date (Calculated)'
                         }
                       }
@@ -986,7 +942,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                       properties: {
                         milestoneExpectedInfrastructureCompletionBaseline: {
                           # from milestones.expectedInfrastructureCompletion
-                          sourceKey: [:baseline_data, :infrastructures, :expectedInfrastructureCompletion, :targetDateOfAchievingCompletion],
+                          sourceKey: %i[baseline_data infrastructures expectedInfrastructureCompletion targetDateOfAchievingCompletion],
                           type: 'string',
                           title: 'Baseline Completion',
                           readonly: true
@@ -994,11 +950,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                         milestoneExpectedInfrastructureCompletionVarianceAgaistLastReturn: {
                           type: 'string',
                           readonly: true,
+                          hidden: true,
                           title: 'Variance against last return (Calculated)'
                         },
                         milestoneExpectedInfrastructureCompletionVarianceAgaistBaseline: {
                           type: 'string',
                           readonly: true,
+                          hidden: true,
                           title: 'Variance against baseline (Calculated)'
                         },
                         milestoneExpectedInfrastructureCompletionStatusAgainstLastReturn: {
@@ -1031,6 +989,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           type: 'string',
                           format: 'date',
                           readonly: true,
+                          hidden: true,
                           title: 'On Completed date (Calculated)'
                         }
                       }
@@ -1049,21 +1008,21 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                         horizontal: true,
                         properties: {
                           riskBaselineRisk: {
-                          sourceKey: [:baseline_data, :infrastructures, :risksToAchievingTimescales, :descriptionOfRisk],
+                            sourceKey: %i[baseline_data infrastructures risksToAchievingTimescales descriptionOfRisk],
                             type: 'string',
                             title: 'Description Of Risk',
                             readonly: true
                           },
                           # from risksToAchievingTimescales.impactOfRisk
                           riskBaselineImpact: {
-                            sourceKey: [:baseline_data, :infrastructures, :risksToAchievingTimescales, :impactOfRisk],
+                            sourceKey: %i[baseline_data infrastructures risksToAchievingTimescales impactOfRisk],
                             type: 'string',
                             title: 'Impact',
                             readonly: true
                           },
                           # from risksToAchievingTimescales.likelihoodOfRisk
                           riskBaselineLikelihood: {
-                            sourceKey: [:baseline_data, :infrastructures, :risksToAchievingTimescales, :likelihoodOfRisk],
+                            sourceKey: %i[baseline_data infrastructures risksToAchievingTimescales likelihoodOfRisk],
                             type: 'string',
                             title: 'Likelihood',
                             readonly: true
@@ -1074,7 +1033,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           },
                           # from risksToAchievingTimescales.mitigationOfRisk
                           riskBaselineMitigationsInPlace: {
-                            sourceKey: [:baseline_data, :infrastructures, :risksToAchievingTimescales, :mitigationOfRisk],
+                            sourceKey: %i[baseline_data infrastructures risksToAchievingTimescales mitigationOfRisk],
                             type: 'string',
                             title: 'Mitigation in place',
                             readonly: true
@@ -1084,7 +1043,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             title: 'Any change in risk?',
                             items: {
                               type: 'string',
-                              enum: ['Yes', 'No']
+                              enum: %w[Yes No]
                             }
                           },
                           riskCurrentReturnMitigationsInPlace: {
@@ -1095,6 +1054,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             type: 'string',
                             format: 'date',
                             readonly: true,
+                            hidden: true,
                             title: 'Risk met date (Calculated)'
                           }
                         }
@@ -1135,21 +1095,21 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                         horizontal: true,
                         properties: {
                           riskBaselineRisk: {
-                            sourceKey: [:return_data, :infrastructures, :risks, :additionalRisks, :description],
+                            sourceKey: %i[return_data infrastructures risks additionalRisks description],
                             type: 'string',
                             title: 'Description Of Risk',
                             readonly: true
                           },
                           # from risksToAchievingTimescales.impactOfRisk
                           riskBaselineImpact: {
-                            sourceKey: [:return_data, :infrastructures, :risks, :additionalRisks, :impact],
+                            sourceKey: %i[return_data infrastructures risks additionalRisks impact],
                             type: 'string',
                             title: 'Impact',
                             readonly: true
                           },
                           # from risksToAchievingTimescales.likelihoodOfRisk
                           riskBaselineLikelihood: {
-                            sourceKey: [:return_data, :infrastructures, :risks, :additionalRisks, :likelihood],
+                            sourceKey: %i[return_data infrastructures risks additionalRisks likelihood],
                             type: 'string',
                             title: 'Likelihood',
                             readonly: true
@@ -1160,7 +1120,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           },
                           # from risksToAchievingTimescales.mitigationOfRisk
                           riskBaselineMitigationsInPlace: {
-                            sourceKey: [:return_data, :infrastructures, :risks, :additionalRisks, :mitigations],
+                            sourceKey: %i[return_data infrastructures risks additionalRisks mitigations],
                             type: 'string',
                             title: 'Mitigation in place',
                             readonly: true
@@ -1170,7 +1130,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             title: 'Any change in risk?',
                             items: {
                               type: 'string',
-                              enum: ['Yes', 'No']
+                              enum: %w[Yes No]
                             }
                           },
                           riskCurrentReturnMitigationsInPlace: {
@@ -1181,6 +1141,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             type: 'string',
                             format: 'date',
                             readonly: true,
+                            hidden: true,
                             title: 'Risk met date (Calculated)'
                           }
                         }
@@ -1204,7 +1165,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                         horizontal: true,
                         properties: {
                           description: {
-                            sourceKey: [:return_data, :infrastructures, :progress, :actionsForNextQuarter, :description],
+                            sourceKey: %i[return_data infrastructures progress actionsForNextQuarter description],
                             type: 'string',
                             readonly: true,
                             # from actions for next quarter
@@ -1215,7 +1176,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             title: 'Action Met?',
                             items: {
                               type: 'string',
-                              enum: ['Yes', 'No']
+                              enum: %w[Yes No]
                             }
                           },
                           progress: {
@@ -1276,7 +1237,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             type: 'string',
                             # from items.instalments.baselineInstalments.baselineInstalmentYear
                             title: 'Funding Year',
-                            sourceKey: [:baseline_data, :financial, :instalments, :baselineInstalments, :baselineInstalmentYear],
+                            sourceKey: %i[baseline_data financial instalments baselineInstalments baselineInstalmentYear],
                             readonly: true
                           },
                           forecast: {
@@ -1288,38 +1249,38 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                 type: 'string',
                                 # from items.instalments.baselineInstalments.baselineInstalmentQ1
                                 title: 'Forecast Q1',
-                                sourceKey: [:baseline_data, :financial, :instalments, :baselineInstalments, :baselineInstalmentQ1],
+                                sourceKey: %i[baseline_data financial instalments baselineInstalments baselineInstalmentQ1],
                                 readonly: true
                               },
                               forecastQ2: {
                                 type: 'string',
                                 # from items.instalments.baselineInstalments.baselineInstalmentQ2
                                 title: 'Forecast Q2',
-                                sourceKey: [:baseline_data, :financial, :instalments, :baselineInstalments, :baselineInstalmentQ2],
+                                sourceKey: %i[baseline_data financial instalments baselineInstalments baselineInstalmentQ2],
                                 readonly: true
                               },
                               forecastQ3: {
                                 type: 'string',
                                 # from items.instalments.baselineInstalments.baselineInstalmentQ3
                                 title: 'Forecast Q3',
-                                sourceKey: [:baseline_data, :financial, :instalments, :baselineInstalments, :baselineInstalmentQ3],
+                                sourceKey: %i[baseline_data financial instalments baselineInstalments baselineInstalmentQ3],
                                 readonly: true
                               },
                               forecastQ4: {
                                 type: 'string',
                                 # from items.instalments.baselineInstalments.baselineInstalmentQ4
                                 title: 'Forecast Q4',
-                                sourceKey: [:baseline_data, :financial, :instalments, :baselineInstalments, :baselineInstalmentQ4],
+                                sourceKey: %i[baseline_data financial instalments baselineInstalments baselineInstalmentQ4],
                                 readonly: true
                               },
                               forecastTotal: {
                                 type: 'string',
                                 # from items.instalments.baselineInstalments.baselineInstalmentTotal
                                 title: 'Forecast Total',
-                                sourceKey: [:baseline_data, :financial, :instalments, :baselineInstalments, :baselineInstalmentTotal],
+                                sourceKey: %i[baseline_data financial instalments baselineInstalments baselineInstalmentTotal],
                                 readonly: true
                               }
-                            },
+                            }
                           },
                           actual: {
                             type: 'object',
@@ -1471,7 +1432,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                 properties: {
                                   # finances.costs.costOfInfrastructure
                                   baselineCost: {
-                                    sourceKey: [:baseline_data, :financial, :costs, :costOfInfrastructure],
+                                    sourceKey: %i[baseline_data financial costs costOfInfrastructure],
                                     type: 'integer',
                                     title: 'Cost of Infrastructure',
                                     readonly: true
@@ -1528,7 +1489,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                     type: 'integer',
                                     readonly: true,
                                     title: 'Current HIF spend since last return (Calculated)',
-                                    sourceKey: [:return_data, :funding, :fundingPackages, :fundingPackage, :overview, :hifSpendSinceLastReturn, :hifSpendCurrentReturn]
+                                    sourceKey: %i[return_data funding fundingPackages fundingPackage overview hifSpendSinceLastReturn hifSpendCurrentReturn]
                                   },
                                   hifSpendVariance: {
                                     type: 'integer',
@@ -1550,13 +1511,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             properties: {
                               # from costs.fundingstack.totallyFundedThroughHIF
                               totallyFundedThroughHIF: {
-                                sourceKey: [:baseline_data, :financial, :costs, :fundingStack, :totallyFundedThroughHIF],
+                                sourceKey: %i[baseline_data financial costs fundingStack totallyFundedThroughHIF],
                                 type: 'string',
                                 title: 'Totally funded through HIF?',
                                 readonly: true,
                                 items: {
                                   type: 'string',
-                                  enum: ['Yes', 'No']
+                                  enum: %w[Yes No]
                                 }
                               },
                               # if totallFundedThroughHIF == false
@@ -1566,7 +1527,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                 properties: {
                                   # from costs.fundingstack.descriptionOfFundingStack
                                   descriptionOfFundingStack: {
-                                    sourceKey: [:baseline_data, :financial, :costs, :fundingStack, :descriptionOfFundingStack],
+                                    sourceKey: %i[baseline_data financial costs fundingStack descriptionOfFundingStack],
                                     type: 'string',
                                     title: 'Description of Funding Stack',
                                     readonly: true
@@ -1576,7 +1537,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                     title: 'Risk to funding package',
                                     items: {
                                       type: 'string',
-                                      enum: ['Yes', 'No']
+                                      enum: %w[Yes No]
                                     }
                                   },
                                   # if riskToFundingPackage = true
@@ -1591,7 +1552,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                     properties: {
                                       # from costs.fundingStack.totalPublic.
                                       publicTotalBaselineAmount: {
-                                        sourceKey: [:baseline_data, :financial, :costs, :fundingStack, :totalPublic],
+                                        sourceKey: %i[baseline_data financial costs fundingStack totalPublic],
                                         type: 'integer',
                                         title: 'Total Public Baseline Amount',
                                         readonly: true
@@ -1652,7 +1613,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                     properties: {
                                       # from costs.fundingStack.totalPrivate
                                       privateTotalBaselineAmount: {
-                                        sourceKey: [:baseline_data, :financial, :costs, :fundingStack, :totalPrivate],
+                                        sourceKey: %i[baseline_data financial costs fundingStack totalPrivate],
                                         type: 'integer',
                                         title: 'Total Private Baseline Amount',
                                         readonly: true
@@ -1721,17 +1682,17 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                   properties: {
                     # from costs.recovery.aimToRecover
                     aimToRecover: {
-                      sourceKey: [:baseline_data, :financial, :recovery, :aimToRecover],
+                      sourceKey: %i[baseline_data financial recovery aimToRecover],
                       type: 'string',
                       title: 'Aim to recover any funding?',
                       readonly: true,
                       items: {
                         type: 'string',
-                        enum: ['Yes', 'No']
+                        enum: %w[Yes No]
                       }
                     },
                     amountToRecover: {
-                      sourceKey: [:baseline_data, :financial, :recovery, :expectedAmountToRemove],
+                      sourceKey: %i[baseline_data financial recovery expectedAmountToRemove],
                       title: 'Amount to recover',
                       type: 'string',
                       readonly: true

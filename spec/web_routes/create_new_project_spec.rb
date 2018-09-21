@@ -5,14 +5,45 @@ require_relative 'delivery_mechanism_spec_helper'
 
 describe 'Creating a new project' do
   let(:create_new_project_spy) { spy(execute: project_id) }
+  let(:setup_auth_headers) { set_correct_auth_header }
+
+  ENV['ADMIN_HTTP_API_KEY'] = 'verysecretkey'
+
+  def set_correct_auth_header
+    header 'API_KEY', ENV['ADMIN_HTTP_API_KEY']
+  end
+
+  def set_incorrect_auth_header
+    header 'API_KEY', ENV['ADMIN_HTTP_API_KEY'] + 'make_key_invalid'
+  end
 
   before do
+    setup_auth_headers
+
     stub_const(
       'HomesEngland::UseCase::CreateNewProject',
       double(new: create_new_project_spy)
     )
 
     post('/project/create', project_data.to_json)
+  end
+
+  context 'when incorrect authentication was supplied' do
+    let(:setup_auth_headers) { set_incorrect_auth_header }
+    let(:project_id) { 1 }
+    let(:project_data) do
+      {
+        type: 'hif',
+        baselineData: {
+          cats: 'meow',
+          dogs: 'woof'
+        }
+      }
+    end
+
+    it 'returns 401' do
+      expect(last_response.status).to eq(401)
+    end
   end
 
   context 'example one' do
