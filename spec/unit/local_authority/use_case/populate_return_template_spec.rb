@@ -13,46 +13,34 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
   let(:template_gateway) { spy(find_by: found_template) }
   let(:find_path_data) { spy(execute: { found: matching_baseline_data }) }
   let(:get_schema_copy_paths) { spy(execute: copy_paths) }
+  let(:path_types) { [] }
+  let(:get_return_template_path_types) { spy(execute: { path_types: path_types }) }
   let(:use_case) do
-    described_class.new(template_gateway: template_gateway,
-                        find_path_data: find_path_data,
-                        get_schema_copy_paths: get_schema_copy_paths)
-  end
-
-  context 'finds the template' do
-    context 'example 1' do
-      it 'finds the correct template for the type' do
-        use_case.execute(type: 'hif', baseline_data: {})
-        expect(template_gateway).to have_received(:find_by).with(type: 'hif')
-      end
-    end
-
-    context 'example 2' do
-      it 'finds the correct template for the type' do
-        baseline_data = {
-          names: [
-            { pet: 'Mrs Bark' },
-            { pet: 'Meow Meow Fuzzyface' }
-          ]
-        }
-        use_case.execute(type: 'cat', baseline_data: baseline_data)
-        expect(template_gateway).to have_received(:find_by).with(type: 'cat')
-      end
-    end
+    described_class.new(
+      find_path_data: find_path_data,
+      get_schema_copy_paths: get_schema_copy_paths,
+      get_return_template_path_types: get_return_template_path_types
+    )
   end
 
   context 'finds the path' do
     context 'example 1' do
       let(:template_schema) { { properties: {} } }
-
-      it 'finds the correct path' do
-        baseline_data = {
+      let(:baseline_data) do
+        {
           names: [
             { pet: 'Edgar' },
             { pet: 'Barker barkington' }
           ]
         }
+      end
 
+      it 'finds the correct path' do
+        use_case.execute(type: 'cat', baseline_data: baseline_data)
+        expect(get_schema_copy_paths).to have_received(:execute).with(type: 'cat')
+      end
+
+      it 'calls with the correct GetReturnTemplatePathTypes' do
         use_case.execute(type: 'cat', baseline_data: baseline_data)
         expect(get_schema_copy_paths).to have_received(:execute).with(type: 'cat')
       end
@@ -76,6 +64,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
   end
 
   context 'Given a single toplevel baseline key in the schema' do
+    let(:path_types) { %i[object object] }
     let(:baseline_data) do
       {
         cats: 'Meow'
@@ -107,6 +96,8 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
   end
 
   context 'Given a single multilevel baseline key in the schema' do
+    let(:path_types) { %i[object object] }
+
     let(:baseline_data) do
       {
         cats: {
@@ -140,6 +131,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
   end
 
   context 'given a return with multiple properties on one level in an array' do
+    let(:path_types) { %i[object array object] }
     let(:baseline_data) do
       {
         cats: {
@@ -202,6 +194,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
   end
 
   context 'Given a single multilevel return with a baselineKey' do
+    let(:path_types) { %i[object object object] }
     let(:baseline_data) do
       {
         cats: {
@@ -241,6 +234,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
   end
 
   context 'Multiple single level keys in the schema' do
+    let(:path_types) { %i[object object] }
     let(:baseline_data) do
       {
         cats:
@@ -298,6 +292,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
   end
 
   context 'with an array' do
+    let(:path_types) { %i[object array object] }
     let(:baseline_data) do
       {
         cats: [
@@ -344,6 +339,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
   end
 
   context 'with a list in an array' do
+    let(:path_types) { %i[object array array object] }
     let(:baseline_data) do
       {
         cats: [
@@ -420,6 +416,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
   end
 
   context 'Creating a return from another return' do
+    let(:path_types) { %i[object object] }
     let(:template_schema) do
       {
         type: 'object',
@@ -458,6 +455,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
   end
 
   context 'creating a return to a non-existent simple two level path' do
+    let(:path_types) { %i[object unsupported_type] }
     let(:template_schema) do
       {
         type: 'object',
@@ -490,6 +488,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
   end
 
   context 'creating a return with a non-existent source path that contains an array' do
+    let(:path_types) { %i[object array object] }
     let(:template_schema) do
       {
         type: 'object',
@@ -531,6 +530,8 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
   end
 
   context 'creating a return with a path in a dependency' do
+    let(:path_types) { %i[object object] }
+
     let(:template_schema) do
       {
         type: 'object',
@@ -573,6 +574,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
   end
 
   context 'creating a return with a path in a dependency in an array' do
+    let(:path_types) { %i[object array object] }
     let(:template_schema) do
       {
         type: 'object',
@@ -626,6 +628,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
   end
 
   context 'given a schema with multiple states' do
+    let(:path_types) { %i[object object object] }
     let(:template_schema) do
       {
         type: 'object',
@@ -684,6 +687,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
   end
 
   context 'given a schema with multiple dependencies' do
+    let(:path_types) { %i[object object object] }
     let(:template_schema) do
       {
         type: 'object',
@@ -742,6 +746,8 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
   end
 
   context 'given a schema with multiple dependencies and paths' do
+    let(:path_types) { %i[object object object] }
+
     let(:template_schema) do
       {
         type: 'object',
@@ -819,6 +825,8 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
   end
 
   context 'given a schema with multiple dependencies and paths' do
+    let(:path_types) { %i[object object object] }
+
     let(:template_schema) do
       {
         type: 'object',
@@ -903,6 +911,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
   end
 
   context 'creating a return with a path with multiple dependencies in an array' do
+    let(:path_types) { %i[object array object] }
     let(:template_schema) do
       {
         type: 'object',
