@@ -69,10 +69,10 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                 planningSubmitted: {
                                   title: 'Planning permission Submitted',
                                   type: 'object',
-                                  horizontal: true,
+                                  variance: true,
                                   required: ['percentComplete'],
                                   properties: {
-                                    baselineSubmitted: {
+                                    baseline: {
                                       type: 'string',
                                       format: 'date',
                                       title: 'Full Planning Permission submitted date',
@@ -91,7 +91,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       hidden: true,
                                       title: 'Variance against Last Return submitted date (Week) (Calculated)'
                                     },
-                                    statusAgainstLastReturn: {
+                                    status: {
                                       title: 'Status against last return?',
                                       type: 'string',
                                       enum: [
@@ -102,12 +102,12 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       ],
                                       default: 'on schedule'
                                     },
-                                    currentReturn: {
+                                    current: {
                                       type: 'string',
                                       format: 'date',
                                       title: 'Current Return'
                                     },
-                                    reasonForVariance: {
+                                    reason: {
                                       type: 'string',
                                       title: 'Reason for Variance'
                                     },
@@ -115,7 +115,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       type: 'integer',
                                       title: 'Percent complete'
                                     },
-                                    onCompletedDate: {
+                                    completedDate: {
                                       type: 'string',
                                       format: 'date',
                                       readonly: true,
@@ -133,9 +133,9 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                 planningGranted: {
                                   title: 'Planning Permission Granted',
                                   type: 'object',
-                                  horizontal: true,
+                                  variance: true,
                                   properties: {
-                                    baselineGranted: {
+                                    baseline: {
                                       type: 'string',
                                       format: 'date',
                                       title: 'Outline Planning Permission granted date',
@@ -154,7 +154,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       hidden: true,
                                       title: 'Variance against Last Return granted date (Weeks) (Calculated)'
                                     },
-                                    statusAgainstLastReturn: {
+                                    status: {
                                       title: 'Status against last return?',
                                       type: 'string',
                                       enum: [
@@ -165,12 +165,12 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       ],
                                       default: 'on schedule'
                                     },
-                                    currentReturn: {
+                                    current: {
                                       type: 'string',
                                       format: 'date',
                                       title: 'Current Return'
                                     },
-                                    reasonForVariance: {
+                                    reason: {
                                       type: 'string',
                                       title: 'Reason for Variance'
                                     },
@@ -178,7 +178,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       type: 'integer',
                                       title: 'Percent complete'
                                     },
-                                    onCompletedDate: {
+                                    completedDate: {
                                       type: 'string',
                                       format: 'date',
                                       readonly: true,
@@ -229,9 +229,9 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                 submitted: {
                                   title: 'Planning permission Submitted',
                                   type: 'object',
-                                  horizontal: true,
+                                  variance: true,
                                   properties: {
-                                    baselineFullPlanningPermissionSubmitted: {
+                                    baseline: {
                                       type: 'string',
                                       format: 'date',
                                       title: 'Full Planning Permission submitted date',
@@ -250,7 +250,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       hidden: true,
                                       title: 'Variance against Last Return submitted date (Week) (Calculated)'
                                     },
-                                    statusAgainstLastReturn: {
+                                    status: {
                                       title: 'Status against last return?',
                                       type: 'string',
                                       enum: [
@@ -261,12 +261,12 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       ],
                                       default: 'on schedule'
                                     },
-                                    currentReturn: {
+                                    current: {
                                       type: 'string',
                                       format: 'date',
                                       title: 'Current Return'
                                     },
-                                    reasonForVariance: {
+                                    reason: {
                                       type: 'string',
                                       title: 'Reason for Variance'
                                     },
@@ -274,7 +274,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       type: 'integer',
                                       title: 'Percent complete'
                                     },
-                                    onCompletedDate: {
+                                    completedDate: {
                                       type: 'string',
                                       format: 'date',
                                       readonly: true,
@@ -292,9 +292,9 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                 granted: {
                                   title: 'Planning Permission Granted',
                                   type: 'object',
-                                  horizontal: true,
+                                  variance: true,
                                   properties: {
-                                    baselineFullPlanningPermissionGranted: {
+                                    baseline: {
                                       type: 'string',
                                       format: 'date',
                                       title: 'Full Planning Permission granted date',
@@ -313,7 +313,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       hidden: true,
                                       title: 'Variance against Last Return granted date (Weeks) (Calculated)'
                                     },
-                                    statusAgainstLastReturn: {
+                                    status: {
                                       title: 'Status against last return?',
                                       type: 'string',
                                       enum: [
@@ -324,12 +324,12 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       ],
                                       default: 'on schedule'
                                     },
-                                    currentReturn: {
+                                    current: {
                                       type: 'string',
                                       format: 'date',
                                       title: 'Current Return'
                                     },
-                                    reasonForVariance: {
+                                    reason: {
                                       type: 'string',
                                       title: 'Reason for Variance'
                                     },
@@ -337,7 +337,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       type: 'integer',
                                       title: 'Percent complete'
                                     },
-                                    onCompletedDate: {
+                                    completedDate: {
                                       type: 'string',
                                       format: 'date',
                                       readonly: true,
@@ -345,7 +345,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       title: 'Completed date (Calculated)'
                                     }
                                   }
-                                },
+                                }
                               }
                             }
                           ]
@@ -470,7 +470,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     laHasControlOfSite: {
                       type: 'string',
                       title: 'LA Control of site(s) (related to infrastructure)? ',
-                      sourceKey: %i[baseline_data infrastructures landOwnership landAcquisitionRequired],
+                      sourceKey: %i[baseline_data infrastructures landOwnership underControlOfLA],
                       readonly: true,
                       enum: %w[Yes No]
                     }
@@ -534,10 +534,10 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                         allLandAssemblyAchieved: {
                                           type: 'object',
                                           title: 'All land assembly achieved',
-                                          horizontal: true,
+                                          variance: true,
                                           properties: {
                                             # from landOwnership.toBeAquiredBy
-                                            landAssemblyBaselineCompletion: {
+                                            baseline: {
                                               type: 'string',
                                               format: 'date',
                                               title: 'Baseline Completion',
@@ -558,7 +558,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                               hidden: true,
                                               title: 'Variance Against Base Return (Calculated)'
                                             },
-                                            statusAgainstLastReturn: {
+                                            status: {
                                               title: 'Status against last return?',
                                               type: 'string',
                                               enum: [
@@ -569,12 +569,12 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                               ],
                                               default: 'on schedule'
                                             },
-                                            currentReturn: {
+                                            current: {
                                               type: 'string',
                                               format: 'date',
                                               title: 'Current Return'
                                             },
-                                            reasonForVariance: {
+                                            reason: {
                                               type: 'string',
                                               title: 'Reason for Variance'
                                             },
@@ -582,7 +582,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                               type: 'integer',
                                               title: 'Percent complete'
                                             },
-                                            landAssemblyCompletedDate: {
+                                            completedDate: {
                                               type: 'string',
                                               format: 'date',
                                               readonly: true,
