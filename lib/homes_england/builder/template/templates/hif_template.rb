@@ -14,26 +14,6 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
         outputsActuals: outputs_actuals
       }
     }
-
-    hif_template.layout = {
-      summary: {
-        project_name: nil,
-        description: nil,
-        lead_authority: nil
-      },
-      infrastructure: {
-        type: nil,
-        description: nil,
-        completion_date: nil,
-        planning: {
-          submission_estimated: nil
-        }
-      },
-      financial: {
-        total_amount_estimated: nil
-      }
-    }
-    hif_template
   end
 
   private
