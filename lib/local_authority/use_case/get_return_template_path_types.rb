@@ -1,4 +1,6 @@
 class LocalAuthority::UseCase::GetReturnTemplatePathTypes
+  using LocalAuthority::Refinement::HashHasPath
+  
   def initialize(template_gateway:)
     @template_gateway = template_gateway
   end
@@ -9,7 +11,7 @@ class LocalAuthority::UseCase::GetReturnTemplatePathTypes
   end
 
   private
-  
+
   def schema_types(schema, path)
     return [:not_found] if schema.nil?
     return [:object] if path.empty?
@@ -24,7 +26,7 @@ class LocalAuthority::UseCase::GetReturnTemplatePathTypes
       acquired_path = get_path_types_from_array_properties(path, schema)
     end
     if array_has_item_dependencies?(schema) && path_not_found?(acquired_path)
-      acquired_path = get_path_types_from_array_last_dependency(path, schema)
+      acquired_path = get_path_types_from_array_dependencies(path, schema)
     end
     acquired_path
   end
@@ -37,7 +39,7 @@ class LocalAuthority::UseCase::GetReturnTemplatePathTypes
     end
 
     if object_has_dependencies(schema) && path_not_found?(acquired_path)
-      acquired_path = get_path_types_object_last_dependency(path, schema)
+      acquired_path = get_path_types_from_object_dependencies(path, schema)
     end
 
     [:object] + acquired_path
@@ -51,7 +53,7 @@ class LocalAuthority::UseCase::GetReturnTemplatePathTypes
     path.last != :not_found
   end
 
-  def get_path_types_from_array_last_dependency(path, schema)
+  def get_path_types_from_array_dependencies(path, schema)
     schema.dig(:items, :dependencies).values.each do |value|
       path_types = get_state_path(value, path)
       return [:array] + path_types if path_found?(path_types)
@@ -59,7 +61,7 @@ class LocalAuthority::UseCase::GetReturnTemplatePathTypes
   end
 
   def array_has_item_dependencies?(schema)
-    Common::HashUtils.hash_has_path(schema, %i[items dependencies])
+    schema.hash_has_path?(%i[items dependencies])
   end
 
   def get_path_types_from_array_properties(path, schema)
@@ -67,10 +69,10 @@ class LocalAuthority::UseCase::GetReturnTemplatePathTypes
   end
 
   def array_has_property?(path, schema)
-    Common::HashUtils.hash_has_path(schema, [:items, :properties, path.first])
+    schema.hash_has_path?([:items, :properties, path.first])
   end
 
-  def get_path_types_object_last_dependency(path, schema)
+  def get_path_types_from_object_dependencies(path, schema)
     schema[:dependencies].values.each do |value|
       path_types = get_state_path(value, path)
       return path_types if path_found?(path_types)
@@ -82,11 +84,11 @@ class LocalAuthority::UseCase::GetReturnTemplatePathTypes
   end
 
   def object_has_dependencies(schema)
-    Common::HashUtils.hash_has_path(schema, [:dependencies])
+    schema.hash_has_path?([:dependencies])
   end
 
   def object_has_property(path, schema)
-    Common::HashUtils.hash_has_path(schema, [:properties, path.first])
+    schema.hash_has_path?([:properties, path.first])
   end
 
   def get_state_path(schema, path)
