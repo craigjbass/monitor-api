@@ -9,13 +9,111 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
       type: 'object',
       properties: {
         summary: ac_summary,
-        conditions: ac_conditions
+        conditions: ac_conditions,
+        financials: ac_financials
       }
     }
     ac_template
   end
 
   private
+
+  def ac_financials
+    {
+      type: 'object',
+      title: 'Financials',
+      properties: {
+        expenditure: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              fundingDrawdown: {
+                year: {
+                  type: 'integer',
+                  title: 'Year'
+                },
+                Q1Amount: {
+                  type: 'integer',
+                  title: 'First Quarter'
+                },
+                Q2Amount: {
+                  type: 'integer',
+                  title: 'Second Quarter'
+                },
+                Q3Amount: {
+                  type: 'integer',
+                  title: 'Third Quarter'
+                },
+                Q4Amount: {
+                  type: 'integer',
+                  title: 'Fourth Quarter'
+                }
+              }
+            }
+          }
+        },
+        fundingStack: {
+          type: 'object',
+          title: 'Funding Stack',
+          properties: {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: {
+                year: {
+                  type: 'string',
+                  title: 'Year'
+                },
+                homesEnglandGrant: {
+                  type: 'integer',
+                  title: 'Homes England Grant'
+                },
+                otherSources: {
+                  type: 'array',
+                  items: {
+                    type: 'object',
+                    properties: {
+                      fundingSource: {
+                        type: 'integer',
+                        title: 'Funding Source'
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        receipts: {
+          detailsOnPaymentStructure: {
+            type: 'string',
+            title: 'Details on payment structure'
+          },
+          expectedDisposalReceipt: {
+            type: 'object',
+            title: 'Expected Disposal Receip',
+            properties: {
+              type: 'array',
+              items: {
+                type: 'object',
+                properties: {
+                  site: {
+                    type: 'string',
+                    title: 'Site'
+                  },
+                  amount: {
+                    type: 'integer',
+                    title: 'amount'
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  end
 
   def ac_conditions
     {
