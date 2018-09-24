@@ -11,13 +11,101 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
         summary: ac_summary,
         conditions: ac_conditions,
         financials: ac_financials,
-        milestones: ac_milestones
+        milestones: ac_milestones,
+        outputs: ac_outputs
       }
     }
     ac_template
   end
 
   private
+
+  def ac_outputs
+    {
+      type: 'object',
+      title: 'Outputs',
+      properties: {
+        unitCompletions: {
+          type: 'object',
+          title: 'Unit Completions',
+          properties: {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: {
+                year: {
+                  type: 'integer',
+                  title: 'Year'
+                },
+                Q1Amount: {
+                  type: 'integer',
+                  title: 'First Quarter'
+                },
+                Q2Amount: {
+                  type: 'integer',
+                  title: 'Second Quarter'
+                },
+                Q3Amount: {
+                  type: 'integer',
+                  title: 'Third Quarter'
+                },
+                Q4Amount: {
+                  type: 'integer',
+                  title: 'Fourth Quarter'
+                }
+
+              }
+            }
+          }
+        },
+        keyProgrammeObjectives: {
+          type: 'object',
+          title: 'Key Programme Objectives',
+          properties: {
+            localMarketPace: {
+              type: 'number',
+              title: 'Local Market Pace (units pm)'
+            },
+            schemePace: {
+              type: 'number',
+              title: 'Scheme Pace (units pm)'
+            },
+            mmcCategory: {
+              type: 'object',
+              title: 'MMC Category',
+              properties: {
+                type: 'array',
+                items: {
+                  type: 'object',
+                  properties: {
+                    title: {
+                      type: 'string',
+                      title: 'Category Title'
+                    },
+                    percent: {
+                      type: 'integer',
+                      title: 'Percent Amount'
+                    }
+                  }
+                }
+              }
+            },
+            startOfFirstUnit: {
+              type: 'string',
+              format: 'date',
+              title: 'Start of first unit'
+            },
+            completionOfFinalUnit: {
+              type: 'string',
+              format: 'date',
+              title: 'Completion of final unit'
+            }
+          }
+
+        }
+      }
+    }
+  end
 
   def ac_milestones
     {
