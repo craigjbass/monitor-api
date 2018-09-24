@@ -34,7 +34,6 @@ class LocalAuthority::UseCases
       LocalAuthority::Gateway::InMemoryAPIKeyGateway.new
     end
 
-
     builder.define_use_case :find_path_data do
       LocalAuthority::UseCase::FindPathData.new
     end
@@ -47,9 +46,9 @@ class LocalAuthority::UseCases
 
     builder.define_use_case :populate_return_template do
       LocalAuthority::UseCase::PopulateReturnTemplate.new(
-        template_gateway: builder.get_use_case(:return_template_gateway),
         find_path_data: builder.get_use_case(:find_path_data),
-        get_schema_copy_paths: builder.get_use_case(:get_schema_copy_paths)
+        get_schema_copy_paths: builder.get_use_case(:get_schema_copy_paths),
+        get_return_template_path_types: builder.get_use_case(:get_return_template_path_types)
       )
     end
 
@@ -129,7 +128,7 @@ class LocalAuthority::UseCases
       LocalAuthority::UseCase::ExpendAccessToken.new(
         access_token_gateway: builder.get_use_case(
           :access_token_gateway
-        ),create_api_key: builder.get_use_case(:create_api_key)
+        ), create_api_key: builder.get_use_case(:create_api_key)
       )
     end
 
@@ -150,10 +149,16 @@ class LocalAuthority::UseCases
     builder.define_use_case :calculate_hif_return do
       LocalAuthority::UseCase::CalculateHIFReturn.new
     end
-    
+
     builder.define_use_case :validate_return do
       LocalAuthority::UseCase::ValidateReturn.new(
         return_template_gateway: builder.get_use_case(:return_template_gateway)
+      )
+    end
+
+    builder.define_use_case :get_return_template_path_types do
+      LocalAuthority::UseCase::GetReturnTemplatePathTypes.new(
+        template_gateway: builder.get_use_case(:return_template_gateway)
       )
     end
   end
