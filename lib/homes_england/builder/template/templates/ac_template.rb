@@ -2,25 +2,73 @@
 
 class HomesEngland::Builder::Template::Templates::ACTemplate
   def create
-    hif_template = HomesEngland::Domain::Template.new
-    hif_template.schema = {
+    ac_template = HomesEngland::Domain::Template.new
+    ac_template.schema = {
       '$schema': 'http://json-schema.org/draft-07/schema',
       title: 'AC Project',
       type: 'object',
       properties: {
         summary: ac_summary,
-        infrastructures: ac_infrastructures,
-        financial: ac_finances,
-        s151: ac_s151,
-        outputsForecast: ac_outputs_forecast,
-        outputsActuals: ac_outputs_actuals
+        conditions: ac_conditions
       }
     }
-
-    hif_template
+    ac_template
   end
 
   private
+
+  def ac_conditions
+    {
+      type: 'object',
+      title: 'Conditions',
+      properties: {
+        predrawdownConditions: {
+          type: 'object',
+          title: 'Pre-Drawdown Conditions',
+          properties: {
+            conditions: {
+              type: 'array',
+              items: {
+                type: 'object',
+                properties: {
+                  conditionName: {
+                    type: 'string',
+                    title: 'Condition Name'
+                  },
+                  conditionExplanation: {
+                    type: 'string',
+                    title: 'Condition explanation'
+                  },
+                  conditionSite: {
+                    type: 'string',
+                    title: 'Site (if multiple)'
+                  }
+                }
+              }
+            }
+          }
+        },
+        fundingItems: {
+          type: 'object',
+          title: 'Funding Items',
+          properties: {
+            fundingItem: {
+              type: 'string',
+              title: 'Funding item'
+            },
+            fundingSite: {
+              type: 'string',
+              title: 'Site (if multiple)'
+            },
+            fundingAgreed: {
+              type: 'string',
+              title: 'AC Funding agreed'
+            }
+          }
+        }
+      }
+    }
+  end
 
   def ac_summary
     {
@@ -152,25 +200,5 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
         }
       }
     }
-  end
-
-  def ac_infrastructures
-    {}
-  end
-
-  def ac_finances
-    {}
-  end
-
-  def ac_s151
-    {}
-  end
-
-  def ac_outputs_forecast
-    {}
-  end
-
-  def ac_outputs_actuals
-    {}
   end
 end

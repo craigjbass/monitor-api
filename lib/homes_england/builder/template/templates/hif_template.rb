@@ -14,6 +14,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
         outputsActuals: outputs_actuals
       }
     }
+    hif_template
   end
 
   private
