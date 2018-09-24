@@ -2,8 +2,9 @@
 
 require 'json-schema'
 class LocalAuthority::UseCase::ValidateReturn
-  def initialize(return_template_gateway:)
+  def initialize(return_template_gateway:,get_return_template_path_titles:)
     @return_template_gateway = return_template_gateway
+    @get_return_template_path_titles = get_return_template_path_titles
   end
 
   def execute(type:, return_data:)
@@ -11,7 +12,14 @@ class LocalAuthority::UseCase::ValidateReturn
 
     invalid_paths = schema.invalid_paths(return_data)
 
-    { valid: invalid_paths.empty?,
-      invalid_paths: invalid_paths }
+    invalid_pretty_paths = invalid_paths.map do |path|
+      @get_return_template_path_titles.execute(path: path)[:path_titles]
+    end
+
+    {
+      valid: invalid_paths.empty?,
+      invalid_paths: invalid_paths,
+      invalid_pretty_paths: invalid_pretty_paths
+    }
   end
 end

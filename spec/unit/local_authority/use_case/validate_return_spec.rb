@@ -2,17 +2,36 @@
 
 describe LocalAuthority::UseCase::ValidateReturn do
   let(:project_type) { 'hif' }
+  let(:invalid_return_data_pretty_paths) { nil }
+
+  #We need to write this as a fake that iterates through invalid_return_data_pretty_paths
+  # This needs to be reset every time
+  let(:get_return_template_path_titles_spy) do
+    Class.new do
+      attr_reader :called_with
+
+      def initialize(invalid_return_data_pretty_paths)
+        @invalid_return_data_pretty_paths = invalid_return_data_pretty_paths
+      end
+
+      def execute(argument)
+        @called_with = argument
+        { path_titles: @invalid_return_data_pretty_paths.shift }
+      end
+    end.new(invalid_return_data_pretty_paths)
+  end
+
   let(:template) do
     LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
       p.schema = {}
     end
   end
 
-  let(:invalid_return_data_paths) { nil }
+  let(:invalid_return_data_paths) { [] }
 
   let(:return_template_gateway_spy) { double(find_by: template) }
   let(:use_case) do
-    described_class.new(return_template_gateway: return_template_gateway_spy)
+    described_class.new(return_template_gateway: return_template_gateway_spy, get_return_template_path_titles: get_return_template_path_titles_spy)
   end
 
   it 'should have accept project type and return data' do
@@ -48,6 +67,11 @@ describe LocalAuthority::UseCase::ValidateReturn do
         return_value = use_case.execute(type: project_type, return_data: valid_return_data)
         expect(return_value[:invalid_paths]).to eq([])
       end
+
+      it 'should return no pretty paths' do
+        return_value = use_case.execute(type: project_type, return_data: valid_return_data)
+        expect(return_value[:invalid_pretty_paths]).to eq([])
+      end
     end
 
     context 'given an invalid return' do
@@ -59,6 +83,23 @@ describe LocalAuthority::UseCase::ValidateReturn do
       it 'should return the correct path' do
         return_value = use_case.execute(type: project_type, return_data: invalid_return_data)
         expect(return_value[:invalid_paths]).to eq(invalid_return_data_paths)
+      end
+
+      it 'should return the correct pretty path' do
+        return_value = use_case.execute(type: project_type, return_data: invalid_return_data)
+        # For some reason this is always an empty array
+        p invalid_return_data_pretty_paths
+        expect(return_value[:invalid_pretty_paths]).to eq(invalid_return_data_pretty_paths)
+      end
+    end
+
+    context 'calling titles use case' do
+      it 'should call return template gateway with type' do
+        use_case.execute(type: project_type, return_data: invalid_return_data)
+
+        invalid_return_data_paths.each do |path|
+          expect(get_return_template_path_titles_spy.called_with).to eq(path: path)
+        end
       end
     end
   end
@@ -98,9 +139,13 @@ describe LocalAuthority::UseCase::ValidateReturn do
         let(:invalid_return_data_paths) do
           [[:complete]]
         end
+
+        let(:invalid_return_data_pretty_paths) do
+          [["Complete"]]
+        end
       end
     end
-    context 'single field' do
+    context 'single field', :focus do
       context 'example 1' do
         it_should_behave_like 'required field validation'
         let(:template) do
@@ -133,6 +178,10 @@ describe LocalAuthority::UseCase::ValidateReturn do
 
         let(:invalid_return_data_paths) do
           [[:percentComplete]]
+        end
+
+        let(:invalid_return_data_pretty_paths) do
+          [["Percent complete"]]
         end
       end
 

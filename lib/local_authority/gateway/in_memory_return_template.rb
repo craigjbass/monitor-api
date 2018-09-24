@@ -67,7 +67,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   readonly: true
                                 },
                                 planningSubmitted: {
-                                  title: 'Planning permission Submitted',
+                                  title: 'Planning Permission Submitted',
                                   type: 'object',
                                   variance: true,
                                   required: ['percentComplete'],
@@ -113,7 +113,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                     },
                                     percentComplete: {
                                       type: 'integer',
-                                      title: 'Percent complete'
+                                      title: 'Percent Complete'
                                     },
                                     completedDate: {
                                       type: 'string',
@@ -216,6 +216,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                         fullPlanningPermissionGranted: {
                           oneOf: [
                             {
+                              type: 'object',
                               properties: {
                                 fullPlanningPermissionGranted: {
                                   enum: ['No']
@@ -503,7 +504,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   enum: %w[Yes No]
                                 }
                               },
-                              dependencies: { 
+                              dependencies: {
                                 landAcquisitionRequired: {
                                   oneOf: [
                                     {
