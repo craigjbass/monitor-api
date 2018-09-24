@@ -10,13 +10,119 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
       properties: {
         summary: ac_summary,
         conditions: ac_conditions,
-        financials: ac_financials
+        financials: ac_financials,
+        milestones: ac_milestones
       }
     }
     ac_template
   end
 
   private
+
+  def ac_milestones
+    {
+      type: 'object',
+      title: 'Milestones',
+      properties: {
+        description: {
+          type: 'string',
+          title: 'Description of disposal and delivery approach'
+        },
+        procurementOfWorksCommencementDate: {
+          type: 'string',
+          format: 'date',
+          title: 'Procurement of works commencement date'
+        },
+        provisionOfDetailedWorks: {
+          type: 'string',
+          format: 'date',
+          title: 'Provision of detailed works specification and milestones'
+        },
+        commencementDate: {
+          type: 'string',
+          format: 'date',
+          title: 'Commencement of works date (first, if multiple)'
+        },
+        completionDate: {
+          type: 'string',
+          format: 'date',
+          title: 'Completion of works date (last, if multiple)'
+        },
+        outlinePlanningSubmissionDate: {
+          type: 'string',
+          format: 'date',
+          title: 'Outline planning permission submitted date'
+        },
+        outlinePlanningGrantedDate: {
+          type: 'string',
+          format: 'date',
+          title: 'Outline planning permission granted date'
+        },
+        detailedPlanningSubmissionDate: {
+          type: 'string',
+          format: 'date',
+          title: 'Detailed planning permission submitted date'
+        },
+        detailsPlanningGrantedDate: {
+          type: 'string',
+          format: 'date',
+          title: 'Detailed planning permission granted date'
+        },
+        marketingCommenced: {
+          type: 'string',
+          format: 'date',
+          title: 'Developer Partner marketing commenced (EOI or formal tender)'
+        },
+        conditionalContractSigned: {
+          type: 'string',
+          format: 'date',
+          title: 'Conditional contract signed'
+        },
+        unconditionalContractSigned: {
+          type: 'string',
+          format: 'date',
+          title: 'Unconditional contract signed'
+        },
+        typeOfContract: {
+          type: 'string',
+          title: 'Type of contract (eg Building Lease)'
+        },
+        nameOfDeliveryPartner: {
+          type: 'string',
+          title: 'Name of delivery partner/purchaser'
+        },
+        startOnSiteDate: {
+          type: 'string',
+          format: 'date',
+          title: 'Start on site date'
+        },
+        startOnFirstUnitDate: {
+          type: 'string',
+          format: 'date',
+          title: 'Start of first unit date'
+        },
+        developmentEndDate: {
+          type: 'string',
+          format: 'date',
+          title: 'Development end date (final unit completion)'
+        },
+        customMileStones: {
+          type: 'object',
+          title: 'Custom Milestones',
+          properties: {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: {
+                type: 'string',
+                title: 'Custom (local authority entered)'
+              }
+            }
+          }
+        }
+      }
+    }
+  end
 
   def ac_financials
     {
