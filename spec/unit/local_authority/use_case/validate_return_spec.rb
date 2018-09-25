@@ -11,14 +11,15 @@ describe LocalAuthority::UseCase::ValidateReturn do
       attr_reader :called_with
 
       def initialize(invalid_return_data_pretty_paths)
+        @called_with = []
         @invalid_return_data_pretty_paths = invalid_return_data_pretty_paths
       end
 
       def execute(argument)
-        @called_with = argument
+        @called_with << argument
         { path_titles: @invalid_return_data_pretty_paths.shift }
       end
-    end.new(invalid_return_data_pretty_paths)
+    end.new(invalid_return_data_pretty_paths.dup)
   end
 
   let(:template) do
@@ -87,8 +88,6 @@ describe LocalAuthority::UseCase::ValidateReturn do
 
       it 'should return the correct pretty path' do
         return_value = use_case.execute(type: project_type, return_data: invalid_return_data)
-        # For some reason this is always an empty array
-        p invalid_return_data_pretty_paths
         expect(return_value[:invalid_pretty_paths]).to eq(invalid_return_data_pretty_paths)
       end
     end
@@ -97,9 +96,10 @@ describe LocalAuthority::UseCase::ValidateReturn do
       it 'should call return template gateway with type' do
         use_case.execute(type: project_type, return_data: invalid_return_data)
 
-        invalid_return_data_paths.each do |path|
-          expect(get_return_template_path_titles_spy.called_with).to eq(path: path)
+        call_arguments = invalid_return_data_paths.map do |path|
+          { path: path }
         end
+        expect(get_return_template_path_titles_spy.called_with).to eq(call_arguments)
       end
     end
   end
@@ -145,7 +145,7 @@ describe LocalAuthority::UseCase::ValidateReturn do
         end
       end
     end
-    context 'single field', :focus do
+    context 'single field' do
       context 'example 1' do
         it_should_behave_like 'required field validation'
         let(:template) do
@@ -218,6 +218,10 @@ describe LocalAuthority::UseCase::ValidateReturn do
         let(:invalid_return_data_paths) do
           [[:catsComplete]]
         end
+
+        let(:invalid_return_data_pretty_paths) do
+          [["cats compete on the beach to complete the complex beat"]]
+        end
       end
     end
 
@@ -264,6 +268,10 @@ describe LocalAuthority::UseCase::ValidateReturn do
         end
 
         let(:invalid_return_data_paths) { [%i[planning percentComplete]] }
+
+        let(:invalid_return_data_pretty_paths) do
+          [['Planning', 'Percent complete']]
+        end
       end
 
       context 'example 2' do
@@ -305,6 +313,10 @@ describe LocalAuthority::UseCase::ValidateReturn do
         end
 
         let(:invalid_return_data_paths) { [%i[planning catsComplete]] }
+
+        let(:invalid_return_data_pretty_paths) do
+          [['Planning', 'cats compete on the beach to complete the complex beat']]
+        end
       end
     end
 
@@ -361,6 +373,10 @@ describe LocalAuthority::UseCase::ValidateReturn do
         end
 
         let(:invalid_return_data_paths) { [[:cats]] }
+
+        let(:invalid_return_data_pretty_paths) do
+          [['Cats', 'Cat Name']]
+        end
       end
 
       context 'example 2' do
@@ -409,6 +425,10 @@ describe LocalAuthority::UseCase::ValidateReturn do
         end
 
         let(:invalid_return_data_paths) { [[:dogs]] }
+
+        let(:invalid_return_data_pretty_paths) do
+          [['Planning', 'Wearing caps', 'Dog Name']]
+        end
       end
     end
 
@@ -469,6 +489,10 @@ describe LocalAuthority::UseCase::ValidateReturn do
         end
 
         let(:invalid_return_data_paths) { [[:dogs, 0, :name]] }
+
+        let(:invalid_return_data_pretty_paths) do
+          [['Planning', 'Wearing caps', 'Dog Name']]
+        end
       end
 
       context 'example 2' do
@@ -532,6 +556,10 @@ describe LocalAuthority::UseCase::ValidateReturn do
         end
 
         let(:invalid_return_data_paths) { [[:cats, 1, :catName]] }
+
+        let(:invalid_return_data_pretty_paths) do
+          [['HIF Project', 'Wearing caps', 'Cat Name']]
+        end
       end
     end
 
@@ -588,6 +616,10 @@ describe LocalAuthority::UseCase::ValidateReturn do
         end
 
         let(:invalid_return_data_paths) { [[:cats], %i[planning percentComplete]] }
+
+        let(:invalid_return_data_pretty_paths) do
+          [['HIF Project', 'Wearing caps', 'Cat Name'], ['HIF Project', 'Planning', 'Percent Complete']]
+        end
 
         context 'given partially invalid return' do
           let(:invalid_return_data) do
@@ -658,6 +690,10 @@ describe LocalAuthority::UseCase::ValidateReturn do
           }
         end
         let(:invalid_return_data_paths) { [[:dogs]] }
+
+        let(:invalid_return_data_pretty_paths) do
+          [['HIF Project', 'Dogs R Us']]
+        end
       end
     end
 
@@ -767,7 +803,12 @@ describe LocalAuthority::UseCase::ValidateReturn do
         let(:invalid_return_data_paths) do
           [[:infrastructures, 0, :planning, :planningNotGranted, :fieldOne, :percentComplete]]
         end
+
+        let(:invalid_return_data_pretty_paths) do
+          [['HIF Project', 'Infrastructures', 'Infrastructure 1', 'Planning', 'Planning Not Granted', 'Planning Not Granted Field One', 'Percent Complete']]
+        end
       end
+
       context 'example 2' do
         it_should_behave_like 'required field validation'
 
@@ -865,6 +906,10 @@ describe LocalAuthority::UseCase::ValidateReturn do
       end
       let(:invalid_return_data_paths) do
         [[:cathouses, 1, :catPlanning, :catPlanningNotGranted, :catInAHat, :hat]]
+      end
+
+      let(:invalid_return_data_pretty_paths) do
+        [['HIF Project', 'Cat Houses', 'Cat House', 'Cat Planning', 'Cat Planning Not Granted', 'Its a cat in a hat']]
       end
     end
   end
