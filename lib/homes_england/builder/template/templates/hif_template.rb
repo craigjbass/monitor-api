@@ -1,5 +1,5 @@
 class HomesEngland::Builder::Template::Templates::HIFTemplate
-  def create
+  def create()
     hif_template = HomesEngland::Domain::Template.new
     hif_template.schema = {
       '$schema': 'http://json-schema.org/draft-07/schema',
@@ -8,7 +8,83 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
       properties: {
         summary: hif_summary,
         infrastructures: hif_infrastructures,
-        financial: hif_finances,
+        fundingProfiles: {
+          type: 'array',
+          title: 'Funding profiles',
+          items: {
+            type: 'object',
+            title: 'Funding Profile',
+            properties: {
+              period: { type: 'string', title: 'Period' },
+              instalment1: { type: 'string', title: '1st Instalment' },
+              instalment2: { type: 'string', title: '2nd Instalment' },
+              instalment3: { type: 'string', title: '3rd Instalment' },
+              instalment4: { type: 'string', title: '4th Instalment' },
+              total: { type: 'string', title: 'Total' },
+            }
+          }
+        },
+        costs: {
+          type: 'array',
+          title: 'Costs',
+          items: {
+            type: 'object',
+            title: 'Cost',
+            properties: {
+              infrastructure: {
+                type: 'object',
+                title: 'Infrastructure',
+                properties: {
+                  HIFAmount: {
+                    type: 'string',
+                    title: 'Total HIF Amount'
+                  },
+                  totalCostOfInfrastructure: {
+                    type: 'string',
+                    title: 'Total Cost of Infrastructure'
+                  },
+                  totallyFundedThroughHIF: {
+                    type: 'string',
+                    title: 'Totally funded through HIF?',
+                    enum: ['Yes', 'No']
+                  },
+                },
+                dependencies: {
+                  totallyFundedThroughHIF: {
+                    oneOf: [
+                      {
+                        properties: {
+                          totallyFundedThroughHIF: {
+                            enum: ['Yes']
+                          }
+                        }
+                      },
+                      {
+                        properties: {
+                          totallyFundedThroughHIF: {
+                            enum: ['No']
+                          },
+                          descriptionOfFundingStack: {
+                            type: 'string',
+                            title: 'If No: Description of Funding Stack'
+                          },
+                          totalPublic: {
+                            type: 'string',
+                            title: 'If No, Total Public (exc. HIF)'
+                          },
+                          totalPrivate: {
+                            type: 'string',
+                            title: 'If No, Total Private'
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
         s151: hif_s151,
         outputsForecast: outputs_forecast,
         outputsActuals: outputs_actuals
@@ -17,138 +93,127 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
     hif_template
   end
 
-  private
-
   def hif_finances
     {
-      type: 'array',
+      type: 'object',
       title: 'Financials',
-      items: {
-        type: 'object',
-        properties: {
-          period: { type: 'string', title: 'Period' },
-          instalments: {
-            type: 'array',
-            title: 'Instalments',
-            items: {
-              type: 'object',
-              properties: {
-                dateOfInstalment: {
-                  type: 'string',
-                  format: 'date',
-                  title: 'Date of Instalment'
-                },
-                instalmentAmount: {
-                  type: 'string',
-                  title: 'HIF Funding Profile - Baseline'
-                },
-                baselineInstalments: {
-                  type: 'array',
-                  title: 'Baseline Instalments',
-                  items: {
-                    type: 'object',
+      properties: {
+        fundingProfile: {
+          type: 'array',
+          title: 'HIF Funding Profiles',
+          items: {
+            type: 'object',
+            properties: {
+              period: { type: 'string', title: 'Period' },
+              instalment1: { type: 'string', title: '1st Instalment' },
+              instalment2: { type: 'string', title: '2nd Instalment' },
+              instalment3: { type: 'string', title: '3rd Instalment' },
+              instalment4: { type: 'string', title: '4th Instalment' },
+              total: { type: 'string', title: 'Total' },
+            }
+          }
+        },
+        costs: {
+          type: 'array',
+          title: 'Cost of Infrastructures',
+          items: {
+            type: 'object',
+            properties: {
+              costOfInfrastructure: {
+                type: 'string',
+                title: 'Cost of Infrastructure'
+              },
+              totalCostOfInfrastructure: {
+                type: 'string',
+                title: 'Total Cost of Infrastructure'
+              },
+              totallyFundedThroughHIF: {
+                type: 'string',
+                title: 'Totally funded through HIF?',
+                enum: ['Yes', 'No']
+              },
+            },
+            dependencies: {
+              totallyFundedThroughHIF: {
+                oneOf: [
+                  {
                     properties: {
-                      baselineInstalmentYear: {
-                        type: 'string',
-                        title: 'Baseline Instalment Year'
+                      totallyFundedThroughHIF: {
+                        enum: ['Yes']
+                      }
+                    }
+                  },
+                  {
+                    properties: {
+                      totallyFundedThroughHIF: {
+                        enum: ['No']
                       },
-                      baselineInstalmentQ1: {
+                      descriptionOfFundingStack: {
                         type: 'string',
-                        title: 'Baseline Instalment Q1'
+                        title: 'If No: Description of Funding Stack'
                       },
-                      baselineInstalmentQ2: {
+                      totalPublic: {
                         type: 'string',
-                        title: 'Baseline Instalment Q2'
+                        title: 'If No, Total Public (exc. HIF)'
                       },
-                      baselineInstalmentQ3: {
+                      totalPrivate: {
                         type: 'string',
-                        title: 'Baseline Instalment Q3'
-                      },
-                      baselineInstalmentQ4: {
-                        type: 'string',
-                        title: 'Baseline Instalment Q4'
-                      },
-                      baselineInstalmentTotal: {
-                        type: 'string',
-                        title: 'Baseline Instalment Total'
+                        title: 'If No, Total Private'
                       }
                     }
                   }
-                }
+                ]
               }
             }
+          }
+        },
+        baselineCashflow: {
+          type: 'object',
+          title: 'Baseline Cashflow',
+          properties: {
+            summaryOfRequirement: {
+              type: 'string',
+              format: 'data-url',
+              title: 'Baseline Cashflow'
+            }
+          }
+        },
+        recovery: {
+          type: 'object',
+          title: 'Recovery',
+          properties: {
+            aimToRecover: {
+              type: 'string',
+              title: 'Aim to Recover?',
+              enum: ['Yes', 'No']
+            },
           },
-          costs: {
-            type: 'array',
-            title: 'Cost of Infrastructures',
-            items: {
-              type: 'object',
-              properties: {
-                costOfInfrastructure: {
-                  type: 'string',
-                  title: 'Cost of Infrastructure'
-                },
-                fundingStack: {
-                  type: 'object',
-                  title: 'Totally funded through HIF',
+          dependencies: {
+            aimToRecover: {
+              oneOf: [
+                {
                   properties: {
-                    totallyFundedThroughHIF: {
-                      type: 'string',
-                      title: 'Totally funded through HIF?',
-                      items: {
-                        type: 'string',
-                        enum: %w[Yes No]
-                      }
+                    aimToRecover: {
+                      enum: ['Yes']
                     },
-                    descriptionOfFundingStack: {
+                    expectedAmountToRecover: {
                       type: 'string',
-                      title: 'If No: Description of Funding Stack'
+                      title: 'Expected Amount'
                     },
-                    totalPublic: {
+                    methodOfRecovery: {
                       type: 'string',
-                      title: 'If No, Total Public (exc. HIF)'
-                    },
-                    totalPrivate: {
-                      type: 'string',
-                      title: 'If No, Total Private'
+                      title: 'Method of Recovery?'
+                    }
+                  }
+                },
+                {
+                  properties: {
+                    aimToRecover: {
+                      enum: ['No']
                     }
                   }
                 }
-              }
-            }
-          },
-          baselineCashflow: {
-            type: 'object',
-            title: 'Baseline Cashflow',
-            properties: {
-              summaryOfRequirement: {
-                type: 'string',
-                format: 'data-url',
-                title: 'Baseline Cashflow'
-              }
-            }
-          },
-
-          recovery: {
-            type: 'object',
-            title: 'Recovery',
-            properties: {
-              aimToRecover: {
-                type: 'string',
-                title: 'Aim to Recover?',
-                items: {
-                  type: 'string',
-                  enum: %w[Yes No]
-                }
-              },
-              expectedAmountToRemove: {
-                type: 'integer',
-                title: 'Expected Amount'
-              },
-              methodOfRecovery: {
-                type: 'string',
-                title: 'Method of Recovery?'
-              }
+              ]
             }
           }
         }
@@ -161,6 +226,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
       type: 'array',
       title: 'Infrastructures',
       items: {
+        title: 'Infrastructure',
         type: 'object',
         properties: {
           type: {
@@ -171,6 +237,10 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
             type: 'string',
             title: 'Description'
           },
+          housingSitesBenefitting: {
+            type: 'string',
+            title: 'Housing Sites Benefitting'
+          },
           outlinePlanningStatus: {
             type: 'object',
             title: 'Outline Planning Status',
@@ -178,28 +248,52 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
               granted: {
                 type: 'string',
                 title: 'Granted?',
-                items: {
-                  type: 'string',
-                  enum: %w[Yes No]
-                }
-              },
-              grantedReference: {
-                type: 'string',
-                title: 'If Yes: Reference '
-              },
-              targetSubmission: {
-                type: 'string',
-                format: 'date',
-                title: 'If No: Target date of submission'
-              },
-              targetGranted: {
-                type: 'string',
-                format: 'date',
-                title: 'If No: Target date of planning granted'
-              },
-              summaryOfCriticalPath: {
-                type: 'string',
-                title: 'If No: Summary of Critical Path'
+                enum: ['Yes', 'No', 'N/A']
+              }
+            },
+            dependencies: {
+              granted: {
+                oneOf: [
+                  {
+                    properties: {
+                      granted: {
+                        enum: ['Yes']
+                      },
+                      reference: {
+                        type: 'string',
+                        title: 'Reference'
+                      }
+                    }
+                  },
+                  {
+                    properties: {
+                      granted: {
+                        enum: ['No']
+                      },
+                      targetSubmission: {
+                        type: 'string',
+                        format: 'date',
+                        title: 'Target date of submission'
+                      },
+                      targetGranted: {
+                        type: 'string',
+                        format: 'date',
+                        title: 'Target date of planning granted'
+                      },
+                      summaryOfCriticalPath: {
+                        type: 'string',
+                        title: 'Summary of Critical Path'
+                      }
+                    }
+                  },
+                  {
+                    properties: {
+                      granted: {
+                        enum: ['N/A']
+                      }
+                    }
+                  }
+                ]
               }
             }
           },
@@ -210,28 +304,57 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
               granted: {
                 type: 'string',
                 title: 'Granted?',
-                items: {
-                  type: 'string',
-                  enum: %w[Yes No]
-                }
-              },
-              grantedReference: {
-                type: 'string',
-                title: 'If Yes: Reference '
-              },
-              targetSubmission: {
-                type: 'string',
-                format: 'date',
-                title: 'If No: Target date of submission'
-              },
-              targetGranted: {
-                type: 'string',
-                format: 'date',
-                title: 'If No: Target date of planning granted'
-              },
-              summaryOfCriticalPath: {
-                type: 'string',
-                title: 'If No: Summary of Critical Path'
+                enum: ['Yes', 'No', 'N/A']
+              }
+            },
+            required: ['granted'],
+            dependencies: {
+              granted: {
+                oneOf: [
+                  {
+                    properties: {
+                      granted: {
+                        enum: ['Yes']
+                      },
+                      reference: {
+                        type: 'string',
+                        title: 'Reference'
+                      }
+                    },
+                    required: ['reference']
+                  },
+                  {
+                    properties: {
+                      granted: {
+                        enum: ['No']
+                      },
+                      targetSubmission: {
+                        type: 'string',
+                        format: 'date',
+                        title: 'Target date of submission'
+                      },
+                      targetGranted: {
+                        type: 'string',
+                        format: 'date',
+                        title: 'Target date of planning granted'
+                      },
+                      summaryOfCriticalPath: {
+                        type: 'string',
+                        title: 'Summary of Critical Path'
+                      }
+                    },
+                    required: [
+                      'targetSubmission', 'targetGranted', 'summaryOfCriticalPath'
+                    ]
+                  },
+                  {
+                    properties: {
+                      granted: {
+                        enum: ['N/A']
+                      }
+                    }
+                  }
+                ]
               }
             }
           },
@@ -241,15 +364,32 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
             properties: {
               requirement: {
                 type: 'string',
-                title: 'A requirement?',
-                items: {
-                  type: 'string',
-                  enum: %w[Yes No]
-                }
-              },
-              summaryOfRequirement: {
-                type: 'string',
-                title: 'If Yes: Summary of requirement'
+                title: 'Is this a requirement?',
+                enum: ['Yes', 'No']
+              }
+            },
+            dependencies: {
+              requirement: {
+                oneOf: [
+                  {
+                    properties: {
+                      requirement: {
+                        enum: ['Yes']
+                      },
+                      summaryOfRequirement: {
+                        type: 'string',
+                        title: 'If Yes: Summary of requirement'
+                      }
+                    }
+                  },
+                  {
+                    properties: {
+                      requirement: {
+                        enum: ['No']
+                      }
+                    }
+                  }
+                ]
               }
             }
           },
@@ -260,19 +400,47 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
               anyConsents: {
                 type: 'string',
                 title: 'Any Statutory Consents?',
-                items: {
-                  type: 'string',
-                  enum: %w[Yes No]
-                }
-              },
-              detailsOfConsent: {
-                type: 'string',
-                title: 'If Yes: Details of consent'
-              },
-              targetDateToBeMet: {
-                type: 'string',
-                format: 'date',
-                title: 'If Yes: Target date to be met'
+                enum: ['Yes', 'No']
+              }
+            },
+            required: ['anyConsents'],
+            dependencies: {
+              anyConsents: {
+                oneOf: [
+                  {
+                    properties: {
+                      anyConsents: {
+                        enum: ['Yes']
+                      },
+                      consents: {
+                        title: 'Consents',
+                        type: 'array',
+                        items: {
+                          type: 'object',
+                          properties: {
+                            detailsOfConsent: {
+                              type: 'string',
+                              title: 'Details of consent'
+                            },
+                            targetDateToBeMet: {
+                              type: 'string',
+                              format: 'date',
+                              title: 'Target date to be met'
+                            }
+                          },
+                          required: ['detailsOfConsent', 'targetDateToBeMet']
+                        }
+                      }
+                    }
+                  },
+                  {
+                    properties: {
+                      anyConsents: {
+                        enum: ['No']
+                      }
+                    }
+                  }
+                ]
               }
             }
           },
@@ -283,39 +451,74 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
               underControlOfLA: {
                 type: 'string',
                 title: 'Is land under control of the Local Authority',
-                items: {
-                  type: 'string',
-                  enum: %w[Yes No]
-                }
+                enum: ['Yes', 'No']
               },
-              ownershipOfLandOtherThanLA: {
-                type: 'string',
-                title: 'If No: who owns it?'
-              },
-              landAcquisitionRequired: {
-                type: 'string',
-                title: 'Is land acquisition required?',
-                items: {
-                  type: 'string',
-                  enum: %w[Yes No]
-                }
-              },
-              howManySitesToAcquire: {
-                type: 'integer',
-                title: 'If Yes: How many sites to aquire?'
-              },
-              toBeAcquiredBy: {
-                type: 'string',
-                title: 'If Yes: Is this to be acquired by LA or developer?'
-              },
-              targetDateToAcquire: {
-                type: 'string',
-                format: 'date',
-                title: 'If Yes: Target date to aquire sites'
-              },
-              summaryOfCriticalPath: {
-                type: 'string',
-                title: 'If Yes: Summary of Critical Path'
+            },
+            required: ['underControlOfLA'],
+            dependencies: {
+              underControlOfLA: {
+                oneOf: [
+                  {
+                    properties: {
+                      underControlOfLA: {
+                        enum: ['No']
+                      },
+                      ownershipOfLandOtherThanLA: {
+                        type: 'string',
+                        title: 'Who owns it?'
+                      }
+                    }
+                  },
+                  {
+                    properties: {
+                      underControlOfLA: {
+                        enum: ['Yes']
+                      },
+                      landAcquisitionRequired: {
+                        type: 'string',
+                        title: 'Is land acquisition required?',
+                        enum: ['Yes', 'No']
+                      },
+                    },
+                    dependencies: {
+                      landAcquisitionRequired: {
+                        oneOf: [
+                          {
+                            properties: {
+                              landAcquisitionRequired: {
+                                enum: ['No']
+                              },
+                            }
+                          },
+                          {
+                            properties: {
+                              landAcquisitionRequired: {
+                                enum: ['Yes']
+                              },
+                              howManySitesToAcquire: {
+                                type: 'integer',
+                                title: 'How many sites?'
+                              },
+                              toBeAcquiredBy: {
+                                type: 'string',
+                                title: 'Is this to be acquired by LA or developer?'
+                              },
+                              targetDateToAcquire: {
+                                type: 'string',
+                                format: 'date',
+                                title: 'Target date to aquire sites'
+                              },
+                              summaryOfCriticalPath: {
+                                type: 'string',
+                                title: 'Summary of Critical Path'
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
               }
             }
           },
@@ -326,26 +529,40 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
               contractorProcured: {
                 type: 'string',
                 title: 'Is the infrastructure contractor procured?',
-                items: {
-                  type: 'string',
-                  enum: %w[Yes No]
-                }
-              },
-
-              nameOfContractor: {
-                type: 'string',
-                title: 'If Yes: Name of Contractor?'
-              },
-
-              targetDateToAquire: {
-                type: 'string',
-                format: 'date',
-                title: 'If No: Target date of procuring'
-              },
-
-              summaryOfCriticalPath: {
-                type: 'string',
-                title: 'If No: Summary of Critical Path'
+                enum: ['Yes', 'No']
+              }
+            },
+            dependencies: {
+              contractorProcured: {
+                oneOf: [
+                  {
+                    properties: {
+                      contractorProcured: {
+                        enum: ['Yes']
+                      },
+                      nameOfContractor: {
+                        type: 'string',
+                        title: 'Name of Contractor'
+                      }
+                    }
+                  },
+                  {
+                    properties: {
+                      contractorProcured: {
+                        enum: ['No']
+                      },
+                      targetDate: {
+                        type: 'string',
+                        format: 'date',
+                        title: 'Target date of procuring'
+                      },
+                      summaryOfCriticalPath: {
+                        type: 'string',
+                        title: 'Summary of critical path'
+                      }
+                    }
+                  }
+                ]
               }
             }
           },
@@ -369,7 +586,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                   title: 'Summary of Critical Path'
                 }
               }
-            }
+            },
           },
           expectedInfrastructureStart: {
             type: 'object',
@@ -440,9 +657,18 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
           type: 'string',
           title: 'Lead Authority'
         },
+        jointBidAreas: {
+          type: 'string',
+          title: 'Joint Bid Areas',
+        },
         projectDescription: {
           type: 'string',
           title: 'Project Description'
+        },
+        greenOrBrownField: {
+          type: 'string',
+          title: 'Greenfield/Brownfield/Mixed',
+          enum: ['Greenfield', 'Brownfield', 'Mixed']
         },
         noOfHousingSites: {
           type: 'integer',
@@ -506,19 +732,16 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
           items: {
             type: 'object',
             properties: {
-              date: {
+              period: {
                 type: 'string',
-                format: 'date',
-                title: 'Date'
+                title: 'Period'
               },
               target: {
                 type: 'string',
-                format: 'date',
                 title: 'Housing Starts'
               },
               housingCompletions: {
                 type: 'string',
-                format: 'date',
                 title: 'Housing Completions'
               }
             }
