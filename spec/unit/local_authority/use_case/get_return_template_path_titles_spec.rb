@@ -608,6 +608,274 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTitles do
     end
   end
 
+  context 'complex dependency schema with multiple options for dependencies' do
+    context 'example 1' do
+      let(:template_schema) do
+        {
+          title: 'Optional',
+          type: 'object',
+          properties:
+          {
+          },
+          dependencies:
+          {
+            cats:
+            {
+              oneOf: [
+                {
+                  type: 'object',
+                  properties: {
+                    cat: {
+                      title: 'Cats',
+                      type: 'array',
+                      items:
+                      {
+                        title: 'Cat',
+                        type: 'object',
+                        properties: {
+                          noise: {
+                            title: 'Noise'
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  type: 'object',
+                  properties: {
+                    dogs: {
+                      title: 'Dogs',
+                      type: 'array',
+                      items:
+                      {
+                        title: 'Dogs',
+                        type: 'object',
+                        properties: {
+                          noise: {
+                            title: 'Dogs'
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      end
+
+      it 'gets the correct path titles' do
+        path_titles = use_case.execute(type: 'hif', path: %i[cat noise])[:path_titles]
+        expect(path_titles).to eq(['Optional', 'Cats', 'Cat', 'Noise'])
+      end
+    end
+
+    context 'example 2' do
+      let(:template_schema) do
+        {
+          title: 'Dog Header',
+          type: 'object',
+          properties:
+          {
+            dogs: {}
+          },
+          dependencies:
+          {
+            dogs:
+            {
+              oneOf: [
+                {
+                  type: 'object',
+                  properties: {
+                    dog: {
+                      title: 'Dogs',
+                      type: 'array',
+                      items:
+                      {
+                        title: 'Dog',
+                        type: 'object',
+                        properties: {
+                          sound: {
+                            title: 'Sound'
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  type: 'object',
+                  properties: {
+                    cat: {
+                      title: 'Cats',
+                      type: 'array',
+                      items:
+                      {
+                        title: 'Cat',
+                        type: 'object',
+                        properties: {
+                          sound: {
+                            title: 'Sound'
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      end
+
+      it 'gets the correct path titles' do
+        path_titles = use_case.execute(type: 'hif', path: %i[dog sound])[:path_titles]
+        expect(path_titles).to eq(['Dog Header', 'Dogs', 'Dog', 'Sound'])
+      end
+    end
+  end
+
+  context 'complex dependency schema with multiple dependencies', :focus do
+    context 'example 1' do
+      let(:template_schema) do
+        {
+          title: 'Optional',
+          type: 'object',
+          properties:
+          {
+          },
+          dependencies:
+          {
+            cats:
+            {
+              oneOf: [
+                {
+                  type: 'object',
+                  properties: {
+                    cat: {
+                      title: 'Cats',
+                      type: 'array',
+                      items:
+                      {
+                        title: 'Cat',
+                        type: 'object',
+                        properties: {
+                          noise: {
+                            title: 'Noise'
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            dogs:
+            {
+              oneOf: [
+                {
+                  type: 'object',
+                  properties: {
+                    cat: {
+                      title: 'Dogs',
+                      type: 'array',
+                      items:
+                      {
+                        title: 'Dog',
+                        type: 'object',
+                        properties: {
+                          noise: {
+                            title: 'Noise'
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+          }
+        }
+      end
+
+      it 'gets the correct path titles' do
+        path_titles = use_case.execute(type: 'hif', path: %i[cat noise])[:path_titles]
+        expect(path_titles).to eq(['Optional', 'Cats', 'Cat', 'Noise'])
+      end
+    end
+
+    context 'example 2' do
+      let(:template_schema) do
+        {
+          title: 'Dog Header',
+          type: 'object',
+          properties:
+          {
+            dogs: {}
+          },
+          dependencies:
+          {
+            cats:
+            {
+              oneOf: [
+                {
+                  type: 'object',
+                  properties: {
+                    cat: {
+                      title: 'Cats',
+                      type: 'array',
+                      items:
+                      {
+                        title: 'Cat',
+                        type: 'object',
+                        properties: {
+                          sound: {
+                            title: 'Sound'
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            dogs:
+            {
+              oneOf: [
+                {
+                  type: 'object',
+                  properties: {
+                    dog: {
+                      title: 'Dogs',
+                      type: 'array',
+                      items:
+                      {
+                        title: 'Dog',
+                        type: 'object',
+                        properties: {
+                          sound: {
+                            title: 'Sound'
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      end
+
+      it 'gets the correct path titles' do
+        path_titles = use_case.execute(type: 'hif', path: %i[dog sound])[:path_titles]
+        expect(path_titles).to eq(['Dog Header', 'Dogs', 'Dog', 'Sound'])
+      end
+    end
+  end
+
   context 'complex dependency schema with array with missing titles' do
     context 'example 1' do
       let(:template_schema) do
