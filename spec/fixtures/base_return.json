@@ -10,27 +10,28 @@
           "baselineOutlinePlanningPermissionGranted": "No",
           "baselineSummaryOfCriticalPath": "Summary of critical path",
           "planningSubmitted": {
-            "baselineSubmitted": "2020-01-01"
+            "baseline": "2020-01-01"
           },
           "planningGranted": {
-            "baselineGranted": "2020-01-01"
+            "baseline": "2020-02-01"
           }
         },
         "fullPlanning": {
           "fullPlanningPermissionGranted": "No",
           "fullPlanningPermissionSummaryOfCriticalPath": "Summary of critical path",
           "submitted": {
-            "baselineFullPlanningPermissionSubmitted": "2020-01-01"
+            "baseline": "2020-03-01"
           },
           "granted": {
-            "baselineFullPlanningPermissionGranted": "2020-01-01"
+            "baseline": "2020-04-01"
           }
         },
         "section106": {
           "s106Requirement": "Yes",
           "s106SummaryOfRequirement": "Required",
           "statutoryConsents": {
-            "anyStatutoryConsents": "Yes"
+            "anyStatutoryConsents": "Yes",
+            "statutoryConsents": [{ "baselineCompletion": "2020-01-01" }]
           }
         }
       },
@@ -40,10 +41,10 @@
           "whoOwnsSite": "Dave",
           "landAcquisitionRequired": "Yes",
           "howManySitesToAquire": 10,
-          "toBeAquiredBy": "Dave",
+          "toBeAquiredBy": "LA",
           "summaryOfAcquisitionRequired": "Summary of critical path",
           "allLandAssemblyAchieved": {
-            "landAssemblyBaselineCompletion": "2020-01-01"
+            "baseline": "2020-01-01"
           }
         }
       },
@@ -54,7 +55,7 @@
           "procurementBaselineCompletion": "2020-01-01"
         },
         "infrastructureProcured": {
-          "nameOfContractor": "Dave"
+          "nameOfContractor": "Steve"
         }
       },
       "milestones": {
@@ -84,48 +85,34 @@
       }
     }
   ],
-  "funding": [
-    {
-      "hifFundingProfiles": {
-        "hifFundingProfile": [
-          {
-            "fundingYear": ["4000"],
-            "forecast": {
-              "forecastQ1": ["1000"],
-              "forecastQ2": ["1000"],
-              "forecastQ3": ["1000"],
-              "forecastQ4": ["1000"],
-              "forecastTotal": ["1000"]
-            }
-          }
-        ]
-      },
-      "fundingPackages": [
-        {
-          "fundingPackage": {
-            "overview": {
-              "overviewCosts": {
-                "baselineCost": "1000"
-              }
-            },
-            "fundingStack": {
-              "totallyFundedThroughHIF": "Yes",
-              "notFundedThroughHif": {
-                "descriptionOfFundingStack": "Stack",
-                "totalPublic": {
-                  "publicTotalBaselineAmount": "2000"
-                },
-                "totalPrivate": {
-                  "privateTotalBaselineAmount": "2000"
-                }
-              }
-            }
-          }
+  "fundingProfiles": {
+    "fundingRequest": [
+      {
+        "period": "2019/2020",
+        "forecast": {
+          "instalment1": "1000",
+          "instalment2": "1000",
+          "instalment3": "1000",
+          "instalment4": "1000",
+          "total": "4000"
         }
-      ],
-      "recovery": {
-        "aimToRecover": "Yes",
-        "amountToRecover": 10
+      }
+    ],
+    "requestedProfiles": [{ "period": "2019/2020" }]
+  },
+  "fundingPackages": [
+    {
+      "totalCost": {
+        "baseline": "20000"
+      },
+      "hifSpend": {
+        "baseline": "10000"
+      },
+      "fundingStack": {
+        "fundedThroughHIF": "No",
+        "descriptionOfFundingStack": "Funding stack description",
+        "public": { "baseline": "5000" },
+        "private": { "baseline": "5000" }
       }
     }
   ]

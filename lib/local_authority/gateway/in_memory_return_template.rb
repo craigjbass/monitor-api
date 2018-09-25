@@ -69,10 +69,10 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                 planningSubmitted: {
                                   title: 'Planning permission Submitted',
                                   type: 'object',
-                                  horizontal: true,
+                                  variance: true,
                                   required: ['percentComplete'],
                                   properties: {
-                                    baselineSubmitted: {
+                                    baseline: {
                                       type: 'string',
                                       format: 'date',
                                       title: 'Full Planning Permission submitted date',
@@ -91,7 +91,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       hidden: true,
                                       title: 'Variance against Last Return submitted date (Week) (Calculated)'
                                     },
-                                    statusAgainstLastReturn: {
+                                    status: {
                                       title: 'Status against last return?',
                                       type: 'string',
                                       enum: [
@@ -102,12 +102,12 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       ],
                                       default: 'on schedule'
                                     },
-                                    currentReturn: {
+                                    current: {
                                       type: 'string',
                                       format: 'date',
                                       title: 'Current Return'
                                     },
-                                    reasonForVariance: {
+                                    reason: {
                                       type: 'string',
                                       title: 'Reason for Variance'
                                     },
@@ -115,7 +115,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       type: 'integer',
                                       title: 'Percent complete'
                                     },
-                                    onCompletedDate: {
+                                    completedDate: {
                                       type: 'string',
                                       format: 'date',
                                       readonly: true,
@@ -133,9 +133,9 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                 planningGranted: {
                                   title: 'Planning Permission Granted',
                                   type: 'object',
-                                  horizontal: true,
+                                  variance: true,
                                   properties: {
-                                    baselineGranted: {
+                                    baseline: {
                                       type: 'string',
                                       format: 'date',
                                       title: 'Outline Planning Permission granted date',
@@ -154,7 +154,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       hidden: true,
                                       title: 'Variance against Last Return granted date (Weeks) (Calculated)'
                                     },
-                                    statusAgainstLastReturn: {
+                                    status: {
                                       title: 'Status against last return?',
                                       type: 'string',
                                       enum: [
@@ -165,12 +165,12 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       ],
                                       default: 'on schedule'
                                     },
-                                    currentReturn: {
+                                    current: {
                                       type: 'string',
                                       format: 'date',
                                       title: 'Current Return'
                                     },
-                                    reasonForVariance: {
+                                    reason: {
                                       type: 'string',
                                       title: 'Reason for Variance'
                                     },
@@ -178,7 +178,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       type: 'integer',
                                       title: 'Percent complete'
                                     },
-                                    onCompletedDate: {
+                                    completedDate: {
                                       type: 'string',
                                       format: 'date',
                                       readonly: true,
@@ -229,9 +229,9 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                 submitted: {
                                   title: 'Planning permission Submitted',
                                   type: 'object',
-                                  horizontal: true,
+                                  variance: true,
                                   properties: {
-                                    baselineFullPlanningPermissionSubmitted: {
+                                    baseline: {
                                       type: 'string',
                                       format: 'date',
                                       title: 'Full Planning Permission submitted date',
@@ -250,7 +250,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       hidden: true,
                                       title: 'Variance against Last Return submitted date (Week) (Calculated)'
                                     },
-                                    statusAgainstLastReturn: {
+                                    status: {
                                       title: 'Status against last return?',
                                       type: 'string',
                                       enum: [
@@ -261,12 +261,12 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       ],
                                       default: 'on schedule'
                                     },
-                                    currentReturn: {
+                                    current: {
                                       type: 'string',
                                       format: 'date',
                                       title: 'Current Return'
                                     },
-                                    reasonForVariance: {
+                                    reason: {
                                       type: 'string',
                                       title: 'Reason for Variance'
                                     },
@@ -274,7 +274,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       type: 'integer',
                                       title: 'Percent complete'
                                     },
-                                    onCompletedDate: {
+                                    completedDate: {
                                       type: 'string',
                                       format: 'date',
                                       readonly: true,
@@ -292,9 +292,9 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                 granted: {
                                   title: 'Planning Permission Granted',
                                   type: 'object',
-                                  horizontal: true,
+                                  variance: true,
                                   properties: {
-                                    baselineFullPlanningPermissionGranted: {
+                                    baseline: {
                                       type: 'string',
                                       format: 'date',
                                       title: 'Full Planning Permission granted date',
@@ -313,7 +313,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       hidden: true,
                                       title: 'Variance against Last Return granted date (Weeks) (Calculated)'
                                     },
-                                    statusAgainstLastReturn: {
+                                    status: {
                                       title: 'Status against last return?',
                                       type: 'string',
                                       enum: [
@@ -324,12 +324,12 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       ],
                                       default: 'on schedule'
                                     },
-                                    currentReturn: {
+                                    current: {
                                       type: 'string',
                                       format: 'date',
                                       title: 'Current Return'
                                     },
-                                    reasonForVariance: {
+                                    reason: {
                                       type: 'string',
                                       title: 'Reason for Variance'
                                     },
@@ -337,7 +337,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       type: 'integer',
                                       title: 'Percent complete'
                                     },
-                                    onCompletedDate: {
+                                    completedDate: {
                                       type: 'string',
                                       format: 'date',
                                       readonly: true,
@@ -345,7 +345,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       title: 'Completed date (Calculated)'
                                     }
                                   }
-                                },
+                                }
                               }
                             }
                           ]
@@ -400,14 +400,14 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                     statutoryConsents: {
                                       title: 'Current Statutory Consents',
                                       type: 'array',
-                                      addable: true,
                                       items: {
                                         type: 'object',
                                         properties: {
                                           baselineCompletion: {
                                             title: 'Baseline completion',
                                             type: 'string',
-                                            format: 'date'
+                                            format: 'date',
+                                            sourceKey: %i[baseline_data infrastructures statutoryConsents consents targetDateToBeMet]
                                           },
                                           varianceAgainstBaseline: {
                                             hidden: true,
@@ -470,7 +470,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     laHasControlOfSite: {
                       type: 'string',
                       title: 'LA Control of site(s) (related to infrastructure)? ',
-                      sourceKey: %i[baseline_data infrastructures landOwnership landAcquisitionRequired],
+                      sourceKey: %i[baseline_data infrastructures landOwnership underControlOfLA],
                       readonly: true,
                       enum: %w[Yes No]
                     }
@@ -534,10 +534,10 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                         allLandAssemblyAchieved: {
                                           type: 'object',
                                           title: 'All land assembly achieved',
-                                          horizontal: true,
+                                          variance: true,
                                           properties: {
                                             # from landOwnership.toBeAquiredBy
-                                            landAssemblyBaselineCompletion: {
+                                            baseline: {
                                               type: 'string',
                                               format: 'date',
                                               title: 'Baseline Completion',
@@ -558,7 +558,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                               hidden: true,
                                               title: 'Variance Against Base Return (Calculated)'
                                             },
-                                            statusAgainstLastReturn: {
+                                            status: {
                                               title: 'Status against last return?',
                                               type: 'string',
                                               enum: [
@@ -569,12 +569,12 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                               ],
                                               default: 'on schedule'
                                             },
-                                            currentReturn: {
+                                            current: {
                                               type: 'string',
                                               format: 'date',
                                               title: 'Current Return'
                                             },
-                                            reasonForVariance: {
+                                            reason: {
                                               type: 'string',
                                               title: 'Reason for Variance'
                                             },
@@ -582,7 +582,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                               type: 'integer',
                                               title: 'Percent complete'
                                             },
-                                            landAssemblyCompletedDate: {
+                                            completedDate: {
                                               type: 'string',
                                               format: 'date',
                                               readonly: true,
@@ -624,7 +624,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     contractorProcured: {
                       type: 'string',
                       title: 'Infrastructure contractor procured?',
-                      sourceKey: %i[baseline_data infrastructures landOwnership procurement contractorProcured],
+                      sourceKey: %i[baseline_data infrastructures procurement contractorProcured],
                       readonly: true,
                       items: {
                         type: 'string',
@@ -637,7 +637,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                       description: 'If the infrastrcture has been procured...',
                       properties: {
                         nameOfContractor: {
-                          sourceKey: %i[baseline_data infrastructures landOwnership procurement nameOfContractor],
+                          sourceKey: %i[baseline_data infrastructures procurement nameOfContractor],
                           type: 'string',
                           title: 'Name of Contractor',
                           readonly: true
@@ -653,11 +653,11 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           type: 'string',
                           format: 'date',
                           title: 'Target date of procuring',
-                          sourceKey: %i[baseline_data infrastructures landOwnership procurement targetDateToAquire],
+                          sourceKey: %i[baseline_data infrastructures procurement targetDate],
                           readonly: true
                         },
                         summaryOfCriticalPath: {
-                          sourceKey: %i[baseline_data infrastructures landOwnership procurement summaryOfCriticalPath],
+                          sourceKey: %i[baseline_data infrastructures procurement summaryOfCriticalPath],
                           type: 'string',
                           title: 'Summary of Critical Procurement Path',
                           readonly: true
@@ -1205,502 +1205,290 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
               }
             }
           },
-          funding: {
-            type: 'array',
-            title: 'HIF Funding',
-            items: {
-              title: 'Funding Stack',
-              type: 'object',
-              properties: {
-                summary: {
-                  title: 'Summary',
+          fundingProfiles: {
+            type: 'object',
+            title: 'Funding Profiles',
+            properties: {
+              fundingRequest: {
+                type: 'array',
+                title: 'Funding Request',
+                items: {
                   type: 'object',
                   properties: {
-                    hifFundingRequest: {
+                    period: {
+                      title: 'Period',
                       type: 'string',
-                      # from s§151 (not done yet)
-                      title: 'HIF Funding Request'
-                    }
-                  }
-                },
-                hifFundingProfiles: {
-                  type: 'object',
-                  title: 'Funding Profiles',
-                  properties: {
-                    hifFundingProfile: {
-                      type: 'array',
-                      title: 'Funding Profile',
-                      items: {
-                        type: 'object',
-                        properties: {
-                          fundingYear: {
-                            type: 'string',
-                            # from items.instalments.baselineInstalments.baselineInstalmentYear
-                            title: 'Funding Year',
-                            sourceKey: %i[baseline_data financial instalments baselineInstalments baselineInstalmentYear],
-                            readonly: true
-                          },
-                          forecast: {
-                            type: 'object',
-                            title: 'Forecast',
-                            horizontal: true,
-                            properties: {
-                              forecastQ1: {
-                                type: 'string',
-                                # from items.instalments.baselineInstalments.baselineInstalmentQ1
-                                title: 'Forecast Q1',
-                                sourceKey: %i[baseline_data financial instalments baselineInstalments baselineInstalmentQ1],
-                                readonly: true
-                              },
-                              forecastQ2: {
-                                type: 'string',
-                                # from items.instalments.baselineInstalments.baselineInstalmentQ2
-                                title: 'Forecast Q2',
-                                sourceKey: %i[baseline_data financial instalments baselineInstalments baselineInstalmentQ2],
-                                readonly: true
-                              },
-                              forecastQ3: {
-                                type: 'string',
-                                # from items.instalments.baselineInstalments.baselineInstalmentQ3
-                                title: 'Forecast Q3',
-                                sourceKey: %i[baseline_data financial instalments baselineInstalments baselineInstalmentQ3],
-                                readonly: true
-                              },
-                              forecastQ4: {
-                                type: 'string',
-                                # from items.instalments.baselineInstalments.baselineInstalmentQ4
-                                title: 'Forecast Q4',
-                                sourceKey: %i[baseline_data financial instalments baselineInstalments baselineInstalmentQ4],
-                                readonly: true
-                              },
-                              forecastTotal: {
-                                type: 'string',
-                                # from items.instalments.baselineInstalments.baselineInstalmentTotal
-                                title: 'Forecast Total',
-                                sourceKey: %i[baseline_data financial instalments baselineInstalments baselineInstalmentTotal],
-                                readonly: true
-                              }
-                            }
-                          },
-                          actual: {
-                            type: 'object',
-                            title: 'Actual',
-                            horizontal: true,
-                            properties: {
-                              forecastQ1: {
-                                type: 'string',
-                                readonly: true,
-                                title: 'Actual Q1 (Calculated)'
-                              },
-                              forecastQ2: {
-                                type: 'string',
-                                readonly: true,
-                                title: 'Actual Q2 (Calculated)'
-                              },
-                              forecastQ3: {
-                                type: 'string',
-                                readonly: true,
-                                title: 'Actual Q3 (Calculated)'
-                              },
-                              forecastQ4: {
-                                type: 'string',
-                                readonly: true,
-                                title: 'Actual Q4 (Calculated)'
-                              },
-                              forecastTotal: {
-                                type: 'string',
-                                readonly: true,
-                                title: 'Actual Total (Calculated)'
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
-                changes: {
-                  type: 'object',
-                  title: 'Changes',
-                  properties: {
-                    hifConfirmNoChanges: {
-                      type: 'string',
-                      title: 'Please confirm there are no changes to be made to the funding profile',
-                      enum: ['Confirm', 'Changes requested']
-                    },
-                    hifIfFundingChangeRequested: {
-                      type: 'string',
-                      title: 'If change requested, reason for request'
-                    },
-                    changeMitigation: {
-                      type: 'string',
-                      title: 'Mitigation in place to reduce further slippage'
-                    },
-                    hifRequestedProfile: {
-                      type: 'array',
-                      title: 'Funding Change',
-                      addable: true,
-                      items: {
-                        type: 'object',
-                        properties: {
-                          fundingYear: {
-                            type: 'string',
-                            title: 'Requested period'
-                          },
-                          newProfile: {
-                            type: 'object',
-                            title: 'New Profile',
-                            horizontal: true,
-                            properties: {
-                              newProfileQ1: {
-                                type: 'string',
-                                title: 'New Profile Q1'
-                              },
-                              newProfileQ2: {
-                                type: 'string',
-                                title: 'New Profile Q2'
-                              },
-                              newProfileQ3: {
-                                type: 'string',
-                                title: 'New Profile Q3'
-                              },
-                              newProfileQ4: {
-                                type: 'string',
-                                title: 'New Profile Q4'
-                              },
-                              newProfileTotal: {
-                                type: 'string',
-                                title: 'New Profile Total (Calculated)'
-                              }
-                            }
-                          },
-                          variance: {
-                            type: 'object',
-                            title: 'Variance',
-                            horizontal: true,
-                            properties: {
-                              varianceQ1: {
-                                type: 'string',
-                                readonly: true,
-                                title: 'Variance Q1 (Calculated)'
-                              },
-                              varianceQ2: {
-                                type: 'string',
-                                readonly: true,
-                                title: 'Variance Q2 (Calculated)'
-                              },
-                              varianceQ3: {
-                                type: 'string',
-                                readonly: true,
-                                title: 'Variance Q3 (Calculated)'
-                              },
-                              varianceQ4: {
-                                type: 'string',
-                                readonly: true,
-                                title: 'Variance Q4 (Calculated)'
-                              },
-                              varianceTotal: {
-                                type: 'string',
-                                readonly: true,
-                                title: 'Variance Total (Calculated)'
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
-                fundingPackages: {
-                  type: 'array',
-                  title: 'Funding Packages',
-                  items: {
-                    type: 'object',
-                    properties: {
-                      fundingPackage: {
-                        title: 'Funding package',
-                        type: 'object',
-                        properties: {
-                          overview: {
-                            type: 'object',
-                            title: 'Overview',
-                            properties: {
-                              overviewCosts: {
-                                type: 'object',
-                                title: 'Overview Costs',
-                                horizontal: true,
-                                properties: {
-                                  # finances.costs.costOfInfrastructure
-                                  baselineCost: {
-                                    sourceKey: %i[baseline_data financial costs costOfInfrastructure],
-                                    type: 'integer',
-                                    title: 'Cost of Infrastructure',
-                                    readonly: true
-                                  },
-                                  currentCostReturn: {
-                                    type: 'integer',
-                                    title: 'Current Cost Return'
-                                  },
-                                  lastCostReturn: {
-                                    type: 'integer',
-                                    readonly: true,
-                                    title: 'Last Cost Return (Calculated)'
-                                  },
-                                  varianceCostAgainstBaseline: {
-                                    type: 'integer',
-                                    readonly: true,
-                                    title: 'Variance against Baseline (Calculated)'
-                                  },
-                                  varianceCostAgainstLastReturn: {
-                                    type: 'integer',
-                                    readonly: true,
-                                    title: 'Variance against last Return (Calculated)'
-                                  },
-                                  reasonForCostVariance: {
-                                    type: 'string',
-                                    title: 'Reason for Variance'
-                                  },
-                                  completedProgressBar: {
-                                    type: 'integer',
-                                    title: 'Percent complete'
-                                  },
-                                  costFinalAmount: {
-                                    type: 'integer',
-                                    readonly: true,
-                                    title: 'Cost Final Amount (Calculated)'
-                                  },
-                                  costReasonForVariance: {
-                                    type: 'string',
-                                    readonly: true,
-                                    title: 'Reason for Variance (Calculated)'
-                                  }
-                                }
-                              },
-                              hifSpendSinceLastReturn: {
-                                type: 'object',
-                                title: 'HIF Spend since last return',
-                                horizontal: true,
-                                properties: {
-                                  hifSpendCurrentReturn: {
-                                    type: 'integer',
-                                    title: 'Current HIF spend since last return'
-                                  },
-                                  hifSpendLastReturn: {
-                                    type: 'integer',
-                                    readonly: true,
-                                    title: 'Current HIF spend since last return (Calculated)',
-                                    sourceKey: %i[return_data funding fundingPackages fundingPackage overview hifSpendSinceLastReturn hifSpendCurrentReturn]
-                                  },
-                                  hifSpendVariance: {
-                                    type: 'integer',
-                                    readonly: true,
-                                    title: 'Current HIF spend variance (Calculated)'
-                                  },
-                                  hifSpendRemaining: {
-                                    type: 'integer',
-                                    readonly: true,
-                                    title: 'Current HIF spend remaining (Calculated)'
-                                  }
-                                }
-                              }
-                            }
-                          },
-                          fundingStack: {
-                            type: 'object',
-                            title: 'Funding Stack',
-                            properties: {
-                              # from costs.fundingstack.totallyFundedThroughHIF
-                              totallyFundedThroughHIF: {
-                                sourceKey: %i[baseline_data financial costs fundingStack totallyFundedThroughHIF],
-                                type: 'string',
-                                title: 'Totally funded through HIF?',
-                                readonly: true,
-                                items: {
-                                  type: 'string',
-                                  enum: %w[Yes No]
-                                }
-                              },
-                              # if totallFundedThroughHIF == false
-                              notFundedThroughHif: {
-                                type: 'object',
-                                title: 'Not Funded Through HIF',
-                                properties: {
-                                  # from costs.fundingstack.descriptionOfFundingStack
-                                  descriptionOfFundingStack: {
-                                    sourceKey: %i[baseline_data financial costs fundingStack descriptionOfFundingStack],
-                                    type: 'string',
-                                    title: 'Description of Funding Stack',
-                                    readonly: true
-                                  },
-                                  riskToFundingPackage: {
-                                    type: 'string',
-                                    title: 'Risk to funding package',
-                                    items: {
-                                      type: 'string',
-                                      enum: %w[Yes No]
-                                    }
-                                  },
-                                  # if riskToFundingPackage = true
-                                  riskToFundingPackageDescription: {
-                                    type: 'string',
-                                    title: 'Risk to funding package Description'
-                                  },
-                                  totalPublic: {
-                                    type: 'object',
-                                    title: 'Total Public',
-                                    horizontal: true,
-                                    properties: {
-                                      # from costs.fundingStack.totalPublic.
-                                      publicTotalBaselineAmount: {
-                                        sourceKey: %i[baseline_data financial costs fundingStack totalPublic],
-                                        type: 'integer',
-                                        title: 'Total Public Baseline Amount',
-                                        readonly: true
-                                      },
-                                      publicTotalCurrentReturn: {
-                                        type: 'integer',
-                                        title: 'Total Public Current Amount'
-                                      },
-                                      publicTotalLastReturn: {
-                                        type: 'integer',
-                                        readonly: true,
-                                        title: 'Total Last Return (Calculated)'
-                                      },
-                                      publicVarianceAgainstBaseline: {
-                                        type: 'integer',
-                                        readonly: true,
-                                        title: 'Variance against Baseline (Calculated)'
-                                      },
-                                      publicVarianceAgainstLastReturn: {
-                                        type: 'integer',
-                                        readonly: true,
-                                        title: 'Variance against Last Return (Calculated)'
-                                      },
-                                      publicReasonForVariance: {
-                                        type: 'string',
-                                        title: 'Reason for Variance'
-                                      },
-                                      publicAmountSecuredToDate: {
-                                        type: 'integer',
-                                        title: 'Amount Secured To Date'
-                                      },
-                                      publicSecuredAgaintBaselinePercent: {
-                                        type: 'integer',
-                                        readonly: true,
-                                        title: 'Secured against Baseline (Calculated)'
-                                      },
-                                      publicIncreaseOnLastReturnAmount: {
-                                        type: 'integer',
-                                        readonly: true,
-                                        title: 'Increase on Last Return Amount (Calculated)'
-                                      },
-                                      publicIncreaseOnLastReturnPercent: {
-                                        type: 'integer',
-                                        readonly: true,
-                                        title: 'Increase on Last Return Percent (Calculated)'
-                                      },
-                                      publicRemainingToBeSecured: {
-                                        type: 'integer',
-                                        readonly: true,
-                                        title: 'Remaining to be secured (Calculated)'
-                                      }
-                                    }
-                                  },
-                                  totalPrivate: {
-                                    type: 'object',
-                                    title: 'Total Private',
-                                    horizontal: true,
-                                    properties: {
-                                      # from costs.fundingStack.totalPrivate
-                                      privateTotalBaselineAmount: {
-                                        sourceKey: %i[baseline_data financial costs fundingStack totalPrivate],
-                                        type: 'integer',
-                                        title: 'Total Private Baseline Amount',
-                                        readonly: true
-                                      },
-                                      privateTotalCurrentReturn: {
-                                        type: 'integer',
-                                        title: 'Total Private Current Amount'
-                                      },
-                                      privateTotalLastReturn: {
-                                        type: 'integer',
-                                        readonly: true,
-                                        title: 'Total Last Return (Calculated)'
-                                      },
-                                      privateVarianceAgainstBaseline: {
-                                        type: 'integer',
-                                        readonly: true,
-                                        title: 'Variance against Baseline (Calculated)'
-                                      },
-                                      privateVarianceAgainstLastReturn: {
-                                        type: 'integer',
-                                        readonly: true,
-                                        title: 'Variance against Last Return (Calculated)'
-                                      },
-                                      privateReasonForVariance: {
-                                        type: 'string',
-                                        title: 'Reason for Variance'
-                                      },
-                                      privateAmountSecuredToDate: {
-                                        type: 'integer',
-                                        title: 'Amount Secured To Date'
-                                      },
-                                      privateSecuredAgaintBaselinePercent: {
-                                        type: 'integer',
-                                        readonly: true,
-                                        title: 'Secured against Baseline (Calculated)'
-                                      },
-                                      privateIncreaseOnLastReturnAmount: {
-                                        type: 'integer',
-                                        readonly: true,
-                                        title: 'Increase on Last Return Amount (Calculated)'
-                                      },
-                                      privateIncreaseOnLastReturnPercent: {
-                                        type: 'integer',
-                                        readonly: true,
-                                        title: 'Increase on Last Return Percent (Calculated)'
-                                      },
-                                      privateRemainingToBeSecured: {
-                                        type: 'integer',
-                                        readonly: true,
-                                        title: 'Remaining to be secured (Calculated)'
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
-                recovery: {
-                  type: 'object',
-                  title: 'Recovery',
-                  properties: {
-                    # from costs.recovery.aimToRecover
-                    aimToRecover: {
-                      sourceKey: %i[baseline_data financial recovery aimToRecover],
-                      type: 'string',
-                      title: 'Aim to recover any funding?',
-                      readonly: true,
-                      items: {
-                        type: 'string',
-                        enum: %w[Yes No]
-                      }
-                    },
-                    amountToRecover: {
-                      sourceKey: %i[baseline_data financial recovery expectedAmountToRemove],
-                      title: 'Amount to recover',
-                      type: 'string',
+                      sourceKey: %i[baseline_data fundingProfiles period], 
                       readonly: true
                     },
-                    # if aimToRecover is true
-                    methodOfRecovery: {
+                    forecast: {
+                      title: 'Forecast',
+                      type: 'object',
+                      horizontal: true,
+                      properties: {
+                        instalment1: {
+                          title: '1st Quarter',
+                          type: 'string',
+                          sourceKey: %i[baseline_data fundingProfiles instalment1], 
+                          readonly: true
+                        },
+                        instalment2: {
+                          title: '2nd Quarter',
+                          type: 'string',
+                          sourceKey: %i[baseline_data fundingProfiles instalment2], 
+                          readonly: true
+                        },
+                        instalment3: {
+                          title: '3rd Quarter',
+                          type: 'string',
+                          sourceKey: %i[baseline_data fundingProfiles instalment3], 
+                          readonly: true
+                        },
+                        instalment4: {
+                          title: '4th Quarter',
+                          type: 'string',
+                          sourceKey: %i[baseline_data fundingProfiles instalment4], 
+                          readonly: true
+                        },
+                        total: {
+                          title: 'Total',
+                          type: 'string',
+                          sourceKey: %i[baseline_data fundingProfiles total], 
+                          readonly: true
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              changeRequired: {
+                type: 'string',
+                title: 'Change Required?',
+                description: 'Please confirm there are no changes to be made to the funding profile',
+                enum: ['Confirmed', 'Change required']
+              }
+            },
+            dependencies: {
+              changeRequired: {
+                oneOf: [
+                  {
+                    properties: {
+                      changeRequired: {
+                        enum: ['Change required']
+                      },
+                      reasonForRequest: {
+                        type: 'string',
+                        title: 'Reason for request',
+                        description: 'Changes to funding profile will need to be agreed by s.151 officer - you will be asked to agree to this on submission.'
+                      },
+                      mitigationInPlace: {
+                        type: 'string',
+                        title: 'Mitigation in place to reduce further slippage'
+                      },
+                      requestedProfiles: {
+                        type: 'array',
+                        title: 'Funding Request',
+                        items: {
+                          type: 'object',
+                          properties: {
+                            period: {
+                              title: 'Period',
+                              type: 'string',
+                              sourceKey: %i[baseline_data fundingProfiles period], 
+                              readonly: true
+                            },
+                            newProfile: {
+                              title: 'New Profile',
+                              type: 'object',
+                              horizontal: true,
+                              properties: {
+                                instalment1: {
+                                  title: '1st Quarter',
+                                  type: 'string',
+                                },
+                                instalment2: {
+                                  title: '2nd Quarter',
+                                  type: 'string',
+                                },
+                                instalment3: {
+                                  title: '3rd Quarter',
+                                  type: 'string',
+                                },
+                                instalment4: {
+                                  title: '4th Quarter',
+                                  type: 'string',
+                                },
+                                total: {
+                                  title: 'Total',
+                                  type: 'string',
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    properties: {
+                      changeRequired: {
+                        enum: ['Confirmed']
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          fundingPackages: {
+            type: 'array',
+            title: 'Funding Packages',
+            items: {
+              type: 'object',
+              title: 'Funding for Infrastructure',
+              properties: {
+                totalCost: {
+                  title: 'Total Cost',
+                  type: 'object',
+                  horizontal: true,
+                  properties: {
+                    baseline: {
                       type: 'string',
-                      title: 'If Yes: Method of recovery'
+                      title: 'Baseline Amount',
+                      sourceKey: %i[baseline_data costs infrastructure totalCostOfInfrastructure], 
+                      readonly: true
+                    },
+                    current: {
+                      type: 'string',
+                      title: 'Current return'
+                    },
+                    varianceReason: {
+                      type: 'string',
+                      title: 'Reason for variance'
+                    },
+                    percentComplete: {
+                      type: 'integer',
+                      title: 'Percent complete'
+                    }
+                  }
+                },
+                hifSpend: {
+                  title: 'HIF Spend',
+                  type: 'object',
+                  horizontal: true,
+                  properties: {
+                    baseline: {
+                      type: 'string',
+                      title: 'HIF Baseline Amount',
+                      sourceKey: %i[baseline_data costs infrastructure HIFAmount],
+                    },
+                    current: {
+                      type: 'string',
+                      title: 'Current Return'
+                    },
+                    lastReturn: {
+                      type: 'string',
+                      title: 'Last Return',
+                      readonly: true,
+                      sourceKey: %i[return_data fundingPackages hifSpend current],
+                    }
+                  }
+                },
+                fundingStack: {
+                  type: 'object',
+                  title: 'Funding stack',
+                  properties: {
+                    fundedThroughHIF: {
+                      type: 'string',
+                      title: 'Totally funded through HIF?',
+                      enum: ['Yes', 'No'],
+                      readonly: true,
+                      sourceKey: %i[baseline_data costs infrastructure totallyFundedThroughHIF]
+                    }
+                  },
+                  dependencies: {
+                    fundedThroughHIF: {
+                      oneOf: [
+                        {
+                          properties: {
+                            fundedThroughHIF: {
+                              enum: ['No']
+                            },
+                            descriptionOfFundingStack: {
+                              type: 'string',
+                              title: 'Description of funding stack',
+                              readonly: true,
+                              sourceKey: %i[baseline_data costs infrastructure descriptionOfFundingStack]
+                            },
+                            riskToFundingPackage: {
+                              type: 'object',
+                              horizontal: true,
+                              title: 'Risk to funding package',
+                              properties: {
+                                risk: {
+                                  title: 'Is there a risk?',
+                                  type: 'string',
+                                  enum: ['Yes', 'No'],
+                                },
+                                description: {
+                                  title: 'Description of risk',
+                                  type: 'string'
+                                }
+                              }
+                            },
+                            public: {
+                              title: 'Total Public',
+                              type: 'object',
+                              horizontal: true,
+                              properties: {
+                                baseline: {
+                                  title: 'Total baseline amount',
+                                  type: 'string',
+                                  readonly: true,
+                                  sourceKey: %i[baseline_data costs infrastructure totalPublic]
+                                },
+                                current: {
+                                  title: 'Total - Current return',
+                                  type: 'string'
+                                },
+                                reason: {
+                                  title: 'Reason for variance',
+                                  type: 'string'
+                                },
+                                amountSecured: {
+                                  title: 'Amount secured to date',
+                                  type: 'string'
+                                }
+                              }
+                            },
+                            private: {
+                              title: 'Total Private',
+                              type: 'object',
+                              horizontal: true,
+                              properties: {
+                                baseline: {
+                                  title: 'Total baseline amount',
+                                  type: 'string',
+                                  readonly: true,
+                                  sourceKey: %i[baseline_data costs infrastructure totalPrivate]
+                                },
+                                current: {
+                                  title: 'Total - Current return',
+                                  type: 'string'
+                                },
+                                reason: {
+                                  title: 'Reason for variance',
+                                  type: 'string'
+                                },
+                                amountSecured: {
+                                  title: 'Amount secured to date',
+                                  type: 'string'
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
                     }
                   }
                 }
