@@ -71,7 +71,7 @@ describe LocalAuthority::UseCase::ValidateReturn do
 
       it 'should return no pretty paths' do
         return_value = use_case.execute(type: project_type, return_data: valid_return_data)
-        expect(return_value[:invalid_pretty_paths]).to eq([])
+        expect(return_value[:pretty_invalid_paths]).to eq([])
       end
     end
 
@@ -88,16 +88,16 @@ describe LocalAuthority::UseCase::ValidateReturn do
 
       it 'should return the correct pretty path' do
         return_value = use_case.execute(type: project_type, return_data: invalid_return_data)
-        expect(return_value[:invalid_pretty_paths]).to eq(invalid_return_data_pretty_paths)
+        expect(return_value[:pretty_invalid_paths]).to eq(invalid_return_data_pretty_paths)
       end
     end
 
     context 'calling titles use case' do
-      it 'should call return template gateway with type' do
+      it 'should call get return template path titles with type and path' do
         use_case.execute(type: project_type, return_data: invalid_return_data)
 
         call_arguments = invalid_return_data_paths.map do |path|
-          { path: path }
+          { type: project_type, path: path }
         end
         expect(get_return_template_path_titles_spy.called_with).to eq(call_arguments)
       end

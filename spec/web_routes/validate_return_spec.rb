@@ -12,9 +12,11 @@ describe 'Checking if Return is valid' do
   let(:return_data) { { cats: 'in hats' } }
   let(:valid_response) { true }
   let(:invalid_paths) { [] }
+  let(:pretty_invalid_paths) { [] }
   let(:validate_return_spy) do
     spy(execute: { valid: valid_response,
-                   invalid_paths: invalid_paths })
+                   invalid_paths: invalid_paths,
+                   pretty_invalid_paths: pretty_invalid_paths })
   end
   before do
     stub_const(
@@ -124,19 +126,76 @@ describe 'Checking if Return is valid' do
         expect(response_body['valid']).to eq(false)
       end
 
+      def expect_invalid_paths_to_be_in_json(expected_invalid_paths)
+        response_body = JSON.parse(last_response.body)
+        expect(response_body['invalidPaths']).to eq(expected_invalid_paths)
+      end
+
+      def expect_pretty_invalid_paths_to_be_in_json
+        response_body = JSON.parse(last_response.body)
+        expect(response_body['prettyInvalidPaths']).to eq(pretty_invalid_paths)
+      end
+
       context 'example one' do
-        let(:invalid_paths) { [[:cathouses, 1, :catPlanning, :catPlanningNotGranted, :catInAHat, :hat]] }
+        let(:invalid_paths) do
+          [
+            [
+              :cathouses,
+              1,
+              :catPlanning,
+              :catPlanningNotGranted,
+              :catInAHat,
+              :hat
+            ]
+          ]
+        end
+
         it 'returns json with correct invalidPaths' do
-          response_body = JSON.parse(last_response.body)
-          expect(response_body['invalidPaths']).to eq([['cathouses', 1, 'catPlanning', 'catPlanningNotGranted', 'catInAHat', 'hat']])
+          expect_invalid_paths_to_be_in_json(
+            [
+              [
+                'cathouses',
+                1,
+                'catPlanning',
+                'catPlanningNotGranted',
+                'catInAHat',
+                'hat'
+              ]
+            ]
+          )
+        end
+
+        let(:pretty_invalid_paths) do
+          [
+            [
+              'Cat Houses',
+              'Cat House 2',
+              'Cat Planning',
+              'Cat Planning Not Granted',
+              'Cat In A Hat',
+              'Hat'
+            ]
+          ]
+        end
+        it 'returns json with correct prettyInvalidPaths' do
+          expect_pretty_invalid_paths_to_be_in_json
         end
       end
 
       context 'example two' do
         let(:invalid_paths) { [[:people, 99, :hello, :doggos, :boots]] }
         it 'returns json with correct invalidPaths' do
-          response_body = JSON.parse(last_response.body)
-          expect(response_body['invalidPaths']).to eq([['people', 99, 'hello', 'doggos', 'boots']])
+          expect_invalid_paths_to_be_in_json(
+            [['people', 99, 'hello', 'doggos', 'boots']]
+          )
+        end
+
+        let(:pretty_invalid_paths) do
+          [['People', 'Person 100', 'Hello', 'Doggos', 'Boots']]
+        end
+
+        it 'returns json with correct prettyInvalidPaths' do
+          expect_pretty_invalid_paths_to_be_in_json
         end
       end
     end

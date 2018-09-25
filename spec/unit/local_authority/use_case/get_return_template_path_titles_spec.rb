@@ -236,8 +236,8 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTitles do
       end
 
       it 'gets the correct path titles' do
-        path_titles = use_case.execute(type: 'hif', path: %i[dog noise])[:path_titles]
-        expect(path_titles).to eq(['cats', 'dogs', 'doge', 'noise'])
+        path_titles = use_case.execute(type: 'hif', path: [:dog, 0, :noise])[:path_titles]
+        expect(path_titles).to eq(['cats', 'dogs', 'doge 1', 'noise'])
       end
     end
 
@@ -266,8 +266,8 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTitles do
       end
 
       it 'gets the correct path titles' do
-        path_titles = use_case.execute(type: 'hif', path: %i[cat noise])[:path_titles]
-        expect(path_titles).to eq(['Top level', 'cat array', 'cat item', 'noise'])
+        path_titles = use_case.execute(type: 'hif', path: [:cat, 1, :noise])[:path_titles]
+        expect(path_titles).to eq(['Top level', 'cat array', 'cat item 2', 'noise'])
       end
     end
   end

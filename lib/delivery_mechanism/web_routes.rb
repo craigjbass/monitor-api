@@ -129,7 +129,7 @@ module DeliveryMechanism
           validate_response = @use_case_factory.get_use_case(:validate_return).execute(type: request_hash[:type],
                                                                                        return_data: request_hash[:data])
           response.status = 200
-          response.body = { valid: validate_response[:valid], invalidPaths: validate_response[:invalid_paths] }.to_json
+          response.body = { valid: validate_response[:valid], invalidPaths: validate_response[:invalid_paths], prettyInvalidPaths: validate_response[:pretty_invalid_paths] }.to_json
         end
       end
     end

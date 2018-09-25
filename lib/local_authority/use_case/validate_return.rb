@@ -13,13 +13,13 @@ class LocalAuthority::UseCase::ValidateReturn
     invalid_paths = schema.invalid_paths(return_data)
 
     invalid_pretty_paths = invalid_paths.map do |path|
-      @get_return_template_path_titles.execute(path: path)[:path_titles]
+      @get_return_template_path_titles.execute(type: type, path: path)[:path_titles]
     end
 
     {
       valid: invalid_paths.empty?,
       invalid_paths: invalid_paths,
-      invalid_pretty_paths: invalid_pretty_paths
+      pretty_invalid_paths: invalid_pretty_paths
     }
   end
 end
