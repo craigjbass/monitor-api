@@ -1005,7 +1005,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                       title: 'Baseline Risks',
                       items: {
                         type: 'object',
-                        horizontal: true,
+                        risk: true,
                         properties: {
                           riskBaselineRisk: {
                             sourceKey: %i[baseline_data infrastructures risksToAchievingTimescales descriptionOfRisk],
