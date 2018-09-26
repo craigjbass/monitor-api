@@ -1,13 +1,12 @@
 require 'rspec'
 
 describe HomesEngland::Gateway::InMemoryTemplate do
-  it 'returns nil when given a non-hif type' do
-    template = described_class.new.get_template(type: 'abc')
-    expect(template).to be_nil
-  end
 
-  it 'returns a template given a hif type' do
-    template = described_class.new.get_template(type: 'hif')
-    expect(template).not_to be_nil
+  let (:template_builder_spy) { spy }
+  let(:in_memory_template) {described_class.new(template_builder: template_builder_spy) }
+
+  it 'runs template builder spy with template type' do
+    in_memory_template.get_template(type: 'cats')
+    expect(template_builder_spy).to have_received(:build_template)
   end
 end

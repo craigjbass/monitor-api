@@ -163,7 +163,6 @@ module DeliveryMechanism
 
     get '/project/find' do
       return 404 if params['id'].nil?
-
       project = @use_case_factory.get_use_case(:find_project).execute(id: params['id'].to_i)
 
       return 404 if project.nil?
