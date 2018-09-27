@@ -15,7 +15,7 @@ class LocalAuthority::UseCase::CreateApiKey
 
   def four_hours_from_now
     current_time_in_seconds = DateTime.now.strftime('%s').to_i
-    four_hours_in_seconds = 60 * 4
+    four_hours_in_seconds = 60 * 60 * 4
 
     current_time_in_seconds + four_hours_in_seconds
   end
