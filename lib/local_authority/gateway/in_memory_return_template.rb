@@ -1347,31 +1347,6 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
               type: 'object',
               title: 'Funding for Infrastructure',
               properties: {
-                totalCost: {
-                  title: 'Total Cost',
-                  type: 'object',
-                  horizontal: true,
-                  properties: {
-                    baseline: {
-                      type: 'string',
-                      title: 'Baseline Amount',
-                      sourceKey: %i[baseline_data costs infrastructure totalCostOfInfrastructure], 
-                      readonly: true
-                    },
-                    current: {
-                      type: 'string',
-                      title: 'Current return'
-                    },
-                    varianceReason: {
-                      type: 'string',
-                      title: 'Reason for variance'
-                    },
-                    percentComplete: {
-                      type: 'integer',
-                      title: 'Percent complete'
-                    }
-                  }
-                },
                 hifSpend: {
                   title: 'HIF Spend',
                   type: 'object',
@@ -1381,6 +1356,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                       type: 'string',
                       title: 'HIF Baseline Amount',
                       sourceKey: %i[baseline_data costs infrastructure HIFAmount],
+                      readonly: true
                     },
                     current: {
                       type: 'string',
@@ -1398,6 +1374,31 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                   type: 'object',
                   title: 'Funding stack',
                   properties: {
+                    totalCost: {
+                      title: 'Total Cost',
+                      type: 'object',
+                      horizontal: true,
+                      properties: {
+                        baseline: {
+                          type: 'string',
+                          title: 'Baseline Amount',
+                          sourceKey: %i[baseline_data costs infrastructure totalCostOfInfrastructure], 
+                          readonly: true
+                        },
+                        current: {
+                          type: 'string',
+                          title: 'Current return'
+                        },
+                        varianceReason: {
+                          type: 'string',
+                          title: 'Reason for variance'
+                        },
+                        percentComplete: {
+                          type: 'integer',
+                          title: 'Percent complete'
+                        }
+                      }
+                    },
                     fundedThroughHIF: {
                       type: 'string',
                       title: 'Totally funded through HIF?',
