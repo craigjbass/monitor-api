@@ -19,6 +19,19 @@ describe LocalAuthority::UseCase::CheckEmail do
     end
   end
 
+  context 'converts email address to lower case' do
+    let(:users_gateway_spy) { spy }
+    it 'example 1' do
+      use_case.execute(email_address: 'ExamPLE@EXAMPLE.com', project_id: 1415926535)
+      expect(users_gateway_spy).to have_received(:find_by).with(email: 'example@example.com')
+    end
+
+    it 'example 2' do
+      use_case.execute(email_address: 'HELLO@WoRLD.cOM', project_id: 4096)
+      expect(users_gateway_spy).to have_received(:find_by).with(email: 'hello@world.com')
+    end
+  end
+
   context 'returns a boolean' do
     context 'existent email' do
       context 'with an accessible project' do
