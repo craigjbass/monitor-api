@@ -89,6 +89,10 @@ module DeliveryMechanism
         return_id: request_hash[:return_id].to_i
       )
 
+      @use_case_factory.get_use_case(:send_return_submission_notification).execute(
+        project_id: request_hash[:project_id]
+      )
+
       response.status = 200
     end
 
