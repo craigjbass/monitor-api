@@ -6,7 +6,7 @@ class HomesEngland::UseCase::AddUser
   def execute(email:)
     @user_gateway.create(
       LocalAuthority::Domain::User.new.tap do |u|
-        u.email = email
+        u.email = email.downcase
       end
     )
   end
