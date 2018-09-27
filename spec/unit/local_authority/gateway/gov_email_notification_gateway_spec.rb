@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe LocalAuthority::Gateway::GovEmailNotificationGateway, :focus do
+describe LocalAuthority::Gateway::GovEmailNotificationGateway do
   let(:send_mail_spy) do
     spy(send_email: {})
   end
