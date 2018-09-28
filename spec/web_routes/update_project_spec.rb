@@ -38,6 +38,13 @@ describe 'Updating a project' do
       'HomesEngland::UseCase::CreateNewProject',
       double(new: create_new_project_spy)
     )
+
+    stub_const(
+      'LocalAuthority::UseCase::CheckApiKey',
+      double(new: double(execute: {valid: true}))
+    )
+
+    header 'API_KEY', 'superSecret'
   end
 
   context 'with invalid' do

@@ -18,6 +18,12 @@ describe 'Finding a project' do
       double(new: get_schema_spy)
     )
 
+    stub_const(
+      'LocalAuthority::UseCase::CheckApiKey',
+      double(new: double(execute: {valid: true}))
+    )
+
+    header 'API_KEY', 'superSecret'
     get "/project/find?id=#{project_id}"
   end
 

@@ -737,7 +737,7 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTitles do
     end
   end
 
-  context 'complex dependency schema with multiple dependencies', :focus do
+  context 'complex dependency schema with multiple dependencies' do
     context 'example 1' do
       let(:template_schema) do
         {
