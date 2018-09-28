@@ -6,7 +6,7 @@ class LocalAuthority::UseCase::CheckEmail
   end
 
   def execute(email_address:, project_id:)
-    user = @users_gateway.find_by(email: email_address)
+    user = @users_gateway.find_by(email: email_address.downcase)
     if user.nil?
       { valid: false }
     else
