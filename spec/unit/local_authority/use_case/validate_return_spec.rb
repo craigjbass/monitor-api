@@ -83,12 +83,12 @@ describe LocalAuthority::UseCase::ValidateReturn do
 
       it 'should return the correct path' do
         return_value = use_case.execute(type: project_type, return_data: invalid_return_data)
-        expect(return_value[:invalid_paths]).to eq(invalid_return_data_paths)
+        expect(return_value[:invalid_paths]).to match_array(invalid_return_data_paths)
       end
 
       it 'should return the correct pretty path' do
         return_value = use_case.execute(type: project_type, return_data: invalid_return_data)
-        expect(return_value[:pretty_invalid_paths]).to eq(invalid_return_data_pretty_paths)
+        expect(return_value[:pretty_invalid_paths]).to match_array(invalid_return_data_pretty_paths)
       end
     end
 
@@ -99,7 +99,7 @@ describe LocalAuthority::UseCase::ValidateReturn do
         call_arguments = invalid_return_data_paths.map do |path|
           { type: project_type, path: path }
         end
-        expect(get_return_template_path_titles_spy.called_with).to eq(call_arguments)
+        expect(get_return_template_path_titles_spy.called_with).to match_array(call_arguments)
       end
     end
   end
@@ -145,6 +145,7 @@ describe LocalAuthority::UseCase::ValidateReturn do
         end
       end
     end
+
     context 'single field' do
       context 'example 1' do
         it_should_behave_like 'required field validation'
@@ -463,12 +464,12 @@ describe LocalAuthority::UseCase::ValidateReturn do
                     type: 'object',
                     required: ['name'],
                     properties:
-                      {
-                        name: {
-                          type: 'string',
-                          title: 'Dog Name'
-                        }
+                    {
+                      name: {
+                        type: 'string',
+                        title: 'Dog Name'
                       }
+                    }
                   }
                 }
               }
@@ -497,33 +498,29 @@ describe LocalAuthority::UseCase::ValidateReturn do
 
       context 'example 2' do
         it_should_behave_like 'required field validation'
+
         let(:template) do
           LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
             p.schema = {
               title: 'HIF Project',
               type: 'object',
               required: ['cats'],
-              'additionalItems': false,
               properties: {
                 planning: {
                   type: 'object',
-                  'additionalItems': false,
                   title: 'Planning',
                   properties: {
                     percentComplete: {
-                      'additionalItems': false,
                       type: 'integer',
                       title: 'Percent complete'
                     },
                     notComplete: {
-                      'additionalItems': false,
                       type: 'string',
                       title: 'Not Complete'
                     }
                   }
                 },
                 cats: {
-                  'additionalItems': false,
                   type: 'array',
                   title: 'Wearing caps',
                   items: {
@@ -545,17 +542,17 @@ describe LocalAuthority::UseCase::ValidateReturn do
 
         let(:invalid_return_data) do
           {
-            cats: [{ catName: 'Hello' }, {}]
+            cats: [{ test: 'Hello' }]
           }
         end
 
         let(:valid_return_data) do
           {
-            cats: [{ catName: 'Scout, The Cat.' }, { catName: 'Robin, The Cat.' }]
+            cats: [{ catName: 'Scout, The Cat.' }]
           }
         end
 
-        let(:invalid_return_data_paths) { [[:cats, 1, :catName]] }
+        let(:invalid_return_data_paths) { [[:cats, 0, :catName]] }
 
         let(:invalid_return_data_pretty_paths) do
           [['HIF Project', 'Wearing caps', 'Cat Name']]
@@ -910,6 +907,83 @@ describe LocalAuthority::UseCase::ValidateReturn do
 
       let(:invalid_return_data_pretty_paths) do
         [['HIF Project', 'Cat Houses', 'Cat House', 'Cat Planning', 'Cat Planning Not Granted', 'Its a cat in a hat']]
+      end
+    end
+  end
+
+  context 'single dependency' do
+    context 'example 1' do
+      it_should_behave_like 'required field validation'
+
+      let(:template) do
+        LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+          p.schema = {
+            title: 'HIF Project',
+            type: 'object',
+            properties: {
+              percentComplete: {
+                type: 'string',
+                title: 'Percent complete',
+                enum: %w[Yes No]
+              }
+            },
+            dependencies: {
+              percentComplete: {
+                oneOf: [
+                  {
+                    type: 'object',
+                    properties: {
+                      percentComplete: {
+                        enum: ['No']
+                      }
+                    }
+                  },
+                  {
+                    type: 'object',
+                    properties: {
+                      percentComplete: {
+                        enum: ['Yes']
+                      },
+                      planningSubmitted: {
+                        type: 'object',
+                        title: 'Planning Submitted',
+                        properties: {
+                          dogs: {
+                            title: 'Dogs',
+                            type: 'string'
+                          }
+                        },
+                        required: ['dogs']
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        end
+      end
+
+      let(:valid_return_data) do
+        {
+          percentComplete: 'Yes',
+          planningSubmitted: {dogs: 'hello'}
+        }
+      end
+
+      let(:invalid_return_data) do
+        {
+          percentComplete: 'Yes',
+          planningSubmitted: {}
+        }
+      end
+
+      let(:invalid_return_data_paths) do
+        [[]]
+      end
+
+      let(:invalid_return_data_pretty_paths) do
+        [['HIF Project']]
       end
     end
   end

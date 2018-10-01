@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
-require 'json-schema'
 class LocalAuthority::UseCase::ValidateReturn
-  def initialize(return_template_gateway:,get_return_template_path_titles:)
+  def initialize(return_template_gateway:, get_return_template_path_titles:)
     @return_template_gateway = return_template_gateway
     @get_return_template_path_titles = get_return_template_path_titles
   end

@@ -7,7 +7,7 @@ gem 'require_all'
 gem 'sequel'
 gem 'sinatra'
 gem 'notifications-ruby-client'
-gem 'json-schema'
+gem 'json_schema'
 gem "sentry-raven"
 
 group :test do
