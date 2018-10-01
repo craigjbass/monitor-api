@@ -1,4 +1,4 @@
-class LocalAuthority::UseCase::GetProjectUsers
+class HomesEngland::UseCase::GetProjectUsers
   def initialize(user_gateway:)
     @user_gateway = user_gateway
   end

@@ -162,12 +162,6 @@ class LocalAuthority::UseCases
       )
     end
 
-    builder.define_use_case :get_project_users do
-      LocalAuthority::UseCase::GetProjectUsers.new(
-        user_gateway: builder.get_use_case(:users_gateway)
-      )
-    end
-
     builder.define_use_case :send_return_submission_notification do
       LocalAuthority::UseCase::SendReturnSubmissionNotification.new(
         email_notification_gateway: builder.get_use_case(:notification_gateway)

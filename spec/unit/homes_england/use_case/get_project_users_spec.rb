@@ -1,4 +1,4 @@
-describe LocalAuthority::UseCase::GetProjectUsers do
+describe HomesEngland::UseCase::GetProjectUsers do
   let(:users) { [] }
   let(:user_gateway_spy) { spy(get_users: users) }
   let(:use_case) { described_class.new(user_gateway: user_gateway_spy) }
