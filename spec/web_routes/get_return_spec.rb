@@ -19,6 +19,13 @@ describe 'Getting a return' do
       'LocalAuthority::UseCase::GetSchemaForReturn',
       double(new: get_schema_for_return_spy)
     )
+
+    stub_const(
+      'LocalAuthority::UseCase::CheckApiKey',
+      double(new: double(execute: {valid: true}))
+    )
+
+    header 'API_KEY', 'superSecret'
   end
 
   it 'response of 400 when id parameter does not exist' do
@@ -27,6 +34,8 @@ describe 'Getting a return' do
   end
 
   context 'Given one existing return' do
+    let(:response_body) { JSON.parse(last_response.body) } 
+
     before do
       get '/return/get?id=0'
     end
@@ -46,22 +55,18 @@ describe 'Getting a return' do
     end
 
     it 'returns the correct project_id' do
-      response_body = JSON.parse(last_response.body)
       expect(response_body['project_id']).to eq(1)
     end
 
     it 'returns the correct data' do
-      response_body = JSON.parse(last_response.body)
       expect(response_body['data']).to eq('cats' => 'Meow')
     end
 
     it 'returns the correct schema' do
-      response_body = JSON.parse(last_response.body)
       expect(response_body['schema']).to eq('cats' => 'string')
     end
 
     it 'returns the correct schema' do
-      response_body = JSON.parse(last_response.body)
       expect(response_body['status']).to eq('Draft')
     end
   end

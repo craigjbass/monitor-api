@@ -11,6 +11,13 @@ describe 'Getting return history' do
       'LocalAuthority::UseCase::GetReturns',
       double(new: get_returns_spy)
     )
+
+    stub_const(
+      'LocalAuthority::UseCase::CheckApiKey',
+      double(new: double(execute: {valid: true}))
+    )
+
+    header 'API_KEY', 'superSecret'
   end
 
   context 'example 1' do

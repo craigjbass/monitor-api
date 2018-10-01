@@ -3,6 +3,7 @@ require 'timecop'
 
 describe LocalAuthority::UseCase::CreateApiKey do
   let(:use_case) { described_class.new }
+  let(:four_hours_in_seconds) { 60 * 60 * 4 }
 
   context 'Example one' do
     before do
@@ -40,7 +41,7 @@ describe LocalAuthority::UseCase::CreateApiKey do
         algorithm: 'HS512'
       )
 
-      expected_time = now.strftime("%s").to_i + (60 * 4)
+      expected_time = now.strftime("%s").to_i + four_hours_in_seconds
 
       expect(decoded_key[0]['exp']).to eq(expected_time)
     end
@@ -82,7 +83,7 @@ describe LocalAuthority::UseCase::CreateApiKey do
         algorithm: 'HS512'
       )
 
-      expected_time = now.strftime("%s").to_i + (60 * 4)
+      expected_time = now.strftime("%s").to_i + four_hours_in_seconds
 
       expect(decoded_key[0]['exp']).to eq(expected_time)
     end

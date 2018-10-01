@@ -1,15 +1,20 @@
+.PHONY: docker-build
 docker-build:
 	docker-compose build
 
-docker-stop:
-	docker-compose stop
+.PHONY: docker-down
+docker-down:
+	docker-compose down
 
-serve: docker-stop docker-build
-	docker-compose up 
+.PHONY: serve
+serve: docker-down docker-build
+	docker-compose up
 
-shell: docker-build
+.PHONY: shell
+shell:
 	docker-compose run --rm web ash
 
-test: docker-stop docker-build
+.PHONY: test
+test: docker-down docker-build
 	docker-compose run --rm web ./bin/run_tests.sh
 

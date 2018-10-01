@@ -54,21 +54,21 @@ module DeliveryMechanism
     end
 
     post '/return/update' do
-      request_hash = get_hash(request)
-      return 400 if request_hash.nil?
-      return 404 if request_hash[:return_id].nil? || request_hash[:return_data].nil?
+      guard_access env, params, request do |request_hash|
+        if request_hash[:return_data].nil? || request_hash[:return_id].nil?
+          return 400
+        end
 
-      @use_case_factory.get_use_case(:soft_update_return).execute(
-        return_id: request_hash[:return_id], return_data: request_hash[:return_data]
-      )
+        @use_case_factory.get_use_case(:soft_update_return).execute(
+          return_id: request_hash[:return_id], return_data: request_hash[:return_data]
+        )
 
-      200
+        200
+      end
     end
 
     post '/return/create' do
       guard_access env, params, request do |request_hash|
-        return 400 if request_hash.nil?
-
         return_id = @use_case_factory.get_use_case(:create_return).execute(
           project_id: request_hash[:project_id],
           data: request_hash[:data]
@@ -82,59 +82,58 @@ module DeliveryMechanism
     end
 
     post '/return/submit' do
-      request_hash = get_hash(request)
-      return 400 if request_hash.nil?
+      guard_access env, params, request do |request_hash|
+        @use_case_factory.get_use_case(:submit_return).execute(
+          return_id: request_hash[:return_id].to_i
+        )
 
-      @use_case_factory.get_use_case(:submit_return).execute(
-        return_id: request_hash[:return_id].to_i
-      )
+        @use_case_factory.get_use_case(:send_return_submission_notification).execute(
+          project_id: request_hash[:project_id]
+        )
 
-      @use_case_factory.get_use_case(:send_return_submission_notification).execute(
-        project_id: request_hash[:project_id]
-      )
-
-      response.status = 200
-    end
-
-    def get_hash(request)
-      body = request.body.read
-      return nil if body.to_s.empty?
-      request_json = JSON.parse(body)
-      Common::DeepSymbolizeKeys.to_symbolized_hash(request_json)
+        response.status = 200
+      end
     end
 
     get '/return/get' do
-      return 400 if params['id'].nil?
-      return_id = params['id'].to_i
+      guard_access env, params, request do |_|
+        return 400 if params[:id].nil?
+        return_id = params[:id].to_i
 
-      return_hash = @use_case_factory.get_use_case(:get_return).execute(id: return_id)
+        return_hash = @use_case_factory.get_use_case(:get_return).execute(id: return_id)
 
-      return 404 if return_hash.empty?
+        return 404 if return_hash.empty?
 
-      return_schema = @use_case_factory
-                      .get_use_case(:get_schema_for_return)
-                      .execute(return_id: return_id)[:schema]
+        return_schema = @use_case_factory
+                        .get_use_case(:get_schema_for_return)
+                        .execute(return_id: return_id)[:schema]
 
-      response.body = {
-        project_id: return_hash[:project_id],
-        data: return_hash[:updates].last,
-        status: return_hash[:status],
-        schema: return_schema
-      }.to_json
+        response.body = {
+          project_id: return_hash[:project_id],
+          data: return_hash[:updates].last,
+          status: return_hash[:status],
+          schema: return_schema
+        }.to_json
 
-      response.status = 200
+        response.status = 200
+      end
     end
 
     post '/return/validate' do
       guard_access env, params, request do |request_hash|
-        if invalid_validation_hash(request_hash: request_hash)
-          return 400
-        else
-          validate_response = @use_case_factory.get_use_case(:validate_return).execute(type: request_hash[:type],
-                                                                                       return_data: request_hash[:data])
-          response.status = 200
-          response.body = { valid: validate_response[:valid], invalidPaths: validate_response[:invalid_paths] }.to_json
-        end
+        return 400 if invalid_validation_hash(request_hash: request_hash)
+
+        validate_response = @use_case_factory.get_use_case(:validate_return).execute(
+          type: request_hash[:type],
+          return_data: request_hash[:data]
+        )
+
+        response.status = 200
+        response.body = {
+          valid: validate_response[:valid],
+          invalidPaths: validate_response[:invalid_paths],
+          prettyInvalidPaths: validate_response[:pretty_invalid_paths]
+        }.to_json
       end
     end
 
@@ -160,26 +159,30 @@ module DeliveryMechanism
     end
 
     get '/project/:id/returns' do
-      returns = @use_case_factory.get_use_case(:get_returns).execute(project_id: params['id'].to_i)
-      response.status = returns.empty? ? 404 : 200
-      response.body = returns.to_json
+      guard_access env, params, request do |_|
+        returns = @use_case_factory.get_use_case(:get_returns).execute(project_id: params['id'].to_i)
+        response.status = returns.empty? ? 404 : 200
+        response.body = returns.to_json
+      end
     end
 
     get '/project/find' do
-      return 404 if params['id'].nil?
-      project = @use_case_factory.get_use_case(:find_project).execute(id: params['id'].to_i)
+      guard_access env, params, request do |_|
+        return 404 if params['id'].nil?
+        project = @use_case_factory.get_use_case(:find_project).execute(id: params['id'].to_i)
 
-      return 404 if project.nil?
+        return 404 if project.nil?
 
-      schema = @use_case_factory.get_use_case(:get_schema_for_project).execute(type: project[:type])[:schema]
+        schema = @use_case_factory.get_use_case(:get_schema_for_project).execute(type: project[:type])[:schema]
 
-      content_type 'application/json'
-      response.body = {
-        type: project[:type],
-        data: Common::DeepCamelizeKeys.to_camelized_hash(project[:data]),
-        schema: schema
-      }.to_json
-      response.status = 200
+        content_type 'application/json'
+        response.body = {
+          type: project[:type],
+          data: Common::DeepCamelizeKeys.to_camelized_hash(project[:data]),
+          schema: schema
+        }.to_json
+        response.status = 200
+      end
     end
 
     post '/project/create' do
@@ -204,21 +207,28 @@ module DeliveryMechanism
     end
 
     post '/project/update' do
-      request_hash = get_hash(request)
-
-      if valid_update_request_body(request_hash)
-        use_case = @use_case_factory.get_use_case(:update_project)
-        update_successful = use_case.execute(
-          id: request_hash[:id].to_i,
-          project: {
-            type: request_hash[:project][:type],
-            baseline: request_hash[:project][:baselineData]
-          }
-        )[:successful]
-        response.status = update_successful ? 200 : 404
-      else
-        response.status = 400
+      guard_access env, params, request do |request_hash|
+        if valid_update_request_body(request_hash)
+          use_case = @use_case_factory.get_use_case(:update_project)
+          update_successful = use_case.execute(
+            id: request_hash[:id].to_i,
+            project: {
+              type: request_hash[:project][:type],
+              baseline: request_hash[:project][:baselineData]
+            }
+          )[:successful]
+          response.status = update_successful ? 200 : 404
+        else
+          response.status = 400
+        end
       end
+    end
+
+    def get_hash(request)
+      body = request.body.read
+      return nil if body.to_s.empty?
+      request_json = JSON.parse(body)
+      Common::DeepSymbolizeKeys.to_symbolized_hash(request_json)
     end
 
     def guard_admin_access(env, params, request)
