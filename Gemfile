@@ -8,6 +8,7 @@ gem 'sequel'
 gem 'sinatra'
 gem 'notifications-ruby-client'
 gem 'json-schema'
+gem "sentry-raven"
 
 group :test do
   gem 'guard-rspec', require: false
