@@ -630,96 +630,102 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                       items: {
                         type: 'string',
                         enum: %w[Yes No]
-                      },
-                    },
-                    infrastructureProcured: {
-                      type: 'object',
-                      title: 'Infrastructure procured',
-                      description: 'If the infrastrcture has been procured...',
-                      properties: {
-                        nameOfContractor: {
-                          sourceKey: %i[baseline_data infrastructures procurement nameOfContractor],
-                          type: 'string',
-                          title: 'Name of Contractor',
-                          readonly: true
-                        }
-                      }
-                    },
-                    infrastructureNotProcured: {
-                      type: 'object',
-                      title: 'Infrastructure not procured',
-                      description: 'If the infrastructure is not procured...',
-                      properties: {
-                        procurementBaselineCompletion: {
-                          type: 'string',
-                          format: 'date',
-                          title: 'Target date of procuring',
-                          sourceKey: %i[baseline_data infrastructures procurement targetDate],
-                          readonly: true
-                        },
-                        summaryOfCriticalPath: {
-                          sourceKey: %i[baseline_data infrastructures procurement summaryOfCriticalPath],
-                          type: 'string',
-                          title: 'Summary of Critical Procurement Path',
-                          readonly: true
-                        },
-                        procurementVarianceAgainstLastReturn: {
-                          type: 'string',
-                          readonly: true,
-                          hidden: true,
-                          title: 'Variance against last return (Calculated)'
-                        },
-                        procurementVarianceAgainstBaseline: {
-                          type: 'string',
-                          readonly: true,
-                          hidden: true,
-                          title: 'Variance against baseline (Calculated)'
-                        },
-                        procurementStatusAgainstLastReturn: {
-                          type: 'object',
-                          title: 'Procurement Status Against Last Return',
-                          properties: {
-                            statusAgainstLastReturn: {
-                              title: 'Status against last return?',
-                              type: 'string',
-                              enum: [
-                                'completed',
-                                'on schedule',
-                                'delayed: minimal impact',
-                                'delayed: critical'
-                              ],
-                              default: 'on schedule'
-                            },
-                            currentReturn: {
-                              type: 'string',
-                              format: 'date',
-                              title: 'Current Return'
-                            },
-                            reasonForVariance: {
-                              type: 'string',
-                              title: 'Reason for Variance'
-                            }
-                          }
-                        },
-                        percentComplete: {
-                          type: 'integer',
-                          title: 'Percent complete'
-                        },
-                        procurementCompletedDate: {
-                          type: 'string',
-                          readonly: true,
-                          hidden: true,
-                          title: 'Completion Date (Calculated)'
-                        },
-                        procurementCompletedNameOfContractor: {
-                          type: 'string',
-                          readonly: true,
-                          hidden: true,
-                          title: 'Completion Name of Contractor (Calculated)'
-                        }
                       }
                     }
                   },
+                  dependencies: {
+                    contractorProcured: {
+                      oneOf: [
+                        {
+                          properties: {
+                            contractorProcured: {
+                              enum: ['Yes']
+                            },
+                            nameOfContractor: {
+                              sourceKey: %i[baseline_data infrastructures procurement nameOfContractor],
+                              type: 'string',
+                              title: 'Name of Contractor',
+                              readonly: true
+                            }
+                          }
+                        },
+                        {
+                          properties: {
+                            contractorProcured: {
+                              enum: ['No']
+                            },
+                            summaryOfCriticalPath: {
+                              sourceKey: %i[baseline_data infrastructures procurement summaryOfCriticalPath],
+                              type: 'string',
+                              title: 'Summary of Critical Procurement Path',
+                              readonly: true
+                            },
+                            procurementBaselineCompletion: {
+                              type: 'string',
+                              format: 'date',
+                              title: 'Target date of procuring',
+                              sourceKey: %i[baseline_data infrastructures procurement targetDate],
+                              readonly: true
+                            },
+                            procurementVarianceAgainstLastReturn: {
+                              type: 'string',
+                              readonly: true,
+                              hidden: true,
+                              title: 'Variance against last return (Calculated)'
+                            },
+                            procurementVarianceAgainstBaseline: {
+                              type: 'string',
+                              readonly: true,
+                              hidden: true,
+                              title: 'Variance against baseline (Calculated)'
+                            },
+                            procurementStatusAgainstLastReturn: {
+                              type: 'object',
+                              title: 'Procurement Status Against Last Return',
+                              properties: {
+                                statusAgainstLastReturn: {
+                                  title: 'Status against last return?',
+                                  type: 'string',
+                                  enum: [
+                                    'Completed',
+                                    'On Schedule',
+                                    'Delayed: Minimal Impact',
+                                    'Delayed: Critical'
+                                  ],
+                                  default: 'on schedule'
+                                },
+                                currentReturn: {
+                                  type: 'string',
+                                  format: 'date',
+                                  title: 'Current expected date of Procurement'
+                                },
+                                reasonForVariance: {
+                                  type: 'string',
+                                  title: 'Reason for Variance'
+                                }
+                              }
+                            },
+                            percentComplete: {
+                              type: 'integer',
+                              title: 'Percent complete'
+                            },
+                            procurementCompletedDate: {
+                              type: 'string',
+                              readonly: true,
+                              hidden: true,
+                              title: 'Completion Date (Calculated)'
+                            },
+                            procurementCompletedNameOfContractor: {
+                              type: 'string',
+                              readonly: true,
+                              hidden: true,
+                              title: 'Completion Name of Contractor (Calculated)'
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
                 },
                 milestones: {
                   type: 'object',
