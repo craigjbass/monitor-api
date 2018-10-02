@@ -280,7 +280,7 @@ module DeliveryMechanism
         api_key: env['HTTP_API_KEY'],
         project_id: params['id'].to_i
       )[:valid]
-        :forbiddenn
+        :forbidden
       else
         :proceed
       end

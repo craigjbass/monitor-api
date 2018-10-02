@@ -6,6 +6,10 @@ require_relative 'delivery_mechanism_spec_helper'
 describe 'Finding a project' do
   let(:find_project_spy) { spy(execute: project) }
   let(:get_schema_spy) { spy(execute: schema) }
+  let(:project) { nil }
+  let(:project_id) { nil }
+  let(:schema) { nil }
+  let(:token_valid) { true }
 
   before do
     stub_const(
@@ -20,7 +24,7 @@ describe 'Finding a project' do
 
     stub_const(
       'LocalAuthority::UseCase::CheckApiKey',
-      double(new: double(execute: {valid: true}))
+      double(new: double(execute: {valid: token_valid}))
     )
 
     header 'API_KEY', 'superSecret'
@@ -34,6 +38,14 @@ describe 'Finding a project' do
 
     it 'should should return 404' do
       expect(last_response.status).to eq(404)
+    end
+  end
+
+  context 'with no valid token' do
+    let(:token_valid) { false }
+
+    it 'Returns a 401' do
+      expect(last_response.status).to eq(401)
     end
   end
 
