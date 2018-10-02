@@ -33,7 +33,7 @@ class LocalAuthority::Gateway::SequelUsers
   end
 
   def get_users(project_id:)
-    @database[:users].all.select { |user| user[:projects].include?(project_id) }.map do |user|
+    @database[:users].all.select { |user| user[:projects]&.include?(project_id) }.map do |user|
       LocalAuthority::Domain::User.new.tap do |u|
         u.id = user[:id]
         u.email = user[:email]
