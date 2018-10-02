@@ -4,7 +4,6 @@ describe HomesEngland::Builder::Template::TemplateBuilder do
   let(:template_builder) { described_class.new }
 
   it 'returns template object when hif requested' do
-    p template_builder
     expect(template_builder.build_template(type: 'hif').class).to eq(HomesEngland::Domain::Template)
   end
 
