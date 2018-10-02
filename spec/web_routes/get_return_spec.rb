@@ -37,16 +37,16 @@ describe 'Getting a return' do
     let(:response_body) { JSON.parse(last_response.body) } 
 
     before do
-      get '/return/get?id=0'
+      get '/return/get?id=0&returnId=1'
     end
 
     it 'passes data to GetReturn' do
-      expect(get_return_spy).to have_received(:execute).with(id: 0)
+      expect(get_return_spy).to have_received(:execute).with(id: 1)
     end
 
     it 'passes data to GetSchemaForReturn' do
       expect(get_schema_for_return_spy).to(
-        have_received(:execute).with(return_id: 0)
+        have_received(:execute).with(return_id: 1)
       )
     end
 
@@ -74,7 +74,7 @@ describe 'Getting a return' do
   context 'Nonexistent return' do
     let(:returned_hash) { {} }
     it 'responds with 404 when id not found' do
-      get '/return/get?id=512'
+      get '/return/get?id=0&returnId=512'
       expect(last_response.status).to eq(404)
     end
   end
