@@ -93,8 +93,8 @@ module DeliveryMechanism
 
     get '/return/get' do
       guard_access env, params, request do |_|
-        return 400 if params[:id].nil?
-        return_id = params[:id].to_i
+        return 400 if params[:returnId].nil?
+        return_id = params[:returnId].to_i
 
         return_hash = @use_case_factory.get_use_case(:get_return).execute(id: return_id)
 
