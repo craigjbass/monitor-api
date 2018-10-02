@@ -29,6 +29,17 @@ class LocalAuthority::Gateway::SequelUsers
   end
 
   def update(user)
-    @database[:users].where(email: user.email).update(:projects =>  Sequel.pg_array(user.projects))
+    @database[:users].where(email: user.email).update(projects: Sequel.pg_array(user.projects))
+  end
+
+  def get_users(project_id:)
+    @database[:users].all.select { |user| user[:projects].include?(project_id) }.map do |user|
+      LocalAuthority::Domain::User.new.tap do |u|
+        u.id = user[:id]
+        u.email = user[:email]
+        u.projects = []
+        u.projects = user[:projects].to_a unless user[:projects].nil?
+      end
+    end
   end
 end
