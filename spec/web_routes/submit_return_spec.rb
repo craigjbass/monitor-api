@@ -5,6 +5,7 @@ describe 'Submitting a return' do
   let(:notification_gateway_spy) { spy }
   let(:get_project_users_spy) { spy }
   let(:send_return_submission_notification_spy) { spy }
+  let(:notify_project_members_spy) { spy }
   let(:submit_return_spy) { spy(execute: nil) }
 
   before do
@@ -27,9 +28,15 @@ describe 'Submitting a return' do
       'LocalAuthority::UseCase::SendReturnSubmissionNotification',
       double(new: send_return_submission_notification_spy)
     )
+
+    stub_const(
+      'LocalAuthority::UseCase::NotifyProjectMembers',
+      double(new: notify_project_members_spy)
+    )
+
     stub_const(
       'LocalAuthority::UseCase::CheckApiKey',
-      double(new: double(execute: {valid: true}))
+      double(new: double(execute: { valid: true }))
     )
   end
 
@@ -39,7 +46,7 @@ describe 'Submitting a return' do
   end
 
   it 'submitting a valid id should return 200' do
-    post '/return/submit', { return_id: 1, project_id: 1  }.to_json, 'HTTP_API_KEY' => 'superSecret'
+    post '/return/submit', { return_id: 1, project_id: 1 }.to_json, 'HTTP_API_KEY' => 'superSecret'
     expect(last_response.status).to eq(200)
   end
 
@@ -51,10 +58,9 @@ describe 'Submitting a return' do
 
     it 'will run notify project members use case with id' do
       post '/return/submit', { return_id: 1, project_id: 1 }.to_json, 'HTTP_API_KEY' => 'superSecret'
-      expect(send_return_submission_notification_spy).to have_received(:execute).with(project_id: 1)
+      expect(notify_project_members_spy).to have_received(:execute).with(project_id: 1, url: 'placeholder.com')
     end
   end
-
 
   context 'example two' do
     it 'will run submit return use case with id' do
@@ -64,7 +70,7 @@ describe 'Submitting a return' do
 
     it 'will run notify project members use case with id' do
       post '/return/submit', { return_id: 1, project_id: 443 }.to_json, 'HTTP_API_KEY' => 'superSecret'
-      expect(send_return_submission_notification_spy).to have_received(:execute).with(project_id: 443)
+      expect(notify_project_members_spy).to have_received(:execute).with(project_id: 443, url: 'placeholder.com')
     end
   end
 end

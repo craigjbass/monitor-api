@@ -87,8 +87,9 @@ module DeliveryMechanism
           return_id: request_hash[:return_id].to_i
         )
 
-        @use_case_factory.get_use_case(:send_return_submission_notification).execute(
-          project_id: request_hash[:project_id]
+        @use_case_factory.get_use_case(:notify_project_members).execute(
+          project_id: request_hash[:project_id],
+          url: 'placeholder.com'
         )
 
         response.status = 200
@@ -142,7 +143,7 @@ module DeliveryMechanism
     end
 
     get '/project/:id/return' do
-      guard_access env, params, request do |request_hash|
+      guard_access env, params, request do |_request_hash|
         return 400 if params['id'].nil?
 
         base_return = @use_case_factory.get_use_case(:get_base_return).execute(
@@ -200,7 +201,7 @@ module DeliveryMechanism
     post '/project/:id/add_users' do
       guard_admin_access env, params, request do |request_hash|
         controller = DeliveryMechanism::Controllers::PostProjectToUsers.new(
-          add_user_to_project: @use_case_factory.get_use_case(:add_user_to_project),
+          add_user_to_project: @use_case_factory.get_use_case(:add_user_to_project)
         )
         controller.execute(params, request_hash, response)
       end
@@ -231,7 +232,7 @@ module DeliveryMechanism
       Common::DeepSymbolizeKeys.to_symbolized_hash(request_json)
     end
 
-    def guard_admin_access(env, params, request)
+    def guard_admin_access(env, _params, request)
       return 401 if authorization_header_not_present?
       admin_auth_key = env['HTTP_API_KEY']
 
