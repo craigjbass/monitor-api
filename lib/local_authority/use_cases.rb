@@ -168,5 +168,18 @@ class LocalAuthority::UseCases
         template_gateway: builder.get_use_case(:return_template_gateway)
       )
     end
+
+    builder.define_use_case :send_return_submission_notification do
+      LocalAuthority::UseCase::SendReturnSubmissionNotification.new(
+        email_notification_gateway: builder.get_use_case(:notification_gateway)
+      )
+    end
+
+    builder.define_use_case :notify_project_members do
+      LocalAuthority::UseCase::NotifyProjectMembers.new(
+        send_return_submission_notification: builder.get_use_case(:send_return_submission_notification),
+        get_project_users: builder.get_use_case(:get_project_users)
+      )
+    end
   end
 end

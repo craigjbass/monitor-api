@@ -1,7 +1,7 @@
 describe LocalAuthority::UseCase::SendNotification do
 
   let(:email_notification_gateway_spy) { spy }
-  let(:use_case) {described_class.new(notification_gateway: email_notification_gateway_spy)}
+  let(:use_case) { described_class.new(notification_gateway: email_notification_gateway_spy) }
 
 
   context 'example one' do

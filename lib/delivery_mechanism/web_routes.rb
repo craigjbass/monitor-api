@@ -87,6 +87,10 @@ module DeliveryMechanism
           return_id: request_hash[:return_id].to_i
         )
 
+        @use_case_factory.get_use_case(:send_return_submission_notification).execute(
+          project_id: request_hash[:project_id]
+        )
+
         response.status = 200
       end
     end
@@ -125,10 +129,10 @@ module DeliveryMechanism
         )
 
         response.status = 200
-        response.body = { 
-          valid: validate_response[:valid], 
-          invalidPaths: validate_response[:invalid_paths], 
-          prettyInvalidPaths: validate_response[:pretty_invalid_paths] 
+        response.body = {
+          valid: validate_response[:valid],
+          invalidPaths: validate_response[:invalid_paths],
+          prettyInvalidPaths: validate_response[:pretty_invalid_paths]
         }.to_json
       end
     end
