@@ -93,134 +93,6 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
     hif_template
   end
 
-  def hif_finances
-    {
-      type: 'object',
-      title: 'Financials',
-      properties: {
-        fundingProfile: {
-          type: 'array',
-          title: 'HIF Funding Profiles',
-          items: {
-            type: 'object',
-            properties: {
-              period: { type: 'string', title: 'Period' },
-              instalment1: { type: 'string', title: '1st Instalment' },
-              instalment2: { type: 'string', title: '2nd Instalment' },
-              instalment3: { type: 'string', title: '3rd Instalment' },
-              instalment4: { type: 'string', title: '4th Instalment' },
-              total: { type: 'string', title: 'Total' },
-            }
-          }
-        },
-        costs: {
-          type: 'array',
-          title: 'Cost of Infrastructures',
-          items: {
-            type: 'object',
-            properties: {
-              costOfInfrastructure: {
-                type: 'string',
-                title: 'Cost of Infrastructure'
-              },
-              totalCostOfInfrastructure: {
-                type: 'string',
-                title: 'Total Cost of Infrastructure'
-              },
-              totallyFundedThroughHIF: {
-                type: 'string',
-                title: 'Totally funded through HIF?',
-                enum: ['Yes', 'No']
-              },
-            },
-            dependencies: {
-              totallyFundedThroughHIF: {
-                oneOf: [
-                  {
-                    properties: {
-                      totallyFundedThroughHIF: {
-                        enum: ['Yes']
-                      }
-                    }
-                  },
-                  {
-                    properties: {
-                      totallyFundedThroughHIF: {
-                        enum: ['No']
-                      },
-                      descriptionOfFundingStack: {
-                        type: 'string',
-                        title: 'If No: Description of Funding Stack'
-                      },
-                      totalPublic: {
-                        type: 'string',
-                        title: 'If No, Total Public (exc. HIF)'
-                      },
-                      totalPrivate: {
-                        type: 'string',
-                        title: 'If No, Total Private'
-                      }
-                    }
-                  }
-                ]
-              }
-            }
-          }
-        },
-        baselineCashflow: {
-          type: 'object',
-          title: 'Baseline Cashflow',
-          properties: {
-            summaryOfRequirement: {
-              type: 'string',
-              format: 'data-url',
-              title: 'Baseline Cashflow'
-            }
-          }
-        },
-        recovery: {
-          type: 'object',
-          title: 'Recovery',
-          properties: {
-            aimToRecover: {
-              type: 'string',
-              title: 'Aim to Recover?',
-              enum: ['Yes', 'No']
-            },
-          },
-          dependencies: {
-            aimToRecover: {
-              oneOf: [
-                {
-                  properties: {
-                    aimToRecover: {
-                      enum: ['Yes']
-                    },
-                    expectedAmountToRecover: {
-                      type: 'string',
-                      title: 'Expected Amount'
-                    },
-                    methodOfRecovery: {
-                      type: 'string',
-                      title: 'Method of Recovery?'
-                    }
-                  }
-                },
-                {
-                  properties: {
-                    aimToRecover: {
-                      enum: ['No']
-                    }
-                  }
-                }
-              ]
-            }
-          }
-        }
-      }
-    }
-  end
-
   def hif_infrastructures
     {
       type: 'array',
@@ -416,6 +288,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                         title: 'Consents',
                         type: 'array',
                         items: {
+                          title: 'Statutory Consent',
                           type: 'object',
                           properties: {
                             detailsOfConsent: {
@@ -570,6 +443,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
             type: 'array',
             title: 'Key Infrastructure Milestones',
             items: {
+              title: 'Milestone',
               type: 'object',
               properties: {
                 descriptionOfMilestone: {
@@ -614,6 +488,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
             type: 'array',
             title: 'Risks to achieving timescales',
             items: {
+              title: 'Risk',
               type: 'object',
               properties: {
                 descriptionOfRisk: {
@@ -730,6 +605,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
           type: 'array',
           title: 'Housing Forecast',
           items: {
+            title: 'Forecast',
             type: 'object',
             properties: {
               period: {
@@ -760,6 +636,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
           type: 'array',
           title: 'Site Outputs',
           items: {
+            title: 'Output',
             type: 'object',
             properties: {
               siteName: {
