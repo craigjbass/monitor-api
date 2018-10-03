@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require 'rspec'
-require_relative '../shared_context/use_case_factory'
+require_relative '../shared_context/dependency_factory'
 
 describe 'Validates HIF return' do
-  include_context 'use case factory'
+  include_context 'dependency factory'
 
   context 'Invalid HIF return' do
     # percent complete set to > 100

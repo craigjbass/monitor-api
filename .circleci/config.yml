@@ -13,6 +13,7 @@ jobs:
 
     environment:
       DATABASE_URL: 'postgres://circleci:super-secret@localhost/monitor_api'
+      NO_LOGS: 'true'
 
     steps:
       - checkout

@@ -30,8 +30,8 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
     path_types = @get_return_template_path_types.execute(type: type, path: copy_path_pair[:to])[:path_types].drop(1)
 
     found_data = @find_path_data.execute(
-      source_data,
-      copy_path_pair[:from]
+      baseline_data: source_data,
+      path: copy_path_pair[:from]
     )[:found]
 
     descend_hash_and_bury(

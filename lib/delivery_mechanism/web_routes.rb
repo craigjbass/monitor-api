@@ -5,12 +5,12 @@ require 'sinatra'
 module DeliveryMechanism
   class WebRoutes < Sinatra::Base
     before do
-      @use_case_factory = Dependencies.use_case_factory
+      @dependency_factory = Dependencies.dependency_factory
       response.headers['Access-Control-Allow-Origin'] = '*'
     end
 
     after do
-      @use_case_factory.database.disconnect
+      @dependency_factory.database.disconnect
     end
 
     options '*' do
@@ -20,7 +20,7 @@ module DeliveryMechanism
     end
 
     get '/baseline/:type' do
-      schema = @use_case_factory.get_use_case(:get_schema_for_project).execute(type: params['type'])
+      schema = @dependency_factory.get_use_case(:get_schema_for_project).execute(type: params['type'])
       return 404 if schema.nil?
       response.body = schema.schema.to_json
       response.status = 200
@@ -30,9 +30,9 @@ module DeliveryMechanism
       request_hash = get_hash(request)
 
       controller = DeliveryMechanism::Controllers::PostRequestToken.new(
-        check_email: @use_case_factory.get_use_case(:check_email),
-        send_notification: @use_case_factory.get_use_case(:send_notification),
-        create_access_token: @use_case_factory.get_use_case(:create_access_token)
+        check_email: @dependency_factory.get_use_case(:check_email),
+        send_notification: @dependency_factory.get_use_case(:send_notification),
+        create_access_token: @dependency_factory.get_use_case(:create_access_token)
       )
 
       controller.execute(request_hash, response)
@@ -40,7 +40,7 @@ module DeliveryMechanism
 
     post '/token/expend' do
       request_hash = get_hash(request)
-      expend_response = @use_case_factory.get_use_case(:expend_access_token).execute(
+      expend_response = @dependency_factory.get_use_case(:expend_access_token).execute(
         access_token: request_hash[:access_token],
         project_id: request_hash[:project_id].to_i
       )
@@ -59,7 +59,7 @@ module DeliveryMechanism
           return 400
         end
 
-        @use_case_factory.get_use_case(:soft_update_return).execute(
+        @dependency_factory.get_use_case(:soft_update_return).execute(
           return_id: request_hash[:return_id], return_data: request_hash[:return_data]
         )
 
@@ -69,7 +69,7 @@ module DeliveryMechanism
 
     post '/return/create' do
       guard_access env, params, request do |request_hash|
-        return_id = @use_case_factory.get_use_case(:create_return).execute(
+        return_id = @dependency_factory.get_use_case(:create_return).execute(
           project_id: request_hash[:project_id],
           data: request_hash[:data]
         )
@@ -83,11 +83,11 @@ module DeliveryMechanism
 
     post '/return/submit' do
       guard_access env, params, request do |request_hash|
-        @use_case_factory.get_use_case(:submit_return).execute(
+        @dependency_factory.get_use_case(:submit_return).execute(
           return_id: request_hash[:return_id].to_i
         )
 
-        @use_case_factory.get_use_case(:notify_project_members).execute(
+        @dependency_factory.get_use_case(:notify_project_members).execute(
           project_id: request_hash[:project_id].to_i,
           url: 'placeholder.com'
         )
@@ -101,11 +101,11 @@ module DeliveryMechanism
         return 400 if params[:returnId].nil?
         return_id = params[:returnId].to_i
 
-        return_hash = @use_case_factory.get_use_case(:get_return).execute(id: return_id)
+        return_hash = @dependency_factory.get_use_case(:get_return).execute(id: return_id)
 
         return 404 if return_hash.empty?
 
-        return_schema = @use_case_factory
+        return_schema = @dependency_factory
                         .get_use_case(:get_schema_for_return)
                         .execute(return_id: return_id)[:schema]
 
@@ -124,7 +124,7 @@ module DeliveryMechanism
       guard_access env, params, request do |request_hash|
         return 400 if invalid_validation_hash(request_hash: request_hash)
 
-        validate_response = @use_case_factory.get_use_case(:validate_return).execute(
+        validate_response = @dependency_factory.get_use_case(:validate_return).execute(
           type: request_hash[:type],
           return_data: request_hash[:data]
         )
@@ -146,7 +146,7 @@ module DeliveryMechanism
       guard_access env, params, request do |_request_hash|
         return 400 if params['id'].nil?
 
-        base_return = @use_case_factory.get_use_case(:get_base_return).execute(
+        base_return = @dependency_factory.get_use_case(:get_base_return).execute(
           project_id: params['id'].to_i
         )
 
@@ -161,7 +161,7 @@ module DeliveryMechanism
 
     get '/project/:id/returns' do
       guard_access env, params, request do |_|
-        returns = @use_case_factory.get_use_case(:get_returns).execute(project_id: params['id'].to_i)
+        returns = @dependency_factory.get_use_case(:get_returns).execute(project_id: params['id'].to_i)
         response.status = returns.empty? ? 404 : 200
         response.body = returns.to_json
       end
@@ -170,11 +170,11 @@ module DeliveryMechanism
     get '/project/find' do
       guard_access env, params, request do |_|
         return 404 if params['id'].nil?
-        project = @use_case_factory.get_use_case(:find_project).execute(id: params['id'].to_i)
+        project = @dependency_factory.get_use_case(:find_project).execute(id: params['id'].to_i)
 
         return 404 if project.nil?
 
-        schema = @use_case_factory.get_use_case(:get_schema_for_project).execute(type: project[:type])[:schema]
+        schema = @dependency_factory.get_use_case(:get_schema_for_project).execute(type: project[:type])[:schema]
 
         content_type 'application/json'
         response.body = {
@@ -189,7 +189,7 @@ module DeliveryMechanism
     post '/project/create' do
       guard_admin_access env, params, request do |request_hash|
         contoller = DeliveryMechanism::Controllers::PostCreateProject.new(
-          create_new_project: @use_case_factory.get_use_case(:create_new_project)
+          create_new_project: @dependency_factory.get_use_case(:create_new_project)
         )
 
         content_type 'application/json'
@@ -201,7 +201,7 @@ module DeliveryMechanism
     post '/project/:id/add_users' do
       guard_admin_access env, params, request do |request_hash|
         controller = DeliveryMechanism::Controllers::PostProjectToUsers.new(
-          add_user_to_project: @use_case_factory.get_use_case(:add_user_to_project)
+          add_user_to_project: @dependency_factory.get_use_case(:add_user_to_project)
         )
         controller.execute(params, request_hash, response)
       end
@@ -210,7 +210,7 @@ module DeliveryMechanism
     post '/project/update' do
       guard_access env, params, request do |request_hash|
         if valid_update_request_body(request_hash)
-          use_case = @use_case_factory.get_use_case(:update_project)
+          use_case = @dependency_factory.get_use_case(:update_project)
           update_successful = use_case.execute(
             id: request_hash[:id].to_i,
             project: {
@@ -268,7 +268,7 @@ module DeliveryMechanism
     def check_post_access(env, request_hash)
       if env['HTTP_API_KEY'].nil? || request_hash.nil?
         :bad_request
-      elsif !@use_case_factory.get_use_case(:check_api_key).execute(
+      elsif !@dependency_factory.get_use_case(:check_api_key).execute(
         api_key: env['HTTP_API_KEY'],
         project_id: request_hash[:project_id].to_i
       )[:valid]
@@ -281,7 +281,7 @@ module DeliveryMechanism
     def check_get_access(env, params)
       if env['HTTP_API_KEY'].nil? || params['id'].nil?
         :bad_request
-      elsif !@use_case_factory.get_use_case(:check_api_key).execute(
+      elsif !@dependency_factory.get_use_case(:check_api_key).execute(
         api_key: env['HTTP_API_KEY'],
         project_id: params['id'].to_i
       )[:valid]

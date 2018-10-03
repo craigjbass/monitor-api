@@ -172,7 +172,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
 
     let(:find_path_data) do
       Class.new do
-        def execute(_baseline_data, path)
+        def execute(baseline_data:, path: )
           if path == %i[cats sound]
             { found: ['Meow'] }
           elsif path == %i[cats breed]
@@ -275,7 +275,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
 
     let(:find_path_data) do
       Class.new do
-        def execute(_baseline_data, path)
+        def execute(baseline_data:, path:)
           if path == %i[cats sound]
             { found: 'Meow' }
           elsif path == %i[dogs sound]
@@ -798,7 +798,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
 
     let(:find_path_data) do
       Class.new do
-        def execute(_baseline_data, path)
+        def execute(baseline_data:, path:)
           if path == %i[baseline_data cats name]
             { found: 'Meow' }
           elsif path == %i[baseline_data cats breed]
@@ -884,7 +884,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
 
     let(:find_path_data) do
       Class.new do
-        def execute(_baseline_data, path)
+        def execute(baseline_data:, path:)
           if path == %i[baseline_data dogs name]
             { found: 'Meow' }
           elsif path == %i[baseline_data cats breed]
@@ -961,7 +961,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
     let(:baseline_data) { { cats: { name: 'tom' } } }
     let(:find_path_data) do
       Class.new do
-        def execute(_baseline_data, path)
+        def execute(baseline_data:, path:)
           if path == %i[baseline_data cats name]
             { found: ['Timmy'] }
           elsif path == %i[baseline_data cats breed]

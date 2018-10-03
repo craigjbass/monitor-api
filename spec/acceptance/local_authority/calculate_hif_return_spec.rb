@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require 'rspec'
-require_relative '../shared_context/use_case_factory'
+require_relative '../shared_context/dependency_factory'
 
 describe 'Calculated return' do
-  include_context 'use case factory'
+  include_context 'dependency factory'
 
   it 'creates a return with calculated fields' do
     initial_return_input_data = {

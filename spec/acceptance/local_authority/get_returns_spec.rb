@@ -1,8 +1,8 @@
 require 'rspec'
-require_relative '../shared_context/use_case_factory'
+require_relative '../shared_context/dependency_factory'
 
 describe 'Getting multiple returns' do
-  include_context 'use case factory'
+  include_context 'dependency factory'
 
   let(:returns_for_project_1) do
     [

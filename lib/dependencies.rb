@@ -1,6 +1,6 @@
 class Dependencies
-  def self.use_case_factory
-    factory = UseCaseFactory.new
+  def self.dependency_factory
+    factory = DependencyFactory.new
     database = DatabaseAdministrator::Postgres.new.existing_database
 
     factory.database = database
