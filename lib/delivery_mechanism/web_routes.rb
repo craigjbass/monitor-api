@@ -89,7 +89,7 @@ module DeliveryMechanism
 
         @use_case_factory.get_use_case(:notify_project_members).execute(
           project_id: request_hash[:project_id].to_i,
-          url: 'placeholder.com'
+          url: request_hash[:url]
         )
 
         response.status = 200
