@@ -1,12 +1,12 @@
-RSpec.shared_context 'use case factory' do
+RSpec.shared_context 'dependency factory' do
   include_context 'with database'
 
   def get_use_case(use_case)
-    use_case_factory.get_use_case(use_case)
+    dependency_factory.get_use_case(use_case)
   end
 
-  let(:use_case_factory) do
-    factory = ::UseCaseFactory.new
+  let(:dependency_factory) do
+    factory = ::DependencyFactory.new
     factory.database = database
 
     factory.default_dependencies

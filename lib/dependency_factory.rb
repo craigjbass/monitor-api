@@ -1,6 +1,6 @@
 require 'dry/container'
 
-class UseCaseFactory
+class DependencyFactory
   attr_accessor :database
 
   def initialize

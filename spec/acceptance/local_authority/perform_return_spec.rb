@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require 'rspec'
-require_relative '../shared_context/use_case_factory'
+require_relative '../shared_context/dependency_factory'
 
 describe 'Performing Return on HIF Project' do
-  include_context 'use case factory'
+  include_context 'dependency factory'
 
   def update_return(id:, data:)
     get_use_case(:update_return).execute(return_id: id, data: data[:data])
