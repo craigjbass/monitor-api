@@ -1,1 +1,3 @@
-module Common; end
+module Common
+  module Proxy; end
+end
