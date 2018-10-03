@@ -1,6 +1,6 @@
 class LocalAuthority::UseCase::GetReturnTemplatePathTypes
   using LocalAuthority::Refinement::HashHasPath
-  
+
   def initialize(template_gateway:)
     @template_gateway = template_gateway
   end

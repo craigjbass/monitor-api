@@ -13,4 +13,6 @@ while ! psql $DATABASE_URL -c 'SELECT 1'; do
     echo 'Waiting for db'; sleep 3;
 done
 
+export NO_LOGS=true
+
 bundle exec guard

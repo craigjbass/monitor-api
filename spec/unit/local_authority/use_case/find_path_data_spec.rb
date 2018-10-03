@@ -1,6 +1,11 @@
 describe LocalAuthority::UseCase::FindPathData do
 
-  let(:use_case) { described_class.new.execute(baseline_data, path) }
+  let(:use_case) do 
+    described_class.new.execute(
+      baseline_data: baseline_data, 
+      path: path
+    )
+  end
 
   context 'with simple paths' do
     context 'example 1' do
@@ -21,7 +26,6 @@ describe LocalAuthority::UseCase::FindPathData do
 
       let(:path) { [:sounds, :dog] }
 
-      let(:use_case) { described_class.new.execute(baseline_data, path) }
       it 'can find a simple path' do
         expect(use_case).to eq(found: 'woof')
       end
