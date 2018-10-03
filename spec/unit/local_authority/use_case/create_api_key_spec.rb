@@ -3,7 +3,7 @@ require 'timecop'
 
 describe LocalAuthority::UseCase::CreateApiKey do
   let(:use_case) { described_class.new }
-  let(:four_hours_in_seconds) { 60 * 60 * 4 }
+  let(:thirty_days_in_seconds) { 60 * 60 * 24 * 30 }
 
   context 'Example one' do
     before do
@@ -11,7 +11,7 @@ describe LocalAuthority::UseCase::CreateApiKey do
     end
 
     it 'Returns an API key' do
-      expect(use_case.execute(project_id:  1)[:api_key]).not_to be_nil
+      expect(use_case.execute(project_id: 1)[:api_key]).not_to be_nil
     end
 
     it 'Stores the project id within the api key' do
@@ -23,11 +23,11 @@ describe LocalAuthority::UseCase::CreateApiKey do
         true,
         algorithm: 'HS512'
       )
-      
+
       expect(decoded_key[0]['project_id']).to eq(1)
     end
 
-    it 'Sets the expiry to 4 hours away' do
+    it 'Sets the expiry to 30 days away' do
       now = DateTime.now + 1
       Timecop.freeze(now)
       api_key = use_case.execute(project_id: 1)[:api_key]
@@ -41,7 +41,7 @@ describe LocalAuthority::UseCase::CreateApiKey do
         algorithm: 'HS512'
       )
 
-      expected_time = now.strftime("%s").to_i + four_hours_in_seconds
+      expected_time = now.strftime("%s").to_i + thirty_days_in_seconds
 
       expect(decoded_key[0]['exp']).to eq(expected_time)
     end
@@ -65,12 +65,12 @@ describe LocalAuthority::UseCase::CreateApiKey do
         true,
         algorithm: 'HS512'
       )
-      
+
       expect(decoded_key[0]['project_id']).to eq(5)
     end
 
-    it 'Sets the expiry to 4 hours away' do
-      now = DateTime.now + 5
+    it 'Sets the expiry to 30 days away' do
+      now = DateTime.now + 3
       Timecop.freeze(now)
       api_key = use_case.execute(project_id: 1)[:api_key]
       Timecop.return
@@ -83,7 +83,7 @@ describe LocalAuthority::UseCase::CreateApiKey do
         algorithm: 'HS512'
       )
 
-      expected_time = now.strftime("%s").to_i + four_hours_in_seconds
+      expected_time = now.strftime("%s").to_i + thirty_days_in_seconds
 
       expect(decoded_key[0]['exp']).to eq(expected_time)
     end
