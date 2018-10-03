@@ -7,4 +7,6 @@ unless ENV['SENTRY_DSN'].nil?
   use Raven::Rack
 end
 
+$stdout.sync = true
+
 run DeliveryMechanism::WebRoutes
