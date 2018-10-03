@@ -2,45 +2,13 @@
 
 class LocalAuthority::UseCases
   def self.register(builder)
-    builder.define_use_case :return_gateway do
-      LocalAuthority::Gateway::SequelReturn.new(database: builder.database)
-    end
-
-    builder.define_use_case :return_update_gateway do
-      LocalAuthority::Gateway::SequelReturnUpdate.new(
-        database: builder.database
-      )
-    end
-
-    builder.define_use_case :return_template_gateway do
-      LocalAuthority::Gateway::InMemoryReturnTemplate.new
-    end
-
-    builder.define_use_case :users_gateway do
-      LocalAuthority::Gateway::SequelUsers.new(
-        database: builder.database
-      )
-    end
-
-    builder.define_use_case :access_token_gateway do
-      LocalAuthority::Gateway::InMemoryAccessTokenGateway.new
-    end
-
-    builder.define_use_case :notification_gateway do
-      LocalAuthority::Gateway::GovEmailNotificationGateway.new
-    end
-
-    builder.define_use_case :api_key_gateway do
-      LocalAuthority::Gateway::InMemoryAPIKeyGateway.new
-    end
-
     builder.define_use_case :find_path_data do
       LocalAuthority::UseCase::FindPathData.new
     end
 
     builder.define_use_case :get_schema_copy_paths do
       LocalAuthority::UseCase::GetSchemaCopyPaths.new(
-        template_gateway: builder.get_use_case(:return_template_gateway)
+        template_gateway: builder.get_gateway(:return_template)
       )
     end
 
@@ -54,8 +22,8 @@ class LocalAuthority::UseCases
 
     builder.define_use_case :get_base_return do
       LocalAuthority::UseCase::GetBaseReturn.new(
-        return_gateway: builder.get_use_case(:return_template_gateway),
-        project_gateway: builder.get_use_case(:project_gateway),
+        return_gateway: builder.get_gateway(:return_template),
+        project_gateway: builder.get_gateway(:project),
         populate_return_template: builder.get_use_case(:populate_return_template),
         get_returns: builder.get_use_case(:get_returns)
       )
@@ -63,27 +31,27 @@ class LocalAuthority::UseCases
 
     builder.define_use_case :create_return do
       LocalAuthority::UseCase::CreateReturn.new(
-        return_gateway: builder.get_use_case(:return_gateway),
-        return_update_gateway: builder.get_use_case(:return_update_gateway)
+        return_gateway: builder.get_gateway(:return_gateway),
+        return_update_gateway: builder.get_gateway(:return_update_gateway)
       )
     end
 
     builder.define_use_case :update_return do
       LocalAuthority::UseCase::UpdateReturn.new(
-        return_gateway: builder.get_use_case(:return_gateway)
+        return_gateway: builder.get_gateway(:return_gateway)
       )
     end
 
     builder.define_use_case :soft_update_return do
       LocalAuthority::UseCase::SoftUpdateReturn.new(
-        return_update_gateway: builder.get_use_case(:return_update_gateway)
+        return_update_gateway: builder.get_gateway(:return_update_gateway)
       )
     end
 
     builder.define_use_case :get_return do
       LocalAuthority::UseCase::GetReturn.new(
-        return_gateway: builder.get_use_case(:return_gateway),
-        return_update_gateway: builder.get_use_case(:return_update_gateway),
+        return_gateway: builder.get_gateway(:return_gateway),
+        return_update_gateway: builder.get_gateway(:return_update_gateway),
         calculate_return: builder.get_use_case(:calculate_hif_return),
         get_returns: builder.get_use_case(:get_returns)
       )
@@ -91,43 +59,43 @@ class LocalAuthority::UseCases
 
     builder.define_use_case :submit_return do
       LocalAuthority::UseCase::SubmitReturn.new(
-        return_gateway: builder.get_use_case(:return_gateway)
+        return_gateway: builder.get_gateway(:return_gateway)
       )
     end
 
     builder.define_use_case :get_schema_for_return do
       LocalAuthority::UseCase::GetSchemaForReturn.new(
-        project_gateway: builder.get_use_case(:project_gateway),
-        return_gateway: builder.get_use_case(:return_gateway),
-        template_gateway: builder.get_use_case(:return_template_gateway)
+        project_gateway: builder.get_gateway(:project),
+        return_gateway: builder.get_gateway(:return_gateway),
+        template_gateway: builder.get_gateway(:return_template)
       )
     end
 
     builder.define_use_case :get_returns do
       LocalAuthority::UseCase::GetReturns.new(
-        return_gateway: builder.get_use_case(:return_gateway),
-        return_update_gateway: builder.get_use_case(:return_update_gateway)
+        return_gateway: builder.get_gateway(:return_gateway),
+        return_update_gateway: builder.get_gateway(:return_update_gateway)
       )
     end
 
     builder.define_use_case :check_email do
       LocalAuthority::UseCase::CheckEmail.new(
-        users_gateway: builder.get_use_case(:users_gateway)
+        users_gateway: builder.get_gateway(:users)
       )
     end
 
     builder.define_use_case :create_access_token do
       LocalAuthority::UseCase::CreateAccessToken.new(
-        access_token_gateway: builder.get_use_case(
-          :access_token_gateway
+        access_token_gateway: builder.get_gateway(
+          :access_token
         )
       )
     end
 
     builder.define_use_case :expend_access_token do
       LocalAuthority::UseCase::ExpendAccessToken.new(
-        access_token_gateway: builder.get_use_case(
-          :access_token_gateway
+        access_token_gateway: builder.get_gateway(
+          :access_token
         ), create_api_key: builder.get_use_case(:create_api_key)
       )
     end
@@ -138,7 +106,7 @@ class LocalAuthority::UseCases
 
     builder.define_use_case :send_notification do
       LocalAuthority::UseCase::SendNotification.new(
-        notification_gateway: builder.get_use_case(:notification_gateway)
+        notification_gateway: builder.get_gateway(:notification)
       )
     end
 
@@ -152,26 +120,26 @@ class LocalAuthority::UseCases
 
     builder.define_use_case :validate_return do
       LocalAuthority::UseCase::ValidateReturn.new(
-        return_template_gateway: builder.get_use_case(:return_template_gateway),
+        return_template_gateway: builder.get_gateway(:return_template),
         get_return_template_path_titles: builder.get_use_case(:get_return_template_path_titles)
       )
     end
 
     builder.define_use_case :get_return_template_path_titles do
       LocalAuthority::UseCase::GetReturnTemplatePathTitles.new(
-        template_gateway: builder.get_use_case(:return_template_gateway)
+        template_gateway: builder.get_gateway(:return_template)
       )
     end
 
     builder.define_use_case :get_return_template_path_types do
       LocalAuthority::UseCase::GetReturnTemplatePathTypes.new(
-        template_gateway: builder.get_use_case(:return_template_gateway)
+        template_gateway: builder.get_gateway(:return_template)
       )
     end
 
     builder.define_use_case :send_return_submission_notification do
       LocalAuthority::UseCase::SendReturnSubmissionNotification.new(
-        email_notification_gateway: builder.get_use_case(:notification_gateway)
+        email_notification_gateway: builder.get_gateway(:notification)
       )
     end
 

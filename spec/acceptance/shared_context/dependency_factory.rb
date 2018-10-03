@@ -5,6 +5,10 @@ RSpec.shared_context 'dependency factory' do
     dependency_factory.get_use_case(use_case)
   end
 
+  def get_gateway(gateway)
+    dependency_factory.get_gateway(gateway)
+  end
+
   let(:dependency_factory) do
     factory = ::DependencyFactory.new
     factory.database = database

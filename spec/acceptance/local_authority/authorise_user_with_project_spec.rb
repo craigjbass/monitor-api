@@ -8,7 +8,7 @@ describe 'Authorises the user' do
 
   before { ENV['HMAC_SECRET'] = 'Meow' }
 
-  after { get_use_case(:access_token_gateway).clear }
+  after { get_gateway(:access_token).clear }
 
   context 'Correct access token for project' do
     it 'should create a valid access token for project 1' do
