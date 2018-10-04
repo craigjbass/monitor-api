@@ -57,7 +57,7 @@ describe 'Submitting a return' do
     end
 
     it 'will run notify project members use case with id' do
-      post '/return/submit', { return_id: '1', project_id: '1' }.to_json, 'HTTP_API_KEY' => 'superSecret'
+      post '/return/submit', { return_id: '1', project_id: '1', url: 'placeholder.com' }.to_json, 'HTTP_API_KEY' => 'superSecret'
       expect(notify_project_members_spy).to have_received(:execute).with(project_id: 1, url: 'placeholder.com')
     end
   end
@@ -69,8 +69,8 @@ describe 'Submitting a return' do
     end
 
     it 'will run notify project members use case with id' do
-      post '/return/submit', { return_id: '1', project_id: '443' }.to_json, 'HTTP_API_KEY' => 'superSecret'
-      expect(notify_project_members_spy).to have_received(:execute).with(project_id: 443, url: 'placeholder.com')
+      post '/return/submit', { return_id: '1', project_id: '443', url: 'example.net' }.to_json, 'HTTP_API_KEY' => 'superSecret'
+      expect(notify_project_members_spy).to have_received(:execute).with(project_id: 443, url: 'example.net')
     end
   end
 end
