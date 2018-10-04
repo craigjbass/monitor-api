@@ -17,6 +17,7 @@ group :test do
   gem 'rspec'
   gem 'rspec_junit_formatter'
   gem 'timecop'
+  gem 'webmock'
 end
 
 group :development, :test do
