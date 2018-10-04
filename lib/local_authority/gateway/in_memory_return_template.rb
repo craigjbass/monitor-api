@@ -195,6 +195,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   enum: ['Yes']
                                 }
                               }
+                            },
+                            {
+                              properties: {
+                                baselineOutlinePlanningPermissionGranted: {
+                                  enum: ['N/A']
+                                }
+                              }
                             }
                           ]
                         }
@@ -346,6 +353,20 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       title: 'Completed date (Calculated)'
                                     }
                                   }
+                                }
+                              }
+                            },
+                            {
+                              properties: {
+                                fullPlanningPermissionGranted: {
+                                  enum: ['Yes']
+                                }
+                              }
+                            },
+                            {
+                              properties: {
+                                fullPlanningPermissionGranted: {
+                                  enum: ['N/A']
                                 }
                               }
                             }
@@ -1412,6 +1433,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                   dependencies: {
                     fundedThroughHIF: {
                       oneOf: [
+                        {
+                          properties: {
+                            fundedThroughHIF: {
+                              enum: ['Yes']
+                            }
+                          }
+                        },
                         {
                           properties: {
                             fundedThroughHIF: {
