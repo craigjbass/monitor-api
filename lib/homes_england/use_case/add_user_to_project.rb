@@ -7,7 +7,7 @@ class HomesEngland::UseCase::AddUserToProject
     user = @user_gateway.find_by(email: email)
     if user.nil?
       user = LocalAuthority::Domain::User.new.tap do |u|
-        u.email = email
+        u.email = email.downcase
         u.projects = [project_id]
       end
       @user_gateway.create(user)
