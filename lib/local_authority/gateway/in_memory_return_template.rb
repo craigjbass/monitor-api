@@ -888,116 +888,111 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     expectedInfrastructureStartOnSite: {
                       type: 'object',
                       title: 'Expected infrastructure start on site',
+                      variance: true,
                       properties: {
-                        milestoneExpectedInfrastructureStartBaseline: {
+                        baseline: {
                           # from milestones.expectedInfrastructureStart
                           sourceKey: %i[baseline_data infrastructures expectedInfrastructureStart targetDateOfAchievingStart],
                           type: 'string',
                           title: 'Baseline Start on site',
                           readonly: true
                         },
-                        milestoneExpectedInfrastructureStartVarianceAgaistLastReturn: {
+                        varianceAgainstLastReturn: {
                           type: 'string',
                           readonly: true,
                           hidden: true,
                           title: 'Variance against last return (Calculated)'
                         },
-                        milestoneExpectedInfrastructureStartVarianceAgaistBaseline: {
+                        varianceAgainstBaseline: {
                           type: 'string',
                           readonly: true,
                           hidden: true,
                           title: 'Variance against baseline (Calculated)'
                         },
-                        milestoneExpectedInfrastructureStartStatusAgainstLastReturn: {
-                          type: 'object',
-                          title: 'Expected Infrastructure Start Status Against Last Return',
-                          properties: {
-                            statusAgainstLastReturn: {
-                              title: 'Status against last return?',
-                              type: 'string',
-                              enum: [
-                                'completed',
-                                'on schedule',
-                                'delayed: minimal impact',
-                                'delayed: critical'
-                              ],
-                              default: 'on schedule'
-                            },
-                            currentReturn: {
-                              type: 'string',
-                              format: 'date',
-                              title: 'Current Return'
-                            },
-                            reasonForVariance: {
-                              type: 'string',
-                              title: 'Reason for Variance'
-                            }
-                          }
+                        status: {
+                          title: 'Status against last return?',
+                          type: 'string',
+                          enum: [
+                            'completed',
+                            'on schedule',
+                            'delayed: minimal impact',
+                            'delayed: critical'
+                          ],
+                          default: 'on schedule'
                         },
-                        milestoneExpectedInfrastructureStartCompletionDate: {
+                        current: {
                           type: 'string',
                           format: 'date',
-                          readonly: true,
-                          hidden: true,
-                          title: 'On Completed date (Calculated)'
+                          title: 'Current Return'
+                        },
+                        reason: {
+                          type: 'string',
+                          title: 'Reason for variance'
+                        },
+                        percentComplete: {
+                          type: 'integer',
+                          title: 'Percent complete'
+                        },
+                        completedDate: {
+                          type: 'string',
+                          format: 'date',
+                          title: 'Completed Date'
                         }
                       }
                     },
                     expectedCompletionDateOfInfra: {
                       type: 'object',
                       title: 'Expected Completion date of infra',
+                      variance: true,
                       properties: {
-                        milestoneExpectedInfrastructureCompletionBaseline: {
-                          # from milestones.expectedInfrastructureCompletion
+                        baseline: {
+                          # from milestones.expectedInfrastructureStart
                           sourceKey: %i[baseline_data infrastructures expectedInfrastructureCompletion targetDateOfAchievingCompletion],
                           type: 'string',
-                          title: 'Baseline Completion',
+                          format: 'date',
+                          title: 'Baseline date of Completion',
                           readonly: true
                         },
-                        milestoneExpectedInfrastructureCompletionVarianceAgaistLastReturn: {
+                        varianceAgainstLastReturn: {
                           type: 'string',
                           readonly: true,
                           hidden: true,
                           title: 'Variance against last return (Calculated)'
                         },
-                        milestoneExpectedInfrastructureCompletionVarianceAgaistBaseline: {
+                        varianceAgainstBaseline: {
                           type: 'string',
                           readonly: true,
                           hidden: true,
                           title: 'Variance against baseline (Calculated)'
                         },
-                        milestoneExpectedInfrastructureCompletionStatusAgainstLastReturn: {
-                          type: 'object',
-                          title: 'Expected Infrastructure Completion Status Against Last Return',
-                          properties: {
-                            statusAgainstLastReturn: {
-                              title: 'Status against last return?',
-                              type: 'string',
-                              enum: [
-                                'completed',
-                                'on schedule',
-                                'delayed: minimal impact',
-                                'delayed: critical'
-                              ],
-                              default: 'on schedule'
-                            },
-                            currentReturn: {
-                              type: 'string',
-                              format: 'date',
-                              title: 'Current Return'
-                            },
-                            reasonForVariance: {
-                              type: 'string',
-                              title: 'Reason for Variance'
-                            }
-                          }
+                        status: {
+                          title: 'Status against last return?',
+                          type: 'string',
+                          enum: [
+                            'completed',
+                            'on schedule',
+                            'delayed: minimal impact',
+                            'delayed: critical'
+                          ],
+                          default: 'on schedule'
                         },
-                        milestoneExpectedInfrastructureCompletionCompletionDate: {
+                        current: {
                           type: 'string',
                           format: 'date',
-                          readonly: true,
-                          hidden: true,
-                          title: 'On Completed date (Calculated)'
+                          title: 'Current Return'
+                        },
+                        reason: {
+                          type: 'string',
+                          title: 'Reason for variance'
+                        },
+                        percentComplete: {
+                          type: 'integer',
+                          title: 'Percent complete'
+                        },
+                        completedDate: {
+                          type: 'string',
+                          format: 'date',
+                          title: 'Completed Date'
                         }
                       }
                     }

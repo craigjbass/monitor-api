@@ -64,10 +64,10 @@
         ],
         "previousMilestones": [],
         "expectedInfrastructureStartOnSite": {
-          "milestoneExpectedInfrastructureStartBaseline": "2020-01-01"
+          "baseline": "2020-01-01"
         },
         "expectedCompletionDateOfInfra": {
-          "milestoneExpectedInfrastructureCompletionBaseline": "2020-01-01"
+          "baseline": "2020-01-01"
         }
       },
       "risks": {
