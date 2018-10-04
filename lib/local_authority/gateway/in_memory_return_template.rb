@@ -95,12 +95,11 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       title: 'Status against last return?',
                                       type: 'string',
                                       enum: [
-                                        'completed',
-                                        'on schedule',
-                                        'delayed: minimal impact',
-                                        'delayed: critical'
+                                        'Completed',
+                                        'On schedule',
+                                        'Delayed'
                                       ],
-                                      default: 'on schedule'
+                                      default: 'On schedule'
                                     },
                                     current: {
                                       type: 'string',
@@ -158,12 +157,11 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       title: 'Status against last return?',
                                       type: 'string',
                                       enum: [
-                                        'completed',
-                                        'on schedule',
-                                        'delayed: minimal impact',
-                                        'delayed: critical'
+                                        'Completed',
+                                        'On schedule',
+                                        'Delayed'
                                       ],
-                                      default: 'on schedule'
+                                      default: 'On schedule'
                                     },
                                     current: {
                                       type: 'string',
@@ -262,12 +260,11 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       title: 'Status against last return?',
                                       type: 'string',
                                       enum: [
-                                        'completed',
-                                        'on schedule',
-                                        'delayed: minimal impact',
-                                        'delayed: critical'
+                                        'Completed',
+                                        'On schedule',
+                                        'Delayed'
                                       ],
-                                      default: 'on schedule'
+                                      default: 'On schedule'
                                     },
                                     current: {
                                       type: 'string',
@@ -325,12 +322,11 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       title: 'Status against last return?',
                                       type: 'string',
                                       enum: [
-                                        'completed',
-                                        'on schedule',
-                                        'delayed: minimal impact',
-                                        'delayed: critical'
+                                        'Completed',
+                                        'On schedule',
+                                        'Delayed'
                                       ],
-                                      default: 'on schedule'
+                                      default: 'On schedule'
                                     },
                                     current: {
                                       type: 'string',
@@ -584,12 +580,11 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                               title: 'Status against last return?',
                                               type: 'string',
                                               enum: [
-                                                'completed',
-                                                'on schedule',
-                                                'delayed: minimal impact',
-                                                'delayed: critical'
+                                                'Completed',
+                                                'On schedule',
+                                                'Delayed'
                                               ],
-                                              default: 'on schedule'
+                                              default: 'On schedule'
                                             },
                                             current: {
                                               type: 'string',
@@ -709,11 +704,10 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   type: 'string',
                                   enum: [
                                     'Completed',
-                                    'On Schedule',
-                                    'Delayed: Minimal Impact',
-                                    'Delayed: Critical'
+                                    'On schedule',
+                                    'Delayed'
                                   ],
-                                  default: 'on schedule'
+                                  default: 'On schedule'
                                 },
                                 currentReturn: {
                                   type: 'string',
@@ -934,12 +928,11 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           title: 'Status against last return?',
                           type: 'string',
                           enum: [
-                            'completed',
-                            'on schedule',
-                            'delayed: minimal impact',
-                            'delayed: critical'
+                            'Completed',
+                            'On schedule',
+                            'Delayed'
                           ],
-                          default: 'on schedule'
+                          default: 'On schedule'
                         },
                         current: {
                           type: 'string',
@@ -990,12 +983,11 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           title: 'Status against last return?',
                           type: 'string',
                           enum: [
-                            'completed',
-                            'on schedule',
-                            'delayed: minimal impact',
-                            'delayed: critical'
+                            'Completed',
+                            'On schedule',
+                            'Delayed'
                           ],
-                          default: 'on schedule'
+                          default: 'On schedule'
                         },
                         current: {
                           type: 'string',
@@ -1561,12 +1553,11 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
       title: 'Status against last return?',
       type: 'string',
       enum: [
-        'completed',
-        'on schedule',
-        'delayed: minimal impact',
-        'delayed: critical'
+        'Completed',
+        'On schedule',
+        'Delayed'
       ],
-      default: 'on schedule'
+      default: 'On schedule'
     }
   end
 end
