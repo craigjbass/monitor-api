@@ -2,15 +2,6 @@
 
 class HomesEngland::UseCases
   def self.register(builder)
-    builder.define_use_case :template_gateway do
-      HomesEngland::Gateway::InMemoryTemplate.new(template_builder:
-                                                    builder.get_use_case(:template_builder) )
-    end
-
-    builder.define_use_case :template_builder do
-      HomesEngland::Builder::Template::TemplateBuilder.new
-    end
-
     builder.define_use_case :create_new_project do
       HomesEngland::UseCase::CreateNewProject.new(
         project_gateway: builder.get_gateway(:project)
