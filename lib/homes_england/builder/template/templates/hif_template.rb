@@ -188,12 +188,12 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                       granted: {
                         enum: ['Yes']
                       },
-                      reference: {
+                      grantedReference: {
                         type: 'string',
                         title: 'Reference'
                       }
                     },
-                    required: ['reference']
+                    required: ['grantedReference']
                   },
                   {
                     properties: {

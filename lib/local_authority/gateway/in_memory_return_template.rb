@@ -49,7 +49,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           title: 'Outline Planning Permission granted',
                           sourceKey: %i[baseline_data infrastructures outlinePlanningStatus granted],
                           readonly: true,
-                          enum: %w[Yes No]
+                          enum: %w[Yes No N/A]
                         }
                       },
                       dependencies: {
@@ -209,7 +209,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           title: 'Full Planning Permission granted',
                           sourceKey: %i[baseline_data infrastructures fullPlanningStatus granted],
                           readonly: true,
-                          enum: %w[Yes No]
+                          enum: %w[Yes No N/A]
                         }
                       },
                       dependencies: {
