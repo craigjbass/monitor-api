@@ -6,7 +6,7 @@ class HomesEngland::Gateways
 
     builder.define_gateway :template do
       HomesEngland::Gateway::InMemoryTemplate.new(
-        template_builder: builder.get_use_case(:template_builder)
+        template_builder: builder.get_gateway(:template_builder)
       )
     end
 
