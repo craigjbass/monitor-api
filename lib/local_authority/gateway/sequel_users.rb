@@ -4,12 +4,12 @@ class LocalAuthority::Gateway::SequelUsers
   end
 
   def find_by(email:)
-    user = @database[:users].first(email: email)
+    user = @database[:users].all.find { |u| u[:email].casecmp?(email) }
     return nil if user.nil?
 
     LocalAuthority::Domain::User.new.tap do |u|
       u.id = user[:id]
-      u.email = email
+      u.email = user[:email]
       u.projects = []
       u.projects = user[:projects].to_a unless user[:projects].nil?
     end

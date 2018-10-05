@@ -119,4 +119,22 @@ describe LocalAuthority::Gateway::SequelUsers do
       expect(users[1].email).to eq('moo@cowhouse.com')
     end
   end
+
+  context 'with mixed case emails' do
+    let(:new_user_id) do
+      gateway.create(
+        LocalAuthority::Domain::User.new.tap do |u|
+          u.email = 'CatsCatsCats@cathouse.com'
+        end
+      )
+    end
+
+    before { new_user_id }
+
+    it 'Finds the email correctly' do
+      found_user = gateway.find_by(email: 'CATSCATSCATS@cathouse.com')
+      expect(found_user.id).to eq(new_user_id)
+      expect(found_user.email).to eq('CatsCatsCats@cathouse.com')
+    end
+  end
 end
