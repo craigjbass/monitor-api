@@ -179,6 +179,7 @@ module DeliveryMechanism
         content_type 'application/json'
         response.body = {
           type: project[:type],
+          status: project[:status],
           data: Common::DeepCamelizeKeys.to_camelized_hash(project[:data]),
           schema: schema
         }.to_json
