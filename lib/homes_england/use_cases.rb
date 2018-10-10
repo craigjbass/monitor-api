@@ -20,6 +20,12 @@ class HomesEngland::UseCases
       )
     end
 
+    builder.define_use_case :submit_project do
+      HomesEngland::UseCase::SubmitProject.new(
+        project_gateway: builder.get_gateway(:project)
+      )
+    end
+
     builder.define_use_case :get_schema_for_project do
       HomesEngland::UseCase::GetSchemaForProject.new(
         template_gateway: builder.get_gateway(:template)

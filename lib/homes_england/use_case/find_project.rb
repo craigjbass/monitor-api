@@ -7,8 +7,8 @@ class HomesEngland::UseCase::FindProject
     project = @project_gateway.find_by(id: id)
     {
       type: project.type,
-      data: project.data
+      data: project.data,
+      status: project.status
     }
   end
 end
-
