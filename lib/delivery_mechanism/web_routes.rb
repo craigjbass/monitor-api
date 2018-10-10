@@ -225,6 +225,16 @@ module DeliveryMechanism
       end
     end
 
+    post '/project/submit' do
+      guard_access env, params, request do |request_hash|
+        @dependency_factory.get_use_case(:submit_project).execute(
+          project_id: request_hash[:project_id].to_i
+        )
+
+        response.status = 200
+      end
+    end 
+
     def get_hash(request)
       body = request.body.read
       return nil if body.to_s.empty?
