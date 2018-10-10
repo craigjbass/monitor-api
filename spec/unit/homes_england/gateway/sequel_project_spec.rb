@@ -38,12 +38,14 @@ describe HomesEngland::Gateway::SequelProject do
     context 'updating the project' do
       it 'updates the project' do
         project.data = { dogs: 'woof' }
+        project.status = 'Tree'
         project_gateway.update(id: project_id, project: project)
 
         created_project = project_gateway.find_by(id: project_id)
 
         expect(created_project.type).to eq('Animals')
         expect(created_project.data).to eq(dogs: 'woof')
+        expect(created_project.status).to eq('Tree')
       end
 
       it 'returns successful' do

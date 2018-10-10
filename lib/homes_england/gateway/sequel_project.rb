@@ -26,7 +26,8 @@ class HomesEngland::Gateway::SequelProject
       .where(id: id)
       .update(
         type: project.type,
-        data: Sequel.pg_json(project.data)
+        data: Sequel.pg_json(project.data),
+        status: project.status
       )
 
     { success: updated > 0 }

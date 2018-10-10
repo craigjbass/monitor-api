@@ -8,7 +8,7 @@ describe HomesEngland::UseCase::UpdateProject do
 
   context 'example one' do
     let(:project_id) { 42 }
-    let(:updated_project) { { type: 'hif', baseline: { ducks: 'quack' } } }
+    let(:updated_project) { { type: 'hif', baseline: { ducks: 'quack' }, status: 'Draft' } }
 
     context 'given a successful update' do
       let(:project_gateway_spy) do
@@ -32,6 +32,13 @@ describe HomesEngland::UseCase::UpdateProject do
       it 'Should return successful' do
         expect(response).to eq(successful: true)
       end
+
+      it 'Should always pass a draft status to the gateway' do
+        expect(project_gateway_spy).to have_received(:update) do |request|
+          project = request[:project]
+          expect(project.status).to eq('Draft')
+        end
+      end
     end
 
     context 'given an unsuccessful update' do
@@ -47,7 +54,7 @@ describe HomesEngland::UseCase::UpdateProject do
 
   context 'example two' do
     let(:project_id) { 123 }
-    let(:updated_project) { { type: 'abc', baseline: { cows: 'moo' } } }
+    let(:updated_project) { { type: 'abc', baseline: { cows: 'moo' }, status: 'Submitted' } }
 
     context 'given a successful update' do
       let(:project_gateway_spy) do
@@ -70,6 +77,13 @@ describe HomesEngland::UseCase::UpdateProject do
 
       it 'Should return successful' do
         expect(response).to eq(successful: true)
+      end
+
+      it 'Should always pass a draft status to the gateway' do
+        expect(project_gateway_spy).to have_received(:update) do |request|
+          project = request[:project]
+          expect(project.status).to eq('Draft')
+        end
       end
     end
 

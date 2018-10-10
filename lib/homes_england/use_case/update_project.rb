@@ -7,6 +7,7 @@ class HomesEngland::UseCase::UpdateProject
     updated_project = HomesEngland::Domain::Project.new
     updated_project.type = project[:type]
     updated_project.data = project[:baseline]
+    updated_project.status = 'Draft'
 
     successful = @project_gateway.update(id: id, project: updated_project)[:success]
 
