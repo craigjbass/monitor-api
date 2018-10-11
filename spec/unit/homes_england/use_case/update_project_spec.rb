@@ -24,7 +24,6 @@ describe HomesEngland::UseCase::UpdateProject do
       it 'Should pass the project to the gateway' do
         expect(project_gateway_spy).to have_received(:update) do |request|
           project = request[:project]
-          expect(project.type).to eq('hif')
           expect(project.data).to eq(ducks: 'quack')
         end
       end
@@ -70,7 +69,6 @@ describe HomesEngland::UseCase::UpdateProject do
       it 'Should pass the project to the gateway' do
         expect(project_gateway_spy).to have_received(:update) do |request|
           project = request[:project]
-          expect(project.type).to eq('abc')
           expect(project.data).to eq(cows: 'moo')
         end
       end

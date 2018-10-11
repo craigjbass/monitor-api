@@ -5,7 +5,6 @@ class HomesEngland::UseCase::UpdateProject
 
   def execute(id:, project:)
     updated_project = HomesEngland::Domain::Project.new
-    updated_project.type = project[:type]
     updated_project.data = project[:baseline]
     updated_project.status = 'Draft'
 
