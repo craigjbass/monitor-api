@@ -52,7 +52,7 @@ describe 'Finding a project' do
   context 'with an valid id' do
     context 'example one' do
       let(:project_id) { 42 }
-      let(:project) { { type: 'cat', data: { cats_go: 'meow', dogs_go: 'woof' } } }
+      let(:project) { { type: 'cat', status: 'Draft', data: { cats_go: 'meow', dogs_go: 'woof' } } }
       let(:schema) {  { schema: { cats: 'go meow' } } }
 
 
@@ -71,6 +71,7 @@ describe 'Finding a project' do
       it 'should should have project in body with camel case' do
         response_body = JSON.parse(last_response.body)
         expect(response_body['type']).to eq('cat')
+        expect(response_body['status']).to eq('Draft')
         expect(response_body['data']['catsGo']).to eq('meow')
         expect(response_body['data']['dogsGo']).to eq('woof')
       end
@@ -83,7 +84,7 @@ describe 'Finding a project' do
 
     context 'example two' do
       let(:project_id) { 41 }
-      let(:project) { { type: 'animals', data: { animal_noises: [{ ducks_go: 'quack' }, { cows_go: 'moo' }] } } }
+      let(:project) { { type: 'animals', status: 'Tree', data: { animal_noises: [{ ducks_go: 'quack' }, { cows_go: 'moo' }] } } }
       let(:schema) { { schema: { dogs: 'bark', cats: 'meow' } } }
 
       let(:find_project_spy) { spy(execute: project) }
@@ -103,6 +104,7 @@ describe 'Finding a project' do
       it 'should should have project in body with camel case' do
         response_body = JSON.parse(last_response.body)
         expect(response_body['type']).to eq('animals')
+        expect(response_body['status']).to eq('Tree')
         expect(response_body['data']['animalNoises'][0]['ducksGo']).to eq('quack')
         expect(response_body['data']['animalNoises'][1]['cowsGo']).to eq('moo')
       end

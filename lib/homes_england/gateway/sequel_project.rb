@@ -6,7 +6,8 @@ class HomesEngland::Gateway::SequelProject
   def create(project)
     @database[:projects].insert(
       type: project.type,
-      data: Sequel.pg_json(project.data)
+      data: Sequel.pg_json(project.data),
+      status: project.status
     )
   end
 
@@ -16,6 +17,7 @@ class HomesEngland::Gateway::SequelProject
     HomesEngland::Domain::Project.new.tap do |p|
       p.type = row[:type]
       p.data = Common::DeepSymbolizeKeys.to_symbolized_hash(row[:data].to_h)
+      p.status = row[:status]
     end
   end
 
@@ -24,10 +26,14 @@ class HomesEngland::Gateway::SequelProject
       .where(id: id)
       .update(
         type: project.type,
-        data: Sequel.pg_json(project.data)
+        data: Sequel.pg_json(project.data),
+        status: project.status
       )
 
     { success: updated > 0 }
   end
-end
 
+  def submit(id:)
+    @database[:projects].where(id: id).update(status: 'Submitted')
+  end
+end

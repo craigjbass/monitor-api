@@ -179,6 +179,7 @@ module DeliveryMechanism
         content_type 'application/json'
         response.body = {
           type: project[:type],
+          status: project[:status],
           data: Common::DeepCamelizeKeys.to_camelized_hash(project[:data]),
           schema: schema
         }.to_json
@@ -224,6 +225,16 @@ module DeliveryMechanism
         end
       end
     end
+
+    post '/project/submit' do
+      guard_access env, params, request do |request_hash|
+        @dependency_factory.get_use_case(:submit_project).execute(
+          project_id: request_hash[:project_id].to_i
+        )
+
+        response.status = 200
+      end
+    end 
 
     def get_hash(request)
       body = request.body.read

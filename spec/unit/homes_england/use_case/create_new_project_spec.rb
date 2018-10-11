@@ -19,6 +19,7 @@ describe HomesEngland::UseCase::CreateNewProject do
     let(:project_id) { 0 }
     let(:type) { 'hif' }
     let(:baseline) { { key: 'value' } }
+    let(:status) { '' }
 
     it 'creates the project with populated data' do
       expect(project_gateway).to have_received(:create) do |project|
@@ -30,12 +31,19 @@ describe HomesEngland::UseCase::CreateNewProject do
     it 'returns the id from the gateway' do
       expect(response).to eq(id: 0)
     end
+
+    it 'gives the project a status of draft' do
+      expect(project_gateway).to have_received(:create) do |project|
+        expect(project.status).to eq('Draft')
+      end
+    end
   end
 
   context 'example two' do
     let(:project_id) { 42 }
     let(:type) { 'cats' }
     let(:baseline) { { cat: 'meow' } }
+    let(:status) { '' }
 
     it 'creates the project' do
       expect(project_gateway).to have_received(:create) do |project|
@@ -46,6 +54,12 @@ describe HomesEngland::UseCase::CreateNewProject do
 
     it 'returns the id from the gateway' do
       expect(response).to eq(id: 42)
+    end
+
+    it 'gives the project a status of draft' do
+      expect(project_gateway).to have_received(:create) do |project|
+        expect(project.status).to eq('Draft')
+      end
     end
   end
 end

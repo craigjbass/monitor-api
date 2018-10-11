@@ -31,18 +31,21 @@ describe HomesEngland::Gateway::SequelProject do
 
         expect(created_project.type).to eq('Animals')
         expect(created_project.data).to eq(cats: 'meow')
+        expect(created_project.status).to eq('Draft')
       end
     end
 
     context 'updating the project' do
       it 'updates the project' do
         project.data = { dogs: 'woof' }
+        project.status = 'Tree'
         project_gateway.update(id: project_id, project: project)
 
         created_project = project_gateway.find_by(id: project_id)
 
         expect(created_project.type).to eq('Animals')
         expect(created_project.data).to eq(dogs: 'woof')
+        expect(created_project.status).to eq('Tree')
       end
 
       it 'returns successful' do
@@ -51,6 +54,16 @@ describe HomesEngland::Gateway::SequelProject do
         response = project_gateway.update(id: project_id, project: project)
 
         expect(response).to eq(success: true)
+      end
+    end
+
+    context 'submitting the project' do
+      it 'changes the status to submitted' do
+        project.data = { blank: '' }
+        project_gateway.submit(id: project_id)
+        submitted_project = project_gateway.find_by(id: project_id)
+
+        expect(submitted_project.status).to eq('Submitted')
       end
     end
   end

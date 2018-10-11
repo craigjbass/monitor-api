@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rspec'
 
 describe HomesEngland::UseCase::FindProject do
@@ -12,6 +14,7 @@ describe HomesEngland::UseCase::FindProject do
       HomesEngland::Domain::Project.new.tap do |p|
         p.type = 'hif'
         p.data = { dogs: 'woof' }
+        p.status = 'Draft'
       end
     end
     let(:id) { 1 }
@@ -27,6 +30,10 @@ describe HomesEngland::UseCase::FindProject do
     it 'returns a hash containing the projects data' do
       expect(response[:data]).to eq(dogs: 'woof')
     end
+
+    it 'returns a hash containing the projects status' do
+      expect(response[:status]).to eq('Draft')
+    end
   end
 
   context 'example two' do
@@ -34,6 +41,7 @@ describe HomesEngland::UseCase::FindProject do
       HomesEngland::Domain::Project.new.tap do |p|
         p.type = 'abc'
         p.data = { cats: 'meow' }
+        p.status = 'Submitted'
       end
     end
     let(:id) { 5 }
@@ -48,6 +56,10 @@ describe HomesEngland::UseCase::FindProject do
 
     it 'returns a hash containing the projects data' do
       expect(response[:data]).to eq(cats: 'meow')
+    end
+
+    it 'returns a hash containing the projects status' do
+      expect(response[:status]).to eq('Submitted')
     end
   end
 end
