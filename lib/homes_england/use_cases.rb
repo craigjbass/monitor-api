@@ -20,6 +20,13 @@ class HomesEngland::UseCases
       )
     end
 
+    builder.define_use_case :validate_project do
+      HomesEngland::UseCase::ValidateProject.new(
+        project_template_gateway: builder.get_gateway(:template),
+        get_project_template_path_titles: builder.get_use_case(:get_template_path_titles)
+      )
+    end
+
     builder.define_use_case :submit_project do
       HomesEngland::UseCase::SubmitProject.new(
         project_gateway: builder.get_gateway(:project)

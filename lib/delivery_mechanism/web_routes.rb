@@ -138,10 +138,6 @@ module DeliveryMechanism
       end
     end
 
-    def invalid_validation_hash(request_hash:)
-      request_hash.nil? || request_hash.key?(:type) == false || request_hash.key?(:data) == false
-    end
-
     get '/project/:id/return' do
       guard_access env, params, request do |_request_hash|
         return 400 if params['id'].nil?
@@ -226,6 +222,24 @@ module DeliveryMechanism
       end
     end
 
+    post '/project/validate' do
+      guard_access env, params, request do |request_hash|
+        return 400 if invalid_validation_hash(request_hash: request_hash)
+
+        validate_response = @dependency_factory.get_use_case(:validate_project).execute(
+          type: request_hash[:type],
+          project_data: request_hash[:data]
+        )
+
+        response.status = 200
+        response.body = {
+          valid: validate_response[:valid],
+          invalidPaths: validate_response[:invalid_paths],
+          prettyInvalidPaths: validate_response[:pretty_invalid_paths]
+        }.to_json
+      end
+    end
+
     post '/project/submit' do
       guard_access env, params, request do |request_hash|
         @dependency_factory.get_use_case(:submit_project).execute(
@@ -303,6 +317,10 @@ module DeliveryMechanism
     end
 
     private
+
+    def invalid_validation_hash(request_hash:)
+      request_hash.nil? || request_hash.key?(:type) == false || request_hash.key?(:data) == false
+    end
 
     def authorization_header_not_present?
       env['HTTP_API_KEY'].nil?

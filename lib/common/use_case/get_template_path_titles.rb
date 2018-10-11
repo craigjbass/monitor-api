@@ -1,17 +1,12 @@
-class LocalAuthority::UseCase::GetReturnTemplatePathTitles
-  using LocalAuthority::Refinement::HashHasPath
+class Common::UseCase::GetTemplatePathTitles
+  using Common::Refinement::HashHasPath
 
-  def initialize(template_gateway:)
-    @template_gateway = template_gateway
-  end
-
-  def execute(type:, path:)
-    schema = @template_gateway.find_by(type: type)
+  def execute(path:, schema:)
     path_without_indexes = path.reject do |node|
       node.class == Integer
     end
 
-    path_titles = clean_missing_form_title(schema_titles(schema.schema, path_without_indexes))
+    path_titles = clean_missing_form_title(schema_titles(schema, path_without_indexes))
 
     path_titles = prettify_index_nodes(path_titles, path)
 

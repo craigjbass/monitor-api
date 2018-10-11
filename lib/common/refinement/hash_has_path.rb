@@ -1,4 +1,4 @@
-module LocalAuthority::Refinement::HashHasPath
+module Common::Refinement::HashHasPath
   refine Hash do
     def hash_has_path?(path)
       dig(*path).nil? != true
