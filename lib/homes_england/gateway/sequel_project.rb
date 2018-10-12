@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class HomesEngland::Gateway::SequelProject
   def initialize(database:)
     @database = database
@@ -23,12 +25,11 @@ class HomesEngland::Gateway::SequelProject
 
   def update(id:, project:)
     updated = @database[:projects]
-      .where(id: id)
-      .update(
-        type: project.type,
-        data: Sequel.pg_json(project.data),
-        status: project.status
-      )
+              .where(id: id)
+              .update(
+                data: Sequel.pg_json(project.data),
+                status: project.status
+              )
 
     { success: updated > 0 }
   end

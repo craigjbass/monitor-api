@@ -214,10 +214,7 @@ module DeliveryMechanism
           use_case = @dependency_factory.get_use_case(:update_project)
           update_successful = use_case.execute(
             id: request_hash[:id].to_i,
-            project: {
-              type: request_hash[:project][:type],
-              baseline: request_hash[:project][:baselineData]
-            }
+            project_data: request_hash[:project][:baselineData]
           )[:successful]
           response.status = update_successful ? 200 : 404
         else
@@ -234,7 +231,7 @@ module DeliveryMechanism
 
         response.status = 200
       end
-    end 
+    end
 
     def get_hash(request)
       body = request.body.read
@@ -315,7 +312,6 @@ module DeliveryMechanism
 
     def valid_update_request_body(request_body)
       !request_body.dig(:id).nil? &&
-        !request_body.dig(:project, :type).nil? &&
         !request_body.dig(:project, :baselineData).nil?
     end
   end

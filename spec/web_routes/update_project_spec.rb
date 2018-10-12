@@ -20,7 +20,6 @@ describe 'Updating a project' do
 
   let(:new_project_data) do
     {
-      type: 'new',
       baselineData: {
         cats: 'quack',
         dogs: 'baa'
@@ -53,7 +52,6 @@ describe 'Updating a project' do
         post '/project/update',
              { id: nil,
                project: {
-                 type: new_project_data['type'],
                  baselineData: new_project_data['baselineData']
                } }.to_json
         expect(last_response.status).to eq(400)
@@ -76,7 +74,6 @@ describe 'Updating a project' do
       post '/project/update', {
         id: project_id,
         project: {
-          type: new_project_data[:type],
           baselineData: new_project_data[:baselineData]
         }
       }.to_json
@@ -90,10 +87,7 @@ describe 'Updating a project' do
       expect(update_project_spy).to(
         have_received(:execute).with(
           id: project_id,
-          project: {
-            type: 'new',
-            baseline: { cats: 'quack', dogs: 'baa' }
-          }
+          project_data: { cats: 'quack', dogs: 'baa' }
         )
       )
     end
