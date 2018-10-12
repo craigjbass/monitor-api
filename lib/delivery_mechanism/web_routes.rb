@@ -214,9 +214,7 @@ module DeliveryMechanism
           use_case = @dependency_factory.get_use_case(:update_project)
           update_successful = use_case.execute(
             id: request_hash[:id].to_i,
-            project: {
-              baseline: request_hash[:project][:baselineData]
-            }
+            project_data: request_hash[:project][:baselineData]
           )[:successful]
           response.status = update_successful ? 200 : 404
         else

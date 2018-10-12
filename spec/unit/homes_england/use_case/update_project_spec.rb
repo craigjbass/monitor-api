@@ -2,13 +2,13 @@ require 'rspec'
 
 describe HomesEngland::UseCase::UpdateProject do
   let(:use_case) { described_class.new(project_gateway: project_gateway_spy) }
-  let(:response) {  use_case.execute(id: project_id, project: updated_project) }
+  let(:response) {  use_case.execute(id: project_id, project_data: updated_project_data) }
 
   before { response }
 
   context 'example one' do
     let(:project_id) { 42 }
-    let(:updated_project) { { type: 'hif', baseline: { ducks: 'quack' }, status: 'Draft' } }
+    let(:updated_project_data) {{ ducks: 'quack' }}
 
     context 'given a successful update' do
       let(:project_gateway_spy) do
@@ -53,7 +53,7 @@ describe HomesEngland::UseCase::UpdateProject do
 
   context 'example two' do
     let(:project_id) { 123 }
-    let(:updated_project) { { type: 'abc', baseline: { cows: 'moo' }, status: 'Submitted' } }
+    let(:updated_project_data) { { cows: 'moo' } }
 
     context 'given a successful update' do
       let(:project_gateway_spy) do

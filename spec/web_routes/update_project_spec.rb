@@ -87,9 +87,7 @@ describe 'Updating a project' do
       expect(update_project_spy).to(
         have_received(:execute).with(
           id: project_id,
-          project: {
-            baseline: { cats: 'quack', dogs: 'baa' }
-          }
+          project_data: { cats: 'quack', dogs: 'baa' }
         )
       )
     end
