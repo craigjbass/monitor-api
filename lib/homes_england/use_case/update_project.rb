@@ -3,10 +3,9 @@ class HomesEngland::UseCase::UpdateProject
     @project_gateway = project_gateway
   end
 
-  def execute(id:, project:)
+  def execute(id:, project_data:)
     updated_project = HomesEngland::Domain::Project.new
-    updated_project.type = project[:type]
-    updated_project.data = project[:baseline]
+    updated_project.data = project_data
     updated_project.status = 'Draft'
 
     successful = @project_gateway.update(id: id, project: updated_project)[:success]
