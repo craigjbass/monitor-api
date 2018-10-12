@@ -51,9 +51,7 @@ describe 'Updating a project' do
       it 'should return 400' do
         post '/project/update',
              { project_id: nil,
-               project: {
-                 baselineData: new_project_data['baselineData']
-               } }.to_json
+               project_data: nil }.to_json
         expect(last_response.status).to eq(400)
       end
     end
@@ -61,7 +59,7 @@ describe 'Updating a project' do
     context 'project' do
       context 'which is nil' do
         it 'should return 400' do
-          post '/project/update', { project_id: project_id, project: nil }.to_json
+          post '/project/update', { project_id: project_id, project_data: nil }.to_json
 
           expect(last_response.status).to eq(400)
         end
@@ -73,9 +71,7 @@ describe 'Updating a project' do
     before do
       post '/project/update', {
         project_id: project_id,
-        project: {
-          baselineData: new_project_data[:baselineData]
-        }
+        project_data: new_project_data[:baselineData]
       }.to_json
     end
 
