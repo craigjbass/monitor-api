@@ -2,7 +2,7 @@ require 'rspec'
 
 describe HomesEngland::UseCase::UpdateProject do
   let(:use_case) { described_class.new(project_gateway: project_gateway_spy) }
-  let(:response) {  use_case.execute(id: project_id, project_data: updated_project_data) }
+  let(:response) {  use_case.execute(project_id: project_id, project_data: updated_project_data) }
 
   before { response }
 

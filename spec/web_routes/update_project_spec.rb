@@ -50,10 +50,8 @@ describe 'Updating a project' do
     context 'id' do
       it 'should return 400' do
         post '/project/update',
-             { id: nil,
-               project: {
-                 baselineData: new_project_data['baselineData']
-               } }.to_json
+             { project_id: nil,
+               project_data: nil }.to_json
         expect(last_response.status).to eq(400)
       end
     end
@@ -61,7 +59,7 @@ describe 'Updating a project' do
     context 'project' do
       context 'which is nil' do
         it 'should return 400' do
-          post '/project/update', { id: project_id, project: nil }.to_json
+          post '/project/update', { project_id: project_id, project_data: nil }.to_json
 
           expect(last_response.status).to eq(400)
         end
@@ -72,10 +70,8 @@ describe 'Updating a project' do
   context 'with valid id and project' do
     before do
       post '/project/update', {
-        id: project_id,
-        project: {
-          baselineData: new_project_data[:baselineData]
-        }
+        project_id: project_id,
+        project_data: new_project_data[:baselineData]
       }.to_json
     end
 
@@ -86,7 +82,7 @@ describe 'Updating a project' do
     it 'should update project data for id' do
       expect(update_project_spy).to(
         have_received(:execute).with(
-          id: project_id,
+          project_id: project_id,
           project_data: { cats: 'quack', dogs: 'baa' }
         )
       )
