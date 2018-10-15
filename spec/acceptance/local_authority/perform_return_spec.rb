@@ -58,7 +58,12 @@ describe 'Performing Return on HIF Project' do
   end
 
   before do
+    ENV['OUTPUTS_FORECAST_TAB'] = 'Yes'
     project_id
+  end
+
+  after do
+    ENV['OUTPUTS_FORECAST_TAB'] = nil
   end
 
   it 'should keep track of Returns' do

@@ -40,7 +40,7 @@
         "laDoesNotControlSite": {
           "whoOwnsSite": "Dave",
           "landAcquisitionRequired": "Yes",
-          "howManySitesToAquire": 10,
+          "howManySitesToAquire": "10",
           "toBeAquiredBy": "LA",
           "summaryOfAcquisitionRequired": "Summary of critical path",
           "allLandAssemblyAchieved": {
@@ -111,5 +111,25 @@
         "private": { "baseline": "5000" }
       }
     }
-  ]
+  ],
+  "outputsForecast": {
+    "summary": {
+      "totalUnits": "10",
+      "disposalStrategy": "Disposal strategy"
+    },
+    "housingStarts": {
+      "baselineAmounts": [
+        { "period": "18/19", "baselineAmounts": "100" },
+        { "period": "19/20", "baselineAmounts": "50" }
+      ],
+      "currentReturnAmounts": [{ "period": "18/19" }, { "period": "19/20" }]
+    },
+    "housingCompletions": {
+      "baselineAmounts": [
+        { "period": "18/19", "baselineAmounts": "0" },
+        { "period": "19/20", "baselineAmounts": "50" }
+      ],
+      "currentReturnAmounts": [{ "period": "18/19" }, { "period": "19/20" }]
+    }
+  }
 }
