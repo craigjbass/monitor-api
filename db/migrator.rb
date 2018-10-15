@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Migrator
   def initialize
     Sequel.extension :migration
@@ -10,5 +12,8 @@ class Migrator
   def migrate(database)
     Sequel::Migrator.run(database, "#{__dir__}/migrations")
   end
-end
 
+  def migrate_to(database, version)
+    Sequel::Migrator.run(database, "#{__dir__}/migrations", target: version)
+  end
+end

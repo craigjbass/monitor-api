@@ -4,7 +4,7 @@
 class LocalAuthority::Gateway::InMemoryReturnTemplate
   def find_by(type:)
     return nil unless type == 'hif'
-    LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+    return_template = LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
       p.schema = {
         title: 'HIF Project',
         type: 'object',
@@ -184,7 +184,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       title: 'Completed date (Calculated)'
                                     }
                                   }
-                                },
+                                }
                               }
                             },
                             {
@@ -1233,7 +1233,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     period: {
                       title: 'Period',
                       type: 'string',
-                      sourceKey: %i[baseline_data fundingProfiles period], 
+                      sourceKey: %i[baseline_data fundingProfiles period],
                       readonly: true
                     },
                     forecast: {
@@ -1244,31 +1244,31 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                         instalment1: {
                           title: '1st Quarter',
                           type: 'string',
-                          sourceKey: %i[baseline_data fundingProfiles instalment1], 
+                          sourceKey: %i[baseline_data fundingProfiles instalment1],
                           readonly: true
                         },
                         instalment2: {
                           title: '2nd Quarter',
                           type: 'string',
-                          sourceKey: %i[baseline_data fundingProfiles instalment2], 
+                          sourceKey: %i[baseline_data fundingProfiles instalment2],
                           readonly: true
                         },
                         instalment3: {
                           title: '3rd Quarter',
                           type: 'string',
-                          sourceKey: %i[baseline_data fundingProfiles instalment3], 
+                          sourceKey: %i[baseline_data fundingProfiles instalment3],
                           readonly: true
                         },
                         instalment4: {
                           title: '4th Quarter',
                           type: 'string',
-                          sourceKey: %i[baseline_data fundingProfiles instalment4], 
+                          sourceKey: %i[baseline_data fundingProfiles instalment4],
                           readonly: true
                         },
                         total: {
                           title: 'Total',
                           type: 'string',
-                          sourceKey: %i[baseline_data fundingProfiles total], 
+                          sourceKey: %i[baseline_data fundingProfiles total],
                           readonly: true
                         }
                       }
@@ -1309,7 +1309,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             period: {
                               title: 'Period',
                               type: 'string',
-                              sourceKey: %i[baseline_data fundingProfiles period], 
+                              sourceKey: %i[baseline_data fundingProfiles period],
                               readonly: true
                             },
                             newProfile: {
@@ -1319,23 +1319,23 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                               properties: {
                                 instalment1: {
                                   title: '1st Quarter',
-                                  type: 'string',
+                                  type: 'string'
                                 },
                                 instalment2: {
                                   title: '2nd Quarter',
-                                  type: 'string',
+                                  type: 'string'
                                 },
                                 instalment3: {
                                   title: '3rd Quarter',
-                                  type: 'string',
+                                  type: 'string'
                                 },
                                 instalment4: {
                                   title: '4th Quarter',
-                                  type: 'string',
+                                  type: 'string'
                                 },
                                 total: {
                                   title: 'Total',
-                                  type: 'string',
+                                  type: 'string'
                                 }
                               }
                             }
@@ -1381,7 +1381,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                       type: 'string',
                       title: 'Last Return',
                       readonly: true,
-                      sourceKey: %i[return_data fundingPackages hifSpend current],
+                      sourceKey: %i[return_data fundingPackages hifSpend current]
                     }
                   }
                 },
@@ -1397,7 +1397,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                         baseline: {
                           type: 'string',
                           title: 'Baseline Amount',
-                          sourceKey: %i[baseline_data costs infrastructure totalCostOfInfrastructure], 
+                          sourceKey: %i[baseline_data costs infrastructure totalCostOfInfrastructure],
                           readonly: true
                         },
                         current: {
@@ -1417,7 +1417,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     fundedThroughHIF: {
                       type: 'string',
                       title: 'Totally funded through HIF?',
-                      enum: ['Yes', 'No'],
+                      enum: %w[Yes No],
                       readonly: true,
                       sourceKey: %i[baseline_data costs infrastructure totallyFundedThroughHIF]
                     }
@@ -1451,7 +1451,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                 risk: {
                                   title: 'Is there a risk?',
                                   type: 'string',
-                                  enum: ['Yes', 'No'],
+                                  enum: %w[Yes No]
                                 },
                                 description: {
                                   title: 'Description of risk',
@@ -1520,30 +1520,194 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
           }
         }
       }
+    end
 
-      p.layout = {
+    return return_template if ENV['OUTPUTS_FORECAST_TAB'].nil?
+
+    return_template.schema[:properties][:outputsForecast] = {
+      title: 'Outputs - Forecast',
+      type: 'object',
+      properties: {
         summary: {
-          project_name: nil,
-          description: nil,
-          lead_authority: nil
-        },
-        infrastructure: {
-          type: nil,
-          description: nil,
-          completion_date: nil,
-          planning: {
-            submission_estimated: nil,
-            submission_actual: nil,
-            submission_delay_reason: nil
+          type: 'object',
+          title: 'Summary',
+          properties: {
+            totalUnits: {
+              type: 'integer',
+              title: 'Total Units',
+              readonly: true,
+              sourceKey: %i[baseline_data outputsForecast totalUnits]
+            },
+            disposalStrategy: {
+              type: 'string',
+              title: 'Disposal Strategy/Critical Path',
+              readonly: true,
+              sourceKey: %i[baseline_data outputsForecast disposalStrategy]
+            }
           }
         },
-        financial: {
-          total_amount_estimated: nil,
-          total_amount_actual: nil,
-          total_amount_changed_reason: nil
+        housingStarts: {
+          type: 'object',
+          title: 'Housing Starts',
+          properties: {
+            baselineAmounts: {
+              title: 'Baseline Amounts',
+              type: 'array',
+              items: {
+                horizontal: true,
+                type: 'object',
+                properties: {
+                  period: {
+                    type: 'string',
+                    title: 'period',
+                    readonly: true,
+                    sourceKey: %i[baseline_data outputsForecast housingForecast period]
+                  },
+                  baselineAmounts: {
+                    type: 'string',
+                    title: 'Baseline Amounts',
+                    readonly: true,
+                    sourceKey: %i[baseline_data outputsForecast housingForecast target]
+                  }
+                }
+              }
+            },
+            anyChanges: {
+              title: 'Any changes to baseline amounts?',
+              type: 'string',
+              enum: %w[Yes No]
+            }
+          },
+          dependencies: {
+            anyChanges: {
+              oneOf: [
+                {
+                  properties: {
+                    anyChanges: { enum: ['Yes'] },
+                    currentReturnAmounts: {
+                      type: 'array',
+                      title: 'Current Return Amounts',
+                      items: {
+                        horizontal: true,
+                        type: 'object',
+                        properties: {
+                          period: {
+                            type: 'string',
+                            title: 'period',
+                            readonly: true,
+                            sourceKey: %i[baseline_data outputsForecast housingForecast period]
+                          },
+                          currentReturnForecast: {
+                            type: 'string',
+                            title: 'Current Return Forecast'
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  properties: {
+                    anyChanges: { enum: ['No'] }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        inYearHousingStarts: {
+          type: 'object',
+          title: 'In year housing starts',
+          properties: {
+            risksToAchieving: {
+              type: 'string',
+              title: 'Risks to achieving'
+            }
+          }
+        },
+        housingCompletions: {
+          type: 'object',
+          title: 'Housing Completions',
+          properties: {
+            baselineAmounts: {
+              title: 'Baseline Amounts',
+              type: 'array',
+              items: {
+                type: 'object',
+                horizontal: true,
+                properties: {
+                  period: {
+                    type: 'string',
+                    title: 'Period',
+                    readonly: true,
+                    sourceKey: %i[baseline_data outputsForecast housingForecast period]
+                  },
+                  baselineAmounts: {
+                    type: 'string',
+                    title: 'Baseline Amounts',
+                    readonly: true,
+                    sourceKey: %i[baseline_data outputsForecast housingForecast housingCompletions]
+                  }
+                }
+              }
+            },
+            anyChanges: {
+              title: 'Any changes to baseline amounts?',
+              type: 'string',
+              enum: %w[Yes No]
+            }
+          },
+          dependencies: {
+            anyChanges: {
+              oneOf: [
+                {
+                  properties: {
+                    anyChanges: { enum: ['Yes'] },
+                    currentReturnAmounts: {
+                      type: 'array',
+                      title: 'Current Return Amounts',
+                      items: {
+                        type: 'object',
+                        horizontal: true,
+                        properties: {
+                          period: {
+                            type: 'string',
+                            title: 'Period',
+                            readonly: true,
+                            sourceKey: %i[baseline_data outputsForecast housingForecast period]
+                          },
+                          currentReturnForecast: {
+                            type: 'string',
+                            title: 'Current Return Forecast'
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  properties: {
+                    anyChanges: { enum: ['No'] }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        inYearHousingCompletions: {
+          type: 'object',
+          title: 'In year housing completions',
+          properties: {
+            risksToAchieving: {
+              type: 'string',
+              title: 'Risks to achieving'
+            }
+          }
         }
       }
-    end
+    }
+
+    return_template
   end
 
   private

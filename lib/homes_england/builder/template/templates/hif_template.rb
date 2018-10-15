@@ -369,7 +369,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                                 enum: ['Yes']
                               },
                               howManySitesToAcquire: {
-                                type: 'integer',
+                                type: 'string',
                                 title: 'How many sites?'
                               },
                               toBeAcquiredBy: {
@@ -546,15 +546,15 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
           enum: ['Greenfield', 'Brownfield', 'Mixed']
         },
         noOfHousingSites: {
-          type: 'integer',
+          type: 'string',
           title: 'Number of housing sites'
         },
         totalArea: {
-          type: 'integer',
+          type: 'string',
           title: 'Total Area (hectares)'
         },
         hifFundingAmount: {
-          type: 'integer',
+          type: 'string',
           title: 'HIF Funding Amount (£)'
         },
         descriptionOfInfrastructure: {
@@ -594,7 +594,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
       title: 'Outputs - Forecast',
       properties: {
         totalUnits: {
-          type: 'integer',
+          type: 'string',
           title: 'Total Units'
         },
         disposalStrategy: {

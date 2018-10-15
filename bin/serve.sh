@@ -1,5 +1,7 @@
 #!/usr/bin/env ash
 
+export OUTPUTS_FORECAST_TAB=yes
+
 _term() {
   echo "Caught SIGTERM signal!"
   kill -TERM "$rack" 2>/dev/null
