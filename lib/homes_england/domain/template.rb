@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'json_schema'
 class HomesEngland::Domain::Template
   attr_accessor :layout, :schema
@@ -6,6 +8,8 @@ class HomesEngland::Domain::Template
     schema = parse_json_schema(@schema)
     get_invalid_paths(schema, project_data) || []
   end
+
+  private
 
   def parse_json(schema)
     JSON.parse(schema.to_json)
