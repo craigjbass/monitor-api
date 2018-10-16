@@ -17,7 +17,7 @@ describe 'Notifying project members' do
   end
 
   it 'Notfies project members' do
-    dependency_factory.get_use_case(:notify_project_members).execute(project_id: 1, url: 'meow.com')
+    dependency_factory.get_use_case(:notify_project_members_of_submission).execute(project_id: 1, url: 'meow.com')
     simulator.expect_notification_to_have_been_sent_with(access_url: 'meow.com')
   end
 end
