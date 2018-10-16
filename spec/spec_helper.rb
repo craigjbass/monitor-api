@@ -1,5 +1,6 @@
 require 'loader'
 require 'pry'
+require 'webmock/rspec'
 require_relative 'database_context'
 
 RSpec.configure do |config|
