@@ -1222,8 +1222,14 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
           },
           fundingProfiles: {
             type: 'object',
-            title: 'Funding Profiles',
+            title: 'HIF Grant Expenditure',
             properties: {
+              totalHIFGrant: {
+                type: 'string',
+                title: 'Total HIF Grant',
+                readonly: true,
+                sourceKey: %i[baseline_data summary hifFundingAmount]
+              },
               fundingRequest: {
                 type: 'array',
                 title: 'Funding Request',

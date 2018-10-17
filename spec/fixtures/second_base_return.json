@@ -87,6 +87,7 @@
     }
   ],
   "fundingProfiles": {
+    "totalHIFGrant": "10000",
     "fundingRequest": [
       {
         "period": "2019/2020",
