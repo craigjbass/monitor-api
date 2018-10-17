@@ -1,3 +1,8 @@
+require 'simplecov'
+
+SimpleCov.profiles.define('clean') { add_filter 'spec' }
+SimpleCov.start('clean')
+
 require 'loader'
 require 'pry'
 require 'webmock/rspec'
