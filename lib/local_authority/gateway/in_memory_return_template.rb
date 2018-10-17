@@ -674,7 +674,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                               sourceKey: %i[baseline_data infrastructures procurement summaryOfCriticalPath],
                               type: 'string',
                               title: 'Summary of Critical Procurement Path',
-                              readonly: true
+                              readonly: true,
+                              extendedText: true
                             },
                             procurementBaselineCompletion: {
                               type: 'string',
