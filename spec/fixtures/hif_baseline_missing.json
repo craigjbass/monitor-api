@@ -6,8 +6,8 @@
     "jointBidAreas": "Made Tech 2",
     "projectDescription": "Descripion of project",
     "greenOrBrownField": "Greenfield",
-    "noOfHousingSites": 10,
-    "totalArea": 10,
+    "noOfHousingSites": "10",
+    "totalArea": "10",
     "hifFundingAmount": "10000",
     "descriptionOfInfrastructure": "An infrastructure",
     "descriptionOfWiderProjectDeliverables": "Wider infrastructure"
@@ -44,7 +44,7 @@
         "underControlOfLA": "Yes",
         "ownershipOfLandOtherThanLA": "Dave",
         "landAcquisitionRequired": "Yes",
-        "howManySitesToAcquire": 10,
+        "howManySitesToAcquire": "10",
         "toBeAcquiredBy": "LA",
         "targetDateToAcquire": "2020-01-01",
         "summaryOfCriticalPath": "Summary of critical path"
@@ -111,7 +111,7 @@
     "s151ProjectLongstopDate": "2020-01-01"
   },
   "outputsForecast": {
-    "totalUnits": 10,
+    "totalUnits": "10",
     "disposalStrategy": "Disposal strategy",
     "housingForecast": [
       {
