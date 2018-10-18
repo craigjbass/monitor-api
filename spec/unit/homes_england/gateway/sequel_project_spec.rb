@@ -35,17 +35,39 @@ describe HomesEngland::Gateway::SequelProject do
       end
     end
 
-    context 'updating the project' do
+    context 'updating the project whilst in Draft' do
       it 'updates the project' do
         project.data = { dogs: 'woof' }
-        project.status = 'Tree'
+        project.status = 'Draft'
         project_gateway.update(id: project_id, project: project)
 
         created_project = project_gateway.find_by(id: project_id)
 
         expect(created_project.type).to eq('Animals')
         expect(created_project.data).to eq(dogs: 'woof')
-        expect(created_project.status).to eq('Tree')
+        expect(created_project.status).to eq('Draft')
+      end
+
+      it 'returns successful' do
+        project.data = { dogs: 'woof' }
+
+        response = project_gateway.update(id: project_id, project: project)
+
+        expect(response).to eq(success: true)
+      end
+    end
+
+    context 'updating the project whilst in LA Draft' do
+      it 'updates the project' do
+        project.data = { dogs: 'woof' }
+        project.status = 'LA Draft'
+        project_gateway.update(id: project_id, project: project)
+
+        created_project = project_gateway.find_by(id: project_id)
+
+        expect(created_project.type).to eq('Animals')
+        expect(created_project.data).to eq(dogs: 'woof')
+        expect(created_project.status).to eq('LA Draft')
       end
 
       it 'returns successful' do
@@ -58,12 +80,25 @@ describe HomesEngland::Gateway::SequelProject do
     end
 
     context 'submitting the project' do
-      it 'changes the status to submitted' do
-        project.data = { blank: '' }
-        project_gateway.submit(id: project_id)
-        submitted_project = project_gateway.find_by(id: project_id)
+      context 'whilst the status is draft' do
+        it 'changes the status to LA Draft' do
+          project.data = { blank: '' }
+          project_gateway.submit(id: project_id)
+          submitted_project = project_gateway.find_by(id: project_id)
 
-        expect(submitted_project.status).to eq('Submitted')
+          expect(submitted_project.status).to eq('LA Draft')
+        end
+      end
+
+      context 'whilst the status is LA draft' do
+        it 'changes the status to submitted' do
+          project.data = { blank: '' }
+          project_gateway.submit(id: project_id)
+          project_gateway.submit(id: project_id)
+          submitted_project = project_gateway.find_by(id: project_id)
+
+          expect(submitted_project.status).to eq('Submitted')
+        end
       end
     end
   end

@@ -31,10 +31,15 @@ class HomesEngland::Gateway::SequelProject
                 status: project.status
               )
 
-    { success: updated > 0 }
+    { success: updated.positive? }
   end
 
   def submit(id:)
-    @database[:projects].where(id: id).update(status: 'Submitted')
+    row = @database[:projects].where(id: id).first
+    if row[:status] == 'Draft'
+      @database[:projects].where(id: id).update(status: 'LA Draft')
+    else
+      @database[:projects].where(id: id).update(status: 'Submitted')
+    end
   end
 end
