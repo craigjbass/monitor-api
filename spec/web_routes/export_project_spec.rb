@@ -17,18 +17,50 @@ describe 'expending an access token' do
       double(new: nil)
     )
 
-    stub_const(
-      'LocalAuthority::UseCase::CheckApiKey',
-      double(new: double(execute: {valid: true}))
-    )
+    ENV['BI_HTTP_API_KEY'] = 'superSecret'
+  end
 
-    header 'API_KEY', 'superSecret'
+  context 'invalid api key' do
+    context 'example 1' do
+      let(:returned_value) { {} }
+
+      before do
+        header 'API_KEY', 'cat'
+        get '/project/25565/export'
+      end
+
+      it 'should respond with 403' do
+        expect(last_response.status).to eq(401)
+      end
+
+      it 'should return an empty hash' do
+        expect(JSON.parse(last_response.body)).to eq({})
+      end
+    end
+
+    context 'example 2' do
+      let(:returned_value) { {} }
+
+      before do
+        header 'API_KEY', 'dog'
+        get '/project/64/export'
+      end
+
+      it 'should respond with 403' do
+        expect(last_response.status).to eq(401)
+      end
+
+      it 'should return an empty hash' do
+        expect(JSON.parse(last_response.body)).to eq({})
+      end
+    end
   end
 
   context 'non-existent project' do
       let(:returned_value) { {} }
 
       before do
+        header 'API_KEY', ENV['BI_HTTP_API_KEY']
         get '/project/4096/export'
       end
 
@@ -46,6 +78,7 @@ describe 'expending an access token' do
       let(:returned_value) { { compiled_project: { cats: 'meow' } } }
 
       before do
+        header 'API_KEY', ENV['BI_HTTP_API_KEY']
         get '/project/1/export'
       end
 
@@ -69,6 +102,7 @@ describe 'expending an access token' do
       let(:returned_value) { { compiled_project: { dogs: 'woof' } } }
 
       before do
+        header 'API_KEY', ENV['BI_HTTP_API_KEY']
         get '/project/255/export'
       end
 
