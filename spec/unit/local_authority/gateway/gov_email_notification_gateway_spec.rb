@@ -89,7 +89,7 @@ describe LocalAuthority::Gateway::GovEmailNotificationGateway do
         end
 
         it 'will run send_email with address and url within personalisation hash' do
-          simulator.expect_notification_to_have_been_sent_with_email(access_url: 'http://dogs.com', email_address: 'dog@doghouse.com')
+          simulator.expect_notification(email_address: 'dog@doghouse.com', personalisation: {access_url: 'http://dogs.com'})
         end
       end
     end
@@ -109,7 +109,7 @@ describe LocalAuthority::Gateway::GovEmailNotificationGateway do
         end
 
         it 'will run send_email with address and url within personalisation hash' do
-          simulator.expect_notification_to_have_been_sent_with_email(access_url: 'http://cats.com', email_address: 'cat@cathouse.com')
+          simulator.expect_notification(email_address: 'cat@cathouse.com', personalisation: {access_url: 'http://cats.com'})
         end
       end
     end
