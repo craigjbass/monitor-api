@@ -9,26 +9,30 @@ describe 'Compiles project data' do
   def expected_compiled_project(project_id = nil, return_id = nil)
     {
       baseline: {
-        summary: {
-          project_name: 'Cats Protection League',
-          description: 'A new headquarters for all the Cats',
-          lead_authority: 'Made Tech'
-        },
-        infrastructure: {
-          type: 'Cat Bathroom',
-          description: 'Bathroom for Cats',
-          completion_date: '2018-12-25',
-          planning: {
-            submission_estimated: '2018-01-01'
+        project_id: project_id,
+        type: 'hif',
+        data: {
+          summary: {
+            project_name: 'Cats Protection League',
+            description: 'A new headquarters for all the Cats',
+            lead_authority: 'Made Tech'
+          },
+          infrastructure: {
+            type: 'Cat Bathroom',
+            description: 'Bathroom for Cats',
+            completion_date: '2018-12-25',
+            planning: {
+              submission_estimated: '2018-01-01'
+            }
+          },
+          financial: {
+            total_amount_estimated: '£ 1,000,000.00'
           }
-        },
-        financial: {
-          total_amount_estimated: '£ 1,000,000.00'
         }
       },
       submitted_returns: [
         {
-          return_id: return_id,
+          id: return_id,
           project_id: project_id,
           data: {
             summary: {
@@ -69,10 +73,10 @@ describe 'Compiles project data' do
   end
 
   it 'into a single hash' do
-    project_baseline = expected_compiled_project[:baseline]
+    project_baseline = expected_compiled_project[:baseline][:data]
 
     project_id = get_use_case(:create_new_project).execute(
-      type: 'hif', baseline: project_baseline
+      type: expected_compiled_project[:baseline][:type], baseline: project_baseline
     )[:id]
 
     get_use_case(:submit_project).execute(project_id: project_id)
