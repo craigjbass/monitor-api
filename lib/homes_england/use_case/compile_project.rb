@@ -8,9 +8,10 @@ class HomesEngland::UseCase::CompileProject
     baseline_data = @find_project.execute(id: project_id)
     new_baseline = format_baseline_data(baseline_data, project_id)
 
-    submitted_returns = @get_returns.execute(project_id: project_id)[:returns]
-    unless submitted_returns.empty?
-      new_submitted_returns = submitted_returns.map do |return_data|
+    all_returns = @get_returns.execute(project_id: project_id)[:returns]
+    unless all_returns.empty?
+      submitted_returns = get_submitted_returns(all_returns)
+      formatted_returns = submitted_returns.map do |return_data|
         format_return_data(return_data)
       end
     end
@@ -18,9 +19,15 @@ class HomesEngland::UseCase::CompileProject
     {
       compiled_project: {
         baseline: new_baseline,
-        submitted_returns: new_submitted_returns
+        submitted_returns: formatted_returns
       }
     }
+  end
+
+  def get_submitted_returns(returns)
+    returns.reject do |return_data|
+      return_data[:status] == 'Draft'
+    end
   end
 
   def format_baseline_data(baseline_data, project_id)
