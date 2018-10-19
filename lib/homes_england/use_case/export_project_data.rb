@@ -31,17 +31,18 @@ class HomesEngland::UseCase::ExportProjectData
   end
 
   def format_baseline_data(baseline_data, project_id)
-    new_baseline_data = baseline_data.dup
-    new_baseline_data[:project_id] = project_id
-    new_baseline_data.delete(:status)
-    new_baseline_data
+    {
+      project_id: project_id,
+      type: baseline_data[:type],
+      data: baseline_data[:data]
+    }
   end
 
   def format_return_data(return_data)
-    new_return_data = return_data.dup
-    new_return_data[:data] = new_return_data.dig(:updates, -1)
-    new_return_data.delete(:updates)
-    new_return_data.delete(:status)
-    new_return_data
+    {
+      id: return_data[:id],
+      project_id: return_data[:project_id],
+      data: return_data.dig(:updates, -1)
+    }
   end
 end
