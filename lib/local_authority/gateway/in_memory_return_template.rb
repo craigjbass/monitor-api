@@ -1369,33 +1369,33 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
               type: 'object',
               title: 'Funding for Infrastructure',
               properties: {
-                hifSpend: {
-                  title: 'HIF Spend',
-                  type: 'object',
-                  horizontal: true,
-                  properties: {
-                    baseline: {
-                      type: 'string',
-                      title: 'HIF Baseline Amount',
-                      sourceKey: %i[baseline_data costs infrastructure HIFAmount],
-                      readonly: true
-                    },
-                    current: {
-                      type: 'string',
-                      title: 'Current Return'
-                    },
-                    lastReturn: {
-                      type: 'string',
-                      title: 'Last Return',
-                      readonly: true,
-                      sourceKey: %i[return_data fundingPackages hifSpend current]
-                    }
-                  }
-                },
                 fundingStack: {
                   type: 'object',
                   title: 'Funding stack',
                   properties: {
+                    hifSpend: {
+                      title: 'HIF Spend',
+                      type: 'object',
+                      horizontal: true,
+                      properties: {
+                        baseline: {
+                          type: 'string',
+                          title: 'HIF Baseline Amount',
+                          sourceKey: %i[baseline_data costs infrastructure HIFAmount],
+                          readonly: true
+                        },
+                        current: {
+                          type: 'string',
+                          title: 'Current Return'
+                        },
+                        lastReturn: {
+                          type: 'string',
+                          title: 'Last Return',
+                          readonly: true,
+                          sourceKey: %i[return_data fundingPackages hifSpend current]
+                        }
+                      }
+                    },
                     totalCost: {
                       title: 'Total Cost',
                       type: 'object',
