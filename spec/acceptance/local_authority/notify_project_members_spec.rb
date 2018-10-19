@@ -9,15 +9,23 @@ describe 'Notifying project members' do
     stub_request(:post, "#{notification_url}v2/notifications/email").to_return(status: 200, body: {}.to_json)
   end
 
+  let(:new_project) do
+    HomesEngland::Domain::Project.new.tap do |p|
+      p.name = "Cat cafe"
+      p.data = {}
+    end
+  end
+
   before do
     ENV['GOV_NOTIFY_API_KEY'] = 'cafe-cafecafe-cafe-cafe-cafe-cafecafecafe-cafecafe-cafe-cafe-cafe-cafecafecafe'
     ENV['GOV_NOTIFY_API_URL'] = notification_url
-    dependency_factory.get_use_case(:add_user_to_project).execute(project_id: 1, email: 'cat@meow.com')
+    @project_id = dependency_factory.get_gateway(:project).create(new_project)
+    dependency_factory.get_use_case(:add_user_to_project).execute(project_id: @project_id, email: 'cat@meow.com')
     simulator.send_notification(to: 'cat@meow.com')
   end
 
   it 'notifies project members' do
-    dependency_factory.get_use_case(:notify_project_members).execute(project_id: 1, url: 'meow.com', by: 'cat', project_name: 'large cat home')
+    dependency_factory.get_use_case(:notify_project_members).execute(project_id: @project_id, url: 'meow.com', by: 'cat')
     simulator.expect_notification_to_have_been_sent_with(access_url: 'meow.com')
   end
 end

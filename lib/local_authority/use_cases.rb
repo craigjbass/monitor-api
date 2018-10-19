@@ -140,7 +140,8 @@ class LocalAuthority::UseCases
     builder.define_use_case :notify_project_members do
       LocalAuthority::UseCase::NotifyProjectMembers.new(
         send_return_submission_notification: builder.get_use_case(:send_return_submission_notification),
-        get_project_users: builder.get_use_case(:get_project_users)
+        get_project_users: builder.get_use_case(:get_project_users),
+        find_project: builder.get_use_case(:find_project)
       )
     end
   end

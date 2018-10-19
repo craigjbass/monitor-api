@@ -6,6 +6,7 @@ describe HomesEngland::Gateway::SequelProject do
   context 'updating a non existant project' do
     it 'returns unsuccessful' do
       project = HomesEngland::Domain::Project.new.tap do |p|
+        p.name = 'Cat project'
         p.type = 'Animals'
         p.data = { cats: 'meow' }
       end
@@ -19,6 +20,7 @@ describe HomesEngland::Gateway::SequelProject do
   context 'example one' do
     let(:project) do
       HomesEngland::Domain::Project.new.tap do |p|
+        p.name = 'Cat project'
         p.type = 'Animals'
         p.data = { cats: 'meow' }
       end
@@ -29,6 +31,7 @@ describe HomesEngland::Gateway::SequelProject do
       it 'creates a new project' do
         created_project = project_gateway.find_by(id: project_id)
 
+        expect(created_project.name).to eq('Cat project')
         expect(created_project.type).to eq('Animals')
         expect(created_project.data).to eq(cats: 'meow')
         expect(created_project.status).to eq('Draft')
@@ -37,12 +40,14 @@ describe HomesEngland::Gateway::SequelProject do
 
     context 'updating the project' do
       it 'updates the project' do
+        project.name = 'Dog project'
         project.data = { dogs: 'woof' }
         project.status = 'Tree'
         project_gateway.update(id: project_id, project: project)
 
         created_project = project_gateway.find_by(id: project_id)
 
+        expect(created_project.name).to eq('Dog project')
         expect(created_project.type).to eq('Animals')
         expect(created_project.data).to eq(dogs: 'woof')
         expect(created_project.status).to eq('Tree')
@@ -71,6 +76,7 @@ describe HomesEngland::Gateway::SequelProject do
   context 'example two' do
     let(:project) do
       HomesEngland::Domain::Project.new.tap do |p|
+        p.name = 'New project'
         p.type = 'FarmAnimals'
         p.data = {
           field: [
@@ -89,6 +95,7 @@ describe HomesEngland::Gateway::SequelProject do
 
         created_project = project_gateway.find_by(id: id)
 
+        expect(created_project.name).to eq('New project')
         expect(created_project.type).to eq('FarmAnimals')
         expect(created_project.data).to eq(
           field: [
@@ -130,4 +137,3 @@ describe HomesEngland::Gateway::SequelProject do
     end
   end
 end
-
