@@ -132,6 +132,22 @@ module DeliveryMechanism
       end
     end
 
+    get '/project/:id/export' do
+      response.body = {}.to_json
+      guard_bi_access env, params, request do |request_hash|
+        exported_project_hash = @dependency_factory.get_use_case(:export_project_data).execute(
+          project_id: params['id'].to_i
+        )
+
+        if exported_project_hash.empty?
+          response.status = 404
+          response.body = {}.to_json
+        else
+          exported_project_hash[:compiled_project].to_json
+        end
+      end
+    end
+
     get '/project/:id/return' do
       guard_access env, params, request do |_request_hash|
         return 400 if params['id'].nil?
@@ -260,6 +276,18 @@ module DeliveryMechanism
       end
     end
 
+    def guard_bi_access(env, _params, request)
+      return 401 if authorization_header_not_present?
+      bi_auth_key = env['HTTP_API_KEY']
+
+      if valid_bi_api_key?(key: bi_auth_key)
+        request_hash = get_hash(request)
+        yield request_hash
+      else
+        response.status = 401
+      end
+    end
+
     def guard_access(env, params, request)
       request_hash = get_hash(request)
       access_status = get_access_status(env, params, request_hash)
@@ -319,6 +347,11 @@ module DeliveryMechanism
 
     def valid_admin_api_key?(key:)
       return false unless key == ENV['ADMIN_HTTP_API_KEY']
+      true
+    end
+
+    def valid_bi_api_key?(key:)
+      return false unless key == ENV['BI_HTTP_API_KEY']
       true
     end
 

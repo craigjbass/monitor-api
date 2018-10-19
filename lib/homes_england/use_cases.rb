@@ -62,5 +62,12 @@ class HomesEngland::UseCases
         user_gateway: builder.get_gateway(:users)
       )
     end
+
+    builder.define_use_case :export_project_data do
+      HomesEngland::UseCase::ExportProjectData.new(
+        find_project: builder.get_use_case(:find_project),
+        get_returns: builder.get_use_case(:get_returns)
+      )
+    end
   end
 end
