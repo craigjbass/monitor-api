@@ -91,7 +91,7 @@ describe 'Compiles project data' do
 
     get_use_case(:submit_return).execute(return_id: return_id)
 
-    compiled_project = get_use_case(:compile_project).execute(project_id: project_id)[:compiled_project]
+    compiled_project = get_use_case(:export_project_data).execute(project_id: project_id)[:compiled_project]
     expect(compiled_project).to eq(expected_compiled_project(project_id, return_id))
   end
 end

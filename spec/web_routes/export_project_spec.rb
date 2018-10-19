@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 describe 'expending an access token' do
-  let(:compile_project_spy) { spy(execute: returned_value) }
+  let(:export_project_data_spy) { spy(execute: returned_value) }
 
   before do
     stub_const(
-      'HomesEngland::UseCase::CompileProject',
-      double(new: compile_project_spy)
+      'HomesEngland::UseCase::ExportProjectData',
+      double(new: export_project_data_spy)
     )
     stub_const(
       'LocalAuthority::UseCase::GetReturns',
@@ -83,7 +83,7 @@ describe 'expending an access token' do
       end
 
       it 'passes the correct id to the use case' do
-        expect(compile_project_spy).to have_received(:execute).with(project_id: 1)
+        expect(export_project_data_spy).to have_received(:execute).with(project_id: 1)
       end
 
       it 'should respond with 200 for a project that exists' do
@@ -107,7 +107,7 @@ describe 'expending an access token' do
       end
 
       it 'passes the correct id to the use case' do
-        expect(compile_project_spy).to have_received(:execute).with(project_id: 255)
+        expect(export_project_data_spy).to have_received(:execute).with(project_id: 255)
       end
 
       it 'should respond with 200 for a project that exists' do

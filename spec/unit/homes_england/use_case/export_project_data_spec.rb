@@ -2,7 +2,7 @@
 
 require 'rspec'
 
-describe HomesEngland::UseCase::CompileProject do
+describe HomesEngland::UseCase::ExportProjectData do
   let(:returns) { {returns: []} }
   let(:project) { {} }
 
