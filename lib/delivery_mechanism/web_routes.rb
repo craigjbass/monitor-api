@@ -135,15 +135,15 @@ module DeliveryMechanism
     get '/project/:id/export' do
       response.body = {}.to_json
       guard_bi_access env, params, request do |request_hash|
-        compiled_project_hash = @dependency_factory.get_use_case(:compile_project).execute(
+        exported_project_hash = @dependency_factory.get_use_case(:export_project_data).execute(
           project_id: params['id'].to_i
         )
 
-        if compiled_project_hash.empty?
+        if exported_project_hash.empty?
           response.status = 404
           response.body = {}.to_json
         else
-          compiled_project_hash[:compiled_project].to_json
+          exported_project_hash[:compiled_project].to_json
         end
       end
     end

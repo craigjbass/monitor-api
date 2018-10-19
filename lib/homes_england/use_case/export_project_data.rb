@@ -1,4 +1,4 @@
-class HomesEngland::UseCase::CompileProject
+class HomesEngland::UseCase::ExportProjectData
   def initialize(find_project:, get_returns:)
     @find_project = find_project
     @get_returns = get_returns
