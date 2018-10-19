@@ -443,4 +443,146 @@ describe HomesEngland::UseCase::CompileProject do
       end
     end
   end
+
+  context 'produces an accurate compiled project with multiple return that excludes draft returns' do
+    context 'example 1' do
+      let(:returns) do
+        {
+          returns: [
+            {
+              id: 66,
+              project_id: 6,
+              status: 'Draft',
+              updates: [
+                {
+                  cow: 'moo'
+                }
+              ]
+            },
+            {
+              id: 67,
+              project_id: 6,
+              status: 'Submitted',
+              updates: [
+                {
+                  duck: 'quack'
+                }
+              ]
+            }
+          ]
+        }
+      end
+
+      let(:project) do
+        {
+          type: 'hif',
+          data: {
+            mouse: 'squeak'
+          },
+          status: 'Submitted'
+        }
+      end
+
+      let(:expected_compiled_project) do
+        {
+          baseline: {
+            project_id: 6,
+            type: 'hif',
+            data: {
+              mouse: 'squeak'
+            }
+          },
+          submitted_returns: [
+            {
+              id: 67,
+              project_id: 6,
+              data: {
+                duck: 'quack'
+              }
+            }
+          ]
+        }
+      end
+
+      it 'example' do
+        compiled_project = described_class.new(find_project: find_project_spy, get_returns: get_returns_spy).execute(project_id: 6)[:compiled_project]
+        expect(compiled_project).to eq(expected_compiled_project)
+      end
+    end
+
+    context 'example 2' do
+      let(:returns) do
+        {
+          returns: [
+            {
+              id: 61,
+              project_id: 8,
+              status: 'Submitted',
+              updates: [
+                {
+                  raven: 'squark'
+                }
+              ]
+            },
+            {
+              id: 86,
+              project_id: 8,
+              status: 'Draft',
+              updates: [
+                {
+                  wolf: 'awoo'
+                }
+              ]
+            },
+            {
+              id: 89,
+              project_id: 8,
+              status: 'Draft',
+              updates: [
+                {
+                  wolf: 'awoo'
+                }
+              ]
+            }
+          ]
+        }
+      end
+
+      let(:project) do
+        {
+          type: 'hif',
+          data: {
+            mouse: 'squeak'
+          },
+          status: 'Submitted'
+        }
+      end
+
+      let(:expected_compiled_project) do
+        {
+          baseline: {
+            project_id: 8,
+            type: 'hif',
+            data: {
+              mouse: 'squeak'
+            }
+          },
+          submitted_returns: [
+            {
+              id: 61,
+              project_id: 8,
+              data: {
+                raven: 'squark'
+              }
+            }
+          ]
+        }
+      end
+
+      it 'example' do
+        compiled_project = described_class.new(find_project: find_project_spy, get_returns: get_returns_spy).execute(project_id: 8)[:compiled_project]
+        expect(compiled_project).to eq(expected_compiled_project)
+      end
+    end
+  end
 end
