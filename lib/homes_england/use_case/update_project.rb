@@ -7,7 +7,7 @@ class HomesEngland::UseCase::UpdateProject
     current_project = @project_gateway.find_by(id: project_id)
     updated_project = HomesEngland::Domain::Project.new
     updated_project.data = project_data
-    if current_project.status == 'Submitted' || current_project.status == 'LA Draft'
+    if submitted?(current_project) || la_draft?(current_project)
       updated_project.status = 'LA Draft'
     else
       updated_project.status = 'Draft'
@@ -16,5 +16,15 @@ class HomesEngland::UseCase::UpdateProject
     successful = @project_gateway.update(id: project_id, project: updated_project)[:success]
 
     { successful: successful }
+  end
+
+  private
+
+  def submitted?(current_project)
+    current_project.status == 'Submitted'
+  end
+
+  def la_draft?(current_project)
+    current_project.status == 'LA Draft'
   end
 end
