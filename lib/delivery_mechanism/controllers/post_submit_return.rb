@@ -1,12 +1,18 @@
 module DeliveryMechanism
   module Controllers
     class PostSubmitReturn
-      def initialize(submit_return:, notify_project_members:)
+      def initialize(submit_return:, notify_project_members:, check_api_key:)
         @submit_return = submit_return
         @notify_project_members = notify_project_members
+        @check_api_key = check_api_key
       end
 
-      def execute(request, request_hash, response)
+      def execute(env, request, request_hash, response)
+        actor_email = @check_api_key.execute(
+          api_key: env['HTTP_API_KEY'],
+          project_id: request_hash[:project_id].to_i
+        )[:email]
+
         @submit_return.execute(
           return_id: request_hash[:return_id].to_i
         )
@@ -14,7 +20,7 @@ module DeliveryMechanism
         @notify_project_members.execute(
           project_id: request_hash[:project_id].to_i,
           url: request_hash[:url],
-          by: request_hash[:by]
+          by: actor_email
         )
 
         response.status = 200

@@ -83,10 +83,15 @@ module DeliveryMechanism
 
     post '/return/submit' do
       guard_access env, params, request do |request_hash|
+        begin
         DeliveryMechanism::Controllers::PostSubmitReturn.new(
           submit_return: @dependency_factory.get_use_case(:submit_return),
-          notify_project_members: @dependency_factory.get_use_case(:notify_project_members)
-        ).execute(request, request_hash, response)
+          notify_project_members: @dependency_factory.get_use_case(:notify_project_members),
+          check_api_key: @dependency_factory.get_use_case(:check_api_key)
+        ).execute(env, request, request_hash, response)
+        rescue Exception => e
+          p e
+        end
       end
     end
 

@@ -19,6 +19,7 @@ describe 'Notifying project members' do
   before do
     ENV['GOV_NOTIFY_API_KEY'] = 'cafe-cafecafe-cafe-cafe-cafe-cafecafecafe-cafecafe-cafe-cafe-cafe-cafecafecafe'
     ENV['GOV_NOTIFY_API_URL'] = notification_url
+
     @project_id = dependency_factory.get_gateway(:project).create(new_project)
     dependency_factory.get_use_case(:add_user_to_project).execute(project_id: @project_id, email: 'cat@meow.com')
     simulator.send_notification(to: 'cat@meow.com')

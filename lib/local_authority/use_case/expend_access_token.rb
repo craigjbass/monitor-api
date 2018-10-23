@@ -11,7 +11,7 @@ class LocalAuthority::UseCase::ExpendAccessToken
     return { status: :failure, api_key: '' } unless access_token
 
     if access_token.project_id == project_id
-      api_key = @create_api_key.execute(project_id: project_id)[:api_key]
+      api_key = @create_api_key.execute(project_id: project_id, email: access_token.email)[:api_key]
       @access_token_gateway.delete(uuid: access_token.uuid)
       { status: :success, api_key: api_key }
     else

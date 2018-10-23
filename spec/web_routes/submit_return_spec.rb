@@ -7,6 +7,8 @@ describe 'Submitting a return' do
   let(:send_return_submission_notification_spy) { spy }
   let(:notify_project_members_spy) { spy }
   let(:submit_return_spy) { spy(execute: nil) }
+  let(:check_api_key_spy) { spy(execute: { valid: true, email: email }) }
+  let(:email) { '' }
 
   before do
     stub_const(
@@ -36,7 +38,7 @@ describe 'Submitting a return' do
 
     stub_const(
       'LocalAuthority::UseCase::CheckApiKey',
-      double(new: double(execute: { valid: true }))
+      double(new: check_api_key_spy)
     )
   end
 
@@ -51,25 +53,27 @@ describe 'Submitting a return' do
   end
 
   context 'example one' do
+    let(:email) { 'cow@barn.net' }
     it 'will run submit return use case with id' do
-      post '/return/submit', { return_id: '1', project_id: '1', by: 'cow@barn.net'  }.to_json, 'HTTP_API_KEY' => 'superSecret'
+      post '/return/submit', { return_id: '1', project_id: '1', url: 'placeholder.com' }.to_json, 'HTTP_API_KEY' => 'superSecret'
       expect(submit_return_spy).to have_received(:execute).with(return_id: 1)
     end
 
     it 'will run notify project members use case with id' do
-      post '/return/submit', { return_id: '1', project_id: '1', url: 'placeholder.com', by: 'cow@barn.net' }.to_json, 'HTTP_API_KEY' => 'superSecret'
+      post '/return/submit', { return_id: '1', project_id: '1', url: 'placeholder.com' }.to_json, 'HTTP_API_KEY' => 'superSecret'
       expect(notify_project_members_spy).to have_received(:execute).with(project_id: 1, url: 'placeholder.com', by: 'cow@barn.net')
     end
   end
 
   context 'example two' do
+    let(:email) { 'dog@kennel.co' }
     it 'will run submit return use case with id' do
-      post '/return/submit', { return_id: '42', project_id: '1', by: 'dog@kennel.co'  }.to_json, 'HTTP_API_KEY' => 'superSecret'
+      post '/return/submit', { return_id: '42', project_id: '1', url: 'example.net' }.to_json, 'HTTP_API_KEY' => 'superSecret'
       expect(submit_return_spy).to have_received(:execute).with(return_id: 42)
     end
 
     it 'will run notify project members use case with id' do
-      post '/return/submit', { return_id: '1', project_id: '443', url: 'example.net', by: 'dog@kennel.co' }.to_json, 'HTTP_API_KEY' => 'superSecret'
+      post '/return/submit', { return_id: '1', project_id: '443', url: 'example.net' }.to_json, 'HTTP_API_KEY' => 'superSecret'
       expect(notify_project_members_spy).to have_received(:execute).with(project_id: 443, url: 'example.net', by: 'dog@kennel.co')
     end
   end
