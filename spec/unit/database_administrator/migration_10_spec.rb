@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-describe 'Migration 9' do
+describe 'Migration 10' do
   include_context 'with database'
 
   def synchronize_to_non_migrated_version
-    migrator.migrate_to(database, 8)
+    migrator.migrate_to(database, 9)
   end
 
   def synchronize_to_migrated_version
-    migrator.migrate_to(database, 9)
+    migrator.migrate_to(database, 10)
   end
 
   def create_project(type:, data:)
