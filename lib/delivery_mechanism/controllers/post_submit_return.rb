@@ -1,5 +1,5 @@
 module DeliveryMechanism
-  module Controllers 
+  module Controllers
     class PostSubmitReturn
       def initialize(submit_return:, notify_project_members:)
         @submit_return = submit_return
@@ -13,7 +13,8 @@ module DeliveryMechanism
 
         @notify_project_members.execute(
           project_id: request_hash[:project_id].to_i,
-          url: request_hash[:url]
+          url: request_hash[:url],
+          by: request_hash[:by]
         )
 
         response.status = 200
