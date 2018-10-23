@@ -34,7 +34,7 @@ describe 'Updating a HIF Project' do
   end
 
   context 'updating once submitted' do
-    it 'should change the status back to draft' do
+    it 'should change the status back to LA draft' do
       project_baseline = {
         summary: {
           project_name: 'Cats Protection League',
@@ -54,13 +54,13 @@ describe 'Updating a HIF Project' do
 
       response = get_use_case(:create_new_project).execute(type: 'hif', baseline: project_baseline)
       get_use_case(:submit_project).execute(project_id: response[:id])
-
+      get_use_case(:submit_project).execute(project_id: response[:id])
 
       get_use_case(:update_project).execute(project_id: response[:id], project_data: { cats: 'meow' })
 
       updated_project = get_use_case(:find_project).execute(id: response[:id])
 
-      expect(updated_project[:status]).to eq('Draft')
+      expect(updated_project[:status]).to eq('LA Draft')
     end
   end
 end

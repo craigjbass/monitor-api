@@ -103,10 +103,12 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
         properties: {
           type: {
             type: 'string',
+            laReadOnly: true,
             title: 'Type'
           },
           description: {
             type: 'string',
+            laReadOnly: true,
             title: 'Description'
           },
           housingSitesBenefitting: {
@@ -236,6 +238,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
             properties: {
               requirement: {
                 type: 'string',
+                laReadOnly: true,
                 title: 'Is this a requirement?',
                 enum: ['Yes', 'No']
               }
@@ -271,6 +274,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
             properties: {
               anyConsents: {
                 type: 'string',
+                laReadOnly: true,
                 title: 'Any Statutory Consents?',
                 enum: ['Yes', 'No']
               }
@@ -448,6 +452,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
               properties: {
                 descriptionOfMilestone: {
                   type: 'string',
+                  laReadOnly: true,
                   title: 'Description of Milestone'
                 },
                 target: {
@@ -493,14 +498,17 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
               properties: {
                 descriptionOfRisk: {
                   type: 'string',
+                  laReadOnly: true,
                   title: 'Description Of Risk'
                 },
                 impactOfRisk: {
                   type: 'string',
+                  laReadOnly: true,
                   title: 'Impact'
                 },
                 likelihoodOfRisk: {
                   type: 'string',
+                  laReadOnly: true,
                   title: 'Likelihood'
                 },
                 mitigationOfRisk: {
@@ -522,14 +530,17 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
       properties: {
         BIDReference: {
           type: 'string',
+          laReadOnly: true,
           title: 'BID Reference'
         },
         projectName: {
           type: 'string',
+          laReadOnly: true,
           title: 'Project Name'
         },
         leadAuthority: {
           type: 'string',
+          laReadOnly: true,
           title: 'Lead Authority'
         },
         jointBidAreas: {
@@ -538,6 +549,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
         },
         projectDescription: {
           type: 'string',
+          laReadOnly: true,
           title: 'Project Description'
         },
         greenOrBrownField: {
@@ -547,6 +559,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
         },
         noOfHousingSites: {
           type: 'string',
+          laReadOnly: true,
           title: 'Number of housing sites'
         },
         totalArea: {
@@ -555,14 +568,17 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
         },
         hifFundingAmount: {
           type: 'string',
+          laReadOnly: true,
           title: 'HIF Funding Amount (£)'
         },
         descriptionOfInfrastructure: {
           type: 'string',
+          laReadOnly: true,
           title: 'Description of HIF Infrastructure to be delivered'
         },
         descriptionOfWiderProjectDeliverables: {
           type: 'string',
+          laReadOnly: true,
           title: 'Description of wider project deliverables'
         }
       }
@@ -595,6 +611,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
       properties: {
         totalUnits: {
           type: 'string',
+          laReadOnly: true,
           title: 'Total Units'
         },
         disposalStrategy: {
