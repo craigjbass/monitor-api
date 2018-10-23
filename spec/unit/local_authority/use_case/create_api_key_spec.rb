@@ -28,8 +28,6 @@ describe LocalAuthority::UseCase::CreateApiKey do
       expect(decoded_key[0]['email']).to eq('cat@cathouse.com')
     end
 
-    #it 'stories the email within the api key'
-
     it 'Sets the expiry to 30 days away' do
       now = DateTime.now + 1
       Timecop.freeze(now)
