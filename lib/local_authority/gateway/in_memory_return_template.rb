@@ -674,7 +674,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                               sourceKey: %i[baseline_data infrastructures procurement summaryOfCriticalPath],
                               type: 'string',
                               title: 'Summary of Critical Procurement Path',
-                              readonly: true
+                              readonly: true,
+                              extendedText: true
                             },
                             procurementBaselineCompletion: {
                               type: 'string',
@@ -1222,8 +1223,14 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
           },
           fundingProfiles: {
             type: 'object',
-            title: 'Funding Profiles',
+            title: 'HIF Grant Expenditure',
             properties: {
+              totalHIFGrant: {
+                type: 'string',
+                title: 'Total HIF Grant',
+                readonly: true,
+                sourceKey: %i[baseline_data summary hifFundingAmount]
+              },
               fundingRequest: {
                 type: 'array',
                 title: 'Funding Request',
@@ -1362,33 +1369,33 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
               type: 'object',
               title: 'Funding for Infrastructure',
               properties: {
-                hifSpend: {
-                  title: 'HIF Spend',
-                  type: 'object',
-                  horizontal: true,
-                  properties: {
-                    baseline: {
-                      type: 'string',
-                      title: 'HIF Baseline Amount',
-                      sourceKey: %i[baseline_data costs infrastructure HIFAmount],
-                      readonly: true
-                    },
-                    current: {
-                      type: 'string',
-                      title: 'Current Return'
-                    },
-                    lastReturn: {
-                      type: 'string',
-                      title: 'Last Return',
-                      readonly: true,
-                      sourceKey: %i[return_data fundingPackages hifSpend current]
-                    }
-                  }
-                },
                 fundingStack: {
                   type: 'object',
                   title: 'Funding stack',
                   properties: {
+                    hifSpend: {
+                      title: 'HIF Spend',
+                      type: 'object',
+                      horizontal: true,
+                      properties: {
+                        baseline: {
+                          type: 'string',
+                          title: 'HIF Baseline Amount',
+                          sourceKey: %i[baseline_data costs infrastructure HIFAmount],
+                          readonly: true
+                        },
+                        current: {
+                          type: 'string',
+                          title: 'Current Return'
+                        },
+                        lastReturn: {
+                          type: 'string',
+                          title: 'Last Return',
+                          readonly: true,
+                          sourceKey: %i[return_data fundingPackages hifSpend current]
+                        }
+                      }
+                    },
                     totalCost: {
                       title: 'Total Cost',
                       type: 'object',
