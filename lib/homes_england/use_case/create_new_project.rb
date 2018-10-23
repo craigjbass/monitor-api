@@ -9,6 +9,7 @@ class HomesEngland::UseCase::CreateNewProject
     project = HomesEngland::Domain::Project.new
     project.type = type
     project.data = baseline
+    project.status = 'Draft'
 
     id = @project_gateway.create(project)
 
