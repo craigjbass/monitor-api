@@ -99,10 +99,10 @@
   },
   "fundingPackages": [
     {
-      "hifSpend": {
-        "baseline": "10000"
-      },
       "fundingStack": {
+        "hifSpend": {
+          "baseline": "10000"
+        },
         "totalCost": {
           "baseline": "20000"
         },
