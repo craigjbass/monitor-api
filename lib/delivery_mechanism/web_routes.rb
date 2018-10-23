@@ -107,7 +107,8 @@ module DeliveryMechanism
           project_id: return_hash[:project_id],
           data: return_hash[:updates].last,
           status: return_hash[:status],
-          schema: return_schema
+          schema: return_schema,
+          type: 'hif'
         }.to_json
 
         response.status = 200
