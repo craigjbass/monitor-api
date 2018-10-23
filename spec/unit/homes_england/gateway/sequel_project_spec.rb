@@ -83,7 +83,7 @@ describe HomesEngland::Gateway::SequelProject do
       context 'whilst the status is draft' do
         it 'changes the status to LA Draft' do
           project.data = { blank: '' }
-          project_gateway.submit(id: project_id)
+          project_gateway.submit(id: project_id, status: 'LA Draft')
           submitted_project = project_gateway.find_by(id: project_id)
 
           expect(submitted_project.status).to eq('LA Draft')
@@ -93,8 +93,8 @@ describe HomesEngland::Gateway::SequelProject do
       context 'whilst the status is LA draft' do
         it 'changes the status to submitted' do
           project.data = { blank: '' }
-          project_gateway.submit(id: project_id)
-          project_gateway.submit(id: project_id)
+          project_gateway.submit(id: project_id, status: 'LA Draft')
+          project_gateway.submit(id: project_id, status: 'Submitted')
           submitted_project = project_gateway.find_by(id: project_id)
 
           expect(submitted_project.status).to eq('Submitted')
