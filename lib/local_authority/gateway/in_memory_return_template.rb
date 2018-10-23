@@ -752,9 +752,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                       title: 'Key Project Milestones',
                       items: {
                         type: 'object',
-                        horizontal: true,
+                        milestone: true,
                         properties: {
-                          # from milestones.target
                           description: {
                             sourceKey: %i[baseline_data infrastructures milestones descriptionOfMilestone],
                             readonly: true,
