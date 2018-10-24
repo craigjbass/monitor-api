@@ -5,8 +5,9 @@ class HomesEngland::UseCase::CreateNewProject
     @project_gateway = project_gateway
   end
 
-  def execute(type:, baseline:)
+  def execute(name:, type:, baseline:)
     project = HomesEngland::Domain::Project.new
+    project.name = name
     project.type = type
     project.data = baseline
     project.status = 'Draft'

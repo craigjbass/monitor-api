@@ -39,7 +39,9 @@ describe 'Performing Return on HIF Project' do
 
   let(:project_id) do
     get_use_case(:create_new_project).execute(
-      type: 'hif', baseline: project_baseline
+      name: '',
+      type: 'hif',
+      baseline: project_baseline
     )[:id]
   end
 

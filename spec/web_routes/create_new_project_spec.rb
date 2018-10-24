@@ -33,6 +33,7 @@ describe 'Creating a new project' do
     let(:project_id) { 1 }
     let(:project_data) do
       {
+        name: 'Dog project',
         type: 'hif',
         baselineData: {
           cats: 'meow',
@@ -50,6 +51,7 @@ describe 'Creating a new project' do
     let(:project_id) { 1 }
     let(:project_data) do
       {
+        name: 'Dog project',
         type: 'hif',
         baselineData: {
           cats: 'meow',
@@ -60,6 +62,14 @@ describe 'Creating a new project' do
 
     it 'should call the create_new_project use case' do
       expect(create_new_project_spy).to have_received(:execute)
+    end
+
+    it 'should call the create_new_project use case with name' do
+      expect(create_new_project_spy).to(
+        have_received(:execute).with(
+          hash_including(name: 'Dog project')
+        )
+      )
     end
 
     it 'should call the create_new_project use case with type' do
@@ -89,6 +99,7 @@ describe 'Creating a new project' do
     let(:project_id) { 42 }
     let(:project_data) do
       {
+        name: 'Duck project',
         type: 'ac',
         baselineData: {
           ducks: 'quack',
@@ -100,6 +111,14 @@ describe 'Creating a new project' do
           ]
         }
       }
+    end
+
+    it 'should call the create_new_project use case with name' do
+      expect(create_new_project_spy).to(
+        have_received(:execute).with(
+          hash_including(name: 'Duck project')
+        )
+      )
     end
 
     it 'should return a 201 response' do

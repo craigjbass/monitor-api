@@ -7,6 +7,7 @@ module DeliveryMechanism
 
       def execute(params, request_hash, response)
         id = @create_new_project.execute(
+          name: request_hash[:name],
           type: request_hash[:type],
           baseline: Common::DeepSymbolizeKeys.to_symbolized_hash(request_hash[:baselineData])
         )
