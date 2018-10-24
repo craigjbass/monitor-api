@@ -190,7 +190,7 @@ module DeliveryMechanism
           data: Common::DeepCamelizeKeys.to_camelized_hash(project[:data]),
           schema: schema
         }.to_json
-        response.headers['Cache-Control'] = 'must-revalidate'
+        response.headers['Cache-Control'] = 'no-cache'
         response.status = 200
       end
     end

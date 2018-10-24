@@ -69,7 +69,7 @@ describe 'Finding a project' do
       end
 
       it 'should pass a cache-control header' do
-        expect(last_response.headers['Cache-Control']).to eq('must-revalidate')
+        expect(last_response.headers['Cache-Control']).to eq('no-cache')
       end
 
       it 'should should have project in body with camel case' do
@@ -106,7 +106,7 @@ describe 'Finding a project' do
       end
 
       it 'should pass a cache-control header' do
-        expect(last_response.headers['Cache-Control']).to eq('must-revalidate')
+        expect(last_response.headers['Cache-Control']).to eq('no-cache')
       end
 
       it 'should should have project in body with camel case' do
