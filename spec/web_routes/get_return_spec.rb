@@ -34,7 +34,7 @@ describe 'Getting a return' do
   end
 
   context 'Given one existing return' do
-    let(:response_body) { JSON.parse(last_response.body) } 
+    let(:response_body) { JSON.parse(last_response.body) }
 
     before do
       get '/return/get?id=0&returnId=1'
@@ -52,6 +52,10 @@ describe 'Getting a return' do
 
     it 'responds with 200 when id found' do
       expect(last_response.status).to eq(200)
+    end
+
+    it 'should pass a cache-control header' do
+      expect(last_response.headers['Cache-Control']).to eq('no-cache')
     end
 
     it 'returns the correct project_id' do
