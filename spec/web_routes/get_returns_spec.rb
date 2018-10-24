@@ -35,6 +35,10 @@ describe 'Getting return history' do
       expect(last_response.status).to eq(200)
     end
 
+    it 'should pass a cache-control header' do
+      expect(last_response.headers['Cache-Control']).to eq('no-cache')
+    end
+
     it 'should respond with an accurate array of hashes' do
       response = Common::DeepSymbolizeKeys.to_symbolized_hash(
         JSON.parse(last_response.body)
@@ -63,6 +67,10 @@ describe 'Getting return history' do
 
     it 'should respond with 200 for a project that exists' do
       expect(last_response.status).to eq(200)
+    end
+
+    it 'should pass a cache-control header' do
+      expect(last_response.headers['Cache-Control']).to eq('no-cache')
     end
 
     it 'should respond with an accurate array of hashes' do

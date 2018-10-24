@@ -23,6 +23,7 @@ module DeliveryMechanism
       schema = @dependency_factory.get_use_case(:get_schema_for_project).execute(type: params['type'])
       return 404 if schema.nil?
       response.body = schema.schema.to_json
+      response.headers['Cache-Control'] = 'no-cache'
       response.status = 200
     end
 
@@ -110,7 +111,7 @@ module DeliveryMechanism
           schema: return_schema,
           type: 'hif'
         }.to_json
-
+        response.headers['Cache-Control'] = 'no-cache'
         response.status = 200
       end
     end
@@ -160,6 +161,7 @@ module DeliveryMechanism
         if base_return.empty?
           response.status = 404
         else
+          response.headers['Cache-Control'] = 'no-cache'
           response.status = 200
           response.body = { baseReturn: base_return[:base_return] }.to_json
         end
@@ -169,6 +171,7 @@ module DeliveryMechanism
     get '/project/:id/returns' do
       guard_access env, params, request do |_|
         returns = @dependency_factory.get_use_case(:get_returns).execute(project_id: params['id'].to_i)
+        response.headers['Cache-Control'] = 'no-cache'
         response.status = returns.empty? ? 404 : 200
         response.body = returns.to_json
       end
@@ -190,6 +193,7 @@ module DeliveryMechanism
           data: Common::DeepCamelizeKeys.to_camelized_hash(project[:data]),
           schema: schema
         }.to_json
+        response.headers['Cache-Control'] = 'no-cache'
         response.status = 200
       end
     end

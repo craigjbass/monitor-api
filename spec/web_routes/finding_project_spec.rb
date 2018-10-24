@@ -68,6 +68,10 @@ describe 'Finding a project' do
         expect(last_response.status).to eq(200)
       end
 
+      it 'should pass a cache-control header' do
+        expect(last_response.headers['Cache-Control']).to eq('no-cache')
+      end
+
       it 'should should have project in body with camel case' do
         response_body = JSON.parse(last_response.body)
         expect(response_body['type']).to eq('cat')
@@ -99,6 +103,10 @@ describe 'Finding a project' do
 
       it 'should should return 200' do
         expect(last_response.status).to eq(200)
+      end
+
+      it 'should pass a cache-control header' do
+        expect(last_response.headers['Cache-Control']).to eq('no-cache')
       end
 
       it 'should should have project in body with camel case' do
