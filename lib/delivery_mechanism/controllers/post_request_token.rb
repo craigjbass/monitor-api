@@ -34,7 +34,7 @@ module DeliveryMechanism
       end
 
       def access_token_for_project
-        @create_access_token.execute(project_id: @request[:project_id].to_i)[:access_token]
+        @create_access_token.execute(project_id: @request[:project_id].to_i, email: @request[:email_address])[:access_token]
       end
     end
   end

@@ -14,11 +14,11 @@ class LocalAuthority::Gateway::GovEmailNotificationGateway
     )
   end
 
-  def send_return_notification(to:, url:)
+  def send_return_notification(to:, url:, by:, project_name:)
     @client.send_email(
       email_address: to,
-      template_id: '866baf33-1fbd-40a6-a083-4835a4117fe9',
-      personalisation: { access_url: url }
+      template_id: 'c5876716-e0b3-4089-9ee1-040a0a2807dc',
+      personalisation: { access_url: url, by: by, project_name: project_name }
     )
   end
 end

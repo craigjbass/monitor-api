@@ -12,6 +12,7 @@ describe HomesEngland::UseCase::FindProject do
   context 'example one' do
     let(:project) do
       HomesEngland::Domain::Project.new.tap do |p|
+        p.name = 'Dog project'
         p.type = 'hif'
         p.data = { dogs: 'woof' }
         p.status = 'Draft'
@@ -21,6 +22,10 @@ describe HomesEngland::UseCase::FindProject do
 
     it 'finds the project on the gateway' do
       expect(project_gateway).to have_received(:find_by).with(id: 1)
+    end
+
+    it 'returns a hash containing the projects name' do
+      expect(response[:name]).to eq('Dog project')
     end
 
     it 'returns a hash containing the projects type' do
@@ -39,12 +44,17 @@ describe HomesEngland::UseCase::FindProject do
   context 'example two' do
     let(:project) do
       HomesEngland::Domain::Project.new.tap do |p|
+        p.name = 'meow cats'
         p.type = 'abc'
         p.data = { cats: 'meow' }
         p.status = 'Submitted'
       end
     end
     let(:id) { 5 }
+
+    it 'returns a hash containing the projects name' do
+      expect(response[:name]).to eq('meow cats')
+    end
 
     it 'finds the project on the gateway' do
       expect(project_gateway).to have_received(:find_by).with(id: 5)

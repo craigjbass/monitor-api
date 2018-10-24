@@ -55,7 +55,7 @@ describe 'requesting an access token' do
       end
 
       it 'run the create access token use case' do
-        expect(create_token_spy).to have_received(:execute).with(project_id: 1)
+        expect(create_token_spy).to have_received(:execute).with(project_id: 1, email: valid_email)
       end
 
       it 'passes email address and url to send notification use case' do
@@ -95,7 +95,7 @@ describe 'requesting an access token' do
       end
 
       it 'run the create access token use case' do
-        expect(create_token_spy).to have_received(:execute).with(project_id: 5)
+        expect(create_token_spy).to have_received(:execute).with(project_id: 5, email: valid_email)
       end
 
       it 'passes email address and url to send notification use case' do
