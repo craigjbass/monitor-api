@@ -16,6 +16,7 @@ group :test do
   gem 'rerun'
   gem 'rspec'
   gem 'rspec_junit_formatter'
+  gem 'simplecov', require: false
   gem 'timecop'
   gem 'webmock'
 end
