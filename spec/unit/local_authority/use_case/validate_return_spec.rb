@@ -97,7 +97,7 @@ describe LocalAuthority::UseCase::ValidateReturn do
         use_case.execute(type: project_type, return_data: invalid_return_data)
 
         call_arguments = invalid_return_data_paths.map do |path|
-          { type: project_type, path: path }
+          {path: path, schema: template.schema }
         end
         expect(get_return_template_path_titles_spy.called_with).to match_array(call_arguments)
       end

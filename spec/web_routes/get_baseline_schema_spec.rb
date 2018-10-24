@@ -30,6 +30,10 @@ describe 'Getting a baseline schema' do
         expect(last_response.status).to eq(200)
       end
 
+      it 'should pass a cache-control header' do
+        expect(last_response.headers['Cache-Control']).to eq('no-cache')
+      end
+
       it 'should execute GetSchemaForProject' do
         expect(get_baseline_schema_spy).to have_received(:execute).with(type: type)
       end
@@ -57,6 +61,10 @@ describe 'Getting a baseline schema' do
 
       it 'should return 200' do
         expect(last_response.status).to eq(200)
+      end
+
+      it 'should pass a cache-control header' do
+        expect(last_response.headers['Cache-Control']).to eq('no-cache')
       end
 
       it 'should execute GetSchemaForProject' do

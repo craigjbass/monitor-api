@@ -23,6 +23,7 @@ module DeliveryMechanism
       schema = @dependency_factory.get_use_case(:get_schema_for_project).execute(type: params['type'])
       return 404 if schema.nil?
       response.body = schema.schema.to_json
+      response.headers['Cache-Control'] = 'no-cache'
       response.status = 200
     end
 
@@ -107,9 +108,10 @@ module DeliveryMechanism
           project_id: return_hash[:project_id],
           data: return_hash[:updates].last,
           status: return_hash[:status],
-          schema: return_schema
+          schema: return_schema,
+          type: 'hif'
         }.to_json
-
+        response.headers['Cache-Control'] = 'no-cache'
         response.status = 200
       end
     end
@@ -132,8 +134,20 @@ module DeliveryMechanism
       end
     end
 
-    def invalid_validation_hash(request_hash:)
-      request_hash.nil? || request_hash.key?(:type) == false || request_hash.key?(:data) == false
+    get '/project/:id/export' do
+      response.body = {}.to_json
+      guard_bi_access env, params, request do |request_hash|
+        exported_project_hash = @dependency_factory.get_use_case(:export_project_data).execute(
+          project_id: params['id'].to_i
+        )
+
+        if exported_project_hash.empty?
+          response.status = 404
+          response.body = {}.to_json
+        else
+          exported_project_hash[:compiled_project].to_json
+        end
+      end
     end
 
     get '/project/:id/return' do
@@ -147,6 +161,7 @@ module DeliveryMechanism
         if base_return.empty?
           response.status = 404
         else
+          response.headers['Cache-Control'] = 'no-cache'
           response.status = 200
           response.body = { baseReturn: base_return[:base_return] }.to_json
         end
@@ -156,6 +171,7 @@ module DeliveryMechanism
     get '/project/:id/returns' do
       guard_access env, params, request do |_|
         returns = @dependency_factory.get_use_case(:get_returns).execute(project_id: params['id'].to_i)
+        response.headers['Cache-Control'] = 'no-cache'
         response.status = returns.empty? ? 404 : 200
         response.body = returns.to_json
       end
@@ -177,6 +193,7 @@ module DeliveryMechanism
           data: Common::DeepCamelizeKeys.to_camelized_hash(project[:data]),
           schema: schema
         }.to_json
+        response.headers['Cache-Control'] = 'no-cache'
         response.status = 200
       end
     end
@@ -217,6 +234,24 @@ module DeliveryMechanism
       end
     end
 
+    post '/project/validate' do
+      guard_access env, params, request do |request_hash|
+        return 400 if invalid_validation_hash(request_hash: request_hash)
+
+        validate_response = @dependency_factory.get_use_case(:validate_project).execute(
+          type: request_hash[:type],
+          project_data: request_hash[:data]
+        )
+
+        response.status = 200
+        response.body = {
+          valid: validate_response[:valid],
+          invalidPaths: validate_response[:invalid_paths],
+          prettyInvalidPaths: validate_response[:pretty_invalid_paths]
+        }.to_json
+      end
+    end
+
     post '/project/submit' do
       guard_access env, params, request do |request_hash|
         @dependency_factory.get_use_case(:submit_project).execute(
@@ -241,6 +276,18 @@ module DeliveryMechanism
       admin_auth_key = env['HTTP_API_KEY']
 
       if valid_admin_api_key?(key: admin_auth_key)
+        request_hash = get_hash(request)
+        yield request_hash
+      else
+        response.status = 401
+      end
+    end
+
+    def guard_bi_access(env, _params, request)
+      return 401 if authorization_header_not_present?
+      bi_auth_key = env['HTTP_API_KEY']
+
+      if valid_bi_api_key?(key: bi_auth_key)
         request_hash = get_hash(request)
         yield request_hash
       else
@@ -297,12 +344,21 @@ module DeliveryMechanism
 
     private
 
+    def invalid_validation_hash(request_hash:)
+      request_hash.nil? || request_hash.key?(:type) == false || request_hash.key?(:data) == false
+    end
+
     def authorization_header_not_present?
       env['HTTP_API_KEY'].nil?
     end
 
     def valid_admin_api_key?(key:)
       return false unless key == ENV['ADMIN_HTTP_API_KEY']
+      true
+    end
+
+    def valid_bi_api_key?(key:)
+      return false unless key == ENV['BI_HTTP_API_KEY']
       true
     end
 

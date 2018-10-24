@@ -121,13 +121,7 @@ class LocalAuthority::UseCases
     builder.define_use_case :validate_return do
       LocalAuthority::UseCase::ValidateReturn.new(
         return_template_gateway: builder.get_gateway(:return_template),
-        get_return_template_path_titles: builder.get_use_case(:get_return_template_path_titles)
-      )
-    end
-
-    builder.define_use_case :get_return_template_path_titles do
-      LocalAuthority::UseCase::GetReturnTemplatePathTitles.new(
-        template_gateway: builder.get_gateway(:return_template)
+        get_return_template_path_titles: builder.get_use_case(:get_template_path_titles)
       )
     end
 

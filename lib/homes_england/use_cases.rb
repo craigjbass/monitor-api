@@ -20,6 +20,13 @@ class HomesEngland::UseCases
       )
     end
 
+    builder.define_use_case :validate_project do
+      HomesEngland::UseCase::ValidateProject.new(
+        project_template_gateway: builder.get_gateway(:template),
+        get_project_template_path_titles: builder.get_use_case(:get_template_path_titles)
+      )
+    end
+
     builder.define_use_case :submit_project do
       HomesEngland::UseCase::SubmitProject.new(
         project_gateway: builder.get_gateway(:project)
@@ -66,6 +73,13 @@ class HomesEngland::UseCases
       HomesEngland::UseCase::NotifyProjectMembersOfCreation.new(
         send_project_creation_notification: builder.get_use_case(:send_project_creation_notification),
         get_project_users: builder.get_use_case(:get_project_users)
+      )
+    end
+
+    builder.define_use_case :export_project_data do
+      HomesEngland::UseCase::ExportProjectData.new(
+        find_project: builder.get_use_case(:find_project),
+        get_returns: builder.get_use_case(:get_returns)
       )
     end
   end

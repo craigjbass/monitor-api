@@ -1,4 +1,4 @@
-describe LocalAuthority::UseCase::GetReturnTemplatePathTitles do
+describe Common::UseCase::GetTemplatePathTitles do
   let(:template_schema) { {} }
   let(:found_template) do
     LocalAuthority::Domain::ReturnTemplate.new.tap do |t|
@@ -6,20 +6,7 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTitles do
     end
   end
 
-  let(:template_gateway_spy) { spy(find_by: found_template) }
-  let(:use_case) { described_class.new(template_gateway: template_gateway_spy) }
-
-  context 'calls the template gateway' do
-    it 'example 1' do
-      use_case.execute(type: 'hif', path: [])
-      expect(template_gateway_spy).to have_received(:find_by).with(type: 'hif')
-    end
-
-    it 'example 2' do
-      use_case.execute(type: 'hw35', path: [])
-      expect(template_gateway_spy).to have_received(:find_by).with(type: 'hw35')
-    end
-  end
+  let(:use_case) { described_class.new }
 
   context 'simple schema' do
     context 'example 1' do
@@ -37,7 +24,7 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTitles do
       end
 
       it 'gets the correct path names' do
-        path_titles = use_case.execute(type: 'hw35', path: [:noise])[:path_titles]
+        path_titles = use_case.execute(path: [:noise], schema: template_schema)[:path_titles]
         expect(path_titles).to eq(['template', 'Noise'])
       end
     end
@@ -57,7 +44,7 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTitles do
       end
 
       it 'gets the correct path titles' do
-        path_titles = use_case.execute(type: 'hif', path: [:dog])[:path_titles]
+        path_titles = use_case.execute(path: [:dog], schema: template_schema)[:path_titles]
         expect(path_titles).to eq(['Head','Body'])
       end
     end
@@ -78,7 +65,7 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTitles do
       end
 
       it 'gets the correct path names' do
-        path_titles = use_case.execute(type: 'hw35', path: [:noise])[:path_titles]
+        path_titles = use_case.execute(path: [:noise], schema: template_schema)[:path_titles]
         expect(path_titles).to eq(['template', '[noise]'])
       end
     end
@@ -97,7 +84,7 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTitles do
       end
 
       it 'gets the correct path titles' do
-        path_titles = use_case.execute(type: 'hif', path: [:dog])[:path_titles]
+        path_titles = use_case.execute(path: [:dog], schema: template_schema)[:path_titles]
         expect(path_titles).to eq(['Head', '[dog]'])
       end
     end
@@ -117,7 +104,7 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTitles do
       end
 
       it 'gets the correct path names' do
-        path_titles = use_case.execute(type: 'hw35', path: [:noise])[:path_titles]
+        path_titles = use_case.execute(path: [:noise], schema: template_schema)[:path_titles]
         expect(path_titles).to eq(['[form]', '[noise]'])
       end
     end
@@ -135,7 +122,7 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTitles do
       end
 
       it 'gets the correct path titles' do
-        path_titles = use_case.execute(type: 'hif', path: [:dog])[:path_titles]
+        path_titles = use_case.execute(path: [:dog], schema: template_schema)[:path_titles]
         expect(path_titles).to eq(['[form]', '[dog]'])
       end
     end
@@ -169,7 +156,7 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTitles do
       end
 
       it 'gets the correct path titles' do
-        path_titles = use_case.execute(type: 'hif', path: %i[cat noise averageAmplitude])[:path_titles]
+        path_titles = use_case.execute(path: %i[cat noise averageAmplitude], schema: template_schema)[:path_titles]
         expect(path_titles).to eq(['Title', 'Cat Title', 'Noise Title', 'Average Amplitude Title'])
       end
     end
@@ -204,7 +191,7 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTitles do
       end
 
       it 'gets the correct path titles' do
-        path_titles = use_case.execute(type: 'hif', path: %i[dog noise averageAmplitude])[:path_titles]
+        path_titles = use_case.execute(path: %i[dog noise averageAmplitude], schema: template_schema)[:path_titles]
         expect(path_titles).to eq(['Cat', 'Dog', 'Noise', 'Average Amplitude'])
       end
     end
@@ -236,7 +223,7 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTitles do
       end
 
       it 'gets the correct path titles' do
-        path_titles = use_case.execute(type: 'hif', path: [:dog, 0, :noise])[:path_titles]
+        path_titles = use_case.execute(path: [:dog, 0, :noise], schema: template_schema)[:path_titles]
         expect(path_titles).to eq(['cats', 'dogs', 'doge 1', 'noise'])
       end
     end
@@ -266,7 +253,7 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTitles do
       end
 
       it 'gets the correct path titles' do
-        path_titles = use_case.execute(type: 'hif', path: [:cat, 1, :noise])[:path_titles]
+        path_titles = use_case.execute(path: [:cat, 1, :noise], schema: template_schema)[:path_titles]
         expect(path_titles).to eq(['Top level', 'cat array', 'cat item 2', 'noise'])
       end
     end
@@ -294,7 +281,7 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTitles do
       end
 
       it 'gets the correct path titles' do
-        path_titles = use_case.execute(type: 'hif', path: %i[dog noise])[:path_titles]
+        path_titles = use_case.execute(path: %i[dog noise], schema: template_schema)[:path_titles]
         expect(path_titles).to eq(['[form]', '[dog]', '[item]', '[noise]'])
       end
     end
@@ -320,7 +307,7 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTitles do
       end
 
       it 'gets the correct path titles' do
-        path_titles = use_case.execute(type: 'hif', path: %i[cat noise])[:path_titles]
+        path_titles = use_case.execute(path: %i[cat noise], schema: template_schema)[:path_titles]
         expect(path_titles).to eq(['[form]', '[cat]', '[item]', '[noise]'])
       end
     end
@@ -349,7 +336,7 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTitles do
       end
 
       it 'gets the correct path titles' do
-        path_titles = use_case.execute(type: 'hif', path: %i[dog noise])[:path_titles]
+        path_titles = use_case.execute(path: %i[dog noise], schema: template_schema)[:path_titles]
         expect(path_titles).to eq(['[form]', '[dog]', '[item]', 'Hey'])
       end
     end
@@ -375,7 +362,7 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTitles do
       end
 
       it 'gets the correct path titles' do
-        path_titles = use_case.execute(type: 'hif', path: %i[cat noise])[:path_titles]
+        path_titles = use_case.execute(path: %i[cat noise], schema: template_schema)[:path_titles]
         expect(path_titles).to eq(['[form]', '[cat]', '[item]', '[noise]'])
       end
     end
@@ -411,7 +398,7 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTitles do
       end
 
       it 'gets the correct path titles' do
-        path_titles = use_case.execute(type: 'hif', path: %i[cat])[:path_titles]
+        path_titles = use_case.execute(path: %i[cat], schema: template_schema)[:path_titles]
         expect(path_titles).to eq(['header', 'Cats'])
       end
     end
@@ -445,7 +432,7 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTitles do
       end
 
       it 'gets the correct path titles' do
-        path_titles = use_case.execute(type: 'hif', path: %i[dog])[:path_titles]
+        path_titles = use_case.execute(path: %i[dog], schema: template_schema)[:path_titles]
         expect(path_titles).to eq(['cats', 'dog'])
       end
     end
@@ -479,7 +466,7 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTitles do
       end
 
       it 'gets the correct path titles' do
-        path_titles = use_case.execute(type: 'hif', path: %i[cat])[:path_titles]
+        path_titles = use_case.execute(path: %i[cat], schema: template_schema)[:path_titles]
         expect(path_titles).to eq(['[form]', '[cat]'])
       end
     end
@@ -511,7 +498,7 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTitles do
       end
 
       it 'gets the correct path titles' do
-        path_titles = use_case.execute(type: 'hif', path: %i[dog])[:path_titles]
+        path_titles = use_case.execute(path: %i[dog], schema: template_schema)[:path_titles]
         expect(path_titles).to eq(['[form]', '[dog]'])
       end
     end
@@ -557,7 +544,7 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTitles do
       end
 
       it 'gets the correct path titles' do
-        path_titles = use_case.execute(type: 'hif', path: %i[cat noise])[:path_titles]
+        path_titles = use_case.execute(path: %i[cat noise], schema: template_schema)[:path_titles]
         expect(path_titles).to eq(['Optional', 'Cats', 'Cat', 'Noise'])
       end
     end
@@ -602,7 +589,7 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTitles do
       end
 
       it 'gets the correct path titles' do
-        path_titles = use_case.execute(type: 'hif', path: %i[dog sound])[:path_titles]
+        path_titles = use_case.execute(path: %i[dog sound], schema: template_schema)[:path_titles]
         expect(path_titles).to eq(['Dog Header', 'Dogs', 'Dog', 'Sound'])
       end
     end
@@ -667,7 +654,7 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTitles do
       end
 
       it 'gets the correct path titles' do
-        path_titles = use_case.execute(type: 'hif', path: %i[cat noise])[:path_titles]
+        path_titles = use_case.execute(path: %i[cat noise], schema: template_schema)[:path_titles]
         expect(path_titles).to eq(['Optional', 'Cats', 'Cat', 'Noise'])
       end
     end
@@ -731,7 +718,7 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTitles do
       end
 
       it 'gets the correct path titles' do
-        path_titles = use_case.execute(type: 'hif', path: %i[dog sound])[:path_titles]
+        path_titles = use_case.execute(path: %i[dog sound], schema: template_schema)[:path_titles]
         expect(path_titles).to eq(['Dog Header', 'Dogs', 'Dog', 'Sound'])
       end
     end
@@ -801,7 +788,7 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTitles do
       end
 
       it 'gets the correct path titles' do
-        path_titles = use_case.execute(type: 'hif', path: %i[cat noise])[:path_titles]
+        path_titles = use_case.execute(path: %i[cat noise], schema: template_schema)[:path_titles]
         expect(path_titles).to eq(['Optional', 'Cats', 'Cat', 'Noise'])
       end
     end
@@ -870,7 +857,7 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTitles do
       end
 
       it 'gets the correct path titles' do
-        path_titles = use_case.execute(type: 'hif', path: %i[dog sound])[:path_titles]
+        path_titles = use_case.execute(path: %i[dog sound], schema: template_schema)[:path_titles]
         expect(path_titles).to eq(['Dog Header', 'Dogs', 'Dog', 'Sound'])
       end
     end
@@ -912,7 +899,7 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTitles do
       end
 
       it 'gets the correct path titles' do
-        path_titles = use_case.execute(type: 'hif', path: %i[cat noise])[:path_titles]
+        path_titles = use_case.execute(path: %i[cat noise], schema: template_schema)[:path_titles]
         expect(path_titles).to eq(['[form]', '[cat]', '[item]', '[noise]'])
       end
     end
@@ -953,7 +940,7 @@ describe LocalAuthority::UseCase::GetReturnTemplatePathTitles do
       end
 
       it 'gets the correct path titles' do
-        path_titles = use_case.execute(type: 'hif', path: %i[dog sound])[:path_titles]
+        path_titles = use_case.execute(path: %i[dog sound], schema: template_schema)[:path_titles]
         expect(path_titles).to eq(['[form]', '[dog]', '[item]', '[sound]'])
       end
     end
