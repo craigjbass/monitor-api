@@ -8,7 +8,7 @@ describe 'Getting multiple returns' do
     [
       {
         id: 1,
-        project_id: 1,
+        project_id: project_id,
         data:
         {
           summary: {
@@ -53,20 +53,25 @@ describe 'Getting multiple returns' do
   end
 
   it 'can get multiple returns by project id from a gateway' do
+    project_id = get_use_case(:create_new_project).execute(
+      type: 'hif',
+      baseline: {}
+    )[:id]
+
     return1_id = get_use_case(:create_return).execute(
-      project_id: 1, data: { cats: 'meow' }
+      project_id: project_id, data: { cats: 'meow' }
     )[:id]
 
     get_use_case(:submit_return).execute(return_id: return1_id)
 
     return2_id = get_use_case(:create_return).execute(
-      project_id: 1, data: { dogs: 'woof' }
+      project_id: project_id, data: { dogs: 'woof' }
     )[:id]
 
     expected_returns = [
       {
         id: return1_id,
-        project_id: 1,
+        project_id: project_id,
         updates: [
           { cats: 'meow' }
         ],
@@ -74,7 +79,7 @@ describe 'Getting multiple returns' do
       },
       {
         id: return2_id,
-        project_id: 1,
+        project_id: project_id,
         updates: [
           { dogs: 'woof' }
         ],
@@ -82,7 +87,7 @@ describe 'Getting multiple returns' do
       }
     ]
 
-    expect(get_use_case(:get_returns).execute(project_id: 1)[:returns]).to(
+    expect(get_use_case(:get_returns).execute(project_id: project_id)[:returns]).to(
       eq(expected_returns)
     )
   end

@@ -37,6 +37,7 @@ describe LocalAuthority::UseCase::GetReturn do
     let(:previous_return_hash) do
       {
         id: 9,
+        type: 'hif',
         project_id: 0,
         status: 'Submitted',
         updates: [
@@ -48,6 +49,7 @@ describe LocalAuthority::UseCase::GetReturn do
     let(:return_hash) do
       {
         id: 10,
+        type: 'hif',
         project_id: 0,
         status: 'Draft',
         updates: [
@@ -70,6 +72,7 @@ describe LocalAuthority::UseCase::GetReturn do
     let(:return_object) do
       LocalAuthority::Domain::Return.new.tap do |r|
         r.id = 10
+        r.type = 'hif'
         r.project_id = 0
       end
     end
@@ -94,6 +97,7 @@ describe LocalAuthority::UseCase::GetReturn do
 
     it 'will return the return from the gateway' do
       expect(response[:id]).to eq(10)
+      expect(response[:type]).to eq('hif')
       expect(response[:project_id]).to eq(0)
       expect(response[:status]).to eq('Draft')
     end
@@ -192,6 +196,7 @@ describe LocalAuthority::UseCase::GetReturn do
     let(:return_object) do
       return_object = LocalAuthority::Domain::Return.new.tap do |r|
         r.id = 50
+        r.type = 'ac'
         r.project_id = 1
         r.status = 'Submitted'
       end
@@ -215,6 +220,7 @@ describe LocalAuthority::UseCase::GetReturn do
 
     it 'will return the return from the gateway' do
       expect(response[:id]).to eq(50)
+      expect(response[:type]).to eq('ac')
       expect(response[:project_id]).to eq(1)
       expect(response[:status]).to eq('Submitted')
     end

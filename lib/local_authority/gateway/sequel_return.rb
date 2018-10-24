@@ -11,11 +11,18 @@ class LocalAuthority::Gateway::SequelReturn
   end
 
   def find_by(id:)
-    row = @database[:returns].where(id: id).first
+    row = @database[:returns]
+    .select_append(Sequel[:returns][:id].as(:return_id))
+    .select_append(Sequel[:returns][:status].as(:return_status))
+      .where(Sequel.qualify(:returns, :id) => id)
+      .join(:projects, id: :project_id)
+      .first
+
     LocalAuthority::Domain::Return.new.tap do |r|
-      r.id = row[:id]
+      r.id = row[:return_id]
+      r.type = row[:type]
       r.project_id = row[:project_id]
-      r.status = row[:status]
+      r.status = row[:return_status]
     end
   end
 

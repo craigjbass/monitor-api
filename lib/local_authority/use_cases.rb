@@ -32,7 +32,8 @@ class LocalAuthority::UseCases
     builder.define_use_case :create_return do
       LocalAuthority::UseCase::CreateReturn.new(
         return_gateway: builder.get_gateway(:return_gateway),
-        return_update_gateway: builder.get_gateway(:return_update_gateway)
+        return_update_gateway: builder.get_gateway(:return_update_gateway),
+        find_project: builder.get_use_case(:find_project)
       )
     end
 
