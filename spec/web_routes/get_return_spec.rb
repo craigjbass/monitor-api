@@ -58,6 +58,10 @@ describe 'Getting a return' do
         expect(last_response.status).to eq(200)
       end
 
+      it 'should pass a cache-control header' do
+        expect(last_response.headers['Cache-Control']).to eq('no-cache')
+      end
+
       it 'returns the correct project_id' do
         expect(response_body['project_id']).to eq(1)
       end
