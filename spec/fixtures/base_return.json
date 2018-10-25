@@ -132,5 +132,9 @@
       ],
       "currentReturnAmounts": [{ "period": "18/19" }, { "period": "19/20" }]
     }
+  },
+  "outputsActuals": {
+      "localAuthority": ["Local Authority"],
+      "noOfUnits": ["123"]
   }
 }

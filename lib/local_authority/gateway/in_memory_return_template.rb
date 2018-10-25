@@ -1713,11 +1713,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
       }
     }
 
-    return_template.schema[:properties][:outputActuals] = {
-      type: 'array',
-      title: 'Output - Actuals',
-      items: {
-        title: 'Site',
+    return_template.schema[:properties][:outputsActuals] = {
+        title: 'Output - Actuals',
         type: 'object',
         properties: {
           localAuthority: {
@@ -1739,7 +1736,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
           previousStarts: {
             type: 'string',
             title: 'Previous Starts',
-            # hidden: true,
+            hidden: true,
             readonly: true
           },
           startsSinceLastReturn: {
@@ -1749,7 +1746,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
           previousCompletions: {
             type: 'string',
             title: 'Previous Completions',
-            # hidden: 'true',
+            hidden: 'true',
             readonly: 'true'
           },
           completionsSinceLastReturn: {
@@ -1790,7 +1787,6 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
           }
         }
       }
-    }
 
     return_template
   end
