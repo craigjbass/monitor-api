@@ -1527,85 +1527,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
         }
       }
     end
-
-    return_template.schema[:properties][:s151] = {
-      title: 'S.151 Return - Claim',
-      type: 'object',
-      properties: {
-        claimSummary: {
-          title: 'Summary of Claim',
-          type: 'object',
-          properties: {
-            hifTotalFundingRequest: {
-              type: 'string',
-              title: 'HIF Total Funding Request'
-            },
-            hifSpendToDate: {
-              type: 'string',
-              hidden: true,
-              title: 'HIF Spend to Date'
-            },
-            AmountOfThisClaim: {
-              type: 'string',
-              title: 'Amount of this Claim'
-            }
-          }
-        },
-        supportingEvidence: {
-          type: 'object',
-          title: 'Supporting Evidence',
-          properties: {
-            lastQuarterMonthSpend: {
-              type: 'object',
-              title: 'Last Quarter Month Spend',
-              properties: {
-                forecast: {
-                  title: 'Forecasted Spend Last Quarter Month',
-                  type: 'string',
-                  hidden: true
-                },
-                actual: {
-                  title: 'Actual Spend Last Quarter Month',
-                  type: 'string'
-                },
-                varianceAgainstForcastAmount: {
-                  title: 'Variance Against Forecast (£)',
-                  type: 'string',
-                  hidden: true
-                },
-                varianceAgainstForcastPercentage: {
-                  title: 'Variance Against Forecast (%)',
-                  type: 'string',
-                  hidden: true
-                }
-              }
-            },
-            evidenceOfSpendPastQuarter: {
-              title: 'Evidence of Spend for the Past Quarter.'
-            },
-            breakdownOfNextQuarterSpend: {
-              title: 'Evidence of Next Quarter Spend',
-              type: 'object',
-              properties: {
-                forecast: {
-                  title: 'Forecasted Spend (£)',
-                  type: 'string',
-                },
-                descriptionOfSpend: {
-                  title: 'Description of Spend',
-                  type: 'string',
-                  extendedText: true
-                },
-                evidenceOfSpendNextQuarter: {
-                  title: 'Evidence of Spend for the Past Quarter.'
-                },
-              }
-            }
-          }
-        }
-      }
-    }
-
+  
     return return_template if ENV['OUTPUTS_FORECAST_TAB'].nil?
 
     return_template.schema[:properties][:outputsForecast] = {
@@ -1865,6 +1787,90 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
           }
         }
       }
+    
+    
+      return_template.schema[:properties][:s151] = {
+      title: 'S.151 Return - Claim',
+      type: 'object',
+      properties: {
+        claimSummary: {
+          title: 'Summary of Claim',
+          type: 'object',
+          properties: {
+            hifTotalFundingRequest: {
+              type: 'string',
+              title: 'HIF Total Funding Request'
+            },
+            hifSpendToDate: {
+              type: 'string',
+              hidden: true,
+              title: 'HIF Spend to Date'
+            },
+            AmountOfThisClaim: {
+              type: 'string',
+              title: 'Amount of this Claim'
+            }
+          }
+        },
+        supportingEvidence: {
+          type: 'object',
+          title: 'Supporting Evidence',
+          properties: {
+            lastQuarterMonthSpend: {
+              type: 'object',
+              title: 'Last Quarter Month Spend',
+              properties: {
+                forecast: {
+                  title: 'Forecasted Spend Last Quarter Month',
+                  type: 'string',
+                  hidden: true
+                },
+                actual: {
+                  title: 'Actual Spend Last Quarter Month',
+                  type: 'string'
+                },
+                varianceAgainstForcastAmount: {
+                  title: 'Variance Against Forecast (£)',
+                  type: 'string',
+                  hidden: true
+                },
+                varianceAgainstForcastPercentage: {
+                  title: 'Variance Against Forecast (%)',
+                  type: 'string',
+                  hidden: true
+                }
+              }
+            },
+            evidenceOfSpendPastQuarter: {
+              title: 'Evidence of Spend for the Past Quarter.',
+              type: 'string',
+              hidden: true
+            },
+            breakdownOfNextQuarterSpend: {
+              title: 'Evidence of Next Quarter Spend',
+              type: 'object',
+              properties: {
+                forecast: {
+                  title: 'Forecasted Spend (£)',
+                  type: 'string'
+                },
+                descriptionOfSpend: {
+                  title: 'Description of Spend',
+                  type: 'string',
+                  extendedText: true
+                },
+                evidenceOfSpendNextQuarter: {
+                  title: 'Evidence of Spend for the Past Quarter.',
+                  type: 'string',
+                  hiddem: true
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
 
     return_template
   end
