@@ -4,7 +4,7 @@
 class LocalAuthority::Gateway::InMemoryReturnTemplate
   def find_by(type:)
     return nil unless type == 'hif'
-    return_template = LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+    @return_template = LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
       p.schema = {
         title: 'HIF Project',
         type: 'object',
@@ -1527,10 +1527,10 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
         }
       }
     end
-  
-    return return_template if ENV['OUTPUTS_FORECAST_TAB'].nil?
 
-    return_template.schema[:properties][:outputsForecast] = {
+    return @return_template if ENV['OUTPUTS_FORECAST_TAB'].nil?
+
+    @return_template.schema[:properties][:outputsForecast] = {
       title: 'Outputs - Forecast',
       type: 'object',
       properties: {
@@ -1713,83 +1713,17 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
       }
     }
 
-    return_template.schema[:properties][:outputsActuals] = {
-        title: 'Output - Actuals',
-        type: 'object',
-        properties: {
-          localAuthority: {
-            type: 'string',
-            title: 'Local Authority',
-            readonly: true,
-            sourceKey: %i[baseline_data outputsActuals siteOutputs siteLocalAuthority]
-          },
-          noOfUnits: {
-            type: 'string',
-            title: 'No. of Units',
-            readonly: true,
-            sourceKey: %i[baseline_data outputsActuals siteOutputs siteNumberOfUnits]
-          },
-          size: {
-            type: 'string',
-            title: 'Size (hectares)'
-          },
-          previousStarts: {
-            type: 'string',
-            title: 'Previous Starts',
-            hidden: true,
-            readonly: true
-          },
-          startsSinceLastReturn: {
-            type: 'string',
-            title: 'Starts since last return'
-          },
-          previousCompletions: {
-            type: 'string',
-            title: 'Previous Completions',
-            hidden: 'true',
-            readonly: 'true'
-          },
-          completionsSinceLastReturn: {
-            type: 'string',
-            title: 'Completions since last return'
-          },
-          laOwned: {
-            type: 'string',
-            title: 'Local Authority owned land?',
-            enum: [
-              'Yes',
-              'No'
-            ]
-          },
-          pslLand: {
-            type: 'string',
-            title: 'PSL Land?',
-            enum: [
-              'Yes',
-              'No'
-            ]
-          },
-          brownfieldPercent: {
-            type: 'string',
-            title: 'Brownfield %'
-          },
-          leaseholdPercent: {
-            type: 'string',
-            title: 'Leasehold %'
-          },
-          smePercent: {
-            type: 'string',
-            title: 'SME %'
-          },
-          mmcPercent: {
-            type: 'string',
-            title: 'MMC %'
-          }
-        }
-      }
+    add_s151_tab
+    add_outputs_actuals_tab
     
-    
-      return_template.schema[:properties][:s151] = {
+    @return_template
+  end
+
+  private
+
+  def add_s151_tab
+    return if ENV['S151_TAB'].nil?
+    @return_template.schema[:properties][:s151] = {
       title: 'S.151 Return - Claim',
       type: 'object',
       properties: {
@@ -1870,12 +1804,85 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
         }
       }
     }
-
-
-    return_template
   end
 
-  private
+  def add_outputs_actuals_tab
+    return if ENV['OUTPUTS_ACTUALS_TAB'].nil?
+    @return_template.schema[:properties][:outputsActuals] = {
+      title: 'Output - Actuals',
+      type: 'object',
+      properties: {
+        localAuthority: {
+          type: 'string',
+          title: 'Local Authority',
+          readonly: true,
+          sourceKey: %i[baseline_data outputsActuals siteOutputs siteLocalAuthority]
+        },
+        noOfUnits: {
+          type: 'string',
+          title: 'No. of Units',
+          readonly: true,
+          sourceKey: %i[baseline_data outputsActuals siteOutputs siteNumberOfUnits]
+        },
+        size: {
+          type: 'string',
+          title: 'Size (hectares)'
+        },
+        previousStarts: {
+          type: 'string',
+          title: 'Previous Starts',
+          hidden: true,
+          readonly: true
+        },
+        startsSinceLastReturn: {
+          type: 'string',
+          title: 'Starts since last return'
+        },
+        previousCompletions: {
+          type: 'string',
+          title: 'Previous Completions',
+          hidden: 'true',
+          readonly: 'true'
+        },
+        completionsSinceLastReturn: {
+          type: 'string',
+          title: 'Completions since last return'
+        },
+        laOwned: {
+          type: 'string',
+          title: 'Local Authority owned land?',
+          enum: %w[
+            Yes
+            No
+          ]
+        },
+        pslLand: {
+          type: 'string',
+          title: 'PSL Land?',
+          enum: %w[
+            Yes
+            No
+          ]
+        },
+        brownfieldPercent: {
+          type: 'string',
+          title: 'Brownfield %'
+        },
+        leaseholdPercent: {
+          type: 'string',
+          title: 'Leasehold %'
+        },
+        smePercent: {
+          type: 'string',
+          title: 'SME %'
+        },
+        mmcPercent: {
+          type: 'string',
+          title: 'MMC %'
+        }
+      }
+    }
+  end
 
   def status_against_last_return
     {
