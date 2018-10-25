@@ -1713,77 +1713,81 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
       }
     }
 
-    return_template.schema[:properties][:outputsActuals] = {
-      title: 'Outputs - Actuals',
-      type: 'object',
-      properties: {
-        localAuthority: {
-          type: 'string',
-          title: 'Local Authority',
-          readonly: true,
-          sourceKey: %i[baseline_data outputsActuals siteOutputs siteLocalAuthority]
-        },
-        noOfUnits: {
-          type: 'string',
-          title: 'No. of Units',
-          readonly: true,
-          sourceKey: %i[baseline_data outputsActuals siteOutputs siteNumberOfUnits]
-        },
-        size: {
-          type: 'string',
-          title: 'Size (hectares)'
-        },
-        previousStarts: {
-          type: 'string',
-          title: 'Previous Starts',
-          # hidden: true,
-          readonly: true
-        },
-        startsSinceLastReturn: {
-          type: 'string',
-          title: 'Starts since last return'
-        },
-        previousCompletions: {
-          type: 'string',
-          title: 'Previous Completions',
-          # hidden: 'true',
-          readonly: 'true'
-        },
-        completionsSinceLastReturn: {
-          type: 'string',
-          title: 'Completions since last return'
-        },
-        laOwned: {
-          type: 'string',
-          title: 'Local Authority owned land?',
-          enum: [
-            'Yes',
-            'No'
-          ]
-        },
-        pslLand: {
-          type: 'string',
-          title: 'PSL Land?',
-          enum: [
-            'Yes',
-            'No'
-          ]
-        },
-        brownfieldPercent: {
-          type: 'string',
-          title: 'Brownfield %'
-        },
-        leaseholdPercent: {
-          type: 'string',
-          title: 'Leasehold %'
-        },
-        smePercent: {
-          type: 'string',
-          title: 'SME %'
-        },
-        mmcPercent: {
-          type: 'string',
-          title: 'MMC %'
+    return_template.schema[:properties][:outputActuals] = {
+      type: 'array',
+      title: 'Output - Actuals',
+      items: {
+        title: 'Site',
+        type: 'object',
+        properties: {
+          localAuthority: {
+            type: 'string',
+            title: 'Local Authority',
+            readonly: true,
+            sourceKey: %i[baseline_data outputsActuals siteOutputs siteLocalAuthority]
+          },
+          noOfUnits: {
+            type: 'string',
+            title: 'No. of Units',
+            readonly: true,
+            sourceKey: %i[baseline_data outputsActuals siteOutputs siteNumberOfUnits]
+          },
+          size: {
+            type: 'string',
+            title: 'Size (hectares)'
+          },
+          previousStarts: {
+            type: 'string',
+            title: 'Previous Starts',
+            # hidden: true,
+            readonly: true
+          },
+          startsSinceLastReturn: {
+            type: 'string',
+            title: 'Starts since last return'
+          },
+          previousCompletions: {
+            type: 'string',
+            title: 'Previous Completions',
+            # hidden: 'true',
+            readonly: 'true'
+          },
+          completionsSinceLastReturn: {
+            type: 'string',
+            title: 'Completions since last return'
+          },
+          laOwned: {
+            type: 'string',
+            title: 'Local Authority owned land?',
+            enum: [
+              'Yes',
+              'No'
+            ]
+          },
+          pslLand: {
+            type: 'string',
+            title: 'PSL Land?',
+            enum: [
+              'Yes',
+              'No'
+            ]
+          },
+          brownfieldPercent: {
+            type: 'string',
+            title: 'Brownfield %'
+          },
+          leaseholdPercent: {
+            type: 'string',
+            title: 'Leasehold %'
+          },
+          smePercent: {
+            type: 'string',
+            title: 'SME %'
+          },
+          mmcPercent: {
+            type: 'string',
+            title: 'MMC %'
+          }
         }
       }
     }
