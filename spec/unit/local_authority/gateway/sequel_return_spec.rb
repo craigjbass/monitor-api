@@ -8,40 +8,81 @@ describe LocalAuthority::Gateway::SequelReturn do
   end
 
   context 'example one' do
+    let(:project_id) { database[:projects].insert(type: 'hif') }
     let(:project_return) do
       LocalAuthority::Domain::Return.new.tap do |r|
-        r.project_id = 1
+        r.project_id = project_id
         r.status = 'Draft'
       end
     end
     let(:return_id) { gateway.create(project_return) }
 
-    before { return_id }
+    before do
+      project_id
+      return_id
+    end
+
     it 'finds the created return' do
       found_return = gateway.find_by(id: return_id)
 
       expect(found_return.id).to eq(return_id)
-      expect(found_return.project_id).to eq(1)
+      expect(found_return.type).to eq('hif')
+      expect(found_return.project_id).to eq(project_id)
       expect(found_return.status).to eq('Draft')
     end
   end
 
   context 'example two' do
+    let(:project_id) { database[:projects].insert(type: 'ac') }
+
     let(:project_return) do
       LocalAuthority::Domain::Return.new.tap do |r|
-        r.project_id = 3
+        r.project_id = project_id
         r.status = 'Submitted'
       end
     end
     let(:return_id) { gateway.create(project_return) }
 
-    before { return_id }
+    before do
+      project_id
+      return_id
+    end
 
     it 'finds the created return' do
       found_return = gateway.find_by(id: return_id)
 
       expect(found_return.id).to eq(return_id)
-      expect(found_return.project_id).to eq(3)
+      expect(found_return.type).to eq('ac')
+      expect(found_return.project_id).to eq(project_id)
+      expect(found_return.status).to eq('Submitted')
+    end
+  end
+
+  context 'with multiple returns' do
+    let(:project_id) { database[:projects].insert(type: 'ac') }
+
+    let(:project_return) do
+      LocalAuthority::Domain::Return.new.tap do |r|
+        r.project_id = project_id
+        r.status = 'Submitted'
+      end
+    end
+    let(:return_id) do
+      gateway.create(project_return)
+    end
+
+    before do
+      gateway.create(project_return)
+      project_id
+      return_id
+    end
+
+    it 'finds the created return' do
+      found_return = gateway.find_by(id: return_id)
+
+      expect(found_return.id).to eq(return_id)
+      expect(found_return.type).to eq('ac')
+      expect(found_return.project_id).to eq(project_id)
       expect(found_return.status).to eq('Submitted')
     end
   end

@@ -6,7 +6,8 @@ require_relative 'delivery_mechanism_spec_helper'
 describe 'Getting a return' do
   let(:get_return_spy) { spy(execute: returned_hash) }
   let(:get_schema_for_return_spy) { spy(execute: returned_schema) }
-  let(:returned_hash) { { project_id: 1, updates: [{ cats: 'Meow' }], status: 'Draft' } }
+  let(:type) { '' }
+  let(:returned_hash) { { project_id: 1, type: type, updates: [{ cats: 'Meow' }], status: 'Draft' } }
   let(:returned_schema) { { schema: { cats: 'string' } } }
 
   before do
@@ -34,44 +35,96 @@ describe 'Getting a return' do
   end
 
   context 'Given one existing return' do
-    let(:response_body) { JSON.parse(last_response.body) }
+    context 'example 1' do
+      let(:type) { 'ac' }
 
-    before do
-      get '/return/get?id=0&returnId=1'
+      let(:response_body) { JSON.parse(last_response.body) }
+
+      before do
+        get '/return/get?id=0&returnId=1'
+      end
+
+      it 'passes data to GetReturn' do
+        expect(get_return_spy).to have_received(:execute).with(id: 1)
+      end
+
+      it 'passes data to GetSchemaForReturn' do
+        expect(get_schema_for_return_spy).to(
+          have_received(:execute).with(return_id: 1)
+        )
+      end
+
+      it 'responds with 200 when id found' do
+        expect(last_response.status).to eq(200)
+      end
+
+      it 'should pass a cache-control header' do
+        expect(last_response.headers['Cache-Control']).to eq('no-cache')
+      end
+
+      it 'returns the correct project_id' do
+        expect(response_body['project_id']).to eq(1)
+      end
+
+      it 'returns the correct type' do
+        expect(response_body['type']).to eq('ac')
+      end
+
+      it 'returns the correct data' do
+        expect(response_body['data']).to eq('cats' => 'Meow')
+      end
+
+      it 'returns the correct schema' do
+        expect(response_body['schema']).to eq('cats' => 'string')
+      end
+
+      it 'returns the correct schema' do
+        expect(response_body['status']).to eq('Draft')
+      end
     end
 
-    it 'passes data to GetReturn' do
-      expect(get_return_spy).to have_received(:execute).with(id: 1)
-    end
+    context 'example 2' do
+      let(:type) { 'hif' }
 
-    it 'passes data to GetSchemaForReturn' do
-      expect(get_schema_for_return_spy).to(
-        have_received(:execute).with(return_id: 1)
-      )
-    end
+      let(:response_body) { JSON.parse(last_response.body) }
 
-    it 'responds with 200 when id found' do
-      expect(last_response.status).to eq(200)
-    end
+      before do
+        get '/return/get?id=0&returnId=1'
+      end
 
-    it 'should pass a cache-control header' do
-      expect(last_response.headers['Cache-Control']).to eq('no-cache')
-    end
+      it 'passes data to GetReturn' do
+        expect(get_return_spy).to have_received(:execute).with(id: 1)
+      end
 
-    it 'returns the correct project_id' do
-      expect(response_body['project_id']).to eq(1)
-    end
+      it 'passes data to GetSchemaForReturn' do
+        expect(get_schema_for_return_spy).to(
+          have_received(:execute).with(return_id: 1)
+        )
+      end
 
-    it 'returns the correct data' do
-      expect(response_body['data']).to eq('cats' => 'Meow')
-    end
+      it 'responds with 200 when id found' do
+        expect(last_response.status).to eq(200)
+      end
 
-    it 'returns the correct schema' do
-      expect(response_body['schema']).to eq('cats' => 'string')
-    end
+      it 'returns the correct project_id' do
+        expect(response_body['project_id']).to eq(1)
+      end
 
-    it 'returns the correct schema' do
-      expect(response_body['status']).to eq('Draft')
+      it 'returns the correct type' do
+        expect(response_body['type']).to eq('hif')
+      end
+
+      it 'returns the correct data' do
+        expect(response_body['data']).to eq('cats' => 'Meow')
+      end
+
+      it 'returns the correct schema' do
+        expect(response_body['schema']).to eq('cats' => 'string')
+      end
+
+      it 'returns the correct schema' do
+        expect(response_body['status']).to eq('Draft')
+      end
     end
   end
 
