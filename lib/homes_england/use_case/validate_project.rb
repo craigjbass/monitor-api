@@ -8,7 +8,7 @@ class HomesEngland::UseCase::ValidateProject
 
   def execute(type:, project_data:)
     schema = @project_template_gateway.get_template(type: type)
-    
+
     invalid_paths = schema.invalid_paths(project_data)
 
     invalid_pretty_paths = invalid_paths.map do |path|
