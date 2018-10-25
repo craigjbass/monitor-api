@@ -1559,13 +1559,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
             baselineAmounts: {
               title: 'Baseline Amounts',
               type: 'array',
+              periods: true,
               items: {
-                horizontal: true,
                 type: 'object',
                 properties: {
                   period: {
                     type: 'string',
-                    title: 'period',
+                    title: 'Period',
                     readonly: true,
                     sourceKey: %i[baseline_data outputsForecast housingForecast period]
                   },
@@ -1592,14 +1592,14 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     anyChanges: { enum: ['Yes'] },
                     currentReturnAmounts: {
                       type: 'array',
+                      periods: true,
                       title: 'Current Return Amounts',
                       items: {
-                        horizontal: true,
                         type: 'object',
                         properties: {
                           period: {
                             type: 'string',
-                            title: 'period',
+                            title: 'Period',
                             readonly: true,
                             sourceKey: %i[baseline_data outputsForecast housingForecast period]
                           },
@@ -1637,10 +1637,10 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
           properties: {
             baselineAmounts: {
               title: 'Baseline Amounts',
+              periods: true,
               type: 'array',
               items: {
                 type: 'object',
-                horizontal: true,
                 properties: {
                   period: {
                     type: 'string',
@@ -1671,10 +1671,10 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     anyChanges: { enum: ['Yes'] },
                     currentReturnAmounts: {
                       type: 'array',
+                      periods: true,
                       title: 'Current Return Amounts',
                       items: {
                         type: 'object',
-                        horizontal: true,
                         properties: {
                           period: {
                             type: 'string',
