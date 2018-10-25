@@ -1715,7 +1715,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
 
     add_s151_tab
     add_outputs_actuals_tab
-    
+    add_rm_monthly_catchup_tab
+
     @return_template
   end
 
@@ -1801,6 +1802,68 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
               }
             }
           }
+        }
+      }
+    }
+  end
+
+  def add_rm_monthly_catchup_tab
+    return if ENV['RM_MONTHYL_CATCH_TAB'].nil?
+    @return_template[:properties][:rmMonthlyCatchup] = {
+      title: 'RM Monthly Catch Up',
+      type: 'object',
+      properties: {
+        dateOfCatchUp: {
+          type: 'string',
+          title: 'Date of Catch Up'
+        },
+        overallRatingForScheme: {
+          type: 'string',
+          title: 'Overall RAG Rating for Scheme',
+          enum: %w[R A G]
+        },
+        redBarriers: {
+          type: 'array',
+          title: 'Barriers- Red Rating',
+          items: {
+            type: 'object',
+            properties: {
+              overview: {
+                type: 'string',
+                extendedText: true,
+                title: 'Overview of Barrier'
+              }
+            }
+          }
+        },
+        amberBarriers: {
+          type: 'array',
+          title: 'Barriers- Amber Rating',
+          items: {
+            type: 'object',
+            properties: {
+              overview: {
+                type: 'string',
+                extendedText: true,
+                title: 'Overview of Barrier'
+              }
+            }
+          }
+        },
+        overviewOfEngagement: {
+          type: 'string',
+          extendedText: true,
+          title: 'Overview of Engagement'
+        },
+        commentOnProgress: {
+          type: 'string',
+          extendedText: true,
+          title: 'Comments on Progress'
+        },
+        issuesToRaise: {
+          type: 'string',
+          extendedText: true,
+          title: 'Issues to Raise'
         }
       }
     }
