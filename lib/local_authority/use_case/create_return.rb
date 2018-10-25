@@ -18,7 +18,6 @@ class LocalAuthority::UseCase::CreateReturn
   def create_return_for_project(project_id, type)
     return_object = LocalAuthority::Domain::Return.new.tap do |r|
       r.project_id = project_id
-      r.type = type
     end
 
     @return_gateway.create(return_object)

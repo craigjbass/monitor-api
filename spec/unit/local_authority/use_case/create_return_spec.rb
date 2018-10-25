@@ -38,13 +38,6 @@ describe LocalAuthority::UseCase::CreateReturn do
       end
     end
 
-    it 'passes the type to the gateway' do
-      create_return.execute(return_hash)
-      expect(return_gateway).to have_received(:create) do |return_object|
-        expect(return_object.type).to eq('ac')
-      end
-    end
-
     it 'passes the created return id to the return updates gateway' do
       create_return.execute(return_hash)
       expect(return_update_gateway).to have_received(:create) do |update|
@@ -81,13 +74,6 @@ describe LocalAuthority::UseCase::CreateReturn do
       create_return.execute(return_hash)
       expect(return_gateway).to have_received(:create) do |return_object|
         expect(return_object.project_id).to eq(255)
-      end
-    end
-
-    it 'passes the type to the gateway' do
-      create_return.execute(return_hash)
-      expect(return_gateway).to have_received(:create) do |return_object|
-        expect(return_object.type).to eq('hif')
       end
     end
 
