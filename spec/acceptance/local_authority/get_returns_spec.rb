@@ -54,6 +54,7 @@ describe 'Getting multiple returns' do
 
   it 'can get multiple returns by project id from a gateway' do
     project_id = get_use_case(:create_new_project).execute(
+      name: 'cat hif project',
       type: 'hif',
       baseline: {}
     )[:id]
