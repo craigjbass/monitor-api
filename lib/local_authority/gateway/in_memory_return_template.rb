@@ -4,7 +4,7 @@
 class LocalAuthority::Gateway::InMemoryReturnTemplate
   def find_by(type:)
     return nil unless type == 'hif'
-    return_template = LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+    @return_template = LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
       p.schema = {
         title: 'HIF Project',
         type: 'object',
@@ -1528,9 +1528,20 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
       }
     end
 
-    return return_template if ENV['OUTPUTS_FORECAST_TAB'].nil?
+    add_s151_tab
+    add_confirmation_tab
+    add_outputs_forecast_tab
+    add_outputs_actuals_tab
+    add_rm_monthly_catchup_tab
 
-    return_template.schema[:properties][:outputsForecast] = {
+    @return_template
+  end
+
+  private
+
+  def add_outputs_forecast_tab
+    return if ENV['OUTPUTS_FORECAST_TAB'].nil?
+    @return_template.schema[:properties][:outputsForecast] = {
       title: 'Outputs - Forecast',
       type: 'object',
       properties: {
@@ -1712,11 +1723,577 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
         }
       }
     }
-
-    return_template
   end
 
-  private
+  def add_confirmation_tab
+    return if ENV['CONFIRMATION_TAB'].nil?
+    @return_template.schema[:properties][:s151Confirmation] = {
+      title: 's151 Confirmation',
+      type: 'object',
+      properties: {
+        hifFunding: {
+          type: 'object',
+          title: 'HIF Funding and Profiles',
+          required: %w[cashflowConfirmation],
+          properties: {
+            hifTotalFundingRequest: {
+              type: 'string',
+              title: 'HIF Total Funding Request',
+              readonly: true,
+              hidden: true
+            },
+            changesToRequest: {
+              type: 'string',
+              title: 'Please confirm there are no changes to the total HIF request',
+              enum: ['Confirmed', 'Changes Required']
+            },
+            hifFundingProfile: {
+              title: 'Funding Profiles',
+              type: 'array',
+              items: {
+                type: 'object',
+                horizontal: true,
+                properties: {
+                  period: {
+                    type: 'string',
+                    title: 'Period',
+                    readonly: true,
+                    sourceKey: %i[baseline_data fundingProfiles period]
+                  },
+                  instalment1: {
+                    type: 'string',
+                    title: '1st Instalment',
+                    readonly: true,
+                    sourceKey: %i[baseline_data fundingProfiles instalment1]
+                  },
+                  instalment2: {
+                    type: 'string',
+                    title: '2nd Instalment',
+                    readonly: true,
+                    sourceKey: %i[baseline_data fundingProfiles instalment2]
+                  },
+                  instalment3: {
+                    type: 'string',
+                    title: '3rd Instalment',
+                    readonly: true,
+                    sourceKey: %i[baseline_data fundingProfiles instalment3]
+                  },
+                  instalment4: {
+                    type: 'string',
+                    title: '4th Instalment',
+                    readonly: true,
+                    sourceKey: %i[baseline_data fundingProfiles instalment4]
+                  },
+                  total: {
+                    type: 'string',
+                    title: 'Total',
+                    readonly: true,
+                    sourceKey: %i[baseline_data fundingProfiles total]
+                  },
+                  baselineVariance1: {
+                    type: 'string',
+                    title: '1st Instalment',
+                    readonly: true,
+                    hidden: true
+                  },
+                  baselineVariance2: {
+                    type: 'string',
+                    title: '2nd Instalment',
+                    readonly: true,
+                    hidden: true
+                  },
+                  baselineVariance3: {
+                    type: 'string',
+                    title: '3rd Instalment',
+                    readonly: true,
+                    hidden: true
+                  },
+                  baselineVariance4: {
+                    type: 'string',
+                    title: '4th Instalment',
+                    readonly: true,
+                    hidden: true
+                  },
+                  lastMovement1: {
+                    type: 'string',
+                    title: '1st Instalment',
+                    readonly: true,
+                    hidden: true
+                  },
+                  lastMovement2: {
+                    type: 'string',
+                    title: '2nd Instalment',
+                    readonly: true,
+                    hidden: true
+                  },
+                  lastMovement3: {
+                    type: 'string',
+                    title: '3rd Instalment',
+                    readonly: true,
+                    hidden: true
+                  },
+                  lastMovement4: {
+                    type: 'string',
+                    title: '4th Instalment',
+                    readonly: true,
+                    hidden: true
+                  },
+                  movementVariance1: {
+                    type: 'string',
+                    title: '1st Instalment',
+                    readonly: true,
+                    hidden: true
+                  },
+                  movementVariance2: {
+                    type: 'string',
+                    title: '2nd Instalment',
+                    readonly: true,
+                    hidden: true
+                  },
+                  movementVariance3: {
+                    type: 'string',
+                    title: '3rd Instalment',
+                    readonly: true,
+                    hidden: true
+                  },
+                  movementVariance4: {
+                    type: 'string',
+                    title: '4th Instalment',
+                    readonly: true,
+                    hidden: true
+                  }
+                }
+              }
+            },
+            amendmentConfirmation: {
+              title: 'An amendment has been made to the forecast profile in this MR - please confirm you are content with this amendment',
+              type: 'string',
+              enum: %w[Yes No]
+            },
+            cashflowConfirmation: {
+              title: 'Please confirm you are content with the submitted project cashflows',
+              type: 'string',
+              enum: %w[Yes No]
+            }
+          },
+          dependencies: {
+            changesToRequest: {
+              oneOf: [
+                {
+                  properties: {
+                    changesToRequest: { enum: ['Confirmed'] }
+                  }
+                },
+                {
+                  properties: {
+                    changesToRequest: { enum: ['Changes Required'] },
+                    reasonForRequest: {
+                      type: 'string',
+                      title: 'Reason for Request'
+                    },
+                    requestedAmount: {
+                      type: 'string',
+                      title: 'Requested amount'
+                    },
+                    varianceFromBaseline: {
+                      type:'string',
+                      title: 'Variance from Baseline',
+                      readonly: true,
+                      hidden: true
+                    },
+                    varianceFromBaselinePercent: {
+                      type: 'string',
+                      title: 'Variance from Baseline (%)',
+                      readonly: true,
+                      hidden: true
+                    },
+                    mitigationInPlace: {
+                      type: 'string',
+                      title: 'Mitigation in place to reduce further slippage'
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        submission: {
+          type: 'object',
+          title: 'Submission',
+          properties: {
+            changeToMilestones: {
+              type: 'string',
+              title: 'Please confirm that no changes are required to contractual milestones',
+              enum: ['Confirmed', 'Changes Required']
+            },
+            hifFundingEndDate: {
+              type: 'string',
+              title: 'HIF Funding End Date',
+              readonly: true,
+              sourceKey: %i[baseline_data s151 s151FundingEndDate]
+            },
+            changesToEndDate: {
+              type: 'string',
+              title: 'Please confirm that no changes are required to Funding End Date',
+              enum: ['Confirmed', 'Changes Required']
+            },
+            projectLongstopDate: {
+              type: 'string',
+              title: 'Project Longstop Date',
+              readonly: true,
+              sourceKey: %i[baseline_data s151 s151ProjectLongstopDate]
+            },
+            changesToLongstopDate: {
+              type: 'string',
+              title: 'Please confirm that no changes are required to project completion date',
+              enum: ['Confirmed', 'Changes Required']
+            },
+            recoverFunding: {
+              type: 'string',
+              title: 'Has any funding been recovered since last return?',
+              enum: %w[Yes No]
+            }
+          },
+          dependencies: {
+            changeToMilestones: {
+              oneOf: [
+                {
+                  properties: {
+                    changeToMilestones: { enum: ['Confirmed'] }
+                  }
+                },
+                {
+                  properties: {
+                    changeToMilestones: { enum: ['Changes Required'] },
+                    reasonForRequest: {
+                      type: 'string',
+                      title: 'Reason for Request'
+                    },
+                    requestedAmendments: {
+                      type: 'string',
+                      title: 'Requested amendments to milestones'
+                    },
+                    mitigationInPlace: {
+                      type: 'string',
+                      title: 'Mitigation in place to reduce further amendments'
+                    }
+                  }
+                }
+              ]
+            },
+            changesToEndDate: {
+              oneOf: [
+                {
+                  properties: {
+                    changesToEndDate: { enum: ['Confirmed'] }
+                  }
+                },
+                {
+                  properties: {
+                    changesToEndDate: { enum: ['Changes Required'] },
+                    reasonForRequest: {
+                      type: 'string',
+                      title: 'Reason for Request'
+                    },
+                    requestedEndDate: {
+                      type: 'string',
+                      title: 'Requested new end date'
+                    },
+                    varianceFromBaseline: {
+                      type: 'string',
+                      title: 'Variance from Baseline',
+                      readonly: true,
+                      hidden: true
+                    },
+                    mitigationInPlace: {
+                      type: 'string',
+                      title: 'Mitigation in place to reduce further slippage'
+                    }
+                  }
+                }
+              ]
+            },
+            changesToLongstopDate: {
+              oneOf: [
+                {
+                  properties: {
+                    changesToLongstopDate: { enum: ['Confirmed'] }
+                  }
+                },
+                {
+                  properties: {
+                    changesToLongstopDate: { enum: ['Changes Required'] },
+                    reasonForRequest: {
+                      type: 'string',
+                      title: 'Reason for Request'
+                    },
+                    requestedEndDate: {
+                      type: 'string',
+                      title: 'Requested new end date'
+                    },
+                    varianceFromBaseline: {
+                      type: 'string',
+                      title: 'Variance from Baseline',
+                      readonly: true,
+                      hidden: true
+                    },
+                    mitigationInPlace: {
+                      type: 'string',
+                      title: 'Mitigation in place to reduce further slippage'
+                    }
+                  }
+                }
+              ]
+            },
+            recoverFunding: {
+              oneOf: [
+                {
+                  properties: {
+                    recoverFunding: { enum: ['Yes'] },
+                    usedOnFutureHosuing: {
+                      type: 'string',
+                      title: 'Will/Has this been used on future housing?',
+                      enum: %w[Yes No]
+                    }
+                  }
+                },
+                {
+                  properties: {
+                    recoverFunding: { enum: ['No'] }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  end
+
+  def add_s151_tab
+    return if ENV['S151_TAB'].nil?
+    @return_template.schema[:properties][:s151] = {
+      title: 'S.151 Return - Claim',
+      type: 'object',
+      properties: {
+        claimSummary: {
+          title: 'Summary of Claim',
+          type: 'object',
+          properties: {
+            hifTotalFundingRequest: {
+              type: 'string',
+              title: 'HIF Total Funding Request'
+            },
+            hifSpendToDate: {
+              type: 'string',
+              hidden: true,
+              title: 'HIF Spend to Date'
+            },
+            AmountOfThisClaim: {
+              type: 'string',
+              title: 'Amount of this Claim'
+            }
+          }
+        },
+        supportingEvidence: {
+          type: 'object',
+          title: 'Supporting Evidence',
+          properties: {
+            lastQuarterMonthSpend: {
+              type: 'object',
+              title: 'Last Quarter Month Spend',
+              properties: {
+                forecast: {
+                  title: 'Forecasted Spend Last Quarter Month',
+                  type: 'string',
+                  hidden: true
+                },
+                actual: {
+                  title: 'Actual Spend Last Quarter Month',
+                  type: 'string'
+                },
+                varianceAgainstForcastAmount: {
+                  title: 'Variance Against Forecast (£)',
+                  type: 'string',
+                  hidden: true
+                },
+                varianceAgainstForcastPercentage: {
+                  title: 'Variance Against Forecast (%)',
+                  type: 'string',
+                  hidden: true
+                }
+              }
+            },
+            evidenceOfSpendPastQuarter: {
+              title: 'Evidence of Spend for the Past Quarter.',
+              type: 'string',
+              hidden: true
+            },
+            breakdownOfNextQuarterSpend: {
+              title: 'Evidence of Next Quarter Spend',
+              type: 'object',
+              properties: {
+                forecast: {
+                  title: 'Forecasted Spend (£)',
+                  type: 'string'
+                },
+                descriptionOfSpend: {
+                  title: 'Description of Spend',
+                  type: 'string',
+                  extendedText: true
+                },
+                evidenceOfSpendNextQuarter: {
+                  title: 'Evidence of Spend for the Past Quarter.',
+                  type: 'string',
+                  hidden: true
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  end
+
+  def add_rm_monthly_catchup_tab
+    return if ENV['RM_MONTHLY_CATCHUP_TAB'].nil?
+    @return_template.schema[:properties][:rmMonthlyCatchup] = {
+      title: 'RM Monthly Catch Up',
+      type: 'object',
+      properties: {
+        dateOfCatchUp: {
+          type: 'string',
+          title: 'Date of Catch Up'
+        },
+        overallRatingForScheme: {
+          type: 'string',
+          title: 'Overall RAG Rating for Scheme',
+          enum: %w[R A G]
+        },
+        redBarriers: {
+          type: 'array',
+          title: 'Barriers- Red Rating',
+          items: {
+            type: 'object',
+            properties: {
+              overview: {
+                type: 'string',
+                extendedText: true,
+                title: 'Overview of Barrier'
+              }
+            }
+          }
+        },
+        amberBarriers: {
+          type: 'array',
+          title: 'Barriers- Amber Rating',
+          items: {
+            type: 'object',
+            properties: {
+              overview: {
+                type: 'string',
+                extendedText: true,
+                title: 'Overview of Barrier'
+              }
+            }
+          }
+        },
+        overviewOfEngagement: {
+          type: 'string',
+          extendedText: true,
+          title: 'Overview of Engagement'
+        },
+        commentOnProgress: {
+          type: 'string',
+          extendedText: true,
+          title: 'Comments on Progress'
+        },
+        issuesToRaise: {
+          type: 'string',
+          extendedText: true,
+          title: 'Issues to Raise'
+        }
+      }
+    }
+  end
+
+  def add_outputs_actuals_tab
+    return if ENV['OUTPUTS_ACTUALS_TAB'].nil?
+    @return_template.schema[:properties][:outputsActuals] = {
+      title: 'Output - Actuals',
+      type: 'object',
+      properties: {
+        localAuthority: {
+          type: 'string',
+          title: 'Local Authority',
+          readonly: true,
+          sourceKey: %i[baseline_data outputsActuals siteOutputs siteLocalAuthority]
+        },
+        noOfUnits: {
+          type: 'string',
+          title: 'No. of Units',
+          readonly: true,
+          sourceKey: %i[baseline_data outputsActuals siteOutputs siteNumberOfUnits]
+        },
+        size: {
+          type: 'string',
+          title: 'Size (hectares)'
+        },
+        previousStarts: {
+          type: 'string',
+          title: 'Previous Starts',
+          hidden: true,
+          readonly: true
+        },
+        startsSinceLastReturn: {
+          type: 'string',
+          title: 'Starts since last return'
+        },
+        previousCompletions: {
+          type: 'string',
+          title: 'Previous Completions',
+          hidden: 'true',
+          readonly: 'true'
+        },
+        completionsSinceLastReturn: {
+          type: 'string',
+          title: 'Completions since last return'
+        },
+        laOwned: {
+          type: 'string',
+          title: 'Local Authority owned land?',
+          enum: %w[
+            Yes
+            No
+          ]
+        },
+        pslLand: {
+          type: 'string',
+          title: 'PSL Land?',
+          enum: %w[
+            Yes
+            No
+          ]
+        },
+        brownfieldPercent: {
+          type: 'string',
+          title: 'Brownfield %'
+        },
+        leaseholdPercent: {
+          type: 'string',
+          title: 'Leasehold %'
+        },
+        smePercent: {
+          type: 'string',
+          title: 'SME %'
+        },
+        mmcPercent: {
+          type: 'string',
+          title: 'MMC %'
+        }
+      }
+    }
+  end
 
   def status_against_last_return
     {

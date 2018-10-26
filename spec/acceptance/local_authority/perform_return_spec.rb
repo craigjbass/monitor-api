@@ -61,11 +61,19 @@ describe 'Performing Return on HIF Project' do
 
   before do
     ENV['OUTPUTS_FORECAST_TAB'] = 'Yes'
+    ENV['CONFIRMATION_TAB'] = 'Yes'
+    ENV['S151_TAB'] = 'Yes'
+    ENV['RM_MONTHLY_CATCHUP_TAB'] = 'Yes'
+    ENV['OUTPUTS_ACTUALS_TAB'] = 'Yes'
     project_id
   end
 
   after do
     ENV['OUTPUTS_FORECAST_TAB'] = nil
+    ENV['CONFIRMATION_TAB'] = nil
+    ENV['S151_TAB'] = nil
+    ENV['RM_MONTHLY_CATCHUP_TAB'] = nil
+    ENV['OUTPUTS_ACTUALS_TAB'] = nil
   end
 
   it 'should keep track of Returns' do
