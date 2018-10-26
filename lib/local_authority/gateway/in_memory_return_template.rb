@@ -2145,7 +2145,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                 evidenceOfSpendNextQuarter: {
                   title: 'Evidence of Spend for the Past Quarter.',
                   type: 'string',
-                  hiddem: true
+                  hidden: true
                 }
               }
             }
@@ -2156,7 +2156,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
   end
 
   def add_rm_monthly_catchup_tab
-    return if ENV['RM_MONTHYL_CATCH_TAB'].nil?
+    return if ENV['RM_MONTHLY_CATCHUP_TAB'].nil?
     @return_template[:properties][:rmMonthlyCatchup] = {
       title: 'RM Monthly Catch Up',
       type: 'object',
