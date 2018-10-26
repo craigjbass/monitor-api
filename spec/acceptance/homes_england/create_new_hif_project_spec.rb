@@ -27,7 +27,7 @@ describe 'Creating a new HIF FileProject' do
     }
 
     response = get_use_case(:create_new_project).execute(
-      type: 'hif', baseline: project_baseline
+      name: 'a project', type: 'hif', baseline: project_baseline
     )
 
     project = get_use_case(:find_project).execute(id: response[:id])
@@ -58,7 +58,7 @@ describe 'Creating a new HIF FileProject' do
       }
     }
     response = get_use_case(:create_new_project).execute(
-      type: 'hif', baseline: project_baseline
+      name: 'a new project', type: 'hif', baseline: project_baseline
     )
     project = get_use_case(:find_project).execute(id: response[:id])
     expect(project[:status]).to eq('Draft')

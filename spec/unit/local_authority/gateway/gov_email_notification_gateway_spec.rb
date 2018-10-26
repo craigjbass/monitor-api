@@ -80,7 +80,7 @@ describe LocalAuthority::Gateway::GovEmailNotificationGateway do
       before do
         ENV['GOV_NOTIFY_API_URL'] = 'https://dog.woof'
         simulator.send_notification(to: 'dog@doghouse.com')
-        described_class.new.send_return_notification(to: 'dog@doghouse.com', url: 'http://dogs.com')
+        described_class.new.send_return_notification(to: 'dog@doghouse.com', url: 'http://dogs.com', by: 'Dog', project_name: 'Kennel')
       end
 
       context 'given email address and url' do
@@ -89,7 +89,7 @@ describe LocalAuthority::Gateway::GovEmailNotificationGateway do
         end
 
         it 'will run send_email with address and url within personalisation hash' do
-          simulator.expect_notification_to_have_been_sent_with_email(access_url: 'http://dogs.com', email_address: 'dog@doghouse.com')
+          simulator.expect_notification(email_address: 'dog@doghouse.com', personalisation: {access_url: 'http://dogs.com', by: 'Dog', project_name: 'Kennel'})
         end
       end
     end
@@ -100,7 +100,7 @@ describe LocalAuthority::Gateway::GovEmailNotificationGateway do
       before do
         ENV['GOV_NOTIFY_API_URL'] = 'https://meow.com'
         simulator.send_notification(to: 'cat@cathouse.com')
-        described_class.new.send_return_notification(to: 'cat@cathouse.com', url: 'http://cats.com')
+        described_class.new.send_return_notification(to: 'cat@cathouse.com', url: 'http://cats.com', by: 'Cat', project_name: 'Flap')
       end
 
       context 'given email address and url' do
@@ -109,7 +109,7 @@ describe LocalAuthority::Gateway::GovEmailNotificationGateway do
         end
 
         it 'will run send_email with address and url within personalisation hash' do
-          simulator.expect_notification_to_have_been_sent_with_email(access_url: 'http://cats.com', email_address: 'cat@cathouse.com')
+          simulator.expect_notification(email_address: 'cat@cathouse.com', personalisation: {access_url: 'http://cats.com', by: 'Cat', project_name: 'Flap'})
         end
       end
     end

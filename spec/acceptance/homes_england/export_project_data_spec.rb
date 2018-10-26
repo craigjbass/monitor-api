@@ -9,6 +9,7 @@ describe 'Compiles project data' do
   def expected_compiled_project(project_id = nil, return_id = nil)
     {
       baseline: {
+        name: 'project 1',
         project_id: project_id,
         type: 'hif',
         data: {
@@ -76,7 +77,7 @@ describe 'Compiles project data' do
     project_baseline = expected_compiled_project[:baseline][:data]
 
     project_id = get_use_case(:create_new_project).execute(
-      type: expected_compiled_project[:baseline][:type], baseline: project_baseline
+      name: expected_compiled_project[:baseline][:name], type: expected_compiled_project[:baseline][:type], baseline: project_baseline
     )[:id]
 
     get_use_case(:submit_project).execute(project_id: project_id)

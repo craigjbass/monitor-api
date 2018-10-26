@@ -6,6 +6,7 @@ class HomesEngland::UseCase::FindProject
   def execute(id:)
     project = @project_gateway.find_by(id: id)
     {
+      name: project.name,
       type: project.type,
       data: project.data,
       status: project.status

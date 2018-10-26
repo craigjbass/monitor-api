@@ -10,6 +10,7 @@ describe 'Updating a project' do
 
   let(:existing_project_data) do
     {
+      name: 'cat project',
       type: 'hif',
       baselineData: {
         cats: 'meow',
