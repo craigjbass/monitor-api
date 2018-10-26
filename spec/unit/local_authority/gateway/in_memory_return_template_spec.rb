@@ -33,7 +33,7 @@ describe LocalAuthority::Gateway::InMemoryReturnTemplate do
     end
 
     it 'Contains the confirmation tab when enabled' do
-      ENV['CONFIRMATIOMN_TAB'] = 'Yes'
+      ENV['CONFIRMATION_TAB'] = 'Yes'
 
       expect(template.schema[:properties]).to have_key(:s151Confirmation)
     end

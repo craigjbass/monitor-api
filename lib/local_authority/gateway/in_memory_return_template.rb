@@ -1726,7 +1726,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
   end
 
   def add_confirmation_tab
-    return if ENV['CONFIRMATIOMN_TAB'].nil?
+    return if ENV['CONFIRMATION_TAB'].nil?
     @return_template.schema[:properties][:s151Confirmation] = {
       title: 's151 Confirmation',
       type: 'object',
