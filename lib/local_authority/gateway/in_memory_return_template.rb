@@ -2157,7 +2157,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
 
   def add_rm_monthly_catchup_tab
     return if ENV['RM_MONTHLY_CATCHUP_TAB'].nil?
-    @return_template[:properties][:rmMonthlyCatchup] = {
+    @return_template.schema[:properties][:rmMonthlyCatchup] = {
       title: 'RM Monthly Catch Up',
       type: 'object',
       properties: {
