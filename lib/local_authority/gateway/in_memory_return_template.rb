@@ -1228,6 +1228,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                 type: 'string',
                 title: 'Total HIF Grant',
                 readonly: true,
+                currency: true,
                 sourceKey: %i[baseline_data summary hifFundingAmount]
               },
               fundingRequest: {
@@ -1251,31 +1252,36 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           title: '1st Quarter',
                           type: 'string',
                           sourceKey: %i[baseline_data fundingProfiles instalment1],
-                          readonly: true
+                          readonly: true,
+                          currency: true
                         },
                         instalment2: {
                           title: '2nd Quarter',
                           type: 'string',
                           sourceKey: %i[baseline_data fundingProfiles instalment2],
-                          readonly: true
+                          readonly: true,
+                          currency: true
                         },
                         instalment3: {
                           title: '3rd Quarter',
                           type: 'string',
                           sourceKey: %i[baseline_data fundingProfiles instalment3],
-                          readonly: true
+                          readonly: true,
+                          currency: true
                         },
                         instalment4: {
                           title: '4th Quarter',
                           type: 'string',
                           sourceKey: %i[baseline_data fundingProfiles instalment4],
-                          readonly: true
+                          readonly: true,
+                          currency: true
                         },
                         total: {
                           title: 'Total',
                           type: 'string',
                           sourceKey: %i[baseline_data fundingProfiles total],
-                          readonly: true
+                          readonly: true, 
+                          currency: true
                         }
                       }
                     }
@@ -1325,23 +1331,28 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                               properties: {
                                 instalment1: {
                                   title: '1st Quarter',
-                                  type: 'string'
+                                  type: 'string',
+                                  currency: true
                                 },
                                 instalment2: {
                                   title: '2nd Quarter',
-                                  type: 'string'
+                                  type: 'string',
+                                  currency: true
                                 },
                                 instalment3: {
                                   title: '3rd Quarter',
-                                  type: 'string'
+                                  type: 'string',
+                                  currency: true
                                 },
                                 instalment4: {
                                   title: '4th Quarter',
-                                  type: 'string'
+                                  type: 'string',
+                                  currency: true
                                 },
                                 total: {
                                   title: 'Total',
-                                  type: 'string'
+                                  type: 'string',
+                                  currency: true
                                 }
                               }
                             }
@@ -1381,16 +1392,19 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           type: 'string',
                           title: 'HIF Baseline Amount',
                           sourceKey: %i[baseline_data costs infrastructure HIFAmount],
-                          readonly: true
+                          readonly: true,
+                          currency: true
                         },
                         current: {
                           type: 'string',
-                          title: 'Current Return'
+                          title: 'Current Return',
+                          currency: true
                         },
                         lastReturn: {
                           type: 'string',
                           title: 'Last Return',
                           readonly: true,
+                          currency: true,
                           sourceKey: %i[return_data fundingPackages hifSpend current]
                         }
                       }
@@ -1404,11 +1418,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           type: 'string',
                           title: 'Baseline Amount',
                           sourceKey: %i[baseline_data costs infrastructure totalCostOfInfrastructure],
-                          readonly: true
+                          readonly: true,
+                          currency: true
                         },
                         current: {
                           type: 'string',
-                          title: 'Current return'
+                          title: 'Current return',
+                          currency: true
                         },
                         varianceReason: {
                           type: 'string',
@@ -1474,11 +1490,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   title: 'Total baseline amount',
                                   type: 'string',
                                   readonly: true,
+                                  currency: true,
                                   sourceKey: %i[baseline_data costs infrastructure totalPublic]
                                 },
                                 current: {
                                   title: 'Total - Current return',
-                                  type: 'string'
+                                  type: 'string',
+                                  currency: true
                                 },
                                 reason: {
                                   title: 'Reason for variance',
@@ -1486,7 +1504,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                 },
                                 amountSecured: {
                                   title: 'Amount secured to date',
-                                  type: 'string'
+                                  type: 'string',
+                                  currency: true
                                 }
                               }
                             },
@@ -1499,11 +1518,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   title: 'Total baseline amount',
                                   type: 'string',
                                   readonly: true,
+                                  currency: true,
                                   sourceKey: %i[baseline_data costs infrastructure totalPrivate]
                                 },
                                 current: {
                                   title: 'Total - Current return',
-                                  type: 'string'
+                                  type: 'string',
+                                  currency: true
                                 },
                                 reason: {
                                   title: 'Reason for variance',
@@ -1511,7 +1532,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                 },
                                 amountSecured: {
                                   title: 'Amount secured to date',
-                                  type: 'string'
+                                  type: 'string',
+                                  currency: true
                                 }
                               }
                             }
@@ -1583,6 +1605,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                   baselineAmounts: {
                     type: 'string',
                     title: 'Baseline Amounts',
+                    currency: true,
                     readonly: true,
                     sourceKey: %i[baseline_data outputsForecast housingForecast target]
                   }
@@ -1616,7 +1639,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           },
                           currentReturnForecast: {
                             type: 'string',
-                            title: 'Current Return Forecast'
+                            title: 'Current Return Forecast',
+                            currency: true
                           }
                         }
                       }
@@ -1663,6 +1687,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     type: 'string',
                     title: 'Baseline Amounts',
                     readonly: true,
+                    currency: true,
                     sourceKey: %i[baseline_data outputsForecast housingForecast housingCompletions]
                   }
                 }
@@ -1695,7 +1720,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           },
                           currentReturnForecast: {
                             type: 'string',
-                            title: 'Current Return Forecast'
+                            title: 'Current Return Forecast',
+                            currency: true
                           }
                         }
                       }
@@ -1740,7 +1766,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
               type: 'string',
               title: 'HIF Total Funding Request',
               readonly: true,
-              hidden: true
+              hidden: true,
+              currency: true
             },
             changesToRequest: {
               type: 'string',
@@ -1764,103 +1791,120 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     type: 'string',
                     title: '1st Instalment',
                     readonly: true,
+                    currency: true,
                     sourceKey: %i[baseline_data fundingProfiles instalment1]
                   },
                   instalment2: {
                     type: 'string',
                     title: '2nd Instalment',
                     readonly: true,
+                    currency: true,
                     sourceKey: %i[baseline_data fundingProfiles instalment2]
                   },
                   instalment3: {
                     type: 'string',
                     title: '3rd Instalment',
                     readonly: true,
+                    currency: true,
                     sourceKey: %i[baseline_data fundingProfiles instalment3]
                   },
                   instalment4: {
                     type: 'string',
                     title: '4th Instalment',
                     readonly: true,
+                    currency: true,
                     sourceKey: %i[baseline_data fundingProfiles instalment4]
                   },
                   total: {
                     type: 'string',
                     title: 'Total',
                     readonly: true,
+                    currency: true,
                     sourceKey: %i[baseline_data fundingProfiles total]
                   },
                   baselineVariance1: {
                     type: 'string',
                     title: '1st Instalment',
                     readonly: true,
+                    currency: true,
                     hidden: true
                   },
                   baselineVariance2: {
                     type: 'string',
                     title: '2nd Instalment',
                     readonly: true,
-                    hidden: true
+                    hidden: true,
+                    currency: true
                   },
                   baselineVariance3: {
                     type: 'string',
                     title: '3rd Instalment',
                     readonly: true,
-                    hidden: true
+                    hidden: true,
+                    currency: true
                   },
                   baselineVariance4: {
                     type: 'string',
                     title: '4th Instalment',
                     readonly: true,
-                    hidden: true
+                    hidden: true,
+                    currency: true
                   },
                   lastMovement1: {
                     type: 'string',
                     title: '1st Instalment',
                     readonly: true,
-                    hidden: true
+                    hidden: true,
+                    currency: true
                   },
                   lastMovement2: {
                     type: 'string',
                     title: '2nd Instalment',
                     readonly: true,
-                    hidden: true
+                    hidden: true,
+                    currency: true
                   },
                   lastMovement3: {
                     type: 'string',
                     title: '3rd Instalment',
                     readonly: true,
-                    hidden: true
+                    hidden: true,
+                    currency: true
                   },
                   lastMovement4: {
                     type: 'string',
                     title: '4th Instalment',
                     readonly: true,
-                    hidden: true
+                    hidden: true,
+                    currency: true
                   },
                   movementVariance1: {
                     type: 'string',
                     title: '1st Instalment',
                     readonly: true,
-                    hidden: true
+                    hidden: true,
+                    currency: true
                   },
                   movementVariance2: {
                     type: 'string',
                     title: '2nd Instalment',
                     readonly: true,
-                    hidden: true
+                    hidden: true,
+                    currency: true
                   },
                   movementVariance3: {
                     type: 'string',
                     title: '3rd Instalment',
                     readonly: true,
-                    hidden: true
+                    hidden: true,
+                    currency: true
                   },
                   movementVariance4: {
                     type: 'string',
                     title: '4th Instalment',
                     readonly: true,
-                    hidden: true
+                    hidden: true,
+                    currency: true
                   }
                 }
               }
@@ -1893,13 +1937,15 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     },
                     requestedAmount: {
                       type: 'string',
-                      title: 'Requested amount'
+                      title: 'Requested amount',
+                      currency: true
                     },
                     varianceFromBaseline: {
                       type:'string',
                       title: 'Variance from Baseline',
                       readonly: true,
-                      hidden: true
+                      hidden: true,
+                      currency: true
                     },
                     varianceFromBaselinePercent: {
                       type: 'string',
@@ -2082,16 +2128,19 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
           properties: {
             hifTotalFundingRequest: {
               type: 'string',
-              title: 'HIF Total Funding Request'
+              title: 'HIF Total Funding Request',
+              currency: true
             },
             hifSpendToDate: {
               type: 'string',
               hidden: true,
-              title: 'HIF Spend to Date'
+              title: 'HIF Spend to Date',
+              currency: true
             },
             AmountOfThisClaim: {
               type: 'string',
-              title: 'Amount of this Claim'
+              title: 'Amount of this Claim',
+              currency: true
             }
           }
         },
@@ -2106,16 +2155,19 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                 forecast: {
                   title: 'Forecasted Spend Last Quarter Month',
                   type: 'string',
-                  hidden: true
+                  hidden: true,
+                  currency: true
                 },
                 actual: {
                   title: 'Actual Spend Last Quarter Month',
-                  type: 'string'
+                  type: 'string',
+                  currency: true
                 },
                 varianceAgainstForcastAmount: {
                   title: 'Variance Against Forecast (£)',
                   type: 'string',
-                  hidden: true
+                  hidden: true,
+                  currency: true
                 },
                 varianceAgainstForcastPercentage: {
                   title: 'Variance Against Forecast (%)',
@@ -2135,7 +2187,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
               properties: {
                 forecast: {
                   title: 'Forecasted Spend (£)',
-                  type: 'string'
+                  type: 'string',
+                  currency: true
                 },
                 descriptionOfSpend: {
                   title: 'Description of Spend',
