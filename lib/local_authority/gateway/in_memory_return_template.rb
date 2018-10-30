@@ -2073,7 +2073,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
   def add_s151_tab
     return if ENV['S151_TAB'].nil?
     @return_template.schema[:properties][:s151] = {
-      title: 'S.151 Return - Claim',
+      title: 's151 Return - Claim',
       type: 'object',
       properties: {
         claimSummary: {
