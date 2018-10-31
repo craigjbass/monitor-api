@@ -219,6 +219,7 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
       properties: {
         expenditure: {
           type: 'array',
+          title: 'Expenditure',
           items: {
             type: 'object',
             properties: {
@@ -248,30 +249,27 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
           }
         },
         fundingStack: {
-          type: 'object',
+          type: 'array',
           title: 'Funding Stack',
-          properties: {
-            type: 'array',
-            items: {
-              type: 'object',
-              properties: {
-                year: {
-                  type: 'string',
-                  title: 'Year'
-                },
-                homesEnglandGrant: {
-                  type: 'integer',
-                  title: 'Homes England Grant'
-                },
-                otherSources: {
-                  type: 'array',
-                  items: {
-                    type: 'object',
-                    properties: {
-                      fundingSource: {
-                        type: 'integer',
-                        title: 'Funding Source'
-                      }
+          items: {
+            type: 'object',
+            properties: {
+              year: {
+                type: 'string',
+                title: 'Year'
+              },
+              homesEnglandGrant: {
+                type: 'integer',
+                title: 'Homes England Grant'
+              },
+              otherSources: {
+                type: 'array',
+                items: {
+                  type: 'object',
+                  properties: {
+                    fundingSource: {
+                      type: 'integer',
+                      title: 'Funding Source'
                     }
                   }
                 }
@@ -280,15 +278,16 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
           }
         },
         receipts: {
-          detailsOnPaymentStructure: {
-            type: 'string',
-            title: 'Details on payment structure'
-          },
-          expectedDisposalReceipt: {
-            type: 'object',
-            title: 'Expected Disposal Receip',
-            properties: {
+          type: 'object',
+          title: 'Receipts',
+          properties: {
+            detailsOnPaymentStructure: {
+                  type: 'string',
+                  title: 'Details on payment structure'
+            },
+            expectedDisposalReceipt: {
               type: 'array',
+              title: 'Expected Disposal Receipt',
               items: {
                 type: 'object',
                 properties: {
