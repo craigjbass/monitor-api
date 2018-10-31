@@ -26,34 +26,30 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
       title: 'Outputs',
       properties: {
         unitCompletions: {
-          type: 'object',
           title: 'Unit Completions',
-          properties: {
-            type: 'array',
-            items: {
-              type: 'object',
-              properties: {
-                year: {
-                  type: 'integer',
-                  title: 'Year'
-                },
-                Q1Amount: {
-                  type: 'integer',
-                  title: 'First Quarter'
-                },
-                Q2Amount: {
-                  type: 'integer',
-                  title: 'Second Quarter'
-                },
-                Q3Amount: {
-                  type: 'integer',
-                  title: 'Third Quarter'
-                },
-                Q4Amount: {
-                  type: 'integer',
-                  title: 'Fourth Quarter'
-                }
-
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              year: {
+                type: 'integer',
+                title: 'Year'
+              },
+              Q1Amount: {
+                type: 'integer',
+                title: 'First Quarter'
+              },
+              Q2Amount: {
+                type: 'integer',
+                title: 'Second Quarter'
+              },
+              Q3Amount: {
+                type: 'integer',
+                title: 'Third Quarter'
+              },
+              Q4Amount: {
+                type: 'integer',
+                title: 'Fourth Quarter'
               }
             }
           }
@@ -63,29 +59,26 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
           title: 'Key Programme Objectives',
           properties: {
             localMarketPace: {
-              type: 'number',
+              type: 'string',
               title: 'Local Market Pace (units pm)'
             },
             schemePace: {
-              type: 'number',
+              type: 'string',
               title: 'Scheme Pace (units pm)'
             },
             mmcCategory: {
-              type: 'object',
               title: 'MMC Category',
-              properties: {
-                type: 'array',
-                items: {
-                  type: 'object',
-                  properties: {
-                    title: {
-                      type: 'string',
-                      title: 'Category Title'
-                    },
-                    percent: {
-                      type: 'integer',
-                      title: 'Percent Amount'
-                    }
+              type: 'array',
+              items: {
+                type: 'object',
+                properties: {
+                  title: {
+                    type: 'string',
+                    title: 'Category Title'
+                  },
+                  percent: {
+                    type: 'integer',
+                    title: 'Percent Amount'
                   }
                 }
               }
@@ -101,7 +94,6 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
               title: 'Completion of final unit'
             }
           }
-
         }
       }
     }
