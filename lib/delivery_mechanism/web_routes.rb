@@ -60,7 +60,7 @@ module DeliveryMechanism
           return 400
         end
 
-        @dependency_factory.get_use_case(:soft_update_return).execute(
+        @dependency_factory.get_use_case(:ui_update_return).execute(
           return_id: request_hash[:return_id], return_data: request_hash[:return_data]
         )
 
@@ -70,7 +70,7 @@ module DeliveryMechanism
 
     post '/return/create' do
       guard_access env, params, request do |request_hash|
-        return_id = @dependency_factory.get_use_case(:create_return).execute(
+        return_id = @dependency_factory.get_use_case(:ui_create_return).execute(
           project_id: request_hash[:project_id],
           data: request_hash[:data]
         )
@@ -97,7 +97,7 @@ module DeliveryMechanism
         return 400 if params[:returnId].nil?
         return_id = params[:returnId].to_i
 
-        return_hash = @dependency_factory.get_use_case(:get_return).execute(id: return_id)
+        return_hash = @dependency_factory.get_use_case(:ui_get_return).execute(id: return_id)
 
         return 404 if return_hash.empty?
 
@@ -155,7 +155,7 @@ module DeliveryMechanism
       guard_access env, params, request do |_request_hash|
         return 400 if params['id'].nil?
 
-        base_return = @dependency_factory.get_use_case(:get_base_return).execute(
+        base_return = @dependency_factory.get_use_case(:ui_get_base_return).execute(
           project_id: params['id'].to_i
         )
 
@@ -171,7 +171,7 @@ module DeliveryMechanism
 
     get '/project/:id/returns' do
       guard_access env, params, request do |_|
-        returns = @dependency_factory.get_use_case(:get_returns).execute(project_id: params['id'].to_i)
+        returns = @dependency_factory.get_use_case(:ui_get_returns).execute(project_id: params['id'].to_i)
         response.headers['Cache-Control'] = 'no-cache'
         response.status = returns.empty? ? 404 : 200
         response.body = returns.to_json

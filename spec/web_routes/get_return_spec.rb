@@ -12,7 +12,7 @@ describe 'Getting a return' do
 
   before do
     stub_const(
-      'LocalAuthority::UseCase::GetReturn',
+      'UI::UseCase::GetReturn',
       double(new: get_return_spy)
     )
 

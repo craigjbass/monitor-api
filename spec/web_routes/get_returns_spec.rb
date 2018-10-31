@@ -8,7 +8,7 @@ describe 'Getting return history' do
 
   before do
     stub_const(
-      'LocalAuthority::UseCase::GetReturns',
+      'UI::UseCase::GetReturns',
       double(new: get_returns_spy)
     )
 

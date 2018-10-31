@@ -11,7 +11,7 @@ describe 'Getting a base return' do
 
   before do
     stub_const(
-      'LocalAuthority::UseCase::GetBaseReturn',
+      'UI::UseCase::GetBaseReturn',
       double(new: get_base_return_spy)
     )
 
