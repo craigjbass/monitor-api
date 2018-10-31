@@ -57,5 +57,20 @@ describe 'Interacting with a HIF Return from the UI' do
 
       expect(created_return).to eq(expected_updated_return)
     end
+
+    it 'Allows you to view multiple created returns' do
+      base_return = get_use_case(:ui_get_base_return).execute(project_id: project_id)[:base_return]
+      return_data = base_return[:data].dup
+      dependency_factory.get_use_case(:ui_create_return).execute(project_id: project_id, data: return_data)[:id]
+      dependency_factory.get_use_case(:ui_create_return).execute(project_id: project_id, data: return_data)[:id]
+
+      created_returns = dependency_factory.get_use_case(:ui_get_returns).execute(project_id: project_id)[:returns]
+
+      created_return_one = created_returns[0][:updates][0]
+      created_return_two = created_returns[1][:updates][0]
+
+      expect(created_return_one).to eq(return_data)
+      expect(created_return_two).to eq(return_data)
+    end
   end
 end
