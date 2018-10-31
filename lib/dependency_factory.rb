@@ -16,6 +16,7 @@ class DependencyFactory
     HomesEngland::UseCases.register(self)
     HomesEngland::Gateways.register(self)
     Common::UseCases.register(self)
+    UI::UseCases.register(self)
   end
 
   def define_use_case(use_case, &block)
