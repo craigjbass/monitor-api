@@ -32,23 +32,23 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
             type: 'object',
             properties: {
               year: {
-                type: 'integer',
+                type: 'string',
                 title: 'Year'
               },
               Q1Amount: {
-                type: 'integer',
+                type: 'string',
                 title: 'First Quarter'
               },
               Q2Amount: {
-                type: 'integer',
+                type: 'string',
                 title: 'Second Quarter'
               },
               Q3Amount: {
-                type: 'integer',
+                type: 'string',
                 title: 'Third Quarter'
               },
               Q4Amount: {
-                type: 'integer',
+                type: 'string',
                 title: 'Fourth Quarter'
               }
             }
@@ -77,7 +77,7 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
                     title: 'Category Title'
                   },
                   percent: {
-                    type: 'integer',
+                    type: 'string',
                     title: 'Percent Amount'
                   }
                 }
@@ -189,7 +189,7 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
         customMileStones: {
           type: 'array',
           title: 'Custom Milestones',
-          items:{
+          items: {
             properties: {
               type: 'string',
               title: 'Custom (local authority entered)'
@@ -213,23 +213,23 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
             properties: {
               fundingDrawdown: {
                 year: {
-                  type: 'integer',
+                  type: 'string',
                   title: 'Year'
                 },
                 Q1Amount: {
-                  type: 'integer',
+                  type: 'string',
                   title: 'First Quarter'
                 },
                 Q2Amount: {
-                  type: 'integer',
+                  type: 'string',
                   title: 'Second Quarter'
                 },
                 Q3Amount: {
-                  type: 'integer',
+                  type: 'string',
                   title: 'Third Quarter'
                 },
                 Q4Amount: {
-                  type: 'integer',
+                  type: 'string',
                   title: 'Fourth Quarter'
                 }
               }
@@ -247,7 +247,7 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
                 title: 'Year'
               },
               homesEnglandGrant: {
-                type: 'integer',
+                type: 'string',
                 title: 'Homes England Grant'
               },
               otherSources: {
@@ -256,7 +256,7 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
                   type: 'object',
                   properties: {
                     fundingSource: {
-                      type: 'integer',
+                      type: 'string',
                       title: 'Funding Source'
                     }
                   }
@@ -270,8 +270,8 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
           title: 'Receipts',
           properties: {
             detailsOnPaymentStructure: {
-                  type: 'string',
-                  title: 'Details on payment structure'
+              type: 'string',
+              title: 'Details on payment structure'
             },
             expectedDisposalReceipt: {
               type: 'array',
@@ -284,7 +284,7 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
                     title: 'Site'
                   },
                   amount: {
-                    type: 'integer',
+                    type: 'string',
                     title: 'amount'
                   }
                 }
@@ -401,27 +401,27 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
                 title: 'Units',
                 properties: {
                   numberOfUnitsTotal: {
-                    type: 'integer',
+                    type: 'string',
                     title: 'Total number of units'
                   },
                   numberOfUnitsMarket: {
-                    type: 'integer',
+                    type: 'string',
                     title: 'Number units - market sale'
                   },
                   numberOfUnitsSharedOwnership: {
-                    type: 'integer',
+                    type: 'string',
                     title: 'Number units - shared ownership'
                   },
                   numberOfUnitsAffordable: {
-                    type: 'integer',
+                    type: 'string',
                     title: 'Number units - affordable/social rent'
                   },
                   numberOfUnitsPRS: {
-                    type: 'integer',
+                    type: 'string',
                     title: 'Number units - PRS'
                   },
                   numberOfUnitsOther: {
-                    type: 'integer',
+                    type: 'string',
                     title: 'Number units - Other'
                   }
                 }
@@ -470,7 +470,7 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
                   title: 'Planning status'
                 },
                 acFundingAgreed: {
-                  type: 'integer',
+                  type: 'string',
                   title: 'AC funding agreed'
                 }
               }
