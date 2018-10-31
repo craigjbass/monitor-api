@@ -306,6 +306,7 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
           title: 'Pre-Drawdown Conditions',
           properties: {
             conditions: {
+              title: 'Conditions',
               type: 'array',
               items: {
                 type: 'object',
@@ -331,17 +332,26 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
           type: 'object',
           title: 'Funding Items',
           properties: {
-            fundingItem: {
-              type: 'string',
-              title: 'Funding item'
-            },
-            fundingSite: {
-              type: 'string',
-              title: 'Site (if multiple)'
-            },
-            fundingAgreed: {
-              type: 'string',
-              title: 'AC Funding agreed'
+            fundItems: {
+              title: 'Items',
+              type: 'array',
+              items: {
+                type: 'object',
+                properties: {
+                  fundingItem: {
+                    type: 'string',
+                    title: 'Funding item'
+                  },
+                  fundingSite: {
+                    type: 'string',
+                    title: 'Site (if multiple)'
+                  },
+                  fundingAgreed: {
+                    type: 'string',
+                    title: 'AC Funding agreed'
+                  }
+                }
+              }
             }
           }
         }
@@ -470,6 +480,7 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
                 title: 'Planning status'
               },
               acFundingAgreed: {
+                readonly: true,
                 type: 'string',
                 title: 'AC funding agreed'
               },
