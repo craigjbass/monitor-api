@@ -19,5 +19,11 @@ class UI::UseCases
         update_project: builder.get_use_case(:update_project)
       )
     end
+
+    builder.define_use_case :ui_get_base_return do
+      UI::UseCase::GetBaseReturn.new(
+        get_base_return: builder.get_use_case(:get_base_return)
+      )
+    end
   end
 end
