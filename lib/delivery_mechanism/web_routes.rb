@@ -181,7 +181,7 @@ module DeliveryMechanism
     get '/project/find' do
       guard_access env, params, request do |_|
         return 404 if params['id'].nil?
-        project = @dependency_factory.get_use_case(:find_project).execute(id: params['id'].to_i)
+        project = @dependency_factory.get_use_case(:ui_get_project).execute(id: params['id'].to_i)
 
         return 404 if project.nil?
 
@@ -202,7 +202,7 @@ module DeliveryMechanism
     post '/project/create' do
       guard_admin_access env, params, request do |request_hash|
         contoller = DeliveryMechanism::Controllers::PostCreateProject.new(
-          create_new_project: @dependency_factory.get_use_case(:create_new_project)
+          create_new_project: @dependency_factory.get_use_case(:ui_create_project)
         )
 
         content_type 'application/json'
@@ -223,10 +223,10 @@ module DeliveryMechanism
     post '/project/update' do
       guard_access env, params, request do |request_hash|
         if valid_update_request_body(request_hash)
-          use_case = @dependency_factory.get_use_case(:update_project)
+          use_case = @dependency_factory.get_use_case(:ui_update_project)
           update_successful = use_case.execute(
-            project_id: request_hash[:project_id].to_i,
-            project_data: request_hash[:project_data]
+            id: request_hash[:project_id].to_i,
+            data: request_hash[:project_data]
           )[:successful]
           response.status = update_successful ? 200 : 404
         else

@@ -21,7 +21,7 @@ describe 'Creating a new project' do
     setup_auth_headers
 
     stub_const(
-      'HomesEngland::UseCase::CreateNewProject',
+      'UI::UseCase::CreateProject',
       double(new: create_new_project_spy)
     )
 

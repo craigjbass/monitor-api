@@ -13,7 +13,7 @@ describe 'Finding a project' do
 
   before do
     stub_const(
-      'HomesEngland::UseCase::FindProject',
+      'UI::UseCase::GetProject',
       double(new: find_project_spy)
     )
 
