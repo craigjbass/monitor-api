@@ -1,0 +1,169 @@
+{
+  "infrastructures": [
+    {
+      "summary": {
+        "type": "A House",
+        "description": "A house of cats"
+      },
+      "planning": {
+        "outlinePlanning": {
+          "baselineOutlinePlanningPermissionGranted": "No",
+          "baselineSummaryOfCriticalPath": "Summary of critical path",
+          "planningSubmitted": {
+            "baseline": "2020-01-01",
+            "status": "Delayed",
+            "reason": "Distracted by kittens"
+          },
+          "planningGranted": {
+            "baseline": "2020-02-01"
+          }
+        },
+        "fullPlanning": {
+          "fullPlanningPermissionGranted": "No",
+          "fullPlanningPermissionSummaryOfCriticalPath": "Summary of critical path",
+          "submitted": {
+            "baseline": "2020-03-01"
+          },
+          "granted": {
+            "baseline": "2020-04-01"
+          }
+        },
+        "section106": {
+          "s106Requirement": "Yes",
+          "s106SummaryOfRequirement": "Required",
+          "statutoryConsents": {
+            "anyStatutoryConsents": "Yes",
+            "statutoryConsents": [{ "baselineCompletion": "2020-01-01" }]
+          }
+        },
+        "planningNotGranted": {
+          "fieldOne": {
+            "varianceCalculations": {
+              "varianceAgainstLastReturn": {
+                "varianceLastReturnFullPlanningPermissionSubmitted": null
+              }
+            }
+          }
+        }
+      },
+      "landOwnership": {
+        "laHasControlOfSite": "Yes",
+        "laDoesNotControlSite": {
+          "whoOwnsSite": "Dave",
+          "landAcquisitionRequired": "Yes",
+          "howManySitesToAquire": "10",
+          "toBeAquiredBy": "LA",
+          "summaryOfAcquisitionRequired": "Summary of critical path",
+          "allLandAssemblyAchieved": {
+            "baseline": "2020-01-01"
+          }
+        }
+      },
+      "procurement": {
+        "contractorProcured": "Yes",
+        "nameOfContractor": "Steve",
+        "summaryOfCriticalPath": "Summary of critical meow",
+        "procurementBaselineCompletion": "2020-01-01"
+      },
+      "milestones": {
+        "keyMilestones": [
+          {
+            "description": "Milestone One",
+            "milestoneBaselineCompletion": "2020-01-01",
+            "milestoneSummaryOfCriticalPath": "Summary of critical path"
+          }
+        ],
+        "expectedInfrastructureStartOnSite": {
+          "baseline": "2020-01-01"
+        },
+        "expectedCompletionDateOfInfra": {
+          "baseline": "2020-01-01"
+        }
+      },
+      "risks": {
+        "baselineRisks": [
+          {
+            "riskBaselineRisk": "Risk one",
+            "riskBaselineImpact": "High",
+            "riskBaselineLikelihood": "High",
+            "riskBaselineMitigationsInPlace": "Do not do the thing"
+          }
+        ]
+      }
+    }
+  ],
+  "fundingProfiles": {
+    "totalHIFGrant": "10000",
+    "fundingRequest": [
+      {
+        "period": "2019/2020",
+        "forecast": {
+          "instalment1": "1000",
+          "instalment2": "1000",
+          "instalment3": "1000",
+          "instalment4": "1000",
+          "total": "4000"
+        }
+      }
+    ],
+    "requestedProfiles": [{ "period": "2019/2020" }]
+  },
+  "fundingPackages": [
+    {
+      "fundingStack": {
+        "hifSpend": {
+          "baseline": "10000"
+        },
+        "totalCost": {
+          "baseline": "20000"
+        },
+        "fundedThroughHIF": "No",
+        "descriptionOfFundingStack": "Funding stack description",
+        "public": { "baseline": "5000" },
+        "private": { "baseline": "5000" }
+      }
+    }
+  ],
+  "outputsForecast": {
+    "summary": {
+      "totalUnits": "10",
+      "disposalStrategy": "Disposal strategy"
+    },
+    "housingStarts": {
+      "baselineAmounts": [
+        { "period": "18/19", "baselineAmounts": "100" },
+        { "period": "19/20", "baselineAmounts": "50" }
+      ],
+      "currentReturnAmounts": [{ "period": "18/19" }, { "period": "19/20" }]
+    },
+    "housingCompletions": {
+      "baselineAmounts": [
+        { "period": "18/19", "baselineAmounts": "0" },
+        { "period": "19/20", "baselineAmounts": "50" }
+      ],
+      "currentReturnAmounts": [{ "period": "18/19" }, { "period": "19/20" }]
+    }
+  },
+  "outputsActuals": {
+    "localAuthority": ["Local Authority"],
+    "noOfUnits": ["123"]
+  },
+  "s151Confirmation": {
+    "hifFunding": {
+      "hifFundingProfile": [
+        {
+          "period": "2019/2020",
+          "instalment1": "1000",
+          "instalment2": "1000",
+          "instalment3": "1000",
+          "instalment4": "1000",
+          "total": "4000"
+        }
+      ]
+    },
+    "submission": {
+      "hifFundingEndDate": "2020-01-01",
+      "projectLongstopDate": "2020-01-01"
+    }
+  }
+}
