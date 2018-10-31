@@ -124,13 +124,15 @@ describe 'Migration 8' do
       }
     end
 
-    let(:migrated_project_one_data) { database[:projects].all.first[:data] }
-    let(:migrated_project_two_data) { database[:projects].all.last[:data] }
+    let(:project_one_id) { create_project(type: 'hif', data: project_one_data) }
+    let(:project_two_id) { create_project(type: 'hif', data: project_two_data) }
+
+    let(:migrated_project_one_data) { database[:projects].where(id: project_one_id).all.first[:data] }
+    let(:migrated_project_two_data) { database[:projects].where(id: project_two_id).all.first[:data] }
 
     before do
-      create_project(type: 'hif', data: project_one_data)
-      create_project(type: 'hif', data: project_two_data)
-
+      project_one_id
+      project_two_id
       synchronize_to_migrated_version
     end
 
