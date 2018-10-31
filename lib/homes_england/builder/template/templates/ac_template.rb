@@ -190,9 +190,12 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
           type: 'array',
           title: 'Custom Milestones',
           items: {
+            type: 'object',
             properties: {
-              type: 'string',
-              title: 'Custom (local authority entered)'
+              custom:{
+                type: 'string',
+                title: 'Custom (local authority entered)'
+              }
             }
           }
         }
