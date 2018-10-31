@@ -31,11 +31,11 @@ describe 'Interacting with a HIF Return from the UI' do
 
   context 'Creating a return' do
     it 'Allows you to create and view a return' do
-      base_return = get_use_case(:ui_get_base_return).execute(project_id: project_id)
-      return_data = base_return.dup
+      base_return = get_use_case(:ui_get_base_return).execute(project_id: project_id)[:base_return]
+      return_data = base_return[:data].dup
       return_id = dependency_factory.get_use_case(:ui_create_return).execute(project_id: project_id, data: return_data)[:id]
-      return_data[:infrastructures][:planning][:outlinePlanning][:planningSubmitted][:status] = 'Delayed'
-      return_data[:infrastructures][:planning][:outlinePlanning][:planningSubmitted][:reason] = 'Distracted by kittens'
+      return_data[:infrastructures][0][:planning][:outlinePlanning][:planningSubmitted][:status] = 'Delayed'
+      return_data[:infrastructures][0][:planning][:outlinePlanning][:planningSubmitted][:reason] = 'Distracted by kittens'
       dependency_factory.get_use_case(:ui_update_return).execute(return_id: return_id, data: return_data)
 
       created_return = dependency_factory.get_use_case(:ui_get_return).execute(return_id: return_id)
