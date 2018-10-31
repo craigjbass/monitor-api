@@ -195,16 +195,12 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
           title: 'Development end date (final unit completion)'
         },
         customMileStones: {
-          type: 'object',
+          type: 'array',
           title: 'Custom Milestones',
-          properties: {
-            type: 'array',
-            items: {
-              type: 'object',
-              properties: {
-                type: 'string',
-                title: 'Custom (local authority entered)'
-              }
+          items:{
+            properties: {
+              type: 'string',
+              title: 'Custom (local authority entered)'
             }
           }
         }
