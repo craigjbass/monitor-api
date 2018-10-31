@@ -212,25 +212,29 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
             type: 'object',
             properties: {
               fundingDrawdown: {
-                year: {
-                  type: 'string',
-                  title: 'Year'
-                },
-                Q1Amount: {
-                  type: 'string',
-                  title: 'First Quarter'
-                },
-                Q2Amount: {
-                  type: 'string',
-                  title: 'Second Quarter'
-                },
-                Q3Amount: {
-                  type: 'string',
-                  title: 'Third Quarter'
-                },
-                Q4Amount: {
-                  type: 'string',
-                  title: 'Fourth Quarter'
+                type: 'object',
+                title: 'Funding Drawdown',
+                properties:{
+                  year: {
+                    type: 'string',
+                    title: 'Year'
+                  },
+                  Q1Amount: {
+                    type: 'string',
+                    title: 'First Quarter'
+                  },
+                  Q2Amount: {
+                    type: 'string',
+                    title: 'Second Quarter'
+                  },
+                  Q3Amount: {
+                    type: 'string',
+                    title: 'Third Quarter'
+                  },
+                  Q4Amount: {
+                    type: 'string',
+                    title: 'Fourth Quarter'
+                  }
                 }
               }
             }
@@ -252,6 +256,7 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
               },
               otherSources: {
                 type: 'array',
+                title: 'Other Sources',
                 items: {
                   type: 'object',
                   properties: {
