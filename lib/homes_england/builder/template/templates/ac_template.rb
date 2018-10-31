@@ -192,7 +192,7 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
           items: {
             type: 'object',
             properties: {
-              custom:{
+              custom: {
                 type: 'string',
                 title: 'Custom (local authority entered)'
               }
@@ -217,7 +217,7 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
               fundingDrawdown: {
                 type: 'object',
                 title: 'Funding Drawdown',
-                properties:{
+                properties: {
                   year: {
                     type: 'string',
                     title: 'Year'
@@ -293,7 +293,7 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
                   },
                   amount: {
                     type: 'string',
-                    title: 'amount'
+                    title: 'Amount'
                   }
                 }
               }
@@ -479,6 +479,10 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
                   numberOfUnitsOther: {
                     type: 'string',
                     title: 'Number units - Other'
+                  },
+                  planningStatus: {
+                    type: 'string',
+                    title: 'Planning status'
                   }
                 }
               },
@@ -520,18 +524,14 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
                     ]
                   }
                 }
-              },
-              planningStatus: {
-                type: 'string',
-                title: 'Planning status'
-              },
-              acFundingAgreed: {
-                readonly: true,
-                type: 'string',
-                title: 'AC funding agreed'
-              },
+              }
             }
           }
+        },
+        acFundingAgreed: {
+          readonly: true,
+          type: 'string',
+          title: 'AC funding agreed'
         }
       }
     }
