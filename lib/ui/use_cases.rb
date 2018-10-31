@@ -13,5 +13,11 @@ class UI::UseCases
         find_project: builder.get_use_case(:find_project)
       )
     end
+
+    builder.define_use_case :ui_update_project do
+      UI::UseCase::UpdateProject.new(
+        update_project: builder.get_use_case(:update_project)
+      )
+    end
   end
 end
