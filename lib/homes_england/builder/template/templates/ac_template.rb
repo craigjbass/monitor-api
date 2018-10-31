@@ -463,17 +463,16 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
                       }
                     ]
                   }
-                },
-
-                planningStatus: {
-                  type: 'string',
-                  title: 'Planning status'
-                },
-                acFundingAgreed: {
-                  type: 'string',
-                  title: 'AC funding agreed'
                 }
-              }
+              },
+              planningStatus: {
+                type: 'string',
+                title: 'Planning status'
+              },
+              acFundingAgreed: {
+                type: 'string',
+                title: 'AC funding agreed'
+              },
             }
           }
         }
