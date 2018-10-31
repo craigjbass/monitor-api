@@ -330,9 +330,29 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
                   conditionSite: {
                     type: 'string',
                     title: 'Site (if multiple)'
+                  },
+                  conditionForecast: {
+                    type: 'string',
+                    title: 'Condition Forecast',
+                    format: 'date'
+                  },
+                  conditionMet: {
+                    type: 'string',
+                    title: 'Condition Met',
+                    format: 'date'
+                  },
+                  reviewed: {
+                    type: 'string',
+                    title: 'Reviewed and Approved',
+                    format: 'date'
                   }
                 }
               }
+            },
+            mitigationsAndAssurance: {
+              type: 'string',
+              title: 'Mitigations and Assurance',
+              format: 'textarea'
             }
           }
         },
@@ -357,9 +377,27 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
                   fundingAgreed: {
                     type: 'string',
                     title: 'AC Funding agreed'
+                  },
+                  fundingRequired: {
+                    type: 'string',
+                    title: 'AC Funding Required'
+                  },
+                  variance: {
+                    type: 'string',
+                    readonly: true,
+                    title: 'Variance'
+                  },
+                  reasonForVariance: {
+                    type: 'string',
+                    title: 'Reason for Variance'
                   }
                 }
               }
+            },
+            mitigationsAndAssurance: {
+              type: 'string',
+              title: 'Mitigations and Assurance',
+              format: 'textarea'
             }
           }
         }
