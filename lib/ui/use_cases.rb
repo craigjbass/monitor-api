@@ -31,5 +31,11 @@ class UI::UseCases
         create_return: builder.get_use_case(:create_return)
       )
     end
+
+    builder.define_use_case :ui_update_return do
+      UI::UseCase::UpdateReturn.new(
+        update_return: builder.get_use_case(:soft_update_return)
+      )
+    end
   end
 end
