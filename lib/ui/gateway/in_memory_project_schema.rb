@@ -5,7 +5,7 @@ class UI::Gateway::InMemoryProjectSchema
     return nil unless type == 'hif'
     template = Common::Domain::Template.new
     template.schema = JSON.parse(
-      File.open("#{__dir__}/schemas/hif.json", 'r').read,
+      File.open("#{__dir__}/schemas/hif_project.json", 'r').read,
       symbolize_names: true
     )
     template

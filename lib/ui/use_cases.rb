@@ -20,7 +20,8 @@ class UI::UseCases
     builder.define_use_case :ui_get_project do
       UI::UseCase::GetProject.new(
         find_project: builder.get_use_case(:find_project),
-        convert_core_hif_project: builder.get_use_case(:convert_core_hif_project)
+        convert_core_hif_project: builder.get_use_case(:convert_core_hif_project),
+        project_schema_gateway: builder.get_gateway(:ui_project_schema)
       )
     end
 

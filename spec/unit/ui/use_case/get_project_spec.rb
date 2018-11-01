@@ -2,6 +2,14 @@
 
 describe UI::UseCase::GetProject do
   describe 'Example 1' do
+    let(:project_schema_gateway_spy) do
+      spy(find_by: found_template)
+    end
+    let(:found_template) do
+      Common::Domain::Template.new.tap do |t|
+        t.schema = { cat: 'meow' }
+      end
+    end
     let(:find_project_spy) do
       spy(
         execute: {
@@ -16,7 +24,8 @@ describe UI::UseCase::GetProject do
     let(:use_case) do
       described_class.new(
         find_project: find_project_spy,
-        convert_core_hif_project: convert_core_hif_project_spy
+        convert_core_hif_project: convert_core_hif_project_spy,
+        project_schema_gateway: project_schema_gateway_spy
       )
     end
     let(:response) { use_case.execute(id: 1) }
@@ -31,6 +40,16 @@ describe UI::UseCase::GetProject do
 
     it 'Passes the ID to the find project usecase' do
       expect(find_project_spy).to have_received(:execute).with(id: 1)
+    end
+
+    it 'Finds the schema from the gateway' do
+      expect(project_schema_gateway_spy).to have_received(:find_by).with(
+        type: 'hif'
+      )
+    end
+
+    it 'Returns the schema from the gateway' do
+      expect(response[:schema]).to eq(cat: 'meow')
     end
 
     it 'Return the name from find project' do
@@ -86,6 +105,14 @@ describe UI::UseCase::GetProject do
   end
 
   describe 'Example 2' do
+    let(:project_schema_gateway_spy) do
+      spy(find_by: found_template)
+    end
+    let(:found_template) do
+      Common::Domain::Template.new.tap do |t|
+        t.schema = { dog: 'woof' }
+      end
+    end
     let(:find_project_spy) do
       spy(
         execute: {
@@ -100,7 +127,8 @@ describe UI::UseCase::GetProject do
     let(:use_case) do
       described_class.new(
         find_project: find_project_spy,
-        convert_core_hif_project: convert_core_hif_project_spy
+        convert_core_hif_project: convert_core_hif_project_spy,
+        project_schema_gateway: project_schema_gateway_spy
       )
     end
     let(:response) { use_case.execute(id: 5) }
@@ -115,6 +143,16 @@ describe UI::UseCase::GetProject do
 
     it 'Passes the ID to the find project usecase' do
       expect(find_project_spy).to have_received(:execute).with(id: 5)
+    end
+
+    it 'Finds the schema from the gateway' do
+      expect(project_schema_gateway_spy).to have_received(:find_by).with(
+        type: 'hif'
+      )
+    end
+
+    it 'Returns the schema from the gateway' do
+      expect(response[:schema]).to eq(dog: 'woof')
     end
 
     it 'Return the name from find project' do

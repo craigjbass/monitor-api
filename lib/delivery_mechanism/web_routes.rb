@@ -185,14 +185,12 @@ module DeliveryMechanism
 
         return 404 if project.nil?
 
-        schema = @dependency_factory.get_use_case(:get_schema_for_project).execute(type: project[:type])[:schema]
-
         content_type 'application/json'
         response.body = {
           type: project[:type],
           status: project[:status],
           data: Common::DeepCamelizeKeys.to_camelized_hash(project[:data]),
-          schema: schema
+          schema: project[:schema]
         }.to_json
         response.headers['Cache-Control'] = 'no-cache'
         response.status = 200
