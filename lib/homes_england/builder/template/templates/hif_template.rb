@@ -18,11 +18,11 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
             title: 'Funding Profile',
             properties: {
               period: { type: 'string', title: 'Period' },
-              instalment1: { type: 'string', title: '1st Instalment' },
-              instalment2: { type: 'string', title: '2nd Instalment' },
-              instalment3: { type: 'string', title: '3rd Instalment' },
-              instalment4: { type: 'string', title: '4th Instalment' },
-              total: { type: 'string', title: 'Total' }
+              instalment1: { type: 'string', title: '1st Instalment', currency: true },
+              instalment2: { type: 'string', title: '2nd Instalment', currency: true },
+              instalment3: { type: 'string', title: '3rd Instalment', currency: true },
+              instalment4: { type: 'string', title: '4th Instalment', currency: true },
+              total: { type: 'string', title: 'Total', currency: true }
             },
             required: %w[period instalment1 instalment2 instalment3 instalment4 total]
           }
@@ -40,11 +40,13 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                 properties: {
                   HIFAmount: {
                     type: 'string',
-                    title: 'Total HIF Amount'
+                    title: 'Total HIF Amount',
+                    currency: true
                   },
                   totalCostOfInfrastructure: {
                     type: 'string',
-                    title: 'Total Cost of Infrastructure'
+                    title: 'Total Cost of Infrastructure',
+                    currency: true
                   },
                   totallyFundedThroughHIF: {
                     type: 'string',
@@ -73,11 +75,13 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                           },
                           totalPublic: {
                             type: 'string',
-                            title: 'If No, Total Public (exc. HIF)'
+                            title: 'If No, Total Public (exc. HIF)',
+                            currency: true
                           },
                           totalPrivate: {
                             type: 'string',
-                            title: 'If No, Total Private'
+                            title: 'If No, Total Private',
+                            currency: true
                           }
                         },
                         required: %w[
@@ -595,7 +599,8 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
         hifFundingAmount: {
           type: 'string',
           laReadOnly: true,
-          title: 'HIF Funding Amount (£)'
+          title: 'HIF Funding Amount (£)',
+          currency: true
         },
         descriptionOfInfrastructure: {
           type: 'string',
