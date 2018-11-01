@@ -30,7 +30,7 @@ describe LocalAuthority::UseCase::GetSchemaForReturn do
     end
 
     let(:template) do
-      LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+      Common::Domain::Template.new.tap do |p|
         p.schema = { cats: 'meow' }
       end
     end
@@ -67,7 +67,7 @@ describe LocalAuthority::UseCase::GetSchemaForReturn do
     end
 
     let(:template) do
-      LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+      Common::Domain::Template.new.tap do |p|
         p.schema = { dogs: 'woof' }
       end
     end

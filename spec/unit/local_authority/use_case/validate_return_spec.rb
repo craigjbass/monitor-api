@@ -23,7 +23,7 @@ describe LocalAuthority::UseCase::ValidateReturn do
   end
 
   let(:template) do
-    LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+    Common::Domain::Template.new.tap do |p|
       p.schema = {}
     end
   end
@@ -109,7 +109,7 @@ describe LocalAuthority::UseCase::ValidateReturn do
       context 'example 1' do
         it_should_behave_like 'required field validation'
         let(:template) do
-          LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'HIF Project',
               type: 'object',
@@ -150,7 +150,7 @@ describe LocalAuthority::UseCase::ValidateReturn do
       context 'example 1' do
         it_should_behave_like 'required field validation'
         let(:template) do
-          LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'HIF Project',
               type: 'object',
@@ -189,7 +189,7 @@ describe LocalAuthority::UseCase::ValidateReturn do
       context 'example 2' do
         it_should_behave_like 'required field validation'
         let(:template) do
-          LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'HIF Project',
               type: 'object',
@@ -231,7 +231,7 @@ describe LocalAuthority::UseCase::ValidateReturn do
         it_should_behave_like 'required field validation'
 
         let(:template) do
-          LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'HIF Project',
               type: 'object',
@@ -278,7 +278,7 @@ describe LocalAuthority::UseCase::ValidateReturn do
       context 'example 2' do
         it_should_behave_like 'required field validation'
         let(:template) do
-          LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'HIF Project',
               type: 'object',
@@ -325,7 +325,7 @@ describe LocalAuthority::UseCase::ValidateReturn do
       context 'example 1' do
         it_should_behave_like 'required field validation'
         let(:template) do
-          LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'HIF Project',
               type: 'object',
@@ -383,7 +383,7 @@ describe LocalAuthority::UseCase::ValidateReturn do
       context 'example 2' do
         it_should_behave_like 'required field validation'
         let(:template) do
-          LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'HIF Project',
               type: 'object',
@@ -437,7 +437,7 @@ describe LocalAuthority::UseCase::ValidateReturn do
       context 'example 1' do
         it_should_behave_like 'required field validation'
         let(:template) do
-          LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'HIF Project',
               type: 'object',
@@ -500,7 +500,7 @@ describe LocalAuthority::UseCase::ValidateReturn do
         it_should_behave_like 'required field validation'
 
         let(:template) do
-          LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'HIF Project',
               type: 'object',
@@ -565,7 +565,7 @@ describe LocalAuthority::UseCase::ValidateReturn do
         it_should_behave_like 'required field validation'
 
         let(:template) do
-          LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'HIF Project',
               type: 'object',
@@ -639,7 +639,7 @@ describe LocalAuthority::UseCase::ValidateReturn do
         it_should_behave_like 'required field validation'
 
         let(:template) do
-          LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'HIF Project',
               type: 'object',
@@ -699,7 +699,7 @@ describe LocalAuthority::UseCase::ValidateReturn do
         it_should_behave_like 'required field validation'
 
         let(:template) do
-          LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'HIF Project',
               type: 'object',
@@ -810,7 +810,7 @@ describe LocalAuthority::UseCase::ValidateReturn do
         it_should_behave_like 'required field validation'
 
         let(:template) do
-          LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'HIF Project',
               type: 'object',
@@ -916,7 +916,7 @@ describe LocalAuthority::UseCase::ValidateReturn do
       it_should_behave_like 'required field validation'
 
       let(:template) do
-        LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+        Common::Domain::Template.new.tap do |p|
           p.schema = {
             title: 'HIF Project',
             type: 'object',

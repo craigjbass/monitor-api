@@ -2,7 +2,7 @@
 
 class HomesEngland::Builder::Template::Templates::HIFTemplate
   def create
-    hif_template = HomesEngland::Domain::Template.new
+    hif_template = Common::Domain::Template.new
     hif_template.schema = {
       '$schema': 'http://json-schema.org/draft-07/schema',
       title: 'HIF Project',

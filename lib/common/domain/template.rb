@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'json_schema'
-class LocalAuthority::Domain::ReturnTemplate
+class Common::Domain::Template
   attr_accessor :layout, :schema
 
-  def invalid_paths(return_data)
+  def invalid_paths(project_data)
     schema = parse_json_schema(@schema)
-    get_invalid_paths(schema, return_data) || []
+    get_invalid_paths(schema, project_data) || []
   end
 
   private
@@ -17,12 +19,12 @@ class LocalAuthority::Domain::ReturnTemplate
     JsonSchema.parse!(parse_json(schema))
   end
 
-  def validate_json_schema(schema, return_data)
-    schema.validate!(parse_json(return_data))
+  def validate_json_schema(schema, project_data)
+    schema.validate!(parse_json(project_data))
   end
 
-  def get_invalid_paths(schema, return_data)
-    validate_json_schema(schema, return_data)
+  def get_invalid_paths(schema, project_data)
+    validate_json_schema(schema, project_data)
     nil
   rescue JsonSchema::AggregateError => aggregated_errors
     get_supported_errors(aggregated_errors).map do |error|

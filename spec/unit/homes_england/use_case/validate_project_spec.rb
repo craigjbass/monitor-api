@@ -24,7 +24,7 @@ describe HomesEngland::UseCase::ValidateProject do
   end
 
   let(:template) do
-    HomesEngland::Domain::Template.new.tap do |p|
+    Common::Domain::Template.new.tap do |p|
       p.schema = {}
     end
   end
@@ -96,7 +96,7 @@ describe HomesEngland::UseCase::ValidateProject do
         it_should_behave_like 'required field validation'
 
         let(:template) do
-          HomesEngland::Domain::Template.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'HIF Project',
               type: 'object',
@@ -121,7 +121,7 @@ describe HomesEngland::UseCase::ValidateProject do
         it_should_behave_like 'required field validation'
 
         let(:template) do
-          HomesEngland::Domain::Template.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'HIF Project',
               type: 'object',
@@ -148,7 +148,7 @@ describe HomesEngland::UseCase::ValidateProject do
         it_should_behave_like 'required field validation'
 
         let(:template) do
-          HomesEngland::Domain::Template.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'Project Summary',
               type: 'object',
@@ -181,7 +181,7 @@ describe HomesEngland::UseCase::ValidateProject do
         it_should_behave_like 'required field validation'
 
         let(:template) do
-          HomesEngland::Domain::Template.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'Project Summary',
               type: 'object',
@@ -215,7 +215,7 @@ describe HomesEngland::UseCase::ValidateProject do
       context 'example 1' do
         it_should_behave_like 'required field validation'
         let(:template) do
-          HomesEngland::Domain::Template.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'HIF Project',
               type: 'object',
@@ -253,7 +253,7 @@ describe HomesEngland::UseCase::ValidateProject do
         it_should_behave_like 'required field validation'
 
         let(:template) do
-          HomesEngland::Domain::Template.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'HIF Project',
               type: 'object',
@@ -293,7 +293,7 @@ describe HomesEngland::UseCase::ValidateProject do
         it_should_behave_like 'required field validation'
 
         let(:template) do
-          HomesEngland::Domain::Template.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'HIF',
               type: 'object',
@@ -337,7 +337,7 @@ describe HomesEngland::UseCase::ValidateProject do
       end
 
       context 'example 2' do
-        HomesEngland::Domain::Template.new.tap do |p|
+        Common::Domain::Template.new.tap do |p|
           p.schema = {
             title: 'HIF',
             type: 'object',
@@ -379,7 +379,7 @@ describe HomesEngland::UseCase::ValidateProject do
       context 'example 1' do
         it_should_behave_like 'required field validation'
         let(:template) do
-          HomesEngland::Domain::Template.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'HIF Project',
               type: 'object',
@@ -430,7 +430,7 @@ describe HomesEngland::UseCase::ValidateProject do
         it_should_behave_like 'required field validation'
 
         let(:template) do
-          HomesEngland::Domain::Template.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'New Project',
               type: 'object',
@@ -470,7 +470,7 @@ describe HomesEngland::UseCase::ValidateProject do
         it_should_behave_like 'required field validation'
 
         let(:template) do
-          HomesEngland::Domain::Template.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'New Project',
               type: 'object',
@@ -512,7 +512,7 @@ describe HomesEngland::UseCase::ValidateProject do
         it_should_behave_like 'required field validation'
 
         let(:template) do
-          HomesEngland::Domain::Template.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'The Animal March',
               type: 'object',
@@ -573,7 +573,7 @@ describe HomesEngland::UseCase::ValidateProject do
         it_should_behave_like 'required field validation'
 
         let(:template) do
-          HomesEngland::Domain::Template.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'HIF Project',
               type: 'object',
@@ -676,7 +676,7 @@ describe HomesEngland::UseCase::ValidateProject do
         it_should_behave_like 'required field validation'
 
         let(:template) do
-          LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'HIF Project',
               type: 'object',

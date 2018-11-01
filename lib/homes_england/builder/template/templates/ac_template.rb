@@ -2,7 +2,7 @@
 
 class HomesEngland::Builder::Template::Templates::ACTemplate
   def create
-    ac_template = HomesEngland::Domain::Template.new
+    ac_template = Common::Domain::Template.new
     ac_template.schema = {
       '$schema': 'http://json-schema.org/draft-07/schema',
       title: 'AC Project',
