@@ -223,9 +223,12 @@ module DeliveryMechanism
     post '/project/update' do
       guard_access env, params, request do |request_hash|
         if valid_update_request_body(request_hash)
+          get_project_use_case = @dependency_factory.get_use_case(:ui_get_project)
+          project = get_project_use_case.execute(id: request_hash[:project_id].to_i )
           use_case = @dependency_factory.get_use_case(:ui_update_project)
           update_successful = use_case.execute(
             id: request_hash[:project_id].to_i,
+            type: project[:type],
             data: request_hash[:project_data]
           )[:successful]
           response.status = update_successful ? 200 : 404
