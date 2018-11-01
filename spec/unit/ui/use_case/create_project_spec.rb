@@ -39,7 +39,7 @@ describe UI::UseCase::CreateProject do
     end
   end
 
-  context 'Example one' do
+  context 'Example two' do
     let(:create_project_spy) { spy(execute: { id: 5 }) }
     let(:use_case) { described_class.new(create_project: create_project_spy) }
     let(:response) do
