@@ -7,7 +7,7 @@ describe UI::UseCase::ConvertUIHIFProject do
   end
 
   it 'Converts the project correctly' do
-    converted_project = described_class.new.execute(project_to_convert)
+    converted_project = described_class.new.execute(project_data: project_to_convert)
 
     expect(converted_project).to eq(project_to_convert)
   end

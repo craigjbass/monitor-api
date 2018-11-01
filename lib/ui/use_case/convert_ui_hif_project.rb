@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class UI::UseCase::ConvertUIHIFProject
-  def execute(project)
-    @project = project
+  def execute(project_data:)
+    @project = project_data
     @converted_project = {}
 
     convert_project_summary
