@@ -33,7 +33,7 @@ describe UI::UseCase::UpdateReturn do
     end
   end
 
-  context 'Example one' do
+  context 'Example two' do
     let(:update_return_spy) { spy }
     let(:use_case) { described_class.new(update_return: update_return_spy) }
     let(:response) do
