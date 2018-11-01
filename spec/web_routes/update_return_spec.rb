@@ -12,7 +12,7 @@ describe 'Updating a return' do
 
   before do
     stub_const(
-      'LocalAuthority::UseCase::SoftUpdateReturn',
+      'UI::UseCase::UpdateReturn',
       double(new: update_return_spy)
     )
 

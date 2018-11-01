@@ -14,7 +14,7 @@ describe 'Creating returns' do
 
   before do
       stub_const(
-        'LocalAuthority::UseCase::CreateReturn',
+        'UI::UseCase::CreateReturn',
         double(new: create_return_spy)
       )
 

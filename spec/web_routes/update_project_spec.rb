@@ -30,13 +30,8 @@ describe 'Updating a project' do
 
   before do
     stub_const(
-      'HomesEngland::UseCase::UpdateProject',
+      'UI::UseCase::UpdateProject',
       double(new: update_project_spy)
-    )
-
-    stub_const(
-      'HomesEngland::UseCase::CreateNewProject',
-      double(new: create_new_project_spy)
     )
 
     stub_const(
@@ -83,8 +78,8 @@ describe 'Updating a project' do
     it 'should update project data for id' do
       expect(update_project_spy).to(
         have_received(:execute).with(
-          project_id: project_id,
-          project_data: { cats: 'quack', dogs: 'baa' }
+          id: project_id,
+          data: { cats: 'quack', dogs: 'baa' }
         )
       )
     end
