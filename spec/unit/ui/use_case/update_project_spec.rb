@@ -60,7 +60,7 @@ describe UI::UseCase::UpdateProject do
       )
     end
 
-    it 'Returns successful if successful' do
+    it 'Returns unsuccessful if unsuccessful' do
       expect(response).to eq(successful: false)
     end
   end
