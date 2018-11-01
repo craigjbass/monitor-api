@@ -194,7 +194,12 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
             properties: {
               custom: {
                 type: 'string',
-                title: 'Custom (local authority entered)'
+                title: 'Milestone'
+              },
+              customDate: {
+                type: 'string',
+                title: 'Date',
+                format: 'date'
               }
             }
           }
@@ -216,6 +221,7 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
             properties: {
               fundingDrawdown: {
                 type: 'object',
+                horizontal: true,
                 title: 'Funding Drawdown',
                 properties: {
                   year: {
