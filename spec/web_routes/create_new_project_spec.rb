@@ -47,6 +47,23 @@ describe 'Creating a new project' do
     end
   end
 
+  context 'with no project name supplied' do
+    let(:project_id) { 1 }
+    let(:project_data) do
+      {
+        type: 'hif',
+        baselineData: {
+          cats: 'Woof',
+          dogs: 'Meow'
+        }
+      }
+    end
+
+    it 'returns 400' do
+      expect(last_response.status).to eq(400)
+    end
+  end
+
   context 'example one' do
     let(:project_id) { 1 }
     let(:project_data) do
