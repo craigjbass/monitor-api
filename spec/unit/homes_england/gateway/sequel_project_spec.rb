@@ -43,6 +43,7 @@ describe HomesEngland::Gateway::SequelProject do
         project.name = 'Dog project'
         project.data = { dogs: 'woof' }
         project.status = 'Draft'
+        project.timestamp = 56789123
         project_gateway.update(id: project_id, project: project)
 
         created_project = project_gateway.find_by(id: project_id)
@@ -51,6 +52,7 @@ describe HomesEngland::Gateway::SequelProject do
         expect(created_project.type).to eq('Animals')
         expect(created_project.data).to eq(dogs: 'woof')
         expect(created_project.status).to eq('Draft')
+        expect(created_project.timestamp).to eq(56789123)
       end
 
       it 'returns successful' do
@@ -114,6 +116,7 @@ describe HomesEngland::Gateway::SequelProject do
 
       it 'updates the project' do
         project.data[:barn] << { chicken: 'cluck' }
+        project.timestamp = 78912
 
         project_gateway.update(id: project_id, project: project)
 
@@ -127,6 +130,7 @@ describe HomesEngland::Gateway::SequelProject do
           ],
           barn: [{ chicken: 'cluck' }]
         )
+        expect(created_project.timestamp).to eq(78912)
       end
 
       it 'returns successful' do

@@ -9,7 +9,8 @@ class HomesEngland::UseCase::FindProject
       name: project.name,
       type: project.type,
       data: project.data,
-      status: project.status
+      status: project.status,
+      timestamp: project.timestamp
     }
   end
 end

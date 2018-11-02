@@ -16,7 +16,8 @@ describe UI::UseCase::GetProject do
           name: 'Big Buildings',
           type: 'hif',
           data: { building1: 'a house' },
-          status: 'Draft'
+          status: 'Draft',
+          timestamp: 0
         }
       )
     end
@@ -62,6 +63,10 @@ describe UI::UseCase::GetProject do
 
     it 'Return the status from find project' do
       expect(response[:status]).to eq('Draft')
+    end
+
+    it 'Returns the timestamp from find project' do
+      expect(response[:timestamp]).to eq(0)
     end
 
     context 'Given a hif project' do
@@ -119,7 +124,8 @@ describe UI::UseCase::GetProject do
           name: 'Big ol woof',
           type: 'hif',
           data: { noise: 'bark' },
-          status: 'Barking'
+          status: 'Barking',
+          timestamp: 345
         }
       )
     end
@@ -165,6 +171,10 @@ describe UI::UseCase::GetProject do
 
     it 'Return the status from find project' do
       expect(response[:status]).to eq('Barking')
+    end
+
+    it 'Return the timestamp from find project' do
+      expect(response[:timestamp]).to eq(345)
     end
 
     context 'Given a hif project' do
