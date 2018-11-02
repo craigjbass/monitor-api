@@ -32,6 +32,13 @@ class UI::UseCases
       )
     end
 
+    builder.define_use_case :ui_validate_project do
+      UI::UseCase::ValidateProject.new(
+        project_schema_gateway: builder.get_gateway(:ui_project_schema),
+        get_project_template_path_titles: builder.get_use_case(:get_template_path_titles)
+      )
+    end
+
     builder.define_use_case :ui_get_base_return do
       UI::UseCase::GetBaseReturn.new(
         get_base_return: builder.get_use_case(:get_base_return)

@@ -240,7 +240,7 @@ module DeliveryMechanism
       guard_access env, params, request do |request_hash|
         return 400 if invalid_validation_hash(request_hash: request_hash)
 
-        validate_response = @dependency_factory.get_use_case(:validate_project).execute(
+        validate_response = @dependency_factory.get_use_case(:ui_validate_project).execute(
           type: request_hash[:type],
           project_data: request_hash[:data]
         )

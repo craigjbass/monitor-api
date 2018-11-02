@@ -20,7 +20,7 @@ describe 'Checking if Project is valid' do
   end
   before do
     stub_const(
-      'HomesEngland::UseCase::ValidateProject',
+      'UI::UseCase::ValidateProject',
       double(new: validate_project_spy)
     )
 
