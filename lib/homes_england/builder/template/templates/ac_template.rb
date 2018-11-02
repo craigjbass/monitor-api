@@ -35,6 +35,7 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
         },
         projectDescription: {
           type: 'string',
+          format: 'textarea',
           title: 'Project Description'
         },
         localAuthority: {
@@ -128,6 +129,7 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
                           },
                           reason: {
                             type: 'string',
+                            format: 'textarea',
                             title: 'Reason/explanation'
                           },
                           review: {
