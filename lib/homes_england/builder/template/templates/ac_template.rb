@@ -69,6 +69,7 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
             mmcCategory: {
               title: 'MMC Category',
               type: 'array',
+              addable: true,
               items: {
                 type: 'object',
                 properties: {
@@ -188,6 +189,7 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
         },
         customMileStones: {
           type: 'array',
+          addable: true,
           title: 'Custom Milestones',
           items: {
             type: 'object',
@@ -251,6 +253,7 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
         },
         fundingStack: {
           type: 'array',
+          addable: true,
           title: 'Funding Stack',
           items: {
             type: 'object',
@@ -289,6 +292,7 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
             },
             expectedDisposalReceipt: {
               type: 'array',
+              addable: true,
               title: 'Expected Disposal Receipt',
               items: {
                 type: 'object',
@@ -322,6 +326,7 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
             conditions: {
               title: 'Conditions',
               type: 'array',
+              addable: true,
               items: {
                 type: 'object',
                 properties: {
@@ -369,6 +374,7 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
             fundItems: {
               title: 'Items',
               type: 'array',
+              addable: true,
               items: {
                 type: 'object',
                 properties: {
@@ -434,6 +440,7 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
         },
         sitesSummary: {
           type: 'array',
+          addable: true,
           title: 'Site(s) Summary',
           items: {
             type: 'object',
