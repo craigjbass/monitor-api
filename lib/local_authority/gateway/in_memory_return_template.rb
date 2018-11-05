@@ -2357,8 +2357,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
         },
         pslLand: {
           type: 'string',
-          title: 'PSL Land?',
           radio: true,
+          title: 'Public Sector Land?',
           enum: %w[
             Yes
             No
