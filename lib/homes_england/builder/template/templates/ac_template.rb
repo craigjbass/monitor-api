@@ -59,7 +59,7 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
               },
               size: {
                 type: 'string',
-                title: 'Size (Ha)'
+                title: 'Size (hectares)'
               },
               laContact: {
                 type: 'string',
@@ -181,7 +181,7 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
                   },
                   conditionSite: {
                     type: 'string',
-                    title: 'Site (if multiple)'
+                    title: 'Site'
                   },
                   conditionForecast: {
                     type: 'string',
@@ -225,7 +225,7 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
                   },
                   fundingSite: {
                     type: 'string',
-                    title: 'Site (if multiple)'
+                    title: 'Site'
                   },
                   fundingAgreed: {
                     type: 'string',
