@@ -11,7 +11,7 @@ class UI::UseCase::GetProject
     found_project = @find_project.execute(id: id)
     template = @project_schema_gateway.find_by(type: found_project[:type])
 
-    found_project[:data] = convert_data(found_project) unless found_project[:type] != 'hif'
+    found_project[:data] = convert_data(found_project) if found_project[:type] == 'hif'
 
     {
       name: found_project[:name],
