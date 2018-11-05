@@ -1298,7 +1298,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           title: 'Total',
                           type: 'string',
                           sourceKey: %i[baseline_data fundingProfiles total],
-                          readonly: true, 
+                          readonly: true,
                           currency: true
                         }
                       }
@@ -2322,7 +2322,9 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
         },
         size: {
           type: 'string',
-          title: 'Size (hectares)'
+          title: 'Size (hectares)',
+          readonly: true,
+          sourceKey: %i[baseline_data summary totalArea]
         },
         previousStarts: {
           type: 'string',
