@@ -25,7 +25,7 @@ describe 'Interacting with a HIF Return from the UI' do
   let(:project_id) { create_project }
   let(:hif_baseline) do
     JSON.parse(
-      File.open("#{__dir__}/../../fixtures/hif_baseline.json").read,
+      File.open("#{__dir__}/../../fixtures/hif_baseline_ui.json").read,
       symbolize_names: true
     )
   end

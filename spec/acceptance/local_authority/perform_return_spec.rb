@@ -32,7 +32,7 @@ describe 'Performing Return on HIF Project' do
 
   let(:project_baseline) do
     JSON.parse(
-      File.open("#{__dir__}/../../fixtures/hif_baseline.json").read,
+      File.open("#{__dir__}/../../fixtures/hif_baseline_core.json").read,
       symbolize_names: true
     )
   end

@@ -8,6 +8,7 @@ class UI::UseCase::UpdateProject
 
   def execute(id:, data:, type: nil)
     data = convert_data(data) if type == 'hif'
+    
     successful = @update_project.execute(
       project_id: id,
       project_data: data
@@ -16,7 +17,7 @@ class UI::UseCase::UpdateProject
     { successful: successful }
   end
 
-  private 
+  private
 
   def convert_data(data)
     @convert_ui_hif_project.execute(project_data: data)

@@ -13,7 +13,7 @@ class UI::UseCase::ConvertUIHIFProject
     convert_recovery
     convert_s151
     convert_outputs_forecast
-    convert_outputs_actuals
+    convert_outputs_actuals  
 
     @converted_project
   end
@@ -211,18 +211,18 @@ class UI::UseCase::ConvertUIHIFProject
   end
 
   def convert_outputs_forecast
-    return if @project[:outputsForecast].nil?
+    return if @project[:outputs][0][:outputsForecast].nil?
 
     @converted_project[:outputsForecast] = {
-      totalUnits: @project[:outputsForecast][:totalUnits],
-      disposalStrategy: @project[:outputsForecast][:disposalStrategy]
+      totalUnits: @project[:outputs][0][:outputsForecast][:totalUnits],
+      disposalStrategy: @project[:outputs][0][:outputsForecast][:disposalStrategy]
     }
 
     @converted_project[:outputsForecast].compact!
 
-    return if @project[:outputsForecast][:housingForecast].nil?
+    return if @project[:outputs][0][:outputsForecast][:housingForecast].nil?
 
-    @converted_project[:outputsForecast][:housingForecast] = @project[:outputsForecast][:housingForecast].map do |forecast|
+    @converted_project[:outputsForecast][:housingForecast] = @project[:outputs][0][:outputsForecast][:housingForecast].map do |forecast|
       {
         period: forecast[:period],
         target: forecast[:target],
@@ -232,14 +232,14 @@ class UI::UseCase::ConvertUIHIFProject
   end
 
   def convert_outputs_actuals
-    return if @project[:outputsActuals].nil?
+    return if @project[:outputs][0][:outputsActuals].nil?
 
     @converted_project[:outputsActuals] = {}
 
-    return if @project[:outputsActuals][:siteOutputs].nil?
+    return if @project[:outputs][0][:outputsActuals][:siteOutputs].nil?
 
     @converted_project[:outputsActuals] = {
-      siteOutputs: @project[:outputsActuals][:siteOutputs].map do |output|
+      siteOutputs: @project[:outputs][0][:outputsActuals][:siteOutputs].map do |output|
         {
           siteName: output[:siteName],
           siteLocalAuthority: output[:siteLocalAuthority],
@@ -247,5 +247,6 @@ class UI::UseCase::ConvertUIHIFProject
         }
       end
     }
+
   end
 end

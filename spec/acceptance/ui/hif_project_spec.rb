@@ -5,23 +5,23 @@ require_relative '../shared_context/dependency_factory'
 describe 'Interacting with a HIF Project from the UI' do
   include_context 'dependency factory'
 
-  let(:baseline_data) do
+  let(:baseline_data_ui) do
     JSON.parse(
-      File.open("#{__dir__}/../../fixtures/hif_baseline.json").read,
+      File.open("#{__dir__}/../../fixtures/hif_baseline_ui.json").read,
       symbolize_names: true
     )
   end
 
   let(:empty_baseline_data) do
     JSON.parse(
-      File.open("#{__dir__}/../../fixtures/hif_empty_baseline.json").read,
+      File.open("#{__dir__}/../../fixtures/hif_empty_baseline_ui.json").read,
       symbolize_names: true
     )
   end
 
-  let(:updated_baseline_data) do
+  let(:updated_ui_baseline_data) do
     JSON.parse(
-      File.open("#{__dir__}/../../fixtures/hif_baseline.json").read,
+      File.open("#{__dir__}/../../fixtures/hif_baseline_ui.json").read,
       symbolize_names: true
     )
   end
@@ -30,7 +30,7 @@ describe 'Interacting with a HIF Project from the UI' do
     dependency_factory.get_use_case(:ui_create_project).execute(
       type: 'hif',
       name: 'Cat Infrastructures',
-      baseline: baseline_data
+      baseline: baseline_data_ui
     )[:id]
   end
 
@@ -55,7 +55,7 @@ describe 'Interacting with a HIF Project from the UI' do
 
       expect(created_project[:type]).to eq('hif')
       expect(created_project[:name]).to eq('Cat Infrastructures')
-      expect(created_project[:data]).to eq(baseline_data)
+      expect(created_project[:data]).to eq(baseline_data_ui)
     end
 
     it 'Can create an empty project successfully' do
@@ -72,11 +72,11 @@ describe 'Interacting with a HIF Project from the UI' do
     it 'Can update a created project successfully' do
       project_id = create_project
 
-      dependency_factory.get_use_case(:ui_update_project).execute(id: project_id, data: updated_baseline_data)
+      dependency_factory.get_use_case(:ui_update_project).execute(id: project_id, data: updated_ui_baseline_data, type: 'hif')
 
       updated_project = get_project(project_id)
 
-      expect(updated_project[:data]).to eq(updated_baseline_data)
+      expect(updated_project[:data]).to eq(updated_ui_baseline_data)
     end
   end
 end
