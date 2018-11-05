@@ -146,7 +146,8 @@
   },
   "outputsActuals": {
     "localAuthority": ["Local Authority"],
-    "noOfUnits": ["123"]
+    "noOfUnits": ["123"],
+    "size": "10"
   },
   "s151Confirmation": {
     "hifFunding": {

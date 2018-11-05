@@ -49,6 +49,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           title: 'Outline Planning Permission granted',
                           sourceKey: %i[baseline_data infrastructures outlinePlanningStatus granted],
                           readonly: true,
+                          radio: true,
                           enum: %w[Yes No N/A]
                         }
                       },
@@ -94,6 +95,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                     status: {
                                       title: 'Status against last return?',
                                       type: 'string',
+                                      radio: true,
                                       enum: [
                                         'Completed',
                                         'On schedule',
@@ -156,6 +158,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                     status: {
                                       title: 'Status against last return?',
                                       type: 'string',
+                                      radio: true,
                                       enum: [
                                         'Completed',
                                         'On schedule',
@@ -214,6 +217,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           title: 'Full Planning Permission granted',
                           sourceKey: %i[baseline_data infrastructures fullPlanningStatus granted],
                           readonly: true,
+                          radio: true,
                           enum: %w[Yes No N/A]
                         }
                       },
@@ -259,6 +263,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                     status: {
                                       title: 'Status against last return?',
                                       type: 'string',
+                                      radio: true,
                                       enum: [
                                         'Completed',
                                         'On schedule',
@@ -321,6 +326,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                     status: {
                                       title: 'Status against last return?',
                                       type: 'string',
+                                      radio: true,
                                       enum: [
                                         'Completed',
                                         'On schedule',
@@ -382,6 +388,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           readonly: true,
                           items: {
                             type: 'string',
+                            radio: true,
                             enum: %w[Yes No]
                           }
                         }
@@ -412,6 +419,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       readonly: true,
                                       items: {
                                         type: 'string',
+                                        radio: true,
                                         enum: %w[Yes No]
                                       }
                                     },
@@ -490,6 +498,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                       title: 'LA Control of site(s) (related to infrastructure)? ',
                       sourceKey: %i[baseline_data infrastructures landOwnership underControlOfLA],
                       readonly: true,
+                      radio: true,
                       enum: %w[Yes No]
                     }
                   },
@@ -518,6 +527,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   title: 'Land acquisition required (related to infrastructure)?',
                                   sourceKey: %i[baseline_data infrastructures landOwnership landAcquisitionRequired],
                                   readonly: true,
+                                  radio: true,
                                   enum: %w[Yes No]
                                 }
                               },
@@ -579,6 +589,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                             status: {
                                               title: 'Status against last return?',
                                               type: 'string',
+                                              radio: true,
                                               enum: [
                                                 'Completed',
                                                 'On schedule',
@@ -645,6 +656,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                       readonly: true,
                       items: {
                         type: 'string',
+                        radio: true,
                         enum: %w[Yes No]
                       }
                     }
@@ -703,6 +715,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                 statusAgainstLastReturn: {
                                   title: 'Status against last return?',
                                   type: 'string',
+                                  radio: true,
                                   enum: [
                                     'Completed',
                                     'On schedule',
@@ -927,6 +940,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                         status: {
                           title: 'Status against last return?',
                           type: 'string',
+                          radio: true,
                           enum: [
                             'Completed',
                             'On schedule',
@@ -982,6 +996,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                         status: {
                           title: 'Status against last return?',
                           type: 'string',
+                          radio: true,
                           enum: [
                             'Completed',
                             'On schedule',
@@ -1058,6 +1073,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             title: 'Any change in risk?',
                             items: {
                               type: 'string',
+                              radio: true,
                               enum: %w[Yes No]
                             }
                           },
@@ -1145,6 +1161,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             title: 'Any change in risk?',
                             items: {
                               type: 'string',
+                              radio: true,
                               enum: %w[Yes No]
                             }
                           },
@@ -1191,6 +1208,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             title: 'Action Met?',
                             items: {
                               type: 'string',
+                              radio: true,
                               enum: %w[Yes No]
                             }
                           },
@@ -1280,7 +1298,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           title: 'Total',
                           type: 'string',
                           sourceKey: %i[baseline_data fundingProfiles total],
-                          readonly: true, 
+                          readonly: true,
                           currency: true
                         }
                       }
@@ -1292,6 +1310,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                 type: 'string',
                 title: 'Change Required?',
                 description: 'Please confirm there are no changes to be made to the funding profile',
+                radio: true,
                 enum: ['Confirmed', 'Change required']
               }
             },
@@ -1439,6 +1458,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     fundedThroughHIF: {
                       type: 'string',
                       title: 'Totally funded through HIF?',
+                      radio: true,
                       enum: %w[Yes No],
                       readonly: true,
                       sourceKey: %i[baseline_data costs infrastructure totallyFundedThroughHIF]
@@ -1473,6 +1493,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                 risk: {
                                   title: 'Is there a risk?',
                                   type: 'string',
+                                  radio: true,
                                   enum: %w[Yes No]
                                 },
                                 description: {
@@ -1615,6 +1636,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
             anyChanges: {
               title: 'Any changes to baseline amounts?',
               type: 'string',
+              radio: true,
               enum: %w[Yes No]
             }
           },
@@ -1696,6 +1718,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
             anyChanges: {
               title: 'Any changes to baseline amounts?',
               type: 'string',
+              radio: true,
               enum: %w[Yes No]
             }
           },
@@ -1772,6 +1795,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
             changesToRequest: {
               type: 'string',
               title: 'Please confirm there are no changes to the total HIF request',
+              radio: true,
               enum: ['Confirmed', 'Changes Required']
             },
             hifFundingProfile: {
@@ -1912,11 +1936,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
             amendmentConfirmation: {
               title: 'An amendment has been made to the forecast profile in this MR - please confirm you are content with this amendment',
               type: 'string',
+              radio: true,
               enum: %w[Yes No]
             },
             cashflowConfirmation: {
               title: 'Please confirm you are content with the submitted project cashflows',
               type: 'string',
+              radio: true,
               enum: %w[Yes No]
             }
           },
@@ -1970,6 +1996,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
             changeToMilestones: {
               type: 'string',
               title: 'Please confirm that no changes are required to contractual milestones',
+              radio: true,
               enum: ['Confirmed', 'Changes Required']
             },
             hifFundingEndDate: {
@@ -1981,6 +2008,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
             changesToEndDate: {
               type: 'string',
               title: 'Please confirm that no changes are required to Funding End Date',
+              radio: true,
               enum: ['Confirmed', 'Changes Required']
             },
             projectLongstopDate: {
@@ -1992,11 +2020,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
             changesToLongstopDate: {
               type: 'string',
               title: 'Please confirm that no changes are required to project completion date',
+              radio: true,
               enum: ['Confirmed', 'Changes Required']
             },
             recoverFunding: {
               type: 'string',
               title: 'Has any funding been recovered since last return?',
+              radio: true,
               enum: %w[Yes No]
             }
           },
@@ -2099,6 +2129,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     usedOnFutureHosuing: {
                       type: 'string',
                       title: 'Will/Has this been used on future housing?',
+                      radio: true,
                       enum: %w[Yes No]
                     }
                   }
@@ -2221,7 +2252,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
         overallRatingForScheme: {
           type: 'string',
           title: 'Overall RAG Rating for Scheme',
-          enum: %w[R A G]
+          radio: true,
+          enum: %w[Red Amber Green]
         },
         redBarriers: {
           type: 'array',
@@ -2290,7 +2322,9 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
         },
         size: {
           type: 'string',
-          title: 'Size (hectares)'
+          title: 'Size (hectares)',
+          readonly: true,
+          sourceKey: %i[baseline_data summary totalArea]
         },
         previousStarts: {
           type: 'string',
@@ -2315,6 +2349,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
         laOwned: {
           type: 'string',
           title: 'Local Authority owned land?',
+          radio: true,
           enum: %w[
             Yes
             No
@@ -2322,7 +2357,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
         },
         pslLand: {
           type: 'string',
-          title: 'PSL Land?',
+          radio: true,
+          title: 'Public Sector Land?',
           enum: %w[
             Yes
             No
@@ -2352,6 +2388,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
     {
       title: 'Status against last return?',
       type: 'string',
+      radio: true,
       enum: [
         'Completed',
         'On schedule',

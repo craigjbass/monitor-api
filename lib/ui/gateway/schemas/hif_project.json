@@ -31,7 +31,8 @@
         "greenOrBrownField": {
           "type": "string",
           "title": "Greenfield/Brownfield/Mixed",
-          "enum": ["Greenfield", "Brownfield", "Mixed"]
+          "enum": ["Greenfield", "Brownfield", "Mixed"],
+          "radio": true
         },
         "noOfHousingSites": {
           "type": "string",
@@ -81,7 +82,8 @@
               "granted": {
                 "type": "string",
                 "title": "Granted?",
-                "enum": ["Yes", "No", "N/A"]
+                "enum": ["Yes", "No", "N/A"],
+                "radio": true
               }
             },
             "required": ["granted"],
@@ -131,7 +133,8 @@
               "granted": {
                 "type": "string",
                 "title": "Granted?",
-                "enum": ["Yes", "No", "N/A"]
+                "enum": ["Yes", "No", "N/A"],
+                "radio": true
               }
             },
             "required": ["granted"],
@@ -185,7 +188,8 @@
                 "type": "string",
                 "laReadOnly": true,
                 "title": "Is this a requirement?",
-                "enum": ["Yes", "No"]
+                "enum": ["Yes", "No"],
+                "radio": true
               }
             },
             "required": ["requirement"],
@@ -215,7 +219,8 @@
                 "type": "string",
                 "laReadOnly": true,
                 "title": "Any Statutory Consents?",
-                "enum": ["Yes", "No"]
+                "enum": ["Yes", "No"],
+                "radio": true
               }
             },
             "required": ["anyConsents"],
@@ -259,7 +264,8 @@
               "underControlOfLA": {
                 "type": "string",
                 "title": "Is land under control of the Local Authority",
-                "enum": ["Yes", "No"]
+                "enum": ["Yes", "No"],
+                "radio": true
               }
             },
             "required": ["underControlOfLA"],
@@ -282,7 +288,8 @@
                       "landAcquisitionRequired": {
                         "type": "string",
                         "title": "Is land acquisition required?",
-                        "enum": ["Yes", "No"]
+                        "enum": ["Yes", "No"],
+                        "radio": true
                       }
                     },
                     "required": ["landAcquisitionRequired"],
@@ -337,7 +344,8 @@
               "contractorProcured": {
                 "type": "string",
                 "title": "Is the infrastructure contractor procured?",
-                "enum": ["Yes", "No"]
+                "enum": ["Yes", "No"],
+                "radio": true
               }
             },
             "required": ["contractorProcured"],
@@ -503,7 +511,8 @@
               "totallyFundedThroughHIF": {
                 "type": "string",
                 "title": "Totally funded through HIF?",
-                "enum": ["Yes", "No"]
+                "enum": ["Yes", "No"],
+                "radio": true
               }
             },
             "dependencies": {
@@ -598,33 +607,35 @@
               }
             },
             "required": ["disposalStrategy"]
-          },
+            },
           "outputsActuals": {
             "type": "object",
-            "title": "Outputs - Actual",
+            "title": "Outputs Per Site",
             "properties": {
               "siteOutputs": {
                 "type": "array",
                 "title": "Site Outputs",
+                "addable": true,
                 "items": {
+                  "title": "Output",
                   "type": "object",
-                  "properties": {
-                    "siteName": { "type": "string", "title": "Name of site" },
-                    "siteLocalAuthority": {
-                      "type": "string",
-                      "title": "Local Authority"
-                    },
-                    "siteNumberOfUnits": {
-                      "type": "string",
-                      "title": "Number of Units"
-                    }
-                  },
-                  "required": [
-                    "siteName",
-                    "siteLocalAuthority",
-                    "siteNumberOfUnits"
-                  ]
-                }
+                    "properties": {
+                      "siteName": { "type": "string", "title": "Name of site" },
+                        "siteLocalAuthority": {
+                          "type": "string",
+                          "title": "Local Authority"
+                        },
+                        "siteNumberOfUnits": {
+                          "type": "string",
+                          "title": "Number of Units"
+                        }
+                      },
+                      "required": [
+                        "siteName",
+                        "siteLocalAuthority",
+                        "siteNumberOfUnits"
+                      ]
+                  }
               }
             }
           }
