@@ -5,7 +5,6 @@ class HomesEngland::UseCase::GetSchemaForProject
 
   def execute(type:)
     template = @template_gateway.get_template(type: type)
-    p template
 
     { schema: template.schema }
   end
