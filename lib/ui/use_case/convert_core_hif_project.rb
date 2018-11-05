@@ -12,8 +12,7 @@ class UI::UseCase::ConvertCoreHIFProject
     convert_baseline_cash_flow
     convert_recovery
     convert_s151
-    convert_outputs_forecast
-    convert_outputs_actuals
+    convert_outputs
 
     @converted_project
   end
@@ -210,35 +209,43 @@ class UI::UseCase::ConvertCoreHIFProject
     }
   end
 
-  def convert_outputs_forecast
-    return if @project[:outputsForecast].nil?
+  def convert_outputs
+    @converted_project[:outputs] = [
+      {
+        outputsForecast: outputs_forecast,
+        outputsActuals: outputs_actuals
+      }
+    ]
+  end
 
-    @converted_project[:outputsForecast] = {
+  def outputs_forecast
+    return {} if @project[:outputsForecast].nil?
+
+    converted_outputs_forecast = {
       totalUnits: @project[:outputsForecast][:totalUnits],
       disposalStrategy: @project[:outputsForecast][:disposalStrategy]
     }
 
-    @converted_project[:outputsForecast].compact!
+    converted_outputs_forecast.compact!
 
-    return if @project[:outputsForecast][:housingForecast].nil?
+    return {} if @project[:outputsForecast][:housingForecast].nil?
 
-    @converted_project[:outputsForecast][:housingForecast] = @project[:outputsForecast][:housingForecast].map do |forecast|
+    converted_outputs_forecast[:housingForecast] = @project[:outputsForecast][:housingForecast].map do |forecast|
       {
         period: forecast[:period],
         target: forecast[:target],
         housingCompletions: forecast[:housingCompletions]
       }
     end
+    converted_outputs_forecast
   end
 
-  def convert_outputs_actuals
-    return if @project[:outputsActuals].nil?
+  def outputs_actuals
+    return {} if @project[:outputsActuals].nil?
 
-    @converted_project[:outputsActuals] = {}
+    return {} if @project[:outputsActuals][:siteOutputs].nil?
 
-    return if @project[:outputsActuals][:siteOutputs].nil?
-
-    @converted_project[:outputsActuals] = {
+    converted_outputs_actuals = {
       siteOutputs: @project[:outputsActuals][:siteOutputs].map do |output|
         {
           siteName: output[:siteName],
@@ -247,5 +254,7 @@ class UI::UseCase::ConvertCoreHIFProject
         }
       end
     }
+
+    converted_outputs_actuals
   end
 end

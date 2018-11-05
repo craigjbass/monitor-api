@@ -568,62 +568,76 @@
         }
       }
     },
-    "outputsForecast": {
-      "type": "object",
-      "title": "Outputs - Forecast",
-      "properties": {
-        "totalUnits": {
-          "type": "string",
-          "laReadOnly": true,
-          "title": "Total Units"
-        },
-        "disposalStrategy": {
-          "type": "string",
-          "title": "Disposal Strategy / Critical Path"
-        },
-        "housingForecast": {
-          "type": "array",
-          "title": "Housing Forecast",
-          "items": {
-            "title": "Forecast",
+    "outputs": {
+      "type": "array",
+      "title": "Outputs",
+      "items": {
+        "type": "object",
+        "title": "Outputs",
+        "properties": {
+          "outputsForecast": {
             "type": "object",
+            "title": "Outputs - Forecast",
             "properties": {
-              "period": { "type": "string", "title": "Period" },
-              "target": { "type": "string", "title": "Housing Starts" },
-              "housingCompletions": {
+              "totalUnits": {
                 "type": "string",
-                "title": "Housing Completions"
-              }
-            },
-            "required": ["period", "target", "housingCompletions"]
-          }
-        }
-      },
-      "required": ["disposalStrategy"]
-    },
-    "outputsActuals": {
-      "type": "object",
-      "title": "Outputs Per Site",
-      "properties": {
-        "siteOutputs": {
-          "type": "array",
-          "title": "Site Outputs",
-          "addable": true,
-          "items": {
-            "title": "Output",
-            "type": "object",
-            "properties": {
-              "siteName": { "type": "string", "title": "Name of site" },
-              "siteLocalAuthority": {
-                "type": "string",
-                "title": "Local Authority"
+                "laReadOnly": true,
+                "title": "Total Units"
               },
-              "siteNumberOfUnits": {
+              "disposalStrategy": {
                 "type": "string",
-                "title": "Number of Units"
+                "title": "Disposal Strategy / Critical Path"
+              },
+              "housingForecast": {
+                "type": "array",
+                "title": "Housing Forecast",
+                "items": {
+                  "title": "Forecast",
+                  "type": "object",
+                  "properties": {
+                    "period": { "type": "string", "title": "Period" },
+                    "target": { "type": "string", "title": "Housing Starts" },
+                    "housingCompletions": {
+                      "type": "string",
+                      "title": "Housing Completions"
+                    }
+                  },
+                  "required": ["period", "target", "housingCompletions"]
+                }
               }
             },
-            "required": ["siteName", "siteLocalAuthority", "siteNumberOfUnits"]
+            "required": ["disposalStrategy"]
+            },
+          "outputsActuals": {
+            "type": "object",
+            "title": "Outputs Per Site",
+            "properties": {
+              "siteOutputs": {
+                "type": "array",
+                "title": "Site Outputs",
+                "addable": true,
+                "items": {
+                  "title": "Output",
+                  "type": "object",
+                    "properties": {
+                      "siteName": { "type": "string", "title": "Name of site" },
+                        "siteLocalAuthority": {
+                          "type": "string",
+                          "title": "Local Authority"
+                        },
+                        "siteNumberOfUnits": {
+                          "type": "string",
+                          "title": "Number of Units"
+                        }
+                      },
+                      "required": [
+                        "siteName",
+                        "siteLocalAuthority",
+                        "siteNumberOfUnits"
+                      ]
+                  }
+              }
+            }
           }
         }
       }

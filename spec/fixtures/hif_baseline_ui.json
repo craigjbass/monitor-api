@@ -1,0 +1,143 @@
+{
+  "summary": {
+    "BIDReference": "12345",
+    "projectName": "Project name",
+    "leadAuthority": "Made Tech",
+    "jointBidAreas": "Made Tech 2",
+    "projectDescription": "Descripion of project",
+    "greenOrBrownField": "Greenfield",
+    "noOfHousingSites": "10",
+    "totalArea": "10",
+    "hifFundingAmount": "10000",
+    "descriptionOfInfrastructure": "An infrastructure",
+    "descriptionOfWiderProjectDeliverables": "Wider infrastructure"
+  },
+  "infrastructures": [
+    {
+      "type": "A House",
+      "description": "A house of cats",
+      "housingSitesBenefitting": "Housing Sites Benefitting",
+      "outlinePlanningStatus": {
+        "granted": "No",
+        "reference": "Ref101",
+        "targetSubmission": "2020-01-01",
+        "targetGranted": "2020-02-01",
+        "summaryOfCriticalPath": "Summary of critical path"
+      },
+      "fullPlanningStatus": {
+        "granted": "No",
+        "grantedReference": "1234",
+        "targetSubmission": "2020-03-01",
+        "targetGranted": "2020-04-01",
+        "summaryOfCriticalPath": "Summary of critical path"
+      },
+      "s106": { "requirement": "Yes", "summaryOfRequirement": "Required" },
+      "statutoryConsents": {
+        "anyConsents": "Yes",
+        "consents": [
+          {
+            "detailsOfConsent": "Details of consent",
+            "targetDateToBeMet": "2020-01-01"
+          }
+        ]
+      },
+      "landOwnership": {
+        "underControlOfLA": "Yes",
+        "ownershipOfLandOtherThanLA": "Dave",
+        "landAcquisitionRequired": "Yes",
+        "howManySitesToAcquire": "10",
+        "toBeAcquiredBy": "LA",
+        "targetDateToAcquire": "2020-01-01",
+        "summaryOfCriticalPath": "Summary of critical path"
+      },
+      "procurement": {
+        "contractorProcured": "Yes",
+        "nameOfContractor": "Steve",
+        "targetDate": "2020-01-01",
+        "summaryOfCriticalPath": "Summary of critical meow"
+      },
+      "milestones": [
+        {
+          "descriptionOfMilestone": "Milestone One",
+          "target": "2020-01-01",
+          "summaryOfCriticalPath": "Summary of critical path"
+        }
+      ],
+      "expectedInfrastructureStart": {
+        "targetDateOfAchievingStart": "2020-01-01"
+      },
+      "expectedInfrastructureCompletion": {
+        "targetDateOfAchievingCompletion": "2020-01-01"
+      },
+      "risksToAchievingTimescales": [
+        {
+          "descriptionOfRisk": "Risk one",
+          "impactOfRisk": "High",
+          "likelihoodOfRisk": "High",
+          "mitigationOfRisk": "Do not do the thing"
+        }
+      ]
+    }
+  ],
+  "fundingProfiles": [
+    {
+      "period": "2019/2020",
+      "instalment1": "1000",
+      "instalment2": "1000",
+      "instalment3": "1000",
+      "instalment4": "1000",
+      "total": "4000"
+    }
+  ],
+  "costs": [
+    {
+      "infrastructure": {
+        "HIFAmount": "10000",
+        "totalCostOfInfrastructure": "20000",
+        "totallyFundedThroughHIF": "No",
+        "descriptionOfFundingStack": "Funding stack description",
+        "totalPublic": "5000",
+        "totalPrivate": "5000"
+      }
+    }
+  ],
+  "baselineCashFlow": { "summaryOfRequirement": "data-url" },
+  "recovery": {
+    "aimToRecover": "Yes",
+    "expectedAmountToRecover": "1000",
+    "methodOfRecovery": "Methods"
+  },
+  "s151": {
+    "s151FundingEndDate": "2020-01-01",
+    "s151ProjectLongstopDate": "2020-01-01"
+  },
+  "outputs": [
+    {
+      "outputsForecast": {
+        "totalUnits": "10",
+        "disposalStrategy": "Disposal strategy",
+        "housingForecast": [
+          {
+            "period": "18/19",
+            "target": "100",
+            "housingCompletions": "0"
+          },
+          {
+            "period": "19/20",
+            "target": "50",
+            "housingCompletions": "50"
+          }
+        ]
+      },
+      "outputsActuals": {
+        "siteOutputs": [
+          {
+            "siteName": "Site name",
+            "siteLocalAuthority": "Local Authority",
+            "siteNumberOfUnits": "123"
+          }
+        ]
+      }
+    }
+  ]
+}
