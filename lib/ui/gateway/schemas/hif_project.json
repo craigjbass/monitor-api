@@ -603,11 +603,12 @@
     },
     "outputsActuals": {
       "type": "object",
-      "title": "Outputs - Actual",
+      "title": "Outputs Per Site",
       "properties": {
         "siteOutputs": {
           "type": "array",
           "title": "Site Outputs",
+          "addable": true,
           "items": {
             "title": "Output",
             "type": "object",
