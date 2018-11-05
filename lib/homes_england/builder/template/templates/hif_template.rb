@@ -51,6 +51,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                   totallyFundedThroughHIF: {
                     type: 'string',
                     title: 'Totally funded through HIF?',
+                    radio: true,
                     enum: %w[Yes No]
                   }
                 },
@@ -132,6 +133,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
               granted: {
                 type: 'string',
                 title: 'Granted?',
+                radio: true,
                 enum: ['Yes', 'No', 'N/A']
               }
             },
@@ -193,6 +195,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
               granted: {
                 type: 'string',
                 title: 'Granted?',
+                radio: true,
                 enum: ['Yes', 'No', 'N/A']
               }
             },
@@ -255,6 +258,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                 type: 'string',
                 laReadOnly: true,
                 title: 'Is this a requirement?',
+                radio: true,
                 enum: %w[Yes No]
               }
             },
@@ -293,6 +297,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                 type: 'string',
                 laReadOnly: true,
                 title: 'Any Statutory Consents?',
+                radio: true,
                 enum: %w[Yes No]
               }
             },
@@ -345,6 +350,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
               underControlOfLA: {
                 type: 'string',
                 title: 'Is land under control of the Local Authority',
+                radio: true,
                 enum: %w[Yes No]
               }
             },
@@ -372,6 +378,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                       landAcquisitionRequired: {
                         type: 'string',
                         title: 'Is land acquisition required?',
+                        radio: true,
                         enum: %w[Yes No]
                       }
                     },
@@ -428,6 +435,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
               contractorProcured: {
                 type: 'string',
                 title: 'Is the infrastructure contractor procured?',
+                radio: true,
                 enum: %w[Yes No]
               }
             },
@@ -585,6 +593,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
         greenOrBrownField: {
           type: 'string',
           title: 'Greenfield/Brownfield/Mixed',
+          radio: true,
           enum: %w[Greenfield Brownfield Mixed]
         },
         noOfHousingSites: {
