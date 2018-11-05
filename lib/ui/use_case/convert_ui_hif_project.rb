@@ -146,14 +146,18 @@ class UI::UseCase::ConvertUIHIFProject
 
   def convert_funding_profiles
     @converted_project[:fundingProfiles] = @project[:fundingProfiles].map do |profile|
-      {
-        period: profile[:period],
-        instalment1: profile[:instalment1],
-        instalment2: profile[:instalment2],
-        instalment3: profile[:instalment3],
-        instalment4: profile[:instalment4],
-        total: profile[:total]
-      }
+      if profile[:profile].nil?
+        {}
+      else
+        {
+          period: profile[:profile][:period],
+          instalment1: profile[:profile][:instalment1],
+          instalment2: profile[:profile][:instalment2],
+          instalment3: profile[:profile][:instalment3],
+          instalment4: profile[:profile][:instalment4],
+          total: profile[:profile][:total]
+        }
+      end
     end
 
     @converted_project[:fundingProfiles].each(&:compact!)

@@ -467,12 +467,18 @@
         "type": "object",
         "title": "Funding Profile",
         "properties": {
-          "period": { "type": "string", "title": "Period" },
-          "instalment1": { "type": "string", "title": "1st Instalment" },
-          "instalment2": { "type": "string", "title": "2nd Instalment" },
-          "instalment3": { "type": "string", "title": "3rd Instalment" },
-          "instalment4": { "type": "string", "title": "4th Instalment" },
-          "total": { "type": "string", "title": "Total" }
+          "profile" : {
+            "type" : "object",
+            "title" : "Profile",
+            "properties": {
+              "period": { "type": "string", "title": "Period" },
+              "instalment1": { "type": "string", "title": "1st Instalment" },
+              "instalment2": { "type": "string", "title": "2nd Instalment" },
+              "instalment3": { "type": "string", "title": "3rd Instalment" },
+              "instalment4": { "type": "string", "title": "4th Instalment" },
+              "total": { "type": "string", "title": "Total" }
+            }
+          }
         },
         "required": [
           "period",
