@@ -2,10 +2,10 @@
 
 require 'rspec'
 
-describe HomesEngland::UseCase::ValidateProject do
+describe UI::UseCase::ValidateProject do
   let(:project_type) { 'hif' }
   let(:invalid_project_data_pretty_paths) { nil }
-  let(:project_template_gateway_spy) { double(get_template: template) }
+  let(:project_schema_gateway_spy) { double(find_by: template) }
 
   let(:get_project_template_path_titles_spy) do
     Class.new do
@@ -29,7 +29,7 @@ describe HomesEngland::UseCase::ValidateProject do
     end
   end
   let(:use_case) do
-    described_class.new(project_template_gateway: project_template_gateway_spy, get_project_template_path_titles: get_project_template_path_titles_spy)
+    described_class.new(project_schema_gateway: project_schema_gateway_spy, get_project_template_path_titles: get_project_template_path_titles_spy)
   end
 
   it 'should accept project type and project data' do
@@ -41,7 +41,7 @@ describe HomesEngland::UseCase::ValidateProject do
       let(:project_type) { 'koalas' }
       it 'should call return template gateway with type' do
         use_case.execute(type: project_type, project_data: {})
-        expect(project_template_gateway_spy).to have_received(:get_template).with(type: project_type)
+        expect(project_schema_gateway_spy).to have_received(:find_by).with(type: project_type)
       end
     end
 
@@ -49,7 +49,7 @@ describe HomesEngland::UseCase::ValidateProject do
       let(:project_type) { 'dogs' }
       it 'should call return template gateway with type' do
         use_case.execute(type: project_type, project_data: {})
-        expect(project_template_gateway_spy).to have_received(:get_template).with(type: project_type)
+        expect(project_schema_gateway_spy).to have_received(:find_by).with(type: project_type)
       end
     end
   end

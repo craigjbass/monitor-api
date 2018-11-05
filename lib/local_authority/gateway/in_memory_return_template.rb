@@ -4,7 +4,7 @@
 class LocalAuthority::Gateway::InMemoryReturnTemplate
   def find_by(type:)
     return nil unless type == 'hif'
-    @return_template = LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+    @return_template = Common::Domain::Template.new.tap do |p|
       p.schema = {
         title: 'HIF Project',
         type: 'object',

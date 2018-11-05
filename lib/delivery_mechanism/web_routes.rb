@@ -22,7 +22,7 @@ module DeliveryMechanism
     get '/baseline/:type' do
       schema = @dependency_factory.get_use_case(:get_schema_for_project).execute(type: params['type'])
       return 404 if schema.nil?
-      response.body = schema.schema.to_json
+      response.body = schema.to_json
       response.headers['Cache-Control'] = 'no-cache'
       response.status = 200
     end
@@ -185,14 +185,12 @@ module DeliveryMechanism
 
         return 404 if project.nil?
 
-        schema = @dependency_factory.get_use_case(:get_schema_for_project).execute(type: project[:type])[:schema]
-
         content_type 'application/json'
         response.body = {
           type: project[:type],
           status: project[:status],
           data: Common::DeepCamelizeKeys.to_camelized_hash(project[:data]),
-          schema: schema
+          schema: project[:schema]
         }.to_json
         response.headers['Cache-Control'] = 'no-cache'
         response.status = 200
@@ -223,9 +221,12 @@ module DeliveryMechanism
     post '/project/update' do
       guard_access env, params, request do |request_hash|
         if valid_update_request_body(request_hash)
+          get_project_use_case = @dependency_factory.get_use_case(:ui_get_project)
+          project = get_project_use_case.execute(id: request_hash[:project_id].to_i )
           use_case = @dependency_factory.get_use_case(:ui_update_project)
           update_successful = use_case.execute(
             id: request_hash[:project_id].to_i,
+            type: project[:type],
             data: request_hash[:project_data]
           )[:successful]
           response.status = update_successful ? 200 : 404
@@ -239,7 +240,7 @@ module DeliveryMechanism
       guard_access env, params, request do |request_hash|
         return 400 if invalid_validation_hash(request_hash: request_hash)
 
-        validate_response = @dependency_factory.get_use_case(:validate_project).execute(
+        validate_response = @dependency_factory.get_use_case(:ui_validate_project).execute(
           type: request_hash[:type],
           project_data: request_hash[:data]
         )

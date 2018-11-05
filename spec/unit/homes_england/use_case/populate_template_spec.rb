@@ -2,7 +2,7 @@
 
 describe HomesEngland::UseCase::PopulateTemplate do
   let(:template) do
-    HomesEngland::Domain::Template.new.tap do |t|
+    Common::Domain::Template.new.tap do |t|
       t.layout = {}
     end
   end
@@ -24,7 +24,7 @@ describe HomesEngland::UseCase::PopulateTemplate do
 
     context 'with matching baseline and template key' do
       let(:template) do
-        HomesEngland::Domain::Template.new.tap do |t|
+        Common::Domain::Template.new.tap do |t|
           t.layout = { cats: nil }
         end
       end
@@ -37,7 +37,7 @@ describe HomesEngland::UseCase::PopulateTemplate do
 
     context 'with a baseline missing one top level template key' do
       let(:template) do
-        HomesEngland::Domain::Template.new.tap do |t|
+        Common::Domain::Template.new.tap do |t|
           t.layout = {
             doggos: nil,
             ducks: 'quack'
@@ -53,7 +53,7 @@ describe HomesEngland::UseCase::PopulateTemplate do
 
     context 'with field in baseline but not in template' do
       let(:template) do
-        HomesEngland::Domain::Template.new.tap do |t|
+        Common::Domain::Template.new.tap do |t|
           t.layout = {
             doggos: nil
           }
@@ -68,7 +68,7 @@ describe HomesEngland::UseCase::PopulateTemplate do
 
     context 'with matching baseline and template nested hash' do
       let(:template) do
-        HomesEngland::Domain::Template.new.tap do |t|
+        Common::Domain::Template.new.tap do |t|
           t.layout = {
             doggos: nil,
             good_animals: {
@@ -133,7 +133,7 @@ describe HomesEngland::UseCase::PopulateTemplate do
 
     context 'with matching baseline and template key' do
       let(:template) do
-        HomesEngland::Domain::Template.new.tap do |t|
+        Common::Domain::Template.new.tap do |t|
           t.layout = {
             doggos: nil
           }
@@ -148,7 +148,7 @@ describe HomesEngland::UseCase::PopulateTemplate do
 
     context 'with a baseline missing one top level template key' do
       let(:template) do
-        HomesEngland::Domain::Template.new.tap do |t|
+        Common::Domain::Template.new.tap do |t|
           t.layout = {
             doggos: nil,
             cows: 'moo'
@@ -164,7 +164,7 @@ describe HomesEngland::UseCase::PopulateTemplate do
 
     context 'with field in baseline but not in template' do
       let(:template) do
-        HomesEngland::Domain::Template.new.tap do |t|
+        Common::Domain::Template.new.tap do |t|
           t.layout = {
             doggos: nil
           }
@@ -179,7 +179,7 @@ describe HomesEngland::UseCase::PopulateTemplate do
 
     context 'with matching baseline and template nested hash' do
       let(:template) do
-        HomesEngland::Domain::Template.new.tap do |t|
+        Common::Domain::Template.new.tap do |t|
           t.layout = {
             cows: nil,
             more_animals: {
