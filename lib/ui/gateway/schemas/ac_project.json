@@ -25,6 +25,7 @@
         },
         "sitesSummary": {
           "type": "array",
+          "addable": true,
           "title": "Site(s) Summary",
           "items": {
             "type": "object",
@@ -144,6 +145,7 @@
             "conditions": {
               "title": "Conditions",
               "type": "array",
+              "addable": true,
               "items": {
                 "type": "object",
                 "properties": {
@@ -171,6 +173,7 @@
             "fundItems": {
               "title": "Items",
               "type": "array",
+              "addable": true,
               "items": {
                 "type": "object",
                 "properties": {
@@ -199,6 +202,7 @@
       "properties": {
         "expenditure": {
           "type": "array",
+          "addable": true,
           "title": "Expenditure",
           "items": {
             "type": "object",
@@ -234,6 +238,7 @@
         },
         "fundingStack": {
           "type": "array",
+          "addable": true,
           "title": "Funding Stack",
           "items": {
             "type": "object",
@@ -272,6 +277,7 @@
             },
             "expectedDisposalReceipt": {
               "type": "array",
+              "addable": true,
               "title": "Expected Disposal Receipt",
               "items": {
                 "type": "object",
@@ -379,6 +385,7 @@
         },
         "customMileStones": {
           "type": "array",
+          "addable": true,
           "title": "Custom Milestones",
           "items": {
             "type": "object",
@@ -399,6 +406,7 @@
         "unitCompletions": {
           "title": "Unit Completions",
           "type": "array",
+          "addable": true,
           "items": {
             "type": "object",
             "properties": {
@@ -440,6 +448,7 @@
             "mmcCategory": {
               "title": "MMC Category",
               "type": "array",
+              "addable": true,
               "items": {
                 "type": "object",
                 "properties": {
