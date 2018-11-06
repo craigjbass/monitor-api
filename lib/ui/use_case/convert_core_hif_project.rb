@@ -41,106 +41,117 @@ class UI::UseCase::ConvertCoreHIFProject
 
   def convert_infrastructures
     @converted_project[:infrastructures] = @project[:infrastructures].map do |infrastructure|
-      converted_infrastructure = {}
-      converted_infrastructure[:type] = infrastructure[:type]
-      converted_infrastructure[:description] = infrastructure[:description]
-      converted_infrastructure[:housingSitesBenefitting] = infrastructure[:housingSitesBenefitting]
-
-      unless infrastructure[:outlinePlanningStatus].nil?
-        converted_infrastructure[:outlinePlanningStatus] = {
-          granted: infrastructure[:outlinePlanningStatus][:granted],
-          reference: infrastructure[:outlinePlanningStatus][:reference],
-          targetSubmission: infrastructure[:outlinePlanningStatus][:targetSubmission],
-          targetGranted: infrastructure[:outlinePlanningStatus][:targetGranted],
-          summaryOfCriticalPath: infrastructure[:outlinePlanningStatus][:summaryOfCriticalPath]
-        }
-      end
-
-      unless infrastructure[:fullPlanningStatus].nil?
-        converted_infrastructure[:fullPlanningStatus] = {
-          granted: infrastructure[:fullPlanningStatus][:granted],
-          grantedReference: infrastructure[:fullPlanningStatus][:grantedReference],
-          targetSubmission: infrastructure[:fullPlanningStatus][:targetSubmission],
-          targetGranted: infrastructure[:fullPlanningStatus][:targetGranted],
-          summaryOfCriticalPath: infrastructure[:fullPlanningStatus][:summaryOfCriticalPath]
-        }
-      end
-
-      unless infrastructure[:s106].nil?
-        converted_infrastructure[:s106] = {
-          requirement: infrastructure[:s106][:requirement],
-          summaryOfRequirement: infrastructure[:s106][:summaryOfRequirement]
-        }
-      end
-
-      unless infrastructure[:statutoryConsents].nil?
-        converted_infrastructure[:statutoryConsents] = {
-          anyConsents: infrastructure[:statutoryConsents][:anyConsents],
-          consents: infrastructure[:statutoryConsents][:consents].map do |consent|
-            {
-              detailsOfConsent: consent[:detailsOfConsent],
-              targetDateToBeMet: consent[:targetDateToBeMet]
-            }
-          end
-        }
-      end
-
-      unless infrastructure[:landOwnership].nil?
-        converted_infrastructure[:landOwnership] = {
-          underControlOfLA: infrastructure[:landOwnership][:underControlOfLA],
-          ownershipOfLandOtherThanLA: infrastructure[:landOwnership][:ownershipOfLandOtherThanLA],
-          landAcquisitionRequired: infrastructure[:landOwnership][:landAcquisitionRequired],
-          howManySitesToAcquire: infrastructure[:landOwnership][:howManySitesToAcquire],
-          toBeAcquiredBy: infrastructure[:landOwnership][:toBeAcquiredBy],
-          targetDateToAcquire: infrastructure[:landOwnership][:targetDateToAcquire],
-          summaryOfCriticalPath: infrastructure[:landOwnership][:summaryOfCriticalPath]
-        }
-      end
-
-      unless infrastructure[:procurement].nil?
-        converted_infrastructure[:procurement] = {
-          contractorProcured: infrastructure[:procurement][:contractorProcured],
-          nameOfContractor: infrastructure[:procurement][:nameOfContractor],
-          targetDate: infrastructure[:procurement][:targetDate],
-          summaryOfCriticalPath: infrastructure[:procurement][:summaryOfCriticalPath]
-        }
-      end
-
-      unless infrastructure[:milestones].nil?
-        converted_infrastructure[:milestones] = infrastructure[:milestones].map do |milestone|
-          {
-            descriptionOfMilestone: milestone[:descriptionOfMilestone],
-            target: milestone[:target],
-            summaryOfCriticalPath: milestone[:summaryOfCriticalPath]
-          }
-        end
-      end
-
-      unless infrastructure[:expectedInfrastructureStart].nil?
-        converted_infrastructure[:expectedInfrastructureStart] = {
-          targetDateOfAchievingStart: infrastructure[:expectedInfrastructureStart][:targetDateOfAchievingStart]
-        }
-      end
-
-      unless infrastructure[:expectedInfrastructureCompletion].nil?
-        converted_infrastructure[:expectedInfrastructureCompletion] = {
-          targetDateOfAchievingCompletion: infrastructure[:expectedInfrastructureCompletion][:targetDateOfAchievingCompletion]
-        }
-      end
-
-      unless infrastructure[:risksToAchievingTimescales].nil?
-        converted_infrastructure[:risksToAchievingTimescales] = infrastructure[:risksToAchievingTimescales].map do |risk|
-          {
-            descriptionOfRisk: risk[:descriptionOfRisk],
-            impactOfRisk: risk[:impactOfRisk],
-            likelihoodOfRisk: risk[:likelihoodOfRisk],
-            mitigationOfRisk: risk[:mitigationOfRisk]
-          }
-        end
-      end
-
-      converted_infrastructure.compact
+      convert_infrastructure(infrastructure)
     end
+  end
+
+  def convert_infrastructure(infrastructure)
+    return {} if infrastructure.empty?
+
+    converted_infrastructure = {}
+
+    converted_infrastructure[:summary] = {
+      type: infrastructure[:type],
+      description: infrastructure[:description],
+      housingSitesBenefitting: infrastructure[:housingSitesBenefitting]
+    }
+
+    unless infrastructure[:expectedInfrastructureStart].nil?
+      converted_infrastructure[:summary][:expectedInfrastructureStart] = {
+        targetDateOfAchievingStart: infrastructure[:expectedInfrastructureStart][:targetDateOfAchievingStart]
+      }
+    end
+
+    unless infrastructure[:expectedInfrastructureCompletion].nil?
+      converted_infrastructure[:summary][:expectedInfrastructureCompletion] = {
+        targetDateOfAchievingCompletion: infrastructure[:expectedInfrastructureCompletion][:targetDateOfAchievingCompletion]
+      }
+    end
+
+    converted_infrastructure[:planningStatus] = {}
+
+    unless infrastructure[:outlinePlanningStatus].nil?
+      converted_infrastructure[:planningStatus][:outlinePlanningStatus] = {
+        granted: infrastructure[:outlinePlanningStatus][:granted],
+        reference: infrastructure[:outlinePlanningStatus][:reference],
+        targetSubmission: infrastructure[:outlinePlanningStatus][:targetSubmission],
+        targetGranted: infrastructure[:outlinePlanningStatus][:targetGranted],
+        summaryOfCriticalPath: infrastructure[:outlinePlanningStatus][:summaryOfCriticalPath]
+      }
+    end
+
+    unless infrastructure[:fullPlanningStatus].nil?
+      converted_infrastructure[:planningStatus][:fullPlanningStatus] = {
+        granted: infrastructure[:fullPlanningStatus][:granted],
+        grantedReference: infrastructure[:fullPlanningStatus][:grantedReference],
+        targetSubmission: infrastructure[:fullPlanningStatus][:targetSubmission],
+        targetGranted: infrastructure[:fullPlanningStatus][:targetGranted],
+        summaryOfCriticalPath: infrastructure[:fullPlanningStatus][:summaryOfCriticalPath]
+      }
+    end
+
+    unless infrastructure[:s106].nil?
+      converted_infrastructure[:s106] = {
+        requirement: infrastructure[:s106][:requirement],
+        summaryOfRequirement: infrastructure[:s106][:summaryOfRequirement]
+      }
+    end
+
+    unless infrastructure[:statutoryConsents].nil?
+      converted_infrastructure[:statutoryConsents] = {
+        anyConsents: infrastructure[:statutoryConsents][:anyConsents],
+        consents: infrastructure[:statutoryConsents][:consents].map do |consent|
+          {
+            detailsOfConsent: consent[:detailsOfConsent],
+            targetDateToBeMet: consent[:targetDateToBeMet]
+          }
+        end
+      }
+    end
+
+    unless infrastructure[:landOwnership].nil?
+      converted_infrastructure[:landOwnership] = {
+        underControlOfLA: infrastructure[:landOwnership][:underControlOfLA],
+        ownershipOfLandOtherThanLA: infrastructure[:landOwnership][:ownershipOfLandOtherThanLA],
+        landAcquisitionRequired: infrastructure[:landOwnership][:landAcquisitionRequired],
+        howManySitesToAcquire: infrastructure[:landOwnership][:howManySitesToAcquire],
+        toBeAcquiredBy: infrastructure[:landOwnership][:toBeAcquiredBy],
+        targetDateToAcquire: infrastructure[:landOwnership][:targetDateToAcquire],
+        summaryOfCriticalPath: infrastructure[:landOwnership][:summaryOfCriticalPath]
+      }
+    end
+
+    unless infrastructure[:procurement].nil?
+      converted_infrastructure[:procurement] = {
+        contractorProcured: infrastructure[:procurement][:contractorProcured],
+        nameOfContractor: infrastructure[:procurement][:nameOfContractor],
+        targetDate: infrastructure[:procurement][:targetDate],
+        summaryOfCriticalPath: infrastructure[:procurement][:summaryOfCriticalPath]
+      }
+    end
+
+    unless infrastructure[:milestones].nil?
+      converted_infrastructure[:milestones] = infrastructure[:milestones].map do |milestone|
+        {
+          descriptionOfMilestone: milestone[:descriptionOfMilestone],
+          target: milestone[:target],
+          summaryOfCriticalPath: milestone[:summaryOfCriticalPath]
+        }
+      end
+    end
+
+    unless infrastructure[:risksToAchievingTimescales].nil?
+      converted_infrastructure[:risksToAchievingTimescales] = infrastructure[:risksToAchievingTimescales].map do |risk|
+        {
+          descriptionOfRisk: risk[:descriptionOfRisk],
+          impactOfRisk: risk[:impactOfRisk],
+          likelihoodOfRisk: risk[:likelihoodOfRisk],
+          mitigationOfRisk: risk[:mitigationOfRisk]
+        }
+      end
+    end
+
+    converted_infrastructure.compact
   end
 
   def convert_funding_profiles

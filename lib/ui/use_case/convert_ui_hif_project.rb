@@ -13,7 +13,7 @@ class UI::UseCase::ConvertUIHIFProject
     convert_recovery
     convert_s151
     convert_outputs_forecast
-    convert_outputs_actuals  
+    convert_outputs_actuals
 
     @converted_project
   end
@@ -43,28 +43,46 @@ class UI::UseCase::ConvertUIHIFProject
   def convert_infrastructures
     @converted_project[:infrastructures] = @project[:infrastructures].map do |infrastructure|
       converted_infrastructure = {}
-      converted_infrastructure[:type] = infrastructure[:type]
-      converted_infrastructure[:description] = infrastructure[:description]
-      converted_infrastructure[:housingSitesBenefitting] = infrastructure[:housingSitesBenefitting]
 
-      unless infrastructure[:outlinePlanningStatus].nil?
-        converted_infrastructure[:outlinePlanningStatus] = {
-          granted: infrastructure[:outlinePlanningStatus][:granted],
-          reference: infrastructure[:outlinePlanningStatus][:reference],
-          targetSubmission: infrastructure[:outlinePlanningStatus][:targetSubmission],
-          targetGranted: infrastructure[:outlinePlanningStatus][:targetGranted],
-          summaryOfCriticalPath: infrastructure[:outlinePlanningStatus][:summaryOfCriticalPath]
-        }
+      unless infrastructure[:summary].nil?
+        converted_infrastructure[:type] = infrastructure[:summary][:type]
+        converted_infrastructure[:description] = infrastructure[:summary][:description]
+        converted_infrastructure[:housingSitesBenefitting] = infrastructure[:summary][:housingSitesBenefitting]
+
+        unless infrastructure[:summary][:expectedInfrastructureStart].nil?
+          converted_infrastructure[:expectedInfrastructureStart] = {
+            targetDateOfAchievingStart: infrastructure[:summary][:expectedInfrastructureStart][:targetDateOfAchievingStart]
+          }
+        end
+
+        unless infrastructure[:summary][:expectedInfrastructureCompletion].nil?
+          converted_infrastructure[:expectedInfrastructureCompletion] = {
+            targetDateOfAchievingCompletion: infrastructure[:summary][:expectedInfrastructureCompletion][:targetDateOfAchievingCompletion]
+          }
+        end
       end
 
-      unless infrastructure[:fullPlanningStatus].nil?
-        converted_infrastructure[:fullPlanningStatus] = {
-          granted: infrastructure[:fullPlanningStatus][:granted],
-          grantedReference: infrastructure[:fullPlanningStatus][:grantedReference],
-          targetSubmission: infrastructure[:fullPlanningStatus][:targetSubmission],
-          targetGranted: infrastructure[:fullPlanningStatus][:targetGranted],
-          summaryOfCriticalPath: infrastructure[:fullPlanningStatus][:summaryOfCriticalPath]
-        }
+      unless infrastructure[:planningStatus].nil?
+
+        unless infrastructure[:planningStatus][:outlinePlanningStatus].nil?
+          converted_infrastructure[:outlinePlanningStatus] = {
+            granted: infrastructure[:planningStatus][:outlinePlanningStatus][:granted],
+            reference: infrastructure[:planningStatus][:outlinePlanningStatus][:reference],
+            targetSubmission: infrastructure[:planningStatus][:outlinePlanningStatus][:targetSubmission],
+            targetGranted: infrastructure[:planningStatus][:outlinePlanningStatus][:targetGranted],
+            summaryOfCriticalPath: infrastructure[:planningStatus][:outlinePlanningStatus][:summaryOfCriticalPath]
+          }
+        end
+
+        unless infrastructure[:planningStatus][:fullPlanningStatus].nil?
+          converted_infrastructure[:fullPlanningStatus] = {
+            granted: infrastructure[:planningStatus][:fullPlanningStatus][:granted],
+            grantedReference: infrastructure[:planningStatus][:fullPlanningStatus][:grantedReference],
+            targetSubmission: infrastructure[:planningStatus][:fullPlanningStatus][:targetSubmission],
+            targetGranted: infrastructure[:planningStatus][:fullPlanningStatus][:targetGranted],
+            summaryOfCriticalPath: infrastructure[:planningStatus][:fullPlanningStatus][:summaryOfCriticalPath]
+          }
+        end
       end
 
       unless infrastructure[:s106].nil?
@@ -115,18 +133,6 @@ class UI::UseCase::ConvertUIHIFProject
             summaryOfCriticalPath: milestone[:summaryOfCriticalPath]
           }
         end
-      end
-
-      unless infrastructure[:expectedInfrastructureStart].nil?
-        converted_infrastructure[:expectedInfrastructureStart] = {
-          targetDateOfAchievingStart: infrastructure[:expectedInfrastructureStart][:targetDateOfAchievingStart]
-        }
-      end
-
-      unless infrastructure[:expectedInfrastructureCompletion].nil?
-        converted_infrastructure[:expectedInfrastructureCompletion] = {
-          targetDateOfAchievingCompletion: infrastructure[:expectedInfrastructureCompletion][:targetDateOfAchievingCompletion]
-        }
       end
 
       unless infrastructure[:risksToAchievingTimescales].nil?
@@ -247,6 +253,5 @@ class UI::UseCase::ConvertUIHIFProject
         }
       end
     }
-
   end
 end

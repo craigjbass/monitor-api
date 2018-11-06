@@ -65,118 +65,155 @@
         "title": "Infrastructure",
         "type": "object",
         "properties": {
-          "type": { "type": "string", "laReadOnly": true, "title": "Type" },
-          "description": {
-            "type": "string",
-            "laReadOnly": true,
-            "title": "Description"
-          },
-          "housingSitesBenefitting": {
-            "type": "string",
-            "title": "Housing Sites Benefitting"
-          },
-          "outlinePlanningStatus": {
+          "summary" : {
             "type": "object",
-            "title": "Outline Planning Status",
-            "properties": {
-              "granted": {
+            "title" : "Summary",
+            "properties" : {
+              "type": { "type": "string", "laReadOnly": true, "title": "Type" },
+              "description": {
                 "type": "string",
-                "title": "Granted?",
-                "enum": ["Yes", "No", "N/A"],
-                "radio": true
+                "laReadOnly": true,
+                "title": "Description"
+              },
+              "housingSitesBenefitting": {
+                "type": "string",
+                "title": "Housing Sites Benefitting"
+              },
+              "expectedInfrastructureStart": {
+                "type": "object",
+                "title": "Expected infrastructure start on site",
+                "properties": {
+                  "targetDateOfAchievingStart": {
+                    "type": "string",
+                    "format": "date",
+                    "title": "Target date of achieving start"
+                  }
+                },
+                "required": ["targetDateOfAchievingStart"]
+              },
+              "expectedInfrastructureCompletion": {
+                "type": "object",
+                "title": "Expected infrastructure completion",
+                "properties": {
+                  "targetDateOfAchievingCompletion": {
+                    "type": "string",
+                    "format": "date",
+                    "title": "Target date of achieving completion"
+                  }
+                },
+                "required": ["targetDateOfAchievingCompletion"]
               }
             },
-            "required": ["granted"],
-            "dependencies": {
-              "granted": {
-                "oneOf": [
-                  {
-                    "properties": {
-                      "granted": { "enum": ["Yes"] },
-                      "reference": { "type": "string", "title": "Reference" }
-                    },
-                    "required": ["reference"]
-                  },
-                  {
-                    "properties": {
-                      "granted": { "enum": ["No"] },
-                      "targetSubmission": {
-                        "type": "string",
-                        "format": "date",
-                        "title": "Target date of submission"
-                      },
-                      "targetGranted": {
-                        "type": "string",
-                        "format": "date",
-                        "title": "Target date of planning granted"
-                      },
-                      "summaryOfCriticalPath": {
-                        "type": "string",
-                        "title": "Summary of Critical Path"
-                      }
-                    },
-                    "required": [
-                      "targetSubmission",
-                      "targetGranted",
-                      "summaryOfCriticalPath"
-                    ]
-                  },
-                  { "properties": { "granted": { "enum": ["N/A"] } } }
-                ]
-              }
-            }
+            "required": ["housingSitesBenefitting"]
           },
-          "fullPlanningStatus": {
-            "type": "object",
-            "title": "Full Planning Status",
-            "properties": {
-              "granted": {
-                "type": "string",
-                "title": "Granted?",
-                "enum": ["Yes", "No", "N/A"],
-                "radio": true
-              }
-            },
-            "required": ["granted"],
-            "dependencies": {
-              "granted": {
-                "oneOf": [
-                  {
-                    "properties": {
-                      "granted": { "enum": ["Yes"] },
-                      "grantedReference": {
-                        "type": "string",
-                        "title": "Reference"
-                      }
-                    },
-                    "required": ["grantedReference"]
-                  },
-                  {
-                    "properties": {
-                      "granted": { "enum": ["No"] },
-                      "targetSubmission": {
-                        "type": "string",
-                        "format": "date",
-                        "title": "Target date of submission"
+          "planningStatus" : {
+            "type" : "object",
+            "title" : "Planning Status",
+            "properties" : {
+              "outlinePlanningStatus": {
+                "type": "object",
+                "title": "Outline Planning Status",
+                "properties": {
+                  "granted": {
+                    "type": "string",
+                    "title": "Granted?",
+                    "enum": ["Yes", "No", "N/A"],
+                    "radio": true
+                  }
+                },
+                "required": ["granted"],
+                "dependencies": {
+                  "granted": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "granted": { "enum": ["Yes"] },
+                          "reference": { "type": "string", "title": "Reference" }
+                        },
+                        "required": ["reference"]
                       },
-                      "targetGranted": {
-                        "type": "string",
-                        "format": "date",
-                        "title": "Target date of planning granted"
+                      {
+                        "properties": {
+                          "granted": { "enum": ["No"] },
+                          "targetSubmission": {
+                            "type": "string",
+                            "format": "date",
+                            "title": "Target date of submission"
+                          },
+                          "targetGranted": {
+                            "type": "string",
+                            "format": "date",
+                            "title": "Target date of planning granted"
+                          },
+                          "summaryOfCriticalPath": {
+                            "type": "string",
+                            "title": "Summary of Critical Path"
+                          }
+                        },
+                        "required": [
+                          "targetSubmission",
+                          "targetGranted",
+                          "summaryOfCriticalPath"
+                        ]
                       },
-                      "summaryOfCriticalPath": {
-                        "type": "string",
-                        "title": "Summary of Critical Path"
-                      }
-                    },
-                    "required": [
-                      "targetSubmission",
-                      "targetGranted",
-                      "summaryOfCriticalPath"
+                      { "properties": { "granted": { "enum": ["N/A"] } } }
                     ]
-                  },
-                  { "properties": { "granted": { "enum": ["N/A"] } } }
-                ]
+                  }
+                }
+              },
+              "fullPlanningStatus": {
+                "type": "object",
+                "title": "Full Planning Status",
+                "properties": {
+                  "granted": {
+                    "type": "string",
+                    "title": "Granted?",
+                    "enum": ["Yes", "No", "N/A"],
+                    "radio": true
+                  }
+                },
+                "required": ["granted"],
+                "dependencies": {
+                  "granted": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "granted": { "enum": ["Yes"] },
+                          "grantedReference": {
+                            "type": "string",
+                            "title": "Reference"
+                          }
+                        },
+                        "required": ["grantedReference"]
+                      },
+                      {
+                        "properties": {
+                          "granted": { "enum": ["No"] },
+                          "targetSubmission": {
+                            "type": "string",
+                            "format": "date",
+                            "title": "Target date of submission"
+                          },
+                          "targetGranted": {
+                            "type": "string",
+                            "format": "date",
+                            "title": "Target date of planning granted"
+                          },
+                          "summaryOfCriticalPath": {
+                            "type": "string",
+                            "title": "Summary of Critical Path"
+                          }
+                        },
+                        "required": [
+                          "targetSubmission",
+                          "targetGranted",
+                          "summaryOfCriticalPath"
+                        ]
+                      },
+                      { "properties": { "granted": { "enum": ["N/A"] } } }
+                    ]
+                  }
+                }
               }
             }
           },
@@ -409,31 +446,7 @@
                 "summaryOfCriticalPath"
               ]
             }
-          },
-          "expectedInfrastructureStart": {
-            "type": "object",
-            "title": "Expected infrastructure start on site",
-            "properties": {
-              "targetDateOfAchievingStart": {
-                "type": "string",
-                "format": "date",
-                "title": "Target date of achieving start"
-              }
-            },
-            "required": ["targetDateOfAchievingStart"]
-          },
-          "expectedInfrastructureCompletion": {
-            "type": "object",
-            "title": "Expected infrastructure completion",
-            "properties": {
-              "targetDateOfAchievingCompletion": {
-                "type": "string",
-                "format": "date",
-                "title": "Target date of achieving completion"
-              }
-            },
-            "required": ["targetDateOfAchievingCompletion"]
-          },
+          }, 
           "risksToAchievingTimescales": {
             "type": "array",
             "title": "Risks to achieving timescales",
@@ -464,8 +477,7 @@
               "required": ["mitigationOfRisk"]
             }
           }
-        },
-        "required": ["housingSitesBenefitting"]
+        }
       }
     },
     "fundingProfiles": {

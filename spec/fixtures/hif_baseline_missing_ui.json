@@ -13,10 +13,18 @@
     "descriptionOfWiderProjectDeliverables": "Wider infrastructure"
   },
   "infrastructures": [
-    {
+    { "summary" : {
       "type": "A House",
       "description": "A house of cats",
       "housingSitesBenefitting": "Housing Sites Benefitting",
+      "expectedInfrastructureStart": {
+        "targetDateOfAchievingStart": "2020-01-01"
+      },
+      "expectedInfrastructureCompletion": {
+        "targetDateOfAchievingCompletion": "2020-01-01"
+      }
+    },
+    "planningStatus" : {
       "outlinePlanningStatus": {
         "granted": "No",
         "reference": "Ref101",
@@ -29,7 +37,8 @@
         "targetSubmission": "2020-03-01",
         "targetGranted": "2020-04-01",
         "summaryOfCriticalPath": "Summary of critical path"
-      },
+      }
+    },
       "s106": { "requirement": "Yes", "summaryOfRequirement": "Required" },
       "statutoryConsents": {
         "anyConsents": "Yes",
@@ -62,12 +71,6 @@
           "summaryOfCriticalPath": "Summary of critical path"
         }
       ],
-      "expectedInfrastructureStart": {
-        "targetDateOfAchievingStart": "2020-01-01"
-      },
-      "expectedInfrastructureCompletion": {
-        "targetDateOfAchievingCompletion": "2020-01-01"
-      },
       "risksToAchievingTimescales": [
         {
           "descriptionOfRisk": "Risk one",

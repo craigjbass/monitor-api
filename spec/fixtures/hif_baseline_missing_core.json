@@ -13,7 +13,7 @@
     "descriptionOfWiderProjectDeliverables": "Wider infrastructure"
   },
   "infrastructures": [
-    { "summary" : {
+    {
       "type": "A House",
       "description": "A house of cats",
       "housingSitesBenefitting": "Housing Sites Benefitting",
@@ -22,23 +22,19 @@
       },
       "expectedInfrastructureCompletion": {
         "targetDateOfAchievingCompletion": "2020-01-01"
-      }
       },
-      "planningStatus" : {
-        "outlinePlanningStatus": {
-          "granted": "No",
-          "reference": "Ref101",
-          "targetSubmission": "2020-01-01",
-          "targetGranted": "2020-02-01",
-          "summaryOfCriticalPath": "Summary of critical path"
-        },
-        "fullPlanningStatus": {
-          "granted": "No",
-          "grantedReference": "1234",
-          "targetSubmission": "2020-03-01",
-          "targetGranted": "2020-04-01",
-          "summaryOfCriticalPath": "Summary of critical path"
-        }
+      "outlinePlanningStatus": {
+        "granted": "No",
+        "reference": "Ref101",
+        "targetSubmission": "2020-01-01",
+        "targetGranted": "2020-02-01",
+        "summaryOfCriticalPath": "Summary of critical path"
+      },
+      "fullPlanningStatus": {
+        "grantedReference": "1234",
+        "targetSubmission": "2020-03-01",
+        "targetGranted": "2020-04-01",
+        "summaryOfCriticalPath": "Summary of critical path"
       },
       "s106": { "requirement": "Yes", "summaryOfRequirement": "Required" },
       "statutoryConsents": {
@@ -114,33 +110,29 @@
     "s151FundingEndDate": "2020-01-01",
     "s151ProjectLongstopDate": "2020-01-01"
   },
-  "outputs": [
-    {
-      "outputsForecast": {
-        "totalUnits": "10",
-        "disposalStrategy": "Disposal strategy",
-        "housingForecast": [
-          {
-            "period": "18/19",
-            "target": "100",
-            "housingCompletions": "0"
-          },
-          {
-            "period": "19/20",
-            "target": "50",
-            "housingCompletions": "50"
-          }
-        ]
+  "outputsForecast": {
+    "totalUnits": "10",
+    "disposalStrategy": "Disposal strategy",
+    "housingForecast": [
+      {
+        "period": "18/19",
+        "target": "100",
+        "housingCompletions": "0"
       },
-      "outputsActuals": {
-        "siteOutputs": [
-          {
-            "siteName": "Site name",
-            "siteLocalAuthority": "Local Authority",
-            "siteNumberOfUnits": "123"
-          }
-        ]
+      {
+        "period": "19/20",
+        "target": "50",
+        "housingCompletions": "50"
       }
-    }
-  ]
+    ]
+  },
+  "outputsActuals": {
+    "siteOutputs": [
+      {
+        "siteName": "Site name",
+        "siteLocalAuthority": "Local Authority",
+        "siteNumberOfUnits": "123"
+      }
+    ]
+  }
 }
