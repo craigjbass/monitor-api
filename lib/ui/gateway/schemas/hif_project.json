@@ -477,17 +477,17 @@
               "instalment3": { "type": "string", "title": "3rd Instalment" },
               "instalment4": { "type": "string", "title": "4th Instalment" },
               "total": { "type": "string", "title": "Total" }
-            }
+            },
+            "required": [
+              "period",
+              "instalment1",
+              "instalment2",
+              "instalment3",
+              "instalment4",
+              "total"
+            ]
           }
-        },
-        "required": [
-          "period",
-          "instalment1",
-          "instalment2",
-          "instalment3",
-          "instalment4",
-          "total"
-        ]
+        }
       }
     },
     "costs": {
