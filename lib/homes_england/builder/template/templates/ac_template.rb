@@ -177,7 +177,7 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
                   },
                   conditionExplanation: {
                     type: 'string',
-                    title: 'Condition explanation'
+                    title: 'Condition Explanation'
                   },
                   conditionSite: {
                     type: 'string',
