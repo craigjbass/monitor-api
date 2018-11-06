@@ -3,19 +3,23 @@
 class UI::Gateway::InMemoryProjectSchema
   def find_by(type:)
     if type == 'hif'
-      template = Common::Domain::Template.new
-      template.schema = JSON.parse(
-        File.open("#{__dir__}/schemas/hif_project.json", 'r').read,
-        symbolize_names: true
-      )
-      template
+      schema = 'hif_project.json'
     elsif type == 'ac'
-      template = Common::Domain::Template.new
-      template.schema = JSON.parse(
-        File.open("#{__dir__}/schemas/ac_project.json", 'r').read,
-        symbolize_names: true
-      )
-      template
+      schema = 'ac_project.json'
+    else
+      return nil
     end
+    create_template(schema)
+  end
+
+  private
+
+  def create_template(schema)
+    template = Common::Domain::Template.new
+    template.schema = JSON.parse(
+      File.open("#{__dir__}/schemas/#{schema}", 'r').read,
+      symbolize_names: true
+    )
+    template
   end
 end
