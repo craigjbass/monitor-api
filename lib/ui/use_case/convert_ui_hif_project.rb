@@ -233,7 +233,7 @@ class UI::UseCase::ConvertUIHIFProject
 
     return if @project[:outputs][0][:outputsForecast][:housingForecast].nil?
 
-    @converted_project[:outputsForecast][:housingForecast] = @project[:outputs][0][:outputsForecast][:housingForecast].map do |forecast|
+    @converted_project[:outputsForecast][:housingForecast] = @project[:outputs][0][:outputsForecast][:housingForecast][:forecast].map do |forecast|
       {
         period: forecast[:period],
         target: forecast[:target],

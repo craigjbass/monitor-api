@@ -604,23 +604,31 @@
               },
               "disposalStrategy": {
                 "type": "string",
-                "title": "Disposal Strategy / Critical Path"
+                "title": "Disposal Strategy / Critical Path",
+                "extendedText": true
               },
               "housingForecast": {
-                "type": "array",
+                "type": "object",
                 "title": "Housing Forecast",
-                "items": {
-                  "title": "Forecast",
-                  "type": "object",
-                  "properties": {
-                    "period": { "type": "string", "title": "Period" },
-                    "target": { "type": "string", "title": "Housing Starts" },
-                    "housingCompletions": {
-                      "type": "string",
-                      "title": "Housing Completions"
-                    }
-                  },
-                  "required": ["period", "target", "housingCompletions"]
+                "properties": {
+                  "forecast": {
+                    "title": "Forecast",
+                    "type": "array",
+                    "periods" : true,
+                    "items": {
+                      "title": "Forecast",
+                      "type": "object",
+                      "properties": {
+                        "period": { "type": "string", "title": "Period" },
+                        "target": { "type": "string", "title": "Housing Starts" },
+                      "housingCompletions": {
+                        "type": "string",
+                        "title": "Housing Completions"
+                      }
+                    },
+                    "required": ["period", "target", "housingCompletions"]
+                  }
+                }
                 }
               }
             },
