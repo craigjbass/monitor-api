@@ -73,7 +73,8 @@
               "description": {
                 "type": "string",
                 "laReadOnly": true,
-                "title": "Description"
+                "title": "Description",
+                "extendedText" : true
               },
               "housingSitesBenefitting": {
                 "type": "string",
@@ -147,7 +148,8 @@
                           },
                           "summaryOfCriticalPath": {
                             "type": "string",
-                            "title": "Summary of Critical Path"
+                            "title": "Summary of Critical Path",
+                            "extendedText": true
                           }
                         },
                         "required": [
@@ -428,7 +430,8 @@
                 "descriptionOfMilestone": {
                   "type": "string",
                   "laReadOnly": true,
-                  "title": "Description of Milestone"
+                  "title": "Description of Milestone",
+                  "extendedText" : true
                 },
                 "target": {
                   "type": "string",
@@ -437,7 +440,8 @@
                 },
                 "summaryOfCriticalPath": {
                   "type": "string",
-                  "title": "Summary of Critical Path"
+                  "title": "Summary of Critical Path",
+                  "extendedText" : true
                 }
               },
               "required": [
@@ -471,7 +475,8 @@
                 },
                 "mitigationOfRisk": {
                   "type": "string",
-                  "title": "Mitigation in place"
+                  "title": "Mitigation in place",
+                  "extendedText" : true
                 }
               },
               "required": ["mitigationOfRisk"]
