@@ -8,7 +8,7 @@ class UI::UseCase::ValidateProject
 
   def execute(type:, project_data:)
     schema = @project_schema_gateway.find_by(type: type)
-
+    
     invalid_paths = schema.invalid_paths(project_data)
 
     invalid_pretty_paths = invalid_paths.map do |path|
