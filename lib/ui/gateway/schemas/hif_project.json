@@ -26,7 +26,8 @@
         "projectDescription": {
           "type": "string",
           "laReadOnly": true,
-          "title": "Project Description"
+          "title": "Project Description",
+          "extendedText": true
         },
         "greenOrBrownField": {
           "type": "string",
@@ -48,12 +49,14 @@
         "descriptionOfInfrastructure": {
           "type": "string",
           "laReadOnly": true,
-          "title": "Description of HIF Infrastructure to be delivered"
+          "title": "Description of HIF Infrastructure to be delivered",
+          "extendedText" : true
         },
         "descriptionOfWiderProjectDeliverables": {
           "type": "string",
           "laReadOnly": true,
-          "title": "Description of wider project deliverables"
+          "title": "Description of wider project deliverables",
+          "extendedText" : true
         }
       },
       "required": ["jointBidAreas", "totalArea"]
@@ -203,7 +206,8 @@
                           },
                           "summaryOfCriticalPath": {
                             "type": "string",
-                            "title": "Summary of Critical Path"
+                            "title": "Summary of Critical Path",
+                            "extendedText": true
                           }
                         },
                         "required": [
@@ -240,7 +244,8 @@
                       "requirement": { "enum": ["Yes"] },
                       "summaryOfRequirement": {
                         "type": "string",
-                        "title": "If Yes: Summary of requirement"
+                        "title": "If Yes: Summary of requirement",
+                        "extendedText": true
                       }
                     },
                     "required": ["summaryOfRequirement"]
@@ -278,7 +283,8 @@
                           "properties": {
                             "detailsOfConsent": {
                               "type": "string",
-                              "title": "Details of consent"
+                              "title": "Details of consent",
+                              "extendedText" : true
                             },
                             "targetDateToBeMet": {
                               "type": "string",
@@ -358,7 +364,8 @@
                               },
                               "summaryOfCriticalPath": {
                                 "type": "string",
-                                "title": "Summary of Critical Path"
+                                "title": "Summary of Critical Path",
+                                "extendedText" : true
                               }
                             },
                             "required": [
@@ -411,7 +418,8 @@
                       },
                       "summaryOfCriticalPath": {
                         "type": "string",
-                        "title": "Summary of critical path"
+                        "title": "Summary of critical path",
+                        "extendedText": true
                       }
                     },
                     "required": ["targetDate", "summaryOfCriticalPath"]
