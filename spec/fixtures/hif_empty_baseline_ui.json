@@ -1,7 +1,7 @@
 {
   "summary": {},
   "infrastructures": [{}],
-  "fundingProfiles": [{}, {}, {}],
+  "fundingProfiles": { "profiles": []},
   "costs": [{}],
   "baselineCashFlow": { "summaryOfRequirement": "" },
   "recovery": {},
