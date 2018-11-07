@@ -44,19 +44,20 @@
         "hifFundingAmount": {
           "type": "string",
           "laReadOnly": true,
-          "title": "HIF Funding Amount (£)"
+          "title": "HIF Funding Amount",
+          "currency": true
         },
         "descriptionOfInfrastructure": {
           "type": "string",
           "laReadOnly": true,
           "title": "Description of HIF Infrastructure to be delivered",
-          "extendedText" : true
+          "extendedText": true
         },
         "descriptionOfWiderProjectDeliverables": {
           "type": "string",
           "laReadOnly": true,
           "title": "Description of wider project deliverables",
-          "extendedText" : true
+          "extendedText": true
         }
       },
       "required": ["jointBidAreas", "totalArea"]
@@ -68,16 +69,16 @@
         "title": "Infrastructure",
         "type": "object",
         "properties": {
-          "summary" : {
+          "summary": {
             "type": "object",
-            "title" : "Summary",
-            "properties" : {
+            "title": "Summary",
+            "properties": {
               "type": { "type": "string", "laReadOnly": true, "title": "Type" },
               "description": {
                 "type": "string",
                 "laReadOnly": true,
                 "title": "Description",
-                "extendedText" : true
+                "extendedText": true
               },
               "housingSitesBenefitting": {
                 "type": "string",
@@ -110,10 +111,10 @@
             },
             "required": ["housingSitesBenefitting"]
           },
-          "planningStatus" : {
-            "type" : "object",
-            "title" : "Planning Status",
-            "properties" : {
+          "planningStatus": {
+            "type": "object",
+            "title": "Planning Status",
+            "properties": {
               "outlinePlanningStatus": {
                 "type": "object",
                 "title": "Outline Planning Status",
@@ -132,7 +133,10 @@
                       {
                         "properties": {
                           "granted": { "enum": ["Yes"] },
-                          "reference": { "type": "string", "title": "Reference" }
+                          "reference": {
+                            "type": "string",
+                            "title": "Reference"
+                          }
                         },
                         "required": ["reference"]
                       },
@@ -284,7 +288,7 @@
                             "detailsOfConsent": {
                               "type": "string",
                               "title": "Details of consent",
-                              "extendedText" : true
+                              "extendedText": true
                             },
                             "targetDateToBeMet": {
                               "type": "string",
@@ -365,7 +369,7 @@
                               "summaryOfCriticalPath": {
                                 "type": "string",
                                 "title": "Summary of Critical Path",
-                                "extendedText" : true
+                                "extendedText": true
                               }
                             },
                             "required": [
@@ -439,7 +443,7 @@
                   "type": "string",
                   "laReadOnly": true,
                   "title": "Description of Milestone",
-                  "extendedText" : true
+                  "extendedText": true
                 },
                 "target": {
                   "type": "string",
@@ -449,7 +453,7 @@
                 "summaryOfCriticalPath": {
                   "type": "string",
                   "title": "Summary of Critical Path",
-                  "extendedText" : true
+                  "extendedText": true
                 }
               },
               "required": [
@@ -458,7 +462,7 @@
                 "summaryOfCriticalPath"
               ]
             }
-          }, 
+          },
           "risksToAchievingTimescales": {
             "type": "array",
             "title": "Risks to achieving timescales",
@@ -484,7 +488,7 @@
                 "mitigationOfRisk": {
                   "type": "string",
                   "title": "Mitigation in place",
-                  "extendedText" : true
+                  "extendedText": true
                 }
               },
               "required": ["mitigationOfRisk"]
@@ -497,19 +501,35 @@
       "type": "object",
       "title": "Funding profiles",
       "properties": {
-        "profiles" : {
+        "profiles": {
           "type": "array",
-          "quarterly" : true,
+          "quarterly": true,
           "title": "Funding Profile",
           "items": {
-            "type" : "object",
-            "properties" : {
-                "period": { "type": "string", "title": "Period" },
-                "instalment1": { "type": "string", "title": "1st Instalment" },
-                "instalment2": { "type": "string", "title": "2nd Instalment" },
-                "instalment3": { "type": "string", "title": "3rd Instalment" },
-                "instalment4": { "type": "string", "title": "4th Instalment" },
-                "total": { "type": "string", "title": "Total" }
+            "type": "object",
+            "properties": {
+              "period": { "type": "string", "title": "Period" },
+              "instalment1": {
+                "type": "string",
+                "title": "1st Instalment",
+                "currency": true
+              },
+              "instalment2": {
+                "type": "string",
+                "title": "2nd Instalment",
+                "currency": true
+              },
+              "instalment3": {
+                "type": "string",
+                "title": "3rd Instalment",
+                "currency": true
+              },
+              "instalment4": {
+                "type": "string",
+                "title": "4th Instalment",
+                "currency": true
+              },
+              "total": { "type": "string", "title": "Total", "currency": true }
             },
             "required": [
               "period",
@@ -534,10 +554,15 @@
             "type": "object",
             "title": "Infrastructure",
             "properties": {
-              "HIFAmount": { "type": "string", "title": "Total HIF Amount" },
+              "HIFAmount": {
+                "type": "string",
+                "title": "Total HIF Amount",
+                "currency": true
+              },
               "totalCostOfInfrastructure": {
                 "type": "string",
-                "title": "Total Cost of Infrastructure"
+                "title": "Total Cost of Infrastructure",
+                "currency": true
               },
               "totallyFundedThroughHIF": {
                 "type": "string",
@@ -563,11 +588,13 @@
                       },
                       "totalPublic": {
                         "type": "string",
-                        "title": "If No, Total Public (exc. HIF)"
+                        "title": "If No, Total Public (exc. HIF)",
+                        "currency": true
                       },
                       "totalPrivate": {
                         "type": "string",
-                        "title": "If No, Total Private"
+                        "title": "If No, Total Private",
+                        "currency": true
                       }
                     },
                     "required": [
@@ -627,26 +654,29 @@
                   "forecast": {
                     "title": "Forecast",
                     "type": "array",
-                    "periods" : true,
+                    "periods": true,
                     "items": {
                       "title": "Forecast",
                       "type": "object",
                       "properties": {
                         "period": { "type": "string", "title": "Period" },
-                        "target": { "type": "string", "title": "Housing Starts" },
-                      "housingCompletions": {
-                        "type": "string",
-                        "title": "Housing Completions"
-                      }
-                    },
-                    "required": ["period", "target", "housingCompletions"]
+                        "target": {
+                          "type": "string",
+                          "title": "Housing Starts"
+                        },
+                        "housingCompletions": {
+                          "type": "string",
+                          "title": "Housing Completions"
+                        }
+                      },
+                      "required": ["period", "target", "housingCompletions"]
+                    }
                   }
-                }
                 }
               }
             },
             "required": ["disposalStrategy"]
-            },
+          },
           "outputsActuals": {
             "type": "object",
             "title": "Outputs Per Site",
@@ -658,23 +688,23 @@
                 "items": {
                   "title": "Output",
                   "type": "object",
-                    "properties": {
-                      "siteName": { "type": "string", "title": "Name of site" },
-                        "siteLocalAuthority": {
-                          "type": "string",
-                          "title": "Local Authority"
-                        },
-                        "siteNumberOfUnits": {
-                          "type": "string",
-                          "title": "Number of Units"
-                        }
-                      },
-                      "required": [
-                        "siteName",
-                        "siteLocalAuthority",
-                        "siteNumberOfUnits"
-                      ]
-                  }
+                  "properties": {
+                    "siteName": { "type": "string", "title": "Name of site" },
+                    "siteLocalAuthority": {
+                      "type": "string",
+                      "title": "Local Authority"
+                    },
+                    "siteNumberOfUnits": {
+                      "type": "string",
+                      "title": "Number of Units"
+                    }
+                  },
+                  "required": [
+                    "siteName",
+                    "siteLocalAuthority",
+                    "siteNumberOfUnits"
+                  ]
+                }
               }
             }
           }
