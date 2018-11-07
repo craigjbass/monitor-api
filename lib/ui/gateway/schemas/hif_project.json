@@ -503,6 +503,7 @@
       "properties": {
         "profiles": {
           "type": "array",
+          "addable": true,
           "quarterly": true,
           "title": "Funding Profile",
           "items": {
