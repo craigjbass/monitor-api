@@ -654,7 +654,8 @@
                   "forecast": {
                     "title": "Forecast",
                     "type": "array",
-                    "periods": true,
+                    "periods" : true,
+                    "addable": true,
                     "items": {
                       "title": "Forecast",
                       "type": "object",
