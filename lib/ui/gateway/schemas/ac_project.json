@@ -143,7 +143,7 @@
           "title": "Pre-Drawdown Conditions",
           "properties": {
             "conditions": {
-              "title": "Conditions",
+              "title": "",
               "type": "array",
               "addable": true,
               "items": {
@@ -156,10 +156,6 @@
                   "conditionExplanation": {
                     "type": "string",
                     "title": "Condition explanation"
-                  },
-                  "conditionSite": {
-                    "type": "string",
-                    "title": "Site (if multiple)"
                   }
                 }
               }
@@ -171,15 +167,28 @@
           "title": "Funding Items",
           "properties": {
             "fundItems": {
-              "title": "Items",
+              "title": "",
               "type": "array",
               "addable": true,
               "items": {
                 "type": "object",
                 "properties": {
-                  "fundingItem": {
-                    "type": "string",
-                    "title": "Funding item"
+                  "itemToFund": {
+                    "title": "",
+                    "type": "object",
+                    "horizontal": true,
+                    "properties": {
+                      "fundingItem": {
+                        "type": "string",
+                        "title": "Funding item",
+                        "extendedText": true
+                      },
+                      "estimatedFunding": {
+                        "type": "string",
+                        "title": "Estimated funding",
+                        "currency": "true"
+                      }
+                    }
                   },
                   "fundingSite": {
                     "type": "string",
