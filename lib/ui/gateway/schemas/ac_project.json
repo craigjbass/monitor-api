@@ -7,6 +7,10 @@
       "type": "object",
       "title": "Project Summary",
       "properties": {
+        "localAuthority": {
+          "type": "string",
+          "title": "Local Authority"
+        },
         "projectName": {
           "type": "string",
           "title": "Project Name"
@@ -19,115 +23,91 @@
           "type": "string",
           "title": "Project Description"
         },
-        "localAuthority": {
-          "type": "string",
-          "title": "Local Authority"
-        },
         "sitesSummary": {
           "type": "array",
           "addable": true,
-          "title": "Site(s) Summary",
+          "title": "Site(s)",
           "items": {
             "type": "object",
             "properties": {
-              "name": {
-                "type": "string",
-                "title": "Parcel/Sub Site name"
-              },
-              "ref": {
-                "type": "string",
-                "title": "LMT / GIS ref"
-              },
-              "size": {
-                "type": "string",
-                "title": "Size (Ha)"
-              },
-              "laContact": {
-                "type": "string",
-                "title": "Key local authority contact"
-              },
-              "heContact": {
-                "type": "string",
-                "title": "Key Homes England contact"
+              "summary" : {
+                "type": "object",
+                "title": "Summary",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "title": "Parcel/Sub Site name"
+                  },
+                  "details" : {
+                    "type": "object",
+                    "horizontal": true,
+                    "properties": {
+                      "ref": {
+                        "type": "string",
+                        "title": "LMT / GIS ref"
+                      },
+                      "size": {
+                        "type": "string",
+                        "title": "Size (Ha)"
+                      }
+                    }
+                  },
+                  "planningStatus": {
+                    "type": "string",
+                    "title": "Planning status"
+                  },
+                  "contacts": {
+                    "type": "object",
+                    "horizontal": true,
+                    "properties": {
+                      "laContact": {
+                        "type": "string",
+                        "title": "Key local authority contact"
+                      },
+                      "heContact": {
+                        "type": "string",
+                        "title": "Key Homes England contact"
+                      }
+                    }
+                  }
+                }
               },
               "units": {
                 "type": "object",
                 "title": "Units",
                 "properties": {
+                  "numberOfUnits": {
+                    "type": "object",
+                    "title": "Number of:",
+                    "horizontal": true,
+                    "properties": {
+                      "numberOfUnitsMarket": {
+                        "type": "string",
+                        "title": "Market sale"
+                      },
+                      "numberOfUnitsSharedOwnership": {
+                        "type": "string",
+                        "title": "Shared ownership"
+                      },
+                      "numberOfUnitsAffordable": {
+                        "type": "string",
+                        "title": "Affordable/social rent"
+                      },
+                      "numberOfUnitsPRS": {
+                        "type": "string",
+                        "title": "Private Rented"
+                      },
+                      "numberOfUnitsOther": {
+                        "type": "string",
+                        "title": "Other"
+                      }
+                    }
+                  },
                   "numberOfUnitsTotal": {
                     "type": "string",
                     "title": "Total number of units"
-                  },
-                  "numberOfUnitsMarket": {
-                    "type": "string",
-                    "title": "Number units - market sale"
-                  },
-                  "numberOfUnitsSharedOwnership": {
-                    "type": "string",
-                    "title": "Number units - shared ownership"
-                  },
-                  "numberOfUnitsAffordable": {
-                    "type": "string",
-                    "title": "Number units - affordable/social rent"
-                  },
-                  "numberOfUnitsPRS": {
-                    "type": "string",
-                    "title": "Number units - PRS"
-                  },
-                  "numberOfUnitsOther": {
-                    "type": "string",
-                    "title": "Number units - Other"
                   }
                 }
-              },
-              "requestChange": {
-                "type": "object",
-                "title": "Request to change units or tenure mix",
-                "properties": {
-                  "requestToChangeUnits": {
-                    "type": "string",
-                    "title": "Requested",
-                    "enum": ["Yes", "No"]
-                  }
-                },
-                "dependencies": {
-                  "requestToChangeUnits": {
-                    "oneOf": [
-                      {
-                        "properties": {
-                          "requestToChangeUnits": {
-                            "enum": ["No"]
-                          }
-                        }
-                      },
-                      {
-                        "properties": {
-                          "requestToChangeUnits": {
-                            "enum": ["Yes"]
-                          },
-                          "reason": {
-                            "type": "string",
-                            "title": "Reason/explanation"
-                          },
-                          "review": {
-                            "type": "string",
-                            "format": "date",
-                            "title": "Reviewed and approved"
-                          }
-                        }
-                      }
-                    ]
-                  }
-                }
-              },
-              "planningStatus": {
-                "type": "string",
-                "title": "Planning status"
-              },
-              "acFundingAgreed": {
-                "readonly": true,
-                "type": "string",
-                "title": "AC funding agreed"
               }
             }
           }

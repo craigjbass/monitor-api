@@ -25,6 +25,10 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
       type: 'object',
       title: 'Project Summary',
       properties: {
+        localAuthority: {
+          type: 'string',
+          title: 'Local Authority'
+        },
         projectName: {
           type: 'string',
           title: 'Project Name'
@@ -37,10 +41,6 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
           type: 'string',
           format: 'textarea',
           title: 'Project Description'
-        },
-        localAuthority: {
-          type: 'string',
-          title: 'Local Authority'
         },
         sitesSummary: {
           type: 'array',
@@ -60,6 +60,10 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
               size: {
                 type: 'string',
                 title: 'Size (hectares)'
+              },
+              planningStatus: {
+                type: 'string',
+                title: 'Planning status'
               },
               laContact: {
                 type: 'string',
@@ -91,65 +95,16 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
                   },
                   numberOfUnitsPRS: {
                     type: 'string',
-                    title: 'Number units - PRS'
+                    title: 'Number units - Private Rented'
                   },
                   numberOfUnitsOther: {
                     type: 'string',
                     title: 'Number units - Other'
-                  },
-                  planningStatus: {
-                    type: 'string',
-                    title: 'Planning status'
-                  }
-                }
-              },
-              requestChange: {
-                type: 'object',
-                title: 'Request to change units or tenure mix',
-                properties: {
-                  requestToChangeUnits: {
-                    type: 'string',
-                    title: 'Requested',
-                    enum: %w[Yes No]
-                  }
-                },
-                dependencies: {
-                  requestToChangeUnits: {
-                    oneOf: [
-                      {
-                        properties: {
-                          requestToChangeUnits: {
-                            enum: ['No']
-                          }
-                        }
-                      }, {
-                        properties: {
-                          requestToChangeUnits: {
-                            enum: ['Yes']
-                          },
-                          reason: {
-                            type: 'string',
-                            format: 'textarea',
-                            title: 'Reason/explanation'
-                          },
-                          review: {
-                            type: 'string',
-                            format: 'date',
-                            title: 'Reviewed and approved'
-                          }
-                        }
-                      }
-                    ]
                   }
                 }
               }
             }
           }
-        },
-        acFundingAgreed: {
-          readonly: true,
-          type: 'string',
-          title: 'AC funding agreed'
         }
       }
     }
