@@ -1,0 +1,730 @@
+{
+  "schema": {
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "title": "HIF Project",
+    "type": "object",
+    "properties": {
+      "summary": {
+        "type": "object",
+        "title": "Project Summary",
+        "properties": {
+          "BIDReference": {
+            "type": "string",
+            "laReadOnly": true,
+            "title": "BID Reference"
+          },
+          "projectName": {
+            "type": "string",
+            "laReadOnly": true,
+            "title": "Project Name"
+          },
+          "leadAuthority": {
+            "type": "string",
+            "laReadOnly": true,
+            "title": "Lead Authority"
+          },
+          "jointBidAreas": { "type": "string", "title": "Joint Bid Areas" },
+          "projectDescription": {
+            "type": "string",
+            "laReadOnly": true,
+            "title": "Project Description",
+            "extendedText": true
+          },
+          "greenOrBrownField": {
+            "type": "string",
+            "title": "Greenfield/Brownfield/Mixed",
+            "enum": ["Greenfield", "Brownfield", "Mixed"],
+            "radio": true
+          },
+          "noOfHousingSites": {
+            "type": "string",
+            "laReadOnly": true,
+            "title": "Number of housing sites"
+          },
+          "totalArea": { "type": "string", "title": "Total Area (hectares)" },
+          "hifFundingAmount": {
+            "type": "string",
+            "laReadOnly": true,
+            "title": "HIF Funding Amount",
+            "currency": true
+          },
+          "descriptionOfInfrastructure": {
+            "type": "string",
+            "laReadOnly": true,
+            "title": "Description of HIF Infrastructure to be delivered",
+            "extendedText": true
+          },
+          "descriptionOfWiderProjectDeliverables": {
+            "type": "string",
+            "laReadOnly": true,
+            "title": "Description of wider project deliverables",
+            "extendedText": true
+          }
+        },
+        "required": ["jointBidAreas", "totalArea"]
+      },
+      "infrastructures": {
+        "type": "array",
+        "title": "Infrastructures",
+        "items": {
+          "title": "Infrastructure",
+          "type": "object",
+          "properties": {
+            "summary": {
+              "type": "object",
+              "title": "Summary",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "laReadOnly": true,
+                  "title": "Type"
+                },
+                "description": {
+                  "type": "string",
+                  "laReadOnly": true,
+                  "title": "Description",
+                  "extendedText": true
+                },
+                "housingSitesBenefitting": {
+                  "type": "string",
+                  "title": "Housing Sites Benefitting"
+                },
+                "expectedInfrastructureStart": {
+                  "type": "object",
+                  "title": "Expected infrastructure start on site",
+                  "properties": {
+                    "targetDateOfAchievingStart": {
+                      "type": "string",
+                      "format": "date",
+                      "title": "Target date of achieving start"
+                    }
+                  },
+                  "required": ["targetDateOfAchievingStart"]
+                },
+                "expectedInfrastructureCompletion": {
+                  "type": "object",
+                  "title": "Expected infrastructure completion",
+                  "properties": {
+                    "targetDateOfAchievingCompletion": {
+                      "type": "string",
+                      "format": "date",
+                      "title": "Target date of achieving completion"
+                    }
+                  },
+                  "required": ["targetDateOfAchievingCompletion"]
+                }
+              },
+              "required": ["housingSitesBenefitting"]
+            },
+            "planningStatus": {
+              "type": "object",
+              "title": "Planning Status",
+              "properties": {
+                "outlinePlanningStatus": {
+                  "type": "object",
+                  "title": "Outline Planning Status",
+                  "properties": {
+                    "granted": {
+                      "type": "string",
+                      "title": "Granted?",
+                      "enum": ["Yes", "No", "N/A"],
+                      "radio": true
+                    }
+                  },
+                  "required": ["granted"],
+                  "dependencies": {
+                    "granted": {
+                      "oneOf": [
+                        {
+                          "properties": {
+                            "granted": { "enum": ["Yes"] },
+                            "reference": {
+                              "type": "string",
+                              "title": "Reference"
+                            }
+                          },
+                          "required": ["reference"]
+                        },
+                        {
+                          "properties": {
+                            "granted": { "enum": ["No"] },
+                            "targetSubmission": {
+                              "type": "string",
+                              "format": "date",
+                              "title": "Target date of submission"
+                            },
+                            "targetGranted": {
+                              "type": "string",
+                              "format": "date",
+                              "title": "Target date of planning granted"
+                            },
+                            "summaryOfCriticalPath": {
+                              "type": "string",
+                              "title": "Summary of Critical Path",
+                              "extendedText": true
+                            }
+                          },
+                          "required": [
+                            "targetSubmission",
+                            "targetGranted",
+                            "summaryOfCriticalPath"
+                          ]
+                        },
+                        { "properties": { "granted": { "enum": ["N/A"] } } }
+                      ]
+                    }
+                  }
+                },
+                "fullPlanningStatus": {
+                  "type": "object",
+                  "title": "Full Planning Status",
+                  "properties": {
+                    "granted": {
+                      "type": "string",
+                      "title": "Granted?",
+                      "enum": ["Yes", "No", "N/A"],
+                      "radio": true
+                    }
+                  },
+                  "required": ["granted"],
+                  "dependencies": {
+                    "granted": {
+                      "oneOf": [
+                        {
+                          "properties": {
+                            "granted": { "enum": ["Yes"] },
+                            "grantedReference": {
+                              "type": "string",
+                              "title": "Reference"
+                            }
+                          },
+                          "required": ["grantedReference"]
+                        },
+                        {
+                          "properties": {
+                            "granted": { "enum": ["No"] },
+                            "targetSubmission": {
+                              "type": "string",
+                              "format": "date",
+                              "title": "Target date of submission"
+                            },
+                            "targetGranted": {
+                              "type": "string",
+                              "format": "date",
+                              "title": "Target date of planning granted"
+                            },
+                            "summaryOfCriticalPath": {
+                              "type": "string",
+                              "title": "Summary of Critical Path",
+                              "extendedText": true
+                            }
+                          },
+                          "required": [
+                            "targetSubmission",
+                            "targetGranted",
+                            "summaryOfCriticalPath"
+                          ]
+                        },
+                        { "properties": { "granted": { "enum": ["N/A"] } } }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            "s106": {
+              "type": "object",
+              "title": "Section 106",
+              "properties": {
+                "requirement": {
+                  "type": "string",
+                  "laReadOnly": true,
+                  "title": "Is this a requirement?",
+                  "enum": ["Yes", "No"],
+                  "radio": true
+                }
+              },
+              "required": ["requirement"],
+              "dependencies": {
+                "requirement": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "requirement": { "enum": ["Yes"] },
+                        "summaryOfRequirement": {
+                          "type": "string",
+                          "title": "If Yes: Summary of requirement",
+                          "extendedText": true
+                        }
+                      },
+                      "required": ["summaryOfRequirement"]
+                    },
+                    { "properties": { "requirement": { "enum": ["No"] } } }
+                  ]
+                }
+              }
+            },
+            "statutoryConsents": {
+              "type": "object",
+              "title": "Statutory Consents",
+              "properties": {
+                "anyConsents": {
+                  "type": "string",
+                  "laReadOnly": true,
+                  "title": "Any Statutory Consents?",
+                  "enum": ["Yes", "No"],
+                  "radio": true
+                }
+              },
+              "required": ["anyConsents"],
+              "dependencies": {
+                "anyConsents": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "anyConsents": { "enum": ["Yes"] },
+                        "consents": {
+                          "title": "Consents",
+                          "type": "array",
+                          "items": {
+                            "title": "Statutory Consent",
+                            "type": "object",
+                            "properties": {
+                              "detailsOfConsent": {
+                                "type": "string",
+                                "title": "Details of consent",
+                                "extendedText": true
+                              },
+                              "targetDateToBeMet": {
+                                "type": "string",
+                                "format": "date",
+                                "title": "Target date to be met"
+                              }
+                            },
+                            "required": [
+                              "detailsOfConsent",
+                              "targetDateToBeMet"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    { "properties": { "anyConsents": { "enum": ["No"] } } }
+                  ]
+                }
+              }
+            },
+            "landOwnership": {
+              "type": "object",
+              "title": "Land Ownership",
+              "properties": {
+                "underControlOfLA": {
+                  "type": "string",
+                  "title": "Is land under control of the Local Authority",
+                  "enum": ["Yes", "No"],
+                  "radio": true
+                }
+              },
+              "required": ["underControlOfLA"],
+              "dependencies": {
+                "underControlOfLA": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "underControlOfLA": { "enum": ["No"] },
+                        "ownershipOfLandOtherThanLA": {
+                          "type": "string",
+                          "title": "Who owns it?"
+                        }
+                      },
+                      "required": ["ownershipOfLandOtherThanLA"]
+                    },
+                    {
+                      "properties": {
+                        "underControlOfLA": { "enum": ["Yes"] },
+                        "landAcquisitionRequired": {
+                          "type": "string",
+                          "title": "Is land acquisition required?",
+                          "enum": ["Yes", "No"],
+                          "radio": true
+                        }
+                      },
+                      "required": ["landAcquisitionRequired"],
+                      "dependencies": {
+                        "landAcquisitionRequired": {
+                          "oneOf": [
+                            {
+                              "properties": {
+                                "landAcquisitionRequired": { "enum": ["No"] }
+                              }
+                            },
+                            {
+                              "properties": {
+                                "landAcquisitionRequired": { "enum": ["Yes"] },
+                                "howManySitesToAcquire": {
+                                  "type": "string",
+                                  "title": "How many sites?"
+                                },
+                                "toBeAcquiredBy": {
+                                  "type": "string",
+                                  "title": "Is this to be acquired by LA or developer?"
+                                },
+                                "targetDateToAcquire": {
+                                  "type": "string",
+                                  "format": "date",
+                                  "title": "Target date to aquire sites"
+                                },
+                                "summaryOfCriticalPath": {
+                                  "type": "string",
+                                  "title": "Summary of Critical Path",
+                                  "extendedText": true
+                                }
+                              },
+                              "required": [
+                                "howManySitesToAcquire",
+                                "toBeAcquiredBy",
+                                "targetDateToAcquire",
+                                "summaryOfCriticalPath"
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            "procurement": {
+              "type": "object",
+              "title": "Procurement",
+              "properties": {
+                "contractorProcured": {
+                  "type": "string",
+                  "title": "Is the infrastructure contractor procured?",
+                  "enum": ["Yes", "No"],
+                  "radio": true
+                }
+              },
+              "required": ["contractorProcured"],
+              "dependencies": {
+                "contractorProcured": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "contractorProcured": { "enum": ["Yes"] },
+                        "nameOfContractor": {
+                          "type": "string",
+                          "title": "Name of Contractor"
+                        }
+                      },
+                      "required": ["nameOfContractor"]
+                    },
+                    {
+                      "properties": {
+                        "contractorProcured": { "enum": ["No"] },
+                        "targetDate": {
+                          "type": "string",
+                          "format": "date",
+                          "title": "Target date of procuring"
+                        },
+                        "summaryOfCriticalPath": {
+                          "type": "string",
+                          "title": "Summary of critical path",
+                          "extendedText": true
+                        }
+                      },
+                      "required": ["targetDate", "summaryOfCriticalPath"]
+                    }
+                  ]
+                }
+              }
+            },
+            "milestones": {
+              "type": "array",
+              "title": "Key Infrastructure Milestones",
+              "items": {
+                "title": "Milestone",
+                "type": "object",
+                "properties": {
+                  "descriptionOfMilestone": {
+                    "type": "string",
+                    "laReadOnly": true,
+                    "title": "Description of Milestone",
+                    "extendedText": true
+                  },
+                  "target": {
+                    "type": "string",
+                    "format": "date",
+                    "title": "Target date of achieving"
+                  },
+                  "summaryOfCriticalPath": {
+                    "type": "string",
+                    "title": "Summary of Critical Path",
+                    "extendedText": true
+                  }
+                },
+                "required": [
+                  "descriptionOfMilestone",
+                  "target",
+                  "summaryOfCriticalPath"
+                ]
+              }
+            },
+            "risksToAchievingTimescales": {
+              "type": "array",
+              "title": "Risks to achieving timescales",
+              "items": {
+                "title": "Risk",
+                "type": "object",
+                "properties": {
+                  "descriptionOfRisk": {
+                    "type": "string",
+                    "laReadOnly": true,
+                    "title": "Description Of Risk"
+                  },
+                  "impactOfRisk": {
+                    "type": "string",
+                    "laReadOnly": true,
+                    "title": "Impact"
+                  },
+                  "likelihoodOfRisk": {
+                    "type": "string",
+                    "laReadOnly": true,
+                    "title": "Likelihood"
+                  },
+                  "mitigationOfRisk": {
+                    "type": "string",
+                    "title": "Mitigation in place",
+                    "extendedText": true
+                  }
+                },
+                "required": ["mitigationOfRisk"]
+              }
+            }
+          }
+        }
+      },
+      "fundingProfiles": {
+        "type": "object",
+        "title": "Funding profiles",
+        "properties": {
+          "profiles": {
+            "type": "array",
+            "addable": true,
+            "quarterly": true,
+            "title": "Funding Profile",
+            "items": {
+              "type": "object",
+              "properties": {
+                "period": { "type": "string", "title": "Period" },
+                "instalment1": {
+                  "type": "string",
+                  "title": "1st Instalment",
+                  "currency": true
+                },
+                "instalment2": {
+                  "type": "string",
+                  "title": "2nd Instalment",
+                  "currency": true
+                },
+                "instalment3": {
+                  "type": "string",
+                  "title": "3rd Instalment",
+                  "currency": true
+                },
+                "instalment4": {
+                  "type": "string",
+                  "title": "4th Instalment",
+                  "currency": true
+                },
+                "total": {
+                  "type": "string",
+                  "title": "Total",
+                  "currency": true
+                }
+              },
+              "required": [
+                "period",
+                "instalment1",
+                "instalment2",
+                "instalment3",
+                "instalment4",
+                "total"
+              ]
+            }
+          }
+        }
+      },
+      "costs": {
+        "type": "array",
+        "title": "Costs",
+        "items": {
+          "type": "object",
+          "title": "Cost",
+          "properties": {
+            "infrastructure": {
+              "type": "object",
+              "title": "Infrastructure",
+              "properties": {
+                "HIFAmount": {
+                  "type": "string",
+                  "title": "Total HIF Amount",
+                  "currency": true
+                },
+                "totalCostOfInfrastructure": {
+                  "type": "string",
+                  "title": "Total Cost of Infrastructure",
+                  "currency": true
+                },
+                "totallyFundedThroughHIF": {
+                  "type": "string",
+                  "title": "Totally funded through HIF?",
+                  "enum": ["Yes", "No"],
+                  "radio": true
+                }
+              },
+              "dependencies": {
+                "totallyFundedThroughHIF": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "totallyFundedThroughHIF": { "enum": ["Yes"] }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "totallyFundedThroughHIF": { "enum": ["No"] },
+                        "descriptionOfFundingStack": {
+                          "type": "string",
+                          "title": "If No: Description of Funding Stack"
+                        },
+                        "totalPublic": {
+                          "type": "string",
+                          "title": "If No, Total Public (exc. HIF)",
+                          "currency": true
+                        },
+                        "totalPrivate": {
+                          "type": "string",
+                          "title": "If No, Total Private",
+                          "currency": true
+                        }
+                      },
+                      "required": [
+                        "descriptionOfFundingStack",
+                        "totalPublic",
+                        "totalPrivate"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "s151": {
+        "type": "object",
+        "title": "Section 151",
+        "properties": {
+          "s151FundingEndDate": {
+            "type": "string",
+            "format": "date",
+            "title": "HIF Funding End Date"
+          },
+          "s151ProjectLongstopDate": {
+            "type": "string",
+            "format": "date",
+            "title": "Project Longstop date"
+          }
+        }
+      },
+      "outputs": {
+        "type": "array",
+        "title": "Outputs",
+        "items": {
+          "type": "object",
+          "title": "Outputs",
+          "properties": {
+            "outputsForecast": {
+              "type": "object",
+              "title": "Outputs - Forecast",
+              "properties": {
+                "totalUnits": {
+                  "type": "string",
+                  "laReadOnly": true,
+                  "title": "Total Units"
+                },
+                "disposalStrategy": {
+                  "type": "string",
+                  "title": "Disposal Strategy / Critical Path",
+                  "extendedText": true
+                },
+                "housingForecast": {
+                  "type": "object",
+                  "title": "Housing Forecast",
+                  "properties": {
+                    "forecast": {
+                      "title": "Forecast",
+                      "type": "array",
+                      "periods": true,
+                      "addable": true,
+                      "items": {
+                        "title": "Forecast",
+                        "type": "object",
+                        "properties": {
+                          "period": { "type": "string", "title": "Period" },
+                          "target": {
+                            "type": "string",
+                            "title": "Housing Starts"
+                          },
+                          "housingCompletions": {
+                            "type": "string",
+                            "title": "Housing Completions"
+                          }
+                        },
+                        "required": ["period", "target", "housingCompletions"]
+                      }
+                    }
+                  }
+                }
+              },
+              "required": ["disposalStrategy"]
+            },
+            "outputsActuals": {
+              "type": "object",
+              "title": "Outputs Per Site",
+              "properties": {
+                "siteOutputs": {
+                  "type": "array",
+                  "title": "Site Outputs",
+                  "addable": true,
+                  "items": {
+                    "title": "Output",
+                    "type": "object",
+                    "properties": {
+                      "siteName": { "type": "string", "title": "Name of site" },
+                      "siteLocalAuthority": {
+                        "type": "string",
+                        "title": "Local Authority"
+                      },
+                      "siteNumberOfUnits": {
+                        "type": "string",
+                        "title": "Number of Units"
+                      }
+                    },
+                    "required": [
+                      "siteName",
+                      "siteLocalAuthority",
+                      "siteNumberOfUnits"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

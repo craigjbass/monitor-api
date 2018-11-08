@@ -5,5 +5,9 @@ class UI::Gateways
     builder.define_gateway :ui_project_schema do
       UI::Gateway::InMemoryProjectSchema.new
     end
+
+    builder.define_gateway :ui_return_schema do
+      UI::Gateway::InMemoryReturnSchema.new
+    end
   end
 end

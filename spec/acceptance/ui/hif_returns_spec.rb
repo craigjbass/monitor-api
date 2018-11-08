@@ -29,6 +29,7 @@ describe 'Interacting with a HIF Return from the UI' do
       symbolize_names: true
     )
   end
+ 
   let(:expected_updated_return) do
     JSON.parse(
       File.open("#{__dir__}/../../fixtures/hif_updated_return.json").read,
@@ -36,12 +37,20 @@ describe 'Interacting with a HIF Return from the UI' do
     )
   end
 
-  let(:prepopulated_return) do
+  let(:full_return_data) do
     JSON.parse(
-      File.open("#{__dir__}/../../fixtures/hif_return_core.json").read,
+      File.open("#{__dir__}/../../fixtures/hif_return_ui.json").read,
       symbolize_names: true
     )
   end
+
+  let(:full_return_data_after_calcs) do
+    JSON.parse(
+      File.open("#{__dir__}/../../fixtures/hif_return_ui_after_calcs.json").read,
+      symbolize_names: true
+    )
+  end
+
 
   def create_project
     dependency_factory.get_use_case(:ui_create_project).execute(
@@ -65,9 +74,11 @@ describe 'Interacting with a HIF Return from the UI' do
       expect(created_return).to eq(expected_updated_return)
     end
 
-    it 'Allows you to create a return' do
-      created_return_id = get_use_case(:ui_create_return).execute(project_id: project_id, data:  prepopulated_return)[:id]
-      
+    it 'Allows you to create a return with all the data in' do
+      return_id = dependency_factory.get_use_case(:ui_create_return).execute(project_id: project_id, data: full_return_data)[:id]
+      created_return = dependency_factory.get_use_case(:ui_get_return).execute(id: return_id)[:updates].last
+
+      expect(created_return).to eq(full_return_data_after_calcs)
     end
 
     it 'Allows you to view multiple created returns' do
