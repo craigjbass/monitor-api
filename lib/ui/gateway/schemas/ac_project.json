@@ -173,15 +173,22 @@
               "items": {
                 "type": "object",
                 "properties": {
-                  "fundingItem": {
-                    "type": "string",
-                    "title": "Funding item",
-                    "extendedText": true
-                  },
-                  "estimatedFunding": {
-                    "type": "string",
-                    "title": "Estimated funding",
-                    "currency": "true"
+                  "itemToFund": {
+                    "title": "",
+                    "type": "object",
+                    "horizontal": true,
+                    "properties": {
+                      "fundingItem": {
+                        "type": "string",
+                        "title": "Funding item",
+                        "extendedText": true
+                      },
+                      "estimatedFunding": {
+                        "type": "string",
+                        "title": "Estimated funding",
+                        "currency": "true"
+                      }
+                    }
                   },
                   "fundingSite": {
                     "type": "string",
