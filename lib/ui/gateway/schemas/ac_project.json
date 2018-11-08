@@ -178,6 +178,11 @@
                     "title": "Funding item",
                     "extendedText": true
                   },
+                  "estimatedFunding": {
+                    "type": "string",
+                    "title": "Estimated funding",
+                    "currency": "true"
+                  },
                   "fundingSite": {
                     "type": "string",
                     "title": "Site (if multiple)"
