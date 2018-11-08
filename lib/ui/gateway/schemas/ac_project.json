@@ -192,13 +192,13 @@
         "expenditure": {
           "type": "array",
           "addable": true,
-          "title": "Expenditure",
+          "title": "Funding Drawdown",
           "items": {
             "type": "object",
             "properties": {
               "fundingDrawdown": {
                 "type": "object",
-                "title": "Funding Drawdown",
+                "title": "",
                 "properties": {
                   "year": {
                     "type": "string",
@@ -206,50 +206,23 @@
                   },
                   "Q1Amount": {
                     "type": "string",
-                    "title": "First Quarter"
+                    "title": "First Quarter",
+                    "currency": true
                   },
                   "Q2Amount": {
                     "type": "string",
-                    "title": "Second Quarter"
+                    "title": "Second Quarter",
+                    "currency": true
                   },
                   "Q3Amount": {
                     "type": "string",
-                    "title": "Third Quarter"
+                    "title": "Third Quarter",
+                    "currency": true
                   },
                   "Q4Amount": {
                     "type": "string",
-                    "title": "Fourth Quarter"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "fundingStack": {
-          "type": "array",
-          "addable": true,
-          "title": "Funding Stack",
-          "items": {
-            "type": "object",
-            "properties": {
-              "year": {
-                "type": "string",
-                "title": "Year"
-              },
-              "homesEnglandGrant": {
-                "type": "string",
-                "title": "Homes England Grant"
-              },
-              "otherSources": {
-                "type": "array",
-                "title": "Other Sources",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "fundingSource": {
-                      "type": "string",
-                      "title": "Funding Source"
-                    }
+                    "title": "Fourth Quarter",
+                    "currency": true
                   }
                 }
               }
@@ -260,24 +233,35 @@
           "type": "object",
           "title": "Receipts",
           "properties": {
-            "detailsOnPaymentStructure": {
-              "type": "string",
-              "title": "Details on payment structure"
-            },
             "expectedDisposalReceipt": {
               "type": "array",
               "addable": true,
-              "title": "Expected Disposal Receipt",
+              "title": "",
               "items": {
                 "type": "object",
                 "properties": {
+                  "detailsOnPaymentStructure": {
+                    "type": "string",
+                    "title": "Details on payment structure"
+                  },
                   "site": {
                     "type": "string",
                     "title": "Site"
                   },
                   "amount": {
                     "type": "string",
-                    "title": "amount"
+                    "title": "Amount",
+                    "currency": true
+                  },
+                  "projectValue": {
+                    "type": "string",
+                    "title": "Projected (clean site) land value",
+                    "currency": true
+                  },
+                  "clawback": {
+                    "type": "string",
+                    "title": "Clawback",
+                    "percentage": true
                   }
                 }
               }
