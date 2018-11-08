@@ -36,6 +36,13 @@ describe 'Interacting with a HIF Return from the UI' do
     )
   end
 
+  let(:prepopulated_return) do
+    JSON.parse(
+      File.open("#{__dir__}/../../fixtures/hif_return_core.json").read,
+      symbolize_names: true
+    )
+  end
+
   def create_project
     dependency_factory.get_use_case(:ui_create_project).execute(
       type: 'hif',
@@ -56,6 +63,11 @@ describe 'Interacting with a HIF Return from the UI' do
       created_return = dependency_factory.get_use_case(:ui_get_return).execute(id: return_id)[:updates].last
 
       expect(created_return).to eq(expected_updated_return)
+    end
+
+    it 'Allows you to create a return' do
+      created_return_id = get_use_case(:ui_create_return).execute(project_id: project_id, data:  prepopulated_return)[:id]
+      
     end
 
     it 'Allows you to view multiple created returns' do
