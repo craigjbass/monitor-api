@@ -143,7 +143,7 @@
           "title": "Pre-Drawdown Conditions",
           "properties": {
             "conditions": {
-              "title": "Conditions",
+              "title": "",
               "type": "array",
               "addable": true,
               "items": {
@@ -156,10 +156,6 @@
                   "conditionExplanation": {
                     "type": "string",
                     "title": "Condition explanation"
-                  },
-                  "conditionSite": {
-                    "type": "string",
-                    "title": "Site (if multiple)"
                   }
                 }
               }
