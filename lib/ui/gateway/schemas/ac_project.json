@@ -167,7 +167,7 @@
           "title": "Funding Items",
           "properties": {
             "fundItems": {
-              "title": "Items",
+              "title": "",
               "type": "array",
               "addable": true,
               "items": {
@@ -175,7 +175,8 @@
                 "properties": {
                   "fundingItem": {
                     "type": "string",
-                    "title": "Funding item"
+                    "title": "Funding item",
+                    "extendedText": true
                   },
                   "fundingSite": {
                     "type": "string",
