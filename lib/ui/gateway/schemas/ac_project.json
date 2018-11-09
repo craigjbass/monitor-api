@@ -274,10 +274,6 @@
       "type": "object",
       "title": "Milestones",
       "properties": {
-        "description": {
-          "type": "string",
-          "title": "Description of disposal and delivery approach"
-        },
         "procurementOfWorksCommencementDate": {
           "type": "string",
           "format": "date",
@@ -288,73 +284,100 @@
           "format": "date",
           "title": "Provision of detailed works specification and milestones"
         },
-        "commencementDate": {
-          "type": "string",
-          "format": "date",
-          "title": "Commencement of works date (first, if multiple)"
-        },
-        "completionDate": {
-          "type": "string",
-          "format": "date",
-          "title": "Completion of works date (last, if multiple)"
-        },
-        "outlinePlanningSubmissionDate": {
-          "type": "string",
-          "format": "date",
-          "title": "Outline planning permission submitted date"
-        },
-        "outlinePlanningGrantedDate": {
-          "type": "string",
-          "format": "date",
-          "title": "Outline planning permission granted date"
-        },
-        "detailedPlanningSubmissionDate": {
-          "type": "string",
-          "format": "date",
-          "title": "Detailed planning permission submitted date"
-        },
-        "detailsPlanningGrantedDate": {
-          "type": "string",
-          "format": "date",
-          "title": "Detailed planning permission granted date"
-        },
         "marketingCommenced": {
           "type": "string",
           "format": "date",
           "title": "Developer Partner marketing commenced (EOI or formal tender)"
         },
-        "conditionalContractSigned": {
-          "type": "string",
-          "format": "date",
-          "title": "Conditional contract signed"
+        "worksDate": {
+          "type": "object",
+          "title": "",
+          "horizontal": true,
+          "properties": {
+            "commencementDate": {
+              "type": "string",
+              "format": "date",
+              "title": "Commencement of works date (first, if multiple)"
+            },
+            "completionDate": {
+              "type": "string",
+              "format": "date",
+              "title": "Completion of works date (last, if multiple)"
+            }
+          }
         },
-        "unconditionalContractSigned": {
-          "type": "string",
-          "format": "date",
-          "title": "Unconditional contract signed"
+        "outlinePlanning": {
+          "type": "object",
+          "title": "",
+          "horizontal": true,
+          "properties": {
+            "outlinePlanningSubmissionDate": {
+              "type": "string",
+              "format": "date",
+              "title": "Outline planning permission submitted date"
+            },
+            "outlinePlanningGrantedDate": {
+              "type": "string",
+              "format": "date",
+              "title": "Outline planning permission granted date"
+            }
+          }
         },
-        "typeOfContract": {
-          "type": "string",
-          "title": "Type of contract (eg Building Lease)"
+        "detailedPlanning": {
+          "type": "object",
+          "title": "",
+          "horizontal": true,
+          "properties": {
+            "detailedPlanningSubmissionDate": {
+              "type": "string",
+              "format": "date",
+              "title": "Detailed planning permission submitted date"
+            },
+            "detailedPlanningGrantedDate": {
+              "type": "string",
+              "format": "date",
+              "title": "Detailed planning permission granted date"
+            }
+          }
         },
-        "nameOfDeliveryPartner": {
-          "type": "string",
-          "title": "Name of delivery partner/purchaser"
+        "contractSigned": {
+          "type": "object",
+          "title": "",
+          "horizontal": true,
+          "properties": {
+            "conditionalContractSigned": {
+              "type": "string",
+              "format": "date",
+              "title": "Conditional contract signed"
+            },
+            "unconditionalContractSigned": {
+              "type": "string",
+              "format": "date",
+              "title": "Unconditional contract signed"
+            }
+          }
         },
-        "startOnSiteDate": {
-          "type": "string",
-          "format": "date",
-          "title": "Start on site date"
-        },
-        "startOnFirstUnitDate": {
-          "type": "string",
-          "format": "date",
-          "title": "Start of first unit date"
-        },
-        "developmentEndDate": {
-          "type": "string",
-          "format": "date",
-          "title": "Development end date (final unit completion)"
+        "workDates": {
+          "type": "object",
+          "title": "",
+          "horizontal": true,
+          "properties": {
+            "startOnSiteDate": {
+              "type": "string",
+              "format": "date",
+              "title": "Start on site date"
+            },
+            "startOnFirstUnitDate": {
+              "type": "string",
+              "format": "date",
+              "title": "Start of first unit date"
+            },
+            "developmentEndDate": {
+              "type": "string",
+              "format": "date",
+              "title": "Development end date (final unit completion)"
+            }
+          }
         },
         "customMileStones": {
           "type": "array",
@@ -363,9 +386,14 @@
           "items": {
             "type": "object",
             "properties": {
-              "custom": {
+              "customTitle": {
                 "type": "string",
-                "title": "Custom (local authority entered)"
+                "title": "Milestone"
+              },
+              "customDate": {
+                "type": "string",
+                "title": "Date",
+                "format": "date"
               }
             }
           }
