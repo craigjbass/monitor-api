@@ -38,8 +38,6 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                   type: 'object',
                   title: 'Planning',
                   properties: {
-                    # Baseline
-                    # from outlinePlanningStatus.granted
                     outlinePlanning: {
                       type: 'object',
                       title: 'Outline Planning',
@@ -114,7 +112,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                     },
                                     percentComplete: {
                                       type: 'integer',
-                                      title: 'Percent Complete'
+                                      title: 'Percent Complete',
+                                      percentage: true
                                     },
                                     completedDate: {
                                       type: 'string',
@@ -177,7 +176,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                     },
                                     percentComplete: {
                                       type: 'integer',
-                                      title: 'Percent complete'
+                                      title: 'Percent complete',
+                                      percentage: true
                                     },
                                     completedDate: {
                                       type: 'string',
@@ -282,7 +282,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                     },
                                     percentComplete: {
                                       type: 'integer',
-                                      title: 'Percent complete'
+                                      title: 'Percent complete',
+                                      percentage: true
                                     },
                                     completedDate: {
                                       type: 'string',
@@ -345,7 +346,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                     },
                                     percentComplete: {
                                       type: 'integer',
-                                      title: 'Percent complete'
+                                      title: 'Percent complete',
+                                      percentage: true
                                     },
                                     completedDate: {
                                       type: 'string',
@@ -459,7 +461,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                           },
                                           percentComplete: {
                                             title: 'Percentage complete',
-                                            type: 'integer'
+                                            type: 'integer',
+                                            percentage: true
                                           },
                                           completionDate: {
                                             hidden: true,
@@ -608,7 +611,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                             },
                                             percentComplete: {
                                               type: 'integer',
-                                              title: 'Percent complete'
+                                              title: 'Percent complete',
+                                              percentage: true
                                             },
                                             completedDate: {
                                               type: 'string',
@@ -736,7 +740,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             },
                             percentComplete: {
                               type: 'integer',
-                              title: 'Percent complete'
+                              title: 'Percent complete',
+                              percentage: true
                             },
                             procurementCompletedDate: {
                               type: 'string',
@@ -811,7 +816,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           },
                           milestonePercentCompleted: {
                             type: 'integer',
-                            title: 'Percent complete'
+                            title: 'Percent complete',
+                            percentage: true
                           },
                           milestoneCompletedDate: {
                             type: 'string',
@@ -901,7 +907,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           },
                           milestonePercentCompleted: {
                             type: 'integer',
-                            title: 'Percent complete'
+                            title: 'Percent complete',
+                            percentage: true
                           },
                           milestoneCompletedDate: {
                             type: 'string',
@@ -959,7 +966,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                         },
                         percentComplete: {
                           type: 'integer',
-                          title: 'Percent complete'
+                          title: 'Percent complete',
+                          perentage: true
                         },
                         completedDate: {
                           type: 'string',
@@ -1015,7 +1023,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                         },
                         percentComplete: {
                           type: 'integer',
-                          title: 'Percent complete'
+                          title: 'Percent complete',
+                          percentage: true
                         },
                         completedDate: {
                           type: 'string',
@@ -1451,7 +1460,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                         },
                         percentComplete: {
                           type: 'integer',
-                          title: 'Percent complete'
+                          title: 'Percent complete',
+                          percentage: true
                         }
                       }
                     },
@@ -1975,7 +1985,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     },
                     varianceFromBaselinePercent: {
                       type: 'string',
-                      title: 'Variance from Baseline (%)',
+                      title: 'Variance from Baseline',
+                      percentage: true,
                       readonly: true,
                       hidden: true
                     },
@@ -2195,14 +2206,15 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                   currency: true
                 },
                 varianceAgainstForcastAmount: {
-                  title: 'Variance Against Forecast (£)',
+                  title: 'Variance Against Forecast',
                   type: 'string',
                   hidden: true,
                   currency: true
                 },
                 varianceAgainstForcastPercentage: {
-                  title: 'Variance Against Forecast (%)',
+                  title: 'Variance Against Forecast',
                   type: 'string',
+                  percentage: true,
                   hidden: true
                 }
               }
@@ -2366,19 +2378,23 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
         },
         brownfieldPercent: {
           type: 'string',
-          title: 'Brownfield %'
+          title: 'Brownfield',
+          percentage: true
         },
         leaseholdPercent: {
           type: 'string',
-          title: 'Leasehold %'
+          title: 'Leasehold',
+          percentage: true
         },
         smePercent: {
           type: 'string',
-          title: 'SME %'
+          title: 'SME',
+          percentage: true
         },
         mmcPercent: {
           type: 'string',
-          title: 'MMC %'
+          title: 'MMC',
+          percentage: true
         }
       }
     }
