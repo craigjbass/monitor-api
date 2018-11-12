@@ -79,13 +79,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       readonly: true
                                     },
                                     varianceBaselineFullPlanningPermissionSubmitted: {
-                                      type: 'integer',
+                                      type: 'string',
                                       readonly: true,
                                       hidden: true,
                                       title: 'Variance against Baseline submitted date (Week) (Calculated)'
                                     },
                                     varianceLastReturnFullPlanningPermissionSubmitted: {
-                                      type: 'integer',
+                                      type: 'string',
                                       readonly: true,
                                       hidden: true,
                                       title: 'Variance against Last Return submitted date (Week) (Calculated)'
@@ -111,7 +111,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       title: 'Reason for Variance'
                                     },
                                     percentComplete: {
-                                      type: 'integer',
+                                      type: 'string',
                                       title: 'Percent Complete',
                                       percentage: true
                                     },
@@ -143,13 +143,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       readonly: true
                                     },
                                     varianceBaselineFullPlanningPermissionGranted: {
-                                      type: 'integer',
+                                      type: 'string',
                                       readonly: true,
                                       hidden: true,
                                       title: 'Variance against Baseline granted date (Weeks) (Calculated)'
                                     },
                                     varianceLastReturnFullPlanningPermissionGranted: {
-                                      type: 'integer',
+                                      type: 'string',
                                       readonly: true,
                                       hidden: true,
                                       title: 'Variance against Last Return granted date (Weeks) (Calculated)'
@@ -175,7 +175,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       title: 'Reason for Variance'
                                     },
                                     percentComplete: {
-                                      type: 'integer',
+                                      type: 'string',
                                       title: 'Percent complete',
                                       percentage: true
                                     },
@@ -249,13 +249,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       readonly: true
                                     },
                                     varianceBaselineFullPlanningPermissionSubmitted: {
-                                      type: 'integer',
+                                      type: 'string',
                                       readonly: true,
                                       hidden: true,
                                       title: 'Variance against Baseline submitted date (Week) (Calculated)'
                                     },
                                     varianceLastReturnFullPlanningPermissionSubmitted: {
-                                      type: 'integer',
+                                      type: 'string',
                                       readonly: true,
                                       hidden: true,
                                       title: 'Variance against Last Return submitted date (Week) (Calculated)'
@@ -281,7 +281,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       title: 'Reason for Variance'
                                     },
                                     percentComplete: {
-                                      type: 'integer',
+                                      type: 'string',
                                       title: 'Percent complete',
                                       percentage: true
                                     },
@@ -313,13 +313,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       readonly: true
                                     },
                                     varianceBaselineFullPlanningPermissionGranted: {
-                                      type: 'integer',
+                                      type: 'string',
                                       readonly: true,
                                       hidden: true,
                                       title: 'Variance against Baseline granted date (Weeks) (Calculated)'
                                     },
                                     varianceLastReturnFullPlanningPermissionGranted: {
-                                      type: 'integer',
+                                      type: 'string',
                                       readonly: true,
                                       hidden: true,
                                       title: 'Variance against Last Return granted date (Weeks) (Calculated)'
@@ -345,7 +345,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       title: 'Reason for Variance'
                                     },
                                     percentComplete: {
-                                      type: 'integer',
+                                      type: 'string',
                                       title: 'Percent complete',
                                       percentage: true
                                     },
@@ -440,13 +440,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                           varianceAgainstBaseline: {
                                             hidden: true,
                                             title: 'Variance against baseline (Calculated)',
-                                            type: 'integer',
+                                            type: 'string',
                                             readonly: true
                                           },
                                           varianceAgainstLastReturn: {
                                             hidden: true,
                                             title: 'Variance against last return (Calculated)',
-                                            type: 'integer',
+                                            type: 'string',
                                             readonly: true
                                           },
                                           statusAgainstLastReturn: status_against_last_return,
@@ -461,7 +461,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                           },
                                           percentComplete: {
                                             title: 'Percentage complete',
-                                            type: 'integer',
+                                            type: 'string',
                                             percentage: true
                                           },
                                           completionDate: {
@@ -543,7 +543,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                           enum: ['Yes']
                                         },
                                         howManySitesToAquire: {
-                                          type: 'integer',
+                                          type: 'string',
                                           title: 'Number of Sites to aquire?',
                                           sourceKey: %i[baseline_data infrastructures landOwnership howManySitesToAcquire],
                                           readonly: true
@@ -610,7 +610,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                               title: 'Reason for Variance'
                                             },
                                             percentComplete: {
-                                              type: 'integer',
+                                              type: 'string',
                                               title: 'Percent complete',
                                               percentage: true
                                             },
@@ -739,7 +739,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                               }
                             },
                             percentComplete: {
-                              type: 'integer',
+                              type: 'string',
                               title: 'Percent complete',
                               percentage: true
                             },
@@ -815,7 +815,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             title: 'Reason for Variance'
                           },
                           milestonePercentCompleted: {
-                            type: 'integer',
+                            type: 'string',
                             title: 'Percent complete',
                             percentage: true
                           },
@@ -906,7 +906,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             title: 'Reason for Variance'
                           },
                           milestonePercentCompleted: {
-                            type: 'integer',
+                            type: 'string',
                             title: 'Percent complete',
                             percentage: true
                           },
@@ -965,7 +965,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           title: 'Reason for variance'
                         },
                         percentComplete: {
-                          type: 'integer',
+                          type: 'string',
                           title: 'Percent complete',
                           perentage: true
                         },
@@ -1022,7 +1022,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           title: 'Reason for variance'
                         },
                         percentComplete: {
-                          type: 'integer',
+                          type: 'string',
                           title: 'Percent complete',
                           percentage: true
                         },
@@ -1113,11 +1113,11 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             title: 'Description'
                           },
                           impact: {
-                            type: 'integer',
+                            type: 'string',
                             title: 'Impact'
                           },
                           likelihood: {
-                            type: 'integer',
+                            type: 'string',
                             title: 'Likelihood'
                           },
                           mitigations: {
@@ -1459,7 +1459,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           title: 'Reason for variance'
                         },
                         percentComplete: {
-                          type: 'integer',
+                          type: 'string',
                           title: 'Percent complete',
                           percentage: true
                         }
@@ -1603,7 +1603,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
           title: 'Summary',
           properties: {
             totalUnits: {
-              type: 'integer',
+              type: 'string',
               title: 'Total Units',
               readonly: true,
               sourceKey: %i[baseline_data outputsForecast totalUnits]
