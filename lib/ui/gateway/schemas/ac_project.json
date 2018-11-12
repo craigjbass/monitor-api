@@ -274,20 +274,39 @@
       "type": "object",
       "title": "Milestones",
       "properties": {
-        "procurementOfWorksCommencementDate": {
-          "type": "string",
-          "format": "date",
-          "title": "Procurement of works commencement date"
+        "surveysAndDueDiligence": {
+          "type": "object",
+          "title": "",
+          "horizontal": true,
+          "properties": {
+            "commencementOfDueDiligence" : {
+              "type": "string",
+              "format": "date",
+              "title": "Commencement of surveys and due diligence"
+            },
+            "completionOfSurveys" : {
+              "type": "string",
+              "format": "date",
+              "title": "Completion of surveys and due diligence"
+            }
+          }
         },
-        "provisionOfDetailedWorks": {
-          "type": "string",
-          "format": "date",
-          "title": "Provision of detailed works specification and milestones"
-        },
-        "marketingCommenced": {
-          "type": "string",
-          "format": "date",
-          "title": "Developer Partner marketing commenced (EOI or formal tender)"
+        "procurementProvision": {
+          "type": "object",
+          "title": "",
+          "horizontal": true,
+          "properties": {
+            "procurementOfWorksCommencementDate": {
+              "type": "string",
+              "format": "date",
+              "title": "Procurement of works commencement date"
+            },
+            "provisionOfDetailedWorks": {
+              "type": "string",
+              "format": "date",
+              "title": "Provision of detailed works specification and milestones"
+            }
+          }
         },
         "worksDate": {
           "type": "object",
@@ -311,34 +330,22 @@
           "title": "",
           "horizontal": true,
           "properties": {
-            "outlinePlanningSubmissionDate": {
-              "type": "string",
-              "format": "date",
-              "title": "Outline planning permission submitted date"
-            },
             "outlinePlanningGrantedDate": {
               "type": "string",
               "format": "date",
               "title": "Outline planning permission granted date"
+            },
+            "reservedMatterPermissionGrantedDate": {
+              "type": "string",
+              "format": "date",
+              "title": "Reserved Matter Permission Granted date"
             }
           }
         },
-        "detailedPlanning": {
-          "type": "object",
-          "title": "",
-          "horizontal": true,
-          "properties": {
-            "detailedPlanningSubmissionDate": {
-              "type": "string",
-              "format": "date",
-              "title": "Detailed planning permission submitted date"
-            },
-            "detailedPlanningGrantedDate": {
-              "type": "string",
-              "format": "date",
-              "title": "Detailed planning permission granted date"
-            }
-          }
+        "marketingCommenced": {
+          "type": "string",
+          "format": "date",
+          "title": "Developer Partner marketing commenced (EOI or formal tender)"
         },
         "contractSigned": {
           "type": "object",
@@ -371,11 +378,23 @@
               "type": "string",
               "format": "date",
               "title": "Start of first unit date"
-            },
-            "developmentEndDate": {
+            }
+          }
+        },
+        "completionDates": {
+          "type": "object",
+          "title": "",
+          "horizontal": true,
+          "properties": {
+            "completionOfFinalUnitData": {
               "type": "string",
-              "format": "date",
-              "title": "Development end date (final unit completion)"
+              "title": "Completion of Final Unit Date",
+              "format": "date"
+            },
+            "projectCompletionDate": {
+              "type": "string",
+              "title": "Project Completion Date",
+              "format": "date"
             }
           }
         },
