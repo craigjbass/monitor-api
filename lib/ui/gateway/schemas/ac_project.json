@@ -417,19 +417,23 @@
               },
               "Q1Amount": {
                 "type": "string",
-                "title": "First Quarter"
+                "title": "First Quarter",
+                "currency": true
               },
               "Q2Amount": {
                 "type": "string",
-                "title": "Second Quarter"
+                "title": "Second Quarter",
+                "currency": true
               },
               "Q3Amount": {
                 "type": "string",
-                "title": "Third Quarter"
+                "title": "Third Quarter",
+                "currency": true
               },
               "Q4Amount": {
                 "type": "string",
-                "title": "Fourth Quarter"
+                "title": "Fourth Quarter",
+                "currency": true
               }
             }
           }
@@ -459,7 +463,8 @@
                   },
                   "percent": {
                     "type": "string",
-                    "title": "Percent Amount"
+                    "title": "Percent Amount",
+                    "percentage": true
                   }
                 }
               }
