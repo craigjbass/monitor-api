@@ -29,6 +29,13 @@ describe 'Interacting with a HIF Return from the UI' do
       symbolize_names: true
     )
   end
+
+  let(:hif_get_return) do
+    JSON.parse(
+      File.open("#{__dir__}/../../fixtures/hif_saved_base_return.json").read,
+      symbolize_names: true
+    )
+  end
  
   let(:expected_updated_return) do
     JSON.parse(
@@ -63,6 +70,7 @@ describe 'Interacting with a HIF Return from the UI' do
   context 'Creating a return' do
     it 'Allows you to create and view a return' do
       base_return = get_use_case(:ui_get_base_return).execute(project_id: project_id)[:base_return]
+
       return_data = base_return[:data].dup
       return_id = dependency_factory.get_use_case(:ui_create_return).execute(project_id: project_id, data: return_data)[:id]
       return_data[:infrastructures][0][:planning][:outlinePlanning][:planningSubmitted][:status] = 'Delayed'
@@ -70,7 +78,8 @@ describe 'Interacting with a HIF Return from the UI' do
       dependency_factory.get_use_case(:ui_update_return).execute(return_id: return_id, return_data: return_data)
 
       created_return = dependency_factory.get_use_case(:ui_get_return).execute(id: return_id)[:updates].last
-
+      expect(created_return[:s151Confirmation]).to eq(expected_updated_return[:s151Confirmation])
+      
       expect(created_return).to eq(expected_updated_return)
     end
 
@@ -78,12 +87,13 @@ describe 'Interacting with a HIF Return from the UI' do
       return_id = dependency_factory.get_use_case(:ui_create_return).execute(project_id: project_id, data: full_return_data)[:id]
       created_return = dependency_factory.get_use_case(:ui_get_return).execute(id: return_id)[:updates].last
 
-      expect(created_return).to eq(full_return_data_after_calcs)
+      expect(created_return[:infrastructures][0][:planning]).to eq(full_return_data_after_calcs[:infrastructures][0][:planning])
     end
 
     it 'Allows you to view multiple created returns' do
       base_return = get_use_case(:ui_get_base_return).execute(project_id: project_id)[:base_return]
       return_data = base_return[:data].dup
+
       dependency_factory.get_use_case(:ui_create_return).execute(project_id: project_id, data: return_data)[:id]
       dependency_factory.get_use_case(:ui_create_return).execute(project_id: project_id, data: return_data)[:id]
 
@@ -92,8 +102,8 @@ describe 'Interacting with a HIF Return from the UI' do
       created_return_one = created_returns[0][:updates][0]
       created_return_two = created_returns[1][:updates][0]
 
-      expect(created_return_one).to eq(return_data)
-      expect(created_return_two).to eq(return_data)
+      expect(created_return_one).to eq(hif_get_return)
+      expect(created_return_two).to eq(hif_get_return)
     end
   end
 end

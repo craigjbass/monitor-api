@@ -3,7 +3,7 @@
 describe UI::UseCase::GetBaseReturn do
   context 'Example one' do
     let(:convert_core_return_spy) { spy }
-    let(:get_base_return_spy) { spy(execute: { base_return: { cat: 'meow' } }) }
+    let(:get_base_return_spy) { spy(execute: { base_return: { id: 3, data: { cat: 'meow' }, schema: { schema: 'schema' } } }) }
     let(:use_case) do
       described_class.new(
         get_base_return: get_base_return_spy,
@@ -25,7 +25,7 @@ describe UI::UseCase::GetBaseReturn do
     end
 
     it 'Returns the base return from get base return' do
-      expect(response).to eq(base_return: { cat: 'meow' })
+      expect(response).to eq(base_return: { id: 3, data: { cat: 'meow' }, schema: { schema: 'schema' } })
     end
 
     it 'Calls the find project use case' do
@@ -41,7 +41,7 @@ describe UI::UseCase::GetBaseReturn do
       end
 
       it 'returns converted data' do
-        expect(response).to eq(base_return: { cow: 'moo' })
+        expect(response).to eq(base_return: { id: 3, data: { cow: 'moo' }, schema: { schema: 'schema' } })
       end
     end
 
@@ -55,7 +55,7 @@ describe UI::UseCase::GetBaseReturn do
   context 'Example two' do
     let(:find_project_spy) { spy(execute: { type: 'comethingelse' }) }
     let(:convert_core_return_spy) { spy }
-    let(:get_base_return_spy) { spy(execute: { base_return: { dog: 'woof' } }) }
+    let(:get_base_return_spy) { spy(execute: { base_return: { id: 'woof', schema: { dog: 'woof' }, data: { cats: 'meow' } } }) }
     let(:use_case) do
       described_class.new(
         get_base_return: get_base_return_spy,
@@ -76,7 +76,7 @@ describe UI::UseCase::GetBaseReturn do
     end
 
     it 'Returns the basereturn from get base return' do
-      expect(response).to eq(base_return: { dog: 'woof' })
+      expect(response).to eq(base_return: { id: 'woof', schema: { dog: 'woof' }, data: { cats: 'meow' } })
     end
 
     it 'Calls the find project use case' do
@@ -88,11 +88,11 @@ describe UI::UseCase::GetBaseReturn do
       let(:convert_core_return_spy) { spy(execute: { ducks: 'quack' }) }
 
       it 'Calls the convert core return use case with the data' do
-        expect(convert_core_return_spy).to have_received(:execute).with(return_data: { dog: 'woof' })
+        expect(convert_core_return_spy).to have_received(:execute).with(return_data: { cats: 'meow' })
       end
 
       it 'returns converted data' do
-        expect(response).to eq(base_return: { ducks: 'quack' })
+        expect(response).to eq(base_return: { id: 'woof', schema: { dog: 'woof' }, data: { ducks: 'quack' } })
       end
     end
 

@@ -3,15 +3,25 @@
 describe UI::UseCase::GetReturns do
   context 'Example one' do
     let(:convert_core_return_spy) { spy }
-    let(:find_project_spy) { spy(execute: {type:'nil'})}
-    let(:get_returns_spy) { spy(execute: { returns: [{ cat: 'meow' }] }) }
-    let(:use_case) do 
+    let(:find_project_spy) { spy(execute: { type: 'nil' }) }
+    let(:get_returns_spy) do
+      spy(execute: {
+            returns:
+            [{
+              id: 1,
+              project_id: 2,
+              status: 'completed',
+              updates: [{ cat: 'meow' }]
+            }]
+          })
+    end
+    let(:use_case) do
       described_class.new(
         get_returns: get_returns_spy,
         find_project: find_project_spy,
         convert_core_hif_return: convert_core_return_spy
-        )
-    end 
+      )
+    end
     let(:response) { use_case.execute(project_id: 2) }
 
     before { response }
@@ -25,7 +35,7 @@ describe UI::UseCase::GetReturns do
     end
 
     it 'Returns the found returns' do
-      expect(response).to eq(returns: [{ cat: 'meow' }])
+      expect(response[:returns][0][:updates]).to eq([{ cat: 'meow' }])
     end
 
     it 'Calls the find project use case' do
@@ -36,7 +46,12 @@ describe UI::UseCase::GetReturns do
       let(:get_returns_spy) do
         spy(
           execute: {
-            returns: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
+            returns: [{
+              id: 1,
+              project_id: 2,
+              status: 'completed',
+              updates: [{ bird: 'squarrrkk' }, { bird: 'squarrrkk' }]
+            }]
           }
         )
       end
@@ -52,7 +67,7 @@ describe UI::UseCase::GetReturns do
       end
 
       it 'returns converted returns' do
-        expect(response[:returns]).to eq([{ rabbit: 'hops' }, { rabbit: 'hops' }])
+        expect(response[:returns][0][:updates]).to eq([{ rabbit: 'hops' }, { rabbit: 'hops' }])
       end
     end
 
@@ -65,14 +80,23 @@ describe UI::UseCase::GetReturns do
 
   context 'Example two' do
     let(:convert_core_return_spy) { spy }
-    let(:find_project_spy) { spy(execute: { type: 'non' })}
-    let(:get_returns_spy) { spy(execute: { returns: [{ dog: 'woof' }] }) }
-    let(:use_case) do 
+    let(:find_project_spy) { spy(execute: { type: 'non' }) }
+    let(:get_returns_spy) do
+      spy(execute: {
+            returns: [{
+              id: 3,
+              project_id: 7,
+              status: 'not done',
+              updates: [{ dog: 'woof' }]
+            }]
+          })
+    end
+    let(:use_case) do
       described_class.new(
         get_returns: get_returns_spy,
         find_project: find_project_spy,
         convert_core_hif_return: convert_core_return_spy
-        )
+      )
     end
     let(:response) { use_case.execute(project_id: 7) }
 
@@ -87,7 +111,12 @@ describe UI::UseCase::GetReturns do
     end
 
     it 'Returns the found returns' do
-      expect(response).to eq(returns: [{ dog: 'woof' }])
+      expect(response).to eq(returns: [{
+                               id: 3,
+                               project_id: 7,
+                               status: 'not done',
+                               updates: [{ dog: 'woof' }]
+                             }])
     end
 
     it 'Calls the find project use case' do
@@ -97,7 +126,12 @@ describe UI::UseCase::GetReturns do
     context 'Hif type' do
       let(:get_returns_spy) do
         spy(execute: {
-              returns: [{ pony: 'nah' }, { pony: 'nah' }]
+              returns: [{
+                id: 3,
+                project_id: 7,
+                status: 'not done',
+                updates: [{ pony: 'nah' }, { pony: 'nah' }]
+              }]
             })
       end
       let(:find_project_spy) { spy(execute: { type: 'hif' }) }
@@ -112,7 +146,16 @@ describe UI::UseCase::GetReturns do
       end
 
       it 'returns converted returns' do
-        expect(response[:returns]).to eq([{ toad: 'ribbit' }, { toad: 'ribbit' }])
+        expect(response[:returns]).to(eq(
+                                        [
+                                          {
+                                            id: 3,
+                                            project_id: 7,
+                                            status: 'not done',
+                                            updates: [{ toad: 'ribbit' }, { toad: 'ribbit' }]
+                                          }
+                                        ]
+                                      ))
       end
     end
 

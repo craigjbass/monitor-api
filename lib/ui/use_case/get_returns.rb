@@ -10,7 +10,10 @@ class UI::UseCase::GetReturns
 
     if @find_project.execute(id: project_id)[:type] == 'hif'
       found_returns = found_returns.map do |found_return|
-        @convert_core_hif_return.execute(return_data: found_return)
+        found_return[:updates].map! do |update|
+          @convert_core_hif_return.execute(return_data: update)
+        end
+        found_return
       end
     end
 
