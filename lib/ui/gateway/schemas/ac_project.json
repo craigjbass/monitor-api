@@ -30,7 +30,7 @@
           "items": {
             "type": "object",
             "properties": {
-              "summary" : {
+              "summary": {
                 "type": "object",
                 "title": "Summary",
                 "properties": {
@@ -38,7 +38,7 @@
                     "type": "string",
                     "title": "Parcel/Sub Site name"
                   },
-                  "details" : {
+                  "details": {
                     "type": "object",
                     "horizontal": true,
                     "properties": {
@@ -233,17 +233,18 @@
           "type": "object",
           "title": "Receipts",
           "properties": {
+            "detailsOnPaymentStructure": {
+              "type": "string",
+              "title": "Details on payment structure"
+            },
             "expectedDisposalReceipt": {
               "type": "array",
               "addable": true,
+              "quarterly": true,
               "title": "",
               "items": {
                 "type": "object",
                 "properties": {
-                  "detailsOnPaymentStructure": {
-                    "type": "string",
-                    "title": "Details on payment structure"
-                  },
                   "site": {
                     "type": "string",
                     "title": "Site Name"
@@ -252,19 +253,19 @@
                     "type": "string",
                     "title": "Amount",
                     "currency": true
-                  },
-                  "projectValue": {
-                    "type": "string",
-                    "title": "Projected (clean site) land value",
-                    "currency": true
-                  },
-                  "clawback": {
-                    "type": "string",
-                    "title": "Clawback",
-                    "percentage": true
                   }
                 }
               }
+            },
+            "projectValue": {
+              "type": "string",
+              "title": "Projected (clean site) land value",
+              "currency": true
+            },
+            "clawback": {
+              "type": "string",
+              "title": "Clawback",
+              "percentage": true
             }
           }
         }
