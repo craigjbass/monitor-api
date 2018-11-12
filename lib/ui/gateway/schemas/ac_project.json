@@ -246,7 +246,7 @@
                   },
                   "site": {
                     "type": "string",
-                    "title": "Site"
+                    "title": "Site Name"
                   },
                   "amount": {
                     "type": "string",
