@@ -195,7 +195,7 @@
   },
   "s151Confirmation": {
     "hifFunding": {
-      "hifTotalFundingRequest": null,
+      "hifTotalFundingRequest": "10000",
       "changesToRequest": {
         "changesToRequestConfirmation": null,
         "requestedAmount": null,
