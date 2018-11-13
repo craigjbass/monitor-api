@@ -30,7 +30,7 @@
           "items": {
             "type": "object",
             "properties": {
-              "summary" : {
+              "summary": {
                 "type": "object",
                 "title": "Summary",
                 "properties": {
@@ -38,7 +38,7 @@
                     "type": "string",
                     "title": "Parcel/Sub Site name"
                   },
-                  "details" : {
+                  "details": {
                     "type": "object",
                     "horizontal": true,
                     "properties": {
@@ -183,7 +183,8 @@
                   },
                   "fundingAgreed": {
                     "type": "string",
-                    "title": "AC Funding agreed"
+                    "title": "AC Funding agreed",
+                    "currency": true
                   }
                 }
               }
@@ -198,40 +199,35 @@
       "properties": {
         "expenditure": {
           "type": "array",
+          "quarterly": true,
           "addable": true,
           "title": "Funding Drawdown",
           "items": {
             "type": "object",
             "properties": {
-              "fundingDrawdown": {
-                "type": "object",
-                "title": "",
-                "properties": {
-                  "year": {
-                    "type": "string",
-                    "title": "Year"
-                  },
-                  "Q1Amount": {
-                    "type": "string",
-                    "title": "First Quarter",
-                    "currency": true
-                  },
-                  "Q2Amount": {
-                    "type": "string",
-                    "title": "Second Quarter",
-                    "currency": true
-                  },
-                  "Q3Amount": {
-                    "type": "string",
-                    "title": "Third Quarter",
-                    "currency": true
-                  },
-                  "Q4Amount": {
-                    "type": "string",
-                    "title": "Fourth Quarter",
-                    "currency": true
-                  }
-                }
+              "year": {
+                "type": "string",
+                "title": "Year"
+              },
+              "Q1Amount": {
+                "type": "string",
+                "title": "First Quarter",
+                "currency": true
+              },
+              "Q2Amount": {
+                "type": "string",
+                "title": "Second Quarter",
+                "currency": true
+              },
+              "Q3Amount": {
+                "type": "string",
+                "title": "Third Quarter",
+                "currency": true
+              },
+              "Q4Amount": {
+                "type": "string",
+                "title": "Fourth Quarter",
+                "currency": true
               }
             }
           }
@@ -240,39 +236,41 @@
           "type": "object",
           "title": "Receipts",
           "properties": {
+            "detailsOnPaymentStructure": {
+              "type": "string",
+              "title": "Details on payment structure"
+            },
             "expectedDisposalReceipt": {
               "type": "array",
               "addable": true,
+              "quarterly": true,
               "title": "",
               "items": {
                 "type": "object",
                 "properties": {
-                  "detailsOnPaymentStructure": {
-                    "type": "string",
-                    "title": "Details on payment structure"
-                  },
                   "site": {
                     "type": "string",
-                    "title": "Site"
+                    "title": "Site Name"
                   },
                   "amount": {
                     "type": "string",
                     "title": "Amount",
                     "currency": true
-                  },
-                  "projectValue": {
-                    "type": "string",
-                    "title": "Projected (clean site) land value",
-                    "currency": true,
-                    "maximum": "8"
-                  },
-                  "clawback": {
-                    "type": "string",
-                    "title": "Clawback",
-                    "percentage": true
                   }
                 }
               }
+            },
+            "projectValue": {
+              "type": "string",
+              "title": "Projected (clean site) land value",
+              "currency": true,
+              "maximum": "8"
+            },
+            "clawback": {
+              "type": "string",
+              "title": "Clawback",
+              "percentage": true,
+              "maximum": "4"
             }
           }
         }
@@ -282,20 +280,39 @@
       "type": "object",
       "title": "Milestones",
       "properties": {
-        "procurementOfWorksCommencementDate": {
-          "type": "string",
-          "format": "date",
-          "title": "Procurement of works commencement date"
+        "surveysAndDueDiligence": {
+          "type": "object",
+          "title": "",
+          "horizontal": true,
+          "properties": {
+            "commencementOfDueDiligence" : {
+              "type": "string",
+              "format": "date",
+              "title": "Commencement of surveys and due diligence"
+            },
+            "completionOfSurveys" : {
+              "type": "string",
+              "format": "date",
+              "title": "Completion of surveys and due diligence"
+            }
+          }
         },
-        "provisionOfDetailedWorks": {
-          "type": "string",
-          "format": "date",
-          "title": "Provision of detailed works specification and milestones"
-        },
-        "marketingCommenced": {
-          "type": "string",
-          "format": "date",
-          "title": "Developer Partner marketing commenced (EOI or formal tender)"
+        "procurementProvision": {
+          "type": "object",
+          "title": "",
+          "horizontal": true,
+          "properties": {
+            "procurementOfWorksCommencementDate": {
+              "type": "string",
+              "format": "date",
+              "title": "Procurement of works commencement date"
+            },
+            "provisionOfDetailedWorks": {
+              "type": "string",
+              "format": "date",
+              "title": "Provision of detailed works specification and milestones"
+            }
+          }
         },
         "worksDate": {
           "type": "object",
@@ -319,34 +336,22 @@
           "title": "",
           "horizontal": true,
           "properties": {
-            "outlinePlanningSubmissionDate": {
-              "type": "string",
-              "format": "date",
-              "title": "Outline planning permission submitted date"
-            },
             "outlinePlanningGrantedDate": {
               "type": "string",
               "format": "date",
               "title": "Outline planning permission granted date"
+            },
+            "reservedMatterPermissionGrantedDate": {
+              "type": "string",
+              "format": "date",
+              "title": "Reserved Matter Permission Granted date"
             }
           }
         },
-        "detailedPlanning": {
-          "type": "object",
-          "title": "",
-          "horizontal": true,
-          "properties": {
-            "detailedPlanningSubmissionDate": {
-              "type": "string",
-              "format": "date",
-              "title": "Detailed planning permission submitted date"
-            },
-            "detailedPlanningGrantedDate": {
-              "type": "string",
-              "format": "date",
-              "title": "Detailed planning permission granted date"
-            }
-          }
+        "marketingCommenced": {
+          "type": "string",
+          "format": "date",
+          "title": "Developer Partner marketing commenced (EOI or formal tender)"
         },
         "contractSigned": {
           "type": "object",
@@ -379,11 +384,23 @@
               "type": "string",
               "format": "date",
               "title": "Start of first unit date"
-            },
-            "developmentEndDate": {
+            }
+          }
+        },
+        "completionDates": {
+          "type": "object",
+          "title": "",
+          "horizontal": true,
+          "properties": {
+            "completionOfFinalUnitData": {
               "type": "string",
-              "format": "date",
-              "title": "Development end date (final unit completion)"
+              "title": "Completion of Final Unit Date",
+              "format": "date"
+            },
+            "projectCompletionDate": {
+              "type": "string",
+              "title": "Project Completion Date",
+              "format": "date"
             }
           }
         },
@@ -432,18 +449,20 @@
         "mmcCategory": {
           "title": "MMC Category",
           "type": "array",
-          "addable": true,
+          "quarterly": true,
           "items": {
             "type": "object",
             "properties": {
               "title": {
                 "type": "string",
-                "title": "Category Title"
+                "title": "Category",
+                "readonly": true
               },
               "percent": {
                 "type": "string",
                 "title": "Percent Amount",
-                "maximum":"4"
+                "maximum":"4",
+                "percentage": true
               }
             }
           }
