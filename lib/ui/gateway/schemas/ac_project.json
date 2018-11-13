@@ -191,40 +191,35 @@
       "properties": {
         "expenditure": {
           "type": "array",
+          "quarterly": true,
           "addable": true,
           "title": "Funding Drawdown",
           "items": {
             "type": "object",
             "properties": {
-              "fundingDrawdown": {
-                "type": "object",
-                "title": "",
-                "properties": {
-                  "year": {
-                    "type": "string",
-                    "title": "Year"
-                  },
-                  "Q1Amount": {
-                    "type": "string",
-                    "title": "First Quarter",
-                    "currency": true
-                  },
-                  "Q2Amount": {
-                    "type": "string",
-                    "title": "Second Quarter",
-                    "currency": true
-                  },
-                  "Q3Amount": {
-                    "type": "string",
-                    "title": "Third Quarter",
-                    "currency": true
-                  },
-                  "Q4Amount": {
-                    "type": "string",
-                    "title": "Fourth Quarter",
-                    "currency": true
-                  }
-                }
+              "year": {
+                "type": "string",
+                "title": "Year"
+              },
+              "Q1Amount": {
+                "type": "string",
+                "title": "First Quarter",
+                "currency": true
+              },
+              "Q2Amount": {
+                "type": "string",
+                "title": "Second Quarter",
+                "currency": true
+              },
+              "Q3Amount": {
+                "type": "string",
+                "title": "Third Quarter",
+                "currency": true
+              },
+              "Q4Amount": {
+                "type": "string",
+                "title": "Fourth Quarter",
+                "currency": true
               }
             }
           }
