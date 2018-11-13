@@ -3,6 +3,7 @@ GEM
   specs:
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
+    ast (2.4.0)
     coderay (1.1.2)
     concurrent-ruby (1.0.5)
     crack (0.4.3)
@@ -33,6 +34,7 @@ GEM
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
     hashdiff (0.3.7)
+    jaro_winkler (1.5.1)
     json (2.1.0)
     json_schema (0.19.1)
     jwt (2.1.0)
@@ -50,7 +52,11 @@ GEM
       shellany (~> 0.0)
     notifications-ruby-client (2.7.0)
       jwt (>= 1.5, < 3)
+    parallel (1.12.1)
+    parser (2.5.3.0)
+      ast (~> 2.4.0)
     pg (1.0.0)
+    powerpack (0.1.2)
     pry (0.11.3)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -60,6 +66,7 @@ GEM
       rack
     rack-test (1.0.0)
       rack (>= 1.0, < 3)
+    rainbow (3.0.0)
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
@@ -81,6 +88,15 @@ GEM
     rspec-support (3.7.1)
     rspec_junit_formatter (0.4.1)
       rspec-core (>= 2, < 4, != 2.12.0)
+    rubocop (0.60.0)
+      jaro_winkler (~> 1.5.1)
+      parallel (~> 1.10)
+      parser (>= 2.5, != 2.5.1.1)
+      powerpack (~> 0.1)
+      rainbow (>= 2.2.2, < 4.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (~> 1.4.0)
+    ruby-progressbar (1.10.0)
     ruby_dep (1.5.0)
     safe_yaml (1.0.4)
     sentry-raven (2.7.4)
@@ -100,6 +116,7 @@ GEM
     thor (0.20.0)
     tilt (2.0.8)
     timecop (0.9.1)
+    unicode-display_width (1.4.0)
     webmock (3.4.2)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -120,6 +137,7 @@ DEPENDENCIES
   rerun
   rspec
   rspec_junit_formatter
+  rubocop
   sentry-raven
   sequel
   simplecov
@@ -131,4 +149,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.5
+   1.16.6
