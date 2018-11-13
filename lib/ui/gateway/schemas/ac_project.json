@@ -422,17 +422,19 @@
         "mmcCategory": {
           "title": "MMC Category",
           "type": "array",
-          "addable": true,
+          "quarterly": true,
           "items": {
             "type": "object",
             "properties": {
               "title": {
                 "type": "string",
-                "title": "Category Title"
+                "title": "Category",
+                "readonly": true
               },
               "percent": {
                 "type": "string",
-                "title": "Percent Amount"
+                "title": "Percent Amount",
+                "percentage": true
               }
             }
           }
