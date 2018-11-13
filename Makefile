@@ -1,3 +1,6 @@
+.PHONY: setup
+setup: docker-build
+
 .PHONY: docker-build
 docker-build:
 	docker-compose build
@@ -17,4 +20,3 @@ shell:
 .PHONY: test
 test: docker-down docker-build
 	docker-compose run --rm web ./bin/run_tests.sh
-
