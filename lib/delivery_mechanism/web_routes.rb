@@ -86,7 +86,7 @@ module DeliveryMechanism
       guard_access env, params, request do |request_hash|
         DeliveryMechanism::Controllers::PostSubmitReturn.new(
           submit_return: @dependency_factory.get_use_case(:submit_return),
-          notify_project_members: @dependency_factory.get_use_case(:notify_project_members),
+          notify_project_members_of_submission: @dependency_factory.get_use_case(:notify_project_members_of_submission),
           check_api_key: @dependency_factory.get_use_case(:check_api_key)
         ).execute(env, request, request_hash, response)
       end
@@ -259,6 +259,8 @@ module DeliveryMechanism
         @dependency_factory.get_use_case(:submit_project).execute(
           project_id: request_hash[:project_id].to_i
         )
+
+        @dependency_factory.get_use_case(:notify_project_members_of_creation).execute(project_id: request_hash[:project_id].to_i, url: request_hash[:url])
 
         response.status = 200
       end
