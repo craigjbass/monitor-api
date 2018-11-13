@@ -2197,8 +2197,9 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                 forecast: {
                   title: 'Forecasted Spend Last Quarter Month',
                   type: 'string',
-                  hidden: true,
-                  currency: true
+                  sourceKey: %i[return_data s151 supportingEvidence lastQuarterMonthSpend forecast],
+                  currency: true,
+                  readonly: true
                 },
                 actual: {
                   title: 'Actual Spend Last Quarter Month',
