@@ -1789,6 +1789,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
             hifTotalFundingRequest: {
               type: 'string',
               title: 'HIF Total Funding Request',
+              sourceKey: %i[return_data fundingProfiles totalHIFGrant],
               readonly: true,
               hidden: true,
               currency: true
