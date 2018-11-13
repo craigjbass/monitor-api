@@ -43,7 +43,7 @@ describe 'Submitting a completed draft project' do
       }
     }
     response = get_use_case(:create_new_project).execute(
-      type: 'hif', baseline: project_baseline
+      name: 'cat project', type: 'hif', baseline: project_baseline
     )
     if status == 'la'
       2.times { get_use_case(:submit_project).execute(project_id: response[:id]) }

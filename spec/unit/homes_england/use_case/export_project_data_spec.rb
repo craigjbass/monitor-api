@@ -53,6 +53,7 @@ describe HomesEngland::UseCase::ExportProjectData do
       end
       let(:project) do
         {
+          name: 'Meow project',
           type: 'hif',
           data: {
             cats: 'meow'
@@ -64,6 +65,7 @@ describe HomesEngland::UseCase::ExportProjectData do
       let(:expected_compiled_project) do
         {
           baseline: {
+            name: 'Meow project',
             project_id: 0,
             type: 'hif',
             data: {
@@ -107,6 +109,7 @@ describe HomesEngland::UseCase::ExportProjectData do
       end
       let(:project) do
         {
+          name: 'Mouse project',
           type: 'hif',
           data: {
             mouse: 'squeak'
@@ -118,6 +121,7 @@ describe HomesEngland::UseCase::ExportProjectData do
       let(:expected_compiled_project) do
         {
           baseline: {
+            name: 'Mouse project',
             project_id: 6,
             type: 'hif',
             data: {
@@ -174,6 +178,7 @@ describe HomesEngland::UseCase::ExportProjectData do
 
       let(:project) do
         {
+          name: 'squeak project',
           type: 'hif',
           data: {
             mouse: 'squeak'
@@ -185,6 +190,7 @@ describe HomesEngland::UseCase::ExportProjectData do
       let(:expected_compiled_project) do
         {
           baseline: {
+            name: 'squeak project',
             project_id: 6,
             type: 'hif',
             data: {
@@ -246,6 +252,7 @@ describe HomesEngland::UseCase::ExportProjectData do
 
       let(:project) do
         {
+          name: 'squeak project',
           type: 'hif',
           data: {
             mouse: 'squeak'
@@ -257,6 +264,7 @@ describe HomesEngland::UseCase::ExportProjectData do
       let(:expected_compiled_project) do
         {
           baseline: {
+            name: 'squeak project',
             project_id: 8,
             type: 'hif',
             data: {
@@ -326,6 +334,7 @@ describe HomesEngland::UseCase::ExportProjectData do
 
       let(:project) do
         {
+          name: 'squeak project',
           type: 'hif',
           data: {
             mouse: 'squeak'
@@ -337,6 +346,7 @@ describe HomesEngland::UseCase::ExportProjectData do
       let(:expected_compiled_project) do
         {
           baseline: {
+            name: 'squeak project',
             project_id: 6,
             type: 'hif',
             data: {
@@ -401,6 +411,7 @@ describe HomesEngland::UseCase::ExportProjectData do
 
       let(:project) do
         {
+          name: 'squeak project',
           type: 'hif',
           data: {
             mouse: 'squeak'
@@ -412,6 +423,7 @@ describe HomesEngland::UseCase::ExportProjectData do
       let(:expected_compiled_project) do
         {
           baseline: {
+            name: 'squeak project',
             project_id: 8,
             type: 'hif',
             data: {
@@ -475,6 +487,7 @@ describe HomesEngland::UseCase::ExportProjectData do
 
       let(:project) do
         {
+          name: 'squeak project',
           type: 'hif',
           data: {
             mouse: 'squeak'
@@ -486,6 +499,7 @@ describe HomesEngland::UseCase::ExportProjectData do
       let(:expected_compiled_project) do
         {
           baseline: {
+            name: 'squeak project',
             project_id: 6,
             type: 'hif',
             data: {
@@ -550,6 +564,7 @@ describe HomesEngland::UseCase::ExportProjectData do
 
       let(:project) do
         {
+          name: 'squeak project',
           type: 'hif',
           data: {
             mouse: 'squeak'
@@ -561,6 +576,7 @@ describe HomesEngland::UseCase::ExportProjectData do
       let(:expected_compiled_project) do
         {
           baseline: {
+            name: 'squeak project',
             project_id: 8,
             type: 'hif',
             data: {

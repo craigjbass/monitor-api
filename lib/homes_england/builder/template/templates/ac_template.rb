@@ -2,7 +2,7 @@
 
 class HomesEngland::Builder::Template::Templates::ACTemplate
   def create
-    ac_template = HomesEngland::Domain::Template.new
+    ac_template = Common::Domain::Template.new
     ac_template.schema = {
       '$schema': 'http://json-schema.org/draft-07/schema',
       title: 'AC Project',
@@ -20,88 +20,298 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
 
   private
 
-  def ac_outputs
+  def ac_summary
     {
       type: 'object',
-      title: 'Outputs',
+      title: 'Project Summary',
       properties: {
-        unitCompletions: {
-          type: 'object',
-          title: 'Unit Completions',
-          properties: {
-            type: 'array',
-            items: {
-              type: 'object',
-              properties: {
-                year: {
-                  type: 'integer',
-                  title: 'Year'
-                },
-                Q1Amount: {
-                  type: 'integer',
-                  title: 'First Quarter'
-                },
-                Q2Amount: {
-                  type: 'integer',
-                  title: 'Second Quarter'
-                },
-                Q3Amount: {
-                  type: 'integer',
-                  title: 'Third Quarter'
-                },
-                Q4Amount: {
-                  type: 'integer',
-                  title: 'Fourth Quarter'
+        localAuthority: {
+          type: 'string',
+          title: 'Local Authority'
+        },
+        projectName: {
+          type: 'string',
+          title: 'Project Name'
+        },
+        projectRef: {
+          type: 'string',
+          title: 'Project reference'
+        },
+        projectDescription: {
+          type: 'string',
+          format: 'textarea',
+          title: 'Project Description'
+        },
+        sitesSummary: {
+          type: 'array',
+          addable: true,
+          title: 'Site(s) Summary',
+          items: {
+            type: 'object',
+            properties: {
+              name: {
+                type: 'string',
+                title: 'Parcel/Sub Site name'
+              },
+              ref: {
+                type: 'string',
+                title: 'LMT / GIS ref'
+              },
+              size: {
+                type: 'string',
+                title: 'Size (hectares)'
+              },
+              planningStatus: {
+                type: 'string',
+                title: 'Planning status'
+              },
+              laContact: {
+                type: 'string',
+                title: 'Key local authority contact'
+              },
+              heContact: {
+                type: 'string',
+                title: 'Key Homes England contact'
+              },
+              units: {
+                type: 'object',
+                title: 'Units',
+                properties: {
+                  numberOfUnitsTotal: {
+                    type: 'string',
+                    title: 'Total number of units'
+                  },
+                  numberOfUnitsMarket: {
+                    type: 'string',
+                    title: 'Number units - market sale'
+                  },
+                  numberOfUnitsSharedOwnership: {
+                    type: 'string',
+                    title: 'Number units - shared ownership'
+                  },
+                  numberOfUnitsAffordable: {
+                    type: 'string',
+                    title: 'Number units - affordable/social rent'
+                  },
+                  numberOfUnitsPRS: {
+                    type: 'string',
+                    title: 'Number units - Private Rented'
+                  },
+                  numberOfUnitsOther: {
+                    type: 'string',
+                    title: 'Number units - Other'
+                  }
                 }
-
               }
             }
           }
-        },
-        keyProgrammeObjectives: {
+        }
+      }
+    }
+  end
+
+  def ac_conditions
+    {
+      type: 'object',
+      title: 'Conditions',
+      properties: {
+        predrawdownConditions: {
           type: 'object',
-          title: 'Key Programme Objectives',
+          title: 'Pre-Drawdown Conditions',
           properties: {
-            localMarketPace: {
-              type: 'number',
-              title: 'Local Market Pace (units pm)'
-            },
-            schemePace: {
-              type: 'number',
-              title: 'Scheme Pace (units pm)'
-            },
-            mmcCategory: {
-              type: 'object',
-              title: 'MMC Category',
-              properties: {
-                type: 'array',
-                items: {
-                  type: 'object',
-                  properties: {
-                    title: {
-                      type: 'string',
-                      title: 'Category Title'
-                    },
-                    percent: {
-                      type: 'integer',
-                      title: 'Percent Amount'
-                    }
+            conditions: {
+              title: 'Conditions',
+              type: 'array',
+              addable: true,
+              items: {
+                type: 'object',
+                properties: {
+                  conditionName: {
+                    type: 'string',
+                    title: 'Condition Name'
+                  },
+                  conditionExplanation: {
+                    type: 'string',
+                    title: 'Condition Explanation'
+                  },
+                  conditionSite: {
+                    type: 'string',
+                    title: 'Site'
+                  },
+                  conditionForecast: {
+                    type: 'string',
+                    title: 'Condition Forecast',
+                    format: 'date'
+                  },
+                  conditionMet: {
+                    type: 'string',
+                    title: 'Condition Met',
+                    format: 'date'
+                  },
+                  reviewed: {
+                    type: 'string',
+                    title: 'Reviewed and Approved',
+                    format: 'date'
                   }
                 }
               }
             },
-            startOfFirstUnit: {
+            mitigationsAndAssurance: {
               type: 'string',
-              format: 'date',
-              title: 'Start of first unit'
-            },
-            completionOfFinalUnit: {
-              type: 'string',
-              format: 'date',
-              title: 'Completion of final unit'
+              title: 'Mitigations and Assurance',
+              format: 'textarea'
             }
           }
+        },
+        fundingItems: {
+          type: 'object',
+          title: 'Funding Items',
+          properties: {
+            fundItems: {
+              title: 'Items',
+              type: 'array',
+              addable: true,
+              items: {
+                type: 'object',
+                properties: {
+                  fundingItem: {
+                    type: 'string',
+                    title: 'Funding item'
+                  },
+                  fundingSite: {
+                    type: 'string',
+                    title: 'Site'
+                  },
+                  fundingAgreed: {
+                    type: 'string',
+                    title: 'AC Funding agreed'
+                  },
+                  fundingRequired: {
+                    type: 'string',
+                    title: 'AC Funding Required'
+                  },
+                  variance: {
+                    type: 'string',
+                    readonly: true,
+                    title: 'Variance'
+                  },
+                  reasonForVariance: {
+                    type: 'string',
+                    title: 'Reason for Variance'
+                  }
+                }
+              }
+            },
+            mitigationsAndAssurance: {
+              type: 'string',
+              title: 'Mitigations and Assurance',
+              format: 'textarea'
+            }
+          }
+        }
+      }
+    }
+  end
 
+  def ac_financials
+    {
+      type: 'object',
+      title: 'Financials',
+      properties: {
+        expenditure: {
+          type: 'array',
+          title: 'Expenditure',
+          items: {
+            type: 'object',
+            properties: {
+              fundingDrawdown: {
+                type: 'object',
+                horizontal: true,
+                title: 'Funding Drawdown',
+                properties: {
+                  year: {
+                    type: 'string',
+                    title: 'Year'
+                  },
+                  Q1Amount: {
+                    type: 'string',
+                    title: 'First Quarter'
+                  },
+                  Q2Amount: {
+                    type: 'string',
+                    title: 'Second Quarter'
+                  },
+                  Q3Amount: {
+                    type: 'string',
+                    title: 'Third Quarter'
+                  },
+                  Q4Amount: {
+                    type: 'string',
+                    title: 'Fourth Quarter'
+                  }
+                }
+              }
+            }
+          }
+        },
+        fundingStack: {
+          type: 'array',
+          addable: true,
+          title: 'Funding Stack',
+          items: {
+            type: 'object',
+            properties: {
+              year: {
+                type: 'string',
+                title: 'Year'
+              },
+              homesEnglandGrant: {
+                type: 'string',
+                title: 'Homes England Grant'
+              },
+              otherSources: {
+                type: 'array',
+                title: 'Other Sources',
+                items: {
+                  type: 'object',
+                  properties: {
+                    fundingSource: {
+                      type: 'string',
+                      title: 'Funding Source'
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        receipts: {
+          type: 'object',
+          title: 'Receipts',
+          properties: {
+            detailsOnPaymentStructure: {
+              type: 'string',
+              title: 'Details on payment structure'
+            },
+            expectedDisposalReceipt: {
+              type: 'array',
+              addable: true,
+              title: 'Expected Disposal Receipt',
+              items: {
+                type: 'object',
+                properties: {
+                  site: {
+                    type: 'string',
+                    title: 'Site'
+                  },
+                  amount: {
+                    type: 'string',
+                    title: 'Amount'
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -195,15 +405,20 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
           title: 'Development end date (final unit completion)'
         },
         customMileStones: {
-          type: 'object',
+          type: 'array',
+          addable: true,
           title: 'Custom Milestones',
-          properties: {
-            type: 'array',
-            items: {
-              type: 'object',
-              properties: {
+          items: {
+            type: 'object',
+            properties: {
+              custom: {
                 type: 'string',
-                title: 'Custom (local authority entered)'
+                title: 'Milestone'
+              },
+              customDate: {
+                type: 'string',
+                title: 'Date',
+                format: 'date'
               }
             }
           }
@@ -212,281 +427,79 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
     }
   end
 
-  def ac_financials
+  def ac_outputs
     {
       type: 'object',
-      title: 'Financials',
+      title: 'Outputs',
       properties: {
-        expenditure: {
+        unitCompletions: {
+          title: 'Unit Completions',
           type: 'array',
           items: {
             type: 'object',
             properties: {
-              fundingDrawdown: {
-                year: {
-                  type: 'integer',
-                  title: 'Year'
-                },
-                Q1Amount: {
-                  type: 'integer',
-                  title: 'First Quarter'
-                },
-                Q2Amount: {
-                  type: 'integer',
-                  title: 'Second Quarter'
-                },
-                Q3Amount: {
-                  type: 'integer',
-                  title: 'Third Quarter'
-                },
-                Q4Amount: {
-                  type: 'integer',
-                  title: 'Fourth Quarter'
-                }
+              year: {
+                type: 'string',
+                title: 'Year'
+              },
+              Q1Amount: {
+                type: 'string',
+                title: 'First Quarter'
+              },
+              Q2Amount: {
+                type: 'string',
+                title: 'Second Quarter'
+              },
+              Q3Amount: {
+                type: 'string',
+                title: 'Third Quarter'
+              },
+              Q4Amount: {
+                type: 'string',
+                title: 'Fourth Quarter'
               }
             }
           }
         },
-        fundingStack: {
+        keyProgrammeObjectives: {
           type: 'object',
-          title: 'Funding Stack',
+          title: 'Key Programme Objectives',
           properties: {
-            type: 'array',
-            items: {
-              type: 'object',
-              properties: {
-                year: {
-                  type: 'string',
-                  title: 'Year'
-                },
-                homesEnglandGrant: {
-                  type: 'integer',
-                  title: 'Homes England Grant'
-                },
-                otherSources: {
-                  type: 'array',
-                  items: {
-                    type: 'object',
-                    properties: {
-                      fundingSource: {
-                        type: 'integer',
-                        title: 'Funding Source'
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        receipts: {
-          detailsOnPaymentStructure: {
-            type: 'string',
-            title: 'Details on payment structure'
-          },
-          expectedDisposalReceipt: {
-            type: 'object',
-            title: 'Expected Disposal Receip',
-            properties: {
+            localMarketPace: {
+              type: 'string',
+              title: 'Local Market Pace (units pm)'
+            },
+            schemePace: {
+              type: 'string',
+              title: 'Scheme Pace (units pm)'
+            },
+            mmcCategory: {
+              title: 'MMC Category',
               type: 'array',
+              addable: true,
               items: {
                 type: 'object',
                 properties: {
-                  site: {
+                  title: {
                     type: 'string',
-                    title: 'Site'
+                    title: 'Category Title'
                   },
-                  amount: {
-                    type: 'integer',
-                    title: 'amount'
+                  percent: {
+                    type: 'string',
+                    title: 'Percent Amount'
                   }
                 }
               }
-            }
-          }
-        }
-      }
-    }
-  end
-
-  def ac_conditions
-    {
-      type: 'object',
-      title: 'Conditions',
-      properties: {
-        predrawdownConditions: {
-          type: 'object',
-          title: 'Pre-Drawdown Conditions',
-          properties: {
-            conditions: {
-              type: 'array',
-              items: {
-                type: 'object',
-                properties: {
-                  conditionName: {
-                    type: 'string',
-                    title: 'Condition Name'
-                  },
-                  conditionExplanation: {
-                    type: 'string',
-                    title: 'Condition explanation'
-                  },
-                  conditionSite: {
-                    type: 'string',
-                    title: 'Site (if multiple)'
-                  }
-                }
-              }
-            }
-          }
-        },
-        fundingItems: {
-          type: 'object',
-          title: 'Funding Items',
-          properties: {
-            fundingItem: {
-              type: 'string',
-              title: 'Funding item'
             },
-            fundingSite: {
+            startOfFirstUnit: {
               type: 'string',
-              title: 'Site (if multiple)'
+              format: 'date',
+              title: 'Start of first unit'
             },
-            fundingAgreed: {
+            completionOfFinalUnit: {
               type: 'string',
-              title: 'AC Funding agreed'
-            }
-          }
-        }
-      }
-    }
-  end
-
-  def ac_summary
-    {
-      type: 'object',
-      title: 'Project Summary',
-      properties: {
-        projectName: {
-          type: 'string',
-          title: 'Project Name'
-        },
-        projectRef: {
-          type: 'string',
-          title: 'Project reference'
-        },
-        projectDescription: {
-          type: 'string',
-          title: 'Project Description'
-        },
-        localAuthority: {
-          type: 'string',
-          title: 'Local Authority'
-        },
-        sitesSummary: {
-          type: 'array',
-          title: 'Site(s) Summary',
-          items: {
-            type: 'object',
-            properties: {
-              name: {
-                type: 'string',
-                title: 'Parcel/Sub Site name'
-              },
-              ref: {
-                type: 'string',
-                title: 'LMT / GIS ref'
-              },
-              size: {
-                type: 'string',
-                title: 'Size (Ha)'
-              },
-              laContact: {
-                type: 'string',
-                title: 'Key local authority contact'
-              },
-              heContact: {
-                type: 'string',
-                title: 'Key Homes England contact'
-              },
-              units: {
-                type: 'object',
-                title: 'Units',
-                properties: {
-                  numberOfUnitsTotal: {
-                    type: 'integer',
-                    title: 'Total number of units'
-                  },
-                  numberOfUnitsMarket: {
-                    type: 'integer',
-                    title: 'Number units - market sale'
-                  },
-                  numberOfUnitsSharedOwnership: {
-                    type: 'integer',
-                    title: 'Number units - shared ownership'
-                  },
-                  numberOfUnitsAffordable: {
-                    type: 'integer',
-                    title: 'Number units - affordable/social rent'
-                  },
-                  numberOfUnitsPRS: {
-                    type: 'integer',
-                    title: 'Number units - PRS'
-                  },
-                  numberOfUnitsOther: {
-                    type: 'integer',
-                    title: 'Number units - Other'
-                  }
-                }
-              },
-              requestChange: {
-                type: 'object',
-                title: 'Request to change units or tenure mix',
-                properties: {
-                  requestToChangeUnits: {
-                    type: 'string',
-                    title: 'Requested',
-                    enum: %w[Yes No]
-                  }
-                },
-                dependencies: {
-                  requestToChangeUnits: {
-                    oneOf: [
-                      {
-                        properties: {
-                          requestToChangeUnits: {
-                            enum: ['No']
-                          }
-                        }
-                      }, {
-                        properties: {
-                          requestToChangeUnits: {
-                            enum: ['Yes']
-                          },
-                          reason: {
-                            type: 'string',
-                            title: 'Reason/explanation'
-                          },
-                          review: {
-                            type: 'string',
-                            format: 'date',
-                            title: 'Reviewed and approved'
-                          }
-                        }
-                      }
-                    ]
-                  }
-                },
-
-                planningStatus: {
-                  type: 'string',
-                  title: 'Planning status'
-                },
-                acFundingAgreed: {
-                  type: 'integer',
-                  title: 'AC funding agreed'
-                }
-              }
+              format: 'date',
+              title: 'Completion of final unit'
             }
           }
         }

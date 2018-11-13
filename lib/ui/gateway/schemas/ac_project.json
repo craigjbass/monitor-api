@@ -1,0 +1,490 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "AC Project",
+  "type": "object",
+  "properties": {
+    "summary": {
+      "type": "object",
+      "title": "Project Summary",
+      "properties": {
+        "localAuthority": {
+          "type": "string",
+          "title": "Local Authority"
+        },
+        "projectName": {
+          "type": "string",
+          "title": "Project Name"
+        },
+        "projectRef": {
+          "type": "string",
+          "title": "Project reference"
+        },
+        "projectDescription": {
+          "type": "string",
+          "title": "Project Description"
+        },
+        "sitesSummary": {
+          "type": "array",
+          "addable": true,
+          "title": "Site(s)",
+          "items": {
+            "type": "object",
+            "properties": {
+              "summary": {
+                "type": "object",
+                "title": "Summary",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "title": "Parcel/Sub Site name"
+                  },
+                  "details": {
+                    "type": "object",
+                    "horizontal": true,
+                    "properties": {
+                      "ref": {
+                        "type": "string",
+                        "title": "LMT / GIS ref"
+                      },
+                      "size": {
+                        "type": "string",
+                        "title": "Size (Ha)"
+                      }
+                    }
+                  },
+                  "planningStatus": {
+                    "type": "string",
+                    "title": "Planning status"
+                  },
+                  "contacts": {
+                    "type": "object",
+                    "horizontal": true,
+                    "properties": {
+                      "laContact": {
+                        "type": "string",
+                        "title": "Key local authority contact"
+                      },
+                      "heContact": {
+                        "type": "string",
+                        "title": "Key Homes England contact"
+                      }
+                    }
+                  }
+                }
+              },
+              "units": {
+                "type": "object",
+                "title": "Units",
+                "properties": {
+                  "numberOfUnits": {
+                    "type": "object",
+                    "title": "Number of:",
+                    "horizontal": true,
+                    "properties": {
+                      "numberOfUnitsMarket": {
+                        "type": "string",
+                        "title": "Market sale",
+                        "maximum": "9999"
+                      },
+                      "numberOfUnitsSharedOwnership": {
+                        "type": "string",
+                        "title": "Shared ownership",
+                        "maximum": "9999"
+                      },
+                      "numberOfUnitsAffordable": {
+                        "type": "string",
+                        "title": "Affordable/social rent",
+                        "maximum": "9999"
+                      },
+                      "numberOfUnitsPRS": {
+                        "type": "string",
+                        "title": "Private Rented",
+                        "maximum": "9999"
+                      },
+                      "numberOfUnitsOther": {
+                        "type": "string",
+                        "title": "Other",
+                        "maximum": "9999"
+                      }
+                    }
+                  },
+                  "numberOfUnitsTotal": {
+                    "type": "string",
+                    "title": "Total number of units",
+                    "maximum": "99999"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "conditions": {
+      "type": "object",
+      "title": "Conditions",
+      "properties": {
+        "predrawdownConditions": {
+          "type": "object",
+          "title": "Pre-Drawdown Conditions",
+          "properties": {
+            "conditions": {
+              "title": "",
+              "type": "array",
+              "addable": true,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "conditionName": {
+                    "type": "string",
+                    "title": "Condition Name"
+                  },
+                  "conditionExplanation": {
+                    "type": "string",
+                    "title": "Condition explanation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "fundingItems": {
+          "type": "object",
+          "title": "Funding Items",
+          "properties": {
+            "fundItems": {
+              "title": "",
+              "type": "array",
+              "addable": true,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "itemToFund": {
+                    "title": "",
+                    "type": "object",
+                    "horizontal": true,
+                    "properties": {
+                      "fundingItem": {
+                        "type": "string",
+                        "title": "Funding item",
+                        "extendedText": true
+                      },
+                      "estimatedFunding": {
+                        "type": "string",
+                        "title": "Estimated funding",
+                        "currency": "true",
+                        "maximum": "99999999"
+                      }
+                    }
+                  },
+                  "fundingSite": {
+                    "type": "string",
+                    "title": "Site (if multiple)"
+                  },
+                  "fundingAgreed": {
+                    "type": "string",
+                    "title": "AC Funding agreed",
+                    "currency": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "financials": {
+      "type": "object",
+      "title": "Financials",
+      "properties": {
+        "expenditure": {
+          "type": "array",
+          "quarterly": true,
+          "addable": true,
+          "title": "Funding Drawdown",
+          "items": {
+            "type": "object",
+            "properties": {
+              "year": {
+                "type": "string",
+                "title": "Year"
+              },
+              "Q1Amount": {
+                "type": "string",
+                "title": "First Quarter",
+                "currency": true
+              },
+              "Q2Amount": {
+                "type": "string",
+                "title": "Second Quarter",
+                "currency": true
+              },
+              "Q3Amount": {
+                "type": "string",
+                "title": "Third Quarter",
+                "currency": true
+              },
+              "Q4Amount": {
+                "type": "string",
+                "title": "Fourth Quarter",
+                "currency": true
+              }
+            }
+          }
+        },
+        "receipts": {
+          "type": "object",
+          "title": "Receipts",
+          "properties": {
+            "detailsOnPaymentStructure": {
+              "type": "string",
+              "title": "Details on payment structure"
+            },
+            "expectedDisposalReceipt": {
+              "type": "array",
+              "addable": true,
+              "quarterly": true,
+              "title": "",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "site": {
+                    "type": "string",
+                    "title": "Site Name"
+                  },
+                  "amount": {
+                    "type": "string",
+                    "title": "Amount",
+                    "currency": true
+                  }
+                }
+              }
+            },
+            "projectValue": {
+              "type": "string",
+              "title": "Projected (clean site) land value",
+              "currency": true,
+              "maximum": "99999999"
+            },
+            "clawback": {
+              "type": "string",
+              "title": "Clawback",
+              "percentage": true,
+              "maximum": "9999"
+            }
+          }
+        }
+      }
+    },
+    "milestones": {
+      "type": "object",
+      "title": "Milestones",
+      "properties": {
+        "surveysAndDueDiligence": {
+          "type": "object",
+          "title": "",
+          "horizontal": true,
+          "properties": {
+            "commencementOfDueDiligence" : {
+              "type": "string",
+              "format": "date",
+              "title": "Commencement of surveys and due diligence"
+            },
+            "completionOfSurveys" : {
+              "type": "string",
+              "format": "date",
+              "title": "Completion of surveys and due diligence"
+            }
+          }
+        },
+        "procurementProvision": {
+          "type": "object",
+          "title": "",
+          "horizontal": true,
+          "properties": {
+            "procurementOfWorksCommencementDate": {
+              "type": "string",
+              "format": "date",
+              "title": "Procurement of works commencement date"
+            },
+            "provisionOfDetailedWorks": {
+              "type": "string",
+              "format": "date",
+              "title": "Provision of detailed works specification and milestones"
+            }
+          }
+        },
+        "worksDate": {
+          "type": "object",
+          "title": "",
+          "horizontal": true,
+          "properties": {
+            "commencementDate": {
+              "type": "string",
+              "format": "date",
+              "title": "Commencement of works date (first, if multiple)"
+            },
+            "completionDate": {
+              "type": "string",
+              "format": "date",
+              "title": "Completion of works date (last, if multiple)"
+            }
+          }
+        },
+        "outlinePlanning": {
+          "type": "object",
+          "title": "",
+          "horizontal": true,
+          "properties": {
+            "outlinePlanningGrantedDate": {
+              "type": "string",
+              "format": "date",
+              "title": "Outline planning permission granted date"
+            },
+            "reservedMatterPermissionGrantedDate": {
+              "type": "string",
+              "format": "date",
+              "title": "Reserved Matter Permission Granted date"
+            }
+          }
+        },
+        "marketingCommenced": {
+          "type": "string",
+          "format": "date",
+          "title": "Developer Partner marketing commenced (EOI or formal tender)"
+        },
+        "contractSigned": {
+          "type": "object",
+          "title": "",
+          "horizontal": true,
+          "properties": {
+            "conditionalContractSigned": {
+              "type": "string",
+              "format": "date",
+              "title": "Conditional contract signed"
+            },
+            "unconditionalContractSigned": {
+              "type": "string",
+              "format": "date",
+              "title": "Unconditional contract signed"
+            }
+          }
+        },
+        "workDates": {
+          "type": "object",
+          "title": "",
+          "horizontal": true,
+          "properties": {
+            "startOnSiteDate": {
+              "type": "string",
+              "format": "date",
+              "title": "Start on site date"
+            },
+            "startOnFirstUnitDate": {
+              "type": "string",
+              "format": "date",
+              "title": "Start of first unit date"
+            }
+          }
+        },
+        "completionDates": {
+          "type": "object",
+          "title": "",
+          "horizontal": true,
+          "properties": {
+            "completionOfFinalUnitData": {
+              "type": "string",
+              "title": "Completion of Final Unit Date",
+              "format": "date"
+            },
+            "projectCompletionDate": {
+              "type": "string",
+              "title": "Project Completion Date",
+              "format": "date"
+            }
+          }
+        },
+        "customMileStones": {
+          "type": "array",
+          "addable": true,
+          "title": "Custom Milestones",
+          "items": {
+            "type": "object",
+            "properties": {
+              "customTitle": {
+                "type": "string",
+                "title": "Milestone"
+              },
+              "customDate": {
+                "type": "string",
+                "title": "Date",
+                "format": "date"
+              }
+            }
+          }
+        }
+      }
+    },
+    "outputs": {
+      "type": "object",
+      "title": "Outputs",
+      "properties": {
+        "keyProgrammeObjectives": {
+          "type": "object",
+          "title": "Key Programme Objectives",
+          "horizontal": true,
+          "properties": {
+            "localMarketPace": {
+              "type": "string",
+              "title": "Local Market Pace (units pm)",
+              "maximum":"99999"
+            },
+            "schemePace": {
+              "type": "string",
+              "title": "Scheme Pace (units pm)",
+              "maximum": "99999"
+            }
+          }
+        },
+        "mmcCategory": {
+          "title": "MMC Category",
+          "type": "array",
+          "quarterly": true,
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string",
+                "title": "Category",
+                "readonly": true
+              },
+              "percent": {
+                "type": "string",
+                "title": "Percent Amount",
+                "maximum":"9999",
+                "percentage": true
+              }
+            }
+          }
+        },
+        "startAndCompletion": {
+          "title": "",
+          "type": "object",
+          "horizontal": true,
+          "properties": {
+            "startOfFirstUnit": {
+              "type": "string",
+              "format": "date",
+              "title": "Start of first unit"
+            },
+            "completionOfFinalUnit": {
+              "type": "string",
+              "format": "date",
+              "title": "Completion of final unit"
+            }
+          }
+        }
+      }
+    }
+  }
+}

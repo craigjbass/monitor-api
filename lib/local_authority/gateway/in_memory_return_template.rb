@@ -4,7 +4,7 @@
 class LocalAuthority::Gateway::InMemoryReturnTemplate
   def find_by(type:)
     return nil unless type == 'hif'
-    return_template = LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+    @return_template = Common::Domain::Template.new.tap do |p|
       p.schema = {
         title: 'HIF Project',
         type: 'object',
@@ -38,8 +38,6 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                   type: 'object',
                   title: 'Planning',
                   properties: {
-                    # Baseline
-                    # from outlinePlanningStatus.granted
                     outlinePlanning: {
                       type: 'object',
                       title: 'Outline Planning',
@@ -49,6 +47,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           title: 'Outline Planning Permission granted',
                           sourceKey: %i[baseline_data infrastructures outlinePlanningStatus granted],
                           readonly: true,
+                          radio: true,
                           enum: %w[Yes No N/A]
                         }
                       },
@@ -80,13 +79,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       readonly: true
                                     },
                                     varianceBaselineFullPlanningPermissionSubmitted: {
-                                      type: 'integer',
+                                      type: 'string',
                                       readonly: true,
                                       hidden: true,
                                       title: 'Variance against Baseline submitted date (Week) (Calculated)'
                                     },
                                     varianceLastReturnFullPlanningPermissionSubmitted: {
-                                      type: 'integer',
+                                      type: 'string',
                                       readonly: true,
                                       hidden: true,
                                       title: 'Variance against Last Return submitted date (Week) (Calculated)'
@@ -94,6 +93,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                     status: {
                                       title: 'Status against last return?',
                                       type: 'string',
+                                      radio: true,
                                       enum: [
                                         'Completed',
                                         'On schedule',
@@ -111,8 +111,9 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       title: 'Reason for Variance'
                                     },
                                     percentComplete: {
-                                      type: 'integer',
-                                      title: 'Percent Complete'
+                                      type: 'string',
+                                      title: 'Percent Complete',
+                                      percentage: true
                                     },
                                     completedDate: {
                                       type: 'string',
@@ -142,13 +143,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       readonly: true
                                     },
                                     varianceBaselineFullPlanningPermissionGranted: {
-                                      type: 'integer',
+                                      type: 'string',
                                       readonly: true,
                                       hidden: true,
                                       title: 'Variance against Baseline granted date (Weeks) (Calculated)'
                                     },
                                     varianceLastReturnFullPlanningPermissionGranted: {
-                                      type: 'integer',
+                                      type: 'string',
                                       readonly: true,
                                       hidden: true,
                                       title: 'Variance against Last Return granted date (Weeks) (Calculated)'
@@ -156,6 +157,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                     status: {
                                       title: 'Status against last return?',
                                       type: 'string',
+                                      radio: true,
                                       enum: [
                                         'Completed',
                                         'On schedule',
@@ -173,8 +175,9 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       title: 'Reason for Variance'
                                     },
                                     percentComplete: {
-                                      type: 'integer',
-                                      title: 'Percent complete'
+                                      type: 'string',
+                                      title: 'Percent complete',
+                                      percentage: true
                                     },
                                     completedDate: {
                                       type: 'string',
@@ -214,6 +217,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           title: 'Full Planning Permission granted',
                           sourceKey: %i[baseline_data infrastructures fullPlanningStatus granted],
                           readonly: true,
+                          radio: true,
                           enum: %w[Yes No N/A]
                         }
                       },
@@ -245,13 +249,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       readonly: true
                                     },
                                     varianceBaselineFullPlanningPermissionSubmitted: {
-                                      type: 'integer',
+                                      type: 'string',
                                       readonly: true,
                                       hidden: true,
                                       title: 'Variance against Baseline submitted date (Week) (Calculated)'
                                     },
                                     varianceLastReturnFullPlanningPermissionSubmitted: {
-                                      type: 'integer',
+                                      type: 'string',
                                       readonly: true,
                                       hidden: true,
                                       title: 'Variance against Last Return submitted date (Week) (Calculated)'
@@ -259,6 +263,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                     status: {
                                       title: 'Status against last return?',
                                       type: 'string',
+                                      radio: true,
                                       enum: [
                                         'Completed',
                                         'On schedule',
@@ -276,8 +281,9 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       title: 'Reason for Variance'
                                     },
                                     percentComplete: {
-                                      type: 'integer',
-                                      title: 'Percent complete'
+                                      type: 'string',
+                                      title: 'Percent complete',
+                                      percentage: true
                                     },
                                     completedDate: {
                                       type: 'string',
@@ -307,13 +313,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       readonly: true
                                     },
                                     varianceBaselineFullPlanningPermissionGranted: {
-                                      type: 'integer',
+                                      type: 'string',
                                       readonly: true,
                                       hidden: true,
                                       title: 'Variance against Baseline granted date (Weeks) (Calculated)'
                                     },
                                     varianceLastReturnFullPlanningPermissionGranted: {
-                                      type: 'integer',
+                                      type: 'string',
                                       readonly: true,
                                       hidden: true,
                                       title: 'Variance against Last Return granted date (Weeks) (Calculated)'
@@ -321,6 +327,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                     status: {
                                       title: 'Status against last return?',
                                       type: 'string',
+                                      radio: true,
                                       enum: [
                                         'Completed',
                                         'On schedule',
@@ -338,8 +345,9 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       title: 'Reason for Variance'
                                     },
                                     percentComplete: {
-                                      type: 'integer',
-                                      title: 'Percent complete'
+                                      type: 'string',
+                                      title: 'Percent complete',
+                                      percentage: true
                                     },
                                     completedDate: {
                                       type: 'string',
@@ -382,6 +390,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           readonly: true,
                           items: {
                             type: 'string',
+                            radio: true,
                             enum: %w[Yes No]
                           }
                         }
@@ -412,6 +421,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                       readonly: true,
                                       items: {
                                         type: 'string',
+                                        radio: true,
                                         enum: %w[Yes No]
                                       }
                                     },
@@ -430,13 +440,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                           varianceAgainstBaseline: {
                                             hidden: true,
                                             title: 'Variance against baseline (Calculated)',
-                                            type: 'integer',
+                                            type: 'string',
                                             readonly: true
                                           },
                                           varianceAgainstLastReturn: {
                                             hidden: true,
                                             title: 'Variance against last return (Calculated)',
-                                            type: 'integer',
+                                            type: 'string',
                                             readonly: true
                                           },
                                           statusAgainstLastReturn: status_against_last_return,
@@ -451,7 +461,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                           },
                                           percentComplete: {
                                             title: 'Percentage complete',
-                                            type: 'integer'
+                                            type: 'string',
+                                            percentage: true
                                           },
                                           completionDate: {
                                             hidden: true,
@@ -490,6 +501,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                       title: 'LA Control of site(s) (related to infrastructure)? ',
                       sourceKey: %i[baseline_data infrastructures landOwnership underControlOfLA],
                       readonly: true,
+                      radio: true,
                       enum: %w[Yes No]
                     }
                   },
@@ -518,6 +530,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   title: 'Land acquisition required (related to infrastructure)?',
                                   sourceKey: %i[baseline_data infrastructures landOwnership landAcquisitionRequired],
                                   readonly: true,
+                                  radio: true,
                                   enum: %w[Yes No]
                                 }
                               },
@@ -530,7 +543,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                           enum: ['Yes']
                                         },
                                         howManySitesToAquire: {
-                                          type: 'integer',
+                                          type: 'string',
                                           title: 'Number of Sites to aquire?',
                                           sourceKey: %i[baseline_data infrastructures landOwnership howManySitesToAcquire],
                                           readonly: true
@@ -579,6 +592,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                             status: {
                                               title: 'Status against last return?',
                                               type: 'string',
+                                              radio: true,
                                               enum: [
                                                 'Completed',
                                                 'On schedule',
@@ -596,8 +610,9 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                               title: 'Reason for Variance'
                                             },
                                             percentComplete: {
-                                              type: 'integer',
-                                              title: 'Percent complete'
+                                              type: 'string',
+                                              title: 'Percent complete',
+                                              percentage: true
                                             },
                                             completedDate: {
                                               type: 'string',
@@ -645,6 +660,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                       readonly: true,
                       items: {
                         type: 'string',
+                        radio: true,
                         enum: %w[Yes No]
                       }
                     }
@@ -703,6 +719,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                 statusAgainstLastReturn: {
                                   title: 'Status against last return?',
                                   type: 'string',
+                                  radio: true,
                                   enum: [
                                     'Completed',
                                     'On schedule',
@@ -722,8 +739,9 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                               }
                             },
                             percentComplete: {
-                              type: 'integer',
-                              title: 'Percent complete'
+                              type: 'string',
+                              title: 'Percent complete',
+                              percentage: true
                             },
                             procurementCompletedDate: {
                               type: 'string',
@@ -797,8 +815,9 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             title: 'Reason for Variance'
                           },
                           milestonePercentCompleted: {
-                            type: 'integer',
-                            title: 'Percent complete'
+                            type: 'string',
+                            title: 'Percent complete',
+                            percentage: true
                           },
                           milestoneCompletedDate: {
                             type: 'string',
@@ -887,8 +906,9 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             title: 'Reason for Variance'
                           },
                           milestonePercentCompleted: {
-                            type: 'integer',
-                            title: 'Percent complete'
+                            type: 'string',
+                            title: 'Percent complete',
+                            percentage: true
                           },
                           milestoneCompletedDate: {
                             type: 'string',
@@ -927,6 +947,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                         status: {
                           title: 'Status against last return?',
                           type: 'string',
+                          radio: true,
                           enum: [
                             'Completed',
                             'On schedule',
@@ -944,8 +965,9 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           title: 'Reason for variance'
                         },
                         percentComplete: {
-                          type: 'integer',
-                          title: 'Percent complete'
+                          type: 'string',
+                          title: 'Percent complete',
+                          perentage: true
                         },
                         completedDate: {
                           type: 'string',
@@ -982,6 +1004,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                         status: {
                           title: 'Status against last return?',
                           type: 'string',
+                          radio: true,
                           enum: [
                             'Completed',
                             'On schedule',
@@ -999,8 +1022,9 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           title: 'Reason for variance'
                         },
                         percentComplete: {
-                          type: 'integer',
-                          title: 'Percent complete'
+                          type: 'string',
+                          title: 'Percent complete',
+                          percentage: true
                         },
                         completedDate: {
                           type: 'string',
@@ -1058,6 +1082,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             title: 'Any change in risk?',
                             items: {
                               type: 'string',
+                              radio: true,
                               enum: %w[Yes No]
                             }
                           },
@@ -1088,11 +1113,11 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             title: 'Description'
                           },
                           impact: {
-                            type: 'integer',
+                            type: 'string',
                             title: 'Impact'
                           },
                           likelihood: {
-                            type: 'integer',
+                            type: 'string',
                             title: 'Likelihood'
                           },
                           mitigations: {
@@ -1145,6 +1170,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             title: 'Any change in risk?',
                             items: {
                               type: 'string',
+                              radio: true,
                               enum: %w[Yes No]
                             }
                           },
@@ -1191,6 +1217,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             title: 'Action Met?',
                             items: {
                               type: 'string',
+                              radio: true,
                               enum: %w[Yes No]
                             }
                           },
@@ -1228,6 +1255,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                 type: 'string',
                 title: 'Total HIF Grant',
                 readonly: true,
+                currency: true,
                 sourceKey: %i[baseline_data summary hifFundingAmount]
               },
               fundingRequest: {
@@ -1251,31 +1279,36 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           title: '1st Quarter',
                           type: 'string',
                           sourceKey: %i[baseline_data fundingProfiles instalment1],
-                          readonly: true
+                          readonly: true,
+                          currency: true
                         },
                         instalment2: {
                           title: '2nd Quarter',
                           type: 'string',
                           sourceKey: %i[baseline_data fundingProfiles instalment2],
-                          readonly: true
+                          readonly: true,
+                          currency: true
                         },
                         instalment3: {
                           title: '3rd Quarter',
                           type: 'string',
                           sourceKey: %i[baseline_data fundingProfiles instalment3],
-                          readonly: true
+                          readonly: true,
+                          currency: true
                         },
                         instalment4: {
                           title: '4th Quarter',
                           type: 'string',
                           sourceKey: %i[baseline_data fundingProfiles instalment4],
-                          readonly: true
+                          readonly: true,
+                          currency: true
                         },
                         total: {
                           title: 'Total',
                           type: 'string',
                           sourceKey: %i[baseline_data fundingProfiles total],
-                          readonly: true
+                          readonly: true,
+                          currency: true
                         }
                       }
                     }
@@ -1286,6 +1319,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                 type: 'string',
                 title: 'Change Required?',
                 description: 'Please confirm there are no changes to be made to the funding profile',
+                radio: true,
                 enum: ['Confirmed', 'Change required']
               }
             },
@@ -1325,23 +1359,28 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                               properties: {
                                 instalment1: {
                                   title: '1st Quarter',
-                                  type: 'string'
+                                  type: 'string',
+                                  currency: true
                                 },
                                 instalment2: {
                                   title: '2nd Quarter',
-                                  type: 'string'
+                                  type: 'string',
+                                  currency: true
                                 },
                                 instalment3: {
                                   title: '3rd Quarter',
-                                  type: 'string'
+                                  type: 'string',
+                                  currency: true
                                 },
                                 instalment4: {
                                   title: '4th Quarter',
-                                  type: 'string'
+                                  type: 'string',
+                                  currency: true
                                 },
                                 total: {
                                   title: 'Total',
-                                  type: 'string'
+                                  type: 'string',
+                                  currency: true
                                 }
                               }
                             }
@@ -1381,16 +1420,19 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           type: 'string',
                           title: 'HIF Baseline Amount',
                           sourceKey: %i[baseline_data costs infrastructure HIFAmount],
-                          readonly: true
+                          readonly: true,
+                          currency: true
                         },
                         current: {
                           type: 'string',
-                          title: 'Current Return'
+                          title: 'Current Return',
+                          currency: true
                         },
                         lastReturn: {
                           type: 'string',
                           title: 'Last Return',
                           readonly: true,
+                          currency: true,
                           sourceKey: %i[return_data fundingPackages hifSpend current]
                         }
                       }
@@ -1404,25 +1446,29 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           type: 'string',
                           title: 'Baseline Amount',
                           sourceKey: %i[baseline_data costs infrastructure totalCostOfInfrastructure],
-                          readonly: true
+                          readonly: true,
+                          currency: true
                         },
                         current: {
                           type: 'string',
-                          title: 'Current return'
+                          title: 'Current return',
+                          currency: true
                         },
                         varianceReason: {
                           type: 'string',
                           title: 'Reason for variance'
                         },
                         percentComplete: {
-                          type: 'integer',
-                          title: 'Percent complete'
+                          type: 'string',
+                          title: 'Percent complete',
+                          percentage: true
                         }
                       }
                     },
                     fundedThroughHIF: {
                       type: 'string',
                       title: 'Totally funded through HIF?',
+                      radio: true,
                       enum: %w[Yes No],
                       readonly: true,
                       sourceKey: %i[baseline_data costs infrastructure totallyFundedThroughHIF]
@@ -1457,6 +1503,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                 risk: {
                                   title: 'Is there a risk?',
                                   type: 'string',
+                                  radio: true,
                                   enum: %w[Yes No]
                                 },
                                 description: {
@@ -1474,11 +1521,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   title: 'Total baseline amount',
                                   type: 'string',
                                   readonly: true,
+                                  currency: true,
                                   sourceKey: %i[baseline_data costs infrastructure totalPublic]
                                 },
                                 current: {
                                   title: 'Total - Current return',
-                                  type: 'string'
+                                  type: 'string',
+                                  currency: true
                                 },
                                 reason: {
                                   title: 'Reason for variance',
@@ -1486,7 +1535,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                 },
                                 amountSecured: {
                                   title: 'Amount secured to date',
-                                  type: 'string'
+                                  type: 'string',
+                                  currency: true
                                 }
                               }
                             },
@@ -1499,11 +1549,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   title: 'Total baseline amount',
                                   type: 'string',
                                   readonly: true,
+                                  currency: true,
                                   sourceKey: %i[baseline_data costs infrastructure totalPrivate]
                                 },
                                 current: {
                                   title: 'Total - Current return',
-                                  type: 'string'
+                                  type: 'string',
+                                  currency: true
                                 },
                                 reason: {
                                   title: 'Reason for variance',
@@ -1511,7 +1563,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                 },
                                 amountSecured: {
                                   title: 'Amount secured to date',
-                                  type: 'string'
+                                  type: 'string',
+                                  currency: true
                                 }
                               }
                             }
@@ -1528,9 +1581,20 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
       }
     end
 
-    return return_template if ENV['OUTPUTS_FORECAST_TAB'].nil?
+    add_s151_tab
+    add_confirmation_tab
+    add_outputs_forecast_tab
+    add_outputs_actuals_tab
+    add_rm_monthly_catchup_tab
 
-    return_template.schema[:properties][:outputsForecast] = {
+    @return_template
+  end
+
+  private
+
+  def add_outputs_forecast_tab
+    return if ENV['OUTPUTS_FORECAST_TAB'].nil?
+    @return_template.schema[:properties][:outputsForecast] = {
       title: 'Outputs - Forecast',
       type: 'object',
       properties: {
@@ -1539,7 +1603,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
           title: 'Summary',
           properties: {
             totalUnits: {
-              type: 'integer',
+              type: 'string',
               title: 'Total Units',
               readonly: true,
               sourceKey: %i[baseline_data outputsForecast totalUnits]
@@ -1559,19 +1623,20 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
             baselineAmounts: {
               title: 'Baseline Amounts',
               type: 'array',
+              periods: true,
               items: {
-                horizontal: true,
                 type: 'object',
                 properties: {
                   period: {
                     type: 'string',
-                    title: 'period',
+                    title: 'Period',
                     readonly: true,
                     sourceKey: %i[baseline_data outputsForecast housingForecast period]
                   },
                   baselineAmounts: {
                     type: 'string',
                     title: 'Baseline Amounts',
+                    currency: true,
                     readonly: true,
                     sourceKey: %i[baseline_data outputsForecast housingForecast target]
                   }
@@ -1581,6 +1646,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
             anyChanges: {
               title: 'Any changes to baseline amounts?',
               type: 'string',
+              radio: true,
               enum: %w[Yes No]
             }
           },
@@ -1592,20 +1658,21 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     anyChanges: { enum: ['Yes'] },
                     currentReturnAmounts: {
                       type: 'array',
+                      periods: true,
                       title: 'Current Return Amounts',
                       items: {
-                        horizontal: true,
                         type: 'object',
                         properties: {
                           period: {
                             type: 'string',
-                            title: 'period',
+                            title: 'Period',
                             readonly: true,
                             sourceKey: %i[baseline_data outputsForecast housingForecast period]
                           },
                           currentReturnForecast: {
                             type: 'string',
-                            title: 'Current Return Forecast'
+                            title: 'Current Return Forecast',
+                            currency: true
                           }
                         }
                       }
@@ -1637,10 +1704,10 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
           properties: {
             baselineAmounts: {
               title: 'Baseline Amounts',
+              periods: true,
               type: 'array',
               items: {
                 type: 'object',
-                horizontal: true,
                 properties: {
                   period: {
                     type: 'string',
@@ -1652,6 +1719,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     type: 'string',
                     title: 'Baseline Amounts',
                     readonly: true,
+                    currency: true,
                     sourceKey: %i[baseline_data outputsForecast housingForecast housingCompletions]
                   }
                 }
@@ -1660,6 +1728,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
             anyChanges: {
               title: 'Any changes to baseline amounts?',
               type: 'string',
+              radio: true,
               enum: %w[Yes No]
             }
           },
@@ -1671,10 +1740,10 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     anyChanges: { enum: ['Yes'] },
                     currentReturnAmounts: {
                       type: 'array',
+                      periods: true,
                       title: 'Current Return Amounts',
                       items: {
                         type: 'object',
-                        horizontal: true,
                         properties: {
                           period: {
                             type: 'string',
@@ -1684,7 +1753,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           },
                           currentReturnForecast: {
                             type: 'string',
-                            title: 'Current Return Forecast'
+                            title: 'Current Return Forecast',
+                            currency: true
                           }
                         }
                       }
@@ -1712,16 +1782,629 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
         }
       }
     }
-
-    return_template
   end
 
-  private
+  def add_confirmation_tab
+    return if ENV['CONFIRMATION_TAB'].nil?
+    @return_template.schema[:properties][:s151Confirmation] = {
+      title: 's151 Confirmation',
+      type: 'object',
+      properties: {
+        hifFunding: {
+          type: 'object',
+          title: 'HIF Funding and Profiles',
+          required: %w[cashflowConfirmation],
+          properties: {
+            hifTotalFundingRequest: {
+              type: 'string',
+              title: 'HIF Total Funding Request',
+              readonly: true,
+              hidden: true,
+              currency: true
+            },
+            changesToRequest: {
+              type: 'string',
+              title: 'Please confirm there are no changes to the total HIF request',
+              radio: true,
+              enum: ['Confirmed', 'Changes Required']
+            },
+            hifFundingProfile: {
+              title: 'Funding Profiles',
+              type: 'array',
+              items: {
+                type: 'object',
+                horizontal: true,
+                properties: {
+                  period: {
+                    type: 'string',
+                    title: 'Period',
+                    readonly: true,
+                    sourceKey: %i[baseline_data fundingProfiles period]
+                  },
+                  instalment1: {
+                    type: 'string',
+                    title: '1st Instalment',
+                    readonly: true,
+                    currency: true,
+                    sourceKey: %i[baseline_data fundingProfiles instalment1]
+                  },
+                  instalment2: {
+                    type: 'string',
+                    title: '2nd Instalment',
+                    readonly: true,
+                    currency: true,
+                    sourceKey: %i[baseline_data fundingProfiles instalment2]
+                  },
+                  instalment3: {
+                    type: 'string',
+                    title: '3rd Instalment',
+                    readonly: true,
+                    currency: true,
+                    sourceKey: %i[baseline_data fundingProfiles instalment3]
+                  },
+                  instalment4: {
+                    type: 'string',
+                    title: '4th Instalment',
+                    readonly: true,
+                    currency: true,
+                    sourceKey: %i[baseline_data fundingProfiles instalment4]
+                  },
+                  total: {
+                    type: 'string',
+                    title: 'Total',
+                    readonly: true,
+                    currency: true,
+                    sourceKey: %i[baseline_data fundingProfiles total]
+                  },
+                  baselineVariance1: {
+                    type: 'string',
+                    title: '1st Instalment',
+                    readonly: true,
+                    currency: true,
+                    hidden: true
+                  },
+                  baselineVariance2: {
+                    type: 'string',
+                    title: '2nd Instalment',
+                    readonly: true,
+                    hidden: true,
+                    currency: true
+                  },
+                  baselineVariance3: {
+                    type: 'string',
+                    title: '3rd Instalment',
+                    readonly: true,
+                    hidden: true,
+                    currency: true
+                  },
+                  baselineVariance4: {
+                    type: 'string',
+                    title: '4th Instalment',
+                    readonly: true,
+                    hidden: true,
+                    currency: true
+                  },
+                  lastMovement1: {
+                    type: 'string',
+                    title: '1st Instalment',
+                    readonly: true,
+                    hidden: true,
+                    currency: true
+                  },
+                  lastMovement2: {
+                    type: 'string',
+                    title: '2nd Instalment',
+                    readonly: true,
+                    hidden: true,
+                    currency: true
+                  },
+                  lastMovement3: {
+                    type: 'string',
+                    title: '3rd Instalment',
+                    readonly: true,
+                    hidden: true,
+                    currency: true
+                  },
+                  lastMovement4: {
+                    type: 'string',
+                    title: '4th Instalment',
+                    readonly: true,
+                    hidden: true,
+                    currency: true
+                  },
+                  movementVariance1: {
+                    type: 'string',
+                    title: '1st Instalment',
+                    readonly: true,
+                    hidden: true,
+                    currency: true
+                  },
+                  movementVariance2: {
+                    type: 'string',
+                    title: '2nd Instalment',
+                    readonly: true,
+                    hidden: true,
+                    currency: true
+                  },
+                  movementVariance3: {
+                    type: 'string',
+                    title: '3rd Instalment',
+                    readonly: true,
+                    hidden: true,
+                    currency: true
+                  },
+                  movementVariance4: {
+                    type: 'string',
+                    title: '4th Instalment',
+                    readonly: true,
+                    hidden: true,
+                    currency: true
+                  }
+                }
+              }
+            },
+            amendmentConfirmation: {
+              title: 'An amendment has been made to the forecast profile in this MR - please confirm you are content with this amendment',
+              type: 'string',
+              radio: true,
+              enum: %w[Yes No]
+            },
+            cashflowConfirmation: {
+              title: 'Please confirm you are content with the submitted project cashflows',
+              type: 'string',
+              radio: true,
+              enum: %w[Yes No]
+            }
+          },
+          dependencies: {
+            changesToRequest: {
+              oneOf: [
+                {
+                  properties: {
+                    changesToRequest: { enum: ['Confirmed'] }
+                  }
+                },
+                {
+                  properties: {
+                    changesToRequest: { enum: ['Changes Required'] },
+                    reasonForRequest: {
+                      type: 'string',
+                      title: 'Reason for Request'
+                    },
+                    requestedAmount: {
+                      type: 'string',
+                      title: 'Requested amount',
+                      currency: true
+                    },
+                    varianceFromBaseline: {
+                      type:'string',
+                      title: 'Variance from Baseline',
+                      readonly: true,
+                      hidden: true,
+                      currency: true
+                    },
+                    varianceFromBaselinePercent: {
+                      type: 'string',
+                      title: 'Variance from Baseline',
+                      percentage: true,
+                      readonly: true,
+                      hidden: true
+                    },
+                    mitigationInPlace: {
+                      type: 'string',
+                      title: 'Mitigation in place to reduce further slippage'
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        submission: {
+          type: 'object',
+          title: 'Submission',
+          properties: {
+            changeToMilestones: {
+              type: 'string',
+              title: 'Please confirm that no changes are required to contractual milestones',
+              radio: true,
+              enum: ['Confirmed', 'Changes Required']
+            },
+            hifFundingEndDate: {
+              type: 'string',
+              title: 'HIF Funding End Date',
+              readonly: true,
+              sourceKey: %i[baseline_data s151 s151FundingEndDate]
+            },
+            changesToEndDate: {
+              type: 'string',
+              title: 'Please confirm that no changes are required to Funding End Date',
+              radio: true,
+              enum: ['Confirmed', 'Changes Required']
+            },
+            projectLongstopDate: {
+              type: 'string',
+              title: 'Project Longstop Date',
+              readonly: true,
+              sourceKey: %i[baseline_data s151 s151ProjectLongstopDate]
+            },
+            changesToLongstopDate: {
+              type: 'string',
+              title: 'Please confirm that no changes are required to project completion date',
+              radio: true,
+              enum: ['Confirmed', 'Changes Required']
+            },
+            recoverFunding: {
+              type: 'string',
+              title: 'Has any funding been recovered since last return?',
+              radio: true,
+              enum: %w[Yes No]
+            }
+          },
+          dependencies: {
+            changeToMilestones: {
+              oneOf: [
+                {
+                  properties: {
+                    changeToMilestones: { enum: ['Confirmed'] }
+                  }
+                },
+                {
+                  properties: {
+                    changeToMilestones: { enum: ['Changes Required'] },
+                    reasonForRequest: {
+                      type: 'string',
+                      title: 'Reason for Request'
+                    },
+                    requestedAmendments: {
+                      type: 'string',
+                      title: 'Requested amendments to milestones'
+                    },
+                    mitigationInPlace: {
+                      type: 'string',
+                      title: 'Mitigation in place to reduce further amendments'
+                    }
+                  }
+                }
+              ]
+            },
+            changesToEndDate: {
+              oneOf: [
+                {
+                  properties: {
+                    changesToEndDate: { enum: ['Confirmed'] }
+                  }
+                },
+                {
+                  properties: {
+                    changesToEndDate: { enum: ['Changes Required'] },
+                    reasonForRequest: {
+                      type: 'string',
+                      title: 'Reason for Request'
+                    },
+                    requestedEndDate: {
+                      type: 'string',
+                      title: 'Requested new end date'
+                    },
+                    varianceFromBaseline: {
+                      type: 'string',
+                      title: 'Variance from Baseline',
+                      readonly: true,
+                      hidden: true
+                    },
+                    mitigationInPlace: {
+                      type: 'string',
+                      title: 'Mitigation in place to reduce further slippage'
+                    }
+                  }
+                }
+              ]
+            },
+            changesToLongstopDate: {
+              oneOf: [
+                {
+                  properties: {
+                    changesToLongstopDate: { enum: ['Confirmed'] }
+                  }
+                },
+                {
+                  properties: {
+                    changesToLongstopDate: { enum: ['Changes Required'] },
+                    reasonForRequest: {
+                      type: 'string',
+                      title: 'Reason for Request'
+                    },
+                    requestedEndDate: {
+                      type: 'string',
+                      title: 'Requested new end date'
+                    },
+                    varianceFromBaseline: {
+                      type: 'string',
+                      title: 'Variance from Baseline',
+                      readonly: true,
+                      hidden: true
+                    },
+                    mitigationInPlace: {
+                      type: 'string',
+                      title: 'Mitigation in place to reduce further slippage'
+                    }
+                  }
+                }
+              ]
+            },
+            recoverFunding: {
+              oneOf: [
+                {
+                  properties: {
+                    recoverFunding: { enum: ['Yes'] },
+                    usedOnFutureHosuing: {
+                      type: 'string',
+                      title: 'Will/Has this been used on future housing?',
+                      radio: true,
+                      enum: %w[Yes No]
+                    }
+                  }
+                },
+                {
+                  properties: {
+                    recoverFunding: { enum: ['No'] }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  end
+
+  def add_s151_tab
+    return if ENV['S151_TAB'].nil?
+    @return_template.schema[:properties][:s151] = {
+      title: 's151 Return - Claim',
+      type: 'object',
+      properties: {
+        claimSummary: {
+          title: 'Summary of Claim',
+          type: 'object',
+          properties: {
+            hifTotalFundingRequest: {
+              type: 'string',
+              title: 'HIF Total Funding Request',
+              currency: true
+            },
+            hifSpendToDate: {
+              type: 'string',
+              hidden: true,
+              title: 'HIF Spend to Date',
+              currency: true
+            },
+            AmountOfThisClaim: {
+              type: 'string',
+              title: 'Amount of this Claim',
+              currency: true
+            }
+          }
+        },
+        supportingEvidence: {
+          type: 'object',
+          title: 'Supporting Evidence',
+          properties: {
+            lastQuarterMonthSpend: {
+              type: 'object',
+              title: 'Last Quarter Month Spend',
+              properties: {
+                forecast: {
+                  title: 'Forecasted Spend Last Quarter Month',
+                  type: 'string',
+                  hidden: true,
+                  currency: true
+                },
+                actual: {
+                  title: 'Actual Spend Last Quarter Month',
+                  type: 'string',
+                  currency: true
+                },
+                varianceAgainstForcastAmount: {
+                  title: 'Variance Against Forecast',
+                  type: 'string',
+                  hidden: true,
+                  currency: true
+                },
+                varianceAgainstForcastPercentage: {
+                  title: 'Variance Against Forecast',
+                  type: 'string',
+                  percentage: true,
+                  hidden: true
+                }
+              }
+            },
+            evidenceOfSpendPastQuarter: {
+              title: 'Evidence of Spend for the Past Quarter.',
+              type: 'string',
+              hidden: true
+            },
+            breakdownOfNextQuarterSpend: {
+              title: 'Evidence of Next Quarter Spend',
+              type: 'object',
+              properties: {
+                forecast: {
+                  title: 'Forecasted Spend (£)',
+                  type: 'string',
+                  currency: true
+                },
+                descriptionOfSpend: {
+                  title: 'Description of Spend',
+                  type: 'string',
+                  extendedText: true
+                },
+                evidenceOfSpendNextQuarter: {
+                  title: 'Evidence of Spend for the Past Quarter.',
+                  type: 'string',
+                  hidden: true
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  end
+
+  def add_rm_monthly_catchup_tab
+    return if ENV['RM_MONTHLY_CATCHUP_TAB'].nil?
+    @return_template.schema[:properties][:rmMonthlyCatchup] = {
+      title: 'RM Monthly Catch Up',
+      type: 'object',
+      properties: {
+        dateOfCatchUp: {
+          type: 'string',
+          title: 'Date of Catch Up'
+        },
+        overallRatingForScheme: {
+          type: 'string',
+          title: 'Overall RAG Rating for Scheme',
+          radio: true,
+          enum: %w[Red Amber Green]
+        },
+        redBarriers: {
+          type: 'array',
+          title: 'Barriers- Red Rating',
+          items: {
+            type: 'object',
+            properties: {
+              overview: {
+                type: 'string',
+                extendedText: true,
+                title: 'Overview of Barrier'
+              }
+            }
+          }
+        },
+        amberBarriers: {
+          type: 'array',
+          title: 'Barriers- Amber Rating',
+          items: {
+            type: 'object',
+            properties: {
+              overview: {
+                type: 'string',
+                extendedText: true,
+                title: 'Overview of Barrier'
+              }
+            }
+          }
+        },
+        overviewOfEngagement: {
+          type: 'string',
+          extendedText: true,
+          title: 'Overview of Engagement'
+        },
+        commentOnProgress: {
+          type: 'string',
+          extendedText: true,
+          title: 'Comments on Progress'
+        },
+        issuesToRaise: {
+          type: 'string',
+          extendedText: true,
+          title: 'Issues to Raise'
+        }
+      }
+    }
+  end
+
+  def add_outputs_actuals_tab
+    return if ENV['OUTPUTS_ACTUALS_TAB'].nil?
+    @return_template.schema[:properties][:outputsActuals] = {
+      title: 'Output - Actuals',
+      type: 'object',
+      properties: {
+        localAuthority: {
+          type: 'string',
+          title: 'Local Authority',
+          readonly: true,
+          sourceKey: %i[baseline_data outputsActuals siteOutputs siteLocalAuthority]
+        },
+        noOfUnits: {
+          type: 'string',
+          title: 'No. of Units',
+          readonly: true,
+          sourceKey: %i[baseline_data outputsActuals siteOutputs siteNumberOfUnits]
+        },
+        size: {
+          type: 'string',
+          title: 'Size (hectares)',
+          readonly: true,
+          sourceKey: %i[baseline_data summary totalArea]
+        },
+        previousStarts: {
+          type: 'string',
+          title: 'Previous Starts',
+          hidden: true,
+          readonly: true
+        },
+        startsSinceLastReturn: {
+          type: 'string',
+          title: 'Starts since last return'
+        },
+        previousCompletions: {
+          type: 'string',
+          title: 'Previous Completions',
+          hidden: 'true',
+          readonly: 'true'
+        },
+        completionsSinceLastReturn: {
+          type: 'string',
+          title: 'Completions since last return'
+        },
+        laOwned: {
+          type: 'string',
+          title: 'Local Authority owned land?',
+          radio: true,
+          enum: %w[
+            Yes
+            No
+          ]
+        },
+        pslLand: {
+          type: 'string',
+          radio: true,
+          title: 'Public Sector Land?',
+          enum: %w[
+            Yes
+            No
+          ]
+        },
+        brownfieldPercent: {
+          type: 'string',
+          title: 'Brownfield',
+          percentage: true
+        },
+        leaseholdPercent: {
+          type: 'string',
+          title: 'Leasehold',
+          percentage: true
+        },
+        smePercent: {
+          type: 'string',
+          title: 'SME',
+          percentage: true
+        },
+        mmcPercent: {
+          type: 'string',
+          title: 'MMC',
+          percentage: true
+        }
+      }
+    }
+  end
 
   def status_against_last_return
     {
       title: 'Status against last return?',
       type: 'string',
+      radio: true,
       enum: [
         'Completed',
         'On schedule',

@@ -60,22 +60,28 @@ describe 'Calculated return' do
         }
       ]
     }
+    project_id = get_use_case(:create_new_project).execute(
+      name: 'dog project 1',
+      type: 'hif',
+      baseline: {}
+    )[:id]
 
     return1_id = get_use_case(:create_return).execute(
-      project_id: 1,
+      project_id: project_id,
       data: initial_return_input_data
     )[:id]
 
     get_use_case(:submit_return).execute(return_id: return1_id)
 
     return2_id = get_use_case(:create_return).execute(
-      project_id: 1,
+      project_id: project_id,
       data: secondary_return_input_data
     )[:id]
 
     expected_return = {
       id: return2_id,
-      project_id: 1,
+      type: 'hif',
+      project_id: project_id,
       updates: [
         expected_return_data
       ],

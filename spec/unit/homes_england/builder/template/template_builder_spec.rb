@@ -4,11 +4,11 @@ describe HomesEngland::Builder::Template::TemplateBuilder do
   let(:template_builder) { described_class.new }
 
   it 'returns template object when hif requested' do
-    expect(template_builder.build_template(type: 'hif').class).to eq(HomesEngland::Domain::Template)
+    expect(template_builder.build_template(type: 'hif').class).to eq(Common::Domain::Template)
   end
 
   it 'returns template object when ac requested' do
-    expect(template_builder.build_template(type: 'ac').class).to eq(HomesEngland::Domain::Template)
+    expect(template_builder.build_template(type: 'ac').class).to eq(Common::Domain::Template)
   end
 
   it 'returns nil object when unknown is requested' do

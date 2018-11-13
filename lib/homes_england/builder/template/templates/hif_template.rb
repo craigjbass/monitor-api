@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class HomesEngland::Builder::Template::Templates::HIFTemplate
-  def create()
-    hif_template = HomesEngland::Domain::Template.new
+  def create
+    hif_template = Common::Domain::Template.new
     hif_template.schema = {
       '$schema': 'http://json-schema.org/draft-07/schema',
       title: 'HIF Project',
@@ -16,12 +18,13 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
             title: 'Funding Profile',
             properties: {
               period: { type: 'string', title: 'Period' },
-              instalment1: { type: 'string', title: '1st Instalment' },
-              instalment2: { type: 'string', title: '2nd Instalment' },
-              instalment3: { type: 'string', title: '3rd Instalment' },
-              instalment4: { type: 'string', title: '4th Instalment' },
-              total: { type: 'string', title: 'Total' },
-            }
+              instalment1: { type: 'string', title: '1st Instalment', currency: true },
+              instalment2: { type: 'string', title: '2nd Instalment', currency: true },
+              instalment3: { type: 'string', title: '3rd Instalment', currency: true },
+              instalment4: { type: 'string', title: '4th Instalment', currency: true },
+              total: { type: 'string', title: 'Total', currency: true }
+            },
+            required: %w[period instalment1 instalment2 instalment3 instalment4 total]
           }
         },
         costs: {
@@ -37,17 +40,20 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                 properties: {
                   HIFAmount: {
                     type: 'string',
-                    title: 'Total HIF Amount'
+                    title: 'Total HIF Amount',
+                    currency: true
                   },
                   totalCostOfInfrastructure: {
                     type: 'string',
-                    title: 'Total Cost of Infrastructure'
+                    title: 'Total Cost of Infrastructure',
+                    currency: true
                   },
                   totallyFundedThroughHIF: {
                     type: 'string',
                     title: 'Totally funded through HIF?',
-                    enum: ['Yes', 'No']
-                  },
+                    radio: true,
+                    enum: %w[Yes No]
+                  }
                 },
                 dependencies: {
                   totallyFundedThroughHIF: {
@@ -70,13 +76,18 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                           },
                           totalPublic: {
                             type: 'string',
-                            title: 'If No, Total Public (exc. HIF)'
+                            title: 'If No, Total Public (exc. HIF)',
+                            currency: true
                           },
                           totalPrivate: {
                             type: 'string',
-                            title: 'If No, Total Private'
+                            title: 'If No, Total Private',
+                            currency: true
                           }
-                        }
+                        },
+                        required: %w[
+                          descriptionOfFundingStack totalPublic totalPrivate
+                        ]
                       }
                     ]
                   }
@@ -122,9 +133,11 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
               granted: {
                 type: 'string',
                 title: 'Granted?',
+                radio: true,
                 enum: ['Yes', 'No', 'N/A']
               }
             },
+            required: %w[granted],
             dependencies: {
               granted: {
                 oneOf: [
@@ -137,7 +150,8 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                         type: 'string',
                         title: 'Reference'
                       }
-                    }
+                    },
+                    required: %w[reference]
                   },
                   {
                     properties: {
@@ -158,7 +172,10 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                         type: 'string',
                         title: 'Summary of Critical Path'
                       }
-                    }
+                    },
+                    required: %w[
+                      targetSubmission targetGranted summaryOfCriticalPath
+                    ]
                   },
                   {
                     properties: {
@@ -178,10 +195,11 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
               granted: {
                 type: 'string',
                 title: 'Granted?',
+                radio: true,
                 enum: ['Yes', 'No', 'N/A']
               }
             },
-            required: ['granted'],
+            required: %w[granted],
             dependencies: {
               granted: {
                 oneOf: [
@@ -195,7 +213,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                         title: 'Reference'
                       }
                     },
-                    required: ['grantedReference']
+                    required: %w[grantedReference]
                   },
                   {
                     properties: {
@@ -217,8 +235,8 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                         title: 'Summary of Critical Path'
                       }
                     },
-                    required: [
-                      'targetSubmission', 'targetGranted', 'summaryOfCriticalPath'
+                    required: %w[
+                      targetSubmission targetGranted summaryOfCriticalPath
                     ]
                   },
                   {
@@ -240,9 +258,11 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                 type: 'string',
                 laReadOnly: true,
                 title: 'Is this a requirement?',
-                enum: ['Yes', 'No']
+                radio: true,
+                enum: %w[Yes No]
               }
             },
+            required: %w[requirement],
             dependencies: {
               requirement: {
                 oneOf: [
@@ -255,7 +275,8 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                         type: 'string',
                         title: 'If Yes: Summary of requirement'
                       }
-                    }
+                    },
+                    required: %w[summaryOfRequirement]
                   },
                   {
                     properties: {
@@ -276,10 +297,11 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                 type: 'string',
                 laReadOnly: true,
                 title: 'Any Statutory Consents?',
-                enum: ['Yes', 'No']
+                radio: true,
+                enum: %w[Yes No]
               }
             },
-            required: ['anyConsents'],
+            required: %w[anyConsents],
             dependencies: {
               anyConsents: {
                 oneOf: [
@@ -305,7 +327,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                               title: 'Target date to be met'
                             }
                           },
-                          required: ['detailsOfConsent', 'targetDateToBeMet']
+                          required: %w[detailsOfConsent targetDateToBeMet]
                         }
                       }
                     }
@@ -328,10 +350,11 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
               underControlOfLA: {
                 type: 'string',
                 title: 'Is land under control of the Local Authority',
-                enum: ['Yes', 'No']
-              },
+                radio: true,
+                enum: %w[Yes No]
+              }
             },
-            required: ['underControlOfLA'],
+            required: %w[underControlOfLA],
             dependencies: {
               underControlOfLA: {
                 oneOf: [
@@ -344,7 +367,8 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                         type: 'string',
                         title: 'Who owns it?'
                       }
-                    }
+                    },
+                    required: %w[ownershipOfLandOtherThanLA]
                   },
                   {
                     properties: {
@@ -354,9 +378,11 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                       landAcquisitionRequired: {
                         type: 'string',
                         title: 'Is land acquisition required?',
-                        enum: ['Yes', 'No']
-                      },
+                        radio: true,
+                        enum: %w[Yes No]
+                      }
                     },
+                    required: %w[landAcquisitionRequired],
                     dependencies: {
                       landAcquisitionRequired: {
                         oneOf: [
@@ -364,7 +390,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                             properties: {
                               landAcquisitionRequired: {
                                 enum: ['No']
-                              },
+                              }
                             }
                           },
                           {
@@ -389,7 +415,10 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                                 type: 'string',
                                 title: 'Summary of Critical Path'
                               }
-                            }
+                            },
+                            required: %w[
+                              howManySitesToAcquire toBeAcquiredBy targetDateToAcquire summaryOfCriticalPath
+                            ]
                           }
                         ]
                       }
@@ -406,9 +435,11 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
               contractorProcured: {
                 type: 'string',
                 title: 'Is the infrastructure contractor procured?',
-                enum: ['Yes', 'No']
+                radio: true,
+                enum: %w[Yes No]
               }
             },
+            required: %w[contractorProcured],
             dependencies: {
               contractorProcured: {
                 oneOf: [
@@ -421,7 +452,8 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                         type: 'string',
                         title: 'Name of Contractor'
                       }
-                    }
+                    },
+                    required: %w[nameOfContractor]
                   },
                   {
                     properties: {
@@ -437,7 +469,8 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                         type: 'string',
                         title: 'Summary of critical path'
                       }
-                    }
+                    },
+                    required: %w[targetDate summaryOfCriticalPath]
                   }
                 ]
               }
@@ -464,8 +497,9 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                   type: 'string',
                   title: 'Summary of Critical Path'
                 }
-              }
-            },
+              },
+              required: %w[descriptionOfMilestone target summaryOfCriticalPath]
+            }
           },
           expectedInfrastructureStart: {
             type: 'object',
@@ -476,7 +510,8 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                 format: 'date',
                 title: 'Target date of achieving start'
               }
-            }
+            },
+            required: %w[targetDateOfAchievingStart]
           },
           expectedInfrastructureCompletion: {
             type: 'object',
@@ -487,7 +522,8 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                 format: 'date',
                 title: 'Target date of achieving completion'
               }
-            }
+            },
+            required: %w[targetDateOfAchievingCompletion]
           },
           risksToAchievingTimescales: {
             type: 'array',
@@ -515,10 +551,12 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                   type: 'string',
                   title: 'Mitigation in place'
                 }
-              }
+              },
+              required: %w[mitigationOfRisk]
             }
           }
-        }
+        },
+        required: %w[housingSitesBenefitting]
       }
     }
   end
@@ -545,7 +583,7 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
         },
         jointBidAreas: {
           type: 'string',
-          title: 'Joint Bid Areas',
+          title: 'Joint Bid Areas'
         },
         projectDescription: {
           type: 'string',
@@ -555,7 +593,8 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
         greenOrBrownField: {
           type: 'string',
           title: 'Greenfield/Brownfield/Mixed',
-          enum: ['Greenfield', 'Brownfield', 'Mixed']
+          radio: true,
+          enum: %w[Greenfield Brownfield Mixed]
         },
         noOfHousingSites: {
           type: 'string',
@@ -569,7 +608,8 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
         hifFundingAmount: {
           type: 'string',
           laReadOnly: true,
-          title: 'HIF Funding Amount (£)'
+          title: 'HIF Funding Amount (£)',
+          currency: true
         },
         descriptionOfInfrastructure: {
           type: 'string',
@@ -581,7 +621,8 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
           laReadOnly: true,
           title: 'Description of wider project deliverables'
         }
-      }
+      },
+      required: %w[jointBidAreas totalArea]
     }
   end
 
@@ -637,10 +678,12 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                 type: 'string',
                 title: 'Housing Completions'
               }
-            }
+            },
+            required: %w[period target housingCompletions]
           }
         }
-      }
+      },
+      required: %w[disposalStrategy]
     }
   end
 
@@ -668,7 +711,8 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                 type: 'string',
                 title: 'Number of Units'
               }
-            }
+            },
+            required: %w[siteName siteLocalAuthority siteNumberOfUnits]
           }
         }
       }

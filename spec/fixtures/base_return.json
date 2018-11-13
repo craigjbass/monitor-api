@@ -50,9 +50,9 @@
       },
       "procurement": {
         "contractorProcured": "Yes",
+        "nameOfContractor": "Steve",
         "summaryOfCriticalPath": "Summary of critical meow",
-        "procurementBaselineCompletion": "2020-01-01",
-        "nameOfContractor": "Steve"
+        "procurementBaselineCompletion": "2020-01-01"
       },
       "milestones": {
         "keyMilestones": [
@@ -131,6 +131,33 @@
         { "period": "19/20", "baselineAmounts": "50" }
       ],
       "currentReturnAmounts": [{ "period": "18/19" }, { "period": "19/20" }]
+    }
+  },
+  "outputsActuals": {
+    "localAuthority": [
+      "Local Authority"
+    ],
+    "noOfUnits": [
+      "123"
+    ],
+    "size": "10"
+  },
+  "s151Confirmation": {
+    "hifFunding": {
+      "hifFundingProfile": [
+        {
+          "period": "2019/2020",
+          "instalment1": "1000",
+          "instalment2": "1000",
+          "instalment3": "1000",
+          "instalment4": "1000",
+          "total": "4000"
+        }
+      ]
+    },
+    "submission": {
+      "hifFundingEndDate": "2020-01-01",
+      "projectLongstopDate": "2020-01-01"
     }
   }
 }

@@ -33,6 +33,7 @@ class HomesEngland::UseCase::ExportProjectData
   def format_baseline_data(baseline_data, project_id)
     {
       project_id: project_id,
+      name: baseline_data[:name],
       type: baseline_data[:type],
       data: baseline_data[:data]
     }

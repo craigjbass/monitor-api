@@ -6,10 +6,9 @@ describe HomesEngland::UseCase::UpdateProject do
   let(:use_case) { described_class.new(project_gateway: project_gateway_spy) }
   let(:response) { use_case.execute(project_id: project_id, project_data: updated_project_data) }
   let(:la_project) { HomesEngland::Domain::Project.new }
+
   before do
     response
-    la_project.status = 'LA Draft'
-    la_project.data = updated_project_data
   end
 
 
@@ -18,8 +17,15 @@ describe HomesEngland::UseCase::UpdateProject do
     let(:updated_project_data) { { ducks: 'quack' } }
 
     context 'given a successful update whilst in Draft status' do
+      let(:la_project) do
+        HomesEngland::Domain::Project.new.tap do |p|
+          p.status = 'Draft'
+          p.data = { a: 'b' }
+        end
+      end
+
       let(:project_gateway_spy) do
-        spy(update: { success: true })
+        spy(find_by: la_project, update: { success: true })
       end
 
       it 'Should pass the ID to the gateway' do
@@ -48,8 +54,14 @@ describe HomesEngland::UseCase::UpdateProject do
     end
 
     context 'given a successful update whilst in LA Draft status' do
+      let(:la_project) do
+        HomesEngland::Domain::Project.new.tap do |p|
+          p.status = 'LA Draft'
+          p.data = { a: 'b' }
+        end
+      end
       let(:project_gateway_spy) do
-        spy(update: { success: true })
+        spy(find_by: la_project, update: { success: true })
       end
 
       it 'Should pass the ID to the gateway' do
@@ -86,8 +98,14 @@ describe HomesEngland::UseCase::UpdateProject do
     let(:updated_project_data) { { cows: 'moo' } }
 
     context 'given a successful update whilst in Draft status' do
+      let(:la_project) do
+        HomesEngland::Domain::Project.new.tap do |p|
+          p.status = 'Draft'
+          p.data = { b: 'c' }
+        end
+      end
       let(:project_gateway_spy) do
-        spy(update: { success: true })
+        spy(find_by: la_project, update: { success: true })
       end
 
       it 'Should pass the ID to the gateway' do
@@ -116,8 +134,15 @@ describe HomesEngland::UseCase::UpdateProject do
     end
 
     context 'given a successful update whilst in LA Draft status' do
+      let(:la_project) do
+        HomesEngland::Domain::Project.new.tap do |p|
+          p.status = 'LA Draft'
+          p.data = { b: 'c' }
+        end
+      end
+
       let(:project_gateway_spy) do
-        spy(update: { success: true })
+        spy(find_by: la_project, update: { success: true })
       end
 
       it 'Should pass the ID to the gateway' do

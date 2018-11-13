@@ -32,14 +32,16 @@ describe 'Performing Return on HIF Project' do
 
   let(:project_baseline) do
     JSON.parse(
-      File.open("#{__dir__}/../../fixtures/hif_baseline.json").read,
+      File.open("#{__dir__}/../../fixtures/hif_baseline_core.json").read,
       symbolize_names: true
     )
   end
 
   let(:project_id) do
     get_use_case(:create_new_project).execute(
-      type: 'hif', baseline: project_baseline
+      name: '',
+      type: 'hif',
+      baseline: project_baseline
     )[:id]
   end
 
@@ -59,11 +61,19 @@ describe 'Performing Return on HIF Project' do
 
   before do
     ENV['OUTPUTS_FORECAST_TAB'] = 'Yes'
+    ENV['CONFIRMATION_TAB'] = 'Yes'
+    ENV['S151_TAB'] = 'Yes'
+    ENV['RM_MONTHLY_CATCHUP_TAB'] = 'Yes'
+    ENV['OUTPUTS_ACTUALS_TAB'] = 'Yes'
     project_id
   end
 
   after do
     ENV['OUTPUTS_FORECAST_TAB'] = nil
+    ENV['CONFIRMATION_TAB'] = nil
+    ENV['S151_TAB'] = nil
+    ENV['RM_MONTHLY_CATCHUP_TAB'] = nil
+    ENV['OUTPUTS_ACTUALS_TAB'] = nil
   end
 
   it 'should keep track of Returns' do

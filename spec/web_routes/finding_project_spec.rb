@@ -5,7 +5,6 @@ require_relative 'delivery_mechanism_spec_helper'
 
 describe 'Finding a project' do
   let(:find_project_spy) { spy(execute: project) }
-  let(:get_schema_spy) { spy(execute: schema) }
   let(:project) { nil }
   let(:project_id) { nil }
   let(:schema) { nil }
@@ -13,18 +12,13 @@ describe 'Finding a project' do
 
   before do
     stub_const(
-      'HomesEngland::UseCase::FindProject',
+      'UI::UseCase::GetProject',
       double(new: find_project_spy)
     )
 
     stub_const(
-      'HomesEngland::UseCase::GetSchemaForProject',
-      double(new: get_schema_spy)
-    )
-
-    stub_const(
       'LocalAuthority::UseCase::CheckApiKey',
-      double(new: double(execute: {valid: token_valid}))
+      double(new: double(execute: { valid: token_valid }))
     )
 
     header 'API_KEY', 'superSecret'
@@ -52,16 +46,10 @@ describe 'Finding a project' do
   context 'with an valid id' do
     context 'example one' do
       let(:project_id) { 42 }
-      let(:project) { { type: 'cat', status: 'Draft', data: { cats_go: 'meow', dogs_go: 'woof' } } }
-      let(:schema) {  { schema: { cats: 'go meow' } } }
-
+      let(:project) { { type: 'cat', status: 'Draft', data: { cats_go: 'meow', dogs_go: 'woof' }, schema: { cats: 'go meow' } } }
 
       it 'should find the project with the given id' do
         expect(find_project_spy).to have_received(:execute).with(id: 42)
-      end
-
-      it 'should find the schema with the project type' do
-        expect(get_schema_spy).to have_received(:execute).with(type: 'cat')
       end
 
       it 'should should return 200' do
@@ -88,17 +76,21 @@ describe 'Finding a project' do
 
     context 'example two' do
       let(:project_id) { 41 }
-      let(:project) { { type: 'animals', status: 'Tree', data: { animal_noises: [{ ducks_go: 'quack' }, { cows_go: 'moo' }] } } }
-      let(:schema) { { schema: { dogs: 'bark', cats: 'meow' } } }
+      let(:project) do
+        {
+          type: 'animals',
+          status: 'Tree',
+          data: {
+            animal_noises: [{ ducks_go: 'quack' }, { cows_go: 'moo' }]
+          },
+          schema: { dogs: 'bark', cats: 'meow' }
+        }
+      end
 
       let(:find_project_spy) { spy(execute: project) }
 
       it 'should find the project with the given id' do
         expect(find_project_spy).to have_received(:execute).with(id: 41)
-      end
-
-      it 'should find the schema with the project type' do
-        expect(get_schema_spy).to have_received(:execute).with(type: 'animals')
       end
 
       it 'should should return 200' do

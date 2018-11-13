@@ -20,7 +20,7 @@ describe LocalAuthority::UseCase::GetBaseReturn do
   context 'projects with single returns' do
     context 'example one' do
       let(:schema) do
-        LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+        Common::Domain::Template.new.tap do |p|
           p.schema = {cats: 'meow'}
         end
       end
@@ -60,7 +60,7 @@ describe LocalAuthority::UseCase::GetBaseReturn do
     end
 
     context 'example two' do
-      let(:schema) { LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+      let(:schema) { Common::Domain::Template.new.tap do |p|
         p.schema = {dogs: 'woof'}
       end
       }
@@ -103,7 +103,7 @@ describe LocalAuthority::UseCase::GetBaseReturn do
 
   context 'with previous returns' do
     let(:schema) do
-      LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+      Common::Domain::Template.new.tap do |p|
         p.schema = {cats: 'meow'}
       end
     end

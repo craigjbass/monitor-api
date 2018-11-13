@@ -22,7 +22,7 @@ describe 'Updating a HIF Project' do
       }
     }
 
-    response = get_use_case(:create_new_project).execute(type: 'hif', baseline: project_baseline)
+    response = get_use_case(:create_new_project).execute(name: 'cat project', type: 'hif', baseline: project_baseline)
     success = get_use_case(:update_project).execute(project_id: response[:id], project_data: { cats: 'meow' })
 
     expect(success[:successful]).to eq(true)
@@ -52,7 +52,7 @@ describe 'Updating a HIF Project' do
         }
       }
 
-      response = get_use_case(:create_new_project).execute(type: 'hif', baseline: project_baseline)
+      response = get_use_case(:create_new_project).execute(name: 'cat project', type: 'hif', baseline: project_baseline)
       get_use_case(:submit_project).execute(project_id: response[:id])
       get_use_case(:submit_project).execute(project_id: response[:id])
 

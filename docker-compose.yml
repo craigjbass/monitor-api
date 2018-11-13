@@ -28,6 +28,11 @@ services:
       HMAC_SECRET: 'E'
       ADMIN_HTTP_API_KEY: 'supersecret'
       BI_HTTP_API_KEY: 'supersecret'
+      OUTPUTS_FORECAST_TAB: 'yes'
+      CONFIRMATION_TAB: 'yes'
+      S151_TAB: 'yes'
+      RM_MONTHLY_CATCHUP_TAB: 'yes'
+      OUTPUTS_ACTUALS_TAB: 'yes'
 
   notify_simulator:
     build: .

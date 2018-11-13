@@ -1,0 +1,9 @@
+{
+  "summary": {},
+  "infrastructures": [{}],
+  "fundingProfiles": { "profiles": []},
+  "costs": [{}],
+  "baselineCashFlow": { "summaryOfRequirement": "" },
+  "recovery": {},
+  "outputs": [{ "outputsForecast": {}, "outputsActuals": {} }]
+}

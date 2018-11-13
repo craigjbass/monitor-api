@@ -7,7 +7,7 @@ describe HomesEngland::UseCase::GetSchemaForProject do
 
   context 'Example one' do
     let(:template) do
-      HomesEngland::Domain::Template.new.tap do |t|
+      Common::Domain::Template.new.tap do |t|
         t.schema = { cats: 'meow' }
       end
     end
@@ -26,7 +26,7 @@ describe HomesEngland::UseCase::GetSchemaForProject do
 
   context 'Example two' do
     let(:template) do
-      HomesEngland::Domain::Template.new.tap do |t|
+      Common::Domain::Template.new.tap do |t|
         t.schema = { dogs: 'woof' }
       end
     end

@@ -4,12 +4,14 @@ require 'rspec'
 require_relative 'delivery_mechanism_spec_helper'
 
 describe 'Updating a project' do
+  let(:get_project_spy) { spy(execute: { type: 'hif' })}
   let(:update_project_spy) { spy(execute: { successful: true }) }
   let(:create_new_project_spy) { spy(execute: project_id) }
   let(:project_id) { 1 }
 
   let(:existing_project_data) do
     {
+      name: 'cat project',
       type: 'hif',
       baselineData: {
         cats: 'meow',
@@ -29,13 +31,13 @@ describe 'Updating a project' do
 
   before do
     stub_const(
-      'HomesEngland::UseCase::UpdateProject',
-      double(new: update_project_spy)
+      'UI::UseCase::GetProject',
+      double(new: get_project_spy)
     )
 
     stub_const(
-      'HomesEngland::UseCase::CreateNewProject',
-      double(new: create_new_project_spy)
+      'UI::UseCase::UpdateProject',
+      double(new: update_project_spy)
     )
 
     stub_const(
@@ -71,6 +73,7 @@ describe 'Updating a project' do
     before do
       post '/project/update', {
         project_id: project_id,
+        project_type: 'hif',
         project_data: new_project_data[:baselineData]
       }.to_json
     end
@@ -79,11 +82,18 @@ describe 'Updating a project' do
       expect(last_response.status).to eq(200)
     end
 
+    it 'Should get the project for the id' do
+      expect(get_project_spy).to(
+        have_received(:execute).with(id: project_id)
+      )
+    end
+
     it 'should update project data for id' do
       expect(update_project_spy).to(
         have_received(:execute).with(
-          project_id: project_id,
-          project_data: { cats: 'quack', dogs: 'baa' }
+          id: project_id,
+          type: 'hif',
+          data: { cats: 'quack', dogs: 'baa' }
         )
       )
     end

@@ -16,11 +16,7 @@ describe 'Getting a baseline schema' do
     context 'example 1' do
       let(:get_baseline_schema_spy) do
         double(
-          execute: HomesEngland::Domain::Template.new.tap do |t|
-            t.schema = {
-              cathouse: 'cats'
-            }
-          end
+          execute: { cathouse: 'cats' }
         )
       end
 
@@ -42,18 +38,14 @@ describe 'Getting a baseline schema' do
         response = Common::DeepSymbolizeKeys.to_symbolized_hash(
           JSON.parse(last_response.body)
         )
-        expect(response).to eq({cathouse: 'cats'})
+        expect(response).to eq(cathouse: 'cats')
       end
     end
 
     context 'example 2' do
       let(:get_baseline_schema_spy) do
         double(
-          execute: HomesEngland::Domain::Template.new.tap do |t|
-            t.schema = {
-              doghouse: 'dogs'
-            }
-          end
+          execute: { doghouse: 'dogs' }
         )
       end
 
@@ -75,7 +67,7 @@ describe 'Getting a baseline schema' do
         response = Common::DeepSymbolizeKeys.to_symbolized_hash(
           JSON.parse(last_response.body)
         )
-        expect(response).to eq({doghouse: 'dogs'})
+        expect(response).to eq(doghouse: 'dogs')
       end
     end
   end
@@ -88,7 +80,6 @@ describe 'Getting a baseline schema' do
     end
 
     let(:type) { 'tardis' }
-
 
     it 'should execute GetSchemaForProject' do
       expect(get_baseline_schema_spy).to have_received(:execute).with(type: type)

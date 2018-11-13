@@ -21,7 +21,7 @@ describe 'Creating a new project' do
     setup_auth_headers
 
     stub_const(
-      'HomesEngland::UseCase::CreateNewProject',
+      'UI::UseCase::CreateProject',
       double(new: create_new_project_spy)
     )
 
@@ -33,6 +33,7 @@ describe 'Creating a new project' do
     let(:project_id) { 1 }
     let(:project_data) do
       {
+        name: 'Dog project',
         type: 'hif',
         baselineData: {
           cats: 'meow',
@@ -46,10 +47,28 @@ describe 'Creating a new project' do
     end
   end
 
+  context 'with no project name supplied' do
+    let(:project_id) { 1 }
+    let(:project_data) do
+      {
+        type: 'hif',
+        baselineData: {
+          cats: 'Woof',
+          dogs: 'Meow'
+        }
+      }
+    end
+
+    it 'returns 400' do
+      expect(last_response.status).to eq(400)
+    end
+  end
+
   context 'example one' do
     let(:project_id) { 1 }
     let(:project_data) do
       {
+        name: 'Dog project',
         type: 'hif',
         baselineData: {
           cats: 'meow',
@@ -60,6 +79,14 @@ describe 'Creating a new project' do
 
     it 'should call the create_new_project use case' do
       expect(create_new_project_spy).to have_received(:execute)
+    end
+
+    it 'should call the create_new_project use case with name' do
+      expect(create_new_project_spy).to(
+        have_received(:execute).with(
+          hash_including(name: 'Dog project')
+        )
+      )
     end
 
     it 'should call the create_new_project use case with type' do
@@ -89,6 +116,7 @@ describe 'Creating a new project' do
     let(:project_id) { 42 }
     let(:project_data) do
       {
+        name: 'Duck project',
         type: 'ac',
         baselineData: {
           ducks: 'quack',
@@ -100,6 +128,14 @@ describe 'Creating a new project' do
           ]
         }
       }
+    end
+
+    it 'should call the create_new_project use case with name' do
+      expect(create_new_project_spy).to(
+        have_received(:execute).with(
+          hash_including(name: 'Duck project')
+        )
+      )
     end
 
     it 'should return a 201 response' do

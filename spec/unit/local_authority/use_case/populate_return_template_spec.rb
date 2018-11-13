@@ -6,7 +6,7 @@ describe LocalAuthority::UseCase::PopulateReturnTemplate do
   let(:copy_paths) { { paths: [{ from: [], to: [] }] } }
 
   let(:found_template) do
-    LocalAuthority::Domain::ReturnTemplate.new.tap do |t|
+    Common::Domain::Template.new.tap do |t|
       t.schema = template_schema
     end
   end

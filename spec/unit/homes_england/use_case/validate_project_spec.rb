@@ -24,7 +24,7 @@ describe HomesEngland::UseCase::ValidateProject do
   end
 
   let(:template) do
-    HomesEngland::Domain::Template.new.tap do |p|
+    Common::Domain::Template.new.tap do |p|
       p.schema = {}
     end
   end
@@ -96,7 +96,7 @@ describe HomesEngland::UseCase::ValidateProject do
         it_should_behave_like 'required field validation'
 
         let(:template) do
-          HomesEngland::Domain::Template.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'HIF Project',
               type: 'object',
@@ -121,7 +121,7 @@ describe HomesEngland::UseCase::ValidateProject do
         it_should_behave_like 'required field validation'
 
         let(:template) do
-          HomesEngland::Domain::Template.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'HIF Project',
               type: 'object',
@@ -143,11 +143,79 @@ describe HomesEngland::UseCase::ValidateProject do
       end
     end
 
+    context 'given multiple strings' do
+      context 'Example 1' do
+        it_should_behave_like 'required field validation'
+
+        let(:template) do
+          Common::Domain::Template.new.tap do |p|
+            p.schema = {
+              title: 'Project Summary',
+              type: 'object',
+              required: %w[catsComplete dogsComplete],
+              properties: {
+                catsComplete: {
+                  type: 'string',
+                  title: 'cats compete on the beach to complete the complex beat'
+                },
+                dogsComplete: {
+                  type: 'string',
+                  title: 'dogs dance on the beach to demolish the dupstep beat'
+                },
+                unrequiredComplete: {
+                  type: 'string',
+                  title: 'who cares'
+                }
+              }
+            }
+          end
+        end
+
+        let(:valid_project_data) { { catsComplete: 'The Cat Plan', dogsComplete: 'The Dog Plan' } }
+        let(:invalid_project_data) { {unrequiredComplete: 'Doo wap'} }
+        let(:invalid_project_data_paths) { [%i[catsComplete dogsComplete]] }
+        let(:invalid_project_data_pretty_paths) { [['Cats Complete', 'Dogs Complete']] }
+      end
+
+      context 'Example 2' do
+        it_should_behave_like 'required field validation'
+
+        let(:template) do
+          Common::Domain::Template.new.tap do |p|
+            p.schema = {
+              title: 'Project Summary',
+              type: 'object',
+              required: %w[horsesComplete cowsComplete],
+              properties: {
+                horsesComplete: {
+                  type: 'string',
+                  title: 'cats compete on the beach to complete the complex beat'
+                },
+                cowsComplete: {
+                  type: 'string',
+                  title: 'dogs dance on the beach to demolish the dupstep beat'
+                },
+                randomComplete: {
+                  type: 'string',
+                  title: 'who cares'
+                }
+              }
+            }
+          end
+        end
+
+        let(:valid_project_data) { { horsesComplete: 'The Cat Plan', cowsComplete: 'The Dog Plan' } }
+        let(:invalid_project_data) { {randomComplete: 'Shoop da woop'} }
+        let(:invalid_project_data_paths) { [%i[horsesComplete cowsComplete]] }
+        let(:invalid_project_data_pretty_paths) { [['Horses Complete', 'Cows Complete']] }
+      end
+    end
+
     context 'given a nested field' do
       context 'example 1' do
         it_should_behave_like 'required field validation'
         let(:template) do
-          HomesEngland::Domain::Template.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'HIF Project',
               type: 'object',
@@ -185,7 +253,7 @@ describe HomesEngland::UseCase::ValidateProject do
         it_should_behave_like 'required field validation'
 
         let(:template) do
-          HomesEngland::Domain::Template.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'HIF Project',
               type: 'object',
@@ -225,7 +293,7 @@ describe HomesEngland::UseCase::ValidateProject do
         it_should_behave_like 'required field validation'
 
         let(:template) do
-          HomesEngland::Domain::Template.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'HIF',
               type: 'object',
@@ -269,7 +337,7 @@ describe HomesEngland::UseCase::ValidateProject do
       end
 
       context 'example 2' do
-        HomesEngland::Domain::Template.new.tap do |p|
+        Common::Domain::Template.new.tap do |p|
           p.schema = {
             title: 'HIF',
             type: 'object',
@@ -311,7 +379,7 @@ describe HomesEngland::UseCase::ValidateProject do
       context 'example 1' do
         it_should_behave_like 'required field validation'
         let(:template) do
-          HomesEngland::Domain::Template.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'HIF Project',
               type: 'object',
@@ -362,7 +430,7 @@ describe HomesEngland::UseCase::ValidateProject do
         it_should_behave_like 'required field validation'
 
         let(:template) do
-          HomesEngland::Domain::Template.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'New Project',
               type: 'object',
@@ -402,7 +470,7 @@ describe HomesEngland::UseCase::ValidateProject do
         it_should_behave_like 'required field validation'
 
         let(:template) do
-          HomesEngland::Domain::Template.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'New Project',
               type: 'object',
@@ -444,7 +512,7 @@ describe HomesEngland::UseCase::ValidateProject do
         it_should_behave_like 'required field validation'
 
         let(:template) do
-          HomesEngland::Domain::Template.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'The Animal March',
               type: 'object',
@@ -505,7 +573,7 @@ describe HomesEngland::UseCase::ValidateProject do
         it_should_behave_like 'required field validation'
 
         let(:template) do
-          HomesEngland::Domain::Template.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'HIF Project',
               type: 'object',
@@ -608,7 +676,7 @@ describe HomesEngland::UseCase::ValidateProject do
         it_should_behave_like 'required field validation'
 
         let(:template) do
-          LocalAuthority::Domain::ReturnTemplate.new.tap do |p|
+          Common::Domain::Template.new.tap do |p|
             p.schema = {
               title: 'HIF Project',
               type: 'object',

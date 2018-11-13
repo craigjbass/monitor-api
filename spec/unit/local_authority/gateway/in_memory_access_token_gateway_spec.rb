@@ -17,11 +17,13 @@ describe LocalAuthority::Gateway::InMemoryAccessTokenGateway do
       let(:access_token_one) do
         LocalAuthority::Domain::AccessToken.new.tap do |token|
           token.uuid = 'cats'
+          token.email = 'cat@cathouse.com'
         end
       end
       let(:access_token_two) do
         LocalAuthority::Domain::AccessToken.new.tap do |token|
           token.uuid = 'dogs'
+          token.email = 'dog@doghouse.com'
         end
       end
 
@@ -29,8 +31,14 @@ describe LocalAuthority::Gateway::InMemoryAccessTokenGateway do
         expect(gateway.find_by(uuid: access_token_one.uuid).uuid).to eq(
           access_token_one.uuid
         )
+        expect(gateway.find_by(uuid: access_token_one.uuid).email).to eq(
+          access_token_one.email
+        )
         expect(gateway.find_by(uuid: access_token_two.uuid).uuid).to eq(
           access_token_two.uuid
+        )
+        expect(gateway.find_by(uuid: access_token_two.uuid).email).to eq(
+          access_token_two.email
         )
       end
 
@@ -44,17 +52,29 @@ describe LocalAuthority::Gateway::InMemoryAccessTokenGateway do
       let(:access_token_one) do
         LocalAuthority::Domain::AccessToken.new.tap do |token|
           token.uuid = 'cows'
+          token.email = 'cow@barn.co'
         end
       end
       let(:access_token_two) do
         LocalAuthority::Domain::AccessToken.new.tap do |token|
           token.uuid = 'sheep'
+          token.email = 'sheep@barn.co'
         end
       end
 
       it 'can find saved access tokens' do
-        expect(gateway.find_by(uuid: access_token_one.uuid).uuid).to eq(access_token_one.uuid)
-        expect(gateway.find_by(uuid: access_token_two.uuid).uuid).to eq(access_token_two.uuid)
+        expect(gateway.find_by(uuid: access_token_one.uuid).uuid).to eq(
+          access_token_one.uuid
+        )
+        expect(gateway.find_by(uuid: access_token_one.uuid).email).to eq(
+          access_token_one.email
+        )
+        expect(gateway.find_by(uuid: access_token_two.uuid).uuid).to eq(
+          access_token_two.uuid
+        )
+        expect(gateway.find_by(uuid: access_token_two.uuid).email).to eq(
+          access_token_two.email
+        )
       end
 
       it 'can delete saved access tokens' do
@@ -74,7 +94,7 @@ describe LocalAuthority::Gateway::InMemoryAccessTokenGateway do
           token.uuid = 'sheep'
         end
       end
-      
+
       before do
         gateway.clear
       end
