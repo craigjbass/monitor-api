@@ -156,10 +156,10 @@ class UI::UseCase::ConvertCoreHIFProject
 
   def convert_funding_profiles
     return if @project[:fundingProfiles].nil?
-
     @converted_project[:fundingProfiles] = {}
 
     @converted_project[:fundingProfiles][:profiles] = @project[:fundingProfiles].map do |profile|
+      next if profile.nil?
       next if profile.empty?
       {
         period: profile[:period],
@@ -169,8 +169,8 @@ class UI::UseCase::ConvertCoreHIFProject
         instalment4: profile[:instalment4],
         total: profile[:total]
       }
+      profile.compact
     end
-    @converted_project[:fundingProfiles][:profiles].each(&:compact!)
   end
 
   def convert_costs
