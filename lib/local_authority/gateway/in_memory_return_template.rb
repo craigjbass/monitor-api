@@ -121,6 +121,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     changesRequired: {
                       type: 'string',
                       enum: ['Do not change the baseline', 'Request change to baseline to match lastest estimates'],
+                      radio: true,
                       title: 'Changes to Baseline?'
                     },
                     paceOfConstruction: {
@@ -277,7 +278,38 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                       type: 'object',
                       title: 'Commencement of surveys and due diligence',
                       properties: {
-                        details: {
+                        completion: {
+                          type: 'object',
+                          title: '',
+                          properties: {
+                            completed: {
+                              title: 'Completed?',
+                              type: 'string',
+                              radio: true,
+                              enum: %w[Yes No]
+                            }
+                          },
+                          dependencies: {
+                            completed: {
+                              oneOf: [
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['Yes']
+                                    },
+                                    dateOfCompletion: {
+                                      type: 'string',
+                                      title: 'Date completed?',
+                                      format: 'date'
+                                    }
+                                  }
+                                },
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['No']
+                                    },
+                                    details: {
                           horizontal: true,
                           type: 'object',
                           title: '',
@@ -298,10 +330,18 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                               type: 'string',
                               title: 'Estimated percentage complete',
                               percentage: true
-                            },
+                            }
+                          }
+                        },
+                        risk: {
+                          title: '',
+                          type: 'object',
+                          horizontal: true,
+                          properties: {
                             riskToAchievingBaseline: {
                               type: 'string',
                               title: 'Risk to achieving baseline date',
+                              radio: true,
                               enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
                             },
                             reasonForVariance: {
@@ -311,36 +351,6 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             }
                           }
                         },
-                        completion: {
-                          type: 'object',
-                          title: '',
-                          properties: {
-                            completed: {
-                              title: 'Completed?',
-                              type: 'string',
-                              enum: %w[Yes No]
-                            }
-                          },
-                          dependencies: {
-                            completed: {
-                              oneOf: [
-                                {
-                                  properties: {
-                                    completed: {
-                                      enum: ['Yes']
-                                    },
-                                    dateOfCompletion: {
-                                      type: 'string',
-                                      title: 'Date completed?',
-                                      format: 'date'
-                                    }
-                                  }
-                                },
-                                {
-                                  properties: {
-                                    completed: {
-                                      enum: ['No']
-                                    }
                                   }
                                 }
                               ]
@@ -353,40 +363,6 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                       title: 'Completion of surveys and due diligence',
                       type: 'object',
                       properties: {
-                        details: {
-                          horizontal: true,
-                          type: 'object',
-                          title: '',
-                          properties: {
-                            baselineDate: {
-                              type: 'string',
-                              format: 'date',
-                              title: 'Baseline Date',
-                              sourceKey: %i[baseline_data milestones surveysAndDueDiligence completionOfSurveys],
-                              readonly: true
-                            },
-                            currentEstimatedDate: {
-                              type: 'string',
-                              title: 'Current estimated date',
-                              format: 'date'
-                            },
-                            estimatedPercentageComplete: {
-                              type: 'string',
-                              title: 'Estimated percentage complete',
-                              percentage: true
-                            },
-                            riskToAchievingBaseline: {
-                              type: 'string',
-                              title: 'Risk to achieving baseline date',
-                              enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
-                            },
-                            reasonForVariance: {
-                              type: 'string',
-                              title: 'Reasn for risk/ variance',
-                              extendedText: true
-                            }
-                          }
-                        },
                         completion: {
                           type: 'object',
                           title: '',
@@ -394,6 +370,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             completed: {
                               title: 'Completed?',
                               type: 'string',
+                              radio: true,
                               enum: %w[Yes No]
                             }
                           },
@@ -416,6 +393,48 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   properties: {
                                     completed: {
                                       enum: ['No']
+                                    },
+                                    details: {
+                                      horizontal: true,
+                                      type: 'object',
+                                      title: '',
+                                      properties: {
+                                        baselineDate: {
+                                          type: 'string',
+                                          format: 'date',
+                                          title: 'Baseline Date',
+                                          sourceKey: %i[baseline_data milestones surveysAndDueDiligence completionOfSurveys],
+                                          readonly: true
+                                        },
+                                        currentEstimatedDate: {
+                                          type: 'string',
+                                          title: 'Current estimated date',
+                                          format: 'date'
+                                        },
+                                        estimatedPercentageComplete: {
+                                          type: 'string',
+                                          title: 'Estimated percentage complete',
+                                          percentage: true
+                                        }
+                                      }
+                                    },
+                                    risk: {
+                                      title: '',
+                                      type: 'object',
+                                      horizontal: true,
+                                      properties: {
+                                        riskToAchievingBaseline: {
+                                          type: 'string',
+                                          title: 'Risk to achieving baseline date',
+                                          radio: true,
+                                          enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+                                        },
+                                        reasonForVariance: {
+                                          type: 'string',
+                                          title: 'Reasn for risk/ variance',
+                                          extendedText: true
+                                        }
+                                      }
                                     }
                                   }
                                 }
@@ -428,41 +447,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     procurementOfWorksCommencementDate: {
                       title: 'Procurement of works commencement date',
                       type: 'object',
-                      properties: {
-                        details: {
-                          type: 'object',
-                          horizontal: true,
-                          title: '',
-                          properties: {
-                            baselineDate: {
-                              type: 'string',
-                              format: 'date',
-                              title: 'Baseline Date',
-                              sourceKey: %i[baseline_data milestones procurementProvision procurementOfWorksCommencementDate],
-                              readonly: true
-                            },
-                            currentEstimatedDate: {
-                              type: 'string',
-                              title: 'Current estimated date',
-                              format: 'date'
-                            },
-                            estimatedPercentageComplete: {
-                              type: 'string',
-                              title: 'Estimated percentage complete',
-                              percentage: true
-                            },
-                            riskToAchievingBaseline: {
-                              type: 'string',
-                              title: 'Risk to achieving baseline date',
-                              enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
-                            },
-                            reasonForVariance: {
-                              type: 'string',
-                              title: 'Reasn for risk/ variance',
-                              extendedText: true
-                            }
-                          }
-                        },
+                      properties: {                       
                         completion: {
                           type: 'object',
                           title: '',
@@ -470,7 +455,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             completed: {
                               title: 'Completed?',
                               type: 'string',
-                              enum: %w[Yes No]
+                              enum: %w[Yes No],
+                              radio: true,
                             }
                           },
                           dependencies: {
@@ -492,6 +478,48 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   properties: {
                                     completed: {
                                       enum: ['No']
+                                    },
+                                    details: {
+                                      type: 'object',
+                                      horizontal: true,
+                                      title: '',
+                                      properties: {
+                                        baselineDate: {
+                                          type: 'string',
+                                          format: 'date',
+                                          title: 'Baseline Date',
+                                          sourceKey: %i[baseline_data milestones procurementProvision procurementOfWorksCommencementDate],
+                                          readonly: true
+                                        },
+                                        currentEstimatedDate: {
+                                          type: 'string',
+                                          title: 'Current estimated date',
+                                          format: 'date'
+                                        },
+                                        estimatedPercentageComplete: {
+                                          type: 'string',
+                                          title: 'Estimated percentage complete',
+                                          percentage: true
+                                        }
+                                      }
+                                    },
+                                    risk: {
+                                      title: '',
+                                      type: 'object',
+                                      horizontal: true,
+                                      properties: {
+                                        riskToAchievingBaseline: {
+                                          type: 'string',
+                                          title: 'Risk to achieving baseline date',
+                                          radio: true,
+                                          enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+                                        },
+                                        reasonForVariance: {
+                                          type: 'string',
+                                          title: 'Reasn for risk/ variance',
+                                          extendedText: true
+                                        }
+                                      }
                                     }
                                   }
                                 }
@@ -504,41 +532,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     provisionOfDetailedWorks: {
                       title: 'Provision of detailed works specification and milestones',
                       type: 'object',
-                      properties: {
-                        details: {
-                          horizontal: true,
-                          type: 'object',
-                          title: '',
-                          properties: {
-                            baselineDate: {
-                              type: 'string',
-                              format: 'date',
-                              title: 'Baseline Date',
-                              sourceKey: %i[baseline_data milestones procurementProvision provisionOfDetailedWorks],
-                              readonly: true
-                            },
-                            currentEstimatedDate: {
-                              type: 'string',
-                              title: 'Current estimated date',
-                              format: 'date'
-                            },
-                            estimatedPercentageComplete: {
-                              type: 'string',
-                              title: 'Estimated percentage complete',
-                              percentage: true
-                            },
-                            riskToAchievingBaseline: {
-                              type: 'string',
-                              title: 'Risk to achieving baseline date',
-                              enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
-                            },
-                            reasonForVariance: {
-                              type: 'string',
-                              title: 'Reasn for risk/ variance',
-                              extendedText: true
-                            }
-                          }
-                        },
+                      properties: {                     
                         completion: {
                           type: 'object',
                           title: '',
@@ -546,6 +540,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             completed: {
                               title: 'Completed?',
                               type: 'string',
+                              radio: true,
                               enum: %w[Yes No]
                             }
                           },
@@ -568,6 +563,48 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   properties: {
                                     completed: {
                                       enum: ['No']
+                                    },
+                                    details: {
+                                      horizontal: true,
+                                      type: 'object',
+                                      title: '',
+                                      properties: {
+                                        baselineDate: {
+                                          type: 'string',
+                                          format: 'date',
+                                          title: 'Baseline Date',
+                                          sourceKey: %i[baseline_data milestones procurementProvision provisionOfDetailedWorks],
+                                          readonly: true
+                                        },
+                                        currentEstimatedDate: {
+                                          type: 'string',
+                                          title: 'Current estimated date',
+                                          format: 'date'
+                                        },
+                                        estimatedPercentageComplete: {
+                                          type: 'string',
+                                          title: 'Estimated percentage complete',
+                                          percentage: true
+                                        }
+                                      }
+                                    },
+                                    risk: {
+                                      title: '',
+                                      type: 'object',
+                                      horizontal: true,
+                                      properties: {
+                                        riskToAchievingBaseline: {
+                                          type: 'string',
+                                          title: 'Risk to achieving baseline date',
+                                          radio: true,
+                                          enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+                                        },
+                                        reasonForVariance: {
+                                          type: 'string',
+                                          title: 'Reasn for risk/ variance',
+                                          extendedText: true
+                                        }
+                                      }
                                     }
                                   }
                                 }
@@ -580,41 +617,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     commencementDate: {
                       title: 'Commencement of works date (first, if multiple)',
                       type: 'object',
-                      properties: {
-                        details: {
-                          type: 'object',
-                          horizontal: true,
-                          title: '',
-                          properties: {
-                            baselineDate: {
-                              type: 'string',
-                              format: 'date',
-                              title: 'Baseline Date',
-                              sourceKey: %i[baseline_data milestones worksDate commencementDate],
-                              readonly: true
-                            },
-                            currentEstimatedDate: {
-                              type: 'string',
-                              title: 'Current estimated date',
-                              format: 'date'
-                            },
-                            estimatedPercentageComplete: {
-                              type: 'string',
-                              title: 'Estimated percentage complete',
-                              percentage: true
-                            },
-                            riskToAchievingBaseline: {
-                              type: 'string',
-                              title: 'Risk to achieving baseline date',
-                              enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
-                            },
-                            reasonForVariance: {
-                              type: 'string',
-                              title: 'Reasn for risk/ variance',
-                              extendedText: true
-                            }
-                          }
-                        },
+                      properties: {                      
                         completion: {
                           type: 'object',
                           title: '',
@@ -622,6 +625,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             completed: {
                               title: 'Completed?',
                               type: 'string',
+                              radio: true,
                               enum: %w[Yes No]
                             }
                           },
@@ -644,6 +648,48 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   properties: {
                                     completed: {
                                       enum: ['No']
+                                    },
+                                    details: {
+                                      type: 'object',
+                                      horizontal: true,
+                                      title: '',
+                                      properties: {
+                                        baselineDate: {
+                                          type: 'string',
+                                          format: 'date',
+                                          title: 'Baseline Date',
+                                          sourceKey: %i[baseline_data milestones worksDate commencementDate],
+                                          readonly: true
+                                        },
+                                        currentEstimatedDate: {
+                                          type: 'string',
+                                          title: 'Current estimated date',
+                                          format: 'date'
+                                        },
+                                        estimatedPercentageComplete: {
+                                          type: 'string',
+                                          title: 'Estimated percentage complete',
+                                          percentage: true
+                                        }
+                                      }
+                                    },
+                                    risk: {
+                                      title: '',
+                                      type: 'object',
+                                      horizontal: true,
+                                      properties: {
+                                        riskToAchievingBaseline: {
+                                          type: 'string',
+                                          title: 'Risk to achieving baseline date',
+                                          radio: true,
+                                          enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+                                        },
+                                        reasonForVariance: {
+                                          type: 'string',
+                                          title: 'Reasn for risk/ variance',
+                                          extendedText: true
+                                        }
+                                      }
                                     }
                                   }
                                 }
@@ -656,41 +702,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     completionDate: {
                       title: 'Completion of works date (last, if multiple)',
                       type: 'object',
-                      properties: {
-                        details: {
-                          type: 'object',
-                          horizontal: true,
-                          title: '',
-                          properties: {
-                            baselineDate: {
-                              type: 'string',
-                              format: 'date',
-                              title: 'Baseline Date',
-                              sourceKey: %i[baseline_data milestones worksDate completionDate],
-                              readonly: true
-                            },
-                            currentEstimatedDate: {
-                              type: 'string',
-                              title: 'Current estimated date',
-                              format: 'date'
-                            },
-                            estimatedPercentageComplete: {
-                              type: 'string',
-                              title: 'Estimated percentage complete',
-                              percentage: true
-                            },
-                            riskToAchievingBaseline: {
-                              type: 'string',
-                              title: 'Risk to achieving baseline date',
-                              enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
-                            },
-                            reasonForVariance: {
-                              type: 'string',
-                              title: 'Reasn for risk/ variance',
-                              extendedText: true
-                            }
-                          }
-                        },
+                      properties: {                       
                         completion: {
                           type: 'object',
                           title: '',
@@ -698,6 +710,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             completed: {
                               title: 'Completed?',
                               type: 'string',
+                              radio: true,
                               enum: %w[Yes No]
                             }
                           },
@@ -720,6 +733,48 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   properties: {
                                     completed: {
                                       enum: ['No']
+                                    },
+                                    details: {
+                                      type: 'object',
+                                      horizontal: true,
+                                      title: '',
+                                      properties: {
+                                        baselineDate: {
+                                          type: 'string',
+                                          format: 'date',
+                                          title: 'Baseline Date',
+                                          sourceKey: %i[baseline_data milestones worksDate completionDate],
+                                          readonly: true
+                                        },
+                                        currentEstimatedDate: {
+                                          type: 'string',
+                                          title: 'Current estimated date',
+                                          format: 'date'
+                                        },
+                                        estimatedPercentageComplete: {
+                                          type: 'string',
+                                          title: 'Estimated percentage complete',
+                                          percentage: true
+                                        }
+                                      }
+                                    },
+                                    risk: {
+                                      title: '',
+                                      type: 'object',
+                                      horizontal: true,
+                                      properties: {
+                                        riskToAchievingBaseline: {
+                                          type: 'string',
+                                          title: 'Risk to achieving baseline date',
+                                          radio: true,
+                                          enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+                                        },
+                                        reasonForVariance: {
+                                          type: 'string',
+                                          title: 'Reasn for risk/ variance',
+                                          extendedText: true
+                                        }
+                                      }
                                     }
                                   }
                                 }
@@ -732,41 +787,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     outlinePlanningGrantedDate: {
                       title: 'Outline planning permission granted date',
                       type: 'object',
-                      properties: {
-                        details: {
-                          type: 'object',
-                          horizontal: true,
-                          title: '',
-                          properties: {
-                            baselineDate: {
-                              type: 'string',
-                              format: 'date',
-                              title: 'Baseline Date',
-                              sourceKey: %i[baseline_data milestones outlinePlanning outlinePlanningGrantedDate],
-                              readonly: true
-                            },
-                            currentEstimatedDate: {
-                              type: 'string',
-                              title: 'Current estimated date',
-                              format: 'date'
-                            },
-                            estimatedPercentageComplete: {
-                              type: 'string',
-                              title: 'Estimated percentage complete',
-                              percentage: true
-                            },
-                            riskToAchievingBaseline: {
-                              type: 'string',
-                              title: 'Risk to achieving baseline date',
-                              enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
-                            },
-                            reasonForVariance: {
-                              type: 'string',
-                              title: 'Reasn for risk/ variance',
-                              extendedText: true
-                            }
-                          }
-                        },
+                      properties: {                      
                         completion: {
                           type: 'object',
                           title: '',
@@ -774,6 +795,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             completed: {
                               title: 'Completed?',
                               type: 'string',
+                              radio: true,
                               enum: %w[Yes No]
                             }
                           },
@@ -800,6 +822,48 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   properties: {
                                     completed: {
                                       enum: ['No']
+                                    },
+                                    details: {
+                                      type: 'object',
+                                      horizontal: true,
+                                      title: '',
+                                      properties: {
+                                        baselineDate: {
+                                          type: 'string',
+                                          format: 'date',
+                                          title: 'Baseline Date',
+                                          sourceKey: %i[baseline_data milestones outlinePlanning outlinePlanningGrantedDate],
+                                          readonly: true
+                                        },
+                                        currentEstimatedDate: {
+                                          type: 'string',
+                                          title: 'Current estimated date',
+                                          format: 'date'
+                                        },
+                                        estimatedPercentageComplete: {
+                                          type: 'string',
+                                          title: 'Estimated percentage complete',
+                                          percentage: true
+                                        }
+                                      }
+                                    },
+                                    risk: {
+                                      title: '',
+                                      type: 'object',
+                                      horizontal: true,
+                                      properties: {
+                                        riskToAchievingBaseline: {
+                                          type: 'string',
+                                          title: 'Risk to achieving baseline date',
+                                          radio: true,
+                                          enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+                                        },
+                                        reasonForVariance: {
+                                          type: 'string',
+                                          title: 'Reasn for risk/ variance',
+                                          extendedText: true
+                                        }
+                                      }
                                     }
                                   }
                                 }
@@ -812,41 +876,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     reservedMatterPermissionGrantedDate: {
                       title: 'Reserved Matter Permission Granted date',
                       type: 'object',
-                      properties: {
-                        details: {
-                          type: 'object',
-                          horizontal: true,
-                          title: '',
-                          properties: {
-                            baselineDate: {
-                              type: 'string',
-                              format: 'date',
-                              title: 'Baseline Date',
-                              sourceKey: %i[baseline_data milestones outlinePlanning reservedMatterPermissionGrantedDate],
-                              readonly: true
-                            },
-                            currentEstimatedDate: {
-                              type: 'string',
-                              title: 'Current estimated date',
-                              format: 'date'
-                            },
-                            estimatedPercentageComplete: {
-                              type: 'string',
-                              title: 'Estimated percentage complete',
-                              percentage: true
-                            },
-                            riskToAchievingBaseline: {
-                              type: 'string',
-                              title: 'Risk to achieving baseline date',
-                              enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
-                            },
-                            reasonForVariance: {
-                              type: 'string',
-                              title: 'Reasn for risk/ variance',
-                              extendedText: true
-                            }
-                          }
-                        },
+                      properties: {                     
                         completion: {
                           type: 'object',
                           title: '',
@@ -854,6 +884,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             completed: {
                               title: 'Completed?',
                               type: 'string',
+                              radio: true,
                               enum: %w[Yes No]
                             }
                           },
@@ -880,6 +911,48 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   properties: {
                                     completed: {
                                       enum: ['No']
+                                    },
+                                    details: {
+                                      type: 'object',
+                                      horizontal: true,
+                                      title: '',
+                                      properties: {
+                                        baselineDate: {
+                                          type: 'string',
+                                          format: 'date',
+                                          title: 'Baseline Date',
+                                          sourceKey: %i[baseline_data milestones outlinePlanning reservedMatterPermissionGrantedDate],
+                                          readonly: true
+                                        },
+                                        currentEstimatedDate: {
+                                          type: 'string',
+                                          title: 'Current estimated date',
+                                          format: 'date'
+                                        },
+                                        estimatedPercentageComplete: {
+                                          type: 'string',
+                                          title: 'Estimated percentage complete',
+                                          percentage: true
+                                        }
+                                      }
+                                    },
+                                    risk: {
+                                      title: '',
+                                      type: 'object',
+                                      horizontal: true,
+                                      properties: {
+                                        riskToAchievingBaseline: {
+                                          type: 'string',
+                                          title: 'Risk to achieving baseline date',
+                                          radio: true,
+                                          enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+                                        },
+                                        reasonForVariance: {
+                                          type: 'string',
+                                          title: 'Reasn for risk/ variance',
+                                          extendedText: true
+                                        }
+                                      }
                                     }
                                   }
                                 }
@@ -892,41 +965,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     marketingCommenced: {
                       title: 'Developer Partner marketing commenced (EOI or formal tender)',
                       type: 'object',
-                      properties: {
-                        details: {
-                          type: 'object',
-                          horizontal: true,
-                          title: '',
-                          properties: {
-                            baselineDate: {
-                              type: 'string',
-                              format: 'date',
-                              title: 'Baseline Date',
-                              sourceKey: %i[baseline_data milestones marketingCommenced],
-                              readonly: true
-                            },
-                            currentEstimatedDate: {
-                              type: 'string',
-                              title: 'Current estimated date',
-                              format: 'date'
-                            },
-                            estimatedPercentageComplete: {
-                              type: 'string',
-                              title: 'Estimated percentage complete',
-                              percentage: true
-                            },
-                            riskToAchievingBaseline: {
-                              type: 'string',
-                              title: 'Risk to achieving baseline date',
-                              enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
-                            },
-                            reasonForVariance: {
-                              type: 'string',
-                              title: 'Reasn for risk/ variance',
-                              extendedText: true
-                            }
-                          }
-                        },
+                      properties: {                  
                         completion: {
                           type: 'object',
                           title: '',
@@ -934,6 +973,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             completed: {
                               title: 'Completed?',
                               type: 'string',
+                              radio: true,
                               enum: %w[Yes No]
                             }
                           },
@@ -956,6 +996,48 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   properties: {
                                     completed: {
                                       enum: ['No']
+                                    },
+                                    details: {
+                                      type: 'object',
+                                      horizontal: true,
+                                      title: '',
+                                      properties: {
+                                        baselineDate: {
+                                          type: 'string',
+                                          format: 'date',
+                                          title: 'Baseline Date',
+                                          sourceKey: %i[baseline_data milestones marketingCommenced],
+                                          readonly: true
+                                        },
+                                        currentEstimatedDate: {
+                                          type: 'string',
+                                          title: 'Current estimated date',
+                                          format: 'date'
+                                        },
+                                        estimatedPercentageComplete: {
+                                          type: 'string',
+                                          title: 'Estimated percentage complete',
+                                          percentage: true
+                                        }
+                                      }
+                                    },
+                                    risk: {
+                                      title: '',
+                                      type: 'object',
+                                      horizontal: true,
+                                      properties: {
+                                        riskToAchievingBaseline: {
+                                          type: 'string',
+                                          title: 'Risk to achieving baseline date',
+                                          radio: true,
+                                          enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+                                        },
+                                        reasonForVariance: {
+                                          type: 'string',
+                                          title: 'Reasn for risk/ variance',
+                                          extendedText: true
+                                        }
+                                      }
                                     }
                                   }
                                 }
@@ -969,41 +1051,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     conditionalContractSigned: {
                       title: 'Conditional contract signed',
                       type: 'object',
-                      properties: {
-                        details: {
-                          type: 'object',
-                          horizontal: true,
-                          title: '',
-                          properties: {
-                            baselineDate: {
-                              type: 'string',
-                              format: 'date',
-                              title: 'Baseline Date',
-                              sourceKey: %i[baseline_data milestones contractSigned conditionalContractSigned],
-                              readonly: true
-                            },
-                            currentEstimatedDate: {
-                              type: 'string',
-                              title: 'Current estimated date',
-                              format: 'date'
-                            },
-                            estimatedPercentageComplete: {
-                              type: 'string',
-                              title: 'Estimated percentage complete',
-                              percentage: true
-                            },
-                            riskToAchievingBaseline: {
-                              type: 'string',
-                              title: 'Risk to achieving baseline date',
-                              enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
-                            },
-                            reasonForVariance: {
-                              type: 'string',
-                              title: 'Reasn for risk/ variance',
-                              extendedText: true
-                            }
-                          }
-                        },
+                      properties: {                    
                         completion: {
                           type: 'object',
                           title: '',
@@ -1011,6 +1059,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             completed: {
                               title: 'Completed?',
                               type: 'string',
+                              radio: true,
                               enum: %w[Yes No]
                             }
                           },
@@ -1038,6 +1087,48 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   properties: {
                                     completed: {
                                       enum: ['No']
+                                    },
+                                    details: {
+                                      type: 'object',
+                                      horizontal: true,
+                                      title: '',
+                                      properties: {
+                                        baselineDate: {
+                                          type: 'string',
+                                          format: 'date',
+                                          title: 'Baseline Date',
+                                          sourceKey: %i[baseline_data milestones contractSigned conditionalContractSigned],
+                                          readonly: true
+                                        },
+                                        currentEstimatedDate: {
+                                          type: 'string',
+                                          title: 'Current estimated date',
+                                          format: 'date'
+                                        },
+                                        estimatedPercentageComplete: {
+                                          type: 'string',
+                                          title: 'Estimated percentage complete',
+                                          percentage: true
+                                        }
+                                      }
+                                    },
+                                    risk: {
+                                      title: '',
+                                      type: 'object',
+                                      horizontal: true,
+                                      properties: {
+                                        riskToAchievingBaseline: {
+                                          type: 'string',
+                                          title: 'Risk to achieving baseline date',
+                                          radio: true,
+                                          enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+                                        },
+                                        reasonForVariance: {
+                                          type: 'string',
+                                          title: 'Reasn for risk/ variance',
+                                          extendedText: true
+                                        }
+                                      }
                                     }
                                   }
                                 }
@@ -1050,41 +1141,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     unconditionalContractSigned: {
                       title: 'Unconditional contract signed',
                       type: 'object',
-                      properties: {
-                        details: {
-                          type: 'object',
-                          horizontal: true,
-                          title: '',
-                          properties: {
-                            baselineDate: {
-                              type: 'string',
-                              format: 'date',
-                              title: 'Baseline Date',
-                              sourceKey: %i[baseline_data milestones contractSigned unconditionalContractSigned],
-                              readonly: true
-                            },
-                            currentEstimatedDate: {
-                              type: 'string',
-                              title: 'Current estimated date',
-                              format: 'date'
-                            },
-                            estimatedPercentageComplete: {
-                              type: 'string',
-                              title: 'Estimated percentage complete',
-                              percentage: true
-                            },
-                            riskToAchievingBaseline: {
-                              type: 'string',
-                              title: 'Risk to achieving baseline date',
-                              enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
-                            },
-                            reasonForVariance: {
-                              type: 'string',
-                              title: 'Reasn for risk/ variance',
-                              extendedText: true
-                            }
-                          }
-                        },
+                      properties: {                        
                         completion: {
                           type: 'object',
                           title: '',
@@ -1092,6 +1149,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             completed: {
                               title: 'Completed?',
                               type: 'string',
+                              radio: true,
                               enum: %w[Yes No]
                             }
                           },
@@ -1114,6 +1172,48 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   properties: {
                                     completed: {
                                       enum: ['No']
+                                    },
+                                    details: {
+                                      type: 'object',
+                                      horizontal: true,
+                                      title: '',
+                                      properties: {
+                                        baselineDate: {
+                                          type: 'string',
+                                          format: 'date',
+                                          title: 'Baseline Date',
+                                          sourceKey: %i[baseline_data milestones contractSigned unconditionalContractSigned],
+                                          readonly: true
+                                        },
+                                        currentEstimatedDate: {
+                                          type: 'string',
+                                          title: 'Current estimated date',
+                                          format: 'date'
+                                        },
+                                        estimatedPercentageComplete: {
+                                          type: 'string',
+                                          title: 'Estimated percentage complete',
+                                          percentage: true
+                                        }
+                                      }
+                                    },
+                                    risk: {
+                                      title: '',
+                                      type: 'object',
+                                      horizontal: true,
+                                      properties: {
+                                        riskToAchievingBaseline: {
+                                          type: 'string',
+                                          title: 'Risk to achieving baseline date',
+                                          radio: true,
+                                          enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+                                        },
+                                        reasonForVariance: {
+                                          type: 'string',
+                                          title: 'Reasn for risk/ variance',
+                                          extendedText: true
+                                        }
+                                      }
                                     }
                                   }
                                 }
@@ -1127,40 +1227,6 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                       title: 'Start on site date',
                       type: 'object',
                       properties: {
-                        details: {
-                          horizontal: true,
-                          type: 'object',
-                          title: '',
-                          properties: {
-                            baselineDate: {
-                              type: 'string',
-                              format: 'date',
-                              title: 'Baseline Date',
-                              sourceKey: %i[baseline_data milestones workDates startOnSiteDate],
-                              readonly: true
-                            },
-                            currentEstimatedDate: {
-                              type: 'string',
-                              title: 'Current estimated date',
-                              format: 'date'
-                            },
-                            estimatedPercentageComplete: {
-                              type: 'string',
-                              title: 'Estimated percentage complete',
-                              percentage: true
-                            },
-                            riskToAchievingBaseline: {
-                              type: 'string',
-                              title: 'Risk to achieving baseline date',
-                              enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
-                            },
-                            reasonForVariance: {
-                              type: 'string',
-                              title: 'Reasn for risk/ variance',
-                              extendedText: true
-                            }
-                          }
-                        },
                         completion: {
                           type: 'object',
                           title: '',
@@ -1168,6 +1234,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             completed: {
                               title: 'Completed?',
                               type: 'string',
+                              radio: true,
                               enum: %w[Yes No]
                             }
                           },
@@ -1190,6 +1257,48 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   properties: {
                                     completed: {
                                       enum: ['No']
+                                    },
+                                    details: {
+                                      horizontal: true,
+                                      type: 'object',
+                                      title: '',
+                                      properties: {
+                                        baselineDate: {
+                                          type: 'string',
+                                          format: 'date',
+                                          title: 'Baseline Date',
+                                          sourceKey: %i[baseline_data milestones workDates startOnSiteDate],
+                                          readonly: true
+                                        },
+                                        currentEstimatedDate: {
+                                          type: 'string',
+                                          title: 'Current estimated date',
+                                          format: 'date'
+                                        },
+                                        estimatedPercentageComplete: {
+                                          type: 'string',
+                                          title: 'Estimated percentage complete',
+                                          percentage: true
+                                        }
+                                      }
+                                    },
+                                    risk: {
+                                      title: '',
+                                      type: 'object',
+                                      horizontal: true,
+                                      properties: {
+                                        riskToAchievingBaseline: {
+                                          type: 'string',
+                                          title: 'Risk to achieving baseline date',
+                                          radio: true,
+                                          enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+                                        },
+                                        reasonForVariance: {
+                                          type: 'string',
+                                          title: 'Reasn for risk/ variance',
+                                          extendedText: true
+                                        }
+                                      }
                                     }
                                   }
                                 }
@@ -1202,41 +1311,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     startOnFirstUnitDate: {
                       title: 'Start of first unit date',
                       type: 'object',
-                      properties: {
-                        details: {
-                          horizontal: true,
-                          type: 'object',
-                          title: '',
-                          properties: {
-                            baselineDate: {
-                              type: 'string',
-                              format: 'date',
-                              title: 'Baseline Date',
-                              sourceKey: %i[baseline_data milestones workDates startOnFirstUnitDate],
-                              readonly: true
-                            },
-                            currentEstimatedDate: {
-                              type: 'string',
-                              title: 'Current estimated date',
-                              format: 'date'
-                            },
-                            estimatedPercentageComplete: {
-                              type: 'string',
-                              title: 'Estimated percentage complete',
-                              percentage: true
-                            },
-                            riskToAchievingBaseline: {
-                              type: 'string',
-                              title: 'Risk to achieving baseline date',
-                              enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
-                            },
-                            reasonForVariance: {
-                              type: 'string',
-                              title: 'Reasn for risk/ variance',
-                              extendedText: true
-                            }
-                          }
-                        },
+                      properties: {              
                         completion: {
                           type: 'object',
                           title: '',
@@ -1244,6 +1319,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             completed: {
                               title: 'Completed?',
                               type: 'string',
+                              radio: true,
                               enum: %w[Yes No]
                             }
                           },
@@ -1266,6 +1342,48 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   properties: {
                                     completed: {
                                       enum: ['No']
+                                    },
+                                    details: {
+                                      horizontal: true,
+                                      type: 'object',
+                                      title: '',
+                                      properties: {
+                                        baselineDate: {
+                                          type: 'string',
+                                          format: 'date',
+                                          title: 'Baseline Date',
+                                          sourceKey: %i[baseline_data milestones workDates startOnFirstUnitDate],
+                                          readonly: true
+                                        },
+                                        currentEstimatedDate: {
+                                          type: 'string',
+                                          title: 'Current estimated date',
+                                          format: 'date'
+                                        },
+                                        estimatedPercentageComplete: {
+                                          type: 'string',
+                                          title: 'Estimated percentage complete',
+                                          percentage: true
+                                        }
+                                      }
+                                    },
+                                    risk: {
+                                      title: '',
+                                      type: 'object',
+                                      horizontal: true,
+                                      properties: {
+                                        riskToAchievingBaseline: {
+                                          type: 'string',
+                                          title: 'Risk to achieving baseline date',
+                                          radio: true,
+                                          enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+                                        },
+                                        reasonForVariance: {
+                                          type: 'string',
+                                          title: 'Reasn for risk/ variance',
+                                          extendedText: true
+                                        }
+                                      }
                                     }
                                   }
                                 }
@@ -1279,40 +1397,6 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                       title: 'Completion of Final Unit Date',
                       type: 'object',
                       properties: {
-                        details: {
-                          type: 'object',
-                          horizontal: true,
-                          title: '',
-                          properties: {
-                            baselineDate: {
-                              type: 'string',
-                              format: 'date',
-                              title: 'Baseline Date',
-                              sourceKey: %i[baseline_data milestones completionDates completionOfFinalUnitData],
-                              readonly: true
-                            },
-                            currentEstimatedDate: {
-                              type: 'string',
-                              title: 'Current estimated date',
-                              format: 'date'
-                            },
-                            estimatedPercentageComplete: {
-                              type: 'string',
-                              title: 'Estimated percentage complete',
-                              percentage: true
-                            },
-                            riskToAchievingBaseline: {
-                              type: 'string',
-                              title: 'Risk to achieving baseline date',
-                              enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
-                            },
-                            reasonForVariance: {
-                              type: 'string',
-                              title: 'Reasn for risk/ variance',
-                              extendedText: true
-                            }
-                          }
-                        },
                         completion: {
                           type: 'object',
                           title: '',
@@ -1320,6 +1404,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             completed: {
                               title: 'Completed?',
                               type: 'string',
+                              radio: true,
                               enum: %w[Yes No]
                             }
                           },
@@ -1342,6 +1427,48 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   properties: {
                                     completed: {
                                       enum: ['No']
+                                    },
+                                    details: {
+                                      type: 'object',
+                                      horizontal: true,
+                                      title: '',
+                                      properties: {
+                                        baselineDate: {
+                                          type: 'string',
+                                          format: 'date',
+                                          title: 'Baseline Date',
+                                          sourceKey: %i[baseline_data milestones completionDates completionOfFinalUnitData],
+                                          readonly: true
+                                        },
+                                        currentEstimatedDate: {
+                                          type: 'string',
+                                          title: 'Current estimated date',
+                                          format: 'date'
+                                        },
+                                        estimatedPercentageComplete: {
+                                          type: 'string',
+                                          title: 'Estimated percentage complete',
+                                          percentage: true
+                                        }
+                                      }
+                                    },
+                                    risk: {
+                                      title: '',
+                                      type: 'object',
+                                      horizontal: true,
+                                      properties: {
+                                        riskToAchievingBaseline: {
+                                          type: 'string',
+                                          title: 'Risk to achieving baseline date',
+                                          radio: true,
+                                          enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+                                        },
+                                        reasonForVariance: {
+                                          type: 'string',
+                                          title: 'Reasn for risk/ variance',
+                                          extendedText: true
+                                        }
+                                      }
                                     }
                                   }
                                 }
@@ -1354,41 +1481,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     projectCompletionDate: {
                       title: 'Project Completion Date',
                       type: 'object',
-                      properties: {
-                        details: {
-                          type: 'object',
-                          horizontal: true,
-                          title: '',
-                          properties: {
-                            baselineDate: {
-                              type: 'string',
-                              format: 'date',
-                              title: 'Baseline Date',
-                              sourceKey: %i[baseline_data milestones completionDates projectCompletionDate],
-                              readonly: true
-                            },
-                            currentEstimatedDate: {
-                              type: 'string',
-                              title: 'Current estimated date',
-                              format: 'date'
-                            },
-                            estimatedPercentageComplete: {
-                              type: 'string',
-                              title: 'Estimated percentage complete',
-                              percentage: true
-                            },
-                            riskToAchievingBaseline: {
-                              type: 'string',
-                              title: 'Risk to achieving baseline date',
-                              enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
-                            },
-                            reasonForVariance: {
-                              type: 'string',
-                              title: 'Reasn for risk/ variance',
-                              extendedText: true
-                            }
-                          }
-                        },
+                      properties: {            
                         completion: {
                           type: 'object',
                           title: '',
@@ -1396,6 +1489,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             completed: {
                               title: 'Completed?',
                               type: 'string',
+                              radio: true,
                               enum: %w[Yes No]
                             }
                           },
@@ -1418,6 +1512,48 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                   properties: {
                                     completed: {
                                       enum: ['No']
+                                    },
+                                    details: {
+                                      type: 'object',
+                                      horizontal: true,
+                                      title: '',
+                                      properties: {
+                                        baselineDate: {
+                                          type: 'string',
+                                          format: 'date',
+                                          title: 'Baseline Date',
+                                          sourceKey: %i[baseline_data milestones completionDates projectCompletionDate],
+                                          readonly: true
+                                        },
+                                        currentEstimatedDate: {
+                                          type: 'string',
+                                          title: 'Current estimated date',
+                                          format: 'date'
+                                        },
+                                        estimatedPercentageComplete: {
+                                          type: 'string',
+                                          title: 'Estimated percentage complete',
+                                          percentage: true
+                                        }
+                                      }
+                                    },
+                                    risk: {
+                                      title: '',
+                                      type: 'object',
+                                      horizontal: true,
+                                      properties: {
+                                        riskToAchievingBaseline: {
+                                          type: 'string',
+                                          title: 'Risk to achieving baseline date',
+                                          radio: true,
+                                          enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+                                        },
+                                        reasonForVariance: {
+                                          type: 'string',
+                                          title: 'Reasn for risk/ variance',
+                                          extendedText: true
+                                        }
+                                      }
                                     }
                                   }
                                 }
@@ -1439,79 +1575,82 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             title: 'Name of custom milestone',
                             sourceKey: %i[baseline_data milestones customMileStones customName]
                           },
-                          milestoneDetails: {
+                          completion: {
                             type: 'object',
                             title: '',
                             properties: {
-                              details: {
-                                type: 'object',
-                                horizontal: true,
-                                title: '',
-                                properties: {
-                                  baselineDate: {
-                                    type: 'string',
-                                    format: 'date',
-                                    title: 'Baseline Date',
-                                    sourceKey: %i[baseline_data milestones customMileStones customDate],
-                                    readonly: true
+                              completed: {
+                                title: 'Completed?',
+                                type: 'string',
+                                radio: true,
+                                enum: %w[Yes No]
+                              }
+                            },
+                            dependencies: {
+                              completed: {
+                                oneOf: [
+                                  {
+                                    properties: {
+                                      completed: {
+                                        enum: ['Yes']
+                                      },
+                                      dateOfCompletion: {
+                                        type: 'string',
+                                        title: 'Date completed?',
+                                        format: 'date'
+                                      }
+                                    }
                                   },
-                                  currentEstimatedDate: {
-                                    type: 'string',
-                                    title: 'Current estimated date',
-                                    format: 'date'
-                                  },
-                                  estimatedPercentageComplete: {
-                                    type: 'string',
-                                    title: 'Estimated percentage complete',
-                                    percentage: true
-                                  },
-                                  riskToAchievingBaseline: {
-                                    type: 'string',
-                                    title: 'Risk to achieving baseline date',
-                                    enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
-                                  },
-                                  reasonForVariance: {
-                                    type: 'string',
-                                    title: 'Reasn for risk/ variance',
-                                    extendedText: true
-                                  }
-                                }
-                              },
-                              completion: {
-                                type: 'object',
-                                title: '',
-                                properties: {
-                                  completed: {
-                                    title: 'Completed?',
-                                    type: 'string',
-                                    enum: %w[Yes No]
-                                  }
-                                },
-                                dependencies: {
-                                  completed: {
-                                    oneOf: [
-                                      {
+                                  {
+                                    properties: {
+                                      completed: {
+                                        enum: ['No']
+                                      },
+                                      details: {
+                                        type: 'object',
+                                        horizontal: true,
+                                        title: '',
                                         properties: {
-                                          completed: {
-                                            enum: ['Yes']
-                                          },
-                                          dateOfCompletion: {
+                                          baselineDate: {
                                             type: 'string',
-                                            title: 'Date completed?',
+                                            format: 'date',
+                                            title: 'Baseline Date',
+                                            sourceKey: %i[baseline_data milestones customMileStones customDate],
+                                            readonly: true
+                                          },
+                                          currentEstimatedDate: {
+                                            type: 'string',
+                                            title: 'Current estimated date',
                                             format: 'date'
+                                          },
+                                          estimatedPercentageComplete: {
+                                            type: 'string',
+                                            title: 'Estimated percentage complete',
+                                            percentage: true
                                           }
                                         }
                                       },
-                                      {
+                                      risk: {
+                                        title: '',
+                                        type: 'object',
+                                        horizontal: true,
                                         properties: {
-                                          completed: {
-                                            enum: ['No']
+                                          riskToAchievingBaseline: {
+                                            type: 'string',
+                                            title: 'Risk to achieving baseline date',
+                                            radio: true,
+                                            enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+                                          },
+                                          reasonForVariance: {
+                                            type: 'string',
+                                            title: 'Reasn for risk/ variance',
+                                            extendedText: true
                                           }
                                         }
                                       }
-                                    ]
+                                    }
                                   }
-                                }
+                                ]
                               }
                             }
                           }
@@ -1568,6 +1707,516 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
         }
       }
     end
+
+    add_grant_expenditure_tab_ac
+    add_s151_grant_approval_ac
+    add_housing_outputs_ac
+    add_s151_submission_ac
+    add_review_and_assurance_tab_ac 
+
+    @return_template
+  end
+
+  def add_grant_expenditure_tab_ac
+    @return_template.schema[:properties][:grantExpenditure] = {
+      title: 'Grant Expenditure Profile',
+      type: 'object',
+      properties: {
+        baseline: {
+          type: 'array',
+          title: 'Baseline',
+          quarterly: true,
+          items: {
+            type: 'objet',
+            title: '',
+            properties: {
+              year: {
+                type: "string",
+                title: "Year",
+                readonly: true,
+                sourceKey: %i[baseline_data financials expenditure year]
+              },
+              Q1Amount: {
+                type: "string",
+                title: "First Quarter",
+                currency: true,
+                readonly: true,
+                sourceKey: %i[baseline_data financials expenditure Q1Amount]
+              },
+              Q2Amount: {
+                type: "string",
+                title: "Second Quarter",
+                currency: true,
+                readonly: true,
+                sourceKey: %i[baseline_data financials expenditure Q2Amount]
+              },
+              Q3Amount: {
+                type: "string",
+                title: "Third Quarter",
+                currency: true,
+                readonly: true,
+                sourceKey: %i[baseline_data financials expenditure Q3Amount]
+              },
+              Q4Amount: {
+                type: "string",
+                title: "Fourth Quarter",
+                currency: true,
+                readonly: true,
+                sourceKey: %i[baseline_data financials expenditure Q4Amount]
+              },
+              total: {
+                type: 'string',
+                title: 'Total',
+                currency: true,
+                readonly: true
+              }
+            }
+          }
+        },
+        claimedToDate: {
+          type: 'array',
+          title: 'Claimed to date',
+          quarterly: true,
+          items: {
+            type: 'object',
+            title: '',
+            properties: {
+              year: {
+                type: "string",
+                title: "Year",
+                sourceKey: %i[baseline_data financials expenditure year]
+              },
+              Q1Amount: {
+                type: "string",
+                title: "First Quarter",
+                currency: true
+              },
+              Q2Amount: {
+                type: "string",
+                title: "Second Quarter",
+                currency: true
+              },
+              Q3Amount: {
+                type: "string",
+                title: "Third Quarter",
+                currency: true
+              },
+              Q4Amount: {
+                type: "string",
+                title: "Fourth Quarter",
+                currency: true
+              },
+              total: {
+                type: 'string',
+                title: 'Total',
+                currency: true,
+                readonly: true
+              }
+            }
+          }
+        },
+        remainingEstimate: {
+          type: 'array',
+          title: 'Remaining Estimate',
+          quarterly: true,
+          items: {
+            type: 'object',
+            title: '',
+            properties: {
+              year: {
+                type: "string",
+                title: "Year",
+                sourceKey: %i[baseline_data financials expenditure year]
+              },
+              Q1Amount: {
+                type: "string",
+                title: "First Quarter",
+                currency: true
+              },
+              Q2Amount: {
+                type: "string",
+                title: "Second Quarter",
+                currency: true
+              },
+              Q3Amount: {
+                type: "string",
+                title: "Third Quarter",
+                currency: true
+              },
+              Q4Amount: {
+                type: "string",
+                title: "Fourth Quarter",
+                currency: true
+              },
+              total: {
+                type: 'string',
+                title: 'Total',
+                currency: true,
+                readonly: true
+              }
+            }
+          }
+        },
+        riskRating: {
+          type: 'array',
+          title: 'Riak Rating',
+          quarterly: true,
+          items: {
+            type: 'object',
+            title: '',
+            properties: {
+              year: {
+                type: "string",
+                title: "Year",
+                sourceKey: %i[baseline_data financials expenditure year]
+              },
+              Q1Rating: {
+                type: "string",
+                title: "First Quarter",
+                enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+              },
+              Q2Rating: {
+                type: "string",
+                title: "Second Quarter",
+                enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+              },
+              Q3Rating: {
+                type: "string",
+                title: "Third Quarter",
+                enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+              },
+              Q4Rating: {
+                type: "string",
+                title: "Fourth Quarter",
+                enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+              },
+              total: {
+                type: 'string',
+                title: 'Total',
+                enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High'],
+                readonly: true
+              }
+            }
+          }
+        },
+        changesRequired: {
+          type: 'string',
+          radio: true,
+          title: 'Changes Required?',
+          enum: ['Do not change the baseline', 'Request change to baseline to match latest estimates']
+        }
+      },
+      dependencies: {
+        changesRequired: {
+          oneOf: [
+            {
+              properties: {
+                changesRequired: {
+                  enum: ['Do not change the baseline']
+                }
+              }
+            },
+            {
+              properties: {
+                changesRequired: {
+                  enum: ['Request change to baseline to match latest estimates']
+                },
+                reasonForChange: {
+                  type: 'string',
+                  title: 'Reason for change/variance, and steps being taken to address this',
+                  extendedText: true
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  end
+
+  def add_s151_grant_approval_ac
+    @return_template.schema[:properties][:s151GrantClaimApproval] = {
+      title: 'S151 Officer Grant Claim Approval',
+      type: 'object',
+      properties: {
+        claimSummary: {
+          title: 'Summary of Claim',
+          type: 'object',
+          properties: {
+            TotalFundingRequest: {
+              type: 'string',
+              title: 'Total Funding Request',
+              currency: true
+            },
+            SpendToDate: {
+              type: 'string',
+              hidden: true,
+              title: 'Spend to Date',
+              currency: true
+            },
+            AmountOfThisClaim: {
+              type: 'string',
+              title: 'Amount of this Claim',
+              currency: true
+            }
+          }
+        },
+        supportingEvidence: {
+          type: 'object',
+          title: 'Supporting Evidence',
+          properties: {
+            lastQuarterMonthSpend: {
+              type: 'object',
+              title: 'Last Quarter Month Spend',
+              properties: {
+                forecast: {
+                  title: 'Forecasted Spend Last Quarter Month',
+                  type: 'string',
+                  hidden: true,
+                  currency: true
+                },
+                actual: {
+                  title: 'Actual Spend Last Quarter Month',
+                  type: 'string',
+                  currency: true
+                },
+                varianceAgainstForcastAmount: {
+                  title: 'Variance Against Forecast',
+                  type: 'string',
+                  hidden: true,
+                  currency: true
+                },
+                varianceAgainstForcastPercentage: {
+                  title: 'Variance Against Forecast',
+                  type: 'string',
+                  percentage: true,
+                  hidden: true
+                }
+              }
+            },
+            evidenceOfSpendPastQuarter: {
+              title: 'Evidence of Spend for the Past Quarter.',
+              type: 'string',
+              hidden: true
+            },
+            breakdownOfNextQuarterSpend: {
+              title: 'Evidence of Next Quarter Spend',
+              type: 'object',
+              properties: {
+                forecast: {
+                  title: 'Forecasted Spend (£)',
+                  type: 'string',
+                  currency: true
+                },
+                descriptionOfSpend: {
+                  title: 'Description of Spend',
+                  type: 'string',
+                  extendedText: true
+                },
+                evidenceOfSpendNextQuarter: {
+                  title: 'Evidence of Spend for the Past Quarter.',
+                  type: 'string',
+                  hidden: true
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  end
+
+  def add_housing_outputs_ac
+    @return_template.schema[:properties][:housingOutputs] = {
+      title: 'Housing Outputs',
+      type: 'object',
+      properties: {
+        tbc: {
+          type: 'object',
+          title: '',
+          properties: {
+            tbc: {
+              type: 'string',
+              title: 'Still awaiting Details from anthony',
+              readonly: true
+            }
+          }
+        }
+      }
+    }
+  end
+
+  def add_s151_submission_ac
+    @return_template.schema[:properties][:s151submission] = {
+      title: 'S151 Officer Submission Sign-Off',
+      type: 'object',
+      properties: {
+        submission: {
+          type: 'object',
+          title: '',
+          properties: {
+            confirmation: {
+              type: 'object',
+              title: 'Please confirm you are content with the submission, including:',
+              properties: {
+                estimatedGrantProfiles: {
+                  type: 'string',
+                  title: 'Estimated grant draw down profiles, including any changes requested to these',
+                  enum: %w[Yes No],
+                  radio: true
+                },
+                milestoneDateEstimates: {
+                  type: 'string',
+                  title: 'Milestone date estimates, including any changes requested to these',
+                  enum: %w[Yes No],
+                  radio: true
+                },
+                milestoneDatesAchieved: {
+                  type: 'string',
+                  title: 'Milestone dates achieved, including any evidence submitted to validate these',
+                  enum: %w[Yes No],
+                  radio: true
+                },
+                housingOutputsEstimates: {
+                  type: 'string',
+                  title: 'Housing output profile estimates, including any changes requested to these',
+                  enum: %w[Yes No],
+                  radio: true
+                },
+                housingClaimedAsAchieved: {
+                  type: 'string',
+                  title: 'Housing outputs claimed as achieved, including any evidence submitted to validate these',
+                  enum: %w[Yes No],
+                  radio: true
+                },
+                receiptEstimates: {
+                  type: 'string',
+                  title: 'Receipt (income) estimates and actual income, including any evidence submitted to validate these',
+                  enum: %w[Yes No],
+                  radio: true
+                },
+                noOtherGrantFundin: {
+                  type: 'string',
+                  title: 'That no other Grant Funding Agreement conditions have been breached.',
+                  enum: %w[Yes No],
+                  radio: true
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  end
+
+  def add_review_and_assurance_tab_ac 
+    @return_template.schema[:properties][:reviewAndAssurance] = {
+      title: 'Review and Assurance',
+      type: 'object',
+      properties: {
+        date: {
+          title: 'Date of most recent meeting',
+          type: 'string',
+          format: 'date'
+        },
+        infrastructureDelivery: {
+          type: 'object',
+          title: '',
+          horizontal: true,
+          properties: {
+            details: {
+              type: 'string',
+              title: 'Infrastructure Delivery',
+              extendedText: true
+            },
+            riskRating: {
+              type: 'string',
+              title: 'Risk Rating',
+              radio: true,
+              enum: ['High', 'Medium High', 'Medium Low', 'Low', 'Contractual']
+            }
+          }
+        },
+        planningAndProcurement: {
+          type: 'object',
+          title: '',
+          horizontal: true,
+          properties: {
+            details: {
+              type: 'string',
+              title: 'Planning and Procurement',
+              extendedText: true
+            },
+            riskRating: {
+              type: 'string',
+              title: 'Risk Rating',
+              radio: true,
+              enum: ['High', 'Medium High', 'Medium Low', 'Low', 'Contractual']
+            }
+          }
+        },
+        expenditure: {
+          type: 'object',
+          title: '',
+          horizontal: true,
+          properties: {
+            details: {
+              type: 'string',
+              title: 'Expenditure',
+              extendedText: true
+            },
+            riskRating: {
+              type: 'string',
+              title: 'Risk Rating',
+              radio: true,
+              enum: ['High', 'Medium High', 'Medium Low', 'Low', 'Contractual']
+            }
+          }
+        },
+        deliverablesObjectivesAndOutputs: {
+          type: 'object',
+          title: '',
+          horizontal: true,
+          properties: {
+            details: {
+              type: 'string',
+              title: 'Deliverables, Objectives and Outputs',
+              extendedText: true
+            },
+            riskRating: {
+              type: 'string',
+              title: 'Risk Rating',
+              radio: true,
+              enum: ['High', 'Medium High', 'Medium Low', 'Low', 'Contractual']
+            }
+          }
+        },
+        overallSummary: {
+          type: 'object',
+          title: '',
+          horizontal: true,
+          properties: {
+            details: {
+              type: 'string',
+              title: 'Overall Summary',
+              extendedText: true
+            },
+            riskRating: {
+              type: 'string',
+              title: 'Risk Rating',
+              radio: true,
+              enum: ['High', 'Medium High', 'Medium Low', 'Low', 'Contractual']
+            }
+          }
+        },
+        overallRagRating: {
+          type: 'string',
+          title: 'Overall Rag Rating',
+          radio: true,
+          enum: ['High', 'Medium High', 'Medium Low', 'Low', 'Contractual']
+        }
+      }
+    }
   end
 
   def create_hif_schema
@@ -2016,7 +2665,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                                             type: 'string',
                                             readonly: true
                                           },
-                                          statusAgainstLastReturn: status_against_last_return,
+                                          statusAgainstLastReturn: status_against_last_return_hif,
                                           currentReturn: {
                                             title: 'Current return',
                                             type: 'string',
@@ -2371,7 +3020,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             hidden: true,
                             title: 'Variance against baseline (Calculated)'
                           },
-                          statusAgainstLastReturn: status_against_last_return,
+                          statusAgainstLastReturn: status_against_last_return_hif,
                           currentReturn: {
                             type: 'string',
                             format: 'date',
@@ -2462,7 +3111,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                             hidden: true,
                             title: 'Variance against baseline (Calculated)'
                           },
-                          statusAgainstLastReturn: status_against_last_return,
+                          statusAgainstLastReturn: status_against_last_return_hif,
                           currentReturn: {
                             type: 'string',
                             format: 'date',
@@ -3139,16 +3788,16 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
       }
     end
 
-    add_s151_tab
-    add_confirmation_tab
-    add_outputs_forecast_tab
-    add_outputs_actuals_tab
-    add_rm_monthly_catchup_tab
+    add_s151_tab_hif
+    add_confirmation_tab_hif
+    add_outputs_forecast_tab_hif
+    add_outputs_actuals_tab_hif
+    add_rm_monthly_catchup_tab_hif
 
     @return_template
   end
 
-  def add_outputs_forecast_tab
+  def add_outputs_forecast_tab_hif
     return if ENV['OUTPUTS_FORECAST_TAB'].nil?
     @return_template.schema[:properties][:outputsForecast] = {
       title: 'Outputs - Forecast',
@@ -3340,7 +3989,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
     }
   end
 
-  def add_confirmation_tab
+  def add_confirmation_tab_hif
     return if ENV['CONFIRMATION_TAB'].nil?
     @return_template.schema[:properties][:s151Confirmation] = {
       title: 's151 Confirmation',
@@ -3793,7 +4442,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
     }
   end
 
-  def add_s151_tab
+  def add_s151_tab_hif
     return if ENV['S151_TAB'].nil?
     @return_template.schema[:properties][:s151] = {
       title: 's151 Return - Claim',
@@ -3922,7 +4571,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
     }
   end
 
-  def add_rm_monthly_catchup_tab
+  def add_rm_monthly_catchup_tab_hif
     return if ENV['RM_MONTHLY_CATCHUP_TAB'].nil?
     @return_template.schema[:properties][:rmMonthlyCatchup] = {
       title: 'RM Monthly Catch Up',
@@ -3985,7 +4634,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
     }
   end
 
-  def add_outputs_actuals_tab
+  def add_outputs_actuals_tab_hif
     return if ENV['OUTPUTS_ACTUALS_TAB'].nil?
     @return_template.schema[:properties][:outputsActuals] = {
       title: 'Output - Actuals',
@@ -4071,7 +4720,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
     }
   end
 
-  def status_against_last_return
+  def status_against_last_return_hif
     {
       title: 'Status against last return?',
       type: 'string',

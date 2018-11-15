@@ -13,7 +13,6 @@ class UI::UseCase::GetBaseReturn
     base_return = @get_base_return.execute(project_id: project_id)[:base_return]
 
     base_return[:data] = @convert_core_hif_return.execute(return_data: base_return[:data]) if type == 'hif'
-
     { base_return: base_return }
   end
 end
