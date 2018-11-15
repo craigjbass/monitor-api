@@ -1080,11 +1080,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           riskAnyChange: {
                             type: 'string',
                             title: 'Any change in risk?',
-                            items: {
-                              type: 'string',
-                              radio: true,
-                              enum: %w[Yes No]
-                            }
+                            radio: true,
+                            enum: %w[Yes No]
                           },
                           riskCurrentReturnMitigationsInPlace: {
                             type: 'string',
@@ -1168,11 +1165,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           riskAnyChange: {
                             type: 'string',
                             title: 'Any change in risk?',
-                            items: {
-                              type: 'string',
-                              radio: true,
-                              enum: %w[Yes No]
-                            }
+                            radio: true,
+                            enum: %w[Yes No]
                           },
                           riskCurrentReturnMitigationsInPlace: {
                             type: 'string',
@@ -1215,11 +1209,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           met: {
                             type: 'string',
                             title: 'Action Met?',
-                            items: {
-                              type: 'string',
-                              radio: true,
-                              enum: %w[Yes No]
-                            }
+                            radio: true,
+                            enum: %w[Yes No]
                           },
                           progress: {
                             type: 'string',
@@ -2052,7 +2043,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                 {
                   properties: {
                     changeToMilestones: { enum: ['Changes Required'] },
-                    reasonForRequest: {
+                    reasonForRequestOfMilestoneChange: {
                       type: 'string',
                       title: 'Reason for Request'
                     },
@@ -2060,7 +2051,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                       type: 'string',
                       title: 'Requested amendments to milestones'
                     },
-                    mitigationInPlace: {
+                    mitigationInPlaceMilestone: {
                       type: 'string',
                       title: 'Mitigation in place to reduce further amendments'
                     }
@@ -2078,21 +2069,21 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                 {
                   properties: {
                     changesToEndDate: { enum: ['Changes Required'] },
-                    reasonForRequest: {
+                    reasonForRequestOfDateChange: {
                       type: 'string',
                       title: 'Reason for Request'
                     },
-                    requestedEndDate: {
+                    requestedChangedEndDate: {
                       type: 'string',
                       title: 'Requested new end date'
                     },
-                    varianceFromBaseline: {
+                    varianceFromEndDateBaseline: {
                       type: 'string',
                       title: 'Variance from Baseline',
                       readonly: true,
                       hidden: true
                     },
-                    mitigationInPlace: {
+                    mitigationInPlaceEndDate: {
                       type: 'string',
                       title: 'Mitigation in place to reduce further slippage'
                     }
@@ -2110,21 +2101,21 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                 {
                   properties: {
                     changesToLongstopDate: { enum: ['Changes Required'] },
-                    reasonForRequest: {
+                    reasonForRequestOfLongstopChange: {
                       type: 'string',
                       title: 'Reason for Request'
                     },
-                    requestedEndDate: {
+                    requestedLongstopEndDate: {
                       type: 'string',
                       title: 'Requested new end date'
                     },
-                    varianceFromBaseline: {
+                    varianceFromLongStopBaseline: {
                       type: 'string',
                       title: 'Variance from Baseline',
                       readonly: true,
                       hidden: true
                     },
-                    mitigationInPlace: {
+                    mitigationInPlaceLongstopDate: {
                       type: 'string',
                       title: 'Mitigation in place to reduce further slippage'
                     }

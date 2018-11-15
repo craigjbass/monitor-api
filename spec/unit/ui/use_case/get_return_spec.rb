@@ -2,6 +2,7 @@
 
 describe UI::UseCase::GetReturn do
   describe 'Example one' do
+    let(:convert_core_return_spy) { spy }
     let(:get_return_spy) do
       spy(
         execute: {
@@ -13,7 +14,7 @@ describe UI::UseCase::GetReturn do
         }
       )
     end
-    let(:use_case) { described_class.new(get_return: get_return_spy) }
+    let(:use_case) { described_class.new(get_return: get_return_spy, convert_core_hif_return: convert_core_return_spy) }
     let(:response) { use_case.execute(id: 1) }
 
     before { response }
@@ -45,9 +46,44 @@ describe UI::UseCase::GetReturn do
     it 'Returns the updates from the get return use case' do
       expect(response[:updates]).to eq([{ dog: 'woof' }])
     end
+
+    context 'Hif type' do
+      let(:get_return_spy) do
+        spy(
+          execute: {
+            id: 1,
+            type: 'hif',
+            project_id: 2,
+            status: 'Meow',
+            updates: [{ dog: 'woof' }, { dog: 'woof' }]
+          }
+        )
+      end
+      let(:find_project_spy) { spy(execute: { type: 'hif' }) }
+      let(:convert_core_return_spy) { spy(execute: { fly: 'buz' }) }
+
+      it 'Calls the convert core return use case with the data' do
+        expect(convert_core_return_spy).to(
+          have_received(:execute)
+          .twice
+          .with(return_data: { dog: 'woof' })
+        )
+      end
+
+      it 'returns converted returns' do
+        expect(response[:updates]).to eq([{ fly: 'buz' }, { fly: 'buz' }])
+      end
+    end
+
+    context 'NON HIF type' do
+      it 'doesnt call the convert core use case' do
+        expect(convert_core_return_spy).not_to have_received(:execute)
+      end
+    end
   end
 
   describe 'Example two' do
+    let(:convert_core_return_spy) { spy }
     let(:get_return_spy) do
       spy(
         execute: {
@@ -59,7 +95,7 @@ describe UI::UseCase::GetReturn do
         }
       )
     end
-    let(:use_case) { described_class.new(get_return: get_return_spy) }
+    let(:use_case) { described_class.new(get_return: get_return_spy, convert_core_hif_return: convert_core_return_spy) }
     let(:response) { use_case.execute(id: 5) }
 
     before { response }
@@ -90,6 +126,40 @@ describe UI::UseCase::GetReturn do
 
     it 'Returns the updates from the get return use case' do
       expect(response[:updates]).to eq([{ duck: 'quack' }])
+    end
+
+    context 'Hif type' do
+      let(:get_return_spy) do
+        spy(
+          execute: {
+            id: 5,
+            type: 'hif',
+            project_id: 7,
+            status: 'Woof',
+            updates: [{ duck: 'quack' }, { duck: 'quack' }]
+          }
+        )
+      end
+      let(:find_project_spy) { spy(execute: { type: 'hif' }) }
+      let(:convert_core_return_spy) { spy(execute: { goat: 'meh' }) }
+
+      it 'Calls the convert core return use case with the data' do
+        expect(convert_core_return_spy).to(
+          have_received(:execute)
+          .twice
+          .with(return_data: { duck: 'quack' })
+        )
+      end
+
+      it 'returns converted returns' do
+        expect(response[:updates]).to eq([{ goat: 'meh' }, { goat: 'meh' }])
+      end
+    end
+
+    context 'NON HIF type' do
+      it 'doesnt call the convert core use case' do
+        expect(convert_core_return_spy).not_to have_received(:execute)
+      end
     end
   end
 end

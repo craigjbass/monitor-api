@@ -4,7 +4,7 @@ class UI::UseCase::ConvertCoreHIFProject
   def execute(project_data:)
     @project = project_data
     @converted_project = {}
-
+    
     convert_project_summary
     convert_infrastructures
     convert_funding_profiles

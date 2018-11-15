@@ -10,6 +10,14 @@ class UI::UseCases
       UI::UseCase::ConvertUIHIFProject.new
     end
 
+    builder.define_use_case :convert_core_hif_return do
+      UI::UseCase::ConvertCoreHIFReturn.new
+    end
+
+    builder.define_use_case :convert_ui_hif_return do
+      UI::UseCase::ConvertUIHIFReturn.new
+    end
+
     builder.define_use_case :ui_create_project do
       UI::UseCase::CreateProject.new(
         create_project: builder.get_use_case(:create_new_project),
@@ -41,31 +49,40 @@ class UI::UseCases
 
     builder.define_use_case :ui_get_base_return do
       UI::UseCase::GetBaseReturn.new(
-        get_base_return: builder.get_use_case(:get_base_return)
+        get_base_return: builder.get_use_case(:get_base_return),
+        find_project: builder.get_use_case(:find_project),
+        convert_core_hif_return: builder.get_use_case(:convert_core_hif_return)
       )
     end
 
     builder.define_use_case :ui_create_return do
       UI::UseCase::CreateReturn.new(
-        create_return: builder.get_use_case(:create_return)
+        create_return: builder.get_use_case(:create_return),
+        find_project: builder.get_use_case(:find_project),
+        convert_ui_hif_return: builder.get_use_case(:convert_ui_hif_return)
       )
     end
 
     builder.define_use_case :ui_update_return do
       UI::UseCase::UpdateReturn.new(
-        update_return: builder.get_use_case(:soft_update_return)
+        update_return: builder.get_use_case(:soft_update_return),
+        get_return: builder.get_use_case(:get_return),
+        convert_ui_hif_return: builder.get_use_case(:convert_ui_hif_return)
       )
     end
 
     builder.define_use_case :ui_get_return do
       UI::UseCase::GetReturn.new(
-        get_return: builder.get_use_case(:get_return)
+        get_return: builder.get_use_case(:get_return),
+        convert_core_hif_return: builder.get_use_case(:convert_core_hif_return)
       )
     end
 
     builder.define_use_case :ui_get_returns do
       UI::UseCase::GetReturns.new(
-        get_returns: builder.get_use_case(:get_returns)
+        get_returns: builder.get_use_case(:get_returns),
+        find_project: builder.get_use_case(:find_project),
+        convert_core_hif_return: builder.get_use_case(:convert_core_hif_return)
       )
     end
   end
