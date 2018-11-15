@@ -3,7 +3,1574 @@
 # noinspection RubyScope
 class LocalAuthority::Gateway::InMemoryReturnTemplate
   def find_by(type:)
-    return nil unless type == 'hif'
+    return create_hif_schema if type == 'hif'
+    return create_ac_schema if type == 'ac'
+    nil
+  end
+
+  private
+
+  def create_ac_schema
+    @return_template = Common::Domain::Template.new.tap do |p|
+      p.schema = {
+        title: 'AC Project',
+        type: 'object',
+        properties: {
+          sites: {
+            type: 'array',
+            title: 'Sites',
+            items: {
+              type: 'object',
+              title: 'Site',
+              properties: {
+                summary: {
+                  type: 'object',
+                  title: 'Summary',
+                  properties: {
+                    name: {
+                      type: 'string',
+                      title: 'Name'
+                    },
+                    description: {
+                      type: 'string',
+                      title: 'Description'
+                    },
+                    baselineunits: {
+                      type: 'string',
+                      title: 'Units',
+                      readonly: true,
+                      sourceKey: %i[baseline_data summary sitesSummary units numberOfUnitsTotal]
+                    },
+                    affordableHousingUnits: {
+                      type: 'string',
+                      title: 'Affordable Housing Units',
+                      readonly: true,
+                      sourceKey: %i[baseline_data summary sitesSummary units numberOfUnitsAffordable]
+                    },
+                    totalNoOfUnits: {
+                      type: 'string',
+                      title: 'Total number of units',
+                      readonly: true
+                    },
+                    planningStatus: {
+                      type: 'string',
+                      title: 'Planning Status',
+                      readonly: true
+                    }
+                  }
+                },
+                housingOutputs: {
+                  type: 'object',
+                  title: 'Housing Outputs',
+                  properties: {
+                    baselineunits: {
+                      type: 'string',
+                      title: 'Units',
+                      readonly: true,
+                      sourceKey: %i[baseline_data summary sitesSummary units numberOfUnitsTotal]
+                    },
+                    affordableHousingUnits: {
+                      type: 'string',
+                      title: 'Affordable Housing Units',
+                      readonly: true,
+                      sourceKey: %i[baseline_data summary sitesSummary units numberOfUnitsAffordable]
+                    },
+                    units: {
+                      type: 'object',
+                      title: 'Units',
+                      properties: {
+                        numberOfUnitsTotal: {
+                          type: 'string',
+                          title: 'Total',
+                          readonly: true
+                        },
+                        numberOfUnits: {
+                          type: 'object',
+                          horizontal: true,
+                          title: 'Number of',
+                          properties: {
+                            numberOfUnitsMarket: {
+                              type: 'string',
+                              title: 'Market Sale'
+                            },
+                            numberOfUnitsSharedOwnership: {
+                              type: 'string',
+                              title: 'Shared Ownership'
+                            },
+                            numberOfUnitsAffordable: {
+                              type: 'string',
+                              title: 'Affordable/Social Rent'
+                            },
+                            numberOfUnitsPRS: {
+                              type: 'string',
+                              title: 'Private Rented'
+                            },
+                            numberOfUnitsOther: {
+                              type: 'string',
+                              title: 'Other'
+                            }
+                          }
+                        },
+                        reasonForOther: {
+                          type: 'string',
+                          extendedText: true,
+                          title: 'Explanation of other units, if any?'
+                        }
+                      }
+                    },
+                    changesRequired: {
+                      type: 'string',
+                      enum: ['Do not change the baseline', 'Request change to baseline to match lastest estimates'],
+                      title: 'Changes to Baseline?'
+                    },
+                    paceOfConstruction: {
+                      type: 'object',
+                      title: 'Pace of Construction',
+                      properties: {
+                        timeBetweenStartAndCompletion: {
+                          type: 'object',
+                          horizontal: true,
+                          title: 'Months from start of first housing unit to completion of final unit.',
+                          properties: {
+                            baseline: {
+                              type: 'string',
+                              title: 'Baseline',
+                              readonly: true
+                            },
+                            latestEstimate: {
+                              type: 'string',
+                              title: 'Lastest Estimate'
+                            }
+                          }
+                        },
+                        unitsPerMonth: {
+                          type: 'object',
+                          horizontal: true,
+                          title: 'Months from start of first housing unit to completion of final unit.',
+                          properties: {
+                            baseline: {
+                              type: 'string',
+                              title: 'Baseline',
+                              readonly: true
+                            },
+                            latestEstimate: {
+                              type: 'string',
+                              title: 'Lastest Estimate'
+                            }
+                          }
+                        },
+                        reasonForChange: {
+                          type: 'string',
+                          extendedText: true,
+                          title: 'Reason for change/variance, and steps taken to address this.'
+                        }
+                      }
+                    },
+                    modernMethodsOfConstruction: {
+                      type: 'object',
+                      title: 'Modern methods of construction',
+                      properties: {
+                        categoryA: {
+                          type: 'object',
+                          title: 'Category A - Volumetric',
+                          horizontal: true,
+                          properties: {
+                            baseline: {
+                              type: 'string',
+                              title: 'Baseline',
+                              readonly: true,
+                              sourceKey: %i[baseline_data outputs mmcCategory categoryA]
+                            },
+                            latestEstimate: {
+                              type: 'string',
+                              percentage: true,
+                              title: 'Lastest Estimate'
+                            }
+                          }
+                        },
+                        categoryB: {
+                          type: 'object',
+                          title: 'Category B - Hybrid',
+                          horizontal: true,
+                          properties: {
+                            baseline: {
+                              type: 'string',
+                              title: 'Baseline',
+                              readonly: true,
+                              sourceKey: %i[baseline_data outputs mmcCategory categoryB]
+                            },
+                            latestEstimate: {
+                              type: 'string',
+                              title: 'Lastest Estimate',
+                              percentage: true
+                            }
+                          }
+                        },
+                        categoryC: {
+                          type: 'object',
+                          title: 'Category C - Panellised',
+                          horizontal: true,
+                          properties: {
+                            baseline: {
+                              type: 'string',
+                              title: 'Baseline',
+                              readonly: true,
+                              sourceKey: %i[baseline_data outputs mmcCategory categoryC]
+                            },
+                            latestEstimate: {
+                              type: 'string',
+                              title: 'Lastest Estimate',
+                              percentage: true
+                            }
+                          }
+                        },
+                        categoryD: {
+                          type: 'object',
+                          title: 'Category D - Sub Assemblies and Components',
+                          horizontal: true,
+                          properties: {
+                            baseline: {
+                              type: 'string',
+                              title: 'Baseline',
+                              readonly: true,
+                              sourceKey: %i[baseline_data outputs mmcCategory categoryD]
+                            },
+                            latestEstimate: {
+                              type: 'string',
+                              title: 'Lastest Estimate',
+                              percentage: true
+                            }
+                          }
+                        },
+                        categoryE: {
+                          type: 'object',
+                          title: 'Category E - No MMC',
+                          horizontal: true,
+                          properties: {
+                            baseline: {
+                              type: 'string',
+                              title: 'Baseline',
+                              readonly: true,
+                              sourceKey: %i[baseline_data outputs mmcCategory categoryE]
+                            },
+                            latestEstimate: {
+                              type: 'string',
+                              title: 'Lastest Estimate',
+                              percentage: true
+                            }
+                          }
+                        },
+                        reasonForChange: {
+                          type: 'string',
+                          extendedText: true,
+                          title: 'Reason for change/variance, and steps being taken to address this.'
+                        }
+                      }
+                    }
+                  }
+                },
+                milestonesAndProgress: {
+                  type: 'object',
+                  title: 'Milestones and Progress',
+                  properties: {
+                    commencementOfDueDiligence: {
+                      type: 'object',
+                      title: 'Commencement of surveys and due diligence',
+                      properties: {
+                        details: {
+                          horizontal: true,
+                          type: 'object',
+                          title: '',
+                          properties: {
+                            baselineDate: {
+                              type: 'string',
+                              format: 'date',
+                              title: 'Baseline Date',
+                              sourceKey: %i[baseline_data milestones surveysAndDueDiligence commencementOfDueDiligence],
+                              readonly: true
+                            },
+                            currentEstimatedDate: {
+                              type: 'string',
+                              title: 'Current estimated date',
+                              format: 'date'
+                            },
+                            estimatedPercentageComplete: {
+                              type: 'string',
+                              title: 'Estimated percentage complete',
+                              percentage: true
+                            },
+                            riskToAchievingBaseline: {
+                              type: 'string',
+                              title: 'Risk to achieving baseline date',
+                              enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+                            },
+                            reasonForVariance: {
+                              type: 'string',
+                              title: 'Reasn for risk/ variance',
+                              extendedText: true
+                            }
+                          }
+                        },
+                        completion: {
+                          type: 'object',
+                          title: '',
+                          properties: {
+                            completed: {
+                              title: 'Completed?',
+                              type: 'string',
+                              enum: %w[Yes No]
+                            }
+                          },
+                          dependencies: {
+                            completed: {
+                              oneOf: [
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['Yes']
+                                    },
+                                    dateOfCompletion: {
+                                      type: 'string',
+                                      title: 'Date completed?',
+                                      format: 'date'
+                                    }
+                                  }
+                                },
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['No']
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    completionOfSurveys: {
+                      title: 'Completion of surveys and due diligence',
+                      type: 'object',
+                      properties: {
+                        details: {
+                          horizontal: true,
+                          type: 'object',
+                          title: '',
+                          properties: {
+                            baselineDate: {
+                              type: 'string',
+                              format: 'date',
+                              title: 'Baseline Date',
+                              sourceKey: %i[baseline_data milestones surveysAndDueDiligence completionOfSurveys],
+                              readonly: true
+                            },
+                            currentEstimatedDate: {
+                              type: 'string',
+                              title: 'Current estimated date',
+                              format: 'date'
+                            },
+                            estimatedPercentageComplete: {
+                              type: 'string',
+                              title: 'Estimated percentage complete',
+                              percentage: true
+                            },
+                            riskToAchievingBaseline: {
+                              type: 'string',
+                              title: 'Risk to achieving baseline date',
+                              enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+                            },
+                            reasonForVariance: {
+                              type: 'string',
+                              title: 'Reasn for risk/ variance',
+                              extendedText: true
+                            }
+                          }
+                        },
+                        completion: {
+                          type: 'object',
+                          title: '',
+                          properties: {
+                            completed: {
+                              title: 'Completed?',
+                              type: 'string',
+                              enum: %w[Yes No]
+                            }
+                          },
+                          dependencies: {
+                            completed: {
+                              oneOf: [
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['Yes']
+                                    },
+                                    dateOfCompletion: {
+                                      type: 'string',
+                                      title: 'Date completed?',
+                                      format: 'date'
+                                    }
+                                  }
+                                },
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['No']
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    procurementOfWorksCommencementDate: {
+                      title: 'Procurement of works commencement date',
+                      type: 'object',
+                      properties: {
+                        details: {
+                          type: 'object',
+                          horizontal: true,
+                          title: '',
+                          properties: {
+                            baselineDate: {
+                              type: 'string',
+                              format: 'date',
+                              title: 'Baseline Date',
+                              sourceKey: %i[baseline_data milestones procurementProvision procurementOfWorksCommencementDate],
+                              readonly: true
+                            },
+                            currentEstimatedDate: {
+                              type: 'string',
+                              title: 'Current estimated date',
+                              format: 'date'
+                            },
+                            estimatedPercentageComplete: {
+                              type: 'string',
+                              title: 'Estimated percentage complete',
+                              percentage: true
+                            },
+                            riskToAchievingBaseline: {
+                              type: 'string',
+                              title: 'Risk to achieving baseline date',
+                              enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+                            },
+                            reasonForVariance: {
+                              type: 'string',
+                              title: 'Reasn for risk/ variance',
+                              extendedText: true
+                            }
+                          }
+                        },
+                        completion: {
+                          type: 'object',
+                          title: '',
+                          properties: {
+                            completed: {
+                              title: 'Completed?',
+                              type: 'string',
+                              enum: %w[Yes No]
+                            }
+                          },
+                          dependencies: {
+                            completed: {
+                              oneOf: [
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['Yes']
+                                    },
+                                    dateOfCompletion: {
+                                      type: 'string',
+                                      title: 'Date completed?',
+                                      format: 'date'
+                                    }
+                                  }
+                                },
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['No']
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    provisionOfDetailedWorks: {
+                      title: 'Provision of detailed works specification and milestones',
+                      type: 'object',
+                      properties: {
+                        details: {
+                          horizontal: true,
+                          type: 'object',
+                          title: '',
+                          properties: {
+                            baselineDate: {
+                              type: 'string',
+                              format: 'date',
+                              title: 'Baseline Date',
+                              sourceKey: %i[baseline_data milestones procurementProvision provisionOfDetailedWorks],
+                              readonly: true
+                            },
+                            currentEstimatedDate: {
+                              type: 'string',
+                              title: 'Current estimated date',
+                              format: 'date'
+                            },
+                            estimatedPercentageComplete: {
+                              type: 'string',
+                              title: 'Estimated percentage complete',
+                              percentage: true
+                            },
+                            riskToAchievingBaseline: {
+                              type: 'string',
+                              title: 'Risk to achieving baseline date',
+                              enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+                            },
+                            reasonForVariance: {
+                              type: 'string',
+                              title: 'Reasn for risk/ variance',
+                              extendedText: true
+                            }
+                          }
+                        },
+                        completion: {
+                          type: 'object',
+                          title: '',
+                          properties: {
+                            completed: {
+                              title: 'Completed?',
+                              type: 'string',
+                              enum: %w[Yes No]
+                            }
+                          },
+                          dependencies: {
+                            completed: {
+                              oneOf: [
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['Yes']
+                                    },
+                                    dateOfCompletion: {
+                                      type: 'string',
+                                      title: 'Date completed?',
+                                      format: 'date'
+                                    }
+                                  }
+                                },
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['No']
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    commencementDate: {
+                      title: 'Commencement of works date (first, if multiple)',
+                      type: 'object',
+                      properties: {
+                        details: {
+                          type: 'object',
+                          horizontal: true,
+                          title: '',
+                          properties: {
+                            baselineDate: {
+                              type: 'string',
+                              format: 'date',
+                              title: 'Baseline Date',
+                              sourceKey: %i[baseline_data milestones worksDate commencementDate],
+                              readonly: true
+                            },
+                            currentEstimatedDate: {
+                              type: 'string',
+                              title: 'Current estimated date',
+                              format: 'date'
+                            },
+                            estimatedPercentageComplete: {
+                              type: 'string',
+                              title: 'Estimated percentage complete',
+                              percentage: true
+                            },
+                            riskToAchievingBaseline: {
+                              type: 'string',
+                              title: 'Risk to achieving baseline date',
+                              enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+                            },
+                            reasonForVariance: {
+                              type: 'string',
+                              title: 'Reasn for risk/ variance',
+                              extendedText: true
+                            }
+                          }
+                        },
+                        completion: {
+                          type: 'object',
+                          title: '',
+                          properties: {
+                            completed: {
+                              title: 'Completed?',
+                              type: 'string',
+                              enum: %w[Yes No]
+                            }
+                          },
+                          dependencies: {
+                            completed: {
+                              oneOf: [
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['Yes']
+                                    },
+                                    dateOfCompletion: {
+                                      type: 'string',
+                                      title: 'Date completed?',
+                                      format: 'date'
+                                    }
+                                  }
+                                },
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['No']
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    completionDate: {
+                      title: 'Completion of works date (last, if multiple)',
+                      type: 'object',
+                      properties: {
+                        details: {
+                          type: 'object',
+                          horizontal: true,
+                          title: '',
+                          properties: {
+                            baselineDate: {
+                              type: 'string',
+                              format: 'date',
+                              title: 'Baseline Date',
+                              sourceKey: %i[baseline_data milestones worksDate completionDate],
+                              readonly: true
+                            },
+                            currentEstimatedDate: {
+                              type: 'string',
+                              title: 'Current estimated date',
+                              format: 'date'
+                            },
+                            estimatedPercentageComplete: {
+                              type: 'string',
+                              title: 'Estimated percentage complete',
+                              percentage: true
+                            },
+                            riskToAchievingBaseline: {
+                              type: 'string',
+                              title: 'Risk to achieving baseline date',
+                              enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+                            },
+                            reasonForVariance: {
+                              type: 'string',
+                              title: 'Reasn for risk/ variance',
+                              extendedText: true
+                            }
+                          }
+                        },
+                        completion: {
+                          type: 'object',
+                          title: '',
+                          properties: {
+                            completed: {
+                              title: 'Completed?',
+                              type: 'string',
+                              enum: %w[Yes No]
+                            }
+                          },
+                          dependencies: {
+                            completed: {
+                              oneOf: [
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['Yes']
+                                    },
+                                    dateOfCompletion: {
+                                      type: 'string',
+                                      title: 'Date completed?',
+                                      format: 'date'
+                                    }
+                                  }
+                                },
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['No']
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    outlinePlanningGrantedDate: {
+                      title: 'Outline planning permission granted date',
+                      type: 'object',
+                      properties: {
+                        details: {
+                          type: 'object',
+                          horizontal: true,
+                          title: '',
+                          properties: {
+                            baselineDate: {
+                              type: 'string',
+                              format: 'date',
+                              title: 'Baseline Date',
+                              sourceKey: %i[baseline_data milestones outlinePlanning outlinePlanningGrantedDate],
+                              readonly: true
+                            },
+                            currentEstimatedDate: {
+                              type: 'string',
+                              title: 'Current estimated date',
+                              format: 'date'
+                            },
+                            estimatedPercentageComplete: {
+                              type: 'string',
+                              title: 'Estimated percentage complete',
+                              percentage: true
+                            },
+                            riskToAchievingBaseline: {
+                              type: 'string',
+                              title: 'Risk to achieving baseline date',
+                              enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+                            },
+                            reasonForVariance: {
+                              type: 'string',
+                              title: 'Reasn for risk/ variance',
+                              extendedText: true
+                            }
+                          }
+                        },
+                        completion: {
+                          type: 'object',
+                          title: '',
+                          properties: {
+                            completed: {
+                              title: 'Completed?',
+                              type: 'string',
+                              enum: %w[Yes No]
+                            }
+                          },
+                          dependencies: {
+                            completed: {
+                              oneOf: [
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['Yes']
+                                    },
+                                    dateOfCompletion: {
+                                      type: 'string',
+                                      title: 'Date completed?',
+                                      format: 'date'
+                                    },
+                                    planninfReferenceNumber: {
+                                      type: 'string',
+                                      title: 'Planning Reference Number'
+                                    }
+                                  }
+                                },
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['No']
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    reservedMatterPermissionGrantedDate: {
+                      title: 'Reserved Matter Permission Granted date',
+                      type: 'object',
+                      properties: {
+                        details: {
+                          type: 'object',
+                          horizontal: true,
+                          title: '',
+                          properties: {
+                            baselineDate: {
+                              type: 'string',
+                              format: 'date',
+                              title: 'Baseline Date',
+                              sourceKey: %i[baseline_data milestones outlinePlanning reservedMatterPermissionGrantedDate],
+                              readonly: true
+                            },
+                            currentEstimatedDate: {
+                              type: 'string',
+                              title: 'Current estimated date',
+                              format: 'date'
+                            },
+                            estimatedPercentageComplete: {
+                              type: 'string',
+                              title: 'Estimated percentage complete',
+                              percentage: true
+                            },
+                            riskToAchievingBaseline: {
+                              type: 'string',
+                              title: 'Risk to achieving baseline date',
+                              enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+                            },
+                            reasonForVariance: {
+                              type: 'string',
+                              title: 'Reasn for risk/ variance',
+                              extendedText: true
+                            }
+                          }
+                        },
+                        completion: {
+                          type: 'object',
+                          title: '',
+                          properties: {
+                            completed: {
+                              title: 'Completed?',
+                              type: 'string',
+                              enum: %w[Yes No]
+                            }
+                          },
+                          dependencies: {
+                            completed: {
+                              oneOf: [
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['Yes']
+                                    },
+                                    dateOfCompletion: {
+                                      type: 'string',
+                                      title: 'Date completed?',
+                                      format: 'date'
+                                    },
+                                    planningReferenceNumber: {
+                                      type: 'string',
+                                      title: 'Planning Reference Number'
+                                    }
+                                  }
+                                },
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['No']
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    marketingCommenced: {
+                      title: 'Developer Partner marketing commenced (EOI or formal tender)',
+                      type: 'object',
+                      properties: {
+                        details: {
+                          type: 'object',
+                          horizontal: true,
+                          title: '',
+                          properties: {
+                            baselineDate: {
+                              type: 'string',
+                              format: 'date',
+                              title: 'Baseline Date',
+                              sourceKey: %i[baseline_data milestones marketingCommenced],
+                              readonly: true
+                            },
+                            currentEstimatedDate: {
+                              type: 'string',
+                              title: 'Current estimated date',
+                              format: 'date'
+                            },
+                            estimatedPercentageComplete: {
+                              type: 'string',
+                              title: 'Estimated percentage complete',
+                              percentage: true
+                            },
+                            riskToAchievingBaseline: {
+                              type: 'string',
+                              title: 'Risk to achieving baseline date',
+                              enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+                            },
+                            reasonForVariance: {
+                              type: 'string',
+                              title: 'Reasn for risk/ variance',
+                              extendedText: true
+                            }
+                          }
+                        },
+                        completion: {
+                          type: 'object',
+                          title: '',
+                          properties: {
+                            completed: {
+                              title: 'Completed?',
+                              type: 'string',
+                              enum: %w[Yes No]
+                            }
+                          },
+                          dependencies: {
+                            completed: {
+                              oneOf: [
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['Yes']
+                                    },
+                                    dateOfCompletion: {
+                                      type: 'string',
+                                      title: 'Date completed?',
+                                      format: 'date'
+                                    }
+                                  }
+                                },
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['No']
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+
+                    },
+                    conditionalContractSigned: {
+                      title: 'Conditional contract signed',
+                      type: 'object',
+                      properties: {
+                        details: {
+                          type: 'object',
+                          horizontal: true,
+                          title: '',
+                          properties: {
+                            baselineDate: {
+                              type: 'string',
+                              format: 'date',
+                              title: 'Baseline Date',
+                              sourceKey: %i[baseline_data milestones contractSigned conditionalContractSigned],
+                              readonly: true
+                            },
+                            currentEstimatedDate: {
+                              type: 'string',
+                              title: 'Current estimated date',
+                              format: 'date'
+                            },
+                            estimatedPercentageComplete: {
+                              type: 'string',
+                              title: 'Estimated percentage complete',
+                              percentage: true
+                            },
+                            riskToAchievingBaseline: {
+                              type: 'string',
+                              title: 'Risk to achieving baseline date',
+                              enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+                            },
+                            reasonForVariance: {
+                              type: 'string',
+                              title: 'Reasn for risk/ variance',
+                              extendedText: true
+                            }
+                          }
+                        },
+                        completion: {
+                          type: 'object',
+                          title: '',
+                          properties: {
+                            completed: {
+                              title: 'Completed?',
+                              type: 'string',
+                              enum: %w[Yes No]
+                            }
+                          },
+                          dependencies: {
+                            completed: {
+                              oneOf: [
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['Yes']
+                                    },
+                                    dateOfCompletion: {
+                                      type: 'string',
+                                      title: 'Date completed?',
+                                      format: 'date'
+                                    },
+                                    namesOfContractors: {
+                                      type: 'string',
+                                      title: 'Name(s) of contracted housebuilders',
+                                      extendedText: true
+                                    }
+                                  }
+                                },
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['No']
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    unconditionalContractSigned: {
+                      title: 'Unconditional contract signed',
+                      type: 'object',
+                      properties: {
+                        details: {
+                          type: 'object',
+                          horizontal: true,
+                          title: '',
+                          properties: {
+                            baselineDate: {
+                              type: 'string',
+                              format: 'date',
+                              title: 'Baseline Date',
+                              sourceKey: %i[baseline_data milestones contractSigned unconditionalContractSigned],
+                              readonly: true
+                            },
+                            currentEstimatedDate: {
+                              type: 'string',
+                              title: 'Current estimated date',
+                              format: 'date'
+                            },
+                            estimatedPercentageComplete: {
+                              type: 'string',
+                              title: 'Estimated percentage complete',
+                              percentage: true
+                            },
+                            riskToAchievingBaseline: {
+                              type: 'string',
+                              title: 'Risk to achieving baseline date',
+                              enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+                            },
+                            reasonForVariance: {
+                              type: 'string',
+                              title: 'Reasn for risk/ variance',
+                              extendedText: true
+                            }
+                          }
+                        },
+                        completion: {
+                          type: 'object',
+                          title: '',
+                          properties: {
+                            completed: {
+                              title: 'Completed?',
+                              type: 'string',
+                              enum: %w[Yes No]
+                            }
+                          },
+                          dependencies: {
+                            completed: {
+                              oneOf: [
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['Yes']
+                                    },
+                                    dateOfCompletion: {
+                                      type: 'string',
+                                      title: 'Date completed?',
+                                      format: 'date'
+                                    }
+                                  }
+                                },
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['No']
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    startOnSiteDate: {
+                      title: 'Start on site date',
+                      type: 'object',
+                      properties: {
+                        details: {
+                          horizontal: true,
+                          type: 'object',
+                          title: '',
+                          properties: {
+                            baselineDate: {
+                              type: 'string',
+                              format: 'date',
+                              title: 'Baseline Date',
+                              sourceKey: %i[baseline_data milestones workDates startOnSiteDate],
+                              readonly: true
+                            },
+                            currentEstimatedDate: {
+                              type: 'string',
+                              title: 'Current estimated date',
+                              format: 'date'
+                            },
+                            estimatedPercentageComplete: {
+                              type: 'string',
+                              title: 'Estimated percentage complete',
+                              percentage: true
+                            },
+                            riskToAchievingBaseline: {
+                              type: 'string',
+                              title: 'Risk to achieving baseline date',
+                              enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+                            },
+                            reasonForVariance: {
+                              type: 'string',
+                              title: 'Reasn for risk/ variance',
+                              extendedText: true
+                            }
+                          }
+                        },
+                        completion: {
+                          type: 'object',
+                          title: '',
+                          properties: {
+                            completed: {
+                              title: 'Completed?',
+                              type: 'string',
+                              enum: %w[Yes No]
+                            }
+                          },
+                          dependencies: {
+                            completed: {
+                              oneOf: [
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['Yes']
+                                    },
+                                    dateOfCompletion: {
+                                      type: 'string',
+                                      title: 'Date completed?',
+                                      format: 'date'
+                                    }
+                                  }
+                                },
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['No']
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    startOnFirstUnitDate: {
+                      title: 'Start of first unit date',
+                      type: 'object',
+                      properties: {
+                        details: {
+                          horizontal: true,
+                          type: 'object',
+                          title: '',
+                          properties: {
+                            baselineDate: {
+                              type: 'string',
+                              format: 'date',
+                              title: 'Baseline Date',
+                              sourceKey: %i[baseline_data milestones workDates startOnFirstUnitDate],
+                              readonly: true
+                            },
+                            currentEstimatedDate: {
+                              type: 'string',
+                              title: 'Current estimated date',
+                              format: 'date'
+                            },
+                            estimatedPercentageComplete: {
+                              type: 'string',
+                              title: 'Estimated percentage complete',
+                              percentage: true
+                            },
+                            riskToAchievingBaseline: {
+                              type: 'string',
+                              title: 'Risk to achieving baseline date',
+                              enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+                            },
+                            reasonForVariance: {
+                              type: 'string',
+                              title: 'Reasn for risk/ variance',
+                              extendedText: true
+                            }
+                          }
+                        },
+                        completion: {
+                          type: 'object',
+                          title: '',
+                          properties: {
+                            completed: {
+                              title: 'Completed?',
+                              type: 'string',
+                              enum: %w[Yes No]
+                            }
+                          },
+                          dependencies: {
+                            completed: {
+                              oneOf: [
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['Yes']
+                                    },
+                                    dateOfCompletion: {
+                                      type: 'string',
+                                      title: 'Date completed?',
+                                      format: 'date'
+                                    }
+                                  }
+                                },
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['No']
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    completionOfFinalUnitData: {
+                      title: 'Completion of Final Unit Date',
+                      type: 'object',
+                      properties: {
+                        details: {
+                          type: 'object',
+                          horizontal: true,
+                          title: '',
+                          properties: {
+                            baselineDate: {
+                              type: 'string',
+                              format: 'date',
+                              title: 'Baseline Date',
+                              sourceKey: %i[baseline_data milestones completionDates completionOfFinalUnitData],
+                              readonly: true
+                            },
+                            currentEstimatedDate: {
+                              type: 'string',
+                              title: 'Current estimated date',
+                              format: 'date'
+                            },
+                            estimatedPercentageComplete: {
+                              type: 'string',
+                              title: 'Estimated percentage complete',
+                              percentage: true
+                            },
+                            riskToAchievingBaseline: {
+                              type: 'string',
+                              title: 'Risk to achieving baseline date',
+                              enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+                            },
+                            reasonForVariance: {
+                              type: 'string',
+                              title: 'Reasn for risk/ variance',
+                              extendedText: true
+                            }
+                          }
+                        },
+                        completion: {
+                          type: 'object',
+                          title: '',
+                          properties: {
+                            completed: {
+                              title: 'Completed?',
+                              type: 'string',
+                              enum: %w[Yes No]
+                            }
+                          },
+                          dependencies: {
+                            completed: {
+                              oneOf: [
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['Yes']
+                                    },
+                                    dateOfCompletion: {
+                                      type: 'string',
+                                      title: 'Date completed?',
+                                      format: 'date'
+                                    }
+                                  }
+                                },
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['No']
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    projectCompletionDate: {
+                      title: 'Project Completion Date',
+                      type: 'object',
+                      properties: {
+                        details: {
+                          type: 'object',
+                          horizontal: true,
+                          title: '',
+                          properties: {
+                            baselineDate: {
+                              type: 'string',
+                              format: 'date',
+                              title: 'Baseline Date',
+                              sourceKey: %i[baseline_data milestones completionDates projectCompletionDate],
+                              readonly: true
+                            },
+                            currentEstimatedDate: {
+                              type: 'string',
+                              title: 'Current estimated date',
+                              format: 'date'
+                            },
+                            estimatedPercentageComplete: {
+                              type: 'string',
+                              title: 'Estimated percentage complete',
+                              percentage: true
+                            },
+                            riskToAchievingBaseline: {
+                              type: 'string',
+                              title: 'Risk to achieving baseline date',
+                              enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+                            },
+                            reasonForVariance: {
+                              type: 'string',
+                              title: 'Reasn for risk/ variance',
+                              extendedText: true
+                            }
+                          }
+                        },
+                        completion: {
+                          type: 'object',
+                          title: '',
+                          properties: {
+                            completed: {
+                              title: 'Completed?',
+                              type: 'string',
+                              enum: %w[Yes No]
+                            }
+                          },
+                          dependencies: {
+                            completed: {
+                              oneOf: [
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['Yes']
+                                    },
+                                    dateOfCompletion: {
+                                      type: 'string',
+                                      title: 'Date completed?',
+                                      format: 'date'
+                                    }
+                                  }
+                                },
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['No']
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    customMileStones: {
+                      type: 'array',
+                      addable: true,
+                      title: 'Custom Milestones',
+                      items: {
+                        type: 'object',
+                        properties: {
+                          milestoneName: {
+                            type: 'string',
+                            title: 'Name of custom milestone',
+                            sourceKey: %i[baseline_data milestones customMileStones customName]
+                          },
+                          milestoneDetails: {
+                            type: 'object',
+                            title: '',
+                            properties: {
+                              details: {
+                                type: 'object',
+                                horizontal: true,
+                                title: '',
+                                properties: {
+                                  baselineDate: {
+                                    type: 'string',
+                                    format: 'date',
+                                    title: 'Baseline Date',
+                                    sourceKey: %i[baseline_data milestones customMileStones customDate],
+                                    readonly: true
+                                  },
+                                  currentEstimatedDate: {
+                                    type: 'string',
+                                    title: 'Current estimated date',
+                                    format: 'date'
+                                  },
+                                  estimatedPercentageComplete: {
+                                    type: 'string',
+                                    title: 'Estimated percentage complete',
+                                    percentage: true
+                                  },
+                                  riskToAchievingBaseline: {
+                                    type: 'string',
+                                    title: 'Risk to achieving baseline date',
+                                    enum: ['Already Achieved', 'Low', 'Medium Low', 'Medium High', 'High']
+                                  },
+                                  reasonForVariance: {
+                                    type: 'string',
+                                    title: 'Reasn for risk/ variance',
+                                    extendedText: true
+                                  }
+                                }
+                              },
+                              completion: {
+                                type: 'object',
+                                title: '',
+                                properties: {
+                                  completed: {
+                                    title: 'Completed?',
+                                    type: 'string',
+                                    enum: %w[Yes No]
+                                  }
+                                },
+                                dependencies: {
+                                  completed: {
+                                    oneOf: [
+                                      {
+                                        properties: {
+                                          completed: {
+                                            enum: ['Yes']
+                                          },
+                                          dateOfCompletion: {
+                                            type: 'string',
+                                            title: 'Date completed?',
+                                            format: 'date'
+                                          }
+                                        }
+                                      },
+                                      {
+                                        properties: {
+                                          completed: {
+                                            enum: ['No']
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    planningStatus: {
+                      type: 'string',
+                      title: 'Planning Status',
+                      enum: [
+                        'Not in allocated for housing in Local Plan',
+                        'Provisional allocation for housing',
+                        'Allocated for housing in Local Plan',
+                        'Outline or Reserved Matters',
+                        'Consent granted'
+                      ]
+                    },
+                    changeRequired: {
+                      type: 'string',
+                      title: 'Change Required?',
+                      radio: true,
+                      enum: ['Do not change baseline', 'Request change to baseline to match latest estimates']
+                    }
+                  },
+                  dependencies: {
+                    changeRequired: {
+                      oneOf: [
+                        {
+                          properties: {
+                            changeRequired: {
+                              enum: ['Request change to baseline to match latest estimates']
+                            },
+                            reason: {
+                              type: 'string',
+                              extendedText: true,
+                              title: 'Reason for change/variance, and steps being taken to address this'
+                            }
+                          }
+                        },
+                        {
+                          properties: {
+                            changeRequired: {
+                              enum: ['Do not change baseline']
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    end
+  end
+
+  def create_hif_schema
     @return_template = Common::Domain::Template.new.tap do |p|
       p.schema = {
         title: 'HIF Project',
@@ -1581,8 +3148,6 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
     @return_template
   end
 
-  private
-
   def add_outputs_forecast_tab
     return if ENV['OUTPUTS_FORECAST_TAB'].nil?
     @return_template.schema[:properties][:outputsForecast] = {
@@ -2011,7 +3576,7 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                       currency: true
                     },
                     varianceFromBaseline: {
-                      type:'string',
+                      type: 'string',
                       title: 'Variance from Baseline',
                       readonly: true,
                       hidden: true,
