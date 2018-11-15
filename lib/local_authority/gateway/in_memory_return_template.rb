@@ -1934,12 +1934,6 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                 }
               }
             },
-            amendmentConfirmation: {
-              title: 'An amendment has been made to the forecast profile in this MR - please confirm you are content with this amendment',
-              type: 'string',
-              radio: true,
-              enum: %w[Yes No]
-            },
             cashflowConfirmation: {
               title: 'Please confirm you are content with the submitted project cashflows',
               type: 'string',
@@ -1984,7 +1978,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     mitigationInPlace: {
                       type: 'string',
                       title: 'Mitigation in place to reduce further slippage'
-                    }
+                    },
+                    amendmentConfirmation: {
+                      title: 'An amendment has been made to the forecast profile in this MR - please confirm you are content with this amendment',
+                      type: 'string',
+                      radio: true,
+                      enum: %w[Yes No]
+                    },
                   }
                 }
               ]
