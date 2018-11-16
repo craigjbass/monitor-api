@@ -108,12 +108,22 @@
           "instalment4": "1000",
           "total": "4000"
         }
+      },
+      {
+        "period": null,
+        "forecast": {
+          "instalment1": null,
+          "instalment2": null,
+          "instalment3": null,
+          "instalment4": null,
+          "total": null
+        }
       }
     ],
     "changeRequired": null,
     "reasonForRequest": null,
     "mitigationInPlace": null,
-    "requestedProfiles": [{ "period": "2019/2020" }]
+    "requestedProfiles": [{ "period": "2019/2020" }, { "period": null }]
   },
   "fundingPackages": [
     {
@@ -138,7 +148,7 @@
           "amountSecured": null
         },
         "private": {
-          "baseline": "5000", 
+          "baseline": "5000",
           "current": null,
           "reason": null,
           "amountSecured": null
@@ -195,6 +205,26 @@
           "instalment3": "1000",
           "instalment4": "1000",
           "total": "4000",
+          "baselineVariance1": null,
+          "baselineVariance2": null,
+          "baselineVariance3": null,
+          "baselineVariance4": null,
+          "lastMovement1": null,
+          "lastMovement2": null,
+          "lastMovement3": null,
+          "lastMovement4": null,
+          "movementVariance1": null,
+          "movementVariance2": null,
+          "movementVariance3": null,
+          "movementVariance4": null
+        },
+        {
+          "period": null,
+          "instalment1": null,
+          "instalment2": null,
+          "instalment3": null,
+          "instalment4": null,
+          "total": null,
           "baselineVariance1": null,
           "baselineVariance2": null,
           "baselineVariance3": null,

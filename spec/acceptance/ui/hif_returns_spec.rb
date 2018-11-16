@@ -36,7 +36,7 @@ describe 'Interacting with a HIF Return from the UI' do
       symbolize_names: true
     )
   end
- 
+
   let(:expected_updated_return) do
     JSON.parse(
       File.open("#{__dir__}/../../fixtures/hif_updated_return.json").read,
@@ -79,7 +79,7 @@ describe 'Interacting with a HIF Return from the UI' do
 
       created_return = dependency_factory.get_use_case(:ui_get_return).execute(id: return_id)[:updates].last
       expect(created_return[:s151Confirmation]).to eq(expected_updated_return[:s151Confirmation])
-      
+
       expect(created_return).to eq(expected_updated_return)
     end
 
