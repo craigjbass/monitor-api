@@ -16,7 +16,7 @@ describe UI::UseCase::ConvertCoreHIFReturn do
   it 'Converts the project correctly' do
     converted_return = described_class.new.execute(return_data: return_to_convert)
     expect(converted_return[:fundingPackages]).to eq(ui_data_return[:fundingPackages])
-    
+
     expect(converted_return).to eq(ui_data_return)
   end
 end

@@ -196,7 +196,14 @@
   "s151Confirmation": {
     "hifFunding": {
       "hifTotalFundingRequest": null,
-      "changesToRequest": null,
+      "changesToRequest": {
+        "changesToRequestConfirmation": null,
+        "requestedAmount": null,
+        "reasonForRequest": null,
+        "varianceFromBaseline": null,
+        "varianceFromBaselinePercent" : null,
+        "mitigationInPlace": null
+      },
       "hifFundingProfile": [
         {
           "period": "2019/2020",
@@ -240,32 +247,35 @@
         }
       ],
       "amendmentConfirmation": null,
-      "cashflowConfirmation": null,
-      "reasonForRequest": null,
-      "requestedAmount": null,
-      "varianceFromBaseline": null,
-      "varianceFromBaselinePercent": null,
-      "mitigationInPlace": null
+      "cashflowConfirmation": null
     },
     "submission": {
-      "changeToMilestones": null,
+      "changeToMilestones": {
+        "changeToMilestonesConfirmation": null,
+        "reasonForRequestOfMilestoneChange": null,
+        "requestedAmendments": null,
+        "mitigationInPlaceMilestone": null
+      },
+      "changesToEndDate": {
+        "changesToEndDateConfirmation": null,
+        "reasonForRequestOfDateChange": null,
+        "requestedChangedEndDate": null,
+        "varianceFromEndDateBaseline": null,
+        "mitigationInPlaceEndDate": null
+      },
       "hifFundingEndDate": "2020-01-01",
-      "changesToEndDate": null,
       "projectLongstopDate": "2020-01-01",
-      "changesToLongstopDate": null,
-      "recoverFunding": null,
-      "reasonForRequestOfMilestoneChange": null,
-      "requestedAmendments": null,
-      "mitigationInPlaceMilestone": null,
-      "reasonForRequestOfDateChange": null,
-      "requestedChangedEndDate": null,
-      "varianceFromEndDateBaseline": null,
-      "mitigationInPlaceEndDate": null,
-      "reasonForRequestOfLongstopChange": null,
-      "requestedLongstopEndDate": null,
-      "varianceFromLongStopBaseline": null,
-      "mitigationInPlaceLongstopDate": null,
-      "usedOnFutureHosuing": null
+      "changesToLongstopDate": {
+        "changesToLongstopDateConfirmation": null,
+        "reasonForRequestOfLongstopChange": null,
+        "requestedLongstopEndDate": null,
+        "varianceFromLongStopBaseline": null,
+        "mitigationInPlaceLongstopDate": null
+      },
+      "recoverFunding": {
+        "recoverFundingConfirmation": null,
+        "usedOnFutureHousing": null
+      }
     }
   },
   "s151": {

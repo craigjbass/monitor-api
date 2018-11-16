@@ -320,7 +320,14 @@
   "s151Confirmation": {
     "hifFunding": {
       "hifTotalFundingRequest": "spending",
-      "changesToRequest": "requesting",
+      "changesToRequest": {
+        "changesToRequestConfirmation": "requesting",
+        "requestedAmount": "money",
+        "reasonForRequest": "reasoning",
+        "varianceFromBaseline": "varying",
+        "varianceFromBaselinePercent" : "67",
+        "mitigationInPlace": "mitigating"
+      },
       "hifFundingProfile": [
         {
           "period": "2018",
@@ -344,32 +351,35 @@
         }
       ],
       "amendmentConfirmation": "yes",
-      "cashflowConfirmation": "No",
-      "reasonForRequest": "reasoning",
-      "requestedAmount": "money",
-      "varianceFromBaseline": "varying",
-      "varianceFromBaselinePercent" : "67",
-      "mitigationInPlace": "mitigating"
+      "cashflowConfirmation": "No"
     },
     "submission": {
-      "changeToMilestones": "Confirmed",
+      "changeToMilestones": {
+        "changeToMilestonesConfirmation": "Confirmed",
+        "reasonForRequestOfMilestoneChange": "no your",
+        "requestedAmendments": "more room",
+        "mitigationInPlaceMilestone": "Cats"
+      },
+      "changesToEndDate": {
+        "changesToEndDateConfirmation": "YEs",
+        "reasonForRequestOfDateChange": "Dogs",
+        "requestedChangedEndDate": "3456-01-22",
+        "mitigationInPlaceEndDate": "changing date",
+        "varianceFromEndDateBaseline": "baselineing"
+      },
       "hifFundingEndDate": "4567-23-34",
-      "changesToEndDate": "YEs",
       "projectLongstopDate": "5647-12-23",
-      "changesToLongstopDate": "3455-09-08",
-      "recoverFunding": "Yes",
-      "reasonForRequestOfMilestoneChange": "no your",
-      "requestedAmendments": "more room",
-      "mitigationInPlaceMilestone": "Cats",
-      "reasonForRequestOfDateChange": "Dogs",
-      "requestedChangedEndDate": "3456-01-22",
-      "varianceFromEndDateBaseline": "baselineing",
-      "mitigationInPlaceEndDate": "changing date",
-      "reasonForRequestOfLongstopChange": "need to",
-      "requestedLongstopEndDate": "1234-05-65",
-      "varianceFromLongStopBaseline": "lots",
-      "mitigationInPlaceLongstopDate": "mitigating",
-      "usedOnFutureHosuing": "Yes"
+      "changesToLongstopDate": {
+        "changesToLongstopDateConfirmation": "3455-09-08",
+        "reasonForRequestOfLongstopChange": "need to",
+        "requestedLongstopEndDate": "1234-05-65",
+        "varianceFromLongStopBaseline": "lots",
+        "mitigationInPlaceLongstopDate": "mitigating"
+      },
+      "recoverFunding": {
+        "recoverFundingConfirmation": "Yes",
+        "usedOnFutureHousing": "Yes"
+      }
     }
   },
   "s151": {
@@ -391,7 +401,7 @@
         "descriptionOfSpend": "Spending Money",
         "evidenceOfSpendNextQuarter": "NOt got any"
       }
-    } 
+    }
   },
   "rmMonthlyCatchup": {
     "dateOfCatchUp": "1234-09-45",
