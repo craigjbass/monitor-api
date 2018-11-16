@@ -278,5 +278,12 @@
       "mitigationInPlaceLongstopDate": null,
       "usedOnFutureHosuing": null
     }
+  },
+  "s151": {
+    "claimSummary": {
+      "hifTotalFundingRequest": "10000",
+      "hifSpendToDate": null,
+      "AmountOfThisClaim": null
+    }
   }
 }

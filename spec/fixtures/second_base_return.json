@@ -182,6 +182,10 @@
       "hifFundingEndDate": "2020-01-01",
       "projectLongstopDate": "2020-01-01"
     }
+  },
+  "s151": {
+    "claimSummary": {
+      "hifTotalFundingRequest": "10000"
+    }
   }
-
 }

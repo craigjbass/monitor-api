@@ -75,6 +75,7 @@ describe 'Interacting with a HIF Return from the UI' do
       return_id = dependency_factory.get_use_case(:ui_create_return).execute(project_id: project_id, data: return_data)[:id]
       return_data[:infrastructures][0][:planning][:outlinePlanning][:planningSubmitted][:status] = 'Delayed'
       return_data[:infrastructures][0][:planning][:outlinePlanning][:planningSubmitted][:reason] = 'Distracted by kittens'
+      return_data[:s151][:claimSummary][:hifTotalFundingRequest] = '10000'
       dependency_factory.get_use_case(:ui_update_return).execute(return_id: return_id, return_data: return_data)
 
       created_return = dependency_factory.get_use_case(:ui_get_return).execute(id: return_id)[:updates].last

@@ -607,8 +607,8 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
         },
         hifFundingAmount: {
           type: 'string',
-          laReadOnly: true,
           title: 'HIF Funding Amount (£)',
+          laReadOnly: true,
           currency: true
         },
         descriptionOfInfrastructure: {
