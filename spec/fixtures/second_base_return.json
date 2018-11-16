@@ -98,9 +98,19 @@
           "instalment4": "1000",
           "total": "4000"
         }
+      },
+      {
+        "period": null,
+        "forecast": {
+          "instalment1": null,
+          "instalment2": null,
+          "instalment3": null,
+          "instalment4": null,
+          "total": null
+        }
       }
     ],
-    "requestedProfiles": [{ "period": "2019/2020" }]
+    "requestedProfiles": [{ "period": "2019/2020" }, {"period": null} ]
   },
   "fundingPackages": [
     {
@@ -157,6 +167,14 @@
           "instalment3": "1000",
           "instalment4": "1000",
           "total": "4000"
+        },
+        {
+          "period": null,
+          "instalment1": null,
+          "instalment2": null,
+          "instalment3": null,
+          "instalment4": null,
+          "total": null
         }
       ]
     },

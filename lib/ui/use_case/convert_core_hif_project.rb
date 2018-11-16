@@ -4,7 +4,7 @@ class UI::UseCase::ConvertCoreHIFProject
   def execute(project_data:)
     @project = project_data
     @converted_project = {}
-    
+
     convert_project_summary
     convert_infrastructures
     convert_funding_profiles
@@ -159,8 +159,6 @@ class UI::UseCase::ConvertCoreHIFProject
     @converted_project[:fundingProfiles] = {}
 
     @converted_project[:fundingProfiles][:profiles] = @project[:fundingProfiles].map do |profile|
-      next if profile.nil?
-      next if profile.empty?
       {
         period: profile[:period],
         instalment1: profile[:instalment1],
@@ -168,8 +166,7 @@ class UI::UseCase::ConvertCoreHIFProject
         instalment3: profile[:instalment3],
         instalment4: profile[:instalment4],
         total: profile[:total]
-      }
-      profile.compact
+      }.compact
     end
   end
 
@@ -245,7 +242,7 @@ class UI::UseCase::ConvertCoreHIFProject
     converted_outputs_forecast.compact!
 
     return {} if @project[:outputsForecast][:housingForecast].nil?
-    
+
     converted_outputs_forecast[:housingForecast][:forecast] = @project[:outputsForecast][:housingForecast].map do |forecast|
       {
         period: forecast[:period],
