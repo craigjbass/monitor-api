@@ -392,8 +392,9 @@
       "lastQuarterMonthSpend": {
         "forecast": "Monneyyy",
         "actual": "Less money?",
-        "varianceAgainstForcastAmount": "456728",
-        "varianceAgainstForcastPercentage": "123456"
+        "hasVariance": "yes",
+        "varianceAgainstForecastAmount": "456728",
+        "varianceAgainstForecastPercentage": "123456"
       },
       "evidenceOfSpendPastQuarter": "Much",
       "breakdownOfNextQuarterSpend": {

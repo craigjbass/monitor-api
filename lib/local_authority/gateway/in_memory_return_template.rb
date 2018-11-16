@@ -2277,17 +2277,51 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                   type: 'string',
                   currency: true
                 },
-                varianceAgainstForcastAmount: {
-                  title: 'Variance Against Forecast',
-                  type: 'string',
-                  hidden: true,
-                  currency: true
-                },
-                varianceAgainstForcastPercentage: {
-                  title: 'Variance Against Forecast',
-                  type: 'string',
-                  percentage: true,
-                  hidden: true
+                variance: {
+                  title: '',
+                  type: 'object',
+                  properties: {
+                    hasVariance: {
+                      title: 'Does this vary to the forecasted amount?',
+                      type: 'string',
+                      radio: true,
+                      enum: %w[Yes No]
+                    }
+                  },
+                  dependencies: {
+                    hasVariance: {
+                      oneOf: [
+                        {
+                          properties: {
+                            hasVariance: {
+                              enum: ['No']
+                            }
+                          }
+                        },
+                        {
+                          properties: {
+                            hasVariance: {
+                              enum: ['Yes']
+                            },
+                            varianceAgainstForecastAmount: {
+                              title: 'Variance Against Forecast',
+                              type: 'string',
+                              currency: true
+                            },
+                            varianceAgainstForecastPercentage: {
+                              title: 'Variance Against Forecast',
+                              type: 'string',
+                              percentage: true
+                            },
+                            varianceReason: {
+                              title: 'Reason for Variance',
+                              type: 'string'
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
                 }
               }
             },
