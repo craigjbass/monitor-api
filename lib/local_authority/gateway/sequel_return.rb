@@ -27,7 +27,7 @@ class LocalAuthority::Gateway::SequelReturn
   end
 
   def get_returns(project_id:)
-    @database[:returns].where(project_id: project_id).all.map do |db_r|
+    @database[:returns].where(project_id: project_id).order(:id).all.map do |db_r|
       LocalAuthority::Domain::Return.new.tap do |r|
         r.id = db_r[:id]
         r.project_id = db_r[:project_id]
