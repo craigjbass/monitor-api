@@ -1653,11 +1653,17 @@
               "fundedThroughHIF": {
                 "oneOf": [
                   {
-                    "properties": { "fundedThroughHIF": { "enum": ["Yes"] } }
+                    "properties": {
+                      "fundedThroughHIF": {
+                        "enum": ["Yes"]
+                      }
+                    }
                   },
                   {
                     "properties": {
-                      "fundedThroughHIF": { "enum": ["No"] },
+                      "fundedThroughHIF": {
+                        "enum": ["No"]
+                      },
                       "descriptionOfFundingStack": {
                         "type": "string",
                         "title": "Description of funding stack",
@@ -2119,55 +2125,6 @@
               "type": "string",
               "radio": true,
               "enum": ["Yes", "No"]
-            }
-          },
-          "dependencies": {
-            "changesToRequest": {
-              "oneOf": [
-                {
-                  "properties": {
-                    "changesToRequest": { "enum": ["Confirmed"] }
-                  }
-                },
-                {
-                  "properties": {
-                    "changesToRequest": { "enum": ["Changes Required"] },
-                    "reasonForRequest": {
-                      "type": "string",
-                      "title": "Reason for Request"
-                    },
-                    "requestedAmount": {
-                      "type": "string",
-                      "title": "Requested amount",
-                      "currency": true
-                    },
-                    "varianceFromBaseline": {
-                      "type": "string",
-                      "title": "Variance from Baseline",
-                      "readonly": true,
-                      "hidden": true,
-                      "currency": true
-                    },
-                    "varianceFromBaselinePercent": {
-                      "type": "string",
-                      "title": "Variance from Baseline",
-                      "percentage": true,
-                      "readonly": true,
-                      "hidden": true
-                    },
-                    "mitigationInPlace": {
-                      "type": "string",
-                      "title": "Mitigation in place to reduce further slippage"
-                    },
-                    "amendmentConfirmation": {
-                      "title": "An amendment has been made to the forecast profile in this MR - please confirm you are content with this amendment",
-                      "type": "string",
-                      "radio": true,
-                      "enum": ["Yes", "No"]
-                    }
-                  }
-                }
-              ]
             }
           }
         },

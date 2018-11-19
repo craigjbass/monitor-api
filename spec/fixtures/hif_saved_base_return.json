@@ -137,7 +137,7 @@
           "baseline": "20000",
           "current": null,
           "varianceReason": null,
-          "percentageComplete": null
+          "percentComplete": null
         },
         "fundedThroughHIF": "No",
         "descriptionOfFundingStack": "Funding stack description",
