@@ -459,4 +459,158 @@ describe LocalAuthority::UseCase::CalculateHIFReturn do
       end
     end
   end
+
+  context 'varianceAgainstForcast' do
+    context ' in S151:supportingEvidence:lastQuarterMonthSpend forecast and amount are present' do
+      context 'example one' do
+        it 'should return a propulated varianceAgainstForcast amount and percentage' do
+          expected_return_data = {
+            infrastructures: [],
+            s151: {
+              supportingEvidence: {
+                lastQuarterMonthSpend: {
+                  forecast: '10000',
+                  actual: '9000',
+                  varianceAgainstForcastAmount: '1000',
+                  varianceAgainstForcastPercentage: '10' 
+                }
+              }
+            }
+          }
+
+          return_data_with_no_calculations = {
+            s151: {
+              supportingEvidence: {
+                lastQuarterMonthSpend: {
+                  forecast: '10000',
+                  actual: '9000'
+                }
+              }
+            }
+          }
+
+          previous_return = {}
+
+          return_data = use_case.execute(
+            return_data_with_no_calculations: return_data_with_no_calculations,
+            previous_return: previous_return
+          )
+
+          expect(return_data[:calculated_return]).to eq(expected_return_data)
+        end
+      end
+
+      context 'example two' do
+        it 'should return a propulated varianceAgainstForcast amount and percentage' do
+          expected_return_data = {
+            infrastructures: [],
+            s151: {
+              supportingEvidence: {
+                lastQuarterMonthSpend: {
+                  forecast: '25',
+                  actual: '5',
+                  varianceAgainstForcastAmount: '20',
+                  varianceAgainstForcastPercentage: '80' 
+                }
+              }
+            }
+          }
+
+          return_data_with_no_calculations = {
+            s151: {
+              supportingEvidence: {
+                lastQuarterMonthSpend: {
+                  forecast: '25',
+                  actual: '5'
+                }
+              }
+            }
+          }
+
+          previous_return = {}
+
+          return_data = use_case.execute(
+            return_data_with_no_calculations: return_data_with_no_calculations,
+            previous_return: previous_return
+          )
+
+          expect(return_data[:calculated_return]).to eq(expected_return_data)
+        end
+      end
+    end
+
+    context ' in S151:supportingEvidence:lastQuarterMonthSpend forecast and amount are not present' do
+      context 'example one' do
+        it 'should return a propulated varianceAgainstForcast amount and percentage' do
+          expected_return_data = {
+            infrastructures: [],
+            s151: {
+              supportingEvidence: {
+                lastQuarterMonthSpend: {
+                  forecast: nil,
+                  actual: nil,
+                }
+              }
+            }
+          }
+
+          return_data_with_no_calculations = {
+            s151: {
+              supportingEvidence: {
+                lastQuarterMonthSpend: {
+                  forecast: nil,
+                  actual: nil
+                }
+              }
+            }
+          }
+
+          previous_return = {}
+
+          return_data = use_case.execute(
+            return_data_with_no_calculations: return_data_with_no_calculations,
+            previous_return: previous_return
+          )
+
+          expect(return_data[:calculated_return]).to eq(expected_return_data)
+        end
+      end
+
+      context 'example two' do
+        it 'should return a propulated varianceAgainstForcast amount and percentage' do
+          expected_return_data = {
+            infrastructures: [],
+            s151: {
+              supportingEvidence: {
+                lastQuarterMonthSpend: {
+                  forecast: nil,
+                  actual: nil,
+                }
+              }
+            }
+          }
+
+          return_data_with_no_calculations = {
+            s151: {
+              supportingEvidence: {
+                lastQuarterMonthSpend: {
+                  forecast: nil,
+                  actual: nil
+                }
+              }
+            }
+          }
+
+          previous_return = {}
+
+          return_data = use_case.execute(
+            return_data_with_no_calculations: return_data_with_no_calculations,
+            previous_return: previous_return
+          )
+
+          expect(return_data[:calculated_return]).to eq(expected_return_data)
+        end
+      end
+    end
+  end
 end

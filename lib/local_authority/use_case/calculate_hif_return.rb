@@ -8,10 +8,22 @@ class LocalAuthority::UseCase::CalculateHIFReturn
   def execute(return_data_with_no_calculations:, previous_return:)
     new_return_data = return_data_with_no_calculations.deep_copy
 
-    new_return_data[:infrastructures] = [] if new_return_data[:infrastructures].nil?
+    new_return_data[:infrastructures] = infrastructures_calculations(new_return_data, previous_return)
 
-    new_return_data[:infrastructures].each_with_index do |_value, i|
-      new_return_data[:infrastructures][i] = new_return_data[:infrastructures][i].deep_merge(
+    new_return_data[:s151] = s151_calculations(new_return_data[:s151]) unless new_return_data[:s151].nil?
+   
+
+    {
+      calculated_return: new_return_data
+    }
+  end
+
+  private
+
+  def infrastructures_calculations(return_data, previous_return)
+    return [] if return_data[:infrastructures].nil?
+    return_data[:infrastructures].each_with_index do |_value, i|
+      return_data[:infrastructures][i] = return_data[:infrastructures][i].deep_merge(
         {
           planning: {
             planningNotGranted: {
@@ -28,10 +40,10 @@ class LocalAuthority::UseCase::CalculateHIFReturn
       )
 
       last_date = current_return(previous_return, i)
-      current_date = current_return(new_return_data, i)
+      current_date = current_return(return_data, i)
 
       update_variance_last_return_full_planning_permission_submitted(
-        new_return_data,
+        return_data,
         i,
         week_difference(
           date_as_string_one: current_date,
@@ -39,13 +51,26 @@ class LocalAuthority::UseCase::CalculateHIFReturn
         )
       )
     end
-
-    {
-      calculated_return: new_return_data
-    }
+    return_data[:infrastructures]
   end
 
-  private
+  def s151_calculations(s151)
+    forecast = s151.dig(:supportingEvidence, :lastQuarterMonthSpend, :forecast)
+    actual = s151.dig(:supportingEvidence, :lastQuarterMonthSpend, :actual)
+    unless (forecast.nil? || actual.nil?)
+      s151[:supportingEvidence][:lastQuarterMonthSpend][:varianceAgainstForcastAmount] = difference(forecast.to_i, actual.to_i).to_s
+      s151[:supportingEvidence][:lastQuarterMonthSpend][:varianceAgainstForcastPercentage] = percentage_difference(forecast.to_i, actual.to_i).to_s
+    end
+    s151
+  end
+
+  def percentage_difference(base, different)
+    (difference(base, different) * 100)/base
+  end
+
+  def difference(base, different)
+    base - different
+  end
 
   def current_return(return_data, index)
     return_data&.dig(:infrastructures,

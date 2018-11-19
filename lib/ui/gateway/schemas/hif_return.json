@@ -1835,14 +1835,16 @@
                         {
                           "properties": {
                             "hasVariance": { "enum": ["Yes"] },
-                            "varianceAgainstForecastAmount": {
+                            "varianceAgainstForcastAmount": {
                               "title": "Variance Against Forecast",
                               "type": "string",
-                              "currency": true
+                              "currency": true,
+                              "readonly": true
                             },
-                            "varianceAgainstForecastPercentage": {
+                            "varianceAgainstForcastPercentage": {
                               "title": "Variance Against Forecast",
                               "type": "string",
+                              "readonly": true,
                               "percentage": true
                             },
                             "varianceReason": {

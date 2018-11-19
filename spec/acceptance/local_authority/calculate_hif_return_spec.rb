@@ -20,7 +20,15 @@ describe 'Calculated return' do
             }
           }
         }
-      ]
+      ],
+      s151: {
+        supportingEvidence: {
+          lastQuarterMonthSpend: {
+            forecast: '6',
+            actual: '3',
+          }
+        }
+      }
     }
 
     secondary_return_input_data = {
@@ -36,7 +44,15 @@ describe 'Calculated return' do
             }
           }
         }
-      ]
+      ],
+      s151: {
+        supportingEvidence: {
+          lastQuarterMonthSpend: {
+            forecast: '6',
+            actual: '3'
+          }
+        }
+      }
     }
 
     expected_return_data = {
@@ -58,8 +74,19 @@ describe 'Calculated return' do
             }
           }
         }
-      ]
+      ],
+      s151: {
+        supportingEvidence: {
+          lastQuarterMonthSpend: {
+            forecast: '6',
+            actual: '3',
+            varianceAgainstForcastAmount: '3',
+            varianceAgainstForcastPercentage: '50'
+          }
+        }
+      }
     }
+
     project_id = get_use_case(:create_new_project).execute(
       name: 'dog project 1',
       type: 'hif',
