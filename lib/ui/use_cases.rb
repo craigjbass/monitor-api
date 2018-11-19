@@ -47,6 +47,13 @@ class UI::UseCases
       )
     end
 
+    builder.define_use_case :ui_validate_return do 
+      UI::UseCase::ValidateReturn.new(
+        return_template_gateway: builder.get_gateway(:ui_return_schema),
+        get_return_template_path_titles: builder.get_use_case(:get_template_path_titles)
+      )
+    end
+
     builder.define_use_case :ui_get_base_return do
       UI::UseCase::GetBaseReturn.new(
         get_base_return: builder.get_use_case(:get_base_return),
