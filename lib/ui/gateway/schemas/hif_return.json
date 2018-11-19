@@ -91,13 +91,13 @@
                                 "readonly": true
                               },
                               "varianceBaselineFullPlanningPermissionSubmitted": {
-                                "type": "integer",
+                                "type": "string",
                                 "readonly": true,
                                 "hidden": true,
                                 "title": "Variance against Baseline submitted date (Week) (Calculated)"
                               },
                               "varianceLastReturnFullPlanningPermissionSubmitted": {
-                                "type": "integer",
+                                "type": "string",
                                 "readonly": true,
                                 "hidden": true,
                                 "title": "Variance against Last Return submitted date (Week) (Calculated)"
@@ -119,8 +119,9 @@
                                 "title": "Reason for Variance"
                               },
                               "percentComplete": {
-                                "type": "integer",
-                                "title": "Percent Complete"
+                                "type": "string",
+                                "title": "Percent Complete",
+                                "percentage": true
                               },
                               "completedDate": {
                                 "type": "string",
@@ -155,13 +156,13 @@
                                 "readonly": true
                               },
                               "varianceBaselineFullPlanningPermissionGranted": {
-                                "type": "integer",
+                                "type": "string",
                                 "readonly": true,
                                 "hidden": true,
                                 "title": "Variance against Baseline granted date (Weeks) (Calculated)"
                               },
                               "varianceLastReturnFullPlanningPermissionGranted": {
-                                "type": "integer",
+                                "type": "string",
                                 "readonly": true,
                                 "hidden": true,
                                 "title": "Variance against Last Return granted date (Weeks) (Calculated)"
@@ -183,8 +184,9 @@
                                 "title": "Reason for Variance"
                               },
                               "percentComplete": {
-                                "type": "integer",
-                                "title": "Percent complete"
+                                "type": "string",
+                                "title": "Percent complete",
+                                "percentage": true
                               },
                               "completedDate": {
                                 "type": "string",
@@ -239,9 +241,7 @@
                       {
                         "type": "object",
                         "properties": {
-                          "fullPlanningPermissionGranted": {
-                            "enum": ["No"]
-                          },
+                          "fullPlanningPermissionGranted": { "enum": ["No"] },
                           "fullPlanningPermissionSummaryOfCriticalPath": {
                             "type": "string",
                             "title": "Summary Of Full Planning Permission Critical Path",
@@ -271,13 +271,13 @@
                                 "readonly": true
                               },
                               "varianceBaselineFullPlanningPermissionSubmitted": {
-                                "type": "integer",
+                                "type": "string",
                                 "readonly": true,
                                 "hidden": true,
                                 "title": "Variance against Baseline submitted date (Week) (Calculated)"
                               },
                               "varianceLastReturnFullPlanningPermissionSubmitted": {
-                                "type": "integer",
+                                "type": "string",
                                 "readonly": true,
                                 "hidden": true,
                                 "title": "Variance against Last Return submitted date (Week) (Calculated)"
@@ -299,8 +299,9 @@
                                 "title": "Reason for Variance"
                               },
                               "percentComplete": {
-                                "type": "integer",
-                                "title": "Percent complete"
+                                "type": "string",
+                                "title": "Percent complete",
+                                "percentage": true
                               },
                               "completedDate": {
                                 "type": "string",
@@ -335,13 +336,13 @@
                                 "readonly": true
                               },
                               "varianceBaselineFullPlanningPermissionGranted": {
-                                "type": "integer",
+                                "type": "string",
                                 "readonly": true,
                                 "hidden": true,
                                 "title": "Variance against Baseline granted date (Weeks) (Calculated)"
                               },
                               "varianceLastReturnFullPlanningPermissionGranted": {
-                                "type": "integer",
+                                "type": "string",
                                 "readonly": true,
                                 "hidden": true,
                                 "title": "Variance against Last Return granted date (Weeks) (Calculated)"
@@ -363,8 +364,9 @@
                                 "title": "Reason for Variance"
                               },
                               "percentComplete": {
-                                "type": "integer",
-                                "title": "Percent complete"
+                                "type": "string",
+                                "title": "Percent complete",
+                                "percentage": true
                               },
                               "completedDate": {
                                 "type": "string",
@@ -379,16 +381,12 @@
                       },
                       {
                         "properties": {
-                          "fullPlanningPermissionGranted": {
-                            "enum": ["Yes"]
-                          }
+                          "fullPlanningPermissionGranted": { "enum": ["Yes"] }
                         }
                       },
                       {
                         "properties": {
-                          "fullPlanningPermissionGranted": {
-                            "enum": ["N/A"]
-                          }
+                          "fullPlanningPermissionGranted": { "enum": ["N/A"] }
                         }
                       }
                     ]
@@ -409,10 +407,11 @@
                       "requirement"
                     ],
                     "readonly": true,
-                   
+                    "items": {
+                      "type": "string",
                       "radio": true,
                       "enum": ["Yes", "No"]
-                  
+                    }
                   }
                 },
                 "dependencies": {
@@ -446,10 +445,11 @@
                                   "anyConsents"
                                 ],
                                 "readonly": true,
-                                
+                                "items": {
+                                  "type": "string",
                                   "radio": true,
                                   "enum": ["Yes", "No"]
-                                
+                                }
                               },
                               "statutoryConsents": {
                                 "title": "Current Statutory Consents",
@@ -472,13 +472,13 @@
                                     "varianceAgainstBaseline": {
                                       "hidden": true,
                                       "title": "Variance against baseline (Calculated)",
-                                      "type": "integer",
+                                      "type": "string",
                                       "readonly": true
                                     },
                                     "varianceAgainstLastReturn": {
                                       "hidden": true,
                                       "title": "Variance against last return (Calculated)",
-                                      "type": "integer",
+                                      "type": "string",
                                       "readonly": true
                                     },
                                     "statusAgainstLastReturn": {
@@ -503,7 +503,8 @@
                                     },
                                     "percentComplete": {
                                       "title": "Percentage complete",
-                                      "type": "integer"
+                                      "type": "string",
+                                      "percentage": true
                                     },
                                     "completionDate": {
                                       "hidden": true,
@@ -592,7 +593,7 @@
                                     "enum": ["Yes"]
                                   },
                                   "howManySitesToAquire": {
-                                    "type": "integer",
+                                    "type": "string",
                                     "title": "Number of Sites to aquire?",
                                     "sourceKey": [
                                       "baseline_data",
@@ -674,8 +675,9 @@
                                         "title": "Reason for Variance"
                                       },
                                       "percentComplete": {
-                                        "type": "integer",
-                                        "title": "Percent complete"
+                                        "type": "string",
+                                        "title": "Percent complete",
+                                        "percentage": true
                                       },
                                       "completedDate": {
                                         "type": "string",
@@ -724,9 +726,11 @@
                   "contractorProcured"
                 ],
                 "readonly": true,
+                "items": {
+                  "type": "string",
                   "radio": true,
                   "enum": ["Yes", "No"]
-                
+                }
               }
             },
             "dependencies": {
@@ -810,8 +814,9 @@
                         }
                       },
                       "percentComplete": {
-                        "type": "integer",
-                        "title": "Percent complete"
+                        "type": "string",
+                        "title": "Percent complete",
+                        "percentage": true
                       },
                       "procurementCompletedDate": {
                         "type": "string",
@@ -905,8 +910,9 @@
                       "title": "Reason for Variance"
                     },
                     "milestonePercentCompleted": {
-                      "type": "integer",
-                      "title": "Percent complete"
+                      "type": "string",
+                      "title": "Percent complete",
+                      "percentage": true
                     },
                     "milestoneCompletedDate": {
                       "type": "string",
@@ -1015,8 +1021,9 @@
                       "title": "Reason for Variance"
                     },
                     "milestonePercentCompleted": {
-                      "type": "integer",
-                      "title": "Percent complete"
+                      "type": "string",
+                      "title": "Percent complete",
+                      "percentage": true
                     },
                     "milestoneCompletedDate": {
                       "type": "string",
@@ -1073,8 +1080,9 @@
                     "title": "Reason for variance"
                   },
                   "percentComplete": {
-                    "type": "integer",
-                    "title": "Percent complete"
+                    "type": "string",
+                    "title": "Percent complete",
+                    "perentage": true
                   },
                   "completedDate": {
                     "type": "string",
@@ -1129,8 +1137,9 @@
                     "title": "Reason for variance"
                   },
                   "percentComplete": {
-                    "type": "integer",
-                    "title": "Percent complete"
+                    "type": "string",
+                    "title": "Percent complete",
+                    "percentage": true
                   },
                   "completedDate": {
                     "type": "string",
@@ -1203,9 +1212,8 @@
                     "riskAnyChange": {
                       "type": "string",
                       "title": "Any change in risk?",
-                        "radio": true,
-                        "enum": ["Yes", "No"]
-                  
+                      "radio": true,
+                      "enum": ["Yes", "No"]
                     },
                     "riskCurrentReturnMitigationsInPlace": {
                       "type": "string",
@@ -1233,11 +1241,8 @@
                       "type": "string",
                       "title": "Description"
                     },
-                    "impact": { "type": "integer", "title": "Impact" },
-                    "likelihood": {
-                      "type": "integer",
-                      "title": "Likelihood"
-                    },
+                    "impact": { "type": "string", "title": "Impact" },
+                    "likelihood": { "type": "string", "title": "Likelihood" },
                     "mitigations": {
                       "type": "string",
                       "title": "Mitigations in place"
@@ -1307,9 +1312,8 @@
                     "riskAnyChange": {
                       "type": "string",
                       "title": "Any change in risk?",
-                        "radio": true,
-                        "enum": ["Yes", "No"]
-                      
+                      "radio": true,
+                      "enum": ["Yes", "No"]
                     },
                     "riskCurrentReturnMitigationsInPlace": {
                       "type": "string",
@@ -1357,8 +1361,8 @@
                     "met": {
                       "type": "string",
                       "title": "Action Met?",
-                        "radio": true,
-                        "enum": ["Yes", "No"]
+                      "radio": true,
+                      "enum": ["Yes", "No"]
                     },
                     "progress": {
                       "type": "string",
@@ -1546,9 +1550,7 @@
                 }
               }
             },
-            {
-              "properties": { "changeRequired": { "enum": ["Confirmed"] } }
-            }
+            { "properties": { "changeRequired": { "enum": ["Confirmed"] } } }
           ]
         }
       }
@@ -1627,8 +1629,9 @@
                     "title": "Reason for variance"
                   },
                   "percentComplete": {
-                    "type": "integer",
-                    "title": "Percent complete"
+                    "type": "string",
+                    "title": "Percent complete",
+                    "percentage": true
                   }
                 }
               },
@@ -1650,9 +1653,7 @@
               "fundedThroughHIF": {
                 "oneOf": [
                   {
-                    "properties": {
-                      "fundedThroughHIF": { "enum": ["Yes"] }
-                    }
+                    "properties": { "fundedThroughHIF": { "enum": ["Yes"] } }
                   },
                   {
                     "properties": {
@@ -1771,6 +1772,8 @@
             "hifTotalFundingRequest": {
               "type": "string",
               "title": "HIF Total Funding Request",
+              "sourceKey": ["baseline_data", "summary", "hifFundingAmount"],
+              "readonly": true,
               "currency": true
             },
             "hifSpendToDate": {
@@ -1797,24 +1800,60 @@
                 "forecast": {
                   "title": "Forecasted Spend Last Quarter Month",
                   "type": "string",
-                  "hidden": true,
-                  "currency": true
+                  "sourceKey": [
+                    "return_data",
+                    "s151",
+                    "supportingEvidence",
+                    "lastQuarterMonthSpend",
+                    "forecast"
+                  ],
+                  "currency": true,
+                  "readonly": true
                 },
                 "actual": {
                   "title": "Actual Spend Last Quarter Month",
                   "type": "string",
                   "currency": true
                 },
-                "varianceAgainstForcastAmount": {
-                  "title": "Variance Against Forecast (£)",
-                  "type": "string",
-                  "hidden": true,
-                  "currency": true
-                },
-                "varianceAgainstForcastPercentage": {
-                  "title": "Variance Against Forecast (%)",
-                  "type": "string",
-                  "hidden": true
+                "variance": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "hasVariance": {
+                      "title": "Does this vary to the forecasted amount?",
+                      "type": "string",
+                      "radio": true,
+                      "enum": ["Yes", "No"]
+                    }
+                  },
+                  "dependencies": {
+                    "hasVariance": {
+                      "oneOf": [
+                        {
+                          "properties": { "hasVariance": { "enum": ["No"] } }
+                        },
+                        {
+                          "properties": {
+                            "hasVariance": { "enum": ["Yes"] },
+                            "varianceAgainstForecastAmount": {
+                              "title": "Variance Against Forecast",
+                              "type": "string",
+                              "currency": true
+                            },
+                            "varianceAgainstForecastPercentage": {
+                              "title": "Variance Against Forecast",
+                              "type": "string",
+                              "percentage": true
+                            },
+                            "varianceReason": {
+                              "title": "Reason for Variance",
+                              "type": "string"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
                 }
               }
             },
@@ -1860,15 +1899,69 @@
             "hifTotalFundingRequest": {
               "type": "string",
               "title": "HIF Total Funding Request",
+              "sourceKey": ["baseline_data", "summary", "hifFundingAmount"],
               "readonly": true,
               "hidden": true,
               "currency": true
             },
             "changesToRequest": {
-              "type": "string",
-              "title": "Please confirm there are no changes to the total HIF request",
-              "radio": true,
-              "enum": ["Confirmed", "Changes Required"]
+              "title": "",
+              "type": "object",
+              "properties": {
+                "changesToRequestConfirmation": {
+                  "type": "string",
+                  "title": "Please confirm there are no changes to the total HIF request",
+                  "radio": true,
+                  "enum": ["Confirmed", "Changes Required"]
+                }
+              },
+              "dependencies": {
+                "changesToRequestConfirmation": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "changesToRequestConfirmation": {
+                          "enum": ["Confirmed"]
+                        }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "changesToRequestConfirmation": {
+                          "enum": ["Changes Required"]
+                        },
+                        "reasonForRequest": {
+                          "type": "string",
+                          "title": "Reason for Request"
+                        },
+                        "requestedAmount": {
+                          "type": "string",
+                          "title": "Requested amount",
+                          "currency": true
+                        },
+                        "varianceFromBaseline": {
+                          "type": "string",
+                          "title": "Variance from Baseline",
+                          "readonly": true,
+                          "hidden": true,
+                          "currency": true
+                        },
+                        "varianceFromBaselinePercent": {
+                          "type": "string",
+                          "title": "Variance from Baseline",
+                          "percentage": true,
+                          "readonly": true,
+                          "hidden": true
+                        },
+                        "mitigationInPlace": {
+                          "type": "string",
+                          "title": "Mitigation in place to reduce further slippage"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
             },
             "hifFundingProfile": {
               "title": "Funding Profiles",
@@ -2021,12 +2114,6 @@
                 }
               }
             },
-            "amendmentConfirmation": {
-              "title": "An amendment has been made to the forecast profile in this MR - please confirm you are content with this amendment",
-              "type": "string",
-              "radio": true,
-              "enum": ["Yes", "No"]
-            },
             "cashflowConfirmation": {
               "title": "Please confirm you are content with the submitted project cashflows",
               "type": "string",
@@ -2063,13 +2150,20 @@
                     },
                     "varianceFromBaselinePercent": {
                       "type": "string",
-                      "title": "Variance from Baseline (%)",
+                      "title": "Variance from Baseline",
+                      "percentage": true,
                       "readonly": true,
                       "hidden": true
                     },
                     "mitigationInPlace": {
                       "type": "string",
                       "title": "Mitigation in place to reduce further slippage"
+                    },
+                    "amendmentConfirmation": {
+                      "title": "An amendment has been made to the forecast profile in this MR - please confirm you are content with this amendment",
+                      "type": "string",
+                      "radio": true,
+                      "enum": ["Yes", "No"]
                     }
                   }
                 }
@@ -2082,10 +2176,48 @@
           "title": "Submission",
           "properties": {
             "changeToMilestones": {
-              "type": "string",
-              "title": "Please confirm that no changes are required to contractual milestones",
-              "radio": true,
-              "enum": ["Confirmed", "Changes Required"]
+              "title": "",
+              "type": "object",
+              "properties": {
+                "changeToMilestonesConfirmation": {
+                  "type": "string",
+                  "title": "Please confirm that no changes are required to contractual milestones",
+                  "radio": true,
+                  "enum": ["Confirmed", "Changes Required"]
+                }
+              },
+              "dependencies": {
+                "changeToMilestonesConfirmation": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "changeToMilestonesConfirmation": {
+                          "enum": ["Confirmed"]
+                        }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "changeToMilestonesConfirmation": {
+                          "enum": ["Changes Required"]
+                        },
+                        "reasonForRequestOfMilestoneChange": {
+                          "type": "string",
+                          "title": "Reason for Request"
+                        },
+                        "requestedAmendments": {
+                          "type": "string",
+                          "title": "Requested amendments to milestones"
+                        },
+                        "mitigationInPlaceMilestone": {
+                          "type": "string",
+                          "title": "Mitigation in place to reduce further amendments"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
             },
             "hifFundingEndDate": {
               "type": "string",
@@ -2094,10 +2226,54 @@
               "sourceKey": ["baseline_data", "s151", "s151FundingEndDate"]
             },
             "changesToEndDate": {
-              "type": "string",
-              "title": "Please confirm that no changes are required to Funding End Date",
-              "radio": true,
-              "enum": ["Confirmed", "Changes Required"]
+              "title": "",
+              "type": "object",
+              "properties": {
+                "changesToEndDateConfirmation": {
+                  "type": "string",
+                  "title": "Please confirm that no changes are required to Funding End Date",
+                  "radio": true,
+                  "enum": ["Confirmed", "Changes Required"]
+                }
+              },
+              "dependencies": {
+                "changesToEndDateConfirmation": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "changesToEndDateConfirmation": {
+                          "enum": ["Confirmed"]
+                        }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "changesToEndDateConfirmation": {
+                          "enum": ["Changes Required"]
+                        },
+                        "reasonForRequestOfDateChange": {
+                          "type": "string",
+                          "title": "Reason for Request"
+                        },
+                        "requestedChangedEndDate": {
+                          "type": "string",
+                          "title": "Requested new end date"
+                        },
+                        "varianceFromEndDateBaseline": {
+                          "type": "string",
+                          "title": "Variance from Baseline",
+                          "readonly": true,
+                          "hidden": true
+                        },
+                        "mitigationInPlaceEndDate": {
+                          "type": "string",
+                          "title": "Mitigation in place to reduce further slippage"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
             },
             "projectLongstopDate": {
               "type": "string",
@@ -2106,126 +2282,88 @@
               "sourceKey": ["baseline_data", "s151", "s151ProjectLongstopDate"]
             },
             "changesToLongstopDate": {
-              "type": "string",
-              "title": "Please confirm that no changes are required to project completion date",
-              "radio": true,
-              "enum": ["Confirmed", "Changes Required"]
+              "title": "",
+              "type": "object",
+              "properties": {
+                "changesToLongstopDateConfirmation": {
+                  "type": "string",
+                  "title": "Please confirm that no changes are required to project completion date",
+                  "radio": true,
+                  "enum": ["Confirmed", "Changes Required"]
+                }
+              },
+              "dependencies": {
+                "changesToLongstopDateConfirmation": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "changesToLongstopDateConfirmation": {
+                          "enum": ["Confirmed"]
+                        }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "changesToLongstopDateConfirmation": {
+                          "enum": ["Changes Required"]
+                        },
+                        "reasonForRequestOfLongstopChange": {
+                          "type": "string",
+                          "title": "Reason for Request"
+                        },
+                        "requestedLongstopEndDate": {
+                          "type": "string",
+                          "title": "Requested new end date"
+                        },
+                        "varianceFromLongStopBaseline": {
+                          "type": "string",
+                          "title": "Variance from Baseline",
+                          "readonly": true,
+                          "hidden": true
+                        },
+                        "mitigationInPlaceLongstopDate": {
+                          "type": "string",
+                          "title": "Mitigation in place to reduce further slippage"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
             },
             "recoverFunding": {
-              "type": "string",
-              "title": "Has any funding been recovered since last return?",
-              "radio": true,
-              "enum": ["Yes", "No"]
-            }
-          },
-          "dependencies": {
-            "changeToMilestones": {
-              "oneOf": [
-                {
-                  "properties": {
-                    "changeToMilestones": { "enum": ["Confirmed"] }
-                  }
-                },
-                {
-                  "properties": {
-                    "changeToMilestones": { "enum": ["Changes Required"] },
-                    "reasonForRequestOfMilestoneChange": {
-                      "type": "string",
-                      "title": "Reason for Request"
-                    },
-                    "requestedAmendments": {
-                      "type": "string",
-                      "title": "Requested amendments to milestones"
-                    },
-                    "mitigationInPlaceMilestone": {
-                      "type": "string",
-                      "title": "Mitigation in place to reduce further amendments"
-                    }
-                  }
+              "title": "",
+              "type": "object",
+              "properties": {
+                "recoverFundingConfirmation": {
+                  "type": "string",
+                  "title": "Has any funding been recovered since last return?",
+                  "radio": true,
+                  "enum": ["Yes", "No"]
                 }
-              ]
-            },
-            "changesToEndDate": {
-              "oneOf": [
-                {
-                  "properties": {
-                    "changesToEndDate": { "enum": ["Confirmed"] }
-                  }
-                },
-                {
-                  "properties": {
-                    "changesToEndDate": { "enum": ["Changes Required"] },
-                    "reasonForRequestOfDateChange": {
-                      "type": "string",
-                      "title": "Reason for Request"
+              },
+              "dependencies": {
+                "recoverFundingConfirmation": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "recoverFundingConfirmation": { "enum": ["Yes"] },
+                        "usedOnFutureHosuing": {
+                          "type": "string",
+                          "title": "Will/Has this been used on future housing?",
+                          "radio": true,
+                          "enum": ["Yes", "No"]
+                        }
+                      }
                     },
-                    "requestedChangedEndDate": {
-                      "type": "string",
-                      "title": "Requested new end date"
-                    },
-                    "varianceFromEndDateBaseline": {
-                      "type": "string",
-                      "title": "Variance from Baseline",
-                      "readonly": true,
-                      "hidden": true
-                    },
-                    "mitigationInPlaceEndDate": {
-                      "type": "string",
-                      "title": "Mitigation in place to reduce further slippage"
+                    {
+                      "properties": {
+                        "recoverFundingConfirmation": { "enum": ["No"] }
+                      }
                     }
-                  }
+                  ]
                 }
-              ]
-            },
-            "changesToLongstopDate": {
-              "oneOf": [
-                {
-                  "properties": {
-                    "changesToLongstopDate": { "enum": ["Confirmed"] }
-                  }
-                },
-                {
-                  "properties": {
-                    "changesToLongstopDate": {
-                      "enum": ["Changes Required"]
-                    },
-                    "reasonForRequestOfLongstopChange": {
-                      "type": "string",
-                      "title": "Reason for Request"
-                    },
-                    "requestedLongstopEndDate": {
-                      "type": "string",
-                      "title": "Requested new end date"
-                    },
-                    "varianceFromLongStopBaseline": {
-                      "type": "string",
-                      "title": "Variance from Baseline",
-                      "readonly": true,
-                      "hidden": true
-                    },
-                    "mitigationInPlaceLongstopDate": {
-                      "type": "string",
-                      "title": "Mitigation in place to reduce further slippage"
-                    }
-                  }
-                }
-              ]
-            },
-            "recoverFunding": {
-              "oneOf": [
-                {
-                  "properties": {
-                    "recoverFunding": { "enum": ["Yes"] },
-                    "usedOnFutureHosuing": {
-                      "type": "string",
-                      "title": "Will/Has this been used on future housing?",
-                      "radio": true,
-                      "enum": ["Yes", "No"]
-                    }
-                  }
-                },
-                { "properties": { "recoverFunding": { "enum": ["No"] } } }
-              ]
+              }
             }
           }
         }
@@ -2240,7 +2378,7 @@
           "title": "Summary",
           "properties": {
             "totalUnits": {
-              "type": "integer",
+              "type": "string",
               "title": "Total Units",
               "readonly": true,
               "sourceKey": ["baseline_data", "outputsForecast", "totalUnits"]
@@ -2509,66 +2647,22 @@
           "title": "Public Sector Land?",
           "enum": ["Yes", "No"]
         },
-        "brownfieldPercent": { "type": "string", "title": "Brownfield %" },
-        "leaseholdPercent": { "type": "string", "title": "Leasehold %" },
-        "smePercent": { "type": "string", "title": "SME %" },
-        "mmcPercent": { "type": "string", "title": "MMC %" }
-      }
-    },
-    "rmMonthlyCatchup": {
-      "title": "RM Monthly Catch Up",
-      "type": "object",
-      "properties": {
-        "dateOfCatchUp": { "type": "string", "title": "Date of Catch Up" },
-        "overallRatingForScheme": {
+        "brownfieldPercent": {
           "type": "string",
-          "title": "Overall RAG Rating for Scheme",
-          "radio": true,
-          "enum": ["Red", "Amber", "Green"]
+          "title": "Brownfield",
+          "percentage": true
         },
-        "redBarriers": {
-          "type": "array",
-          "title": "Barriers- Red Rating",
-          "items": {
-            "type": "object",
-            "properties": {
-              "overview": {
-                "type": "string",
-                "extendedText": true,
-                "title": "Overview of Barrier"
-              }
-            }
-          }
-        },
-        "amberBarriers": {
-          "type": "array",
-          "title": "Barriers- Amber Rating",
-          "items": {
-            "type": "object",
-            "properties": {
-              "overview": {
-                "type": "string",
-                "extendedText": true,
-                "title": "Overview of Barrier"
-              }
-            }
-          }
-        },
-        "overviewOfEngagement": {
+        "leaseholdPercent": {
           "type": "string",
-          "extendedText": true,
-          "title": "Overview of Engagement"
+          "title": "Leasehold",
+          "percentage": true
         },
-        "commentOnProgress": {
+        "smePercent": {
           "type": "string",
-          "extendedText": true,
-          "title": "Comments on Progress"
+          "title": "SME",
+          "percentage": true
         },
-        "issuesToRaise": {
-          "type": "string",
-          "extendedText": true,
-          "title": "Issues to Raise"
-        }
+        "mmcPercent": { "type": "string", "title": "MMC", "percentage": true }
       }
     }
   }

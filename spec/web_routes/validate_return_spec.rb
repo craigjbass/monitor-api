@@ -20,7 +20,7 @@ describe 'Checking if Return is valid' do
   end
   before do
     stub_const(
-      'LocalAuthority::UseCase::ValidateReturn',
+      'UI::UseCase::ValidateReturn',
       double(new: validate_return_spy)
     )
 
