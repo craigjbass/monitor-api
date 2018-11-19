@@ -159,6 +159,7 @@
   },
   "s151Confirmation": {
     "hifFunding": {
+      "hifTotalFundingRequest": "10000",
       "hifFundingProfile": [
         {
           "period": "2019/2020",
