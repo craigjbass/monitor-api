@@ -5,7 +5,7 @@ describe 'Submitting a return' do
   let(:notification_gateway_spy) { spy }
   let(:get_project_users_spy) { spy }
   let(:send_return_submission_notification_spy) { spy }
-  let(:notify_project_members_spy) { spy }
+  let(:notify_project_members_of_submission_spy) { spy }
   let(:submit_return_spy) { spy(execute: nil) }
   let(:check_api_key_spy) { spy(execute: { valid: true, email: email }) }
   let(:email) { '' }
@@ -33,7 +33,7 @@ describe 'Submitting a return' do
 
     stub_const(
       'LocalAuthority::UseCase::NotifyProjectMembers',
-      double(new: notify_project_members_spy)
+      double(new: notify_project_members_of_submission_spy)
     )
 
     stub_const(
@@ -61,7 +61,7 @@ describe 'Submitting a return' do
 
     it 'will run notify project members use case with id' do
       post '/return/submit', { return_id: '1', project_id: '1', url: 'placeholder.com' }.to_json, 'HTTP_API_KEY' => 'superSecret'
-      expect(notify_project_members_spy).to have_received(:execute).with(project_id: 1, url: 'placeholder.com', by: 'cow@barn.net')
+      expect(notify_project_members_of_submission_spy).to have_received(:execute).with(project_id: 1, url: 'placeholder.com', by: 'cow@barn.net')
     end
   end
 
@@ -74,7 +74,7 @@ describe 'Submitting a return' do
 
     it 'will run notify project members use case with id' do
       post '/return/submit', { return_id: '1', project_id: '443', url: 'example.net' }.to_json, 'HTTP_API_KEY' => 'superSecret'
-      expect(notify_project_members_spy).to have_received(:execute).with(project_id: 443, url: 'example.net', by: 'dog@kennel.co')
+      expect(notify_project_members_of_submission_spy).to have_received(:execute).with(project_id: 443, url: 'example.net', by: 'dog@kennel.co')
     end
   end
 end

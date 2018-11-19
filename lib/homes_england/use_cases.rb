@@ -63,6 +63,19 @@ class HomesEngland::UseCases
       )
     end
 
+    builder.define_use_case :send_project_creation_notification do
+      HomesEngland::UseCase::SendProjectCreationNotification.new(
+        email_notification_gateway: builder.get_gateway(:notification)
+      )
+    end
+
+    builder.define_use_case :notify_project_members_of_creation do
+      HomesEngland::UseCase::NotifyProjectMembersOfCreation.new(
+        send_project_creation_notification: builder.get_use_case(:send_project_creation_notification),
+        get_project_users: builder.get_use_case(:get_project_users)
+      )
+    end
+
     builder.define_use_case :export_project_data do
       HomesEngland::UseCase::ExportProjectData.new(
         find_project: builder.get_use_case(:find_project),

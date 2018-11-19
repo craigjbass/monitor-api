@@ -1080,11 +1080,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           riskAnyChange: {
                             type: 'string',
                             title: 'Any change in risk?',
-                            items: {
-                              type: 'string',
-                              radio: true,
-                              enum: %w[Yes No]
-                            }
+                            radio: true,
+                            enum: %w[Yes No]
                           },
                           riskCurrentReturnMitigationsInPlace: {
                             type: 'string',
@@ -1168,11 +1165,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           riskAnyChange: {
                             type: 'string',
                             title: 'Any change in risk?',
-                            items: {
-                              type: 'string',
-                              radio: true,
-                              enum: %w[Yes No]
-                            }
+                            radio: true,
+                            enum: %w[Yes No]
                           },
                           riskCurrentReturnMitigationsInPlace: {
                             type: 'string',
@@ -1215,11 +1209,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                           met: {
                             type: 'string',
                             title: 'Action Met?',
-                            items: {
-                              type: 'string',
-                              radio: true,
-                              enum: %w[Yes No]
-                            }
+                            radio: true,
+                            enum: %w[Yes No]
                           },
                           progress: {
                             type: 'string',
@@ -1803,10 +1794,59 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
               currency: true
             },
             changesToRequest: {
-              type: 'string',
-              title: 'Please confirm there are no changes to the total HIF request',
-              radio: true,
-              enum: ['Confirmed', 'Changes Required']
+              title: '',
+              type: 'object',
+              properties: {
+                changesToRequestConfirmation: {
+                  type: 'string',
+                  title: 'Please confirm there are no changes to the total HIF request',
+                  radio: true,
+                  enum: ['Confirmed', 'Changes Required']
+                }
+              },
+              dependencies: {
+                changesToRequestConfirmation: {
+                  oneOf: [
+                    {
+                      properties: {
+                        changesToRequestConfirmation: { enum: ['Confirmed'] }
+                      }
+                    },
+                    {
+                      properties: {
+                        changesToRequestConfirmation: { enum: ['Changes Required'] },
+                        reasonForRequest: {
+                          type: 'string',
+                          title: 'Reason for Request'
+                        },
+                        requestedAmount: {
+                          type: 'string',
+                          title: 'Requested amount',
+                          currency: true
+                        },
+                        varianceFromBaseline: {
+                          type:'string',
+                          title: 'Variance from Baseline',
+                          readonly: true,
+                          hidden: true,
+                          currency: true
+                        },
+                        varianceFromBaselinePercent: {
+                          type: 'string',
+                          title: 'Variance from Baseline',
+                          percentage: true,
+                          readonly: true,
+                          hidden: true
+                        },
+                        mitigationInPlace: {
+                          type: 'string',
+                          title: 'Mitigation in place to reduce further slippage'
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
             },
             hifFundingProfile: {
               title: 'Funding Profiles',
@@ -1943,12 +1983,6 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                 }
               }
             },
-            amendmentConfirmation: {
-              title: 'An amendment has been made to the forecast profile in this MR - please confirm you are content with this amendment',
-              type: 'string',
-              radio: true,
-              enum: %w[Yes No]
-            },
             cashflowConfirmation: {
               title: 'Please confirm you are content with the submitted project cashflows',
               type: 'string',
@@ -1993,7 +2027,13 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                     mitigationInPlace: {
                       type: 'string',
                       title: 'Mitigation in place to reduce further slippage'
-                    }
+                    },
+                    amendmentConfirmation: {
+                      title: 'An amendment has been made to the forecast profile in this MR - please confirm you are content with this amendment',
+                      type: 'string',
+                      radio: true,
+                      enum: %w[Yes No]
+                    },
                   }
                 }
               ]
@@ -2005,10 +2045,44 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
           title: 'Submission',
           properties: {
             changeToMilestones: {
-              type: 'string',
-              title: 'Please confirm that no changes are required to contractual milestones',
-              radio: true,
-              enum: ['Confirmed', 'Changes Required']
+              title: '',
+              type: 'object',
+              properties: {
+                changeToMilestonesConfirmation: {
+                  type: 'string',
+                  title: 'Please confirm that no changes are required to contractual milestones',
+                  radio: true,
+                  enum: ['Confirmed', 'Changes Required']
+                }
+              },
+              dependencies: {
+                changeToMilestonesConfirmation: {
+                  oneOf: [
+                    {
+                      properties: {
+                        changeToMilestonesConfirmation: { enum: ['Confirmed'] }
+                      }
+                    },
+                    {
+                      properties: {
+                        changeToMilestonesConfirmation: { enum: ['Changes Required'] },
+                        reasonForRequestOfMilestoneChange: {
+                          type: 'string',
+                          title: 'Reason for Request'
+                        },
+                        requestedAmendments: {
+                          type: 'string',
+                          title: 'Requested amendments to milestones'
+                        },
+                        mitigationInPlaceMilestone: {
+                          type: 'string',
+                          title: 'Mitigation in place to reduce further amendments'
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
             },
             hifFundingEndDate: {
               type: 'string',
@@ -2017,10 +2091,50 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
               sourceKey: %i[baseline_data s151 s151FundingEndDate]
             },
             changesToEndDate: {
-              type: 'string',
-              title: 'Please confirm that no changes are required to Funding End Date',
-              radio: true,
-              enum: ['Confirmed', 'Changes Required']
+              title: '',
+              type: 'object',
+              properties: {
+                changesToEndDateConfirmation: {
+                  type: 'string',
+                  title: 'Please confirm that no changes are required to Funding End Date',
+                  radio: true,
+                  enum: ['Confirmed', 'Changes Required']
+                }
+              },
+              dependencies: {
+                changesToEndDateConfirmation: {
+                  oneOf: [
+                    {
+                      properties: {
+                        changesToEndDateConfirmation: { enum: ['Confirmed'] }
+                      }
+                    },
+                    {
+                      properties: {
+                        changesToEndDateConfirmation: { enum: ['Changes Required'] },
+                        reasonForRequestOfDateChange: {
+                          type: 'string',
+                          title: 'Reason for Request'
+                        },
+                        requestedChangedEndDate: {
+                          type: 'string',
+                          title: 'Requested new end date'
+                        },
+                        varianceFromEndDateBaseline: {
+                          type: 'string',
+                          title: 'Variance from Baseline',
+                          readonly: true,
+                          hidden: true
+                        },
+                        mitigationInPlaceEndDate: {
+                          type: 'string',
+                          title: 'Mitigation in place to reduce further slippage'
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
             },
             projectLongstopDate: {
               type: 'string',
@@ -2029,128 +2143,84 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
               sourceKey: %i[baseline_data s151 s151ProjectLongstopDate]
             },
             changesToLongstopDate: {
-              type: 'string',
-              title: 'Please confirm that no changes are required to project completion date',
-              radio: true,
-              enum: ['Confirmed', 'Changes Required']
+              title: '',
+              type: 'object',
+              properties: {
+                changesToLongstopDateConfirmation: {
+                  type: 'string',
+                  title: 'Please confirm that no changes are required to project completion date',
+                  radio: true,
+                  enum: ['Confirmed', 'Changes Required']
+                }
+              },
+              dependencies: {
+                changesToLongstopDateConfirmation: {
+                  oneOf: [
+                    {
+                      properties: {
+                        changesToLongstopDateConfirmation: { enum: ['Confirmed'] }
+                      }
+                    },
+                    {
+                      properties: {
+                        changesToLongstopDateConfirmation: { enum: ['Changes Required'] },
+                        reasonForRequestOfLongstopChange: {
+                          type: 'string',
+                          title: 'Reason for Request'
+                        },
+                        requestedLongstopEndDate: {
+                          type: 'string',
+                          title: 'Requested new end date'
+                        },
+                        varianceFromLongStopBaseline: {
+                          type: 'string',
+                          title: 'Variance from Baseline',
+                          readonly: true,
+                          hidden: true
+                        },
+                        mitigationInPlaceLongstopDate: {
+                          type: 'string',
+                          title: 'Mitigation in place to reduce further slippage'
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
             },
             recoverFunding: {
-              type: 'string',
-              title: 'Has any funding been recovered since last return?',
-              radio: true,
-              enum: %w[Yes No]
-            }
-          },
-          dependencies: {
-            changeToMilestones: {
-              oneOf: [
-                {
-                  properties: {
-                    changeToMilestones: { enum: ['Confirmed'] }
-                  }
-                },
-                {
-                  properties: {
-                    changeToMilestones: { enum: ['Changes Required'] },
-                    reasonForRequest: {
-                      type: 'string',
-                      title: 'Reason for Request'
-                    },
-                    requestedAmendments: {
-                      type: 'string',
-                      title: 'Requested amendments to milestones'
-                    },
-                    mitigationInPlace: {
-                      type: 'string',
-                      title: 'Mitigation in place to reduce further amendments'
-                    }
-                  }
+              title: '',
+              type: 'object',
+              properties: {
+                recoverFundingConfirmation: {
+                  type: 'string',
+                  title: 'Has any funding been recovered since last return?',
+                  radio: true,
+                  enum: %w[Yes No]
                 }
-              ]
-            },
-            changesToEndDate: {
-              oneOf: [
-                {
-                  properties: {
-                    changesToEndDate: { enum: ['Confirmed'] }
-                  }
-                },
-                {
-                  properties: {
-                    changesToEndDate: { enum: ['Changes Required'] },
-                    reasonForRequest: {
-                      type: 'string',
-                      title: 'Reason for Request'
+              },
+              dependencies: {
+                recoverFundingConfirmation: {
+                  oneOf: [
+                    {
+                      properties: {
+                        recoverFundingConfirmation: { enum: ['Yes'] },
+                        usedOnFutureHosuing: {
+                          type: 'string',
+                          title: 'Will/Has this been used on future housing?',
+                          radio: true,
+                          enum: %w[Yes No]
+                        }
+                      }
                     },
-                    requestedEndDate: {
-                      type: 'string',
-                      title: 'Requested new end date'
-                    },
-                    varianceFromBaseline: {
-                      type: 'string',
-                      title: 'Variance from Baseline',
-                      readonly: true,
-                      hidden: true
-                    },
-                    mitigationInPlace: {
-                      type: 'string',
-                      title: 'Mitigation in place to reduce further slippage'
+                    {
+                      properties: {
+                        recoverFundingConfirmation: { enum: ['No'] }
+                      }
                     }
-                  }
+                  ]
                 }
-              ]
-            },
-            changesToLongstopDate: {
-              oneOf: [
-                {
-                  properties: {
-                    changesToLongstopDate: { enum: ['Confirmed'] }
-                  }
-                },
-                {
-                  properties: {
-                    changesToLongstopDate: { enum: ['Changes Required'] },
-                    reasonForRequest: {
-                      type: 'string',
-                      title: 'Reason for Request'
-                    },
-                    requestedEndDate: {
-                      type: 'string',
-                      title: 'Requested new end date'
-                    },
-                    varianceFromBaseline: {
-                      type: 'string',
-                      title: 'Variance from Baseline',
-                      readonly: true,
-                      hidden: true
-                    },
-                    mitigationInPlace: {
-                      type: 'string',
-                      title: 'Mitigation in place to reduce further slippage'
-                    }
-                  }
-                }
-              ]
-            },
-            recoverFunding: {
-              oneOf: [
-                {
-                  properties: {
-                    recoverFunding: { enum: ['Yes'] },
-                    usedOnFutureHosuing: {
-                      type: 'string',
-                      title: 'Will/Has this been used on future housing?',
-                      radio: true,
-                      enum: %w[Yes No]
-                    }
-                  }
-                },
-                {
-                  properties: {
-                    recoverFunding: { enum: ['No'] }
-                  }
-                }
-              ]
+              }
             }
           }
         }
@@ -2171,6 +2241,8 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
             hifTotalFundingRequest: {
               type: 'string',
               title: 'HIF Total Funding Request',
+              sourceKey: %i[baseline_data summary hifFundingAmount],
+              readonly: true,
               currency: true
             },
             hifSpendToDate: {
@@ -2206,17 +2278,51 @@ class LocalAuthority::Gateway::InMemoryReturnTemplate
                   type: 'string',
                   currency: true
                 },
-                varianceAgainstForcastAmount: {
-                  title: 'Variance Against Forecast',
-                  type: 'string',
-                  hidden: true,
-                  currency: true
-                },
-                varianceAgainstForcastPercentage: {
-                  title: 'Variance Against Forecast',
-                  type: 'string',
-                  percentage: true,
-                  hidden: true
+                variance: {
+                  title: '',
+                  type: 'object',
+                  properties: {
+                    hasVariance: {
+                      title: 'Does this vary to the forecasted amount?',
+                      type: 'string',
+                      radio: true,
+                      enum: %w[Yes No]
+                    }
+                  },
+                  dependencies: {
+                    hasVariance: {
+                      oneOf: [
+                        {
+                          properties: {
+                            hasVariance: {
+                              enum: ['No']
+                            }
+                          }
+                        },
+                        {
+                          properties: {
+                            hasVariance: {
+                              enum: ['Yes']
+                            },
+                            varianceAgainstForecastAmount: {
+                              title: 'Variance Against Forecast',
+                              type: 'string',
+                              currency: true
+                            },
+                            varianceAgainstForecastPercentage: {
+                              title: 'Variance Against Forecast',
+                              type: 'string',
+                              percentage: true
+                            },
+                            varianceReason: {
+                              title: 'Reason for Variance',
+                              type: 'string'
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
                 }
               }
             },

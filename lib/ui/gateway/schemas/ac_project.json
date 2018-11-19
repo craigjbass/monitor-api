@@ -84,34 +84,34 @@
                       "numberOfUnitsMarket": {
                         "type": "string",
                         "title": "Market sale",
-                        "maximum": "9999"
+                        "currencyMaximum": "9999"
                       },
                       "numberOfUnitsSharedOwnership": {
                         "type": "string",
                         "title": "Shared ownership",
-                        "maximum": "9999"
+                        "currencyMaximum": "9999"
                       },
                       "numberOfUnitsAffordable": {
                         "type": "string",
                         "title": "Affordable/social rent",
-                        "maximum": "9999"
+                        "currencyMaximum": "9999"
                       },
                       "numberOfUnitsPRS": {
                         "type": "string",
                         "title": "Private Rented",
-                        "maximum": "9999"
+                        "currencyMaximum": "9999"
                       },
                       "numberOfUnitsOther": {
                         "type": "string",
                         "title": "Other",
-                        "maximum": "9999"
+                        "currencyMaximum": "9999"
                       }
                     }
                   },
                   "numberOfUnitsTotal": {
                     "type": "string",
                     "title": "Total number of units",
-                    "maximum": "99999"
+                    "currencyMaximum": "99999"
                   }
                 }
               }
@@ -173,7 +173,7 @@
                         "type": "string",
                         "title": "Estimated funding",
                         "currency": "true",
-                        "maximum": "99999999"
+                        "currencyMaximum": "99999999"
                       }
                     }
                   },
@@ -264,13 +264,13 @@
               "type": "string",
               "title": "Projected (clean site) land value",
               "currency": true,
-              "maximum": "99999999"
+              "currencyMaximum": "99999999"
             },
             "clawback": {
               "type": "string",
               "title": "Clawback",
               "percentage": true,
-              "maximum": "9999"
+              "currencyMaximum": "9999"
             }
           }
         }
@@ -437,12 +437,12 @@
             "localMarketPace": {
               "type": "string",
               "title": "Local Market Pace (units pm)",
-              "maximum":"99999"
+              "currencyMaximum":"99999"
             },
             "schemePace": {
               "type": "string",
               "title": "Scheme Pace (units pm)",
-              "maximum": "99999"
+              "currencyMaximum": "99999"
             }
           }
         },
@@ -461,7 +461,7 @@
               "percent": {
                 "type": "string",
                 "title": "Percent Amount",
-                "maximum":"9999",
+                "currencyMaximum":"9999",
                 "percentage": true
               }
             }

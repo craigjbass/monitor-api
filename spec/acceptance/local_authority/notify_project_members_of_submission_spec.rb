@@ -15,7 +15,7 @@ describe 'Notifying project members' do
       p.data = {}
     end
   end
-
+  
   before do
     ENV['GOV_NOTIFY_API_KEY'] = 'cafe-cafecafe-cafe-cafe-cafe-cafecafecafe-cafecafe-cafe-cafe-cafe-cafecafecafe'
     ENV['GOV_NOTIFY_API_URL'] = notification_url
@@ -25,8 +25,8 @@ describe 'Notifying project members' do
     simulator.send_notification(to: 'cat@meow.com')
   end
 
-  it 'notifies project members' do
-    dependency_factory.get_use_case(:notify_project_members).execute(project_id: @project_id, url: 'meow.com', by: 'cat')
+  it 'Notfies project members' do
+    dependency_factory.get_use_case(:notify_project_members_of_submission).execute(project_id: @project_id, url: 'meow.com', by: 'cat')
     simulator.expect_notification_to_have_been_sent_with(access_url: 'meow.com')
   end
 end

@@ -1,0 +1,439 @@
+{
+  "infrastructures": [
+    {
+      "summary": {
+        "type": "A House",
+        "description": "A house of cats"
+      },
+      "planning": {
+        "outlinePlanning": {
+          "baselineOutlinePlanningPermissionGranted": "No",
+          "baselineSummaryOfCriticalPath": "Summary of critical path",
+          "planningSubmitted": {
+            "baseline": "2020-01-01",
+            "varianceBaselineFullPlanningPermissionSubmitted": "4",
+            "varianceLastReturnFullPlanningPermissionSubmitted": "5",
+            "status": "Completed",
+            "current": "2020-07-02",
+            "reason": "It's late",
+            "percentComplete": "78",
+            "completedDate": "2020-04-01",
+            "onCompletedReference": "Hi"
+          },
+          "planningGranted": {
+            "baseline": "2020-02-01",
+            "varianceBaselineFullPlanningPermissionGranted": "4",
+            "varianceLastReturnFullPlanningPermissionGranted": "5",
+            "status": "Completed",
+            "current": "2020-07-02",
+            "reason": "It's late",
+            "percentComplete": "78",
+            "completedDate": "2020-04-01"
+          }
+        },
+        "fullPlanning": {
+          "fullPlanningPermissionGranted": "No",
+          "fullPlanningPermissionSummaryOfCriticalPath": "Summary of critical path",
+          "submitted": {
+            "baseline": "2020-03-01",
+            "varianceBaselineFullPlanningPermissionSubmitted": "80",
+            "varianceLastReturnFullPlanningPermissionSubmitted": "89",
+            "status": "Completed",
+            "current": "Dogs",
+            "reason":"Uggs",
+            "percentComplete": "77",
+            "completedDate": "2019-09-09",
+            "onCompletedReference": "Louise Voittons"
+          },
+          "granted": {
+            "baseline": "2020-03-01",
+            "varianceBaselineFullPlanningPermissionGranted": "80",
+            "varianceLastReturnFullPlanningPermissionGranted": "89",
+            "status": "Completed",
+            "current": "Dogs",
+            "reason":"Uggs",
+            "percentComplete": "75",
+            "completedDate": "2017-09-09"
+          }
+        },
+        "section106": {
+          "s106Requirement": "Yes",
+          "s106SummaryOfRequirement": "Required",
+          "statutoryConsents": {
+            "anyStatutoryConsents": "Yes",
+            "statutoryConsents": [
+              {
+                "baselineCompletion": "2020-01-01",
+                "varianceAgainstBaseline": "4",
+                "varianceAgainstLastReturn": "56",
+                "statusAgainstLastReturn": "On schedule",
+                "currentReturn": "Oasis",
+                "varianceReason": "Monolos",
+                "percentComplete": "78",
+                "completionDate": "2022-07-08"
+                }
+              ]
+          }
+        }
+      },
+      "landOwnership": {
+        "laHasControlOfSite": "Yes",
+        "laDoesNotControlSite": {
+          "whoOwnsSite": "Dave",
+          "landAcquisitionRequired": "Yes",
+          "howManySitesToAquire": "10",
+          "toBeAquiredBy": "LA",
+          "summaryOfAcquisitionRequired": "Summary of critical path",
+          "allLandAssemblyAchieved": {
+            "baseline": "2020-01-01",
+            "landAssemblyVarianceAgainstLastReturn": "Cath Kidson",
+            "landAssemblyVarianceAgainstBaseReturn": "Top Shop",
+            "status": "Delayed",
+            "current": "3029-09-08",
+            "reason": "The shops have gone",
+            "percentComplete": "43",
+            "completedDate": "1897-02-03"
+          }
+        }
+      },
+      "procurement": {
+        "contractorProcured": "Yes",
+        "nameOfContractor": "Steve",
+        "summaryOfCriticalPath": "Summary of critical meow",
+        "procurementBaselineCompletion": "2020-01-01",
+        "procurementVarianceAgainstLastReturn": "Not Procured",
+        "procurementVarianceAgainstBaseline": "Procured more than that",
+        "procurementStatusAgainstLastReturn": {
+          "statusAgainstLastReturn": "Completed",
+          "currentReturn": "2012-03-04",
+          "reasonForVariance": "It is slow"
+        },
+        "percentComplete": "89",
+        "procurementCompletedDate": "2013-07-05",
+        "procurementCompletedNameOfContractor": "John"
+      },
+      "milestones": {
+        "keyMilestones": [
+          {
+            "description": "Milestone One",
+            "milestoneBaselineCompletion": "2020-01-01",
+            "milestoneSummaryOfCriticalPath": "Summary of critical path",
+            "milestoneVarianceAgainstLastReturn": "Different",
+            "milestoneVarianceAgainstBaseline": "LEss Different",
+            "statusAgainstLastReturn": "Completed",
+            "currentReturn": "Done",
+            "reasonForVariance": "I forgot",
+            "milestonePercentCompleted": "99",
+            "milestoneCompletedDate": "7019-08-09"
+          }
+        ],
+        "additionalMilestones": [
+          {
+            "description": "My new milestones",
+            "completion": "2019-02-03",
+            "criticalPath": "Not long"
+          }
+        ],
+        "expectedInfrastructureStartOnSite": {
+          "baseline": "2020-01-01",
+          "varianceAgainstLastReturn": "67",
+          "varianceAgainstBaseline": "78",
+          "status": "On schedule",
+          "current": "Now",
+          "reason": "Not long",
+          "perecentComplete": "67",
+          "completedDate": "5603-98-02"
+        },
+        "expectedCompletionDateOfInfra": {
+          "baseline": "2020-01-01",
+          "varianceAgainstLastReturn": "67",
+          "varianceAgainstBaseline": "78",
+          "status": "On schedule",
+          "current": "Now",
+          "reason": "Not long",
+          "perecentComplete": "67",
+          "completedDate": "5603-98-02"
+        }
+      },
+      "risks": {
+        "baselineRisks": [
+          {
+            "riskBaselineRisk": "Risk one",
+            "riskBaselineImpact": "High",
+            "riskBaselineLikelihood": "High",
+            "riskBaselineMitigationsInPlace": "Do not do the thing",
+            "riskAnyChange": "No",
+            "riskCurrentReturnMitigationsInPlace": "None",
+            "riskMetDate": "2024-67-40"
+          }
+        ],
+        "additionalRisks": [
+          {
+            "description": "My new Risk",
+            "impact": "6",
+            "likelihood": "9",
+            "mitigations": "Be less Riskkayy"
+          }
+        ],
+        "previousRisks": [
+          {
+            "riskBaselineRisk": "Risk one",
+            "riskBaselineImpact": "High",
+            "riskBaselineLikelihood": "High",
+            "riskCurrentReturnLikelihood": "6",
+            "riskBaselineMitigationsInPlace": "Do not do the thing",
+            "riskAnyChange": "No",
+            "riskCurrentReturnMitigationsInPlace": "None",
+            "riskMetDate": "2024-67-40"
+          }
+        ]
+      },
+      "progress": {
+        "describeQuarterProgress": "No",
+        "progressAgainstActions": [
+          {
+            "description": "been on holiday",
+            "met" : "Yes",
+            "progress": "Running"
+          }
+        ],
+        "actionsForNextQuarter": [
+          {
+            "description": "Descriptive describes"
+          }
+        ]
+      }
+    }
+  ],
+  "fundingProfiles": {
+    "totalHIFGrant": "10000",
+    "fundingRequest": [
+      {
+        "period": "2019/2020",
+        "forecast": {
+          "instalment1": "1000",
+          "instalment2": "1000",
+          "instalment3": "1000",
+          "instalment4": "1000",
+          "total": "4000"
+        }
+      }
+    ],
+    "changeRequired": "Change required",
+    "reasonForRequest": "no bricks",
+    "mitigationInPlace": "buy more",
+    "requestedProfiles": [
+      {
+        "period": "2019/2020",
+        "newProfile": {
+          "instalment1": "1000",
+          "instalment2": "1000",
+          "instalment3": "1000",
+          "instalment4": "1000",
+          "total": "4000"
+        }
+      }
+    ]
+  },
+  "fundingPackages": [
+    {
+      "fundingStack": {
+        "hifSpend": {
+          "baseline": "10000",
+          "current": "7685",
+          "lastReturn": "783273"
+        },
+        "totalCost": {
+          "baseline": "20000",
+          "current": "567329",
+          "varianceReason": "No more money",
+          "percentageComplete": "78"
+        },
+        "fundedThroughHIF": "No",
+        "descriptionOfFundingStack": "Funding stack description",
+        "riskToFundingPackage": {
+          "risk": "No more houses",
+          "description": "build some"
+        },
+        "public": {
+          "baseline": "5000",
+          "current": "756",
+          "reason": "298",
+          "amountSecured": "45782"
+        },
+        "private": {
+          "baseline": "5000",
+          "current": "756",
+          "reason": "298",
+          "amountSecured": "45782"
+        }
+      }
+    }
+  ],
+  "outputsForecast": {
+    "summary": {
+      "totalUnits": "10",
+      "disposalStrategy": "Disposal strategy"
+    },
+    "housingStarts": {
+      "baselineAmounts": [
+        { "period": "18/19", "baselineAmounts": "100" },
+        { "period": "19/20", "baselineAmounts": "50" }
+      ],
+      "anyChanges": "Yes",
+
+      "currentReturnAmounts": [
+        {
+          "period": "18/19",
+          "currentReturnForecast": "57834"
+        },
+        {
+          "period": "19/20",
+          "currentReturnForecast": "4735290"
+        }
+      ]
+    },
+    "inYearHousingStarts": {
+      "risksToAchieving": "A risk"
+    },
+    "housingCompletions": {
+      "baselineAmounts": [
+        { "period": "18/19", "baselineAmounts": "0" },
+        { "period": "19/20", "baselineAmounts": "50" }
+      ],
+      "anyChanges": "No",
+      "currentReturnAmounts": [
+        {
+          "period": "18/19",
+          "currentReturnForecast": "567438"
+        },
+        {
+          "period": "19/20",
+          "currentReturnForecast": "564739"
+        }
+      ]
+    },
+    "inYearHousingCompletions": {
+      "risksToAchieving": "none"
+    }
+  },
+  "s151Confirmation": {
+    "hifFunding": {
+      "hifTotalFundingRequest": "spending",
+      "changesToRequest": {
+        "changesToRequestConfirmation": "requesting",
+        "requestedAmount": "money",
+        "reasonForRequest": "reasoning",
+        "varianceFromBaseline": "varying",
+        "varianceFromBaselinePercent" : "67",
+        "mitigationInPlace": "mitigating"
+      },
+      "hifFundingProfile": [
+        {
+          "period": "2018",
+          "instalment1": "1",
+          "instalment2": "2",
+          "instalment3": "3",
+          "instalment4": "4",
+          "total": "7689",
+          "baselineVariance1": "1st",
+          "baselineVariance2": "2nd",
+          "baselineVariance3": "3rd",
+          "baselineVariance4": "4th",
+          "lastMovement1": "a",
+          "lastMovement2": "b",
+          "lastMovement3": "c",
+          "lastMovement4": "d",
+          "movementVariance1": "m",
+          "movementVariance2": "n",
+          "movementVariance3": "d",
+          "movementVariance4": "t"
+        }
+      ],
+      "amendmentConfirmation": "yes",
+      "cashflowConfirmation": "No"
+    },
+    "submission": {
+      "changeToMilestones": {
+        "changeToMilestonesConfirmation": "Confirmed",
+        "reasonForRequestOfMilestoneChange": "no your",
+        "requestedAmendments": "more room",
+        "mitigationInPlaceMilestone": "Cats"
+      },
+      "changesToEndDate": {
+        "changesToEndDateConfirmation": "YEs",
+        "reasonForRequestOfDateChange": "Dogs",
+        "requestedChangedEndDate": "3456-01-22",
+        "mitigationInPlaceEndDate": "changing date",
+        "varianceFromEndDateBaseline": "baselineing"
+      },
+      "hifFundingEndDate": "4567-23-34",
+      "projectLongstopDate": "5647-12-23",
+      "changesToLongstopDate": {
+        "changesToLongstopDateConfirmation": "3455-09-08",
+        "reasonForRequestOfLongstopChange": "need to",
+        "requestedLongstopEndDate": "1234-05-65",
+        "varianceFromLongStopBaseline": "lots",
+        "mitigationInPlaceLongstopDate": "mitigating"
+      },
+      "recoverFunding": {
+        "recoverFundingConfirmation": "Yes",
+        "usedOnFutureHousing": "Yes"
+      }
+    }
+  },
+  "s151": {
+    "claimSummary": {
+      "hifTotalFundingRequest": "Funding",
+      "hifSpendToDate": "1234-65-43",
+      "AmountOfThisClaim": "lots"
+    },
+    "supportingEvidence": {
+      "lastQuarterMonthSpend": {
+        "forecast": "Monneyyy",
+        "actual": "Less money?",
+        "hasVariance": "yes",
+        "varianceAgainstForecastAmount": "456728",
+        "varianceAgainstForecastPercentage": "123456"
+      },
+      "evidenceOfSpendPastQuarter": "Much",
+      "breakdownOfNextQuarterSpend": {
+        "forecast": "4567",
+        "descriptionOfSpend": "Spending Money",
+        "evidenceOfSpendNextQuarter": "NOt got any"
+      }
+    }
+  },
+  "rmMonthlyCatchup": {
+    "dateOfCatchUp": "1234-09-45",
+    "overallRatingForScheme": "4",
+    "redBarriers": [
+      {
+        "overview": "barriers"
+      }
+    ],
+    "amberBarriers": [
+      {
+        "overview": "More barriers"
+      }
+    ],
+    "overviewOfEngagement": "Overviewing",
+    "commentOnProgress": "Commenting",
+    "issuesToRaise": "Issuing"
+  },
+  "outputsActuals": {
+    "localAuthority": "Local Authority",
+    "noOfUnits": "123",
+    "size": "10",
+    "previousStarts": "starting",
+    "startsSinceLastReturn": "5",
+    "previousCompletions": "56",
+    "completionsSinceLastReturn": "3",
+    "laOwned": "Yes",
+    "pslLand": "No",
+    "brownfieldPercent": "78",
+    "leaseholdPercent": "98",
+    "smePercent": "23",
+    "mmcPercent": "43"
+  }
+}

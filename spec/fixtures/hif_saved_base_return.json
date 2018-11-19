@@ -10,21 +10,10 @@
           "baselineOutlinePlanningPermissionGranted": "No",
           "baselineSummaryOfCriticalPath": "Summary of critical path",
           "planningSubmitted": {
-            "baseline": "2020-01-01",
-            "status": "Delayed",
-            "reason": "Distracted by kittens"
+            "baseline": "2020-01-01"
           },
           "planningGranted": {
             "baseline": "2020-02-01"
-          }
-        },
-        "planningNotGranted": {
-          "fieldOne": {
-            "varianceCalculations" : {
-              "varianceAgainstLastReturn": {
-                "varianceLastReturnFullPlanningPermissionSubmitted": null
-              }
-            }
           }
         },
         "fullPlanning": {
@@ -134,7 +123,7 @@
     "changeRequired": null,
     "reasonForRequest": null,
     "mitigationInPlace": null,
-    "requestedProfiles": [{ "period": "2019/2020" }, {"period": null}]
+    "requestedProfiles": [{ "period": "2019/2020" }, { "period": null }]
   },
   "fundingPackages": [
     {
