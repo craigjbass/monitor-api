@@ -13,7 +13,7 @@ class LocalAuthority::UseCase::GetBaseReturn
     project = @project_gateway.find_by(id: project_id)
     schema = @return_gateway.find_by(type: project.type)
     data = populate_return(project, return_data)
-
+    
     { base_return: { id: project_id, data: data, schema: schema.schema } }
   end
 

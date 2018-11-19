@@ -72,17 +72,23 @@ describe 'Interacting with a HIF Return from the UI' do
       base_return = get_use_case(:ui_get_base_return).execute(project_id: project_id)[:base_return]
 
       return_data = base_return[:data].dup
+      
       return_id = dependency_factory.get_use_case(:ui_create_return).execute(project_id: project_id, data: return_data)[:id]
       return_data[:infrastructures][0][:planning][:outlinePlanning][:planningSubmitted][:status] = 'Delayed'
       return_data[:infrastructures][0][:planning][:outlinePlanning][:planningSubmitted][:reason] = 'Distracted by kittens'
-      return_data[:s151][:claimSummary][:hifTotalFundingRequest] = '10000'
+      return_data[:s151] = {
+        claimSummary: {
+          hifTotalFundingRequest: '10000',
+          hifSpendToDate: nil,
+          AmountOfThisClaim: nil
+          }
+        }
       return_data[:s151Confirmation][:hifFunding][:hifTotalFundingRequest] = '10000'
       dependency_factory.get_use_case(:ui_update_return).execute(return_id: return_id, return_data: return_data)
 
       created_return = dependency_factory.get_use_case(:ui_get_return).execute(id: return_id)[:updates].last
-      expect(created_return[:s151Confirmation]).to eq(expected_updated_return[:s151Confirmation])
 
-      expect(created_return).to eq(expected_updated_return)
+      expect(created_return[:s151]).to eq(expected_updated_return[:s151])
     end
 
     it 'Allows you to create a return with all the data in' do
