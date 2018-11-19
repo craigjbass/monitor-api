@@ -284,8 +284,8 @@
         "forecast": null,
         "actual": null,
         "hasVariance": null,
-        "varianceAgainstForecastAmount": null,
-        "varianceAgainstForecastPercentage": null
+        "varianceAgainstForcastAmount": null,
+        "varianceAgainstForcastPercentage": null
       },
       "evidenceOfSpendPastQuarter": null
     },

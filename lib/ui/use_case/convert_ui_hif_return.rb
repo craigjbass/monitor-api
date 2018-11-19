@@ -489,8 +489,8 @@ class UI::UseCase::ConvertUIHIFReturn
         forecast: @return[:s151][:supportingEvidence][:lastQuarterMonthSpend][:forecast],
         actual: @return[:s151][:supportingEvidence][:lastQuarterMonthSpend][:actual],
         hasVariance: @return[:s151][:supportingEvidence][:lastQuarterMonthSpend][:hasVariance],
-        varianceAgainstForcastAmount: @return[:s151][:supportingEvidence][:lastQuarterMonthSpend][:varianceAgainstForecastAmount],
-        varianceAgainstForcastPercentage: @return[:s151][:supportingEvidence][:lastQuarterMonthSpend][:varianceAgainstForecastPercentage]
+        varianceAgainstForcastAmount: @return[:s151][:supportingEvidence][:lastQuarterMonthSpend][:varianceAgainstForcastAmount],
+        varianceAgainstForcastPercentage: @return[:s151][:supportingEvidence][:lastQuarterMonthSpend][:varianceAgainstForcastPercentage]
       }
     end
 
