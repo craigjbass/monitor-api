@@ -159,6 +159,7 @@
   },
   "s151Confirmation": {
     "hifFunding": {
+      "hifTotalFundingRequest": "10000",
       "hifFundingProfile": [
         {
           "period": "2019/2020",
@@ -181,6 +182,16 @@
     "submission": {
       "hifFundingEndDate": "2020-01-01",
       "projectLongstopDate": "2020-01-01"
+    }
+  },
+  "s151": {
+    "supportingEvidence": {
+      "lastQuarterMonthSpend": {
+        "forecast": "1"
+      }
+    },
+    "claimSummary": {
+      "hifTotalFundingRequest": "10000"
     }
   }
 }

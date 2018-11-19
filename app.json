@@ -1,0 +1,53 @@
+{
+  "name": "monitor-api",
+  "scripts": {
+  },
+  "env": {
+    "ADMIN_HTTP_API_KEY": {
+      "required": true
+    },
+    "CONFIRMATION_TAB": {
+      "required": true
+    },
+    "GOV_NOTIFY_API_KEY": {
+      "required": true
+    },
+    "HMAC_SECRET": {
+      "required": true
+    },
+    "LANG": {
+      "required": true
+    },
+    "NO_LOGS": {
+      "required": true
+    },
+    "OUTPUTS_ACTUALS_TAB": {
+      "required": true
+    },
+    "OUTPUTS_FORECAST_TAB": {
+      "required": true
+    },
+    "RACK_ENV": {
+      "required": true
+    },
+    "S151_TAB": {
+      "required": true
+    },
+    "SENTRY_DSN": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+    "heroku-postgresql"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/ruby"
+    }
+  ]
+}

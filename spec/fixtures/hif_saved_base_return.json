@@ -195,7 +195,7 @@
   },
   "s151Confirmation": {
     "hifFunding": {
-      "hifTotalFundingRequest": null,
+      "hifTotalFundingRequest": "10000",
       "changesToRequest": {
         "changesToRequestConfirmation": null,
         "requestedAmount": null,
@@ -276,6 +276,23 @@
         "recoverFundingConfirmation": null,
         "usedOnFutureHousing": null
       }
+    }
+  },
+  "s151": {
+    "supportingEvidence": {
+      "lastQuarterMonthSpend": {
+        "forecast": null,
+        "actual": null,
+        "hasVariance": null,
+        "varianceAgainstForecastAmount": null,
+        "varianceAgainstForecastPercentage": null
+      },
+      "evidenceOfSpendPastQuarter": null
+    },
+    "claimSummary": {
+      "hifTotalFundingRequest": "10000",
+      "hifSpendToDate": null,
+      "AmountOfThisClaim": null
     }
   }
 }

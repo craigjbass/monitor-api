@@ -16,7 +16,7 @@ class LocalAuthority::Gateway::SequelReturnUpdate
   end
 
   def updates_for(return_id:)
-    @database[:return_updates].where(return_id: return_id).map { |row| row_to_return_update(row) }
+    @database[:return_updates].where(return_id: return_id).order(:id).map { |row| row_to_return_update(row) }
   end
 
   private

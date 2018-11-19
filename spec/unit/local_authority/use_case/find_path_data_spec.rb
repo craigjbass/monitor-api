@@ -1,8 +1,8 @@
 describe LocalAuthority::UseCase::FindPathData do
 
-  let(:use_case) do 
+  let(:use_case) do
     described_class.new.execute(
-      baseline_data: baseline_data, 
+      baseline_data: baseline_data,
       path: path
     )
   end

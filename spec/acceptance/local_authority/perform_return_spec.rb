@@ -137,6 +137,13 @@ describe 'Performing Return on HIF Project' do
     )
 
     updated_return_data = {
+      s151: {
+        supportingEvidence: {
+          lastQuarterMonthSpend: {
+            forecast: "1"
+          }
+        }
+      },
       summary: {
         project_name: 'Dogs Protection League',
         description: 'A new headquarters for all the Dogs',
