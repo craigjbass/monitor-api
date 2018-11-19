@@ -55,9 +55,15 @@ class LocalAuthority::UseCase::CalculateHIFReturn
   end
 
   def s151_calculations(s151)
-    forecast = s151.dig(:supportingEvidence, :lastQuarterMonthSpend, :forecast)
-    actual = s151.dig(:supportingEvidence, :lastQuarterMonthSpend, :actual)
-    unless (forecast.nil? || actual.nil?)
+    return s151 if s151.dig(:supportingEvidence, :lastQuarterMonthSpend, :forecast).nil?
+    return s151 if s151.dig(:supportingEvidence, :lastQuarterMonthSpend, :actual).nil?
+
+    forecast = s151.dig(:supportingEvidence, :lastQuarterMonthSpend, :forecast).gsub(/[\s,]/ ,"")
+    actual = s151.dig(:supportingEvidence, :lastQuarterMonthSpend, :actual).gsub(/[\s,]/ ,"")
+    if (difference(forecast.to_i, actual.to_i).zero?)
+      s151[:supportingEvidence][:lastQuarterMonthSpend][:hasVariance] = 'No'
+    else
+      s151[:supportingEvidence][:lastQuarterMonthSpend][:hasVariance] = 'Yes'
       s151[:supportingEvidence][:lastQuarterMonthSpend][:varianceAgainstForcastAmount] = difference(forecast.to_i, actual.to_i).to_s
       s151[:supportingEvidence][:lastQuarterMonthSpend][:varianceAgainstForcastPercentage] = percentage_difference(forecast.to_i, actual.to_i).to_s
     end

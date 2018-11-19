@@ -499,6 +499,7 @@ class UI::UseCase::ConvertCoreHIFReturn
       @converted_return[:s151][:supportingEvidence][:lastQuarterMonthSpend] = {
         forecast: @return[:s151][:supportingEvidence][:lastQuarterMonthSpend][:forecast],
         actual: @return[:s151][:supportingEvidence][:lastQuarterMonthSpend][:actual],
+        hasVariance: @return[:s151][:supportingEvidence][:lastQuarterMonthSpend][:hasVariance],
         varianceAgainstForcastAmount: @return[:s151][:supportingEvidence][:lastQuarterMonthSpend][:varianceAgainstForcastAmount],
         varianceAgainstForcastPercentage: @return[:s151][:supportingEvidence][:lastQuarterMonthSpend][:varianceAgainstForcastPercentage]
       }

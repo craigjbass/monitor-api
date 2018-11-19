@@ -80,6 +80,7 @@ describe 'Calculated return' do
           lastQuarterMonthSpend: {
             forecast: '6',
             actual: '3',
+            hasVariance: 'Yes',
             varianceAgainstForcastAmount: '3',
             varianceAgainstForcastPercentage: '50'
           }

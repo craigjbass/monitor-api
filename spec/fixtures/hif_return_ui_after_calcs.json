@@ -323,7 +323,7 @@
       ]
     },
     "inYearHousingCompletions": {
-      "risksToSchieving": "none"
+      "risksToAchieving": "none"
     }
   },
   "s151Confirmation": {
@@ -401,6 +401,7 @@
       "lastQuarterMonthSpend": {
         "forecast": "500",
         "actual": "400",
+        "hasVariance": "Yes",
         "varianceAgainstForcastAmount": "100",
         "varianceAgainstForcastPercentage": "20"
       },
