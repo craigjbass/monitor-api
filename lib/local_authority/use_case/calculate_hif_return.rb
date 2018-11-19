@@ -58,24 +58,24 @@ class LocalAuthority::UseCase::CalculateHIFReturn
     return s151 if s151.dig(:supportingEvidence, :lastQuarterMonthSpend, :forecast).nil?
     return s151 if s151.dig(:supportingEvidence, :lastQuarterMonthSpend, :actual).nil?
 
-    forecast = s151.dig(:supportingEvidence, :lastQuarterMonthSpend, :forecast).gsub(/[\s,]/ ,"")
-    actual = s151.dig(:supportingEvidence, :lastQuarterMonthSpend, :actual).gsub(/[\s,]/ ,"")
-    if (difference(forecast.to_i, actual.to_i).zero?)
+    forecast = convert_to_integer(s151.dig(:supportingEvidence, :lastQuarterMonthSpend, :forecast))
+    actual = convert_to_integer(s151.dig(:supportingEvidence, :lastQuarterMonthSpend, :actual))
+    if ((forecast - actual).zero?)
       s151[:supportingEvidence][:lastQuarterMonthSpend][:hasVariance] = 'No'
     else
       s151[:supportingEvidence][:lastQuarterMonthSpend][:hasVariance] = 'Yes'
-      s151[:supportingEvidence][:lastQuarterMonthSpend][:varianceAgainstForcastAmount] = difference(forecast.to_i, actual.to_i).to_s
-      s151[:supportingEvidence][:lastQuarterMonthSpend][:varianceAgainstForcastPercentage] = percentage_difference(forecast.to_i, actual.to_i).to_s
+      s151[:supportingEvidence][:lastQuarterMonthSpend][:varianceAgainstForcastAmount] = (forecast - actual).to_s
+      s151[:supportingEvidence][:lastQuarterMonthSpend][:varianceAgainstForcastPercentage] = percentage_difference(forecast, actual).to_s
     end
     s151
   end
 
-  def percentage_difference(base, different)
-    (difference(base, different) * 100)/base
+  def convert_to_integer(number)
+    number.sub(/[\s,]/ ,"").to_i
   end
 
-  def difference(base, different)
-    base - different
+  def percentage_difference(base, different)
+    ((base - different) * 100)/base
   end
 
   def current_return(return_data, index)
