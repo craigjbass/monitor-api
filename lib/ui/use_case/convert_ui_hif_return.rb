@@ -300,7 +300,7 @@ class UI::UseCase::ConvertUIHIFReturn
           baseline: package[:fundingStack][:totalCost][:baseline],
           current: package[:fundingStack][:totalCost][:current],
           varianceReason: package[:fundingStack][:totalCost][:varianceReason],
-          percentageComplete: package[:fundingStack][:totalCost][:percentageComplete]
+          percentComplete: package[:fundingStack][:totalCost][:percentComplete]
         }
       end
 
