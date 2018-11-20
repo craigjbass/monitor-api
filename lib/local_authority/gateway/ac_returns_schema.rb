@@ -1850,7 +1850,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
         },
         riskRating: {
           type: 'array',
-          title: 'Riak Rating',
+          title: 'Risk Rating',
           quarterly: true,
           items: {
             type: 'object',
