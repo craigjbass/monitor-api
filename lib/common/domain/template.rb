@@ -28,7 +28,6 @@ class Common::Domain::Template
     nil
   rescue JsonSchema::AggregateError => aggregated_errors
     get_supported_errors(aggregated_errors).map do |error|
-      pp error
       error_path = error.path.drop(1)
       error_path += get_required_failed_node_name(error) if error.type == :required_failed
       symbolize_path(error_path)

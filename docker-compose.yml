@@ -33,7 +33,6 @@ services:
       S151_TAB: 'yes'
       RM_MONTHLY_CATCHUP_TAB: 'yes'
       OUTPUTS_ACTUALS_TAB: 'yes'
-      NO_LOGS: 'true'
 
   notify_simulator:
     build: .
