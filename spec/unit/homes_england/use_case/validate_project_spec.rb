@@ -172,7 +172,7 @@ describe HomesEngland::UseCase::ValidateProject do
         end
 
         let(:valid_project_data) { { catsComplete: 'The Cat Plan', dogsComplete: 'The Dog Plan' } }
-        let(:invalid_project_data) { {unrequiredComplete: 'Doo wap'} }
+        let(:invalid_project_data) { { unrequiredComplete: 'Doo wap' } }
         let(:invalid_project_data_paths) { [%i[catsComplete dogsComplete]] }
         let(:invalid_project_data_pretty_paths) { [['Cats Complete', 'Dogs Complete']] }
       end
@@ -205,7 +205,7 @@ describe HomesEngland::UseCase::ValidateProject do
         end
 
         let(:valid_project_data) { { horsesComplete: 'The Cat Plan', cowsComplete: 'The Dog Plan' } }
-        let(:invalid_project_data) { {randomComplete: 'Shoop da woop'} }
+        let(:invalid_project_data) { { randomComplete: 'Shoop da woop' } }
         let(:invalid_project_data_paths) { [%i[horsesComplete cowsComplete]] }
         let(:invalid_project_data_pretty_paths) { [['Horses Complete', 'Cows Complete']] }
       end
@@ -673,8 +673,6 @@ describe HomesEngland::UseCase::ValidateProject do
 
     context 'single dependency' do
       context 'example 1' do
-        it_should_behave_like 'required field validation'
-
         let(:template) do
           Common::Domain::Template.new.tap do |p|
             p.schema = {
@@ -723,10 +721,23 @@ describe HomesEngland::UseCase::ValidateProject do
             }
           end
         end
-        let(:valid_project_data) { { goodDog: 'Yes', planningSubmitted: { dogs: 'The best dogs' } } }
-        let(:invalid_project_data) { { goodDog: 'Yes', planningSubmitted: {} } }
-        let(:invalid_project_data_paths) { [[]] }
-        let(:invalid_project_data_pretty_paths) { [['HIF Project']] }
+        let(:valid_project_data) { { goodDog: 'Yes', planningSubmitted: {} } }
+        context 'given a valid project' do
+          it 'should return a hash with a valid field as true' do
+            project_value = use_case.execute(type: project_type, project_data: valid_project_data)
+            expect(project_value[:valid]).to eq(true)
+          end
+
+          it 'should have no paths' do
+            project_value = use_case.execute(type: project_type, project_data: valid_project_data)
+            expect(project_value[:invalid_paths]).to eq([])
+          end
+
+          it 'should return no pretty paths' do
+            project_value = use_case.execute(type: project_type, project_data: valid_project_data)
+            expect(project_value[:pretty_invalid_paths]).to eq([])
+          end
+        end
       end
     end
   end
