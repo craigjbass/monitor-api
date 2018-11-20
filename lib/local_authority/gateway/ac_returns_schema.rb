@@ -1718,7 +1718,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
           title: 'Baseline',
           quarterly: true,
           items: {
-            type: 'objet',
+            type: 'object',
             title: '',
             properties: {
               year: {
