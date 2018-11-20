@@ -2266,7 +2266,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                 forecast: {
                   title: 'Forecasted Spend Last Quarter Month',
                   type: 'string',
-                  sourceKey: %i[return_data s151 supportingEvidence lastQuarterMonthSpend forecast],
+                  sourceKey: %i[return_data s151 supportingEvidence breakdownOfNextQuarterSpend forecast],
                   currency: true,
                   readonly: true
                 },
