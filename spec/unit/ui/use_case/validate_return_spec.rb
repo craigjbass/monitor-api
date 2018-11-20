@@ -4,7 +4,7 @@ describe UI::UseCase::ValidateReturn do
   let(:project_type) { 'hif' }
   let(:invalid_return_data_pretty_paths) { nil }
 
-  #We need to write this as a fake that iterates through invalid_return_data_pretty_paths
+  # We need to write this as a fake that iterates through invalid_return_data_pretty_paths
   # This needs to be reset every time
   let(:get_return_template_path_titles_spy) do
     Class.new do
@@ -97,7 +97,7 @@ describe UI::UseCase::ValidateReturn do
         use_case.execute(type: project_type, return_data: invalid_return_data)
 
         call_arguments = invalid_return_data_paths.map do |path|
-          {path: path, schema: template.schema }
+          { path: path, schema: template.schema }
         end
         expect(get_return_template_path_titles_spy.called_with).to match_array(call_arguments)
       end
@@ -141,7 +141,7 @@ describe UI::UseCase::ValidateReturn do
         end
 
         let(:invalid_return_data_pretty_paths) do
-          [["Complete"]]
+          [['Complete']]
         end
       end
     end
@@ -182,7 +182,7 @@ describe UI::UseCase::ValidateReturn do
         end
 
         let(:invalid_return_data_pretty_paths) do
-          [["Percent complete"]]
+          [['Percent complete']]
         end
       end
 
@@ -221,7 +221,7 @@ describe UI::UseCase::ValidateReturn do
         end
 
         let(:invalid_return_data_pretty_paths) do
-          [["cats compete on the beach to complete the complex beat"]]
+          [['cats compete on the beach to complete the complex beat']]
         end
       end
     end
@@ -913,8 +913,6 @@ describe UI::UseCase::ValidateReturn do
 
   context 'single dependency' do
     context 'example 1' do
-      it_should_behave_like 'required field validation'
-
       let(:template) do
         Common::Domain::Template.new.tap do |p|
           p.schema = {
@@ -967,23 +965,25 @@ describe UI::UseCase::ValidateReturn do
       let(:valid_return_data) do
         {
           percentComplete: 'Yes',
-          planningSubmitted: {dogs: 'hello'}
-        }
-      end
-
-      let(:invalid_return_data) do
-        {
-          percentComplete: 'Yes',
           planningSubmitted: {}
         }
       end
 
-      let(:invalid_return_data_paths) do
-        [[]]
-      end
+      context 'given a valid return' do
+        it 'should return a hash with a valid field as true' do
+          return_value = use_case.execute(type: project_type, return_data: valid_return_data)
+          expect(return_value[:valid]).to eq(true)
+        end
 
-      let(:invalid_return_data_pretty_paths) do
-        [['HIF Project']]
+        it 'should have no paths' do
+          return_value = use_case.execute(type: project_type, return_data: valid_return_data)
+          expect(return_value[:invalid_paths]).to eq([])
+        end
+
+        it 'should return no pretty paths' do
+          return_value = use_case.execute(type: project_type, return_data: valid_return_data)
+          expect(return_value[:pretty_invalid_paths]).to eq([])
+        end
       end
     end
   end

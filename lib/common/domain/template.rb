@@ -40,7 +40,7 @@ class Common::Domain::Template
 
   def get_supported_errors(aggregated_errors)
     aggregated_errors.errors.select do |error|
-      %i[required_failed one_of_failed].include? error.type
+      %i[required_failed].include? error.type
     end
   end
 
