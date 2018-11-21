@@ -89,7 +89,8 @@ class LocalAuthority::UseCases
       LocalAuthority::UseCase::CreateAccessToken.new(
         access_token_gateway: builder.get_gateway(
           :access_token
-        )
+        ),
+        user_gateway: builder.get_gateway(:users)
       )
     end
 

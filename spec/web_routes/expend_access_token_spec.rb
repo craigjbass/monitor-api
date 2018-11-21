@@ -16,10 +16,13 @@ describe 'expending an access token' do
   context 'with a valid access token' do
     let(:expend_access_token_spy) do
       spy(execute: { status: :success,
-                     api_key: 'Doggos' })
+                     api_key: 'Doggos',
+                     role: role })
     end
 
     context 'example one' do
+      let(:role) { 'Local Authority' }
+
       it 'responds with a 202' do
         post '/token/expend', { access_token: 'cats', project_id: '1' }.to_json
         expect(last_response.status).to eq(202)
@@ -37,9 +40,19 @@ describe 'expending an access token' do
         )
         expect(response[:apiKey]).to eq('Doggos')
       end
+
+      it 'returns the role' do
+        post '/token/expend', { access_token: 'cats', project_id: '1' }.to_json
+        response = Common::DeepSymbolizeKeys.to_symbolized_hash(
+          JSON.parse(last_response.body)
+        )
+        expect(response[:role]).to eq('Local Authority')
+      end
     end
 
     context 'example two' do
+      let(:role) { 'Homes England' }
+
       it 'responds with a 202' do
         post '/token/expend', { access_token: 'dogs', project_id: '10' }.to_json
         expect(last_response.status).to eq(202)
@@ -48,6 +61,14 @@ describe 'expending an access token' do
       it 'calls the expend token usecase' do
         post '/token/expend', { access_token: 'dogs', project_id: '10' }.to_json
         expect(expend_access_token_spy).to have_received(:execute).with(access_token: 'dogs', project_id: 10)
+      end
+
+      it 'returns the role' do
+        post '/token/expend', { access_token: 'dogs', project_id: '10' }.to_json
+        response = Common::DeepSymbolizeKeys.to_symbolized_hash(
+          JSON.parse(last_response.body)
+        )
+        expect(response[:role]).to eq('Homes England')
       end
     end
   end

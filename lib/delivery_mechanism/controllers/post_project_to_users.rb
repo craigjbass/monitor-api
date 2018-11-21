@@ -11,7 +11,7 @@ module DeliveryMechanism
         return 400 unless user_emails.instance_of? Array
 
         user_emails.each do |user_info|
-          @add_user_to_project.execute({ email: user_info[:email], project_id: params[:id].to_i, role: user_info[:role] })
+          @add_user_to_project.execute({ email: user_info[:email], project_id: params[:id].to_i })
         end
         response.status = 200
         response

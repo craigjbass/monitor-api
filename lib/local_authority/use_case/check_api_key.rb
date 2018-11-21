@@ -4,9 +4,10 @@ class LocalAuthority::UseCase::CheckApiKey
       payload = get_payload(api_key)
       api_key_project_id = payload['project_id']
       api_key_email = payload['email']
+      api_key_role = payload['role']
 
       if project_id == api_key_project_id
-        { valid: true, email: api_key_email}
+        { valid: true, email: api_key_email, role: api_key_role}
       else
         { valid: false }
       end

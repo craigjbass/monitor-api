@@ -10,6 +10,7 @@ class LocalAuthority::Gateway::SequelUsers
     LocalAuthority::Domain::User.new.tap do |u|
       u.id = user[:id]
       u.email = user[:email]
+      u.role = user[:role]
       u.projects = []
       u.projects = user[:projects].to_a unless user[:projects].nil?
     end
@@ -18,11 +19,13 @@ class LocalAuthority::Gateway::SequelUsers
   def create(user)
     if user.projects.nil?
       @database[:users].insert(
-        email: user.email
+        email: user.email,
+        role: user.role
       )
     else
       @database[:users].insert(
         email: user.email,
+        role: user.role,
         projects: Sequel.pg_array(user.projects)
       )
     end
@@ -37,6 +40,7 @@ class LocalAuthority::Gateway::SequelUsers
       LocalAuthority::Domain::User.new.tap do |u|
         u.id = user[:id]
         u.email = user[:email]
+        u.role = user[:role]
         u.projects = []
         u.projects = user[:projects].to_a unless user[:projects].nil?
       end

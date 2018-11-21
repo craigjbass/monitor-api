@@ -1,3 +1,3 @@
 class LocalAuthority::Domain::AccessToken
-  attr_accessor :uuid, :project_id, :email
+  attr_accessor :uuid, :project_id, :email, :role
 end
