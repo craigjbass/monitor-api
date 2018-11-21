@@ -15,7 +15,7 @@ fdescribe 'Adding users to a project' do
   end
 
   context 'when incorrect authorization provided' do
-    let(:body) { { users: [{ email: 'person1@mt.com'}] } }
+    let(:body) { { users: [{ email: 'person1@mt.com', role: 'local-authority' }] } }
 
     before do
       set_incorrect_auth_header
@@ -28,7 +28,7 @@ fdescribe 'Adding users to a project' do
   end
 
   context 'when no authorization provided in a header' do
-    let(:body) { { users: [{ email: 'person1@mt.com' }] } }
+    let(:body) { { users: [{ email: 'person1@mt.com', role: 'local-authority' }] } }
 
     it 'returns 401' do
       post('project/1/add_users', body.to_json)
@@ -42,7 +42,7 @@ fdescribe 'Adding users to a project' do
 
     context 'when request body is invalid' do
       context 'does not have users key' do
-        let(:invalid_body) { { invalid_key: [{ email: 'person1@mt.com' }] } }
+        let(:invalid_body) { { invalid_key: [{ email: 'person1@mt.com', role: 'local-authority' }] } }
 
         it 'returns 400' do
           post('project/1/add_users', invalid_body.to_json)
@@ -61,7 +61,7 @@ fdescribe 'Adding users to a project' do
     end
     context 'when request body is valid' do
       let(:add_user_to_project_usecase_spy) { spy }
-      let(:valid_request_body) { { users: [{ email: 'mt@mt.com'}] } }
+      let(:valid_request_body) { { users: [{ email: 'mt@mt.com', role: 'local-authority' }] } }
 
       before do
         stub_const(
@@ -84,18 +84,42 @@ fdescribe 'Adding users to a project' do
         end
       end
 
+      context 'it adds a single user' do
+        example 'example 1' do
+          request_body = { users: [{ email: 'mt1@mt1.com', role: 'local-authority' }] }
+          post('project/33/add_users', request_body.to_json)
+          expect(add_user_to_project_usecase_spy).to have_received(:execute).with(
+            project_id: 33,
+            email: 'mt1@mt1.com',
+            role: 'local-authority'
+          )
+        end
+
+        example 'example 2' do
+          request_body = { users: [{ email: 'cat@mouse.com', role: 'homes-england' }] }
+          post('project/24/add_users', request_body.to_json)
+          expect(add_user_to_project_usecase_spy).to have_received(:execute).with(
+            project_id: 24,
+            email: 'cat@mouse.com',
+            role: 'homes-england'
+          )
+        end
+      end
+
       context 'when each entry in the body is non-empty' do
-        let(:request_body) { { users: [{ email: 'mt1@mt1.com' }, {email: 'mt2@mt2.com'}] } }
+        let(:request_body) { { users: [{ email: 'mt1@mt1.com', role: 'local-authority' }, { email: 'mt2@mt2.com', role: 'local-authority' }] } }
 
         it 'execute AddUserToProject use case for each valid email' do
           post('project/33/add_users', request_body.to_json)
           expect(add_user_to_project_usecase_spy).to have_received(:execute).with(
             project_id: 33,
-            email: 'mt1@mt1.com'
+            email: 'mt1@mt1.com',
+            role: 'local-authority'
           )
           expect(add_user_to_project_usecase_spy).to have_received(:execute).with(
             project_id: 33,
-            email: 'mt2@mt2.com'
+            email: 'mt2@mt2.com',
+            role: 'local-authority'
           )
         end
       end
