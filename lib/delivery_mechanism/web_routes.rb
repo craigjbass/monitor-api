@@ -48,7 +48,7 @@ module DeliveryMechanism
       status = expend_response[:status]
       if status == :success
         response.status = 202
-        response.body = { apiKey: expend_response[:api_key] }.to_json
+        response.body = { apiKey: expend_response[:api_key], role: expend_response[:role] }.to_json
       else
         response.status = 401
       end

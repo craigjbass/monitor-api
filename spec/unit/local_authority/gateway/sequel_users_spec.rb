@@ -8,9 +8,16 @@ describe LocalAuthority::Gateway::SequelUsers do
       gateway.create(
         LocalAuthority::Domain::User.new.tap do |u|
           u.email = 'example@example.com'
+          u.role = 'Local Authority'
           u.projects = [1]
         end
       )
+    end
+
+    it 'returns a role for a given email' do
+      created_user_id = new_user_id
+      user = gateway.find_by(email: 'example@example.com')
+      expect(user.role).to eq('Local Authority')
     end
 
     it 'returns an id for a given email' do
@@ -43,10 +50,12 @@ describe LocalAuthority::Gateway::SequelUsers do
     it 'gets multiple users' do
       user_one = LocalAuthority::Domain::User.new.tap do |u|
         u.email = 'example@example.com'
+        u.role = 'S151'
         u.projects = [1]
       end
       user_two = LocalAuthority::Domain::User.new.tap do |u|
         u.email = 'cat@cathouse.com'
+        u.role = 'Local Authority'
         u.projects = [1]
       end
       gateway.create(
@@ -59,7 +68,9 @@ describe LocalAuthority::Gateway::SequelUsers do
       users = gateway.get_users(project_id: 1)
       expect(users.length).to eq(2)
       expect(users[0].email).to eq('example@example.com')
+      expect(users[0].role).to eq('S151')
       expect(users[1].email).to eq('cat@cathouse.com')
+      expect(users[1].role).to eq('Local Authority')
     end
   end
 
@@ -68,8 +79,15 @@ describe LocalAuthority::Gateway::SequelUsers do
       gateway.create(
         LocalAuthority::Domain::User.new.tap do |u|
           u.email = 'cats@cathouse.com'
+          u.role = 'Homes England'
         end
       )
+    end
+
+    it 'returns a role for a given email' do
+      created_user_id = new_user_id
+      user = gateway.find_by(email: 'cats@cathouse.com')
+      expect(user.role).to eq('Homes England')
     end
 
     it 'returns an id for a given email' do
@@ -93,14 +111,17 @@ describe LocalAuthority::Gateway::SequelUsers do
     it 'gets multiple users' do
       user_one = LocalAuthority::Domain::User.new.tap do |u|
         u.email = 'dogs@doghouse.com'
+        u.role = 'Local Authority'
         u.projects = [6]
       end
       user_two = LocalAuthority::Domain::User.new.tap do |u|
         u.email = 'moo@cowhouse.com'
+        u.role = 'Homes England'
         u.projects = [6]
       end
       user_three = LocalAuthority::Domain::User.new.tap do |u|
         u.email = 'cow@cowhouse.com'
+        u.role = 'Homes England'
         u.projects = [7, 8]
       end
       user_one.id = gateway.create(
@@ -116,7 +137,9 @@ describe LocalAuthority::Gateway::SequelUsers do
       users = gateway.get_users(project_id: 6)
       expect(users.length).to eq(2)
       expect(users[0].email).to eq('dogs@doghouse.com')
+      expect(users[0].role).to eq('Local Authority')
       expect(users[1].email).to eq('moo@cowhouse.com')
+      expect(users[1].role).to eq('Homes England')
     end
   end
 

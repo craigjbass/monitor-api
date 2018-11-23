@@ -1,3 +1,3 @@
 class LocalAuthority::Domain::User
-  attr_accessor :id, :email, :projects
+  attr_accessor :id, :email, :role, :projects
 end

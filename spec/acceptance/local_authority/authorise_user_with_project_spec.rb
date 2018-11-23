@@ -6,7 +6,12 @@ require_relative '../shared_context/dependency_factory'
 describe 'Authorises the user' do
   include_context 'dependency factory'
 
-  before { ENV['HMAC_SECRET'] = 'Meow' }
+  before do
+    ENV['HMAC_SECRET'] = 'Meow'
+
+    get_use_case(:add_user).execute(email: 'cat@cathouse.com', role: 'HomesEngland')
+    get_use_case(:add_user_to_project).execute(project_id: 1, email: 'cat@cathouse.com')
+  end
 
   after { get_gateway(:access_token).clear }
 
@@ -16,11 +21,12 @@ describe 'Authorises the user' do
 
       expend_result = get_use_case(:expend_access_token).execute(access_token: access_token, project_id: 1)
       expect(expend_result[:status]).to eq(:success)
+      expect(expend_result[:role]).to eq('HomesEngland')
     end
 
     it 'should create a valid api key for project 1' do
-      api_key = get_use_case(:create_api_key).execute(project_id: 1, email: 'cat@cathouse.com')[:api_key]
-      expect(get_use_case(:check_api_key).execute(api_key: api_key, project_id: 1)).to eq(valid: true, email: 'cat@cathouse.com')
+      api_key = get_use_case(:create_api_key).execute(project_id: 1, email: 'cat@cathouse.com', role: 'HomesEngland')[:api_key]
+      expect(get_use_case(:check_api_key).execute(api_key: api_key, project_id: 1)).to eq(valid: true, email: 'cat@cathouse.com', role: 'HomesEngland')
     end
   end
 
