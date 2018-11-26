@@ -13,8 +13,8 @@
             "type": "object",
             "title": "Summary",
             "properties": {
-              "name": { "type": "string", "title": "Name" },
-              "description": { "type": "string", "title": "Description" },
+              "name": { "type": "string", "title": "Name", "sourceKey": ["baseline_data", "projectName"] },
+              "description": { "type": "string", "title": "Description", "sourceKey": ["baseline_data", "projectDescription"] },
               "baselineunits": {
                 "type": "string",
                 "title": "Units",
