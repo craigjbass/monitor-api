@@ -13,8 +13,8 @@
             "type": "object",
             "title": "Summary",
             "properties": {
-              "name": { "type": "string", "title": "Name" },
-              "description": { "type": "string", "title": "Description" },
+              "name": { "type": "string", "title": "Name", "sourceKey": ["baseline_data", "projectName"] },
+              "description": { "type": "string", "title": "Description", "sourceKey": ["baseline_data", "projectDescription"] },
               "baselineunits": {
                 "type": "string",
                 "title": "Units",
@@ -1936,7 +1936,7 @@
         },
         "claimedToDate": {
           "type": "array",
-          "title": "Claimed to date",
+          "title": "Achieved to date",
           "quarterly": true,
           "items": {
             "type": "object",
@@ -2157,7 +2157,7 @@
             "SpendToDate": {
               "type": "string",
               "hidden": true,
-              "title": "Spend to Date",
+              "title": "Claimed to Date",
               "currency": true
             },
             "AmountOfThisClaim": {
@@ -2171,35 +2171,6 @@
           "type": "object",
           "title": "Supporting Evidence",
           "properties": {
-            "lastQuarterMonthSpend": {
-              "type": "object",
-              "title": "Last Quarter Month Spend",
-              "properties": {
-                "forecast": {
-                  "title": "Forecasted Spend Last Quarter Month",
-                  "type": "string",
-                  "hidden": true,
-                  "currency": true
-                },
-                "actual": {
-                  "title": "Actual Spend Last Quarter Month",
-                  "type": "string",
-                  "currency": true
-                },
-                "varianceAgainstForcastAmount": {
-                  "title": "Variance Against Forecast",
-                  "type": "string",
-                  "hidden": true,
-                  "currency": true
-                },
-                "varianceAgainstForcastPercentage": {
-                  "title": "Variance Against Forecast",
-                  "type": "string",
-                  "percentage": true,
-                  "hidden": true
-                }
-              }
-            },
             "evidenceOfSpendPastQuarter": {
               "title": "Evidence of Spend for the Past Quarter.",
               "type": "string",
@@ -2218,11 +2189,6 @@
                   "title": "Description of Spend",
                   "type": "string",
                   "extendedText": true
-                },
-                "evidenceOfSpendNextQuarter": {
-                  "title": "Evidence of Spend for the Past Quarter.",
-                  "type": "string",
-                  "hidden": true
                 }
               }
             }
@@ -2424,7 +2390,7 @@
             },
             "riskRating": {
               "type": "string",
-              "title": "Risk Rating",
+              "title": "Overall risk rating",
               "radio": true,
               "enum": [
                 "High",
@@ -2435,12 +2401,6 @@
               ]
             }
           }
-        },
-        "overallRagRating": {
-          "type": "string",
-          "title": "Overall Rag Rating",
-          "radio": true,
-          "enum": ["High", "Medium High", "Medium Low", "Low", "Contractual"]
         }
       }
     }
