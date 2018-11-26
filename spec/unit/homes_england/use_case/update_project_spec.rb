@@ -52,45 +52,6 @@ describe HomesEngland::UseCase::UpdateProject do
         end
       end
     end
-
-    context 'given a successful update whilst in LA Draft status' do
-      let(:la_project) do
-        HomesEngland::Domain::Project.new.tap do |p|
-          p.status = 'LA Draft'
-          p.data = { a: 'b' }
-        end
-      end
-      let(:project_gateway_spy) do
-        spy(find_by: la_project, update: { success: true })
-      end
-
-      it 'Should pass the ID to the gateway' do
-        expect(project_gateway_spy).to have_received(:update).with(
-          hash_including(id: 42)
-        )
-      end
-
-      it 'Should pass the project to the gateway' do
-        expect(project_gateway_spy).to have_received(:update) do |request|
-          project = request[:project]
-          expect(project.data).to eq(ducks: 'quack')
-        end
-      end
-
-      it 'Should return successful' do
-        expect(response).to eq(successful: true)
-      end
-    end
-
-    context 'given an unsuccessful update' do
-      let(:project_gateway_spy) do
-        spy(update: { success: false })
-      end
-
-      it 'Should return unsuccessful' do
-        expect(response).to eq(successful: false)
-      end
-    end
   end
 
   context 'example two' do
@@ -130,46 +91,6 @@ describe HomesEngland::UseCase::UpdateProject do
           project = request[:project]
           expect(project.status).to eq('Draft')
         end
-      end
-    end
-
-    context 'given a successful update whilst in LA Draft status' do
-      let(:la_project) do
-        HomesEngland::Domain::Project.new.tap do |p|
-          p.status = 'LA Draft'
-          p.data = { b: 'c' }
-        end
-      end
-
-      let(:project_gateway_spy) do
-        spy(find_by: la_project, update: { success: true })
-      end
-
-      it 'Should pass the ID to the gateway' do
-        expect(project_gateway_spy).to have_received(:update).with(
-          hash_including(id: 123)
-        )
-      end
-
-      it 'Should pass the project to the gateway' do
-        expect(project_gateway_spy).to have_received(:update) do |request|
-          project = request[:project]
-          expect(project.data).to eq(cows: 'moo')
-        end
-      end
-
-      it 'Should return successful' do
-        expect(response).to eq(successful: true)
-      end
-    end
-
-    context 'given an unsuccessful update' do
-      let(:project_gateway_spy) do
-        spy(update: { success: false })
-      end
-
-      it 'Should return unsuccessful' do
-        expect(response).to eq(successful: false)
       end
     end
   end
