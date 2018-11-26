@@ -2435,12 +2435,6 @@
               ]
             }
           }
-        },
-        "overallRagRating": {
-          "type": "string",
-          "title": "Overall Rag Rating",
-          "radio": true,
-          "enum": ["High", "Medium High", "Medium Low", "Low", "Contractual"]
         }
       }
     }
