@@ -1787,7 +1787,6 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
               title: 'HIF Total Funding Request',
               sourceKey: %i[baseline_data summary hifFundingAmount],
               readonly: true,
-              hidden: true,
               currency: true
             },
             changesToRequest: {
@@ -1798,6 +1797,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                   type: 'string',
                   title: 'Please confirm there are no changes to the total HIF request',
                   radio: true,
+                  s151WriteOnly: true,
                   enum: ['Confirmed', 'Changes Required']
                 }
               },
@@ -1814,11 +1814,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                         changesToRequestConfirmation: { enum: ['Changes Required'] },
                         reasonForRequest: {
                           type: 'string',
-                          title: 'Reason for Request'
+                          title: 'Reason for Request',
+                          s151WriteOnly: true
                         },
                         requestedAmount: {
                           type: 'string',
                           title: 'Requested amount',
+                          s151WriteOnly: true,
                           currency: true
                         },
                         varianceFromBaseline: {
@@ -1837,6 +1839,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                         },
                         mitigationInPlace: {
                           type: 'string',
+                          s151WriteOnly: true,
                           title: 'Mitigation in place to reduce further slippage'
                         }
                       }
@@ -1984,6 +1987,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
               title: 'Please confirm you are content with the submitted project cashflows',
               type: 'string',
               radio: true,
+              s151WriteOnly: true,
               enum: %w[Yes No]
             }
           },
@@ -2000,10 +2004,12 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                     changesToRequest: { enum: ['Changes Required'] },
                     reasonForRequest: {
                       type: 'string',
+                      s151WriteOnly: true,
                       title: 'Reason for Request'
                     },
                     requestedAmount: {
                       type: 'string',
+                      s151WriteOnly: true,
                       title: 'Requested amount',
                       currency: true
                     },
@@ -2023,11 +2029,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                     },
                     mitigationInPlace: {
                       type: 'string',
-                      title: 'Mitigation in place to reduce further slippage'
+                      title: 'Mitigation in place to reduce further slippage',
+                      s151WriteOnly: true
                     },
                     amendmentConfirmation: {
                       title: 'An amendment has been made to the forecast profile in this MR - please confirm you are content with this amendment',
                       type: 'string',
+                      s151WriteOnly: true,
                       radio: true,
                       enum: %w[Yes No]
                     },
@@ -2048,6 +2056,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                 changeToMilestonesConfirmation: {
                   type: 'string',
                   title: 'Please confirm that no changes are required to contractual milestones',
+                  s151WriteOnly: true,
                   radio: true,
                   enum: ['Confirmed', 'Changes Required']
                 }
@@ -2065,14 +2074,17 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                         changeToMilestonesConfirmation: { enum: ['Changes Required'] },
                         reasonForRequestOfMilestoneChange: {
                           type: 'string',
+                          s151WriteOnly: true,
                           title: 'Reason for Request'
                         },
                         requestedAmendments: {
+                          s151WriteOnly: true,
                           type: 'string',
                           title: 'Requested amendments to milestones'
                         },
                         mitigationInPlaceMilestone: {
                           type: 'string',
+                          s151WriteOnly: true,
                           title: 'Mitigation in place to reduce further amendments'
                         }
                       }
@@ -2095,6 +2107,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                   type: 'string',
                   title: 'Please confirm that no changes are required to Funding End Date',
                   radio: true,
+                  s151WriteOnly: true,
                   enum: ['Confirmed', 'Changes Required']
                 }
               },
@@ -2111,10 +2124,12 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                         changesToEndDateConfirmation: { enum: ['Changes Required'] },
                         reasonForRequestOfDateChange: {
                           type: 'string',
+                          s151WriteOnly: true,
                           title: 'Reason for Request'
                         },
                         requestedChangedEndDate: {
                           type: 'string',
+                          s151WriteOnly: true,
                           title: 'Requested new end date'
                         },
                         varianceFromEndDateBaseline: {
@@ -2125,6 +2140,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                         },
                         mitigationInPlaceEndDate: {
                           type: 'string',
+                          s151WriteOnly: true,
                           title: 'Mitigation in place to reduce further slippage'
                         }
                       }
@@ -2147,6 +2163,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                   type: 'string',
                   title: 'Please confirm that no changes are required to project completion date',
                   radio: true,
+                  s151WriteOnly: true,
                   enum: ['Confirmed', 'Changes Required']
                 }
               },
@@ -2163,10 +2180,12 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                         changesToLongstopDateConfirmation: { enum: ['Changes Required'] },
                         reasonForRequestOfLongstopChange: {
                           type: 'string',
+                          s151WriteOnly: true,
                           title: 'Reason for Request'
                         },
                         requestedLongstopEndDate: {
                           type: 'string',
+                          s151WriteOnly: true,
                           title: 'Requested new end date'
                         },
                         varianceFromLongStopBaseline: {
@@ -2177,6 +2196,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                         },
                         mitigationInPlaceLongstopDate: {
                           type: 'string',
+                          s151WriteOnly: true,
                           title: 'Mitigation in place to reduce further slippage'
                         }
                       }
@@ -2193,10 +2213,11 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                   type: 'string',
                   title: 'Has any funding been recovered since last return?',
                   radio: true,
+                  s151WriteOnly: true,
                   enum: %w[Yes No]
                 }
               },
-              dependencies: {
+              dependencies: { 
                 recoverFundingConfirmation: {
                   oneOf: [
                     {
@@ -2206,6 +2227,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           type: 'string',
                           title: 'Will/Has this been used on future housing?',
                           radio: true,
+                          s151WriteOnly: true,
                           enum: %w[Yes No]
                         }
                       }
@@ -2246,12 +2268,14 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
               type: 'string',
               hidden: true,
               title: 'HIF Spend to Date',
+              s151WriteOnly: true,
               currency: true
             },
             AmountOfThisClaim: {
               type: 'string',
               title: 'Amount of this Claim',
-              currency: true
+              currency: true,
+              s151WriteOnly: true
             }
           }
         },
@@ -2273,6 +2297,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                 actual: {
                   title: 'Actual Spend Last Quarter Month',
                   type: 'string',
+                  s151WriteOnly: true,
                   currency: true
                 },
                 variance: {
@@ -2283,6 +2308,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                       title: 'Does this vary to the forecasted amount?',
                       type: 'string',
                       radio: true,
+                      s151WriteOnly: true,
                       enum: %w[Yes No]
                     }
                   },
@@ -2304,15 +2330,18 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                             varianceAgainstForecastAmount: {
                               title: 'Variance Against Forecast',
                               type: 'string',
+                              s151WriteOnly: true, 
                               currency: true
                             },
                             varianceAgainstForecastPercentage: {
                               title: 'Variance Against Forecast',
                               type: 'string',
+                              s151WriteOnly: true,
                               percentage: true
                             },
                             varianceReason: {
                               title: 'Reason for Variance',
+                              s151WriteOnly: true,
                               type: 'string'
                             }
                           }
@@ -2326,6 +2355,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
             evidenceOfSpendPastQuarter: {
               title: 'Evidence of Spend for the Past Quarter.',
               type: 'string',
+              s151WriteOnly: true,
               hidden: true
             },
             breakdownOfNextQuarterSpend: {
@@ -2335,16 +2365,19 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                 forecast: {
                   title: 'Forecasted Spend (£)',
                   type: 'string',
+                  s151WriteOnly: true,
                   currency: true
                 },
                 descriptionOfSpend: {
                   title: 'Description of Spend',
                   type: 'string',
+                  s151WriteOnly: true,
                   extendedText: true
                 },
                 evidenceOfSpendNextQuarter: {
                   title: 'Evidence of Spend for the Past Quarter.',
                   type: 'string',
+                  s151WriteOnly: true,
                   hidden: true
                 }
               }
@@ -2360,6 +2393,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
     @return_template.schema[:properties][:rmMonthlyCatchup] = {
       title: 'RM Monthly Catch Up',
       type: 'object',
+      laHidden: true,
       properties: {
         dateOfCatchUp: {
           type: 'string',

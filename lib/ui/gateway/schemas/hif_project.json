@@ -618,11 +618,13 @@
         "s151FundingEndDate": {
           "type": "string",
           "format": "date",
+          "s151WriteOnly": true,
           "title": "HIF Funding End Date"
         },
         "s151ProjectLongstopDate": {
           "type": "string",
           "format": "date",
+          "s151WriteOnly": true,
           "title": "Project Longstop date"
         }
       }
