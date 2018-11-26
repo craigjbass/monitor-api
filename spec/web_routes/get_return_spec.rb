@@ -17,7 +17,7 @@ describe 'Getting a return' do
     )
 
     stub_const(
-      'LocalAuthority::UseCase::GetSchemaForReturn',
+      'UI::UseCase::GetSchemaForReturn',
       double(new: get_schema_for_return_spy)
     )
 
@@ -48,7 +48,7 @@ describe 'Getting a return' do
         expect(get_return_spy).to have_received(:execute).with(id: 1)
       end
 
-      it 'passes data to GetSchemaForReturn' do
+      it 'passes data to UIGetSchemaForReturn' do
         expect(get_schema_for_return_spy).to(
           have_received(:execute).with(return_id: 1)
         )
