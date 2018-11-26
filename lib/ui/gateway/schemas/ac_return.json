@@ -2157,7 +2157,7 @@
             "SpendToDate": {
               "type": "string",
               "hidden": true,
-              "title": "Spend to Date",
+              "title": "Claimed to Date",
               "currency": true
             },
             "AmountOfThisClaim": {
