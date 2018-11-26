@@ -4,9 +4,18 @@ describe UI::UseCase::GetBaseReturn do
   context 'Example one' do
     let(:convert_core_return_spy) { spy }
     let(:get_base_return_spy) { spy(execute: { base_return: { id: 3, data: { cat: 'meow' }, schema: { schema: 'schema' } } }) }
+    let(:template) do 
+      Common::Domain::Template.new.tap do |p|
+        p.schema = {
+          my_new_schema: 'cats'
+        }
+      end
+    end
+    let(:in_memory_return_schema_spy) { spy( find_by: template)}
     let(:use_case) do
       described_class.new(
         get_base_return: get_base_return_spy,
+        return_schema: in_memory_return_schema_spy,
         find_project: find_project_spy,
         convert_core_hif_return: convert_core_return_spy
       )
@@ -25,11 +34,15 @@ describe UI::UseCase::GetBaseReturn do
     end
 
     it 'Returns the base return from get base return' do
-      expect(response).to eq(base_return: { id: 3, data: { cat: 'meow' }, schema: { schema: 'schema' } })
+      expect(response).to eq(base_return: { id: 3, data: { cat: 'meow' }, schema: { my_new_schema: 'cats' } })
     end
 
     it 'Calls the find project use case' do
       expect(find_project_spy).to have_received(:execute).with(id: 4)
+    end
+
+    it 'Call the schema gateway' do
+      expect(in_memory_return_schema_spy).to have_received(:find_by).with(type: 'nothif')
     end
 
     context 'Hif type' do
@@ -41,7 +54,7 @@ describe UI::UseCase::GetBaseReturn do
       end
 
       it 'returns converted data' do
-        expect(response).to eq(base_return: { id: 3, data: { cow: 'moo' }, schema: { schema: 'schema' } })
+        expect(response).to eq(base_return: { id: 3, data: { cow: 'moo' }, schema: { my_new_schema: 'cats' } })
       end
     end
 
@@ -53,12 +66,21 @@ describe UI::UseCase::GetBaseReturn do
   end
 
   context 'Example two' do
-    let(:find_project_spy) { spy(execute: { type: 'comethingelse' }) }
+    let(:find_project_spy) { spy(execute: { type: 'somethingelse' }) }
     let(:convert_core_return_spy) { spy }
     let(:get_base_return_spy) { spy(execute: { base_return: { id: 'woof', schema: { dog: 'woof' }, data: { cats: 'meow' } } }) }
+    let(:template) do 
+      Common::Domain::Template.new.tap do |p|
+        p.schema = {
+          another_schema: 'dogs'
+        }
+      end
+    end
+    let(:in_memory_return_schema_spy) { spy( find_by: template)}
     let(:use_case) do
       described_class.new(
         get_base_return: get_base_return_spy,
+        return_schema: in_memory_return_schema_spy,
         find_project: find_project_spy,
         convert_core_hif_return: convert_core_return_spy
       )
@@ -76,11 +98,15 @@ describe UI::UseCase::GetBaseReturn do
     end
 
     it 'Returns the basereturn from get base return' do
-      expect(response).to eq(base_return: { id: 'woof', schema: { dog: 'woof' }, data: { cats: 'meow' } })
+      expect(response).to eq(base_return: { id: 'woof', schema: { another_schema: 'dogs' }, data: { cats: 'meow' } })
     end
 
     it 'Calls the find project use case' do
       expect(find_project_spy).to have_received(:execute).with(id: 7)
+    end
+
+    it 'Call the schema gateway' do
+      expect(in_memory_return_schema_spy).to have_received(:find_by).with(type: 'somethingelse')
     end
 
     context 'Hif type' do
@@ -92,7 +118,7 @@ describe UI::UseCase::GetBaseReturn do
       end
 
       it 'returns converted data' do
-        expect(response).to eq(base_return: { id: 'woof', schema: { dog: 'woof' }, data: { ducks: 'quack' } })
+        expect(response).to eq(base_return: { id: 'woof', schema: { another_schema: 'dogs' }, data: { ducks: 'quack' } })
       end
     end
 

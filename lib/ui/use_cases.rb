@@ -57,6 +57,7 @@ class UI::UseCases
     builder.define_use_case :ui_get_base_return do
       UI::UseCase::GetBaseReturn.new(
         get_base_return: builder.get_use_case(:get_base_return),
+        return_schema: builder.get_gateway(:ui_return_schema),
         find_project: builder.get_use_case(:find_project),
         convert_core_hif_return: builder.get_use_case(:convert_core_hif_return)
       )
