@@ -2171,35 +2171,6 @@
           "type": "object",
           "title": "Supporting Evidence",
           "properties": {
-            "lastQuarterMonthSpend": {
-              "type": "object",
-              "title": "Last Quarter Month Spend",
-              "properties": {
-                "forecast": {
-                  "title": "Forecasted Spend Last Quarter Month",
-                  "type": "string",
-                  "hidden": true,
-                  "currency": true
-                },
-                "actual": {
-                  "title": "Actual Spend Last Quarter Month",
-                  "type": "string",
-                  "currency": true
-                },
-                "varianceAgainstForcastAmount": {
-                  "title": "Variance Against Forecast",
-                  "type": "string",
-                  "hidden": true,
-                  "currency": true
-                },
-                "varianceAgainstForcastPercentage": {
-                  "title": "Variance Against Forecast",
-                  "type": "string",
-                  "percentage": true,
-                  "hidden": true
-                }
-              }
-            },
             "evidenceOfSpendPastQuarter": {
               "title": "Evidence of Spend for the Past Quarter.",
               "type": "string",
@@ -2218,11 +2189,6 @@
                   "title": "Description of Spend",
                   "type": "string",
                   "extendedText": true
-                },
-                "evidenceOfSpendNextQuarter": {
-                  "title": "Evidence of Spend for the Past Quarter.",
-                  "type": "string",
-                  "hidden": true
                 }
               }
             }
