@@ -102,7 +102,7 @@ module DeliveryMechanism
         return 404 if return_hash.empty?
 
         return_schema = @dependency_factory
-                        .get_use_case(:get_schema_for_return)
+                        .get_use_case(:ui_get_schema_for_return)
                         .execute(return_id: return_id)[:schema]
 
         response.body = {

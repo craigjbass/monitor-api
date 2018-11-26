@@ -1786,12 +1786,14 @@
               "type": "string",
               "hidden": true,
               "title": "HIF Spend to Date",
+              "s151WriteOnly": true,
               "currency": true
             },
             "AmountOfThisClaim": {
               "type": "string",
               "title": "Amount of this Claim",
-              "currency": true
+              "currency": true,
+              "s151WriteOnly": true
             }
           }
         },
@@ -1810,7 +1812,7 @@
                     "return_data",
                     "s151",
                     "supportingEvidence",
-                    "lastQuarterMonthSpend",
+                    "breakdownOfNextQuarterSpend",
                     "forecast"
                   ],
                   "currency": true,
@@ -1818,49 +1820,54 @@
                 },
                 "actual": {
                   "title": "Actual Spend Last Quarter Month",
+                  "s151WriteOnly": true,
                   "type": "string",
                   "currency": true
                 },
-                "hasVariance": {
-                  "title": "Does this vary to the forecasted amount?",
-                  "type": "string",
-                  "readonly": true,
-                  "enum": ["Yes", "No"]  
-                },
-                "dependencies": {
-                  "hasVariance": {
-                    "oneOf": [
-                      {
-                        "properties": {
-                          "hasVariance": {
-                            "enum": ["No"]
+                "variance": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "hasVariance": {
+                      "title": "Does this vary to the forecasted amount?",
+                      "type": "string",
+                      "radio": true,
+                      "s151WriteOnly": true,
+                      "enum": ["Yes", "No"]
+                    }
+                  },
+                  "dependencies": {
+                    "hasVariance": {
+                      "oneOf": [
+                        {
+                          "properties": {
+                            "hasVariance": { "enum": ["No"] }
+                          }
+                        },
+                        {
+                          "properties": {
+                            "hasVariance": { "enum": ["Yes"] },
+                            "varianceAgainstForecastAmount": {
+                              "title": "Variance Against Forecast",
+                              "type": "string",
+                              "s151WriteOnly": true,
+                              "currency": true
+                            },
+                            "varianceAgainstForecastPercentage": {
+                              "title": "Variance Against Forecast",
+                              "type": "string",
+                              "s151WriteOnly": true,
+                              "percentage": true
+                            },
+                            "varianceReason": {
+                              "title": "Reason for Variance",
+                              "s151WriteOnly": true,
+                              "type": "string"
+                            }
                           }
                         }
-                      },
-                      {
-                        "properties": {
-                          "hasVariance": {
-                            "enum": ["Yes"]
-                          },
-                          "varianceAgainstForcastAmount": {
-                            "title": "Variance Against Forecast",
-                            "type": "string",
-                            "currency": true,
-                            "readonly": true
-                          },
-                          "varianceAgainstForcastPercentage": {
-                            "title": "Percentage Variance Against Forecast",
-                            "type": "string",
-                            "readonly": true,
-                            "percentage": true
-                          },
-                          "varianceReason": {
-                            "title": "Reason for Variance",
-                            "type": "string"
-                          }
-                        }
-                      }
-                    ]
+                      ]
+                    }
                   }
                 }
               }
@@ -1868,6 +1875,7 @@
             "evidenceOfSpendPastQuarter": {
               "title": "Evidence of Spend for the Past Quarter.",
               "type": "string",
+              "s151WriteOnly": true,
               "hidden": true
             },
             "breakdownOfNextQuarterSpend": {
@@ -1877,16 +1885,19 @@
                 "forecast": {
                   "title": "Forecasted Spend (£)",
                   "type": "string",
+                  "s151WriteOnly": true,
                   "currency": true
                 },
                 "descriptionOfSpend": {
                   "title": "Description of Spend",
                   "type": "string",
+                  "s151WriteOnly": true,
                   "extendedText": true
                 },
                 "evidenceOfSpendNextQuarter": {
                   "title": "Evidence of Spend for the Past Quarter.",
                   "type": "string",
+                  "s151WriteOnly": true,
                   "hidden": true
                 }
               }
@@ -1909,7 +1920,6 @@
               "title": "HIF Total Funding Request",
               "sourceKey": ["baseline_data", "summary", "hifFundingAmount"],
               "readonly": true,
-              "hidden": true,
               "currency": true
             },
             "changesToRequest": {
@@ -1920,6 +1930,7 @@
                   "type": "string",
                   "title": "Please confirm there are no changes to the total HIF request",
                   "radio": true,
+                  "s151WriteOnly": true,
                   "enum": ["Confirmed", "Changes Required"]
                 }
               },
@@ -1940,12 +1951,14 @@
                         },
                         "reasonForRequest": {
                           "type": "string",
-                          "title": "Reason for Request"
+                          "title": "Reason for Request",
+                          "s151WriteOnly": true
                         },
                         "requestedAmount": {
                           "type": "string",
                           "title": "Requested amount",
-                          "currency": true
+                          "currency": true,
+                          "s151WriteOnly": true
                         },
                         "varianceFromBaseline": {
                           "type": "string",
@@ -1963,6 +1976,7 @@
                         },
                         "mitigationInPlace": {
                           "type": "string",
+                          "s151WriteOnly": true,
                           "title": "Mitigation in place to reduce further slippage"
                         }
                       }
@@ -2126,7 +2140,61 @@
               "title": "Please confirm you are content with the submitted project cashflows",
               "type": "string",
               "radio": true,
+              "s151WriteOnly": true,
               "enum": ["Yes", "No"]
+            }
+          },
+          "dependencies": {
+            "changesToRequest": {
+              "oneOf": [
+                {
+                  "properties": {
+                    "changesToRequest": { "enum": ["Confirmed"] }
+                  }
+                },
+                {
+                  "properties": {
+                    "changesToRequest": { "enum": ["Changes Required"] },
+                    "reasonForRequest": {
+                      "type": "string",
+                      "s151WriteOnly": true,
+                      "title": "Reason for Request"
+                    },
+                    "requestedAmount": {
+                      "type": "string",
+                      "s151WriteOnly": true,
+                      "title": "Requested amount",
+                      "currency": true
+                    },
+                    "varianceFromBaseline": {
+                      "type": "string",
+                      "title": "Variance from Baseline",
+                      "readonly": true,
+                      "hidden": true,
+                      "currency": true
+                    },
+                    "varianceFromBaselinePercent": {
+                      "type": "string",
+                      "title": "Variance from Baseline",
+                      "percentage": true,
+                      "readonly": true,
+                      "hidden": true
+                    },
+                    "mitigationInPlace": {
+                      "type": "string",
+                      "title": "Mitigation in place to reduce further slippage",
+                      "s151WriteOnly": true
+                    },
+                    "amendmentConfirmation": {
+                      "title": "An amendment has been made to the forecast profile in this MR - please confirm you are content with this amendment",
+                      "type": "string",
+                      "s151WriteOnly": true,
+                      "radio": true,
+                      "enum": ["Yes", "No"]
+                    }
+                  }
+                }
+              ]
             }
           }
         },
@@ -2142,6 +2210,7 @@
                   "type": "string",
                   "title": "Please confirm that no changes are required to contractual milestones",
                   "radio": true,
+                  "s151WriteOnly": true,
                   "enum": ["Confirmed", "Changes Required"]
                 }
               },
@@ -2162,14 +2231,17 @@
                         },
                         "reasonForRequestOfMilestoneChange": {
                           "type": "string",
+                          "s151WriteOnly": true,
                           "title": "Reason for Request"
                         },
                         "requestedAmendments": {
                           "type": "string",
+                          "s151WriteOnly": true,
                           "title": "Requested amendments to milestones"
                         },
                         "mitigationInPlaceMilestone": {
                           "type": "string",
+                          "s151WriteOnly": true,
                           "title": "Mitigation in place to reduce further amendments"
                         }
                       }
@@ -2192,6 +2264,7 @@
                   "type": "string",
                   "title": "Please confirm that no changes are required to Funding End Date",
                   "radio": true,
+                  "s151WriteOnly": true,
                   "enum": ["Confirmed", "Changes Required"]
                 }
               },
@@ -2212,11 +2285,13 @@
                         },
                         "reasonForRequestOfDateChange": {
                           "type": "string",
-                          "title": "Reason for Request"
+                          "title": "Reason for Request",
+                          "s151WriteOnly": true
                         },
                         "requestedChangedEndDate": {
                           "type": "string",
-                          "title": "Requested new end date"
+                          "title": "Requested new end date",
+                          "s151WriteOnly": true
                         },
                         "varianceFromEndDateBaseline": {
                           "type": "string",
@@ -2226,6 +2301,7 @@
                         },
                         "mitigationInPlaceEndDate": {
                           "type": "string",
+                          "s151WriteOnly": true,
                           "title": "Mitigation in place to reduce further slippage"
                         }
                       }
@@ -2248,6 +2324,7 @@
                   "type": "string",
                   "title": "Please confirm that no changes are required to project completion date",
                   "radio": true,
+                  "s151WriteOnly": true,
                   "enum": ["Confirmed", "Changes Required"]
                 }
               },
@@ -2268,10 +2345,12 @@
                         },
                         "reasonForRequestOfLongstopChange": {
                           "type": "string",
+                          "s151WriteOnly": true,
                           "title": "Reason for Request"
                         },
                         "requestedLongstopEndDate": {
                           "type": "string",
+                          "s151WriteOnly": true,
                           "title": "Requested new end date"
                         },
                         "varianceFromLongStopBaseline": {
@@ -2282,6 +2361,7 @@
                         },
                         "mitigationInPlaceLongstopDate": {
                           "type": "string",
+                          "s151WriteOnly": true,
                           "title": "Mitigation in place to reduce further slippage"
                         }
                       }
@@ -2297,6 +2377,7 @@
                 "recoverFundingConfirmation": {
                   "type": "string",
                   "title": "Has any funding been recovered since last return?",
+                  "s151WriteOnly": true,
                   "radio": true,
                   "enum": ["Yes", "No"]
                 }
@@ -2311,6 +2392,7 @@
                           "type": "string",
                           "title": "Will/Has this been used on future housing?",
                           "radio": true,
+                          "s151WriteOnly": true,
                           "enum": ["Yes", "No"]
                         }
                       }
