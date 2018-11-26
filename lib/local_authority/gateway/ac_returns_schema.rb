@@ -1775,26 +1775,31 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
               year: {
                 type: "string",
                 title: "Year",
+                laReadOnly: true,
                 sourceKey: %i[baseline_data financials expenditure year]
               },
               Q1Amount: {
                 type: "string",
                 title: "First Quarter",
+                laReadOnly: true,
                 currency: true
               },
               Q2Amount: {
                 type: "string",
                 title: "Second Quarter",
+                laReadOnly: true,
                 currency: true
               },
               Q3Amount: {
                 type: "string",
                 title: "Third Quarter",
+                laReadOnly: true,
                 currency: true
               },
               Q4Amount: {
                 type: "string",
                 title: "Fourth Quarter",
+                laReadOnly: true,
                 currency: true
               },
               total: {
@@ -1937,17 +1942,20 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
             TotalFundingRequest: {
               type: 'string',
               title: 'Total Funding Request',
+              s151WriteOnly: true,
               currency: true
             },
             SpendToDate: {
               type: 'string',
               hidden: true,
               title: 'Spend to Date',
+              s151WriteOnly: true,
               currency: true
             },
             AmountOfThisClaim: {
               type: 'string',
               title: 'Amount of this Claim',
+              s151WriteOnly: true,
               currency: true
             }
           }
@@ -1964,16 +1972,19 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                   title: 'Forecasted Spend Last Quarter Month',
                   type: 'string',
                   hidden: true,
+                  s151WriteOnly: true,
                   currency: true
                 },
                 actual: {
                   title: 'Actual Spend Last Quarter Month',
                   type: 'string',
+                  s151WriteOnly: true,
                   currency: true
                 },
                 varianceAgainstForcastAmount: {
                   title: 'Variance Against Forecast',
                   type: 'string',
+                  s151WriteOnly: true,
                   hidden: true,
                   currency: true
                 },
@@ -1981,6 +1992,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                   title: 'Variance Against Forecast',
                   type: 'string',
                   percentage: true,
+                  s151WriteOnly: true,
                   hidden: true
                 }
               }
@@ -1988,6 +2000,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
             evidenceOfSpendPastQuarter: {
               title: 'Evidence of Spend for the Past Quarter.',
               type: 'string',
+              s151WriteOnly: true,
               hidden: true
             },
             breakdownOfNextQuarterSpend: {
@@ -1997,16 +2010,19 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                 forecast: {
                   title: 'Forecasted Spend (£)',
                   type: 'string',
+                  s151WriteOnly: true,
                   currency: true
                 },
                 descriptionOfSpend: {
                   title: 'Description of Spend',
                   type: 'string',
+                  s151WriteOnly: true,
                   extendedText: true
                 },
                 evidenceOfSpendNextQuarter: {
                   title: 'Evidence of Spend for the Past Quarter.',
                   type: 'string',
+                  s151WriteOnly: true,
                   hidden: true
                 }
               }
@@ -2054,42 +2070,49 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                   type: 'string',
                   title: 'Estimated grant draw down profiles, including any changes requested to these',
                   enum: %w[Yes No],
+                  s151WriteOnly: true,
                   radio: true
                 },
                 milestoneDateEstimates: {
                   type: 'string',
                   title: 'Milestone date estimates, including any changes requested to these',
                   enum: %w[Yes No],
+                  s151WriteOnly: true,
                   radio: true
                 },
                 milestoneDatesAchieved: {
                   type: 'string',
                   title: 'Milestone dates achieved, including any evidence submitted to validate these',
                   enum: %w[Yes No],
+                  s151WriteOnly: true,
                   radio: true
                 },
                 housingOutputsEstimates: {
                   type: 'string',
                   title: 'Housing output profile estimates, including any changes requested to these',
                   enum: %w[Yes No],
+                  s151WriteOnly: true,
                   radio: true
                 },
                 housingClaimedAsAchieved: {
                   type: 'string',
                   title: 'Housing outputs claimed as achieved, including any evidence submitted to validate these',
                   enum: %w[Yes No],
+                  s151WriteOnly: true,
                   radio: true
                 },
                 receiptEstimates: {
                   type: 'string',
                   title: 'Receipt (income) estimates and actual income, including any evidence submitted to validate these',
                   enum: %w[Yes No],
+                  s151WriteOnly: true,
                   radio: true
                 },
                 noOtherGrantFundin: {
                   type: 'string',
                   title: 'That no other Grant Funding Agreement conditions have been breached.',
                   enum: %w[Yes No],
+                  s151WriteOnly: true,
                   radio: true
                 }
               }
@@ -2104,6 +2127,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
     @return_template.schema[:properties][:reviewAndAssurance] = {
       title: 'Review and Assurance',
       type: 'object',
+      laHidden: true,
       properties: {
         date: {
           title: 'Date of most recent meeting',
