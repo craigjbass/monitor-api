@@ -21,7 +21,8 @@
         },
         "projectDescription": {
           "type": "string",
-          "title": "Project Description"
+          "title": "Project Description",
+          "extendedText": true
         },
         "sitesSummary": {
           "type": "array",
@@ -32,7 +33,7 @@
             "properties": {
               "summary": {
                 "type": "object",
-                "title": "Summary",
+                "title": "",
                 "properties": {
                   "name": {
                     "type": "string",
@@ -54,7 +55,8 @@
                   },
                   "planningStatus": {
                     "type": "string",
-                    "title": "Planning status"
+                    "title": "Planning status",
+                    "enum": ["Not in allocated for housing in Local Plan", "Provisional allocation for housing", "Allocated for housing in Local Plan", "Outline or Reserved Matters consent granted"]
                   },
                   "contacts": {
                     "type": "object",
@@ -62,11 +64,13 @@
                     "properties": {
                       "laContact": {
                         "type": "string",
-                        "title": "Key local authority contact"
+                        "title": "Key local authority contact email",
+                        "format": "email"
                       },
                       "heContact": {
                         "type": "string",
-                        "title": "Key Homes England contact"
+                        "title": "Key Homes England contact email",
+                        "format": "email"
                       }
                     }
                   }
@@ -74,7 +78,7 @@
               },
               "units": {
                 "type": "object",
-                "title": "Units",
+                "title": "",
                 "properties": {
                   "numberOfUnits": {
                     "type": "object",
@@ -176,15 +180,6 @@
                         "currencyMaximum": "99999999"
                       }
                     }
-                  },
-                  "fundingSite": {
-                    "type": "string",
-                    "title": "Site (if multiple)"
-                  },
-                  "fundingAgreed": {
-                    "type": "string",
-                    "title": "AC Funding agreed",
-                    "currency": true
                   }
                 }
               }
@@ -207,7 +202,8 @@
             "properties": {
               "year": {
                 "type": "string",
-                "title": "Year"
+                "title": "Year",
+                "enum": ["2018/19",  "2019/20", "2020/21"]
               },
               "Q1Amount": {
                 "type": "string",
@@ -254,7 +250,7 @@
                   },
                   "amount": {
                     "type": "string",
-                    "title": "Amount",
+                    "title": "Projected (clean site) value",
                     "currency": true
                   }
                 }
@@ -262,7 +258,7 @@
             },
             "projectValue": {
               "type": "string",
-              "title": "Projected (clean site) land value",
+              "title": "Total projected (clean site) value",
               "currency": true,
               "currencyMaximum": "99999999"
             },
@@ -448,39 +444,32 @@
         },
         "mmcCategory": {
           "title": "MMC Category",
-          "type": "array",
-          "quarterly": true,
-          "items": {
-            "type": "object",
-            "properties": {
-              "title": {
-                "type": "string",
-                "title": "Category",
-                "readonly": true
-              },
-              "percent": {
-                "type": "string",
-                "title": "Percent Amount",
-                "currencyMaximum":"9999",
-                "percentage": true
-              }
-            }
-          }
-        },
-        "startAndCompletion": {
-          "title": "",
           "type": "object",
-          "horizontal": true,
           "properties": {
-            "startOfFirstUnit": {
+            "catA": {
               "type": "string",
-              "format": "date",
-              "title": "Start of first unit"
+              "title": "Category A - Volumetric",
+              "percentage": true
             },
-            "completionOfFinalUnit": {
+            "catB": {
               "type": "string",
-              "format": "date",
-              "title": "Completion of final unit"
+              "title": "Category B - Hybrid",
+              "percentage": true
+            },
+            "catC": {
+              "type": "string",
+              "title": "Category C - Panellised",
+              "percentage": true
+            },
+            "catD": {
+              "type": "string",
+              "title": "Category D -  Sub-Assemblies and Components",
+              "percentage": true
+            },
+            "catE": {
+              "type": "string",
+              "title": "Category E - Non-OSM/MMC Construction",
+              "percentage": true
             }
           }
         }
