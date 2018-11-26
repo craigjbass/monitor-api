@@ -13,36 +13,54 @@
             "type": "object",
             "title": "Summary",
             "properties": {
-              "name": { "type": "string", "title": "Name", "sourceKey": ["baseline_data", "projectName"] },
-              "description": { "type": "string", "title": "Description", "sourceKey": ["baseline_data", "projectDescription"] },
-              "baselineunits": {
-                "type": "string",
-                "title": "Units",
-                "readonly": true,
-                "sourceKey": [
-                  "baseline_data",
-                  "summary",
-                  "sitesSummary",
-                  "units",
-                  "numberOfUnitsTotal"
-                ]
+              "name": { "type": "string", "title": "Name", "sourceKey": ["baseline_data", "summary", "sitesSummary", "summary", "name"]},
+              "ref": { "type": "string", "title": "LMT / GIS ref", "sourceKey": ["baseline_data", "summary", "sitesSummary", "summary", "details", "ref"]},
+              "totalNoOfUnits": {
+                "type": "object",
+                "title": "Total number of units",
+                "properties": {
+                  "baseline": {
+                    "type": "string",
+                    "title": "Baseline",
+                    "readonly": true,
+                    "sourceKey": [
+                      "baseline_data",
+                      "summary",
+                      "sitesSummary",
+                      "units",
+                      "numberOfUnitsTotal"
+                    ]
+                  },
+                  "live": {
+                    "type": "string",
+                    "title": "Live",
+                    "readonly": true
+                  }
+                }
               },
               "affordableHousingUnits": {
-                "type": "string",
+                "type": "object",
                 "title": "Affordable Housing Units",
-                "readonly": true,
-                "sourceKey": [
-                  "baseline_data",
-                  "summary",
-                  "sitesSummary",
-                  "units",
-                  "numberOfUnitsAffordable"
-                ]
-              },
-              "totalNoOfUnits": {
-                "type": "string",
-                "title": "Total number of units",
-                "readonly": true
+                "properties": {
+                  "baseline": {
+                    "title": "Baseline",
+                    "type": "string",
+                    "readonly": true,
+                    "sourceKey": [
+                      "baseline_data",
+                      "summary",
+                      "sitesSummary",
+                      "units",
+                      "numberOfUnits",
+                      "numberOfUnitsAffordable"
+                    ]
+                  },
+                  "live": {
+                    "title": "Live",
+                    "type": "string",
+                    "readonly": true
+                  }
+                }
               },
               "planningStatus": {
                 "type": "string",
@@ -76,22 +94,18 @@
                   "summary",
                   "sitesSummary",
                   "units",
+                  "numberOfUnits",
                   "numberOfUnitsAffordable"
                 ]
               },
               "units": {
                 "type": "object",
-                "title": "Units",
+                "title": "",
                 "properties": {
-                  "numberOfUnitsTotal": {
-                    "type": "string",
-                    "title": "Total",
-                    "readonly": true
-                  },
                   "numberOfUnits": {
                     "type": "object",
                     "horizontal": true,
-                    "title": "Number of",
+                    "title": "Units and Tenures",
                     "properties": {
                       "numberOfUnitsMarket": {
                         "type": "string",
@@ -123,35 +137,51 @@
                 }
               },
               "changesRequired": {
-                "type": "string",
-                "enum": [
-                  "Do not change the baseline",
-                  "Request change to baseline to match lastest estimates"
-                ],
-                "radio": true,
-                "title": "Changes to Baseline?"
-              },
+                "type": "object",
+                "title": "",
+                "properties": {
+                  "changesConfirmation": {
+                    "type": "string",
+                    "enum": [
+                      "Do not change the baseline",
+                      "Request change to baseline to match latest estimates"
+                    ],
+                    "radio": true,
+                    "title": "Changes to Baseline?"
+                  }
+                },
+                "dependencies": {
+                  "changesConfirmation": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "changesConfirmation": {
+                            "enum": ["Do not change the baseline"]
+                          }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "changesConfirmation": {
+                            "enum": ["Request change to baseline to match latest estimates"]
+                          },
+                          "reason": {
+                            "type": "string",
+                            "title": "What is the reason for the change?",
+                            "extendedText": true
+                          }
+                        }
+                      }
+    
+                    ]
+                  }
+                }
+              },        
               "paceOfConstruction": {
                 "type": "object",
                 "title": "Pace of Construction",
                 "properties": {
                   "timeBetweenStartAndCompletion": {
-                    "type": "object",
-                    "horizontal": true,
-                    "title": "Months from start of first housing unit to completion of final unit.",
-                    "properties": {
-                      "baseline": {
-                        "type": "string",
-                        "title": "Baseline",
-                        "readonly": true
-                      },
-                      "latestEstimate": {
-                        "type": "string",
-                        "title": "Lastest Estimate"
-                      }
-                    }
-                  },
-                  "unitsPerMonth": {
                     "type": "object",
                     "horizontal": true,
                     "title": "Months from start of first housing unit to completion of final unit.",
@@ -187,6 +217,7 @@
                         "type": "string",
                         "title": "Baseline",
                         "readonly": true,
+                        "percentage": true,
                         "sourceKey": [
                           "baseline_data",
                           "outputs",
@@ -210,6 +241,7 @@
                         "type": "string",
                         "title": "Baseline",
                         "readonly": true,
+                        "percentage": true,
                         "sourceKey": [
                           "baseline_data",
                           "outputs",
@@ -232,6 +264,7 @@
                       "baseline": {
                         "type": "string",
                         "title": "Baseline",
+                        "percentage": true,
                         "readonly": true,
                         "sourceKey": [
                           "baseline_data",
@@ -255,6 +288,7 @@
                       "baseline": {
                         "type": "string",
                         "title": "Baseline",
+                        "percentage": true,
                         "readonly": true,
                         "sourceKey": [
                           "baseline_data",
@@ -278,6 +312,7 @@
                       "baseline": {
                         "type": "string",
                         "title": "Baseline",
+                        "percentage": true,
                         "readonly": true,
                         "sourceKey": [
                           "baseline_data",
@@ -1712,7 +1747,7 @@
                         "baseline_data",
                         "milestones",
                         "customMileStones",
-                        "customName"
+                        "customTitle"
                       ]
                     },
                     "completion": {
@@ -1816,38 +1851,44 @@
                 ]
               },
               "changeRequired": {
-                "type": "string",
+                "type": "object",
                 "title": "Change Required?",
-                "radio": true,
-                "enum": [
-                  "Do not change baseline",
-                  "Request change to baseline to match latest estimates"
-                ]
-              }
-            },
-            "dependencies": {
-              "changeRequired": {
-                "oneOf": [
-                  {
-                    "properties": {
-                      "changeRequired": {
-                        "enum": [
-                          "Request change to baseline to match latest estimates"
-                        ]
-                      },
-                      "reason": {
-                        "type": "string",
-                        "extendedText": true,
-                        "title": "Reason for change/variance, and steps being taken to address this"
-                      }
-                    }
-                  },
-                  {
-                    "properties": {
-                      "changeRequired": { "enum": ["Do not change baseline"] }
-                    }
+                "properties": {
+                  "changeRequiredConfirmation": {
+                    "type": "string",
+                    "title": "Would you like to request a change to the baseline?",
+                    "radio": true,
+                    "enum": [
+                      "Do not change baseline",
+                      "Request change to baseline to match latest estimates"
+                    ]
                   }
-                ]
+                },
+                "dependencies": {
+                  "changeRequiredConfirmation": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "changeRequiredConfirmation": {
+                            "enum": [
+                              "Request change to baseline to match latest estimates"
+                            ]
+                          },
+                          "reason": {
+                            "type": "string",
+                            "extendedText": true,
+                            "title": "Reason for change/variance, and steps being taken to address this"
+                          }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "changeRequiredConfirmation": { "enum": ["Do not change baseline"] }
+                        }
+                      }
+                    ]
+                  }
+                }
               }
             }
           }
@@ -2035,7 +2076,7 @@
         },
         "riskRating": {
           "type": "array",
-          "title": "Risk Rating",
+          "title": "Risk Rating on Remaining Estimates",
           "quarterly": true,
           "items": {
             "type": "object",
@@ -2207,18 +2248,253 @@
         }
       }
     },
-    "housingOutputs": {
-      "title": "Housing Outputs",
-      "type": "object",
-      "properties": {
-        "tbc": {
-          "type": "object",
-          "title": "",
-          "properties": {
-            "tbc": {
-              "type": "string",
-              "title": "Still awaiting Details from anthony",
-              "readonly": true
+    "housingCompletions": {
+      "title": "Housing Completions",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "title": "Site",
+        "properties": {
+          "details": {
+            "type": "object",
+            "title": "Housing Completions",
+            "properties": {
+              "siteName": {
+                "type": "string",
+                "title": "Site Name",
+                "readonly": true,
+                "sourceKey": ["baseline_data", "summary", "sitesSummary", "summary", "name"]
+              },
+              "baseline": {
+                "type": "array",
+                "title": "Baseline",
+                "quarterly": true,
+                "items": {
+                  "type": "object",
+                  "title": "",
+                  "properties": {
+                    "year": {
+                      "type": "string",
+                      "title": "Year",
+                      "readonly": true
+                    },
+                    "Q1Amount": {
+                      "type": "string",
+                      "title": "First Quarter",
+                      "readonly": true
+                    },
+                    "Q2Amount": {
+                      "type": "string",
+                      "title": "Second Quarter",
+                      "readonly": true
+                    },
+                    "Q3Amount": {
+                      "type": "string",
+                      "title": "Third Quarter",
+                      "readonly": true
+                    },
+                    "Q4Amount": {
+                      "type": "string",
+                      "title": "Fourth Quarter",
+                      "readonly": true
+                    },
+                    "total": {
+                      "type": "string",
+                      "title": "Total",
+                      "readonly": true
+                    }
+                  }
+                }
+              },
+              "achievedToDate": {
+                "type": "array",
+                "title": "Achieved to date",
+                "quarterly": true,
+                "items": {
+                  "type": "object",
+                  "title": "",
+                  "properties": {
+                    "year": {
+                      "type": "string",
+                      "title": "Year",
+                      "laReadOnly": true
+                    },
+                    "Q1Amount": {
+                      "type": "string",
+                      "laReadOnly": true,
+                      "title": "First Quarter"
+                    },
+                    "Q2Amount": {
+                      "type": "string",
+                      "title": "Second Quarter",
+                      "laReadOnly": true
+                    },
+                    "Q3Amount": {
+                      "type": "string",
+                      "title": "Third Quarter",
+                      "laReadOnly": true,
+                      "currency": true
+                    },
+                    "Q4Amount": {
+                      "type": "string",
+                      "title": "Fourth Quarter",
+                      "laReadOnly": true
+                    },
+                    "total": {
+                      "type": "string",
+                      "title": "Total",
+                      "readonly": true
+                    }
+                  }
+                }
+              },
+              "remainingEstimate": {
+                "type": "array",
+                "title": "Remaining Estimate",
+                "quarterly": true,
+                "items": {
+                  "type": "object",
+                  "title": "",
+                  "properties": {
+                    "year": {
+                      "type": "string",
+                      "title": "Year"
+                    },
+                    "Q1Amount": {
+                      "type": "string",
+                      "title": "First Quarter"
+                    },
+                    "Q2Amount": {
+                      "type": "string",
+                      "title": "Second Quarter"
+                    },
+                    "Q3Amount": {
+                      "type": "string",
+                      "title": "Third Quarter"
+                    },
+                    "Q4Amount": {
+                      "type": "string",
+                      "title": "Fourth Quarter"
+                    },
+                    "total": {
+                      "type": "string",
+                      "title": "Total",
+                      "readonly": true
+                    }
+                  }
+                }
+              },
+              "riskRating": {
+                "type": "array",
+                "title": "Risk Rating on Remaining Estimates",
+                "quarterly": true,
+                "items": {
+                  "type": "object",
+                  "title": "",
+                  "properties": {
+                    "year": {
+                      "type": "string",
+                      "title": "Year"
+                    },
+                    "Q1Rating": {
+                      "type": "string",
+                      "title": "First Quarter",
+                      "enum": [
+                        "Already Achieved",
+                        "Low",
+                        "Medium Low",
+                        "Medium High",
+                        "High"
+                      ]
+                    },
+                    "Q2Rating": {
+                      "type": "string",
+                      "title": "Second Quarter",
+                      "enum": [
+                        "Already Achieved",
+                        "Low",
+                        "Medium Low",
+                        "Medium High",
+                        "High"
+                      ]
+                    },
+                    "Q3Rating": {
+                      "type": "string",
+                      "title": "Third Quarter",
+                      "enum": [
+                        "Already Achieved",
+                        "Low",
+                        "Medium Low",
+                        "Medium High",
+                        "High"
+                      ]
+                    },
+                    "Q4Rating": {
+                      "type": "string",
+                      "title": "Fourth Quarter",
+                      "enum": [
+                        "Already Achieved",
+                        "Low",
+                        "Medium Low",
+                        "Medium High",
+                        "High"
+                      ]
+                    },
+                    "total": {
+                      "type": "string",
+                      "title": "Total",
+                      "enum": [
+                        "Already Achieved",
+                        "Low",
+                        "Medium Low",
+                        "Medium High",
+                        "High"
+                      ],
+                      "readonly": true
+                    }
+                  }
+                }
+              },
+              "changesRequired": {
+                "type": "object",
+                "title": "Changes Required?",
+                "properties": {
+                  "changesConfirmation": {
+                    "type": "string",
+                    "title": " ",
+                    "radio": true,
+                    "enum": [
+                      "Do not change the baseline",
+                      "Request change to baseline to match latest estimates"
+                    ]
+                  }
+                },
+                "dependencies": {
+                  "changesConfirmation": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "changesConfirmation": { "enum": ["Do not change the baseline"] }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "changesConfirmation": {
+                            "enum": [
+                              "Request change to baseline to match latest estimates"
+                            ]
+                          },
+                          "reasonForChange": {
+                            "type": "string",
+                            "title": "Reason for change/variance, and steps being taken to address this",
+                            "extendedText": true
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
             }
           }
         }
