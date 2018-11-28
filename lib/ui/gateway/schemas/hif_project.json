@@ -115,195 +115,204 @@
             "type": "object",
             "title": "Planning Status",
             "properties": {
-              "outlinePlanningStatus": {
+              "planningStatus": {
                 "type": "object",
-                "title": "Outline Planning Status",
+                "title": "",
                 "properties": {
-                  "granted": {
+                  "outlinePlanningStatus": {
+                    "type": "object",
+                    "title": "Outline Planning Status",
+                    "properties": {
+                      "granted": {
+                        "type": "string",
+                        "title": "Granted?",
+                        "enum": ["Yes", "No", "N/A"],
+                        "radio": true
+                      }
+                    },
+                    "required": ["granted"],
+                    "dependencies": {
+                      "granted": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "granted": { "enum": ["Yes"] },
+                              "reference": {
+                                "type": "string",
+                                "title": "Reference"
+                              }
+                            },
+                            "required": ["reference"]
+                          },
+                          {
+                            "properties": {
+                              "granted": { "enum": ["No"] },
+                              "targetSubmission": {
+                                "type": "string",
+                                "format": "date",
+                                "title": "Target date of submission"
+                              },
+                              "targetGranted": {
+                                "type": "string",
+                                "format": "date",
+                                "title": "Target date of planning granted"
+                              },
+                              "summaryOfCriticalPath": {
+                                "type": "string",
+                                "title": "Summary of Critical Path",
+                                "extendedText": true
+                              }
+                            },
+                            "required": [
+                              "targetSubmission",
+                              "targetGranted",
+                              "summaryOfCriticalPath"
+                            ]
+                          },
+                          { "properties": { "granted": { "enum": ["N/A"] } } }
+                        ]
+                      }
+                    }
+                  },
+                  "fullPlanningStatus": {
+                    "type": "object",
+                    "title": "Full Planning Status",
+                    "properties": {
+                      "granted": {
+                        "type": "string",
+                        "title": "Granted?",
+                        "enum": ["Yes", "No", "N/A"],
+                        "radio": true
+                      }
+                    },
+                    "required": ["granted"],
+                    "dependencies": {
+                      "granted": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "granted": { "enum": ["Yes"] },
+                              "grantedReference": {
+                                "type": "string",
+                                "title": "Reference"
+                              }
+                            },
+                            "required": ["grantedReference"]
+                          },
+                          {
+                            "properties": {
+                              "granted": { "enum": ["No"] },
+                              "targetSubmission": {
+                                "type": "string",
+                                "format": "date",
+                                "title": "Target date of submission"
+                              },
+                              "targetGranted": {
+                                "type": "string",
+                                "format": "date",
+                                "title": "Target date of planning granted"
+                              },
+                              "summaryOfCriticalPath": {
+                                "type": "string",
+                                "title": "Summary of Critical Path",
+                                "extendedText": true
+                              }
+                            },
+                            "required": [
+                              "targetSubmission",
+                              "targetGranted",
+                              "summaryOfCriticalPath"
+                            ]
+                          },
+                          { "properties": { "granted": { "enum": ["N/A"] } } }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              "s106": {
+                "type": "object",
+                "title": "Section 106",
+                "properties": {
+                  "requirement": {
                     "type": "string",
-                    "title": "Granted?",
-                    "enum": ["Yes", "No", "N/A"],
+                    "laReadOnly": true,
+                    "title": "Is this a requirement?",
+                    "enum": ["Yes", "No"],
                     "radio": true
                   }
                 },
-                "required": ["granted"],
+                "required": ["requirement"],
                 "dependencies": {
-                  "granted": {
+                  "requirement": {
                     "oneOf": [
                       {
                         "properties": {
-                          "granted": { "enum": ["Yes"] },
-                          "reference": {
+                          "requirement": { "enum": ["Yes"] },
+                          "summaryOfRequirement": {
                             "type": "string",
-                            "title": "Reference"
-                          }
-                        },
-                        "required": ["reference"]
-                      },
-                      {
-                        "properties": {
-                          "granted": { "enum": ["No"] },
-                          "targetSubmission": {
-                            "type": "string",
-                            "format": "date",
-                            "title": "Target date of submission"
-                          },
-                          "targetGranted": {
-                            "type": "string",
-                            "format": "date",
-                            "title": "Target date of planning granted"
-                          },
-                          "summaryOfCriticalPath": {
-                            "type": "string",
-                            "title": "Summary of Critical Path",
+                            "title": "If Yes: Summary of requirement",
                             "extendedText": true
                           }
                         },
-                        "required": [
-                          "targetSubmission",
-                          "targetGranted",
-                          "summaryOfCriticalPath"
-                        ]
+                        "required": ["summaryOfRequirement"]
                       },
-                      { "properties": { "granted": { "enum": ["N/A"] } } }
+                      { "properties": { "requirement": { "enum": ["No"] } } }
                     ]
                   }
                 }
               },
-              "fullPlanningStatus": {
+              "statutoryConsents": {
                 "type": "object",
-                "title": "Full Planning Status",
+                "title": "Statutory Consents",
                 "properties": {
-                  "granted": {
+                  "anyConsents": {
                     "type": "string",
-                    "title": "Granted?",
-                    "enum": ["Yes", "No", "N/A"],
+                    "laReadOnly": true,
+                    "title": "Any Statutory Consents?",
+                    "enum": ["Yes", "No"],
                     "radio": true
                   }
                 },
-                "required": ["granted"],
+                "required": ["anyConsents"],
                 "dependencies": {
-                  "granted": {
+                  "anyConsents": {
                     "oneOf": [
                       {
                         "properties": {
-                          "granted": { "enum": ["Yes"] },
-                          "grantedReference": {
-                            "type": "string",
-                            "title": "Reference"
+                          "anyConsents": { "enum": ["Yes"] },
+                          "consents": {
+                            "title": "Consents",
+                            "type": "array",
+                            "addable": true,
+                            "items": {
+                              "title": "Statutory Consent",
+                              "type": "object",
+                              "properties": {
+                                "detailsOfConsent": {
+                                  "type": "string",
+                                  "title": "Details of consent",
+                                  "extendedText": true
+                                },
+                                "targetDateToBeMet": {
+                                  "type": "string",
+                                  "format": "date",
+                                  "title": "Target date to be met"
+                                }
+                              },
+                              "required": [
+                                "detailsOfConsent",
+                                "targetDateToBeMet"
+                              ]
+                            }
                           }
-                        },
-                        "required": ["grantedReference"]
+                        }
                       },
-                      {
-                        "properties": {
-                          "granted": { "enum": ["No"] },
-                          "targetSubmission": {
-                            "type": "string",
-                            "format": "date",
-                            "title": "Target date of submission"
-                          },
-                          "targetGranted": {
-                            "type": "string",
-                            "format": "date",
-                            "title": "Target date of planning granted"
-                          },
-                          "summaryOfCriticalPath": {
-                            "type": "string",
-                            "title": "Summary of Critical Path",
-                            "extendedText": true
-                          }
-                        },
-                        "required": [
-                          "targetSubmission",
-                          "targetGranted",
-                          "summaryOfCriticalPath"
-                        ]
-                      },
-                      { "properties": { "granted": { "enum": ["N/A"] } } }
+                      { "properties": { "anyConsents": { "enum": ["No"] } } }
                     ]
                   }
                 }
-              }
-            }
-          },
-          "s106": {
-            "type": "object",
-            "title": "Section 106",
-            "properties": {
-              "requirement": {
-                "type": "string",
-                "laReadOnly": true,
-                "title": "Is this a requirement?",
-                "enum": ["Yes", "No"],
-                "radio": true
-              }
-            },
-            "required": ["requirement"],
-            "dependencies": {
-              "requirement": {
-                "oneOf": [
-                  {
-                    "properties": {
-                      "requirement": { "enum": ["Yes"] },
-                      "summaryOfRequirement": {
-                        "type": "string",
-                        "title": "If Yes: Summary of requirement",
-                        "extendedText": true
-                      }
-                    },
-                    "required": ["summaryOfRequirement"]
-                  },
-                  { "properties": { "requirement": { "enum": ["No"] } } }
-                ]
-              }
-            }
-          },
-          "statutoryConsents": {
-            "type": "object",
-            "title": "Statutory Consents",
-            "properties": {
-              "anyConsents": {
-                "type": "string",
-                "laReadOnly": true,
-                "title": "Any Statutory Consents?",
-                "enum": ["Yes", "No"],
-                "radio": true
-              }
-            },
-            "required": ["anyConsents"],
-            "dependencies": {
-              "anyConsents": {
-                "oneOf": [
-                  {
-                    "properties": {
-                      "anyConsents": { "enum": ["Yes"] },
-                      "consents": {
-                        "title": "Consents",
-                        "type": "array",
-                        "addable": true,
-                        "items": {
-                          "title": "Statutory Consent",
-                          "type": "object",
-                          "properties": {
-                            "detailsOfConsent": {
-                              "type": "string",
-                              "title": "Details of consent",
-                              "extendedText": true
-                            },
-                            "targetDateToBeMet": {
-                              "type": "string",
-                              "format": "date",
-                              "title": "Target date to be met"
-                            }
-                          },
-                          "required": ["detailsOfConsent", "targetDateToBeMet"]
-                        }
-                      }
-                    }
-                  },
-                  { "properties": { "anyConsents": { "enum": ["No"] } } }
-                ]
               }
             }
           },
@@ -660,7 +669,7 @@
                   "forecast": {
                     "title": "Forecast",
                     "type": "array",
-                    "periods" : true,
+                    "periods": true,
                     "addable": true,
                     "items": {
                       "title": "Forecast",
