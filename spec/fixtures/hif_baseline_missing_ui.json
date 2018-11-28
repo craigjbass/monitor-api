@@ -25,21 +25,23 @@
       }
     },
     "planningStatus" : {
-      "outlinePlanningStatus": {
-        "granted": "No",
-        "reference": "Ref101",
-        "targetSubmission": "2020-01-01",
-        "targetGranted": "2020-02-01",
-        "summaryOfCriticalPath": "Summary of critical path"
+      "planningStatus": {
+        "outlinePlanningStatus": {
+          "granted": "No",
+          "reference": "Ref101",
+          "targetSubmission": "2020-01-01",
+          "targetGranted": "2020-02-01",
+          "summaryOfCriticalPath": "Summary of critical path"
+        },
+        "fullPlanningStatus": {
+          "grantedReference": "1234",
+          "targetSubmission": "2020-03-01",
+          "targetGranted": "2020-04-01",
+          "summaryOfCriticalPath": "Summary of critical path"
+        }
       },
-      "fullPlanningStatus": {
-        "grantedReference": "1234",
-        "targetSubmission": "2020-03-01",
-        "targetGranted": "2020-04-01",
-        "summaryOfCriticalPath": "Summary of critical path"
-      }
+      "s106": { "requirement": "Yes", "summaryOfRequirement": "Required" }
     },
-      "s106": { "requirement": "Yes", "summaryOfRequirement": "Required" },
       "statutoryConsents": {
         "anyConsents": "Yes",
         "consents": [
