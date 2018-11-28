@@ -101,14 +101,17 @@ class UI::UseCase::ConvertCoreHIFProject
     end
 
     unless infrastructure[:statutoryConsents].nil?
-      converted_infrastructure[:planningStatus][:statutoryConsents] = {
-        anyConsents: infrastructure[:statutoryConsents][:anyConsents],
-        consents: infrastructure[:statutoryConsents][:consents].map do |consent|
+      unless infrastructure[:statutoryConsents][:consents].nil?
+        consents = infrastructure[:statutoryConsents][:consents].map do |consent|
           {
             detailsOfConsent: consent[:detailsOfConsent],
             targetDateToBeMet: consent[:targetDateToBeMet]
           }
         end
+      end
+      converted_infrastructure[:planningStatus][:statutoryConsents] = {
+        anyConsents: infrastructure[:statutoryConsents][:anyConsents],
+        consents: consents
       }
     end
 
