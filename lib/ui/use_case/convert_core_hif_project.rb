@@ -68,10 +68,13 @@ class UI::UseCase::ConvertCoreHIFProject
       }
     end
 
-    converted_infrastructure[:planningStatus] = {}
+    converted_infrastructure[:planningStatus] = {
+      planningStatus: {
+      }
+    }
 
     unless infrastructure[:outlinePlanningStatus].nil?
-      converted_infrastructure[:planningStatus][:outlinePlanningStatus] = {
+      converted_infrastructure[:planningStatus][:planningStatus][:outlinePlanningStatus] = {
         granted: infrastructure[:outlinePlanningStatus][:granted],
         reference: infrastructure[:outlinePlanningStatus][:reference],
         targetSubmission: infrastructure[:outlinePlanningStatus][:targetSubmission],
@@ -81,7 +84,7 @@ class UI::UseCase::ConvertCoreHIFProject
     end
 
     unless infrastructure[:fullPlanningStatus].nil?
-      converted_infrastructure[:planningStatus][:fullPlanningStatus] = {
+      converted_infrastructure[:planningStatus][:planningStatus][:fullPlanningStatus] = {
         granted: infrastructure[:fullPlanningStatus][:granted],
         grantedReference: infrastructure[:fullPlanningStatus][:grantedReference],
         targetSubmission: infrastructure[:fullPlanningStatus][:targetSubmission],
@@ -91,14 +94,14 @@ class UI::UseCase::ConvertCoreHIFProject
     end
 
     unless infrastructure[:s106].nil?
-      converted_infrastructure[:s106] = {
+      converted_infrastructure[:planningStatus][:s106] = {
         requirement: infrastructure[:s106][:requirement],
         summaryOfRequirement: infrastructure[:s106][:summaryOfRequirement]
       }
     end
 
     unless infrastructure[:statutoryConsents].nil?
-      converted_infrastructure[:statutoryConsents] = {
+      converted_infrastructure[:planningStatus][:statutoryConsents] = {
         anyConsents: infrastructure[:statutoryConsents][:anyConsents],
         consents: infrastructure[:statutoryConsents][:consents].map do |consent|
           {
@@ -156,6 +159,7 @@ class UI::UseCase::ConvertCoreHIFProject
 
   def convert_funding_profiles
     return if @project[:fundingProfiles].nil?
+
     @converted_project[:fundingProfiles] = {}
 
     @converted_project[:fundingProfiles][:profiles] = @project[:fundingProfiles].map do |profile|
@@ -172,6 +176,7 @@ class UI::UseCase::ConvertCoreHIFProject
 
   def convert_costs
     return if @project[:costs].nil?
+
     @converted_project[:costs] = []
 
     @converted_project[:costs] = @project[:costs].each do |cost|
