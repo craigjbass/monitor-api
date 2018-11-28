@@ -13,42 +13,45 @@
     "descriptionOfWiderProjectDeliverables": "Wider infrastructure"
   },
   "infrastructures": [
-    { "summary" : {
-      "type": "A House",
-      "description": "A house of cats",
-      "housingSitesBenefitting": "Housing Sites Benefitting",
-      "expectedInfrastructureStart": {
-        "targetDateOfAchievingStart": "2020-01-01"
-      },
-      "expectedInfrastructureCompletion": {
-        "targetDateOfAchievingCompletion": "2020-01-01"
-      }
-      },
-      "planningStatus" : {
-        "outlinePlanningStatus": {
-          "granted": "No",
-          "reference": "Ref101",
-          "targetSubmission": "2020-01-01",
-          "targetGranted": "2020-02-01",
-          "summaryOfCriticalPath": "Summary of critical path"
+    {
+      "summary": {
+        "type": "A House",
+        "description": "A house of cats",
+        "housingSitesBenefitting": "Housing Sites Benefitting",
+        "expectedInfrastructureStart": {
+          "targetDateOfAchievingStart": "2020-01-01"
         },
-        "fullPlanningStatus": {
-          "granted": "No",
-          "grantedReference": "1234",
-          "targetSubmission": "2020-03-01",
-          "targetGranted": "2020-04-01",
-          "summaryOfCriticalPath": "Summary of critical path"
+        "expectedInfrastructureCompletion": {
+          "targetDateOfAchievingCompletion": "2020-01-01"
         }
       },
-      "s106": { "requirement": "Yes", "summaryOfRequirement": "Required" },
-      "statutoryConsents": {
-        "anyConsents": "Yes",
-        "consents": [
-          {
-            "detailsOfConsent": "Details of consent",
-            "targetDateToBeMet": "2020-01-01"
+      "planningStatus": {
+        "planningStatus": {
+          "outlinePlanningStatus": {
+            "granted": "No",
+            "reference": "Ref101",
+            "targetSubmission": "2020-01-01",
+            "targetGranted": "2020-02-01",
+            "summaryOfCriticalPath": "Summary of critical path"
+          },
+          "fullPlanningStatus": {
+            "granted": "No",
+            "grantedReference": "1234",
+            "targetSubmission": "2020-03-01",
+            "targetGranted": "2020-04-01",
+            "summaryOfCriticalPath": "Summary of critical path"
           }
-        ]
+        },
+        "s106": { "requirement": "Yes", "summaryOfRequirement": "Required" },
+        "statutoryConsents": {
+          "anyConsents": "Yes",
+          "consents": [
+            {
+              "detailsOfConsent": "Details of consent",
+              "targetDateToBeMet": "2020-01-01"
+            }
+          ]
+        }
       },
       "landOwnership": {
         "underControlOfLA": "Yes",
@@ -83,7 +86,7 @@
     }
   ],
   "fundingProfiles": {
-    "profiles":[
+    "profiles": [
       {
         "period": "2019/2020",
         "instalment1": "1000",
@@ -94,8 +97,7 @@
       },
       {}
     ]
-    }
-  ,
+  },
   "costs": [
     {
       "infrastructure": {
