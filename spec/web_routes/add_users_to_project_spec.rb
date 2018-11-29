@@ -86,10 +86,11 @@ describe 'Adding users to a project' do
 
       context 'it adds a single user' do
         example 'example 1' do
-          request_body = { users: [{ email: 'mt1@mt1.com' }] }
+          request_body = { users: [{ email: 'mt1@mt1.com', role: 'S151' }] }
           post('project/33/add_users', request_body.to_json)
           expect(add_user_to_project_usecase_spy).to have_received(:execute).with(
             project_id: 33,
+            role: 'S151',
             email: 'mt1@mt1.com'
           )
         end
@@ -99,22 +100,25 @@ describe 'Adding users to a project' do
           post('project/24/add_users', request_body.to_json)
           expect(add_user_to_project_usecase_spy).to have_received(:execute).with(
             project_id: 24,
+            role: nil,
             email: 'cat@mouse.com'
           )
         end
       end
 
       context 'when each entry in the body is non-empty' do
-        let(:request_body) { { users: [{ email: 'mt1@mt1.com' }, { email: 'mt2@mt2.com' }] } }
+        let(:request_body) { { users: [{ email: 'mt1@mt1.com', role: 'Homes England' }, { email: 'mt2@mt2.com', role: 'Local Authority' }] } }
 
         it 'execute AddUserToProject use case for each valid email' do
           post('project/33/add_users', request_body.to_json)
           expect(add_user_to_project_usecase_spy).to have_received(:execute).with(
             project_id: 33,
+            role: 'Homes England',
             email: 'mt1@mt1.com'
           )
           expect(add_user_to_project_usecase_spy).to have_received(:execute).with(
             project_id: 33,
+            role: 'Local Authority',
             email: 'mt2@mt2.com'
           )
         end

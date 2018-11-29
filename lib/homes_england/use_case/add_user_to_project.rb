@@ -3,11 +3,12 @@ class HomesEngland::UseCase::AddUserToProject
     @user_gateway = user_gateway
   end
 
-  def execute(email:, project_id:)
+  def execute(email:, role: nil, project_id:)
     user = @user_gateway.find_by(email: email)
     if user.nil?
       user = LocalAuthority::Domain::User.new.tap do |u|
         u.email = email.downcase
+        u.role = role
         u.projects = [project_id]
       end
       @user_gateway.create(user)
