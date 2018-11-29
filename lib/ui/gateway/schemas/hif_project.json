@@ -436,6 +436,7 @@
           "milestones": {
             "type": "array",
             "title": "Key Infrastructure Milestones",
+            "addable": true,
             "items": {
               "title": "Milestone",
               "type": "object",
