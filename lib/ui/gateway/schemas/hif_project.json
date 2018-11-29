@@ -481,11 +481,13 @@
                 "impactOfRisk": {
                   "type": "string",
                   "laReadOnly": true,
+                  "enum": ["1", "2", "3", "4", "5"],
                   "title": "Impact"
                 },
                 "likelihoodOfRisk": {
                   "type": "string",
                   "laReadOnly": true,
+                  "enum": ["1", "2", "3", "4", "5"],
                   "title": "Likelihood"
                 },
                 "mitigationOfRisk": {
