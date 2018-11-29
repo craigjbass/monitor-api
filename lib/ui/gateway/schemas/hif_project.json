@@ -435,6 +435,7 @@
           "milestones": {
             "type": "array",
             "title": "Key Infrastructure Milestones",
+            "addable": true,
             "items": {
               "title": "Milestone",
               "type": "object",
@@ -466,6 +467,7 @@
           "risksToAchievingTimescales": {
             "type": "array",
             "title": "Risks to achieving timescales",
+            "addable": true,
             "items": {
               "title": "Risk",
               "type": "object",
