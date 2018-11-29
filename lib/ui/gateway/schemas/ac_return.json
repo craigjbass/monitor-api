@@ -1986,7 +1986,7 @@
               "year": {
                 "type": "string",
                 "title": "Year",
-                "laReadOnly": true,                
+                "laReadOnly": true,
                 "sourceKey": [
                   "baseline_data",
                   "financials",

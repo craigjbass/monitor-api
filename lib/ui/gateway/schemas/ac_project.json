@@ -135,6 +135,7 @@
             "conditions": {
               "title": "",
               "type": "array",
+              "numbered": true,
               "addable": true,
               "items": {
                 "type": "object",
