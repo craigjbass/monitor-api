@@ -63,45 +63,49 @@ class UI::UseCase::ConvertUIHIFProject
       end
 
       unless infrastructure[:planningStatus].nil?
-
-        unless infrastructure[:planningStatus][:outlinePlanningStatus].nil?
-          converted_infrastructure[:outlinePlanningStatus] = {
-            granted: infrastructure[:planningStatus][:outlinePlanningStatus][:granted],
-            reference: infrastructure[:planningStatus][:outlinePlanningStatus][:reference],
-            targetSubmission: infrastructure[:planningStatus][:outlinePlanningStatus][:targetSubmission],
-            targetGranted: infrastructure[:planningStatus][:outlinePlanningStatus][:targetGranted],
-            summaryOfCriticalPath: infrastructure[:planningStatus][:outlinePlanningStatus][:summaryOfCriticalPath]
-          }
-        end
-
-        unless infrastructure[:planningStatus][:fullPlanningStatus].nil?
-          converted_infrastructure[:fullPlanningStatus] = {
-            granted: infrastructure[:planningStatus][:fullPlanningStatus][:granted],
-            grantedReference: infrastructure[:planningStatus][:fullPlanningStatus][:grantedReference],
-            targetSubmission: infrastructure[:planningStatus][:fullPlanningStatus][:targetSubmission],
-            targetGranted: infrastructure[:planningStatus][:fullPlanningStatus][:targetGranted],
-            summaryOfCriticalPath: infrastructure[:planningStatus][:fullPlanningStatus][:summaryOfCriticalPath]
-          }
-        end
-      end
-
-      unless infrastructure[:s106].nil?
-        converted_infrastructure[:s106] = {
-          requirement: infrastructure[:s106][:requirement],
-          summaryOfRequirement: infrastructure[:s106][:summaryOfRequirement]
-        }
-      end
-
-      unless infrastructure[:statutoryConsents].nil?
-        converted_infrastructure[:statutoryConsents] = {
-          anyConsents: infrastructure[:statutoryConsents][:anyConsents],
-          consents: infrastructure[:statutoryConsents][:consents].map do |consent|
-            {
-              detailsOfConsent: consent[:detailsOfConsent],
-              targetDateToBeMet: consent[:targetDateToBeMet]
+        unless infrastructure[:planningStatus][:planningStatus].nil?
+          unless infrastructure[:planningStatus][:planningStatus][:outlinePlanningStatus].nil?
+            converted_infrastructure[:outlinePlanningStatus] = {
+              granted: infrastructure[:planningStatus][:planningStatus][:outlinePlanningStatus][:granted],
+              reference: infrastructure[:planningStatus][:planningStatus][:outlinePlanningStatus][:reference],
+              targetSubmission: infrastructure[:planningStatus][:planningStatus][:outlinePlanningStatus][:targetSubmission],
+              targetGranted: infrastructure[:planningStatus][:planningStatus][:outlinePlanningStatus][:targetGranted],
+              summaryOfCriticalPath: infrastructure[:planningStatus][:planningStatus][:outlinePlanningStatus][:summaryOfCriticalPath]
             }
           end
-        }
+
+          unless infrastructure[:planningStatus][:planningStatus][:fullPlanningStatus].nil?
+            converted_infrastructure[:fullPlanningStatus] = {
+              granted: infrastructure[:planningStatus][:planningStatus][:fullPlanningStatus][:granted],
+              grantedReference: infrastructure[:planningStatus][:planningStatus][:fullPlanningStatus][:grantedReference],
+              targetSubmission: infrastructure[:planningStatus][:planningStatus][:fullPlanningStatus][:targetSubmission],
+              targetGranted: infrastructure[:planningStatus][:planningStatus][:fullPlanningStatus][:targetGranted],
+              summaryOfCriticalPath: infrastructure[:planningStatus][:planningStatus][:fullPlanningStatus][:summaryOfCriticalPath]
+            }
+          end
+        end
+
+        unless infrastructure[:planningStatus][:s106].nil?
+          converted_infrastructure[:s106] = {
+            requirement: infrastructure[:planningStatus][:s106][:requirement],
+            summaryOfRequirement: infrastructure[:planningStatus][:s106][:summaryOfRequirement]
+          }
+        end
+
+        unless infrastructure[:planningStatus][:statutoryConsents].nil?
+          unless infrastructure[:planningStatus][:statutoryConsents][:consents].nil?
+            consents = infrastructure[:planningStatus][:statutoryConsents][:consents].map do |consent|
+              {
+                detailsOfConsent: consent[:detailsOfConsent],
+                targetDateToBeMet: consent[:targetDateToBeMet]
+              }
+            end
+          end
+          converted_infrastructure[:statutoryConsents] = {
+            anyConsents: infrastructure[:planningStatus][:statutoryConsents][:anyConsents],
+            consents: consents
+          }
+        end
       end
 
       unless infrastructure[:landOwnership].nil?
