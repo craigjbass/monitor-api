@@ -2,19 +2,21 @@ describe HomesEngland::UseCase::AddUserToProject do
   let(:user_gateway) { spy(find_by: nil) }
   let(:use_case) { described_class.new(user_gateway: user_gateway) }
 
-  context 'calls the gateway for a user with a lowercase email with no permissions' do
+  context 'calls the gateway for a user with a lowercase email and a role' do
     it 'example 1' do
-      use_case.execute(email: 'Cat@caThouse.com', project_id: 1)
+      use_case.execute(email: 'Cat@caThouse.com', role: 'Homes England', project_id: 1)
       expect(user_gateway).to have_received(:create) do |user|
         expect(user.email).to eq('cat@cathouse.com')
+        expect(user.role).to eq('Homes England')
         expect(user.projects).to eq([1])
       end
     end
 
     it 'example 2' do
-      use_case.execute(email: 'dog@CAThouse.com', project_id: 4)
+      use_case.execute(email: 'dog@CAThouse.com', role: 'Local Authority', project_id: 4)
       expect(user_gateway).to have_received(:create) do |user|
         expect(user.email).to eq('dog@cathouse.com')
+        expect(user.role).to eq('Local Authority')
         expect(user.projects).to eq([4])
       end
     end
