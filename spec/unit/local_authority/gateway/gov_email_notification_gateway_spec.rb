@@ -88,8 +88,8 @@ describe LocalAuthority::Gateway::GovEmailNotificationGateway do
           simulator.expect_notifier_to_have_been_accessed
         end
 
-        it 'will run send_email with address and url within personalisation hash' do
-          simulator.expect_notification(email_address: 'dog@doghouse.com', personalisation: {access_url: 'http://dogs.com', by: 'Dog', project_name: 'Kennel'})
+        it 'will run send_email with address, url and print url within personalisation hash' do
+          simulator.expect_notification(email_address: 'dog@doghouse.com', personalisation: {access_url: 'http://dogs.com', print_url: 'http://dogs.com/print', by: 'Dog', project_name: 'Kennel'})
         end
       end
     end
@@ -108,8 +108,8 @@ describe LocalAuthority::Gateway::GovEmailNotificationGateway do
           simulator.expect_notifier_to_have_been_accessed
         end
 
-        it 'will run send_email with address and url within personalisation hash' do
-          simulator.expect_notification(email_address: 'cat@cathouse.com', personalisation: {access_url: 'http://cats.com', by: 'Cat', project_name: 'Flap'})
+        it 'will run send_email with address, url and print url within personalisation hash' do
+          simulator.expect_notification(email_address: 'cat@cathouse.com', personalisation: {access_url: 'http://cats.com', print_url: 'http://cats.com/print', by: 'Cat', project_name: 'Flap'})
         end
       end
     end
