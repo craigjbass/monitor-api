@@ -603,46 +603,90 @@
                 "title": "Total Cost of Infrastructure",
                 "currency": true
               },
-              "totallyFundedThroughHIF": {
-                "type": "string",
-                "title": "Totally funded through HIF?",
-                "enum": ["Yes", "No"],
-                "radio": true
-              }
-            },
-            "dependencies": {
-              "totallyFundedThroughHIF": {
-                "oneOf": [
-                  {
-                    "properties": {
-                      "totallyFundedThroughHIF": { "enum": ["Yes"] }
-                    }
-                  },
-                  {
-                    "properties": {
-                      "totallyFundedThroughHIF": { "enum": ["No"] },
-                      "descriptionOfFundingStack": {
-                        "type": "string",
-                        "title": "If No: Description of Funding Stack"
+              "fundedThroughHif": {
+                "type": "object",
+                "title": " ",
+                "properties": {
+                  "totallyFundedThroughHIF": {
+                    "type": "string",
+                    "title": "Totally funded through HIF?",
+                    "enum": ["Yes", "No"],
+                    "radio": true
+                  }
+                },
+                "dependencies": {
+                  "totallyFundedThroughHIF": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "totallyFundedThroughHIF": { "enum": ["Yes"] }
+                        }
                       },
-                      "totalPublic": {
-                        "type": "string",
-                        "title": "If No, Total Public (exc. HIF)",
-                        "currency": true
-                      },
-                      "totalPrivate": {
-                        "type": "string",
-                        "title": "If No, Total Private",
-                        "currency": true
+                      {
+                        "properties": {
+                          "totallyFundedThroughHIF": { "enum": ["No"] },
+                          "descriptionOfFundingStack": {
+                            "type": "string",
+                            "title": "If No: Description of Funding Stack"
+                          },
+                          "totalPublic": {
+                            "type": "string",
+                            "title": "If No, Total Public (exc. HIF)",
+                            "currency": true
+                          },
+                          "totalPrivate": {
+                            "type": "string",
+                            "title": "If No, Total Private",
+                            "currency": true
+                          }
+                        },
+                        "required": [
+                          "descriptionOfFundingStack",
+                          "totalPublic",
+                          "totalPrivate"
+                        ]
                       }
-                    },
-                    "required": [
-                      "descriptionOfFundingStack",
-                      "totalPublic",
-                      "totalPrivate"
                     ]
                   }
-                ]
+                }
+              },
+              "recovery": {
+                "type": "object",
+                "title": " ",
+                "properties": {
+                  "aimToRecover": {
+                    "type": "string",
+                    "title": "Aim to recover funds?",
+                    "radio": "true",
+                    "enum": ["Yes", "No"]
+                  }
+                },
+                "dependencies": {
+                  "aimToRecover": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "aimToRecover": {"enum": ["Yes"]},
+                          "expectedAmount": {
+                            "type": "string",
+                            "title": "Expected Amount",
+                            "currency": true
+                          },
+                          "methodOfRecovery": {
+                            "type": "string",
+                            "title": "Method of recovery"
+                          }
+                        },
+                        "required": ["expectedAmount", "methodOfRecovery"]
+                      },
+                      {
+                        "properties": {
+                          "aimToRecover": { "enum": ["No"] }
+                        }
+                      }
+                    ]
+                  }
+                }
               }
             }
           }

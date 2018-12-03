@@ -103,19 +103,21 @@
       "infrastructure": {
         "HIFAmount": "10000",
         "totalCostOfInfrastructure": "20000",
-        "totallyFundedThroughHIF": "No",
-        "descriptionOfFundingStack": "Funding stack description",
-        "totalPublic": "5000",
-        "totalPrivate": "5000"
+        "fundedThroughHif": {
+          "totallyFundedThroughHIF": "No",
+          "descriptionOfFundingStack": "Funding stack description",
+          "totalPublic": "5000",
+          "totalPrivate": "5000"
+        },
+        "recovery": {
+          "aimToRecover": "Yes",
+          "expectedAmount": "539487",
+          "methodOfRecovery": "steal it"
+        }
       }
     }
   ],
   "baselineCashFlow": { "summaryOfRequirement": "data-url" },
-  "recovery": {
-    "aimToRecover": "Yes",
-    "expectedAmountToRecover": "1000",
-    "methodOfRecovery": "Methods"
-  },
   "s151": {
     "s151FundingEndDate": "2020-01-01",
     "s151ProjectLongstopDate": "2020-01-01"
