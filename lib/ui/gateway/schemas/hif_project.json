@@ -73,7 +73,33 @@
             "type": "object",
             "title": "Summary",
             "properties": {
-              "type": { "type": "string", "laReadOnly": true, "title": "Type" },
+              "type": {
+                "type": "string", 
+                "laReadOnly": true, 
+                "title": "Type",
+                "enum": [
+                  "Road / Highway - SRN",
+                  "Road / Highway - Other",
+                  "Bridge",
+                  "Rail - new station",
+                  "Rail - station improvements",
+                  "Rail - Other",
+                  "Education - Primary School",
+                  "Education - Secondary School",
+                  "Flood defence",
+                  "Utilities",
+                  "Health Facilities",
+                  "Public Realm",
+                  "Land assembly",
+                  "Land remediation",
+                  "Digital Infrastructure",
+                  "Community Facilities",
+                  "Employment space",
+                  "Demolition works",
+                  "Surface Water Drainage",
+                  "Other"
+                ]
+              },
               "description": {
                 "type": "string",
                 "laReadOnly": true,
