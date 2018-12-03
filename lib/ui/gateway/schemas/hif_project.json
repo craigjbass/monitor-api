@@ -348,7 +348,7 @@
             "properties": {
               "underControlOfLA": {
                 "type": "string",
-                "title": "Is land under control of the Local Authority",
+                "title": "Is land under control of the Local Authority?",
                 "enum": ["Yes", "No"],
                 "radio": true
               }
