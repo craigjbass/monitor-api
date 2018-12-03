@@ -4,6 +4,5 @@
   "fundingProfiles": { "profiles": []},
   "costs": [{}],
   "baselineCashFlow": { "summaryOfRequirement": "" },
-  "recovery": {},
   "outputs": [{ "outputsForecast": {}, "outputsActuals": {} }]
 }

@@ -10,7 +10,6 @@ class UI::UseCase::ConvertUIHIFProject
     convert_funding_profiles
     convert_costs
     convert_baseline_cash_flow
-    convert_recovery
     convert_s151
     convert_outputs_forecast
     convert_outputs_actuals
@@ -177,21 +176,31 @@ class UI::UseCase::ConvertUIHIFProject
     return if @project[:costs].nil?
     @converted_project[:costs] = []
 
-    @converted_project[:costs] = @project[:costs].each do |cost|
+    @converted_project[:costs] = @project[:costs].map do |cost|
       converted_cost = {}
 
-      unless cost[:infrastructures].nil?
+      unless cost[:infrastructure].nil?
         converted_cost[:infrastructure] = {
           HIFAmount: cost[:infrastructure][:HIFAmount],
           totalCostOfInfrastructure: cost[:infrastructure][:totalCostOfInfrastructure],
-          totallyFundedThroughHIF: cost[:infrastructure][:totallyFundedThroughHIF],
-          descriptionOfFundingStack: cost[:infrastructure][:descriptionOfFundingStack],
-          totalPublic: cost[:infrastructure][:totalPublic],
-          totalPrivate: cost[:infrastructure][:totalPrivate]
         }
+        unless cost[:infrastructure][:fundedThroughHif].nil?
+          converted_cost[:infrastructure][:totallyFundedThroughHIF]  = cost[:infrastructure][:fundedThroughHif][:totallyFundedThroughHIF]
+          converted_cost[:infrastructure][:descriptionOfFundingStack] = cost[:infrastructure][:fundedThroughHif][:descriptionOfFundingStack]
+          converted_cost[:infrastructure][:totalPublic] = cost[:infrastructure][:fundedThroughHif][:totalPublic]
+          converted_cost[:infrastructure][:totalPrivate] = cost[:infrastructure][:fundedThroughHif][:totalPrivate]
+        end
+
+        unless cost[:infrastructure][:recovery].nil?
+          converted_cost[:infrastructure][:recovery] = {
+            aimToRecover: cost[:infrastructure][:recovery][:aimToRecover],
+            expectedAmount: cost[:infrastructure][:recovery][:expectedAmount],
+            methodOfRecovery: cost[:infrastructure][:recovery][:methodOfRecovery]
+          }
+        end
       end
 
-      @converted_project[:costs] << converted_cost
+      converted_cost
     end
   end
 
@@ -201,18 +210,6 @@ class UI::UseCase::ConvertUIHIFProject
     @converted_project[:baselineCashFlow] = {
       summaryOfRequirement: @project[:baselineCashFlow][:summaryOfRequirement]
     }
-  end
-
-  def convert_recovery
-    return if @project[:recovery].nil?
-
-    @converted_project[:recovery] = {
-      aimToRecover: @project[:recovery][:aimToRecover],
-      expectedAmountToRecover: @project[:recovery][:expectedAmountToRecover],
-      methodOfRecovery: @project[:recovery][:methodOfRecovery]
-    }
-
-    @converted_project[:recovery].compact!
   end
 
   def convert_s151
