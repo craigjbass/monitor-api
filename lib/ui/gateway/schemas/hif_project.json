@@ -643,7 +643,8 @@
                           "aimToRecover": {"enum": ["Yes"]},
                           "expectedAmount": {
                             "type": "string",
-                            "title": "Expected Amount"
+                            "title": "Expected Amount",
+                            "currency": true
                           },
                           "methodOfRecovery": {
                             "type": "string",
