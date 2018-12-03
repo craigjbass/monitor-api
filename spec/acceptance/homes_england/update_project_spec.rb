@@ -1,4 +1,5 @@
 require 'rspec'
+require 'timecop'
 require_relative '../shared_context/dependency_factory'
 
 describe 'Updating a HIF Project' do
@@ -82,17 +83,22 @@ describe 'Updating a HIF Project' do
         }
       }
 
+      time_now = Time.now
+      Timecop.freeze(time_now)
+
       project_id = get_use_case(:create_new_project).execute(name: 'cat project', type: 'hif', baseline: project_baseline)[:id]
 
-      get_use_case(:update_project).execute(project_id: project_id, project_data: { cats: 'meow' }, timestamp: Time.now.to_i)
+      get_use_case(:update_project).execute(project_id: project_id, project_data: { cats: 'meow' }, timestamp: time_now.to_i)
       updated_project = get_use_case(:find_project).execute(id: project_id)
 
-      expect(updated_project[:timestamp]).to eq(Time.now.to_i)
+      expect(updated_project[:timestamp]).to eq(time_now.to_i)
 
-      response = get_use_case(:update_project).execute(project_id: project_id, project_data: { cats: 'meow' }, timestamp: Time.now.to_i - 2000)
+      response = get_use_case(:update_project).execute(project_id: project_id, project_data: { cats: 'meow' }, timestamp: time_now.to_i - 2000)
 
       expect(response).to eq({successful: false, errors: [:incorrect_timestamp]})
       expect(updated_project[:data]).to eq({ cats: 'meow'})
+
+      Timecop.return
     end
   end
 end

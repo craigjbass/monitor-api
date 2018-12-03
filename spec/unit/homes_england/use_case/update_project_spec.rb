@@ -166,30 +166,32 @@ describe HomesEngland::UseCase::UpdateProject do
 
   context 'second update' do
     it 'Increases the timestamp' do
-      time_now = Time.now.to_i
+      time_now = Time.now
+      Timecop.freeze(time_now)
+      new_time = time_now.to_i - 1
 
       current_project = HomesEngland::Domain::Project.new.tap do |p|
           p.status = 'Draft'
           p.data = { a: 'b' }
-          p.timestamp = time_now
+          p.timestamp = new_time
         end
   
       project_gateway_spy = spy(find_by: current_project, update: { success: true })
       
       use_case = described_class.new(project_gateway: project_gateway_spy)
 
-      sleep(1)
-
       response = use_case.execute(
         project_id: 4,
         project_data: { ducks: 'Quack'},
-        timestamp: time_now
+        timestamp: new_time
       )
   
       expect(project_gateway_spy).to have_received(:update) do |request|
         project = request[:project]
-        expect(project.timestamp).to be > time_now
+        expect(project.timestamp).to be > new_time
       end
+
+      Timecop.return
     end
   end
 end
