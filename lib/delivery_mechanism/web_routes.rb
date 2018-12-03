@@ -137,7 +137,7 @@ module DeliveryMechanism
 
     get '/project/:id/export' do
       response.body = {}.to_json
-      guard_bi_access env, params, request do |request_hash|
+      guard_bi_access env, params, request do |_request_hash|
         exported_project_hash = @dependency_factory.get_use_case(:export_project_data).execute(
           project_id: params['id'].to_i
         )
@@ -224,16 +224,24 @@ module DeliveryMechanism
           get_project_use_case = @dependency_factory.get_use_case(:ui_get_project)
           project = get_project_use_case.execute(id: request_hash[:project_id].to_i )
           use_case = @dependency_factory.get_use_case(:ui_update_project)
-          update_successful = use_case.execute(
+
+          update_response = use_case.execute(
             id: request_hash[:project_id].to_i,
             type: project[:type],
-            data: request_hash[:project_data]
-          )[:successful]
-          response.status = update_successful ? 200 : 404
+            data: request_hash[:project_data],
+            timestamp: request_hash[:timestamp].to_i
+          )
+
+          response.status = update_successful?(update_response) ? 200 : 404
+          response.body = { errors: update_response[:errors] }.to_json 
         else
           response.status = 400
         end
       end
+    end
+
+    def update_successful?(update_response)
+      update_response[:successful] || !update_response[:errors].empty?
     end
 
     post '/project/validate' do

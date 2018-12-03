@@ -2,7 +2,7 @@
 
 describe UI::UseCase::UpdateProject do
   context 'Example one' do
-    let(:update_project_spy) { spy(execute: { successful: true }) }
+    let(:update_project_spy) { spy(execute: { successful: true, errors: [] }) }
     let(:convert_ui_hif_project_spy) { spy(execute: { catto: 'meow' }) }
     let(:use_case) do
       described_class.new(
@@ -11,7 +11,7 @@ describe UI::UseCase::UpdateProject do
       )
     end
     let(:response) do
-      use_case.execute(id: 7, type: 'hif', data: { cat: 'meow' })
+      use_case.execute(id: 7, type: 'hif', data: { cat: 'meow' }, timestamp: 5)
     end
 
     before { response }
@@ -27,7 +27,19 @@ describe UI::UseCase::UpdateProject do
     end
 
     it 'Returns successful if successful' do
-      expect(response).to eq(successful: true)
+      expect(response[:successful]).to eq(true)
+    end
+
+    it 'Returns the errors array' do
+      expect(response[:errors]).to eq([])
+    end
+
+    it 'Passes the update project use case the timestamp' do
+      expect(update_project_spy).to have_received(:execute).with(
+        hash_including(
+          timestamp: 5
+        )
+      )
     end
 
     context 'Given a hif project' do
@@ -54,7 +66,7 @@ describe UI::UseCase::UpdateProject do
 
     context 'Given a non-hif project' do
       let(:response) do
-        use_case.execute(id: 7, type: 'ac', data: { cat: 'meow' })
+        use_case.execute(id: 7, type: 'ac', data: { cat: 'meow' }, timestamp: 6)
       end
 
       it 'Does not call execute on the convert usecase' do
@@ -74,7 +86,7 @@ describe UI::UseCase::UpdateProject do
   end
 
   context 'Example two' do
-    let(:update_project_spy) { spy(execute: { successful: false }) }
+    let(:update_project_spy) { spy(execute: { successful: false, errors: [:incorrect_timestamp] }) }
     let(:convert_ui_hif_project_spy) { spy(execute: { doggo: 'woof' }) }
     let(:use_case) do
       described_class.new(
@@ -82,7 +94,7 @@ describe UI::UseCase::UpdateProject do
         convert_ui_hif_project: convert_ui_hif_project_spy
       )
     end
-    let(:response) { use_case.execute(id: 2, type: 'hif', data: { dog: 'woof' }) }
+    let(:response) { use_case.execute(id: 2, type: 'hif', data: { dog: 'woof' }, timestamp: 8) }
 
     before { response }
 
@@ -97,7 +109,19 @@ describe UI::UseCase::UpdateProject do
     end
 
     it 'Returns unsuccessful if unsuccessful' do
-      expect(response).to eq(successful: false)
+      expect(response[:successful]).to eq(false)
+    end
+
+    it 'Returns the errors array' do
+      expect(response[:errors]).to eq([:incorrect_timestamp])
+    end
+    
+    it 'Passes the update project use case the timestamp' do
+      expect(update_project_spy).to have_received(:execute).with(
+        hash_including(
+          timestamp: 8
+        )
+      )
     end
 
     context 'Given a hif project' do
@@ -124,7 +148,7 @@ describe UI::UseCase::UpdateProject do
 
     context 'Given a non-hif project' do
       let(:response) do
-        use_case.execute(id: 7, type: 'ac', data: { dog: 'woof' })
+        use_case.execute(id: 7, type: 'ac', data: { dog: 'woof' }, timestamp: 6)
       end
 
       it 'Does not call execute on the convert usecase' do

@@ -22,6 +22,7 @@ class HomesEngland::Gateway::SequelProject
       p.type = row[:type]
       p.data = Common::DeepSymbolizeKeys.to_symbolized_hash(row[:data].to_h)
       p.status = row[:status]
+      p.timestamp = row[:timestamp]
     end
   end
 
@@ -31,7 +32,8 @@ class HomesEngland::Gateway::SequelProject
               .update(
                 name: project.name,
                 data: Sequel.pg_json(project.data),
-                status: project.status
+                status: project.status,
+                timestamp: project.timestamp
               )
 
     { success: updated.positive? }

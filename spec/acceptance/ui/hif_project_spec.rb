@@ -72,7 +72,7 @@ describe 'Interacting with a HIF Project from the UI' do
     it 'Can update a created project successfully' do
       project_id = create_project
 
-      dependency_factory.get_use_case(:ui_update_project).execute(id: project_id, data: updated_ui_baseline_data, type: 'hif')
+      dependency_factory.get_use_case(:ui_update_project).execute(id: project_id, data: updated_ui_baseline_data, type: 'hif', timestamp: 2)
 
       updated_project = get_project(project_id)
 

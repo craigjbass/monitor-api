@@ -18,7 +18,8 @@ class UI::UseCase::GetProject
       type: found_project[:type],
       data: found_project[:data],
       status: found_project[:status],
-      schema: template.schema
+      schema: template.schema,
+      timestamp: found_project[:timestamp]
     }
   end
 

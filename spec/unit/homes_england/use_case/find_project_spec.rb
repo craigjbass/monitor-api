@@ -16,6 +16,7 @@ describe HomesEngland::UseCase::FindProject do
         p.type = 'hif'
         p.data = { dogs: 'woof' }
         p.status = 'Draft'
+        p.timestamp = 0
       end
     end
     let(:id) { 1 }
@@ -39,6 +40,10 @@ describe HomesEngland::UseCase::FindProject do
     it 'returns a hash containing the projects status' do
       expect(response[:status]).to eq('Draft')
     end
+
+    it 'returns a hash containing the projects timestamp' do
+      expect(response[:timestamp]).to eq(0)
+    end
   end
 
   context 'example two' do
@@ -48,6 +53,7 @@ describe HomesEngland::UseCase::FindProject do
         p.type = 'abc'
         p.data = { cats: 'meow' }
         p.status = 'Submitted'
+        p.timestamp = 456
       end
     end
     let(:id) { 5 }
@@ -70,6 +76,10 @@ describe HomesEngland::UseCase::FindProject do
 
     it 'returns a hash containing the projects status' do
       expect(response[:status]).to eq('Submitted')
+    end
+
+    it 'returns a hash containing the projects timestamp' do
+      expect(response[:timestamp]).to eq(456)
     end
   end
 end
