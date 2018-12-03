@@ -61,7 +61,11 @@
         "isLandAcquisitionRequired": "No",
         "toBeAcquiredBy": "LA",
         "targetDateToAcquire": "2020-01-01",
-        "summaryOfCriticalPath": "Summary of critical path"
+        "summaryOfCriticalPath": "Summary of critical path",
+        "criticalPath": null,
+        "dateToAcquire": null,
+        "acquiredBy" :null,
+        "sitesToAcquire": null
       },
       "procurement": {
         "contractorProcured": "Yes",

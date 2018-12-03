@@ -390,26 +390,26 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                               isLandAcquisitionRequired: {
                                 enum: ['Yes']
                               },
-                              howManySitesToAcquire: {
+                              sitesToAcquire: {
                                 type: 'string',
                                 title: 'How many sites?'
                               },
-                              toBeAcquiredBy: {
+                              acquiredBy: {
                                 type: 'string',
                                 title: 'Is this to be acquired by LA or developer?'
                               },
-                              targetDateToAcquire: {
+                              dateToAcquire: {
                                 type: 'string',
                                 format: 'date',
                                 title: 'Target date to aquire sites'
                               },
-                              summaryOfCriticalPath: {
+                              criticalPath: {
                                 type: 'string',
                                 title: 'Summary of Critical Path'
                               }
                             },
                             required: %w[
-                              howManySitesToAcquire toBeAcquiredBy targetDateToAcquire summaryOfCriticalPath
+                              sitesToAcquire acquiredBy dateToAcquire criticalPath
                             ]
                           }
                         ]
