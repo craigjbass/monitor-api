@@ -78,6 +78,7 @@
               },
               "units": {
                 "type": "object",
+                "calculation": "formData.numberOfUnitsTotal = formData.numberOfUnits ? parseMoney(formData.numberOfUnits.numberOfUnitsMarket) + parseMoney(formData.numberOfUnits.numberOfUnitsSharedOwnership) + parseMoney(formData.numberOfUnits.numberOfUnitsAffordable) + parseMoney(formData.numberOfUnits.numberOfUnitsPRS) + parseMoney(formData.numberOfUnits.numberOfUnitsOther): 0;",
                 "title": "",
                 "properties": {
                   "numberOfUnits": {
@@ -88,26 +89,31 @@
                       "numberOfUnitsMarket": {
                         "type": "string",
                         "title": "Market sale",
+                        "currency": true,
                         "currencyMaximum": "9999"
                       },
                       "numberOfUnitsSharedOwnership": {
                         "type": "string",
                         "title": "Shared ownership",
+                        "currency": true,
                         "currencyMaximum": "9999"
                       },
                       "numberOfUnitsAffordable": {
                         "type": "string",
                         "title": "Affordable/social rent",
+                        "currency": true,
                         "currencyMaximum": "9999"
                       },
                       "numberOfUnitsPRS": {
                         "type": "string",
                         "title": "Private Rented",
+                        "currency": true,
                         "currencyMaximum": "9999"
                       },
                       "numberOfUnitsOther": {
                         "type": "string",
                         "title": "Other",
+                        "currency": true,
                         "currencyMaximum": "9999"
                       }
                     }
@@ -115,6 +121,7 @@
                   "numberOfUnitsTotal": {
                     "type": "string",
                     "title": "Total number of units",
+                    "currency": true,
                     "currencyMaximum": "99999"
                   }
                 }
