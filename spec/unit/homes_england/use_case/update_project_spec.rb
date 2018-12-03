@@ -149,7 +149,7 @@ describe HomesEngland::UseCase::UpdateProject do
           spy(find_by: la_project, update: { success: true })
         end
 
-        it 'pass the data to the gateway' do 
+        it 'does not pass the data to the gateway' do 
           expect(project_gateway_spy).not_to have_received(:update)
         end
 
