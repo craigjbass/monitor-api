@@ -112,6 +112,7 @@ class UI::UseCase::ConvertUIHIFProject
           underControlOfLA: infrastructure[:landOwnership][:underControlOfLA],
           ownershipOfLandOtherThanLA: infrastructure[:landOwnership][:ownershipOfLandOtherThanLA],
           landAcquisitionRequired: infrastructure[:landOwnership][:landAcquisitionRequired],
+          isLandAcquisitionRequired: infrastructure[:landOwnership][:isLandAcquisitionRequired],
           howManySitesToAcquire: infrastructure[:landOwnership][:howManySitesToAcquire],
           toBeAcquiredBy: infrastructure[:landOwnership][:toBeAcquiredBy],
           targetDateToAcquire: infrastructure[:landOwnership][:targetDateToAcquire],

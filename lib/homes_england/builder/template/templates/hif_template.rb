@@ -366,9 +366,55 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
                       ownershipOfLandOtherThanLA: {
                         type: 'string',
                         title: 'Who owns it?'
+                      },
+                      isLandAcquisitionRequired: {
+                        type: 'string',
+                        title: 'Is land acquisition required?',
+                        radio: true,
+                        enum: %w[Yes No]
                       }
                     },
-                    required: %w[ownershipOfLandOtherThanLA]
+                    required: %w[ownershipOfLandOtherThanLA isLandAcquisitionRequired],
+                    dependencies: {
+                      isLandAcquisitionRequired: {
+                        oneOf: [
+                          {
+                            properties: {
+                              isLandAcquisitionRequired: {
+                                enum: ['No']
+                              }
+                            }
+                          },
+                          {
+                            properties: {
+                              isLandAcquisitionRequired: {
+                                enum: ['Yes']
+                              },
+                              howManySitesToAcquire: {
+                                type: 'string',
+                                title: 'How many sites?'
+                              },
+                              toBeAcquiredBy: {
+                                type: 'string',
+                                title: 'Is this to be acquired by LA or developer?'
+                              },
+                              targetDateToAcquire: {
+                                type: 'string',
+                                format: 'date',
+                                title: 'Target date to aquire sites'
+                              },
+                              summaryOfCriticalPath: {
+                                type: 'string',
+                                title: 'Summary of Critical Path'
+                              }
+                            },
+                            required: %w[
+                              howManySitesToAcquire toBeAcquiredBy targetDateToAcquire summaryOfCriticalPath
+                            ]
+                          }
+                        ]
+                      }
+                    }
                   },
                   {
                     properties: {
