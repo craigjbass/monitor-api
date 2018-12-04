@@ -30,7 +30,7 @@ describe 'Finding a project' do
     let(:find_project_spy) { spy(execute: nil) }
     let(:get_schema_spy) { spy(execute: nil) }
 
-    it 'should should return 404' do
+    it 'should return 404' do
       expect(last_response.status).to eq(404)
     end
   end
@@ -46,13 +46,21 @@ describe 'Finding a project' do
   context 'with an valid id' do
     context 'example one' do
       let(:project_id) { 42 }
-      let(:project) { { type: 'cat', status: 'Draft', data: { cats_go: 'meow', dogs_go: 'woof' }, schema: { cats: 'go meow' } } }
+      let(:project) do 
+        {
+          type: 'cat',
+          status: 'Draft',
+          data: { cats_go: 'meow', dogs_go: 'woof' },
+          schema: { cats: 'go meow' },
+          timestamp: '123'
+        }
+      end
 
       it 'should find the project with the given id' do
         expect(find_project_spy).to have_received(:execute).with(id: 42)
       end
 
-      it 'should should return 200' do
+      it 'should return 200' do
         expect(last_response.status).to eq(200)
       end
 
@@ -60,7 +68,7 @@ describe 'Finding a project' do
         expect(last_response.headers['Cache-Control']).to eq('no-cache')
       end
 
-      it 'should should have project in body with camel case' do
+      it 'should have project in body with camel case' do
         response_body = JSON.parse(last_response.body)
         expect(response_body['type']).to eq('cat')
         expect(response_body['status']).to eq('Draft')
@@ -68,7 +76,12 @@ describe 'Finding a project' do
         expect(response_body['data']['dogsGo']).to eq('woof')
       end
 
-      it 'should should have schema in the return body' do
+      it 'should have a timestamp in body' do
+        response_body = JSON.parse(last_response.body)
+        expect(response_body['timestamp']).to eq('123')
+      end
+
+      it 'should have schema in the return body' do
         response_body = JSON.parse(last_response.body)
         expect(response_body['schema']['cats']).to eq('go meow')
       end
@@ -83,7 +96,8 @@ describe 'Finding a project' do
           data: {
             animal_noises: [{ ducks_go: 'quack' }, { cows_go: 'moo' }]
           },
-          schema: { dogs: 'bark', cats: 'meow' }
+          schema: { dogs: 'bark', cats: 'meow' },
+          timestamp: '234'
         }
       end
 
@@ -93,7 +107,7 @@ describe 'Finding a project' do
         expect(find_project_spy).to have_received(:execute).with(id: 41)
       end
 
-      it 'should should return 200' do
+      it 'should return 200' do
         expect(last_response.status).to eq(200)
       end
 
@@ -101,7 +115,7 @@ describe 'Finding a project' do
         expect(last_response.headers['Cache-Control']).to eq('no-cache')
       end
 
-      it 'should should have project in body with camel case' do
+      it 'should have project in body with camel case' do
         response_body = JSON.parse(last_response.body)
         expect(response_body['type']).to eq('animals')
         expect(response_body['status']).to eq('Tree')
@@ -109,7 +123,12 @@ describe 'Finding a project' do
         expect(response_body['data']['animalNoises'][1]['cowsGo']).to eq('moo')
       end
 
-      it 'should should have schema in the return body' do
+      it 'should have a timestamp in body' do
+        response_body = JSON.parse(last_response.body)
+        expect(response_body['timestamp']).to eq('234')
+      end
+
+      it 'should have schema in the return body' do
         response_body = JSON.parse(last_response.body)
         expect(response_body['schema']['dogs']).to eq('bark')
         expect(response_body['schema']['cats']).to eq('meow')
