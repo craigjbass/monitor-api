@@ -35,6 +35,9 @@
     },
     "SENTRY_DSN": {
       "required": true
+    },
+    "CORS_ORIGIN": {
+      "required": true
     }
   },
   "formation": {
