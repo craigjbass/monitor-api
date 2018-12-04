@@ -1,0 +1,120 @@
+version: 2.1
+
+executors:
+  ruby:
+    docker:
+      - image: circleci/ruby:2.5.1
+      - image: circleci/postgres:9.4.18-alpine
+        environment:
+          POSTGRES_USER: circleci
+          POSTGRES_PASSWORD: super-secret
+          POSTGRES_DB: monitor_api
+
+    working_directory: ~/repo
+
+    environment:
+      DATABASE_URL: 'postgres://circleci:super-secret@localhost/monitor_api'
+      NO_LOGS: 'true'
+
+jobs:
+  build_and_test:
+    executor: ruby
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "Gemfile.lock" }}
+          - v1-dependencies-
+      - run:
+          name: install dependencies
+          command: |
+            sudo apt-get install postgresql-client
+            bundle install --jobs=4 --retry=3 --path vendor/bundle
+      - save_cache:
+          paths:
+            - ./vendor/bundle
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+      - run:
+          name: Waiting for Postgres to be ready
+          command: |
+            while ! psql $DATABASE_URL -c 'SELECT 1'; do
+                echo 'Waiting for db'; sleep 3;
+            done
+      - run:
+          name: run tests
+          command: |
+            mkdir /tmp/test-results
+            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
+
+            bundle exec rspec --format progress \
+                            --format RspecJunitFormatter \
+                            --out /tmp/test-results/rspec.xml \
+                            --format progress \
+                            $TEST_FILES
+      - store_test_results:
+          path: /tmp/test-results
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
+      - store_artifacts:
+          path: coverage
+          destination: coverage
+
+  deploy_staging:
+    executor: ruby
+    steps:
+      - checkout
+      - run: scripts/deploy.sh staging
+
+  deploy_dark_production:
+    executor: ruby
+    steps:
+      - checkout
+      - run: scripts/deploy.sh production
+
+  flip_production:
+    executor: ruby
+    steps:
+      - checkout
+      - run: scripts/flip-dark-to-live.sh production
+
+  revert_production:
+    executor: ruby
+    steps:
+      - checkout
+      - run: scripts/flip-dark-to-live.sh production
+
+workflows:
+  version: 2
+  build_test_deploy:
+    jobs:
+      - build_and_test
+      - deploy_staging:
+          requires:
+            - build_and_test
+          filters:
+            branches:
+              only:
+                - master
+      - hold_production_deploy:
+          type: approval
+          requires:
+            - deploy_staging
+      - deploy_dark_production:
+          requires:
+            - hold_production_deploy
+      - hold_flip_production:
+          type: approval
+          requires:
+            - deploy_dark_production
+      - flip_production:
+          requires:
+            - hold_flip_production
+      - hold_revert_production:
+          type: approval
+          requires:
+            - flip_production
+      - revert_production:
+          requires:
+            - hold_revert_production

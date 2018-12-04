@@ -1,0 +1,4 @@
+---
+applications:
+- name: monitor-api-production-dark
+  #memory: 512M
