@@ -1379,7 +1379,7 @@
             "properties": {
               "HIFAmount": {
                 "type": "string",
-                "title": "Total HIF Amount",
+                "title": "Amount of Infrastructure Funded by HIF",
                 "currency": true
               },
               "totalCostOfInfrastructure": {
@@ -1909,7 +1909,7 @@
                         "West Oxfordshire",
                         "West Somerset",
                         "West Sussex",
-                        "West Yorkshire Combined Authority",              
+                        "West Yorkshire Combined Authority",
                         "Westminster",
                         "Weymouth and Portland",
                         "Wigan",
