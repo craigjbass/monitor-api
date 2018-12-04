@@ -88,28 +88,23 @@
                     "properties": {
                       "numberOfUnitsMarket": {
                         "type": "string",
-                        "title": "Market sale",
-                        "maximum": "9999"
+                        "title": "Market sale"
                       },
                       "numberOfUnitsSharedOwnership": {
                         "type": "string",
-                        "title": "Shared ownership",
-                        "maximum": "9999"
+                        "title": "Shared ownership"
                       },
                       "numberOfUnitsAffordable": {
                         "type": "string",
-                        "title": "Affordable/social rent",
-                        "maximum": "9999"
+                        "title": "Affordable/social rent"
                       },
                       "numberOfUnitsPRS": {
                         "type": "string",
-                        "title": "Private Rented",
-                        "maximum": "9999"
+                        "title": "Private Rented"
                       },
                       "numberOfUnitsOther": {
                         "type": "string",
-                        "title": "Other",
-                        "maximum": "9999"
+                        "title": "Other"
                       }
                     }
                   },
