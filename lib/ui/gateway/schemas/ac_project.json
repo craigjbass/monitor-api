@@ -89,40 +89,34 @@
                       "numberOfUnitsMarket": {
                         "type": "string",
                         "title": "Market sale",
-                        "currency": true,
-                        "currencyMaximum": "9999"
+                        "maximum": "9999"
                       },
                       "numberOfUnitsSharedOwnership": {
                         "type": "string",
                         "title": "Shared ownership",
-                        "currency": true,
-                        "currencyMaximum": "9999"
+                        "maximum": "9999"
                       },
                       "numberOfUnitsAffordable": {
                         "type": "string",
                         "title": "Affordable/social rent",
-                        "currency": true,
-                        "currencyMaximum": "9999"
+                        "maximum": "9999"
                       },
                       "numberOfUnitsPRS": {
                         "type": "string",
                         "title": "Private Rented",
-                        "currency": true,
-                        "currencyMaximum": "9999"
+                        "maximum": "9999"
                       },
                       "numberOfUnitsOther": {
                         "type": "string",
                         "title": "Other",
-                        "currency": true,
-                        "currencyMaximum": "9999"
+                        "maximum": "9999"
                       }
                     }
                   },
                   "numberOfUnitsTotal": {
                     "type": "string",
                     "title": "Total number of units",
-                    "currency": true,
-                    "currencyMaximum": "99999"
+                    "maximum": "99999"
                   }
                 }
               }
