@@ -110,8 +110,7 @@
                   },
                   "numberOfUnitsTotal": {
                     "type": "string",
-                    "title": "Total number of units",
-                    "maximum": "99999"
+                    "title": "Total number of units"
                   }
                 }
               }
