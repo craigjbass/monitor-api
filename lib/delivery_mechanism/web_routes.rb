@@ -190,7 +190,8 @@ module DeliveryMechanism
           type: project[:type],
           status: project[:status],
           data: Common::DeepCamelizeKeys.to_camelized_hash(project[:data]),
-          schema: project[:schema]
+          schema: project[:schema],
+          timestamp: project[:timestamp]
         }.to_json
         response.headers['Cache-Control'] = 'no-cache'
         response.status = 200
