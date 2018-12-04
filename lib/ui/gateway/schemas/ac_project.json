@@ -78,7 +78,7 @@
               },
               "units": {
                 "type": "object",
-                "calculation": "formData.numberOfUnitsTotal = formData.numberOfUnits ? parseMoney(formData.numberOfUnits.numberOfUnitsMarket) + parseMoney(formData.numberOfUnits.numberOfUnitsSharedOwnership) + parseMoney(formData.numberOfUnits.numberOfUnitsAffordable) + parseMoney(formData.numberOfUnits.numberOfUnitsPRS) + parseMoney(formData.numberOfUnits.numberOfUnitsOther): 0;",
+                "calculation": "set(formData, 'numberOfUnitsTotal', get(formData, 'numberOfUnits') ? parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsMarket')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsSharedOwnership')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsAffordable')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsPRS')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsOther')): 0);",
                 "title": "",
                 "properties": {
                   "numberOfUnits": {
@@ -239,6 +239,7 @@
         "receipts": {
           "type": "object",
           "title": "Receipts",
+          "calculation": "set(formData, 'projectValue', accumulateMoney(get(formData, 'expectedDisposalReceipt'), 'amount'));",
           "properties": {
             "detailsOnPaymentStructure": {
               "type": "string",
