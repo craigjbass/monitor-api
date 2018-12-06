@@ -13,8 +13,14 @@
             "type": "object",
             "title": "Summary",
             "properties": {
-              "name": { "type": "string", "title": "Name", "sourceKey": ["baseline_data", "summary", "sitesSummary", "summary", "name"]},
-              "ref": { "type": "string", "title": "LMT / GIS ref", "sourceKey": ["baseline_data", "summary", "sitesSummary", "summary", "details", "ref"]},
+              "name": {
+                "type": "string",
+                "title": "Name",
+                "sourceKey": ["baseline_data", "summary", "sitesSummary", "summary", "name"]},
+              "ref": {
+                "type": "string",
+                "title": "LMT / GIS ref",
+                "sourceKey": ["baseline_data", "summary", "sitesSummary", "summary", "details", "ref"]},
               "totalNoOfUnits": {
                 "type": "object",
                 "title": "Total number of units",
@@ -72,6 +78,7 @@
           "housingOutputs": {
             "type": "object",
             "title": "Housing Outputs",
+            "calculation": "set(formData, 'affordableHousingUnits', get(formData, 'units') ? parseMoney(get(formData, 'units', 'numberOfUnits', 'numberOfUnitsSharedOwnership')) + parseMoney(get(formData, 'units', 'numberOfUnits', 'numberOfUnitsAffordable')) :0)",
             "properties": {
               "baselineunits": {
                 "type": "string",
@@ -88,19 +95,12 @@
               "affordableHousingUnits": {
                 "type": "string",
                 "title": "Affordable Housing Units",
-                "readonly": true,
-                "sourceKey": [
-                  "baseline_data",
-                  "summary",
-                  "sitesSummary",
-                  "units",
-                  "numberOfUnits",
-                  "numberOfUnitsAffordable"
-                ]
+                "readonly": true
               },
               "units": {
                 "type": "object",
                 "title": "",
+                "calculation": "set(formData, 'numberOfUnitsTotal', get(formData, 'numberOfUnits') ? parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsMarket')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsSharedOwnership')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsAffordable')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsPRS')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsOther')): 0);",
                 "properties": {
                   "numberOfUnits": {
                     "type": "object",
@@ -128,6 +128,11 @@
                         "title": "Other"
                       }
                     }
+                  },
+                  "numberOfUnitsTotal": {
+                    "title": "Total",
+                    "type": "string",
+                    "readonly": true
                   },
                   "reasonForOther": {
                     "type": "string",
@@ -1898,6 +1903,7 @@
     "grantExpenditure": {
       "title": "Grant Expenditure Profile",
       "type": "object",
+      "calculation": "periodTotal(formData, 'total', 'baseline', 'Q1Amount', 'Q2Amount', 'Q3Amount', 'Q4Amount'); periodTotal(formData, 'total', 'remainingEstimate', 'Q1Amount', 'Q2Amount', 'Q3Amount', 'Q4Amount'); periodTotal(formData, 'total', 'claimedToDate', 'Q1Amount', 'Q2Amount', 'Q3Amount', 'Q4Amount');",
       "properties": {
         "baseline": {
           "type": "array",
@@ -2138,6 +2144,7 @@
               },
               "total": {
                 "type": "string",
+                "hidden": true,
                 "title": "Total",
                 "enum": [
                   "Already Achieved",
@@ -2145,8 +2152,7 @@
                   "Medium Low",
                   "Medium High",
                   "High"
-                ],
-                "readonly": true
+                ]
               }
             }
           }
@@ -2258,6 +2264,7 @@
           "details": {
             "type": "object",
             "title": "Housing Completions",
+            "calculation": "periodTotal(formData, 'total', 'baseline', 'Q1Amount', 'Q2Amount', 'Q3Amount', 'Q4Amount'); periodTotal(formData, 'total', 'remainingEstimate', 'Q1Amount', 'Q2Amount', 'Q3Amount', 'Q4Amount'); periodTotal(formData, 'total', 'claimedToDate', 'Q1Amount', 'Q2Amount', 'Q3Amount', 'Q4Amount');",
             "properties": {
               "siteName": {
                 "type": "string",
