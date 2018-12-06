@@ -172,11 +172,11 @@
                           }
                         }
                       }
-    
+
                     ]
                   }
                 }
-              },        
+              },
               "paceOfConstruction": {
                 "type": "object",
                 "title": "Pace of Construction",
