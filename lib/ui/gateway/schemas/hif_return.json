@@ -1658,6 +1658,7 @@
                     "sourceKey": [
                       "return_data",
                       "fundingPackages",
+                      "fundingStack",
                       "hifSpend",
                       "current"
                     ]
