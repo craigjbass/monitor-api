@@ -95,7 +95,7 @@ describe 'Updating a HIF Project' do
 
       response = get_use_case(:update_project).execute(project_id: project_id, project_data: { cats: 'meow' }, timestamp: time_now.to_i - 2000)
 
-      expect(response).to eq({successful: false, errors: [:incorrect_timestamp]})
+      expect(response).to eq({successful: false, errors: [:incorrect_timestamp], timestamp: time_now.to_i - 2000})
       expect(updated_project[:data]).to eq({ cats: 'meow'})
 
       Timecop.return

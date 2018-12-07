@@ -234,7 +234,7 @@ module DeliveryMechanism
           )
 
           response.status = update_successful?(update_response) ? 200 : 404
-          response.body = { errors: update_response[:errors] }.to_json 
+          response.body = { errors: update_response[:errors], timestamp: update_response[:timestamp] }.to_json 
         else
           response.status = 400
         end
