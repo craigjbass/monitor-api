@@ -267,38 +267,42 @@ class UI::UseCase::ConvertCoreHIFReturn
     @converted_return[:fundingProfiles] = {}
     @converted_return[:fundingProfiles][:totalHIFGrant] = @return[:fundingProfiles][:totalHIFGrant]
 
-    @converted_return[:fundingProfiles][:fundingRequest] = @return[:fundingProfiles][:fundingRequest].map do |request|
+    @converted_return[:fundingProfiles][:fundingRequest] = {}
+
+    @converted_return[:fundingProfiles][:fundingRequest][:forecast] = @return[:fundingProfiles][:fundingRequest].map do |request|
       next if request.nil?
 
       new_request = { period: request[:period] }
-
+      
       next new_request if request[:forecast].nil?
-      new_request[:forecast] = {
-        instalment1: request[:forecast][:instalment1],
-        instalment2: request[:forecast][:instalment2],
-        instalment3: request[:forecast][:instalment3],
-        instalment4: request[:forecast][:instalment4],
-        total: request[:forecast][:total]
-      }
+
+      new_request[:instalment1] = request[:forecast][:instalment1],
+      new_request[:instalment2] = request[:forecast][:instalment2],
+      new_request[:instalment3] = request[:forecast][:instalment3],
+      new_request[:instalment4] = request[:forecast][:instalment4],
+      new_request[:total] = request[:forecast][:total]
+
       new_request
     end
     @converted_return[:fundingProfiles][:changeRequired] = @return[:fundingProfiles][:changeRequired]
     @converted_return[:fundingProfiles][:reasonForRequest] = @return[:fundingProfiles][:reasonForRequest]
     @converted_return[:fundingProfiles][:mitigationInPlace] = @return[:fundingProfiles][:mitigationInPlace]
 
-    @converted_return[:fundingProfiles][:requestedProfiles] = @return[:fundingProfiles][:requestedProfiles].map do |request|
+    @converted_return[:fundingProfiles][:requestedProfiles] = {}
+
+    @converted_return[:fundingProfiles][:requestedProfiles][:newProfile] = @return[:fundingProfiles][:requestedProfiles].map do |request|
       next if request.nil?
 
       new_request = { period: request[:period] }
 
       next new_request if request[:newProfile].nil?
-      new_request[:newProfile] = {
-        instalment1: request[:newProfile][:instalment1],
-        instalment2: request[:newProfile][:instalment2],
-        instalment3: request[:newProfile][:instalment3],
-        instalment4: request[:newProfile][:instalment4],
-        total: request[:newProfile][:total]
-      }
+
+      new_request[:instalment1] = request[:newProfile][:instalment1],
+      new_request[:instalment2] = request[:newProfile][:instalment2],
+      new_request[:instalment3] = request[:newProfile][:instalment3],
+      new_request[:instalment4] = request[:newProfile][:instalment4],
+      new_request[:total] = request[:newProfile][:total]
+      
       new_request
     end
   end

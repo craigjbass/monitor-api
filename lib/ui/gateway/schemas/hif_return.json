@@ -1463,22 +1463,22 @@
           "sourceKey": ["baseline_data", "summary", "hifFundingAmount"]
         },
         "fundingRequest": {
-          "type": "array",
+          "type": "object",
           "title": "Funding Request",
-          "items": {
-            "type": "object",
-            "properties": {
-              "period": {
-                "title": "Period",
-                "type": "string",
-                "sourceKey": ["baseline_data", "fundingProfiles", "period"],
-                "readonly": true
-              },
-              "forecast": {
-                "title": "Forecast",
+          "properties": {
+            "forecast": {
+            "title": "Forecast",
+            "type": "array",
+            "quarterly": true,
+              "items": {
                 "type": "object",
-                "horizontal": true,
                 "properties": {
+                  "period": {
+                    "title": "Period",
+                    "type": "string",
+                    "sourceKey": ["baseline_data", "fundingProfiles", "period"],
+                    "readonly": true
+                  },
                   "instalment1": {
                     "title": "1st Quarter",
                     "type": "string",
@@ -1559,26 +1559,26 @@
                   "title": "Mitigation in place to reduce further slippage"
                 },
                 "requestedProfiles": {
-                  "type": "array",
+                  "type": "object",
                   "title": "Funding Request",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "period": {
-                        "title": "Period",
-                        "type": "string",
-                        "sourceKey": [
-                          "baseline_data",
-                          "fundingProfiles",
-                          "period"
-                        ],
-                        "readonly": true
-                      },
-                      "newProfile": {
-                        "title": "New Profile",
+                  "properties": {
+                    "newProfile": {
+                    "title": "New Profile",
+                    "quarterly": true,
+                    "type": "array",
+                      "items": {
                         "type": "object",
-                        "horizontal": true,
                         "properties": {
+                          "period": {
+                            "title": "Period",
+                            "type": "string",
+                            "sourceKey": [
+                              "baseline_data",
+                              "fundingProfiles",
+                              "period"
+                            ],
+                            "readonly": true
+                          },
                           "instalment1": {
                             "title": "1st Quarter",
                             "type": "string",
@@ -1602,7 +1602,8 @@
                           "total": {
                             "title": "Total",
                             "type": "string",
-                            "currency": true
+                            "currency": true,
+                            "readonly": true
                           }
                         }
                       }

@@ -267,18 +267,18 @@ class UI::UseCase::ConvertUIHIFReturn
     @converted_return[:fundingProfiles] = {}
     @converted_return[:fundingProfiles][:totalHIFGrant] = @return[:fundingProfiles][:totalHIFGrant]
 
-    @converted_return[:fundingProfiles][:fundingRequest] = @return[:fundingProfiles][:fundingRequest].map do |request|
+    @converted_return[:fundingProfiles][:fundingRequest] = @return[:fundingProfiles][:fundingRequest][:forecast].map do |request|
       next if request.nil?
 
       new_request = { period: request[:period] }
 
-      next new_request if request[:forecast].nil?
+      next new_request if request.nil?
       new_request[:forecast] = {
-        instalment1: request[:forecast][:instalment1],
-        instalment2: request[:forecast][:instalment2],
-        instalment3: request[:forecast][:instalment3],
-        instalment4: request[:forecast][:instalment4],
-        total: request[:forecast][:total]
+        instalment1: request[:instalment1],
+        instalment2: request[:instalment2],
+        instalment3: request[:instalment3],
+        instalment4: request[:instalment4],
+        total: request[:total]
       }
       new_request
     end
@@ -286,19 +286,17 @@ class UI::UseCase::ConvertUIHIFReturn
     @converted_return[:fundingProfiles][:reasonForRequest] = @return[:fundingProfiles][:reasonForRequest]
     @converted_return[:fundingProfiles][:mitigationInPlace] = @return[:fundingProfiles][:mitigationInPlace]
 
-    @converted_return[:fundingProfiles][:requestedProfiles] = @return[:fundingProfiles][:requestedProfiles].map do |request|
+    @converted_return[:fundingProfiles][:requestedProfiles] = @return[:fundingProfiles][:newProfile].map do |request|
       next if request.nil?
 
       new_request = { period: request[:period] }
 
-      next new_request if request[:newProfile].nil?
-
       new_request[:newProfile] = {
-        instalment1: request[:newProfile][:instalment1],
-        instalment2: request[:newProfile][:instalment2],
-        instalment3: request[:newProfile][:instalment3],
-        instalment4: request[:newProfile][:instalment4],
-        total: request[:newProfile][:total]
+        instalment1: request[:instalment1],
+        instalment2: request[:instalment2],
+        instalment3: request[:instalment3],
+        instalment4: request[:instalment4],
+        total: request[:total]
       }
       new_request
     end
