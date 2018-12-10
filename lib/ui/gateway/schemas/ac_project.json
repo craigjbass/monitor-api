@@ -110,7 +110,8 @@
                   },
                   "numberOfUnitsTotal": {
                     "type": "string",
-                    "title": "Total number of units"
+                    "title": "Total number of units",
+                    "readonly": true
                   }
                 }
               }
@@ -257,7 +258,8 @@
               "type": "string",
               "title": "Total projected (clean site) value",
               "currency": true,
-              "currencyMaximum": "99999999"
+              "currencyMaximum": "99999999",
+              "readonly": true
             },
             "clawback": {
               "type": "string",
