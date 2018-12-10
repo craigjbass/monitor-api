@@ -134,6 +134,20 @@
             "criticalPath": "Not long"
           }
         ],
+        "previousMilestones": [
+          {
+            "description": "describing a mielstone",
+            "milestoneBaselineCompletion": "djeioq",
+            "milestoneSummaryOfCriticalPath":  "jreu",
+            "milestoneVarianceAgainstLastReturn": "2",
+            "milestoneVarianceAgainstBaseline": "fhui",
+            "statusAgainstLastReturn": "ewuhif",
+            "currentReturn": "ewncwe",
+            "reasonForVariance": "fhewui",
+            "milestonePercentCompleted": "rcwuio",
+            "milestoneCompletedDate": "fewui"
+          }
+        ],
         "expectedInfrastructureStartOnSite": {
           "baseline": "2020-01-01",
           "varianceAgainstLastReturn": "67",

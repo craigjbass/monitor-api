@@ -85,6 +85,7 @@
         "baselineRisks": [
           {
             "riskBaselineRisk": "Risk one",
+            "riskCurrentReturnLikelihood": null,
             "riskBaselineImpact": "High",
             "riskBaselineLikelihood": "High",
             "riskBaselineMitigationsInPlace": "Do not do the thing",
