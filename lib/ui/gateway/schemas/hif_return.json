@@ -75,6 +75,7 @@
                           "planningSubmitted": {
                             "title": "Planning Permission Submitted",
                             "type": "object",
+                            "calculation": "set(formData, 'varianceBaselineFullPlanningPermissionSubmitted', weeksPassed(get(formData, 'baseline'), get(formData, 'current')));",
                             "variance": true,
                             "required": ["percentComplete"],
                             "properties": {
@@ -93,13 +94,11 @@
                               "varianceBaselineFullPlanningPermissionSubmitted": {
                                 "type": "string",
                                 "readonly": true,
-                                "hidden": true,
                                 "title": "Variance against Baseline submitted date (Week) (Calculated)"
                               },
                               "varianceLastReturnFullPlanningPermissionSubmitted": {
                                 "type": "string",
                                 "readonly": true,
-                                "hidden": true,
                                 "title": "Variance against Last Return submitted date (Week) (Calculated)"
                               },
                               "status": {
