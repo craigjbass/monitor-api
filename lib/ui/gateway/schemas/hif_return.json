@@ -1669,6 +1669,7 @@
                 "title": "Total Cost",
                 "type": "object",
                 "horizontal": true,
+                "calculation": "set(formData, 'percentComplete', calculateVariance(formData, 'current', 'baseline'));",
                 "properties": {
                   "baseline": {
                     "type": "string",
@@ -1694,6 +1695,7 @@
                   "percentComplete": {
                     "type": "string",
                     "title": "Percent complete",
+                    "readonly": true,
                     "percentage": true
                   }
                 }
