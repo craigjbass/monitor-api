@@ -1669,7 +1669,7 @@
                 "title": "Total Cost",
                 "type": "object",
                 "horizontal": true,
-                "calculation": "set(formData, 'percentComplete', calculateVariance(formData, 'current', 'baseline'));",
+                "calculation": "set(formData, 'percentComplete', calculateVariance(parseMoney(get(formData, 'current')), parseMoney(get(formData, 'baseline'))));",
                 "properties": {
                   "baseline": {
                     "type": "string",
