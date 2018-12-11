@@ -145,12 +145,22 @@ class UI::UseCase::ConvertCoreHIFReturn
       end
     end
 
+    unless milestones[:cumulativeadditionalMilestones].nil?
+      new_milestones[:cumulativeadditionalMilestones] = milestones[:cumulativeadditionalMilestones].map do |milestone|
+        {
+          description: milestone[:description],
+          completion: milestone[:completion],
+          criticalPath: milestone[:criticalPath]
+        }
+      end
+    end
+
     unless milestones[:previousMilestones].nil?
       new_milestones[:previousMilestones] = milestones[:previousMilestones].map do |milestone|
         {
-          description: milestone[:descrtiption],
-          milestoneBaselineCompletion: milestone[:milestoneBaselineCompletion],
-          milestoneSummaryOfCriticalPath: milestone[:milestoneSummaryOfCriticalPath],
+          description: milestone[:description],
+          completion: milestone[:milestoneBaselineCompletion],
+          criticalPath: milestone[:milestoneSummaryOfCriticalPath],
           milestoneVarianceAgainstLastReturn: milestone[:milestoneVarianceAgainstLastReturn],
           milestoneVarianceAgainstBaseline: milestone[:milestoneVarianceAgainstBaseline],
           statusAgainstLastReturn: milestone[:statusAgainstLastReturn],
@@ -177,6 +187,7 @@ class UI::UseCase::ConvertCoreHIFReturn
         new_risk[:riskBaselineRisk] = risk[:riskBaselineRisk]
         new_risk[:riskBaselineImpact] = risk[:riskBaselineImpact]
         new_risk[:riskBaselineLikelihood] = risk[:riskBaselineLikelihood]
+        new_risk[:riskCurrentReturnLikelihood] = risk[:riskCurrentReturnLikelihood]
         new_risk[:riskBaselineMitigationsInPlace] = risk[:riskBaselineMitigationsInPlace]
         new_risk[:riskAnyChange] = risk[:riskAnyChange]
         new_risk[:riskCurrentReturnMitigationsInPlace] = risk[:riskCurrentReturnMitigationsInPlace]
@@ -196,14 +207,25 @@ class UI::UseCase::ConvertCoreHIFReturn
       end
     end
 
+    unless risks[:cumulativeadditionalRisks].nil?
+      new_risks[:cumulativeadditionalRisks] = risks[:cumulativeadditionalRisks].map do |risk|
+        {
+          description: risk[:description],
+          impact: risk[:impact],
+          likelihood: risk[:likelihood],
+          mitigations: risk[:mitigations]
+        }
+      end
+    end
+
     unless risks[:previousRisks].nil?
       new_risks[:previousRisks] = risks[:previousRisks].map do |risk|
         {
-          riskBaselineRisk: risk[:riskBaselineRisk],
-          riskBaselineImpact: risk[:riskBaselineImpact],
-          riskBaselineLikelihood: risk[:riskBaselineLikelihood],
+          description: risk[:riskBaselineRisk],
+          impact: risk[:riskBaselineImpact],
+          likelihood: risk[:riskBaselineLikelihood],
           riskCurrentReturnLikelihood: risk[:riskCurrentReturnLikelihood],
-          riskBaselineMitigationsInPlace: risk[:riskBaselineMitigationsInPlace],
+          mitigations: risk[:riskBaselineMitigationsInPlace],
           riskAnyChange: risk[:riskAnyChange],
           riskCurrentReturnMitigationsInPlace: risk[:riskCurrentReturnMitigationsInPlace],
           riskMetDate: risk[:riskMetDate]

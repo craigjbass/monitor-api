@@ -134,6 +134,20 @@
             "criticalPath": "Not long"
           }
         ],
+        "previousMilestones": [
+          {
+            "description": "describing a mielstone",
+            "completion": "djeioq",
+            "criticalPath":  "jreu",
+            "milestoneVarianceAgainstLastReturn": "2",
+            "milestoneVarianceAgainstBaseline": "fhui",
+            "statusAgainstLastReturn": "ewuhif",
+            "currentReturn": "ewncwe",
+            "reasonForVariance": "fhewui",
+            "milestonePercentCompleted": "rcwuio",
+            "milestoneCompletedDate": "fewui"
+          }
+        ],
         "expectedInfrastructureStartOnSite": {
           "baseline": "2020-01-01",
           "varianceAgainstLastReturn": "67",
@@ -162,6 +176,7 @@
             "riskBaselineImpact": "High",
             "riskBaselineLikelihood": "High",
             "riskBaselineMitigationsInPlace": "Do not do the thing",
+            "riskCurrentReturnLikelihood": null,
             "riskAnyChange": "No",
             "riskCurrentReturnMitigationsInPlace": "None",
             "riskMetDate": "2024-67-40"
@@ -177,11 +192,11 @@
         ],
         "previousRisks": [
           {
-            "riskBaselineRisk": "Risk one",
-            "riskBaselineImpact": "High",
-            "riskBaselineLikelihood": "High",
+            "description": "Risk one",
+            "impact": "High",
+            "likelihood": "High",
             "riskCurrentReturnLikelihood": "6",
-            "riskBaselineMitigationsInPlace": "Do not do the thing",
+            "mitigations": "Do not do the thing",
             "riskAnyChange": "No",
             "riskCurrentReturnMitigationsInPlace": "None",
             "riskMetDate": "2024-67-40"

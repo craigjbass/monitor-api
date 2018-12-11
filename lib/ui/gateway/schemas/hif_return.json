@@ -839,6 +839,7 @@
           "milestones": {
             "type": "object",
             "title": "Milestones",
+            "calculation": "set(formData, 'cumulativeadditionalMilestones', combineArrays(get(formData, 'previousMilestones'), get(formData, 'additionalMilestones')))",
             "properties": {
               "keyMilestones": {
                 "type": "array",
@@ -948,6 +949,31 @@
                   }
                 }
               },
+              "cumulativeadditionalMilestones": {
+                "type": "array",
+                "title": "",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "description": {
+                      "type": "string",
+                      "title": "Description",
+                      "hidden": true
+                    },
+                    "completion": {
+                      "type": "string",
+                      "format": "date",
+                      "title": "Target date of completion",
+                      "hidden": true
+                    },
+                    "criticalPath": {
+                      "type": "string",
+                      "title": "Summary of Critical Path",
+                      "hidden": true
+                    }
+                  }
+                }
+              },
               "previousMilestones": {
                 "type": "array",
                 "title": "Previous Milestones",
@@ -960,19 +986,19 @@
                         "return_data",
                         "infrastructures",
                         "milestones",
-                        "additionalMilestones",
+                        "cumulativeadditionalMilestones",
                         "description"
                       ],
                       "readonly": true,
                       "type": "string",
                       "title": "Description"
                     },
-                    "milestoneBaselineCompletion": {
+                    "completion": {
                       "sourceKey": [
                         "return_data",
                         "infrastructures",
                         "milestones",
-                        "additionalMilestones",
+                        "cumulativeadditionalMilestones",
                         "completion"
                       ],
                       "readonly": true,
@@ -980,12 +1006,12 @@
                       "format": "date",
                       "title": "Completion Date"
                     },
-                    "milestoneSummaryOfCriticalPath": {
+                    "criticalPath": {
                       "sourceKey": [
                         "return_data",
                         "infrastructures",
                         "milestones",
-                        "additionalMilestones",
+                        "cumulativeadditionalMilestones",
                         "criticalPath"
                       ],
                       "type": "string",
@@ -1153,6 +1179,7 @@
           "risks": {
             "type": "object",
             "title": "Risks",
+            "calculation": "set(formData, 'cumulativeadditionalRisks', combineArrays(get(formData, 'previousRisks'), get(formData, 'additionalRisks')))",
             "properties": {
               "baselineRisks": {
                 "type": "array",
@@ -1241,9 +1268,44 @@
                       "type": "string",
                       "title": "Description"
                     },
-                    "impact": { "type": "string", "title": "Impact" },
-                    "likelihood": { "type": "string", "title": "Likelihood" },
+                    "impact": { 
+                      "type": "string",
+                      "title": "Impact"
+                    },
+                    "likelihood": {
+                      "type": "string",
+                      "title": "Likelihood"
+                    },
                     "mitigations": {
+                      "type": "string",
+                      "title": "Mitigations in place"
+                    }
+                  }
+                }
+              },
+              "cumulativeadditionalRisks": {
+                "type": "array",
+                "title": " ",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "description": {
+                      "type": "string",
+                      "hidden": true,
+                      "title": "Description"
+                    },
+                    "impact": {
+                      "hidden": true,
+                      "type": "string",
+                      "title": "Impact"
+                    },
+                    "likelihood": {
+                      "hidden": true,
+                      "type": "string",
+                      "title": "Likelihood"
+                    },
+                    "mitigations": {
+                      "hidden": true,
                       "type": "string",
                       "title": "Mitigations in place"
                     }
@@ -1257,36 +1319,36 @@
                   "type": "object",
                   "horizontal": true,
                   "properties": {
-                    "riskBaselineRisk": {
+                    "description": {
                       "sourceKey": [
                         "return_data",
                         "infrastructures",
                         "risks",
-                        "additionalRisks",
+                        "cumulativeadditionalRisks",
                         "description"
                       ],
                       "type": "string",
                       "title": "Description Of Risk",
                       "readonly": true
                     },
-                    "riskBaselineImpact": {
+                    "impact": {
                       "sourceKey": [
                         "return_data",
                         "infrastructures",
                         "risks",
-                        "additionalRisks",
+                        "cumulativeadditionalRisks",
                         "impact"
                       ],
                       "type": "string",
                       "title": "Impact",
                       "readonly": true
                     },
-                    "riskBaselineLikelihood": {
+                    "likelihood": {
                       "sourceKey": [
                         "return_data",
                         "infrastructures",
                         "risks",
-                        "additionalRisks",
+                        "cumulativeadditionalRisks",
                         "likelihood"
                       ],
                       "type": "string",
@@ -1297,12 +1359,12 @@
                       "type": "string",
                       "title": "Current Return Likelihood"
                     },
-                    "riskBaselineMitigationsInPlace": {
+                    "mitigations": {
                       "sourceKey": [
                         "return_data",
                         "infrastructures",
                         "risks",
-                        "additionalRisks",
+                        "cumulativeadditionalRisks",
                         "mitigations"
                       ],
                       "type": "string",

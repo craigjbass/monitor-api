@@ -860,13 +860,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                         properties: {
                           # from milestones.target
                           description: {
-                            sourceKey: %i[return_data infrastructures milestones additionalMilestones description],
+                            sourceKey: %i[return_data infrastructures milestones cumulativeadditionalMilestones description],
                             readonly: true,
                             type: 'string',
                             title: 'Description'
                           },
                           milestoneBaselineCompletion: {
-                            sourceKey: %i[return_data infrastructures milestones additionalMilestones completion],
+                            sourceKey: %i[return_data infrastructures milestones cumulativeadditionalMilestones completion],
                             readonly: true,
                             type: 'string',
                             format: 'date',
@@ -874,7 +874,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           # from milestones.summaryOfCriticalPath
                           milestoneSummaryOfCriticalPath: {
-                            sourceKey: %i[return_data infrastructures milestones additionalMilestones criticalPath],
+                            sourceKey: %i[return_data infrastructures milestones cumulativeadditionalMilestones criticalPath],
                             type: 'string',
                             title: 'Summary of Baseline Critical Path',
                             readonly: true
@@ -1120,6 +1120,35 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                         }
                       }
                     },
+                    cumulativeadditionalRisks: {
+                      type: 'array',
+                      title: ' ',
+                      items: {
+                        type: 'object',
+                        properties: {
+                          description: {
+                            type: 'string',
+                            title: 'Description',
+                            hidden: true
+                          },
+                          impact: {
+                            type: 'string',
+                            title: 'Impact',
+                            hidden: true
+                          },
+                          likelihood: {
+                            type: 'string',
+                            title: 'Likelihood',
+                            hidden: true
+                          },
+                          mitigations: {
+                            type: 'string',
+                            title: 'Mitigations in place',
+                            hidden: true
+                          }
+                        }
+                      }
+                    },
                     previousRisks: {
                       type: 'array',
                       title: 'Previous Risks',
@@ -1128,21 +1157,21 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                         horizontal: true,
                         properties: {
                           riskBaselineRisk: {
-                            sourceKey: %i[return_data infrastructures risks additionalRisks description],
+                            sourceKey: %i[return_data infrastructures risks cumulativeadditionalRisks description],
                             type: 'string',
                             title: 'Description Of Risk',
                             readonly: true
                           },
                           # from risksToAchievingTimescales.impactOfRisk
                           riskBaselineImpact: {
-                            sourceKey: %i[return_data infrastructures risks additionalRisks impact],
+                            sourceKey: %i[return_data infrastructures risks cumulativeadditionalRisks impact],
                             type: 'string',
                             title: 'Impact',
                             readonly: true
                           },
                           # from risksToAchievingTimescales.likelihoodOfRisk
                           riskBaselineLikelihood: {
-                            sourceKey: %i[return_data infrastructures risks additionalRisks likelihood],
+                            sourceKey: %i[return_data infrastructures risks cumulativeadditionalRisks likelihood],
                             type: 'string',
                             title: 'Likelihood',
                             readonly: true
@@ -1153,7 +1182,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           # from risksToAchievingTimescales.mitigationOfRisk
                           riskBaselineMitigationsInPlace: {
-                            sourceKey: %i[return_data infrastructures risks additionalRisks mitigations],
+                            sourceKey: %i[return_data infrastructures risks cumulativeadditionalRisks mitigations],
                             type: 'string',
                             title: 'Mitigation in place',
                             readonly: true
