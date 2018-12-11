@@ -37,6 +37,8 @@
             "properties": {
               "outlinePlanning": {
                 "type": "object",
+                "calculation": "set(formData['planningSubmitted'], 'varianceBaselineFullPlanningPermissionSubmitted', weeksPassed(get(formData, 'planningSubmitted', 'baseline'), get(formData, 'planningSubmitted', 'current')));",
+
                 "title": "Outline Planning",
                 "properties": {
                   "baselineOutlinePlanningPermissionGranted": {
@@ -75,7 +77,6 @@
                           "planningSubmitted": {
                             "title": "Planning Permission Submitted",
                             "type": "object",
-                            "calculation": "set(formData, 'varianceBaselineFullPlanningPermissionSubmitted', weeksPassed(get(formData, 'baseline'), get(formData, 'current')));",
                             "variance": true,
                             "required": ["percentComplete"],
                             "properties": {
@@ -1267,7 +1268,7 @@
                       "type": "string",
                       "title": "Description"
                     },
-                    "impact": { 
+                    "impact": {
                       "type": "string",
                       "title": "Impact"
                     },
