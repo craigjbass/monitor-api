@@ -135,6 +135,16 @@ module DeliveryMechanism
       end
     end
 
+    get '/projects/export' do
+      response.body = {}.to_json
+      guard_bi_access env, params, request do |_request_hash|
+        {
+          projects:
+            @dependency_factory.get_use_case(:export_all_projects).execute[:compiled_projects]
+        }.to_json
+      end
+    end
+
     get '/project/:id/export' do
       response.body = {}.to_json
       guard_bi_access env, params, request do |_request_hash|
@@ -234,7 +244,7 @@ module DeliveryMechanism
           )
 
           response.status = update_successful?(update_response) ? 200 : 404
-          response.body = { errors: update_response[:errors], timestamp: update_response[:timestamp] }.to_json 
+          response.body = { errors: update_response[:errors], timestamp: update_response[:timestamp] }.to_json
         else
           response.status = 400
         end
