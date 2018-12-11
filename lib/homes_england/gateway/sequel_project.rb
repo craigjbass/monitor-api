@@ -42,4 +42,16 @@ class HomesEngland::Gateway::SequelProject
   def submit(id:, status:)
     @database[:projects].where(id: id).update(status: status)
   end
+
+  def all()
+    @database[:projects].all.map do |row|
+      HomesEngland::Domain::Project.new.tap do |p|
+        p.name = row[:name]
+        p.type = row[:type]
+        p.data = Common::DeepSymbolizeKeys.to_symbolized_hash(row[:data].to_h)
+        p.status = row[:status]
+        p.timestamp = row[:timestamp]
+      end
+    end
+  end
 end
