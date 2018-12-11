@@ -1454,6 +1454,7 @@
     "fundingProfiles": {
       "type": "object",
       "title": "HIF Grant Expenditure",
+      "calculation": "get(formData, 'changeRequired') === 'Change required' ? set(formData['currentFunding'], 'forecast', get(formData, 'requestedProfiles', 'newProfile')) : set(formData['currentFunding'], 'forecast', get(formData, 'fundingRequest', 'forecast'))",
       "properties": {
         "totalHIFGrant": {
           "type": "string",
@@ -1541,6 +1542,51 @@
           "description": "Please confirm there are no changes to be made to the funding profile",
           "radio": true,
           "enum": ["Confirmed", "Change required"]
+        },
+        "currentFunding": {
+          "type": "object",
+          "title": "",
+          "properties": {
+            "forecast": {
+            "title": "",
+            "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "period": {
+                    "title": "Period",
+                    "type": "string",
+                    "hidden": true              
+                  },
+                  "instalment1": {
+                    "title": "1st Quarter",
+                    "type": "string",
+                    "hidden": true
+                  },
+                  "instalment2": {
+                    "title": "2nd Quarter",
+                    "type": "string",
+                    "hidden": true
+                  },
+                  "instalment3": {
+                    "title": "3rd Quarter",
+                    "type": "string",
+                    "hidden": true
+                  },
+                  "instalment4": {
+                    "title": "4th Quarter",
+                    "type": "string",
+                    "hidden": true
+                  },
+                  "total": {
+                    "title": "Total",
+                    "type": "string",
+                    "hidden": true
+                  }
+                }
+              }
+            }
+          }
         }
       },
       "dependencies": {
@@ -1561,6 +1607,7 @@
                 "requestedProfiles": {
                   "type": "object",
                   "title": "Funding Request",
+                  "calculation": "periodTotal(formData, 'total', 'newProfile', 'instalment1', 'instalment2', 'instalment3', 'instalment4'); ",
                   "properties": {
                     "newProfile": {
                     "title": "New Profile",

@@ -282,11 +282,30 @@ class UI::UseCase::ConvertUIHIFReturn
       }
       new_request
     end
+
+    
+    unless @return[:fundingProfiles][:currentFunding].nil? 
+      @converted_return[:fundingProfiles][:currentFunding] = {}
+
+      @converted_return[:fundingProfiles][:currentFunding][:forecast] = @return[:fundingProfiles][:currentFunding][:forecast].map do |request|
+        next if request.nil?
+        new_profile = {
+          period: request[:period],
+          instalment1: request[:instalment1],
+          instalment2: request[:instalment2],
+          instalment3: request[:instalment3],
+          instalment4: request[:instalment4],
+          total: request[:total]
+        }
+        new_profile
+      end
+    end
+    
     @converted_return[:fundingProfiles][:changeRequired] = @return[:fundingProfiles][:changeRequired]
     @converted_return[:fundingProfiles][:reasonForRequest] = @return[:fundingProfiles][:reasonForRequest]
     @converted_return[:fundingProfiles][:mitigationInPlace] = @return[:fundingProfiles][:mitigationInPlace]
 
-    @converted_return[:fundingProfiles][:requestedProfiles] = @return[:fundingProfiles][:newProfile].map do |request|
+    @converted_return[:fundingProfiles][:requestedProfiles] = @return[:fundingProfiles][:requestedProfiles][:newProfile].map do |request|
       next if request.nil?
 
       new_request = { period: request[:period] }
