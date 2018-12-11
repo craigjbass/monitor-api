@@ -554,6 +554,7 @@
                       "laHasControlOfSite": { "enum": ["No"] },
                       "laDoesNotControlSite": {
                         "type": "object",
+                        "calculation": "set(formData['allLandAssemblyAchieved'], 'landAssemblyVarianceAgainstBaseReturn', weeksPassed(get(formData, 'allLandAssemblyAchieved', 'baseline'), get(formData, 'allLandAssemblyAchieved', 'current')));",
                         "title": "Land ownership",
                         "properties": {
                           "whoOwnsSite": {
@@ -642,13 +643,11 @@
                                       "landAssemblyVarianceAgainstLastReturn": {
                                         "type": "string",
                                         "readonly": true,
-                                        "hidden": true,
                                         "title": "Variance Against Last Return (Calculated)"
                                       },
                                       "landAssemblyVarianceAgainstBaseReturn": {
                                         "type": "string",
                                         "readonly": true,
-                                        "hidden": true,
                                         "title": "Variance Against Base Return (Calculated)"
                                       },
                                       "status": {
