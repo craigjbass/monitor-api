@@ -454,6 +454,7 @@
                                 "type": "array",
                                 "items": {
                                   "type": "object",
+                                  "calculation": "set(formData, 'varianceAgainstBaseline', weeksPassed(get(formData, 'baselineCompletion'), get(formData, 'currentReturn')))",
                                   "properties": {
                                     "baselineCompletion": {
                                       "title": "Baseline completion",
@@ -468,13 +469,11 @@
                                       ]
                                     },
                                     "varianceAgainstBaseline": {
-                                      "hidden": true,
                                       "title": "Variance against baseline (Calculated)",
                                       "type": "string",
                                       "readonly": true
                                     },
                                     "varianceAgainstLastReturn": {
-                                      "hidden": true,
                                       "title": "Variance against last return (Calculated)",
                                       "type": "string",
                                       "readonly": true
