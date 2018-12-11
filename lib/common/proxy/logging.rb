@@ -4,7 +4,7 @@ class Common::Proxy::Logging
     @use_case = use_case
   end
 
-  def execute(request)
+  def execute(request = nil)
     @logger&.info(
       {
         message_type: 'before-use-case-called',
@@ -13,7 +13,11 @@ class Common::Proxy::Logging
       }.inspect
     )
 
-    response = @use_case.execute(request)
+    if request.nil?
+      response = @use_case.execute   
+    else
+      response = @use_case.execute(request)
+    end
 
     @logger&.info(
       {

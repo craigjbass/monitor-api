@@ -96,7 +96,7 @@ describe 'Compiles project data' do
     expect(compiled_project).to eq(expected_compiled_project(project_id, return_id))
   end
 
-  it 'export multible projects' do
+  it 'export multiple projects' do
     project_baseline = expected_compiled_project[:baseline][:data]
     project_id = get_use_case(:create_new_project).execute(
       name: expected_compiled_project[:baseline][:name], type: expected_compiled_project[:baseline][:type], baseline: project_baseline
@@ -126,7 +126,7 @@ describe 'Compiles project data' do
     get_use_case(:submit_return).execute(return_id: return_id)
     get_use_case(:submit_return).execute(return_id: return_id_second)
 
-    compiled_project = get_use_case(:export_all_project_data).execute()[:compiled_project]
-    expect(compiled_project).to eq({projects:[expected_compiled_project(project_id, return_id), expected_compiled_project(project_id_second, return_id_second)]})
+    compiled_project = get_use_case(:export_all_projects).execute()[:compiled_projects]
+    expect(compiled_project).to eq([expected_compiled_project(project_id, return_id), expected_compiled_project(project_id_second, return_id_second)])
   end
 end

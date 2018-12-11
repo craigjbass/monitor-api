@@ -46,6 +46,7 @@ class HomesEngland::Gateway::SequelProject
   def all()
     @database[:projects].all.map do |row|
       HomesEngland::Domain::Project.new.tap do |p|
+        p.id = row[:id]
         p.name = row[:name]
         p.type = row[:type]
         p.data = Common::DeepSymbolizeKeys.to_symbolized_hash(row[:data].to_h)
