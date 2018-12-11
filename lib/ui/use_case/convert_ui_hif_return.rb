@@ -292,6 +292,7 @@ class UI::UseCase::ConvertUIHIFReturn
       new_request = { period: request[:period] }
 
       next new_request if request[:newProfile].nil?
+
       new_request[:newProfile] = {
         instalment1: request[:newProfile][:instalment1],
         instalment2: request[:newProfile][:instalment2],
