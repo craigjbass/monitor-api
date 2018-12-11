@@ -37,6 +37,8 @@
             "properties": {
               "outlinePlanning": {
                 "type": "object",
+                "calculation": "set(formData['planningSubmitted'], 'varianceBaselineFullPlanningPermissionSubmitted', weeksPassed(get(formData, 'planningSubmitted', 'baseline'), get(formData, 'planningSubmitted', 'current')));",
+
                 "title": "Outline Planning",
                 "properties": {
                   "baselineOutlinePlanningPermissionGranted": {
@@ -93,13 +95,11 @@
                               "varianceBaselineFullPlanningPermissionSubmitted": {
                                 "type": "string",
                                 "readonly": true,
-                                "hidden": true,
                                 "title": "Variance against Baseline submitted date (Week) (Calculated)"
                               },
                               "varianceLastReturnFullPlanningPermissionSubmitted": {
                                 "type": "string",
                                 "readonly": true,
-                                "hidden": true,
                                 "title": "Variance against Last Return submitted date (Week) (Calculated)"
                               },
                               "status": {
@@ -1268,7 +1268,7 @@
                       "type": "string",
                       "title": "Description"
                     },
-                    "impact": { 
+                    "impact": {
                       "type": "string",
                       "title": "Impact"
                     },
@@ -1627,6 +1627,7 @@
           "fundingStack": {
             "type": "object",
             "title": "Funding stack",
+            "calculation": "set(formData['totalCost'], 'percentComplete', calculateVariance(parseMoney(get(formData,'totalCost', 'current')), parseMoney(get(formData,'totalCost', 'baseline'))));",
             "properties": {
               "hifSpend": {
                 "title": "HIF Spend",
@@ -1658,6 +1659,7 @@
                     "sourceKey": [
                       "return_data",
                       "fundingPackages",
+                      "fundingStack",
                       "hifSpend",
                       "current"
                     ]
@@ -1688,11 +1690,13 @@
                   },
                   "varianceReason": {
                     "type": "string",
+                    "format": "date",
                     "title": "Reason for variance"
                   },
                   "percentComplete": {
                     "type": "string",
                     "title": "Percent complete",
+                    "readonly": true,
                     "percentage": true
                   }
                 }

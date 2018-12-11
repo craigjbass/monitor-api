@@ -1449,7 +1449,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           title: 'Last Return',
                           readonly: true,
                           currency: true,
-                          sourceKey: %i[return_data fundingPackages hifSpend current]
+                          sourceKey: %i[return_data fundingPackages fundingStack hifSpend current]
                         }
                       }
                     },
@@ -2246,7 +2246,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                   enum: %w[Yes No]
                 }
               },
-              dependencies: { 
+              dependencies: {
                 recoverFundingConfirmation: {
                   oneOf: [
                     {
@@ -2359,7 +2359,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                             varianceAgainstForecastAmount: {
                               title: 'Variance Against Forecast',
                               type: 'string',
-                              s151WriteOnly: true, 
+                              s151WriteOnly: true,
                               currency: true
                             },
                             varianceAgainstForecastPercentage: {
