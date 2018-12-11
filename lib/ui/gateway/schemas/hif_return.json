@@ -37,7 +37,7 @@
             "properties": {
               "outlinePlanning": {
                 "type": "object",
-                "calculation": "set(formData['planningSubmitted'], 'varianceBaselineFullPlanningPermissionSubmitted', weeksPassed(get(formData, 'planningSubmitted', 'baseline'), get(formData, 'planningSubmitted', 'current')));",
+                "calculation": "set(formData['planningSubmitted'], 'varianceBaselineFullPlanningPermissionSubmitted', weeksPassed(get(formData, 'planningSubmitted', 'baseline'), get(formData, 'planningSubmitted', 'current'))); set(formData['planningGranted'], 'varianceBaselineFullPlanningPermissionSubmitted', weeksPassed(get(formData, 'planningGranted', 'baseline'), get(formData, 'planningGranted', 'current')));",
                 "title": "Outline Planning",
                 "properties": {
                   "baselineOutlinePlanningPermissionGranted": {
@@ -218,6 +218,7 @@
               },
               "fullPlanning": {
                 "type": "object",
+                "calculation": "set(formData['submitted'], 'varianceBaselineFullPlanningPermissionSubmitted', weeksPassed(get(formData, 'submitted', 'baseline'), get(formData, 'submitted', 'current'))); set(formData['granted'], 'varianceBaselineFullPlanningPermissionGranted', weeksPassed(get(formData, 'granted', 'baseline'), get(formData, 'granted', 'current')));",
                 "title": "Full Planning",
                 "properties": {
                   "fullPlanningPermissionGranted": {
@@ -272,13 +273,11 @@
                               "varianceBaselineFullPlanningPermissionSubmitted": {
                                 "type": "string",
                                 "readonly": true,
-                                "hidden": true,
                                 "title": "Variance against Baseline submitted date (Week) (Calculated)"
                               },
                               "varianceLastReturnFullPlanningPermissionSubmitted": {
                                 "type": "string",
                                 "readonly": true,
-                                "hidden": true,
                                 "title": "Variance against Last Return submitted date (Week) (Calculated)"
                               },
                               "status": {
