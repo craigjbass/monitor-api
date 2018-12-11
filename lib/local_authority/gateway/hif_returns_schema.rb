@@ -1345,37 +1345,37 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                         period: {
                           title: "Period",
                           type: "string",
-                          sourceKey: %i[return_data fundingProfiles fundingRequest period],
+                          sourceKey: %i[return_data fundingProfiles currentFunding forecast period],
                           hidden: true
                         },
                         instalment1: {
                           title: "1st Quarter",
                           type: "string",
-                          sourceKey: %i[return_data fundingProfiles fundingRequest forecast instalment1],
+                          sourceKey: %i[return_data fundingProfiles currentFunding forecast instalment1],
                           hidden: true
                         },
                         instalment2: {
                           title: "2nd Quarter",
                           type: "string",
-                          sourceKey: %i[return_data fundingProfiles fundingRequest forecast instalment2],
+                          sourceKey: %i[return_data fundingProfiles currentFunding forecast instalment2],
                           hidden: true
                         },
                         instalment3: {
                           title: "3rd Quarter",
                           type: "string",
-                          sourceKey: %i[return_data fundingProfiles fundingRequest forecast instalment3],
+                          sourceKey: %i[return_data fundingProfiles currentFunding forecast instalment3],
                           hidden: true
                         },
                         instalment4: {
                           title: "4th Quarter",
                           type: "string",
-                          sourceKey: %i[return_data fundingProfiles fundingRequest forecast instalment4],
+                          sourceKey: %i[return_data fundingProfiles currentFunding forecast instalment4],
                           hidden: true
                         },
                         total: {
                           title: "Total",
                           type: "string",
-                          sourceKey: %i[return_data fundingProfiles fundingRequest forecast total],
+                          sourceKey: %i[return_data fundingProfiles currentFunding forecast total],
                           hidden: true
                         }
                       }
