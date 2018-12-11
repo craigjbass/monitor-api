@@ -1626,6 +1626,7 @@
           "fundingStack": {
             "type": "object",
             "title": "Funding stack",
+            "calculation": "set(formData['totalCost'], 'percentComplete', calculateVariance(parseMoney(get(formData,'totalCost', 'current')), parseMoney(get(formData,'totalCost', 'baseline'))));",
             "properties": {
               "hifSpend": {
                 "title": "HIF Spend",
@@ -1668,7 +1669,6 @@
                 "title": "Total Cost",
                 "type": "object",
                 "horizontal": true,
-                "calculation": "set(formData, 'percentComplete', calculateVariance(parseMoney(get(formData, 'current')), parseMoney(get(formData, 'baseline'))));",
                 "properties": {
                   "baseline": {
                     "type": "string",
@@ -1689,6 +1689,7 @@
                   },
                   "varianceReason": {
                     "type": "string",
+                    "format": "date",
                     "title": "Reason for variance"
                   },
                   "percentComplete": {
