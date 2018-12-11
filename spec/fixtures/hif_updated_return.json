@@ -98,6 +98,7 @@
             "riskBaselineRisk": "Risk one",
             "riskBaselineImpact": "High",
             "riskBaselineLikelihood": "High",
+            "riskCurrentReturnLikelihood": null,
             "riskBaselineMitigationsInPlace": "Do not do the thing",
             "riskAnyChange": null,
             "riskCurrentReturnMitigationsInPlace": null,
@@ -109,32 +110,51 @@
   ],
   "fundingProfiles": {
     "totalHIFGrant": "10000",
-    "fundingRequest": [
-      {
+    "currentFunding": {"forecast": []},
+    "fundingRequest": {
+      "forecast":
+      [
+        {
         "period": "2019/2020",
-        "forecast": {
-          "instalment1": "1000",
-          "instalment2": "1000",
-          "instalment3": "1000",
-          "instalment4": "1000",
-          "total": "4000"
-        }
-      },
-      {
-        "period": null,
-        "forecast": {
+        "instalment1": "1000",
+        "instalment2": "1000",
+        "instalment3": "1000",
+        "instalment4": "1000",
+        "total": "4000"
+        },
+        {
+          "period": null,
           "instalment1": null,
           "instalment2": null,
           "instalment3": null,
           "instalment4": null,
           "total": null
         }
-      }
-    ],
+      ]
+    },
     "changeRequired": null,
     "reasonForRequest": null,
     "mitigationInPlace": null,
-    "requestedProfiles": [{ "period": "2019/2020" }, { "period": null }]
+    "requestedProfiles": {
+      "newProfile": [
+        {
+          "instalment1": null,
+          "instalment2": null,
+          "instalment3": null,
+          "instalment4": null,
+          "period": "2019/2020",
+          "total": null
+        },
+        {
+          "instalment1": null,
+          "instalment2": null,
+          "instalment3": null,
+          "instalment4": null,
+          "period": null,
+          "total": null
+        }
+      ]
+    }
   },
   "fundingPackages": [
     {

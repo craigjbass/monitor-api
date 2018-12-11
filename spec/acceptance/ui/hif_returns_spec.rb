@@ -88,7 +88,7 @@ describe 'Interacting with a HIF Return from the UI' do
 
       created_return = dependency_factory.get_use_case(:ui_get_return).execute(id: return_id)[:updates].last
 
-      expect(created_return[:s151]).to eq(expected_updated_return[:s151])
+      expect(created_return).to eq(expected_updated_return)
     end
 
     it 'Allows you to create a return with all the data in' do
@@ -110,7 +110,7 @@ describe 'Interacting with a HIF Return from the UI' do
       created_return_one = created_returns[0][:updates][0]
       created_return_two = created_returns[1][:updates][0]
 
-      expect(created_return_one[:infrastructures]).to eq(hif_get_return[:infrastructures])
+      expect(created_return_one).to eq(hif_get_return)
       expect(created_return_two).to eq(hif_get_return)
     end
   end

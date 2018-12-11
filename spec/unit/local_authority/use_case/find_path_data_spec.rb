@@ -147,4 +147,62 @@ describe LocalAuthority::UseCase::FindPathData do
       expect(use_case).to eq({})
     end
   end
+
+  context 'deciding between return and baseline data' do
+    context 'return data exists' do
+      let(:baseline_data) do
+        {
+          baseline_data: {
+            infrastructures: {
+              cats: {
+                puppies: 'Get me this data'
+              }
+            }
+          },
+          return_data: {
+            returning_infrastructures: {
+              puppies: 'or this data'
+            }
+          }
+        }
+      end
+      let(:path) do 
+        [
+          :return_or_baseline,
+          [:baseline_data, :infrastructures, :cats, :puppies],
+          [:return_data, :returning_infrastructures, :puppies]
+        ]
+      end
+
+      it 'can get the data from the return data' do
+        expect(use_case).to eq(found: 'or this data')
+      end
+    end
+
+    context 'return data doesnt exist' do
+      let(:baseline_data) do
+        {
+          baseline_data: {
+            infrastructures: {
+              cats: {
+                puppies: 'Get me this data'
+              }
+            }
+          },
+          return_data: {}
+        }
+      end
+      let(:path) do 
+        [
+          :return_or_baseline,
+          [:baseline_data, :infrastructures, :cats, :puppies],
+          [:return_data, :returning_infrastructures, :puppies]
+        ]
+      end
+
+      it 'can get the data from the baseline data' do
+        expect(use_case).to eq(found: 'Get me this data')
+      end
+    end
+  end
 end
