@@ -1741,7 +1741,6 @@
                       },
                       "riskToFundingPackage": {
                         "type": "object",
-                        "horizontal": true,
                         "title": "Risk to funding package",
                         "properties": {
                           "risk": {
@@ -1749,10 +1748,26 @@
                             "type": "string",
                             "radio": true,
                             "enum": ["Yes", "No"]
-                          },
-                          "description": {
-                            "title": "Description of risk",
-                            "type": "string"
+                          }
+                        },
+                        "dependencies": {
+                          "risk": {
+                            "oneOf": [
+                              {
+                                "properties": {
+                                  "risk": { "enum": ["Yes"] },
+                                  "description": {
+                                    "title": "Description of risk",
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              {
+                                "properties": {
+                                  "risk": { "enum": ["No"] }
+                                }
+                              }
+                            ]
                           }
                         }
                       },
