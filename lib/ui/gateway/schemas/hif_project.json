@@ -1371,11 +1371,11 @@
       "title": "Costs",
       "items": {
         "type": "object",
-        "title": "Cost",
+        "title": "Infrastructure",
         "properties": {
           "infrastructure": {
             "type": "object",
-            "title": "Infrastructure",
+            "title": "Cost",
             "properties": {
               "HIFAmount": {
                 "type": "string",
