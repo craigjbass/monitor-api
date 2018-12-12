@@ -22,7 +22,8 @@
           "fullPlanningPermissionGranted": "No",
           "fullPlanningPermissionSummaryOfCriticalPath": "Summary of critical path",
           "submitted": {
-            "baseline": "2020-03-01"
+            "baseline": "2020-03-01",
+            "previousReturn": null
           },
           "granted": {
             "baseline": "2020-04-01"
