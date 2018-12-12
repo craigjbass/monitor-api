@@ -242,7 +242,7 @@
               },
               "fullPlanning": {
                 "type": "object",
-                "calculation": "set(formData['submitted'], 'varianceBaselineFullPlanningPermissionSubmitted', weeksPassed(get(formData, 'submitted', 'baseline'), get(formData, 'submitted', 'current'))); set(formData['granted'], 'varianceBaselineFullPlanningPermissionGranted', weeksPassed(get(formData, 'granted', 'baseline'), get(formData, 'granted', 'current'))); set(formData['submitted'], 'varianceLastReturnFullPlanningPermissionSubmitted', weeksPassed(get(formData, 'submitted', 'previousReturn'), get(formData, 'submitted', 'current')));",
+                "calculation": "set(formData['submitted'], 'varianceBaselineFullPlanningPermissionSubmitted', weeksPassed(get(formData, 'submitted', 'baseline'), get(formData, 'submitted', 'current'))); set(formData['granted'], 'varianceBaselineFullPlanningPermissionGranted', weeksPassed(get(formData, 'granted', 'baseline'), get(formData, 'granted', 'current'))); set(formData['submitted'], 'varianceLastReturnFullPlanningPermissionSubmitted', weeksPassed(get(formData, 'submitted', 'previousReturn'), get(formData, 'submitted', 'current'))); set(formData['granted'], 'varianceLastReturnFullPlanningPermissionGranted', weeksPassed(get(formData, 'granted', 'previousReturn'), get(formData, 'granted', 'current')));",
                 "title": "Full Planning",
                 "properties": {
                   "fullPlanningPermissionGranted": {
@@ -392,6 +392,18 @@
                                 "type": "string",
                                 "format": "date",
                                 "title": "Current Return"
+                              },
+                              "previousReturn": {
+                                "type": "string",
+                                "format": "date",
+                                "sourceKey": [
+                                  "return_data",
+                                  "infrastructures",
+                                  "planning",
+                                  "fullPlanning",
+                                  "granted",
+                                  "current"
+                                ]
                               },
                               "reason": {
                                 "type": "string",
