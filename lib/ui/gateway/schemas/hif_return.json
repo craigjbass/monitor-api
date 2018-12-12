@@ -37,7 +37,7 @@
             "properties": {
               "outlinePlanning": {
                 "type": "object",
-                "calculation": "set(formData['planningSubmitted'], 'varianceBaselineFullPlanningPermissionSubmitted', weeksPassed(get(formData, 'planningSubmitted', 'baseline'), get(formData, 'planningSubmitted', 'current'))); set(formData['planningGranted'], 'varianceBaselineFullPlanningPermissionSubmitted', weeksPassed(get(formData, 'planningGranted', 'baseline'), get(formData, 'planningGranted', 'current')));",
+                "calculation": "set(formData['planningSubmitted'], 'varianceBaselineFullPlanningPermissionSubmitted', weeksPassed(get(formData, 'planningSubmitted', 'baseline'), get(formData, 'planningSubmitted', 'current'))); set(formData['planningGranted'], 'varianceBaselineFullPlanningPermissionSubmitted', weeksPassed(get(formData, 'planningGranted', 'baseline'), get(formData, 'planningGranted', 'current'))); set(formData['planningSubmitted'], 'varianceLastReturnFullPlanningPermissionSubmitted', weeksPassed(get(formData, 'planningSubmitted', 'previousReturn'), get(formData, 'planningSubmitted', 'current')));",
                 "title": "Outline Planning",
                 "properties": {
                   "baselineOutlinePlanningPermissionGranted": {
@@ -112,6 +112,18 @@
                                 "type": "string",
                                 "format": "date",
                                 "title": "Current Return"
+                              },
+                              "previousReturn": {
+                                "type": "string",
+                                "format": "date",
+                                "sourceKey": [
+                                  "return_data",
+                                  "infrastructures",
+                                  "planning",
+                                  "outlinePlanning",
+                                  "planningSubmitted",
+                                  "current"
+                                ]
                               },
                               "reason": {
                                 "type": "string",
@@ -1553,7 +1565,7 @@
                   "period": {
                     "title": "Period",
                     "type": "string",
-                    "hidden": true              
+                    "hidden": true
                   },
                   "instalment1": {
                     "title": "1st Quarter",
