@@ -7,6 +7,7 @@ class UI::UseCase::ConvertCoreHIFReturn
     convert_infrastructures
     convert_funding_packages
     convert_funding_profiles
+    convert_wider_scheme
     convert_outputs_forecast
     convert_outputs_actuals
     convert_s151
@@ -377,6 +378,12 @@ class UI::UseCase::ConvertCoreHIFReturn
 
       new_package
     end
+  end
+
+  def convert_wider_scheme
+    @converted_return[:widerScheme] = [{keyLiveIssues: [{}]}]
+    return if @return[:widerScheme].nil?
+    @converted_return[:widerScheme] = @return[:widerScheme]
   end
 
   def convert_outputs_forecast
