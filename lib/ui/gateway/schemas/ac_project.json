@@ -31,7 +31,7 @@
           "items": {
             "type": "object",
             "properties": {
-              "summary": {
+              "inner_summary": {
                 "type": "object",
                 "title": "",
                 "properties": {
