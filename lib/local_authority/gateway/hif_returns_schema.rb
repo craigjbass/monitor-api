@@ -172,6 +172,12 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                       format: 'date',
                                       title: 'Current Return'
                                     },
+                                    previousReturn: {
+                                      type: 'string',
+                                      format: 'date',
+                                      sourceKey: %i[return_data infrastructures planning outlinePlanning planningGranted current
+                                      ]
+                                    },
                                     reason: {
                                       type: 'string',
                                       title: 'Reason for Variance'

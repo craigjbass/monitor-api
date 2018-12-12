@@ -14,7 +14,8 @@
             "previousReturn": null
           },
           "planningGranted": {
-            "baseline": "2020-02-01"
+            "baseline": "2020-02-01",
+            "previousReturn": null
           }
         },
         "fullPlanning": {
