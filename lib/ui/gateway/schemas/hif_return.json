@@ -1910,7 +1910,7 @@
                 "type": "string",
                 "readonly": true
               },
-              "developmentPLan": {
+              "developmentPlan": {
                 "title": "Development Plan for Wider Scheme",
                 "type": "string",
                 "extendedText": true

@@ -129,7 +129,7 @@
           "title": "Pre-Drawdown Conditions",
           "properties": {
             "conditions": {
-              "title": " ",
+              "title": "",
               "type": "array",
               "numbered": true,
               "addable": true,

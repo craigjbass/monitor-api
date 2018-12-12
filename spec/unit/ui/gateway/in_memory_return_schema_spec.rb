@@ -33,6 +33,10 @@ describe UI::Gateway::InMemoryReturnSchema do
     expect_no_tab_for('RM_MONTHLY_CATCHUP', 'rmMonthlyCatchup')
   end
 
+  it 'will delete the rm monthly catchup if the env variables is set to nil' do
+    expect_no_tab_for('WIDER_SCHEME', 'widerScheme')
+  end
+
   private
 
   def expect_no_tab_for(env_name, section_name)
