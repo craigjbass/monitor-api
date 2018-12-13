@@ -677,23 +677,7 @@
       }
     }
   },
-  "rmMonthlyCatchup": {
-    "dateOfCatchUp": "1234-09-45",
-    "overallRatingForScheme": "4",
-    "redBarriers": [
-      {
-        "overview": "barriers"
-      }
-    ],
-    "amberBarriers": [
-      {
-        "overview": "More barriers"
-      }
-    ],
-    "overviewOfEngagement": "Overviewing",
-    "commentOnProgress": "Commenting",
-    "issuesToRaise": "Issuing"
-  },
+  "rmMonthlyCatchup": {"catchUp":[null]},
   "outputsActuals": {
     "localAuthority": "Local Authority",
     "noOfUnits": "123",

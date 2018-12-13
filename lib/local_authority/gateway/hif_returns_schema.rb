@@ -4153,62 +4153,362 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
   def add_rm_monthly_catchup_tab
     return if ENV['RM_MONTHLY_CATCHUP_TAB'].nil?
     @return_template.schema[:properties][:rmMonthlyCatchup] = {
-      title: 'RM Monthly Catch Up',
-      type: 'object',
+      title: "RM Monthly Catch Up",
+      type: "object",
       laHidden: true,
       properties: {
-        dateOfCatchUp: {
-          type: 'string',
-          title: 'Date of Catch Up'
-        },
-        overallRatingForScheme: {
-          type: 'string',
-          title: 'Overall RAG Rating for Scheme',
-          radio: true,
-          enum: %w[Red Amber Green]
-        },
-        redBarriers: {
-          type: 'array',
-          title: 'Barriers- Red Rating',
+        catchUp: {
+          type: "array",
+          description: "Click on the plus button to add notes from a new catch up.",
+          title: "",
+          addable: true,
           items: {
-            type: 'object',
+            title: "Catch Up",
+            type: "object",
             properties: {
-              overview: {
-                type: 'string',
+              dateOfCatchUp: {
+                type: "string",
+                title: "Date of Catch Up"
+              },
+              overallRatingForScheme: {
+                type: "string",
+                title: "Overall RAG Rating for Scheme",
+                radio: true,
+                enum: ["Red", "Amber", "Green"]
+              },
+              redBarriers: {
+                type: "array",
+                addable: true,
+                title: "Barriers- Red Rating",
+                description: "Click on the plus button to add a new red rated barrier.",
+                items: {
+                  type: "object",
+                  properties: {
+                    barrier: {
+                      type: "string",
+                      title: "Barrier",
+                      enum: [
+                        "Land acquisition",
+                        "Site Access- Road",
+                        "Site Access- Railway",
+                        "Flood risk",
+                        "Funding- sources/ cashflow",
+                        "Planning",
+                        "Land Remediation",
+                        "Utilities Provision",
+                        "Procurement",
+                        "Other"
+                      ]
+                    }
+                  },
+                  dependencies: {
+                    barrier: {
+                      oneOf: [
+                        {
+                          properties: {
+                            barrier: {
+                              enum: ["Other"]
+                            },
+                            description: {
+                              type: "string",
+                              title: "Description",
+                              extendedText: true
+                            },
+                            overview: {
+                              type: "string",
+                              extendedText: true,
+                              title: "Overview of Barrier"
+                            }
+                          }
+                        },
+                        {
+                          properties: {
+                            barrier: {
+                              enum: ["Land acquisition"]
+                            },
+                            overview: {
+                              type: "string",
+                              extendedText: true,
+                              title: "Overview of Barrier"
+                            }
+                          }
+                        },
+                        {
+                          properties: {
+                            barrier: {
+                              enum: ["Site Access- Road"]
+                            },
+                            overview: {
+                              type: "string",
+                              extendedText: true,
+                              title: "Overview of Barrier"
+                            }
+                          }
+                        },
+                        {
+                          properties: {
+                            barrier: {
+                              enum: ["Site Access- Railway"]
+                            },
+                            overview: {
+                              type: "string",
+                              extendedText: true,
+                              title: "Overview of Barrier"
+                            }
+                          }
+                        },
+                        {
+                          properties: {
+                            barrier: {
+                              enum: ["Flood risk"]
+                            },
+                            overview: {
+                              type: "string",
+                              extendedText: true,
+                              title: "Overview of Barrier"
+                            }
+                          }
+                        },
+                        {
+                          properties: {
+                            barrier: {
+                              enum: ["Funding- sources/ cashflow"]
+                            },
+                            overview: {
+                              type: "string",
+                              extendedText: true,
+                              title: "Overview of Barrier"
+                            }
+                          }
+                        },
+                        {
+                          properties: {
+                            barrier: {
+                              enum: ["Planning"]
+                            },
+                            overview: {
+                              type: "string",
+                              extendedText: true,
+                              title: "Overview of Barrier"
+                            }
+                          }
+                        },
+                        {
+                          properties: {
+                            barrier: {
+                              enum: ["Land Remediation"]
+                            },
+                            overview: {
+                              type: "string",
+                              extendedText: true,
+                              title: "Overview of Barrier"
+                            }
+                          }
+                        },
+                        {
+                          properties: {
+                            barrier: {
+                              enum: ["Utilities Provision"]
+                            },
+                            overview: {
+                              type: "string",
+                              extendedText: true,
+                              title: "Overview of Barrier"
+                            }
+                          }
+                        },
+                        {
+                          properties: {
+                            barrier: {
+                              enum: ["Procurement"]
+                            },
+                            overview: {
+                              type: "string",
+                              extendedText: true,
+                              title: "Overview of Barrier"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              amberBarriers: {
+                type: "array",
+                title: "Barriers- Amber Rating",
+                description: "Click on the plus button to add a new amber rated barrier.",
+                addable: true,
+                items: {
+                  type: "object",
+                  properties: {
+                    barrier: {
+                      type: "string",
+                      title: "Barrier",
+                      enum: [
+                        "Land acquisition",
+                        "Site Access- Road",
+                        "Site Access- Railway",
+                        "Flood risk",
+                        "Funding- sources/ cashflow",
+                        "Planning",
+                        "Land Remediation",
+                        "Utilities Provision",
+                        "Procurement",
+                        "Other"
+                      ]
+                    }
+                  },
+                  dependencies: {
+                    barrier: {
+                      oneOf: [
+                        {
+                          properties: {
+                            barrier: {
+                              enum: ["Other"]
+                            },
+                            description: {
+                              type: "string",
+                              title: "Description",
+                              extendedText: true
+                            },
+                            overview: {
+                              type: "string",
+                              extendedText: true,
+                              title: "Overview of Barrier"
+                            }
+                          }
+                        },
+                        {
+                          properties: {
+                            barrier: {
+                              enum: ["Land acquisition"]
+                            },
+                            overview: {
+                              type: "string",
+                              extendedText: true,
+                              title: "Overview of Barrier"
+                            }
+                          }
+                        },
+                        {
+                          properties: {
+                            barrier: {
+                              enum: ["Site Access- Road"]
+                            },
+                            overview: {
+                              type: "string",
+                              extendedText: true,
+                              title: "Overview of Barrier"
+                            }
+                          }
+                        },
+                        {
+                          properties: {
+                            barrier: {
+                              enum: ["Site Access- Railway"]
+                            },
+                            overview: {
+                              type: "string",
+                              extendedText: true,
+                              title: "Overview of Barrier"
+                            }
+                          }
+                        },
+                        {
+                          properties: {
+                            barrier: {
+                              enum: ["Flood risk"]
+                            },
+                            overview: {
+                              type: "string",
+                              extendedText: true,
+                              title: "Overview of Barrier"
+                            }
+                          }
+                        },
+                        {
+                          properties: {
+                            barrier: {
+                              enum: ["Funding- sources/ cashflow"]
+                            },
+                            overview: {
+                              type: "string",
+                              extendedText: true,
+                              title: "Overview of Barrier"
+                            }
+                          }
+                        },
+                        {
+                          properties: {
+                            barrier: {
+                              enum: ["Planning"]
+                            },
+                            overview: {
+                              type: "string",
+                              extendedText: true,
+                              title: "Overview of Barrier"
+                            }
+                          }
+                        },
+                        {
+                          properties: {
+                            barrier: {
+                              enum: ["Land Remediation"]
+                            },
+                            overview: {
+                              type: "string",
+                              extendedText: true,
+                              title: "Overview of Barrier"
+                            }
+                          }
+                        },
+                        {
+                          properties: {
+                            barrier: {
+                              enum: ["Utilities Provision"]
+                            },
+                            overview: {
+                              type: "string",
+                              extendedText: true,
+                              title: "Overview of Barrier"
+                            }
+                          }
+                        },
+                        {
+                          properties: {
+                            barrier: {
+                              enum: ["Procurement"]
+                            },
+                            overview: {
+                              type: "string",
+                              extendedText: true,
+                              title: "Overview of Barrier"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              overviewOfEngagement: {
+                type: "string",
                 extendedText: true,
-                title: 'Overview of Barrier'
+                title: "Overview of Engagement"
+              },
+              commentOnProgress: {
+                type: "string",
+                extendedText: true,
+                title: "Comments on Progress"
+              },
+              issuesToRaise: {
+                type: "string",
+                extendedText: true,
+                title: "Issues to Raise"
               }
             }
           }
-        },
-        amberBarriers: {
-          type: 'array',
-          title: 'Barriers- Amber Rating',
-          items: {
-            type: 'object',
-            properties: {
-              overview: {
-                type: 'string',
-                extendedText: true,
-                title: 'Overview of Barrier'
-              }
-            }
-          }
-        },
-        overviewOfEngagement: {
-          type: 'string',
-          extendedText: true,
-          title: 'Overview of Engagement'
-        },
-        commentOnProgress: {
-          type: 'string',
-          extendedText: true,
-          title: 'Comments on Progress'
-        },
-        issuesToRaise: {
-          type: 'string',
-          extendedText: true,
-          title: 'Issues to Raise'
         }
       }
     }
