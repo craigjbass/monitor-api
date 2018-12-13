@@ -664,28 +664,46 @@ class UI::UseCase::ConvertCoreHIFReturn
   end
 
   def convert_rm_monthly_catchup
+    @converted_return[:rmMonthlyCatchup] = {
+      catchUp: [{}]
+    }
     return if @return[:rmMonthlyCatchup].nil?
-    @converted_return[:rmMonthlyCatchup] = {}
 
-    @converted_return[:rmMonthlyCatchup][:dateOfCatchUp] = @return[:rmMonthlyCatchup][:dateOfCatchUp]
-    @converted_return[:rmMonthlyCatchup][:overallRatingForScheme] = @return[:rmMonthlyCatchup][:overallRatingForScheme]
-
-    @converted_return[:rmMonthlyCatchup][:redBarriers] = @return[:rmMonthlyCatchup][:redBarriers].map do |barrier|
-      {
-        overview: barrier[:overview]
-      }
+    unless @return[:rmMonthlyCatchup][:catchUp].nil?
+      @converted_return[:rmMonthlyCatchup][:catchUp] = @return[:rmMonthlyCatchup][:catchUp].map do |catch_up|
+        next if catch_up.nil?
+        new_catch_up = {}
+        new_catch_up[:dateOfCatchUp] = catch_up[:dateOfCatchUp]
+        new_catch_up[:overallRatingForScheme] = catch_up[:overallRatingForScheme]
+        unless catch_up[:redBarriers].nil?
+          new_catch_up[:redBarriers] = catch_up[:redBarriers].map do |red_barrier|
+            next if red_barrier.nil?
+            {
+              barrier: red_barrier[:barrier],
+              overview: red_barrier[:overview],
+              description: red_barrier[:description]
+            }
+          end
+        end
+    
+        unless catch_up[:amberBarriers].nil?
+          new_catch_up[:amberBarriers] = catch_up[:amberBarriers].map do |amber_barrier|
+            next if amber_barrier.nil?
+            {
+              barrier: amber_barrier[:barrier],
+              overview: amber_barrier[:overview],
+              description: amber_barrier[:description]
+            }
+          end
+        end
+    
+        new_catch_up[:overviewOfEngagement] = catch_up[:overviewOfEngagement]
+        new_catch_up[:commentOnProgress] = catch_up[:commentOnProgress]
+        new_catch_up[:issuesToRaise] = catch_up[:issuesToRaise]
+        
+        new_catch_up
+      end
     end
-
-    @converted_return[:rmMonthlyCatchup][:amberBarriers] = @return[:rmMonthlyCatchup][:amberBarriers].map do |barrier|
-      {
-        overview: barrier[:overview]
-      }
-    end
-
-    @converted_return[:rmMonthlyCatchup][:overviewOfEngagement] = @return[:rmMonthlyCatchup][:overviewOfEngagement]
-    @converted_return[:rmMonthlyCatchup][:commentOnProgress] = @return[:rmMonthlyCatchup][:commentOnProgress]
-    @converted_return[:rmMonthlyCatchup][:issuesToRaise] = @return[:rmMonthlyCatchup][:issuesToRaise]
-
   end
 
   def convert_outputs_actuals

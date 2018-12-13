@@ -56,7 +56,7 @@ describe 'expending an access token' do
     end
   end
 
-  fcontext 'with projects' do
+  context 'with projects' do
     context 'example 1' do
       let(:returned_value) { { compiled_projects: [{ cats: 'meow' }] } }
 
