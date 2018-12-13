@@ -37,7 +37,7 @@
             "properties": {
               "outlinePlanning": {
                 "type": "object",
-                "calculation": "set(formData['planningSubmitted'], 'varianceBaselineFullPlanningPermissionSubmitted', weeksPassed(get(formData, 'planningSubmitted', 'baseline'), get(formData, 'planningSubmitted', 'current'))); set(formData['planningGranted'], 'varianceBaselineFullPlanningPermissionSubmitted', weeksPassed(get(formData, 'planningGranted', 'baseline'), get(formData, 'planningGranted', 'current')));",
+                "calculation": "set(formData['planningSubmitted'], 'varianceBaselineFullPlanningPermissionSubmitted', weeksPassed(get(formData, 'planningSubmitted', 'baseline'), get(formData, 'planningSubmitted', 'current'))); set(formData['planningGranted'], 'varianceBaselineFullPlanningPermissionSubmitted', weeksPassed(get(formData, 'planningGranted', 'baseline'), get(formData, 'planningGranted', 'current'))); set(formData['planningSubmitted'], 'varianceLastReturnFullPlanningPermissionSubmitted', weeksPassed(get(formData, 'planningSubmitted', 'previousReturn'), get(formData, 'planningSubmitted', 'current'))); set(formData['planningGranted'], 'varianceLastReturnFullPlanningPermissionGranted', weeksPassed(get(formData, 'planningGranted', 'previousReturn'), get(formData, 'planningGranted', 'current')));",
                 "title": "Outline Planning",
                 "properties": {
                   "baselineOutlinePlanningPermissionGranted": {
@@ -113,6 +113,18 @@
                                 "format": "date",
                                 "title": "Current Return"
                               },
+                              "previousReturn": {
+                                "type": "string",
+                                "format": "date",
+                                "sourceKey": [
+                                  "return_data",
+                                  "infrastructures",
+                                  "planning",
+                                  "outlinePlanning",
+                                  "planningSubmitted",
+                                  "current"
+                                ]
+                              },
                               "reason": {
                                 "type": "string",
                                 "title": "Reason for Variance"
@@ -178,6 +190,18 @@
                                 "format": "date",
                                 "title": "Current Return"
                               },
+                              "previousReturn": {
+                                "type": "string",
+                                "format": "date",
+                                "sourceKey": [
+                                  "return_data",
+                                  "infrastructures",
+                                  "planning",
+                                  "outlinePlanning",
+                                  "planningGranted",
+                                  "current"
+                                ]
+                              },
                               "reason": {
                                 "type": "string",
                                 "title": "Reason for Variance"
@@ -218,7 +242,7 @@
               },
               "fullPlanning": {
                 "type": "object",
-                "calculation": "set(formData['submitted'], 'varianceBaselineFullPlanningPermissionSubmitted', weeksPassed(get(formData, 'submitted', 'baseline'), get(formData, 'submitted', 'current'))); set(formData['granted'], 'varianceBaselineFullPlanningPermissionGranted', weeksPassed(get(formData, 'granted', 'baseline'), get(formData, 'granted', 'current')));",
+                "calculation": "set(formData['submitted'], 'varianceBaselineFullPlanningPermissionSubmitted', weeksPassed(get(formData, 'submitted', 'baseline'), get(formData, 'submitted', 'current'))); set(formData['granted'], 'varianceBaselineFullPlanningPermissionGranted', weeksPassed(get(formData, 'granted', 'baseline'), get(formData, 'granted', 'current'))); set(formData['submitted'], 'varianceLastReturnFullPlanningPermissionSubmitted', weeksPassed(get(formData, 'submitted', 'previousReturn'), get(formData, 'submitted', 'current'))); set(formData['granted'], 'varianceLastReturnFullPlanningPermissionGranted', weeksPassed(get(formData, 'granted', 'previousReturn'), get(formData, 'granted', 'current')));",
                 "title": "Full Planning",
                 "properties": {
                   "fullPlanningPermissionGranted": {
@@ -292,6 +316,18 @@
                                 "format": "date",
                                 "title": "Current Return"
                               },
+                              "previousReturn": {
+                                "type": "string",
+                                "format": "date",
+                                "sourceKey": [
+                                  "return_data",
+                                  "infrastructures",
+                                  "planning",
+                                  "fullPlanning",
+                                  "submitted",
+                                  "current"
+                                ]
+                              },
                               "reason": {
                                 "type": "string",
                                 "title": "Reason for Variance"
@@ -356,6 +392,18 @@
                                 "type": "string",
                                 "format": "date",
                                 "title": "Current Return"
+                              },
+                              "previousReturn": {
+                                "type": "string",
+                                "format": "date",
+                                "sourceKey": [
+                                  "return_data",
+                                  "infrastructures",
+                                  "planning",
+                                  "fullPlanning",
+                                  "granted",
+                                  "current"
+                                ]
                               },
                               "reason": {
                                 "type": "string",
@@ -1553,7 +1601,7 @@
                   "period": {
                     "title": "Period",
                     "type": "string",
-                    "hidden": true              
+                    "hidden": true
                   },
                   "instalment1": {
                     "title": "1st Quarter",
