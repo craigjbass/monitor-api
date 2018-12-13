@@ -1,3 +1,5 @@
+require 'json'
+
 class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
   def execute
     @return_template = Common::Domain::Template.new.tap do |p|
@@ -1653,6 +1655,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
     add_confirmation_tab
     add_outputs_forecast_tab
     add_outputs_actuals_tab
+    add_wider_scheme_tab
     add_rm_monthly_catchup_tab
 
     @return_template
@@ -1845,6 +1848,1660 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
             risksToAchieving: {
               type: 'string',
               title: 'Risks to achieving'
+            }
+          }
+        }
+      }
+    }
+  end
+
+  def add_wider_scheme_tab
+    return if ENV['WIDER_SCHEME_TAB'].nil?
+    @return_template.schema[:properties][:widerScheme] = {
+      type: "array",
+      title: "Wider Scheme",
+      items: {
+        type: "object",
+        title: "",
+        properties: {
+          overview: {
+            type: "object",
+            title: "Overview",
+            properties: {
+              masterplan: {
+                title: "Masterplan for Scheme - FILE UPLOAD TO COME",
+                type: "string",
+                readonly: true
+              },
+              developmentPlan: {
+                title: "Development Plan for Wider Scheme",
+                type: "string",
+                extendedText: true
+              }
+            }
+          },
+          keyLiveIssues: {
+            type: "array",
+            title: "Key Live Issues",
+            addable: true,
+            items: {
+              type: "object",
+              title: "Issue",
+              properties: {
+                description: {
+                  type: "string",
+                  title: "Description of Issue",
+                  extendedText: true
+                },
+                dates: {
+                  type: "object",
+                  horizontal: true,
+                  title: "",
+                  properties: {
+                    dateRaised: {
+                      title: "Date raised",
+                      type: "string",
+                      format: "date"
+                    },
+                    estimatedCompletionDate: {
+                      title: "Estimated completions date",
+                      type: "string",
+                      format: "date"
+                    }
+                  }
+                },    
+                currentdetails: {
+                  type: "object",
+                  title: "",
+                  horizontal: true,
+                  properties: {
+                    impact: {
+                      title: "Impact",
+                      type: "string",
+                      enum: ["1", "2", "3", "4", "5"]
+                    },
+                    currentStatus: {
+                      title: "Current status",
+                      type: "string",
+                      enum: ["Red", "Amber", "Green"]
+                    },
+                    currentReturnLikelihood: {
+                      title: "Current return likelihood",
+                      type: "string",
+                      enum: ["1", "2", "3", "4", "5"]
+                    }
+                  }
+                },
+                mitigationActions: {
+                  title: "Mitigation actions",
+                  type: "string",
+                  extendedText: true
+                },
+                ratingAfterMitigation: {
+                  title: "Rating after mitigation",
+                  type: "string",
+                  enum: ["1","2","3","4","5"]
+                }
+              }
+            }
+          },
+          topRisks: {
+            title: "Top Risks to delivery of housing",
+            type: "object",
+            properties: {
+              landAssembly: {
+                type: "object",
+                title: "Land Assembly",
+                calculation: "get(formData, 'dates') ? set(formData, 'varianceAmount', daysPassed(get(formData, 'dates', 'expectedCompletion'), get(formData, 'dates', 'currentReturnCompletionDate'))) : ''",
+                properties: {
+                  liveRisk: {
+                    type: "string",
+                    title: "Live Risk?",
+                    enum: ["Yes", "No"],
+                    radio: true
+                  }
+                },
+                dependencies: {
+                  liveRisk: {
+                    oneOf: [
+                      {
+                        properties: {
+                          liveRisk: {
+                            enum: ["Yes"]
+                          },
+                          description: {
+                            type: "string",
+                            title: "Description Of Risk",
+                            extendedText: true,
+                            readonly: "2"
+                          },
+                          dates: {
+                            type: "object",
+                            title: "",
+                            horizontal: true,
+                            properties: {
+                              expectedCompletion: {
+                                type: "string",
+                                title: "Expected Completion Date",
+                                format: "date",
+                                readonly: "2"
+                              },
+                              currentReturnCompletionDate: {
+                                type: "string",
+                                title: "Expected Return Completion Date",
+                                format: "date"
+                              }
+                            }
+                          },
+                          varianceAmount: {
+                            type: "string",
+                            title: "Variance Amount (days)",
+                            readonly: true
+                          },
+                          varianceReason: {
+                            type: "string",
+                            title: "Variance Reason",
+                            extendedText: true
+                          },
+                          ratings: {
+                            type: "object",
+                            horizontal: "true",
+                            title: "",
+                            properties: {
+                              baselineImpact: {
+                                type: "string",
+                                title: "Baseline Impact",
+                                enum: ["1", "2", "3", "4","5"],
+                                readonly: "2"
+                              },
+                              baselineLikelihood: {
+                                type: "string",
+                                title: "Baseline Likelihood",
+                                enum: ["1", "2", "3", "4","5"],
+                                readonly: "2"
+                              },
+                              currentReturnLikelihood: {
+                                type: "string",
+                                title: "Current Return Likelihood",
+                                enum: ["1", "2", "3", "4", "5"]
+                              }
+                            }
+                          },
+                          baselineMitigationMeasures: {
+                            type: "string",
+                            title: "Baseline Mitigation Measures",
+                            extendedText: true,
+                            readonly: "2"
+                          },
+                          anyChange: {
+                            type: "object",
+                            title: " ",
+                            properties: {
+                              confirmation: {
+                                title: "Any Change?",
+                                type: "string",
+                                enum: ["Yes","No"],
+                                radio: true
+                              }
+                            },
+                            dependencies: {
+                              confirmation: {
+                                oneOf: [
+                                  {
+                                    properties: {
+                                      confirmation: {
+                                        enum: ["Yes"]
+                                      },
+                                      updatedMeasures: {
+                                        title: "Updated Mitigation Measures",
+                                        type: "string",
+                                        extendedText: true
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      confirmation: {
+                                        enum: ["No"]
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          riskAfterMitigation: {
+                            title: "Risk Rating after Mitigation",
+                            type: "string",
+                            enum: ["1", "2", "3", "4", "5"]
+                          },
+                          riskMet: {
+                            type: "object",
+                            title: " ",
+                            properties: {
+                              confirmation: {
+                                title: "Risk Met?",
+                                type: "string",
+                                enum: ["Yes", "No"],
+                                radio: true
+                              }
+                            },
+                            dependencies: {
+                              confirmation: {
+                                oneOf: [
+                                  {
+                                    properties: {
+                                      confirmation: {
+                                        enum: ["Yes"]
+                                      },
+                                      dateMet: {
+                                        title: "Date Risk Met",
+                                        type: "string",
+                                        format: "date"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      confirmation: {
+                                        enum: ["No"]
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      {
+                        properties: {
+                          liveRisk: {
+                            enum: ["No"]
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              procurementInfrastructure: {
+                title: "Procurement- Infrastructure",
+                type: "object",
+                properties: {
+                  liveRisk: {
+                    type: "string",
+                    title: "Live Risk?",
+                    enum: ["Yes", "No"],
+                    radio: true
+                  }
+                },
+                dependencies: {
+                  liveRisk: {
+                    oneOf: [
+                      {
+                        properties: {
+                          liveRisk: {
+                            enum: ["Yes"]
+                          },
+                          description: {
+                            type: "string",
+                            title: "Description Of Risk",
+                            extendedText: true,
+                            readonly: "2"
+                          },
+                          dates: {
+                            type: "object",
+                            title: "",
+                            horizontal: true,
+                            properties: {
+                              expectedCompletion: {
+                                type: "string",
+                                title: "Expected Completion Date",
+                                format: "date",
+                                readonly: "2"
+                              },
+                              currentReturnCompletionDate: {
+                                type: "string",
+                                title: "Expected Return Completion Date"
+                              }
+                            }
+                          },
+                          varianceAmount: {
+                            type: "string",
+                            title: "Variance Amount (days)",
+                            readonly: true
+                          },
+                          varianceReason: {
+                            type: "string",
+                            title: "Variance Reason",
+                            extendedText: true
+                          },
+                          ratings: {
+                            type: "object",
+                            horizontal: "true",
+                            title: "",
+                            properties: {
+                              baselineImpact: {
+                                type: "string",
+                                title: "Baseline Impact",
+                                enum: ["1", "2", "3", "4","5"],
+                                readonly: "2"
+                              },
+                              baselineLikelihood: {
+                                type: "string",
+                                title: "Baseline Likelihood",
+                                enum: ["1", "2", "3", "4","5"],
+                                readonly: "2"
+                              },
+                              currentReturnLikelihood: {
+                                type: "string",
+                                title: "Current Return Likelihood",
+                                enum: ["1", "2", "3", "4", "5"]
+                              }
+                            }
+                          },
+                          baselineMitigationMeasures: {
+                            type: "string",
+                            title: "Baseline Mitigation Measures",
+                            extendedText: true,
+                            readonly: "2"
+                          },
+                          anyChange: {
+                            type: "object",
+                            title: " ",
+                            properties: {
+                              confirmation: {
+                                title: "Any Change?",
+                                type: "string",
+                                enum: ["Yes","No"],
+                                radio: true
+                              }
+                            },
+                            dependencies: {
+                              confirmation: {
+                                oneOf: [
+                                  {
+                                    properties: {
+                                      confirmation: {
+                                        enum: ["Yes"]
+                                      },
+                                      updatedMeasures: {
+                                        title: "Updated Mitigation Measures",
+                                        type: "string",
+                                        extendedText: true
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      confirmation: {
+                                        enum: ["No"]
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          riskAfterMitigation: {
+                            title: "Risk Rating after Mitigation",
+                            type: "string",
+                            enum: ["1", "2", "3", "4", "5"]
+                          },
+                          riskMet: {
+                            type: "object",
+                            title: " ",
+                            properties: {
+                              confirmation: {
+                                title: "Risk Met?",
+                                type: "string",
+                                enum: ["Yes", "No"],
+                                radio: true
+                              }
+                            },
+                            dependencies: {
+                              confirmation: {
+                                oneOf: [
+                                  {
+                                    properties: {
+                                      confirmation: {
+                                        enum: ["Yes"]
+                                      },
+                                      dateMet: {
+                                        title: "Date Risk Met",
+                                        type: "string",
+                                        format: "date"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      confirmation: {
+                                        enum: ["No"]
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      {
+                        properties: {
+                          liveRisk: {
+                            enum: ["No"]
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              planningInfrastructure: {
+                title: "Planning- Infrastructure",
+                type: "object",
+                properties: {
+                  liveRisk: {
+                    type: "string",
+                    title: "Live Risk?",
+                    enum: ["Yes", "No"],
+                    radio: true
+                  }
+                },
+                dependencies: {
+                  liveRisk: {
+                    oneOf: [
+                      {
+                        properties: {
+                          liveRisk: {
+                            enum: ["Yes"]
+                          },
+                          description: {
+                            type: "string",
+                            title: "Description Of Risk",
+                            extendedText: true,
+                            readonly: "2"
+                          },
+                          dates: {
+                            type: "object",
+                            title: "",
+                            horizontal: true,
+                            properties: {
+                              expectedCompletion: {
+                                type: "string",
+                                title: "Expected Completion Date",
+                                format: "date",
+                                readonly: "2"
+                              },
+                              currentReturnCompletionDate: {
+                                type: "string",
+                                title: "Expected Return Completion Date"
+                              }
+                            }
+                          },
+                          varianceAmount: {
+                            type: "string",
+                            title: "Variance Amount (days)",
+                            readonly: true
+                          },
+                          varianceReason: {
+                            type: "string",
+                            title: "Variance Reason",
+                            extendedText: true
+                          },
+                          ratings: {
+                            type: "object",
+                            horizontal: "true",
+                            title: "",
+                            properties: {
+                              baselineImpact: {
+                                type: "string",
+                                title: "Baseline Impact",
+                                enum: ["1", "2", "3", "4","5"],
+                                readonly: "2"
+                              },
+                              baselineLikelihood: {
+                                type: "string",
+                                title: "Baseline Likelihood",
+                                enum: ["1", "2", "3", "4","5"],
+                                readonly: "2"
+                              },
+                              currentReturnLikelihood: {
+                                type: "string",
+                                title: "Current Return Likelihood",
+                                enum: ["1", "2", "3", "4", "5"]
+                              }
+                            }
+                          },
+                          baselineMitigationMeasures: {
+                            type: "string",
+                            title: "Baseline Mitigation Measures",
+                            extendedText: true,
+                            readonly: "2"
+                          },
+                          anyChange: {
+                            type: "object",
+                            title: " ",
+                            properties: {
+                              confirmation: {
+                                title: "Any Change?",
+                                type: "string",
+                                enum: ["Yes","No"],
+                                radio: true
+                              }
+                            },
+                            dependencies: {
+                              confirmation: {
+                                oneOf: [
+                                  {
+                                    properties: {
+                                      confirmation: {
+                                        enum: ["Yes"]
+                                      },
+                                      updatedMeasures: {
+                                        title: "Updated Mitigation Measures",
+                                        type: "string",
+                                        extendedText: true
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      confirmation: {
+                                        enum: ["No"]
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          riskAfterMitigation: {
+                            title: "Risk Rating after Mitigation",
+                            type: "string",
+                            enum: ["1", "2", "3", "4", "5"]
+                          },
+                          riskMet: {
+                            type: "object",
+                            title: " ",
+                            properties: {
+                              confirmation: {
+                                title: "Risk Met?",
+                                type: "string",
+                                enum: ["Yes", "No"],
+                                radio: true
+                              }
+                            },
+                            dependencies: {
+                              confirmation: {
+                                oneOf: [
+                                  {
+                                    properties: {
+                                      confirmation: {
+                                        enum: ["Yes"]
+                                      },
+                                      dateMet: {
+                                        title: "Date Risk Met",
+                                        type: "string",
+                                        format: "date"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      confirmation: {
+                                        enum: ["No"]
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      {
+                        properties: {
+                          liveRisk: {
+                            enum: ["No"]
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              deliveryInfrastructure: {
+                title: "Delivery- Infrastructure",
+                type: "object",
+                properties: {
+                  liveRisk: {
+                    type: "string",
+                    title: "Live Risk?",
+                    enum: ["Yes", "No"],
+                    radio: true
+                  }
+                },
+                dependencies: {
+                  liveRisk: {
+                    oneOf: [
+                      {
+                        properties: {
+                          liveRisk: {
+                            enum: ["Yes"]
+                          },
+                          description: {
+                            type: "string",
+                            title: "Description Of Risk",
+                            extendedText: true,
+                            readonly: "2"
+                          },
+                          dates: {
+                            type: "object",
+                            title: "",
+                            horizontal: true,
+                            properties: {
+                              expectedCompletion: {
+                                type: "string",
+                                title: "Expected Completion Date",
+                                format: "date",
+                                readonly: "2"
+                              },
+                              currentReturnCompletionDate: {
+                                type: "string",
+                                title: "Expected Return Completion Date"
+                              }
+                            }
+                          },
+                          varianceAmount: {
+                            type: "string",
+                            title: "Variance Amount (days)",
+                            readonly: true
+                          },
+                          varianceReason: {
+                            type: "string",
+                            title: "Variance Reason",
+                            extendedText: true
+                          },
+                          ratings: {
+                            type: "object",
+                            horizontal: "true",
+                            title: "",
+                            properties: {
+                              baselineImpact: {
+                                type: "string",
+                                title: "Baseline Impact",
+                                enum: ["1", "2", "3", "4","5"],
+                                readonly: "2"
+                              },
+                              baselineLikelihood: {
+                                type: "string",
+                                title: "Baseline Likelihood",
+                                enum: ["1", "2", "3", "4","5"],
+                                readonly: "2"
+                              },
+                              currentReturnLikelihood: {
+                                type: "string",
+                                title: "Current Return Likelihood",
+                                enum: ["1", "2", "3", "4", "5"]
+                              }
+                            }
+                          },
+                          baselineMitigationMeasures: {
+                            type: "string",
+                            title: "Baseline Mitigation Measures",
+                            extendedText: true,
+                            readonly: "2"
+                          },
+                          anyChange: {
+                            type: "object",
+                            title: " ",
+                            properties: {
+                              confirmation: {
+                                title: "Any Change?",
+                                type: "string",
+                                enum: ["Yes","No"],
+                                radio: true
+                              }
+                            },
+                            dependencies: {
+                              confirmation: {
+                                oneOf: [
+                                  {
+                                    properties: {
+                                      confirmation: {
+                                        enum: ["Yes"]
+                                      },
+                                      updatedMeasures: {
+                                        title: "Updated Mitigation Measures",
+                                        type: "string",
+                                        extendedText: true
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      confirmation: {
+                                        enum: ["No"]
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          riskAfterMitigation: {
+                            title: "Risk Rating after Mitigation",
+                            type: "string",
+                            enum: ["1", "2", "3", "4", "5"]
+                          },
+                          riskMet: {
+                            type: "object",
+                            title: " ",
+                            properties: {
+                              confirmation: {
+                                title: "Risk Met?",
+                                type: "string",
+                                enum: ["Yes", "No"],
+                                radio: true
+                              }
+                            },
+                            dependencies: {
+                              confirmation: {
+                                oneOf: [
+                                  {
+                                    properties: {
+                                      confirmation: {
+                                        enum: ["Yes"]
+                                      },
+                                      dateMet: {
+                                        title: "Date Risk Met",
+                                        type: "string",
+                                        format: "date"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      confirmation: {
+                                        enum: ["No"]
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      {
+                        properties: {
+                          liveRisk: {
+                            enum: ["No"]
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              procurementHousing: {
+                title: "Procurement- Housing",
+                type: "object",
+                properties: {
+                  liveRisk: {
+                    type: "string",
+                    title: "Live Risk?",
+                    enum: ["Yes", "No"],
+                    radio: true
+                  }
+                },
+                dependencies: {
+                  liveRisk: {
+                    oneOf: [
+                      {
+                        properties: {
+                          liveRisk: {
+                            enum: ["Yes"]
+                          },
+                          description: {
+                            type: "string",
+                            title: "Description Of Risk",
+                            extendedText: true,
+                            readonly: "2"
+                          },
+                          dates: {
+                            type: "object",
+                            title: "",
+                            horizontal: true,
+                            properties: {
+                              expectedCompletion: {
+                                type: "string",
+                                title: "Expected Completion Date",
+                                format: "date",
+                                readonly: "2"
+                              },
+                              currentReturnCompletionDate: {
+                                type: "string",
+                                title: "Expected Return Completion Date"
+                              }
+                            }
+                          },
+                          varianceAmount: {
+                            type: "string",
+                            title: "Variance Amount (days)",
+                            readonly: true
+                          },
+                          varianceReason: {
+                            type: "string",
+                            title: "Variance Reason",
+                            extendedText: true
+                          },
+                          ratings: {
+                            type: "object",
+                            horizontal: "true",
+                            title: "",
+                            properties: {
+                              baselineImpact: {
+                                type: "string",
+                                title: "Baseline Impact",
+                                enum: ["1", "2", "3", "4","5"],
+                                readonly: "2"
+                              },
+                              baselineLikelihood: {
+                                type: "string",
+                                title: "Baseline Likelihood",
+                                enum: ["1", "2", "3", "4","5"],
+                                readonly: "2"
+                              },
+                              currentReturnLikelihood: {
+                                type: "string",
+                                title: "Current Return Likelihood",
+                                enum: ["1", "2", "3", "4", "5"]
+                              }
+                            }
+                          },
+                          baselineMitigationMeasures: {
+                            type: "string",
+                            title: "Baseline Mitigation Measures",
+                            extendedText: true,
+                            readonly: "2"
+                          },
+                          anyChange: {
+                            type: "object",
+                            title: " ",
+                            properties: {
+                              confirmation: {
+                                title: "Any Change?",
+                                type: "string",
+                                enum: ["Yes","No"],
+                                radio: true
+                              }
+                            },
+                            dependencies: {
+                              confirmation: {
+                                oneOf: [
+                                  {
+                                    properties: {
+                                      confirmation: {
+                                        enum: ["Yes"]
+                                      },
+                                      updatedMeasures: {
+                                        title: "Updated Mitigation Measures",
+                                        type: "string",
+                                        extendedText: true
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      confirmation: {
+                                        enum: ["No"]
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          riskAfterMitigation: {
+                            title: "Risk Rating after Mitigation",
+                            type: "string",
+                            enum: ["1", "2", "3", "4", "5"]
+                          },
+                          riskMet: {
+                            type: "object",
+                            title: " ",
+                            properties: {
+                              confirmation: {
+                                title: "Risk Met?",
+                                type: "string",
+                                enum: ["Yes", "No"],
+                                radio: true
+                              }
+                            },
+                            dependencies: {
+                              confirmation: {
+                                oneOf: [
+                                  {
+                                    properties: {
+                                      confirmation: {
+                                        enum: ["Yes"]
+                                      },
+                                      dateMet: {
+                                        title: "Date Risk Met",
+                                        type: "string",
+                                        format: "date"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      confirmation: {
+                                        enum: ["No"]
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      {
+                        properties: {
+                          liveRisk: {
+                            enum: ["No"]
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              planningHousing: {
+                title: "Planning- Housing",
+                type: "object",
+                properties: {
+                  liveRisk: {
+                    type: "string",
+                    title: "Live Risk?",
+                    enum: ["Yes", "No"],
+                    radio: true
+                  }
+                },
+                dependencies: {
+                  liveRisk: {
+                    oneOf: [
+                      {
+                        properties: {
+                          liveRisk: {
+                            enum: ["Yes"]
+                          },
+                          description: {
+                            type: "string",
+                            title: "Description Of Risk",
+                            extendedText: true,
+                            readonly: "2"
+                          },
+                          dates: {
+                            type: "object",
+                            title: "",
+                            horizontal: true,
+                            properties: {
+                              expectedCompletion: {
+                                type: "string",
+                                title: "Expected Completion Date",
+                                format: "date",
+                                readonly: "2"
+                              },
+                              currentReturnCompletionDate: {
+                                type: "string",
+                                title: "Expected Return Completion Date"
+                              }
+                            }
+                          },
+                          varianceAmount: {
+                            type: "string",
+                            title: "Variance Amount (days)",
+                            readonly: true
+                          },
+                          varianceReason: {
+                            type: "string",
+                            title: "Variance Reason",
+                            extendedText: true
+                          },
+                          ratings: {
+                            type: "object",
+                            horizontal: "true",
+                            title: "",
+                            properties: {
+                              baselineImpact: {
+                                type: "string",
+                                title: "Baseline Impact",
+                                enum: ["1", "2", "3", "4","5"],
+                                readonly: "2"
+                              },
+                              baselineLikelihood: {
+                                type: "string",
+                                title: "Baseline Likelihood",
+                                enum: ["1", "2", "3", "4","5"],
+                                readonly: "2"
+                              },
+                              currentReturnLikelihood: {
+                                type: "string",
+                                title: "Current Return Likelihood",
+                                enum: ["1", "2", "3", "4", "5"]
+                              }
+                            }
+                          },
+                          baselineMitigationMeasures: {
+                            type: "string",
+                            title: "Baseline Mitigation Measures",
+                            extendedText: true,
+                            readonly: "2"
+                          },
+                          anyChange: {
+                            type: "object",
+                            title: " ",
+                            properties: {
+                              confirmation: {
+                                title: "Any Change?",
+                                type: "string",
+                                enum: ["Yes","No"],
+                                radio: true
+                              }
+                            },
+                            dependencies: {
+                              confirmation: {
+                                oneOf: [
+                                  {
+                                    properties: {
+                                      confirmation: {
+                                        enum: ["Yes"]
+                                      },
+                                      updatedMeasures: {
+                                        title: "Updated Mitigation Measures",
+                                        type: "string",
+                                        extendedText: true
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      confirmation: {
+                                        enum: ["No"]
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          riskAfterMitigation: {
+                            title: "Risk Rating after Mitigation",
+                            type: "string",
+                            enum: ["1", "2", "3", "4", "5"]
+                          },
+                          riskMet: {
+                            type: "object",
+                            title: " ",
+                            properties: {
+                              confirmation: {
+                                title: "Risk Met?",
+                                type: "string",
+                                enum: ["Yes", "No"],
+                                radio: true
+                              }
+                            },
+                            dependencies: {
+                              confirmation: {
+                                oneOf: [
+                                  {
+                                    properties: {
+                                      confirmation: {
+                                        enum: ["Yes"]
+                                      },
+                                      dateMet: {
+                                        title: "Date Risk Met",
+                                        type: "string",
+                                        format: "date"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      confirmation: {
+                                        enum: ["No"]
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      {
+                        properties: {
+                          liveRisk: {
+                            enum: ["No"]
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              delivery: {
+                title: "Delivery- Housing",
+                type: "object",
+                properties: {
+                  liveRisk: {
+                    type: "string",
+                    title: "Live Risk?",
+                    enum: ["Yes", "No"],
+                    radio: true
+                  }
+                },
+                dependencies: {
+                  liveRisk: {
+                    oneOf: [
+                      {
+                        properties: {
+                          liveRisk: {
+                            enum: ["Yes"]
+                          },
+                          description: {
+                            type: "string",
+                            title: "Description Of Risk",
+                            extendedText: true,
+                            readonly: "2"
+                          },
+                          dates: {
+                            type: "object",
+                            title: "",
+                            horizontal: true,
+                            properties: {
+                              expectedCompletion: {
+                                type: "string",
+                                title: "Expected Completion Date",
+                                format: "date",
+                                readonly: "2"
+                              },
+                              currentReturnCompletionDate: {
+                                type: "string",
+                                title: "Expected Return Completion Date"
+                              }
+                            }
+                          },
+                          varianceAmount: {
+                            type: "string",
+                            title: "Variance Amount (days)",
+                            readonly: true
+                          },
+                          varianceReason: {
+                            type: "string",
+                            title: "Variance Reason",
+                            extendedText: true
+                          },
+                          ratings: {
+                            type: "object",
+                            horizontal: "true",
+                            title: "",
+                            properties: {
+                              baselineImpact: {
+                                type: "string",
+                                title: "Baseline Impact",
+                                enum: ["1", "2", "3", "4","5"],
+                                readonly: "2"
+                              },
+                              baselineLikelihood: {
+                                type: "string",
+                                title: "Baseline Likelihood",
+                                enum: ["1", "2", "3", "4","5"],
+                                readonly: "2"
+                              },
+                              currentReturnLikelihood: {
+                                type: "string",
+                                title: "Current Return Likelihood",
+                                enum: ["1", "2", "3", "4", "5"]
+                              }
+                            }
+                          },
+                          baselineMitigationMeasures: {
+                            type: "string",
+                            title: "Baseline Mitigation Measures",
+                            extendedText: true,
+                            readonly: "2"
+                          },
+                          anyChange: {
+                            type: "object",
+                            title: " ",
+                            properties: {
+                              confirmation: {
+                                title: "Any Change?",
+                                type: "string",
+                                enum: ["Yes","No"],
+                                radio: true
+                              }
+                            },
+                            dependencies: {
+                              confirmation: {
+                                oneOf: [
+                                  {
+                                    properties: {
+                                      confirmation: {
+                                        enum: ["Yes"]
+                                      },
+                                      updatedMeasures: {
+                                        title: "Updated Mitigation Measures",
+                                        type: "string",
+                                        extendedText: true
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      confirmation: {
+                                        enum: ["No"]
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          riskAfterMitigation: {
+                            title: "Risk Rating after Mitigation",
+                            type: "string",
+                            enum: ["1", "2", "3", "4", "5"]
+                          },
+                          riskMet: {
+                            type: "object",
+                            title: " ",
+                            properties: {
+                              confirmation: {
+                                title: "Risk Met?",
+                                type: "string",
+                                enum: ["Yes", "No"],
+                                radio: true
+                              }
+                            },
+                            dependencies: {
+                              confirmation: {
+                                oneOf: [
+                                  {
+                                    properties: {
+                                      confirmation: {
+                                        enum: ["Yes"]
+                                      },
+                                      dateMet: {
+                                        title: "Date Risk Met",
+                                        type: "string",
+                                        format: "date"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      confirmation: {
+                                        enum: ["No"]
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      {
+                        properties: {
+                          liveRisk: {
+                            enum: ["No"]
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              fundingPackage: {
+                title: "Funding Package",
+                type: "object",
+                properties: {
+                  liveRisk: {
+                    type: "string",
+                    title: "Live Risk?",
+                    enum: ["Yes", "No"],
+                    radio: true
+                  }
+                },
+                dependencies: {
+                  liveRisk: {
+                    oneOf: [
+                      {
+                        properties: {
+                          liveRisk: {
+                            enum: ["Yes"]
+                          },
+                          description: {
+                            type: "string",
+                            title: "Description Of Risk",
+                            extendedText: true,
+                            readonly: "2"
+                          },
+                          dates: {
+                            type: "object",
+                            title: "",
+                            horizontal: true,
+                            properties: {
+                              expectedCompletion: {
+                                type: "string",
+                                title: "Expected Completion Date",
+                                format: "date",
+                                readonly: "2"
+                              },
+                              currentReturnCompletionDate: {
+                                type: "string",
+                                title: "Expected Return Completion Date"
+                              }
+                            }
+                          },
+                          varianceAmount: {
+                            type: "string",
+                            title: "Variance Amount (days)",
+                            readonly: true
+                          },
+                          varianceReason: {
+                            type: "string",
+                            title: "Variance Reason",
+                            extendedText: true
+                          },
+                          ratings: {
+                            type: "object",
+                            horizontal: "true",
+                            title: "",
+                            properties: {
+                              baselineImpact: {
+                                type: "string",
+                                title: "Baseline Impact",
+                                enum: ["1", "2", "3", "4","5"],
+                                readonly: "2"
+                              },
+                              baselineLikelihood: {
+                                type: "string",
+                                title: "Baseline Likelihood",
+                                enum: ["1", "2", "3", "4","5"],
+                                readonly: "2"
+                              },
+                              currentReturnLikelihood: {
+                                type: "string",
+                                title: "Current Return Likelihood",
+                                enum: ["1", "2", "3", "4", "5"]
+                              }
+                            }
+                          },
+                          baselineMitigationMeasures: {
+                            type: "string",
+                            title: "Baseline Mitigation Measures",
+                            extendedText: true,
+                            readonly: "2"
+                          },
+                          anyChange: {
+                            type: "object",
+                            title: " ",
+                            properties: {
+                              confirmation: {
+                                title: "Any Change?",
+                                type: "string",
+                                enum: ["Yes","No"],
+                                radio: true
+                              }
+                            },
+                            dependencies: {
+                              confirmation: {
+                                oneOf: [
+                                  {
+                                    properties: {
+                                      confirmation: {
+                                        enum: ["Yes"]
+                                      },
+                                      updatedMeasures: {
+                                        title: "Updated Mitigation Measures",
+                                        type: "string",
+                                        extendedText: true
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      confirmation: {
+                                        enum: ["No"]
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          riskAfterMitigation: {
+                            title: "Risk Rating after Mitigation",
+                            type: "string",
+                            enum: ["1", "2", "3", "4", "5"]
+                          },
+                          riskMet: {
+                            type: "object",
+                            title: " ",
+                            properties: {
+                              confirmation: {
+                                title: "Risk Met?",
+                                type: "string",
+                                enum: ["Yes", "No"],
+                                radio: true
+                              }
+                            },
+                            dependencies: {
+                              confirmation: {
+                                oneOf: [
+                                  {
+                                    properties: {
+                                      confirmation: {
+                                        enum: ["Yes"]
+                                      },
+                                      dateMet: {
+                                        title: "Date Risk Met",
+                                        type: "string",
+                                        format: "date"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      confirmation: {
+                                        enum: ["No"]
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      {
+                        properties: {
+                          liveRisk: {
+                            enum: ["No"]
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              additionalRisks: {
+                title: "Any additional Risks?",
+                description: "Click on the plus button to add additional risks.",
+                type: "array",
+                addable: true,
+                items: {
+                  type: "object",
+                  title: "Risk",
+                  properties: {
+                    liveRisk: {
+                      type: "string",
+                      title: "Live Risk?",
+                      enum: ["Yes", "No"]
+                    },
+                    description: {
+                      type: "string",
+                      title: "Description Of Risk",
+                      extendedText: true,
+                      readonly: "2"
+                    },
+                    expectedCompletion: {
+                      type: "string",
+                      title: "Expected Completion Date",
+                      format: "date",
+                      readonly: "2"
+                    },
+                    currentReturnCompletionDate: {
+                      type: "string",
+                      title: "Expected Return Completion Date"
+                    },
+                    varianceAmount: {
+                      type: "string",
+                      title: "Variance Amount (days)",
+                      readonly: true
+                    },
+                    varianceReason: {
+                      type: "string",
+                      title: "Variance Reason",
+                      extendedText: true
+                    },
+                    baselineImpact: {
+                      type: "string",
+                      title: "Baseline Impact",
+                      enum: ["1", "2", "3", "4","5"],
+                      readonly: "2"
+                    },
+                    baselineLikelihood: {
+                      type: "string",
+                      title: "Baseline Likelihood",
+                      enum: ["1", "2", "3", "4","5"],
+                      readonly: "2"
+                    },
+                    currentReturnLikelihood: {
+                      type: "string",
+                      title: "Current Return Likelihood",
+                      enum: ["1", "2", "3", "4", "5"]
+                    },
+                    baselineMitigationMeasures: {
+                      type: "string",
+                      title: "Baseline Mitigation Measures",
+                      extendedText: true,
+                      readonly: "2"
+                    },
+                    anyChange: {
+                      type: "object",
+                      title: " ",
+                      properties: {
+                        confirmation: {
+                          title: "Any Change?",
+                          type: "string",
+                          enum: ["Yes","No"] 
+                        }
+                      },
+                      dependencies: {
+                        confirmation: {
+                          oneOf: [
+                            {
+                              properties: {
+                                confirmation: {
+                                  enum: ["Yes"]
+                                },
+                                updatedMeasures: {
+                                  title: "Updated of Mitigation Measures",
+                                  type: "string",
+                                  extendedText: true
+                                }
+                              }
+                            },
+                            {
+                              properties: {
+                                confirmation: {
+                                  enum: ["No"]
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    riskAfterMitigation: {
+                      title: "Risk Rating after Mitigation",
+                      type: "string",
+                      enum: ["1", "2", "3", "4", "5"]
+                    },
+                    riskMet: {
+                      type: "object",
+                      title: " ",
+                      properties: {
+                        confirmation: {
+                          title: "Risk Met?",
+                          type: "string",
+                          enum: ["Yes", "No"]
+                        }
+                      },
+                      dependencies: {
+                        confirmation: {
+                          oneOf: [
+                            {
+                              properties: {
+                                confirmation: {
+                                  enum: ["Yes"]
+                                },
+                                dateMet: {
+                                  title: "Date Risk Met",
+                                  type: "string",
+                                  format: "date"
+                                }
+                              }
+                            },
+                            {
+                              properties: {
+                                confirmation: {
+                                  enum: ["No"]
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+      
+                }
+              },
+              progressLastQuarter: {
+                title: "Describe progress for last quarter",
+                type: "string",
+                extendedText: true
+              },
+              actionsLastQuarter: {
+                title: "Describe actions for last quarter",
+                type: "string",
+                extendedText: true
+              },
+              riskRegister: {
+                title: "Please attach current risk register for scheme - FILE UPLOAD TO COME",
+                type: "string",
+                readonly: true
+              }
             }
           }
         }
