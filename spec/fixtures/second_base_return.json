@@ -35,7 +35,9 @@
           "s106SummaryOfRequirement": "Required",
           "statutoryConsents": {
             "anyStatutoryConsents": "Yes",
-            "statutoryConsents": [{ "baselineCompletion": "2020-01-01" }]
+            "statutoryConsents": [
+              { "baselineCompletion": "2020-01-01"}
+            ]
           }
         }
       },
@@ -93,8 +95,8 @@
   "fundingProfiles": {
     "totalHIFGrant": "10000",
     "fundingRequest": [],
-    "currentFunding": {"forecast": []},
-    "requestedProfiles": [{ "period": "2019/2020" }, {"period": null} ]
+    "currentFunding": { "forecast": [] },
+    "requestedProfiles": [{ "period": "2019/2020" }, { "period": null }]
   },
   "fundingPackages": [
     {
@@ -133,12 +135,8 @@
     }
   },
   "outputsActuals": {
-    "localAuthority": [
-      "Local Authority"
-    ],
-    "noOfUnits": [
-      "123"
-    ],
+    "localAuthority": ["Local Authority"],
+    "noOfUnits": ["123"],
     "size": "10"
   },
   "s151Confirmation": {

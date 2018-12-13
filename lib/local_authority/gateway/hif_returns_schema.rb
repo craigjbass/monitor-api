@@ -477,6 +477,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                             type: 'string',
                                             format: 'date'
                                           },
+                                          previousReturn: {
+                                            title: 'Previous Return',
+                                            readonly: true,
+                                            type: 'string',
+                                            format: 'date',
+                                            sourceKey: %i[return_data infrastructures planning section106 statutoryConsents statutoryConsents currentReturn]
+                                          },
                                           varianceReason: {
                                             title: 'Reason for variance',
                                             type: 'string'
@@ -1933,7 +1940,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                       format: "date"
                     }
                   }
-                },    
+                },
                 currentdetails: {
                   type: "object",
                   title: "",
@@ -3437,7 +3444,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                         confirmation: {
                           title: "Any Change?",
                           type: "string",
-                          enum: ["Yes","No"] 
+                          enum: ["Yes","No"]
                         }
                       },
                       dependencies: {
@@ -3508,7 +3515,6 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                       }
                     }
                   }
-      
                 }
               },
               progressLastQuarter: {
