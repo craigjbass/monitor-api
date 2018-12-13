@@ -23,7 +23,7 @@ class UI::Gateway::InMemoryReturnSchema
     )
 
     check_hif_tab_flags if type == 'hif'
-    
+
     @template
   end
   
@@ -32,6 +32,7 @@ class UI::Gateway::InMemoryReturnSchema
     delete_confirmation_tab if ENV['CONFIRMATION_TAB'].nil?
     delete_outputs_forcast_tab if ENV['OUTPUTS_FORECAST_TAB'].nil?
     delete_outputs_actuals_tab if ENV['OUTPUTS_ACTUALS_TAB'].nil?
+    delete_wider_scheme_tab if ENV['WIDER_SCHEME_TAB'].nil?
     delete_rm_monthly_catchup_tab if ENV['RM_MONTHLY_CATCHUP_TAB'].nil?  
   end
 
@@ -49,6 +50,10 @@ class UI::Gateway::InMemoryReturnSchema
 
   def delete_outputs_actuals_tab
     @template.schema[:properties].delete(:outputsActuals)
+  end
+
+  def delete_wider_scheme_tab
+    @template.schema[:properties].delete(:widerScheme)
   end
 
   def delete_rm_monthly_catchup_tab

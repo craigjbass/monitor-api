@@ -213,6 +213,11 @@
     "smePercent": null,
     "mmcPercent": null
   },
+  "widerScheme": [
+    {
+      "keyLiveIssues": [{"description": null, "mitigationActions": null, "ratingAfterMitigation": null}]
+    }
+  ],
   "s151Confirmation": {
     "hifFunding": {
       "hifTotalFundingRequest": "10000",

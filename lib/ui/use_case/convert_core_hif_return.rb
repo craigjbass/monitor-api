@@ -7,6 +7,7 @@ class UI::UseCase::ConvertCoreHIFReturn
     convert_infrastructures
     convert_funding_packages
     convert_funding_profiles
+    convert_wider_scheme
     convert_outputs_forecast
     convert_outputs_actuals
     convert_s151
@@ -377,6 +378,109 @@ class UI::UseCase::ConvertCoreHIFReturn
 
       new_package
     end
+  end
+
+  def convert_wider_scheme
+    @converted_return[:widerScheme] = [{keyLiveIssues: [{}]}]
+    return if @return[:widerScheme].nil?
+    
+    unless @return[:widerScheme][0][:overview].nil?
+      @converted_return[:widerScheme][0][:overview] = {
+        masterplan: @return[:widerScheme][0][:overview][:masterplan],
+        developmentPlan: @return[:widerScheme][0][:overview][:developmentPlan]
+      }
+    end
+
+    @converted_return[:widerScheme][0][:keyLiveIssues] = @return[:widerScheme][0][:keyLiveIssues].map do |issue|
+      next if issue.nil?
+      new_issue = {
+        description: issue[:description],
+      }
+
+      unless issue[:dates].nil?
+        new_issue[:dates] = {
+          dateRaised: issue[:dates][:dateRaised],
+          estimatedCompletionDate: issue[:dates][:estimatedCompletionDate]
+        }
+      end
+
+      unless issue[:currentdetails].nil?
+        new_issue[:currentdetails] = {
+          impact: issue[:currentdetails][:impact],
+          currentStatus: issue[:currentdetails][:currentStatus],
+          currentReturnLikelihood: issue[:currentdetails][:currentReturnLikelihood]
+        }
+      end
+
+      new_issue[:mitigationActions] = issue[:mitigationActions]
+      new_issue[:ratingAfterMitigation] = issue[:ratingAfterMitigation]
+
+      new_issue
+    end
+    
+    unless @return[:widerScheme][0][:topRisks].nil?
+      @converted_return[:widerScheme][0][:topRisks] = {}
+
+      @converted_return[:widerScheme][0][:topRisks][:landAssembly] = convert_top_risk(@return[:widerScheme][0][:topRisks][:landAssembly])
+      @converted_return[:widerScheme][0][:topRisks][:procurementInfrastructure] = convert_top_risk(@return[:widerScheme][0][:topRisks][:procurementInfrastructure])
+      @converted_return[:widerScheme][0][:topRisks][:planningInfrastructure] = convert_top_risk(@return[:widerScheme][0][:topRisks][:planningInfrastructure])
+      @converted_return[:widerScheme][0][:topRisks][:deliveryInfrastructure] = convert_top_risk(@return[:widerScheme][0][:topRisks][:deliveryInfrastructure])
+      @converted_return[:widerScheme][0][:topRisks][:procurementHousing] = convert_top_risk(@return[:widerScheme][0][:topRisks][:procurementHousing])
+      @converted_return[:widerScheme][0][:topRisks][:planningHousing] = convert_top_risk(@return[:widerScheme][0][:topRisks][:planningHousing])
+      @converted_return[:widerScheme][0][:topRisks][:delivery] = convert_top_risk(@return[:widerScheme][0][:topRisks][:delivery])
+      @converted_return[:widerScheme][0][:topRisks][:fundingPackage] = convert_top_risk(@return[:widerScheme][0][:topRisks][:fundingPackage])
+      
+      @converted_return[:widerScheme][0][:topRisks][:additionalRisks] = @return[:widerScheme][0][:topRisks][:additionalRisks].map do |risk|
+        convert_top_risk(risk)
+      end
+      
+      @converted_return[:widerScheme][0][:topRisks][:progressLastQuarter] = @return[:widerScheme][0][:topRisks][:progressLastQuarter]
+      @converted_return[:widerScheme][0][:topRisks][:actionsLastQuarter] = @return[:widerScheme][0][:topRisks][:actionsLastQuarter]
+      @converted_return[:widerScheme][0][:topRisks][:riskRegister] = @return[:widerScheme][0][:topRisks][:riskRegister]
+    end
+  end
+
+  def convert_top_risk(risk)
+    return if risk.nil?
+    new_risk = {
+      liveRisk: risk[:liveRisk],
+      description: risk[:description],
+      varianceAmount: risk[:varianceAmount],
+      varianceReason: risk[:varianceReason],
+      baselineMitigationMeasures: risk[:baselineMitigationMeasures],
+      riskAfterMitigation: risk[:riskAfterMitigation]
+    }
+
+    unless risk[:dates].nil?
+      new_risk[:dates] = {
+        expectedCompletion: risk[:dates][:expectedCompletion],
+        currentReturnCompletionDate: risk[:dates][:currentReturnCompletionDate]
+      }
+    end
+
+    unless risk[:ratings].nil?
+      new_risk[:ratings] = {
+        baselineImpact: risk[:ratings][:baselineImpact],
+        baselineLikelihood: risk[:ratings][:baselineLikelihood],
+        currentReturnLikelihood: risk[:ratings][:currentReturnLikelihood]
+      }
+    end
+
+    unless risk[:anyChange].nil?
+      new_risk[:anyChange] = {
+        confirmation: risk[:anyChange][:confirmation],
+        updatedMeasures: risk[:anyChange][:updatedMeasures]
+      }
+    end
+
+    unless risk[:riskMet].nil?
+      new_risk[:riskMet] = {
+        confirmation: risk[:riskMet][:confirmation],
+        dateMet: risk[:riskMet][:dateMet]
+      }
+    end
+
+    new_risk
   end
 
   def convert_outputs_forecast
