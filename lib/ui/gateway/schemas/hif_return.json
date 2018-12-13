@@ -502,7 +502,7 @@
                                 "type": "array",
                                 "items": {
                                   "type": "object",
-                                  "calculation": "set(formData, 'varianceAgainstBaseline', weeksPassed(get(formData, 'baselineCompletion'), get(formData, 'currentReturn')))",
+                                  "calculation": "set(formData, 'varianceAgainstBaseline', weeksPassed(get(formData, 'baselineCompletion'), get(formData, 'currentReturn'))); set(formData, 'varianceAgainstLastReturn', weeksPassed(get(formData, 'previousReturn'), get(formData, 'currentReturn')));",
                                   "properties": {
                                     "baselineCompletion": {
                                       "title": "Baseline completion",
@@ -541,6 +541,13 @@
                                       "title": "Current return",
                                       "type": "string",
                                       "format": "date"
+                                    },
+                                    "previousReturn": {
+                                      "title": "Previous Return",
+                                      "readonly": true,
+                                      "type": "string",
+                                      "format": "date",
+                                      "sourceKey": ["return_data", "infrastructures", "planning", "section106", "statutoryConsents", "statutoryConsents", "currentReturn"]
                                     },
                                     "varianceReason": {
                                       "title": "Reason for variance",
@@ -1513,9 +1520,9 @@
           "title": "Funding Request",
           "properties": {
             "forecast": {
-            "title": "Forecast",
-            "type": "array",
-            "quarterly": true,
+              "title": "Forecast",
+              "type": "array",
+              "quarterly": true,
               "items": {
                 "type": "object",
                 "properties": {
@@ -1593,8 +1600,8 @@
           "title": "",
           "properties": {
             "forecast": {
-            "title": "",
-            "type": "array",
+              "title": "",
+              "type": "array",
               "items": {
                 "type": "object",
                 "properties": {
@@ -1655,9 +1662,9 @@
                   "calculation": "periodTotal(formData, 'total', 'newProfile', 'instalment1', 'instalment2', 'instalment3', 'instalment4'); ",
                   "properties": {
                     "newProfile": {
-                    "title": "New Profile",
-                    "quarterly": true,
-                    "type": "array",
+                      "title": "New Profile",
+                      "quarterly": true,
+                      "type": "array",
                       "items": {
                         "type": "object",
                         "properties": {
@@ -1991,7 +1998,7 @@
                       "format": "date"
                     }
                   }
-                },    
+                },
                 "currentdetails": {
                   "type": "object",
                   "title": "",
@@ -2022,7 +2029,7 @@
                 "ratingAfterMitigation": {
                   "title": "Rating after mitigation",
                   "type": "string",
-                  "enum": ["1","2","3","4","5"]
+                  "enum": ["1", "2", "3", "4", "5"]
                 }
               }
             }
@@ -2093,13 +2100,13 @@
                               "baselineImpact": {
                                 "type": "string",
                                 "title": "Baseline Impact",
-                                "enum": ["1", "2", "3", "4","5"],
+                                "enum": ["1", "2", "3", "4", "5"],
                                 "readonly": false
                               },
                               "baselineLikelihood": {
                                 "type": "string",
                                 "title": "Baseline Likelihood",
-                                "enum": ["1", "2", "3", "4","5"],
+                                "enum": ["1", "2", "3", "4", "5"],
                                 "readonly": false
                               },
                               "currentReturnLikelihood": {
@@ -2122,7 +2129,7 @@
                               "confirmation": {
                                 "title": "Any Change?",
                                 "type": "string",
-                                "enum": ["Yes","No"],
+                                "enum": ["Yes", "No"],
                                 "radio": true
                               }
                             },
@@ -2267,13 +2274,13 @@
                               "baselineImpact": {
                                 "type": "string",
                                 "title": "Baseline Impact",
-                                "enum": ["1", "2", "3", "4","5"],
+                                "enum": ["1", "2", "3", "4", "5"],
                                 "readonly": false
                               },
                               "baselineLikelihood": {
                                 "type": "string",
                                 "title": "Baseline Likelihood",
-                                "enum": ["1", "2", "3", "4","5"],
+                                "enum": ["1", "2", "3", "4", "5"],
                                 "readonly": false
                               },
                               "currentReturnLikelihood": {
@@ -2296,7 +2303,7 @@
                               "confirmation": {
                                 "title": "Any Change?",
                                 "type": "string",
-                                "enum": ["Yes","No"],
+                                "enum": ["Yes", "No"],
                                 "radio": true
                               }
                             },
@@ -2441,13 +2448,13 @@
                               "baselineImpact": {
                                 "type": "string",
                                 "title": "Baseline Impact",
-                                "enum": ["1", "2", "3", "4","5"],
+                                "enum": ["1", "2", "3", "4", "5"],
                                 "readonly": false
                               },
                               "baselineLikelihood": {
                                 "type": "string",
                                 "title": "Baseline Likelihood",
-                                "enum": ["1", "2", "3", "4","5"],
+                                "enum": ["1", "2", "3", "4", "5"],
                                 "readonly": false
                               },
                               "currentReturnLikelihood": {
@@ -2470,7 +2477,7 @@
                               "confirmation": {
                                 "title": "Any Change?",
                                 "type": "string",
-                                "enum": ["Yes","No"],
+                                "enum": ["Yes", "No"],
                                 "radio": true
                               }
                             },
@@ -2615,13 +2622,13 @@
                               "baselineImpact": {
                                 "type": "string",
                                 "title": "Baseline Impact",
-                                "enum": ["1", "2", "3", "4","5"],
+                                "enum": ["1", "2", "3", "4", "5"],
                                 "readonly": false
                               },
                               "baselineLikelihood": {
                                 "type": "string",
                                 "title": "Baseline Likelihood",
-                                "enum": ["1", "2", "3", "4","5"],
+                                "enum": ["1", "2", "3", "4", "5"],
                                 "readonly": false
                               },
                               "currentReturnLikelihood": {
@@ -2644,7 +2651,7 @@
                               "confirmation": {
                                 "title": "Any Change?",
                                 "type": "string",
-                                "enum": ["Yes","No"],
+                                "enum": ["Yes", "No"],
                                 "radio": true
                               }
                             },
@@ -2789,13 +2796,13 @@
                               "baselineImpact": {
                                 "type": "string",
                                 "title": "Baseline Impact",
-                                "enum": ["1", "2", "3", "4","5"],
+                                "enum": ["1", "2", "3", "4", "5"],
                                 "readonly": false
                               },
                               "baselineLikelihood": {
                                 "type": "string",
                                 "title": "Baseline Likelihood",
-                                "enum": ["1", "2", "3", "4","5"],
+                                "enum": ["1", "2", "3", "4", "5"],
                                 "readonly": false
                               },
                               "currentReturnLikelihood": {
@@ -2818,7 +2825,7 @@
                               "confirmation": {
                                 "title": "Any Change?",
                                 "type": "string",
-                                "enum": ["Yes","No"],
+                                "enum": ["Yes", "No"],
                                 "radio": true
                               }
                             },
@@ -2963,13 +2970,13 @@
                               "baselineImpact": {
                                 "type": "string",
                                 "title": "Baseline Impact",
-                                "enum": ["1", "2", "3", "4","5"],
+                                "enum": ["1", "2", "3", "4", "5"],
                                 "readonly": false
                               },
                               "baselineLikelihood": {
                                 "type": "string",
                                 "title": "Baseline Likelihood",
-                                "enum": ["1", "2", "3", "4","5"],
+                                "enum": ["1", "2", "3", "4", "5"],
                                 "readonly": false
                               },
                               "currentReturnLikelihood": {
@@ -2992,7 +2999,7 @@
                               "confirmation": {
                                 "title": "Any Change?",
                                 "type": "string",
-                                "enum": ["Yes","No"],
+                                "enum": ["Yes", "No"],
                                 "radio": true
                               }
                             },
@@ -3137,13 +3144,13 @@
                               "baselineImpact": {
                                 "type": "string",
                                 "title": "Baseline Impact",
-                                "enum": ["1", "2", "3", "4","5"],
+                                "enum": ["1", "2", "3", "4", "5"],
                                 "readonly": false
                               },
                               "baselineLikelihood": {
                                 "type": "string",
                                 "title": "Baseline Likelihood",
-                                "enum": ["1", "2", "3", "4","5"],
+                                "enum": ["1", "2", "3", "4", "5"],
                                 "readonly": false
                               },
                               "currentReturnLikelihood": {
@@ -3166,7 +3173,7 @@
                               "confirmation": {
                                 "title": "Any Change?",
                                 "type": "string",
-                                "enum": ["Yes","No"],
+                                "enum": ["Yes", "No"],
                                 "radio": true
                               }
                             },
@@ -3311,13 +3318,13 @@
                               "baselineImpact": {
                                 "type": "string",
                                 "title": "Baseline Impact",
-                                "enum": ["1", "2", "3", "4","5"],
+                                "enum": ["1", "2", "3", "4", "5"],
                                 "readonly": false
                               },
                               "baselineLikelihood": {
                                 "type": "string",
                                 "title": "Baseline Likelihood",
-                                "enum": ["1", "2", "3", "4","5"],
+                                "enum": ["1", "2", "3", "4", "5"],
                                 "readonly": false
                               },
                               "currentReturnLikelihood": {
@@ -3340,7 +3347,7 @@
                               "confirmation": {
                                 "title": "Any Change?",
                                 "type": "string",
-                                "enum": ["Yes","No"],
+                                "enum": ["Yes", "No"],
                                 "radio": true
                               }
                             },
@@ -3468,13 +3475,13 @@
                     "baselineImpact": {
                       "type": "string",
                       "title": "Baseline Impact",
-                      "enum": ["1", "2", "3", "4","5"],
+                      "enum": ["1", "2", "3", "4", "5"],
                       "readonly": false
                     },
                     "baselineLikelihood": {
                       "type": "string",
                       "title": "Baseline Likelihood",
-                      "enum": ["1", "2", "3", "4","5"],
+                      "enum": ["1", "2", "3", "4", "5"],
                       "readonly": false
                     },
                     "currentReturnLikelihood": {
@@ -3495,7 +3502,7 @@
                         "confirmation": {
                           "title": "Any Change?",
                           "type": "string",
-                          "enum": ["Yes","No"] 
+                          "enum": ["Yes", "No"]
                         }
                       },
                       "dependencies": {
@@ -3566,7 +3573,6 @@
                       }
                     }
                   }
-      
                 }
               },
               "progressLastQuarter": {
