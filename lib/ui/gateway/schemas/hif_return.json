@@ -4893,6 +4893,258 @@
           }
         }
       }
+    },
+    "reviewAndAssurance": {
+      "title": "Review and Assurance",
+      "type": "object",
+      "laHidden": true,
+      "properties": {
+        "properties": {
+          "summary": {
+            "type": "object",
+            "properties": {
+              "date": {
+                "title": "Date of most recent quarterly meeting",
+                "type": "string",
+                "format": "date"
+              },
+              "assuranceManagerAttendance": {
+                "title": "Was the assurance manager in attendance?",
+                "type": "string",
+                "radio": true,
+                "enum": [
+                  "Yes",
+                  "No"
+                ]
+              },
+              "infrastructureDelivery": {
+                "type": "array",
+                "title": "",
+                "items": {
+                  "type": "object",
+                  "title": "",
+                  "horizontal": true,
+                  "properties": {
+                    "details": {
+                      "type": "string",
+                      "title": "Infrastructure Delivery",
+                      "extendedText": true
+                    },
+                    "riskRating": {
+                      "type": "string",
+                      "title": "Risk Rating",
+                      "radio": true,
+                      "enum": [
+                        "High",
+                        "Medium High",
+                        "Medium Low",
+                        "Low",
+                        "Achieved"
+                      ]
+                    }
+                  }
+                }
+              },
+              "hifFundedFinancials": {
+                "type": "object",
+                "title": "HIF Funded Financials",
+                "properties": {
+                  "summary": {
+                    "title": "Summary",
+                    "type": "string"
+                  },
+                  "riskRating": {
+                    "type": "string",
+                    "title": "Risk Rating",
+                    "radio": true,
+                    "enum": [
+                      "High",
+                      "Medium High",
+                      "Medium Low",
+                      "Low",
+                      "Achieved"
+                    ]
+                  }
+                }
+              },
+              "hifWiderScheme": {
+                "type": "object",
+                "title": "Wider Scheme",
+                "properties": {
+                  "summary": {
+                    "title": "Summary",
+                    "type": "string"
+                  },
+                  "riskRating": {
+                    "type": "string",
+                    "title": "Risk Rating",
+                    "radio": true,
+                    "enum": [
+                      "High",
+                      "Medium High",
+                      "Medium Low",
+                      "Low",
+                      "Achieved"
+                    ]
+                  }
+                }
+              },
+              "hifWiderScheme": {
+                "type": "object",
+                "title": "Output Forecast",
+                "properties": {
+                  "summary": {
+                    "title": "Summary",
+                    "type": "string"
+                  },
+                  "riskRating": {
+                    "type": "string",
+                    "title": "Risk Rating",
+                    "radio": true,
+                    "enum": [
+                      "High",
+                      "Medium High",
+                      "Medium Low",
+                      "Low",
+                      "Achieved"
+                    ]
+                  }
+                }
+              },
+              "outputForecast": {
+                "type": "object",
+                "title": "Output Forecast",
+                "properties": {
+                  "summary": {
+                    "title": "Summary",
+                    "type": "string"
+                  },
+                  "riskRating": {
+                    "type": "string",
+                    "title": "Risk Rating",
+                    "radio": true,
+                    "enum": [
+                      "High",
+                      "Medium High",
+                      "Medium Low",
+                      "Low",
+                      "Achieved"
+                    ]
+                  }
+                }
+              },
+              "barriers": {
+                "type": "object",
+                "title": "Barriers",
+                "properties": {
+                  "significantIssues": {
+                    "type": "array",
+                    "title": "Significant issues",
+                    "properties": {
+                      "barrierType": {
+                        "title": "Type",
+                        "type": "object",
+                        "enum": [
+                          "Land acquisition",
+                          "Site Access - Road",
+                          "Site Access - Railway",
+                          "Flood risk",
+                          "Funding - sources / cashflow",
+                          "Planning",
+                          "Land Remediation",
+                          "Utilities Provision",
+                          "Procurement",
+                          "Other"
+                        ]
+                      }
+                    },
+                    "dependencies": {
+                      "barrierType": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "barrierType": {
+                                "enum": ["Land acquisition"]
+                              }
+                            }
+                          },
+                          {
+                            "properties": {
+                              "barrierType": {
+                                "enum": ["Site Access - Road"]
+                              }
+                            }
+                          },
+                          {
+                            "properties": {
+                              "barrierType": {
+                                "enum": ["Site Access - Railway"]
+                              }
+                            }
+                          },
+                          {
+                            "properties": {
+                              "barrierType": {
+                                "enum": ["Flood risk"]
+                              }
+                            }
+                          },
+                          {
+                            "properties": {
+                              "barrierType": {
+                                "enum": ["Funding - sources / cashflow"]
+                              }
+                            }
+                          },
+                          {
+                            "properties": {
+                              "barrierType": {
+                                "enum": ["Planning"]
+                              }
+                            }
+                          },
+                          {
+                            "properties": {
+                              "barrierType": {
+                                "enum": ["Land Remediation"]
+                              }
+                            }
+                          },
+                          {
+                            "properties": {
+                              "barrierType": {
+                                "enum": ["Utilities Provision"]
+                              }
+                            }
+                          },
+                          {
+                            "properties": {
+                              "barrierType": {
+                                "enum": ["Procurement"]
+                              }
+                            }
+                          },
+                          {
+                            "properties": {
+                              "barrierType": {
+                                "enum": ["Other"]
+                              },
+                              "details": {
+                                "title": "Details",
+                                "type": "string"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
