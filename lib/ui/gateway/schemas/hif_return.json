@@ -1289,7 +1289,7 @@
                     },
                     "riskAnyChange": {
                       "type": "string",
-                      "title": "Any change in risk?",
+                      "title": "Any change to risk mitigation?",
                       "radio": true,
                       "enum": ["Yes", "No"]
                     },
