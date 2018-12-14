@@ -29,6 +29,7 @@ class UI::UseCase::ConvertCoreHIFProject
       projectDescription: @project[:summary][:projectDescription],
       greenOrBrownField: @project[:summary][:greenOrBrownField],
       noOfHousingSites: @project[:summary][:noOfHousingSites],
+      polygonsForHousingSite: @project[:summary][:polygonsForHousingSite],
       totalArea: @project[:summary][:totalArea],
       hifFundingAmount: @project[:summary][:hifFundingAmount],
       descriptionOfInfrastructure: @project[:summary][:descriptionOfInfrastructure],
