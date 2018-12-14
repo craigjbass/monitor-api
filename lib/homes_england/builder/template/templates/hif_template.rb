@@ -647,6 +647,11 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
           laReadOnly: true,
           title: 'Number of housing sites'
         },
+        polygonsForHousingSite: {
+          type: 'string',
+          title: 'Polygons for housing sites',
+          format: 'uri'
+        },
         totalArea: {
           type: 'string',
           title: 'Total Area (hectares)'
