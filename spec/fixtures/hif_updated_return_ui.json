@@ -10,10 +10,21 @@
           "baselineOutlinePlanningPermissionGranted": "No",
           "baselineSummaryOfCriticalPath": "Summary of critical path",
           "planningSubmitted": {
-            "baseline": "2020-01-01"
+            "baseline": "2020-01-01",
+            "status": "Delayed",
+            "reason": "Distracted by kittens"
           },
           "planningGranted": {
             "baseline": "2020-02-01"
+          }
+        },
+        "planningNotGranted": {
+          "fieldOne": {
+            "varianceCalculations": {
+              "varianceAgainstLastReturn": {
+                "varianceLastReturnFullPlanningPermissionSubmitted": null
+              }
+            }
           }
         },
         "fullPlanning": {
@@ -85,9 +96,9 @@
         "baselineRisks": [
           {
             "riskBaselineRisk": "Risk one",
-            "riskCurrentReturnLikelihood": null,
             "riskBaselineImpact": "High",
             "riskBaselineLikelihood": "High",
+            "riskCurrentReturnLikelihood": null,
             "riskBaselineMitigationsInPlace": "Do not do the thing",
             "riskAnyChange": null,
             "riskCurrentReturnMitigationsInPlace": null,
@@ -99,6 +110,7 @@
   ],
   "fundingProfiles": {
     "totalHIFGrant": "10000",
+    "currentFunding": {"forecast": []},
     "fundingRequest": {
       "forecast":
       [
@@ -119,8 +131,7 @@
           "total": null
         }
       ]
-      },
-    "currentFunding": {"forecast":[]},
+    },
     "changeRequired": null,
     "reasonForRequest": null,
     "mitigationInPlace": null,
@@ -143,7 +154,7 @@
           "total": null
         }
       ]
-    } 
+    }
   },
   "fundingPackages": [
     {
@@ -199,19 +210,27 @@
     }
   },
   "outputsActuals": {
-    "localAuthority": ["Local Authority"],
-    "noOfUnits": ["123"],
-    "size": "10",
-    "previousStarts": null,
-    "startsSinceLastReturn": null,
-    "previousCompletions": null,
-    "completionsSinceLastReturn": null,
-    "laOwned": null,
-    "pslLand": null,
-    "brownfieldPercent": null,
-    "leaseholdPercent": null,
-    "smePercent": null,
-    "mmcPercent": null
+    "details": {
+      "localAuthority": ["Local Authority"],
+      "noOfUnits": ["123"],
+      "size": "10"
+    },
+    "starts": {
+      "previousStarts": null,
+      "startsSinceLastReturn": null,
+      "previousCompletions": null,
+      "completionsSinceLastReturn": null
+    },
+    "ownership": {
+      "laOwned": null,
+      "pslLand": null
+    },
+    "percentages": {
+      "brownfieldPercent": null,
+      "leaseholdPercent": null,
+      "smePercent": null,
+      "mmcPercent": null
+    }
   },
   "widerScheme": [
     {
@@ -226,7 +245,7 @@
         "requestedAmount": null,
         "reasonForRequest": null,
         "varianceFromBaseline": null,
-        "varianceFromBaselinePercent" : null,
+        "varianceFromBaselinePercent": null,
         "mitigationInPlace": null
       },
       "hifFundingProfile": [
@@ -304,16 +323,6 @@
     }
   },
   "s151": {
-    "supportingEvidence": {
-      "lastQuarterMonthSpend": {
-        "forecast": null,
-        "actual": null,
-        "hasVariance": null,
-        "varianceAgainstForcastAmount": null,
-        "varianceAgainstForcastPercentage": null
-      },
-      "evidenceOfSpendPastQuarter": null
-    },
     "claimSummary": {
       "hifTotalFundingRequest": "10000",
       "hifSpendToDate": null,

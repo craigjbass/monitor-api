@@ -697,18 +697,29 @@ class UI::UseCase::ConvertUIHIFReturn
     return if @return[:outputsActuals].nil?
     @converted_return[:outputsActuals] = {}
 
-    @converted_return[:outputsActuals][:localAuthority] = @return[:outputsActuals][:localAuthority]
-    @converted_return[:outputsActuals][:noOfUnits] = @return[:outputsActuals][:noOfUnits]
-    @converted_return[:outputsActuals][:size] = @return[:outputsActuals][:size]
-    @converted_return[:outputsActuals][:previousStarts] = @return[:outputsActuals][:previousStarts]
-    @converted_return[:outputsActuals][:startsSinceLastReturn] = @return[:outputsActuals][:startsSinceLastReturn]
-    @converted_return[:outputsActuals][:previousCompletions] = @return[:outputsActuals][:previousCompletions]
-    @converted_return[:outputsActuals][:completionsSinceLastReturn] = @return[:outputsActuals][:completionsSinceLastReturn]
-    @converted_return[:outputsActuals][:laOwned] = @return[:outputsActuals][:laOwned]
-    @converted_return[:outputsActuals][:pslLand] = @return[:outputsActuals][:pslLand]
-    @converted_return[:outputsActuals][:brownfieldPercent] = @return[:outputsActuals][:brownfieldPercent]
-    @converted_return[:outputsActuals][:leaseholdPercent] = @return[:outputsActuals][:leaseholdPercent]
-    @converted_return[:outputsActuals][:smePercent] = @return[:outputsActuals][:smePercent]
-    @converted_return[:outputsActuals][:mmcPercent] = @return[:outputsActuals][:mmcPercent]
+    unless @return[:outputsActuals][:details].nil?
+      @converted_return[:outputsActuals][:localAuthority] = @return[:outputsActuals][:details][:localAuthority]
+      @converted_return[:outputsActuals][:noOfUnits] = @return[:outputsActuals][:details][:noOfUnits]
+      @converted_return[:outputsActuals][:size] = @return[:outputsActuals][:details][:size]
+    end
+
+    unless @return[:outputsActuals][:starts].nil?
+      @converted_return[:outputsActuals][:previousStarts] = @return[:outputsActuals][:starts][:previousStarts]
+      @converted_return[:outputsActuals][:startsSinceLastReturn] = @return[:outputsActuals][:starts][:startsSinceLastReturn]
+      @converted_return[:outputsActuals][:previousCompletions] = @return[:outputsActuals][:starts][:previousCompletions]
+      @converted_return[:outputsActuals][:completionsSinceLastReturn] = @return[:outputsActuals][:starts][:completionsSinceLastReturn]
+    end
+
+    unless @return[:outputsActuals][:ownership].nil?
+      @converted_return[:outputsActuals][:laOwned] = @return[:outputsActuals][:ownership][:laOwned]
+      @converted_return[:outputsActuals][:pslLand] = @return[:outputsActuals][:ownership][:pslLand]
+    end
+
+    unless @return[:outputsActuals][:percentages].nil?
+      @converted_return[:outputsActuals][:brownfieldPercent] = @return[:outputsActuals][:percentages][:brownfieldPercent]
+      @converted_return[:outputsActuals][:leaseholdPercent] = @return[:outputsActuals][:percentages][:leaseholdPercent]
+      @converted_return[:outputsActuals][:smePercent] = @return[:outputsActuals][:percentages][:smePercent]
+      @converted_return[:outputsActuals][:mmcPercent] = @return[:outputsActuals][:percentages][:mmcPercent]
+    end
   end
 end
