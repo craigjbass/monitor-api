@@ -691,19 +691,27 @@
       "catchUp":[null]
   },
   "outputsActuals": {
-    "localAuthority": "Local Authority",
-    "noOfUnits": "123",
-    "size": "10",
-    "previousStarts": "starting",
-    "startsSinceLastReturn": "5",
-    "previousCompletions": "56",
-    "completionsSinceLastReturn": "3",
-    "laOwned": "Yes",
-    "pslLand": "No",
-    "brownfieldPercent": "78",
-    "leaseholdPercent": "98",
-    "smePercent": "23",
-    "mmcPercent": "43"
+    "details": {
+      "localAuthority": "Local Authority",
+      "noOfUnits": "123",
+      "size": "10"
+    },
+    "starts": {
+      "previousStarts": "starting",
+      "startsSinceLastReturn": "5",
+      "previousCompletions": "56",
+      "completionsSinceLastReturn": "3"
+    },
+    "ownership": {
+      "laOwned": "Yes",
+      "pslLand": "No"
+    },
+    "percentages": {
+      "brownfieldPercent": "78",
+      "leaseholdPercent": "98",
+      "smePercent": "23",
+      "mmcPercent": "43"
+    }
   },
   "reviewAndAssurance": {
     "date": "01/01/1970",

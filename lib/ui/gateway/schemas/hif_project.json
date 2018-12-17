@@ -773,6 +773,12 @@
           "laReadOnly": true,
           "title": "Number of housing sites"
         },
+        "polygonsForHousingSite": {
+          "title": "Polygons for housing sites",
+          "type": "string",
+          "description": "Paste a link here to the housing site polygons.",
+          "format": "uri"
+        },
         "totalArea": { "type": "string", "title": "Total Area (hectares)" },
         "hifFundingAmount": {
           "type": "string",

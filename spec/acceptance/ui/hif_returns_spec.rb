@@ -34,14 +34,14 @@ describe 'Interacting with a HIF Return from the UI' do
 
   let(:hif_get_return) do
     JSON.parse(
-      File.open("#{__dir__}/../../fixtures/hif_saved_base_return.json").read,
+      File.open("#{__dir__}/../../fixtures/hif_saved_base_return_ui.json").read,
       symbolize_names: true
     )
   end
 
   let(:expected_updated_return) do
     JSON.parse(
-      File.open("#{__dir__}/../../fixtures/hif_updated_return.json").read,
+      File.open("#{__dir__}/../../fixtures/hif_updated_return_ui.json").read,
       symbolize_names: true
     )
   end
