@@ -138,13 +138,11 @@
                                 "type": "string",
                                 "format": "date",
                                 "readonly": true,
-                                "hidden": true,
                                 "title": "Completed date (Calculated)"
                               },
                               "onCompletedReference": {
                                 "type": "string",
                                 "readonly": true,
-                                "hidden": true,
                                 "title": "Completed Reference (Calculated)"
                               }
                             }
@@ -169,13 +167,11 @@
                               "varianceBaselineFullPlanningPermissionGranted": {
                                 "type": "string",
                                 "readonly": true,
-                                "hidden": true,
                                 "title": "Variance against Baseline granted date (Weeks) (Calculated)"
                               },
                               "varianceLastReturnFullPlanningPermissionGranted": {
                                 "type": "string",
                                 "readonly": true,
-                                "hidden": true,
                                 "title": "Variance against Last Return granted date (Weeks) (Calculated)"
                               },
                               "status": {
@@ -215,7 +211,6 @@
                                 "type": "string",
                                 "format": "date",
                                 "readonly": true,
-                                "hidden": true,
                                 "title": "Completed date (Calculated)"
                               }
                             }
@@ -341,13 +336,11 @@
                                 "type": "string",
                                 "format": "date",
                                 "readonly": true,
-                                "hidden": true,
                                 "title": "Completed date (Calculated)"
                               },
                               "onCompletedReference": {
                                 "type": "string",
                                 "readonly": true,
-                                "hidden": true,
                                 "title": "Completed Reference (Calculated)"
                               }
                             }
@@ -372,13 +365,11 @@
                               "varianceBaselineFullPlanningPermissionGranted": {
                                 "type": "string",
                                 "readonly": true,
-                                "hidden": true,
                                 "title": "Variance against Baseline granted date (Weeks) (Calculated)"
                               },
                               "varianceLastReturnFullPlanningPermissionGranted": {
                                 "type": "string",
                                 "readonly": true,
-                                "hidden": true,
                                 "title": "Variance against Last Return granted date (Weeks) (Calculated)"
                               },
                               "status": {
@@ -418,7 +409,6 @@
                                 "type": "string",
                                 "format": "date",
                                 "readonly": true,
-                                "hidden": true,
                                 "title": "Completed date (Calculated)"
                               }
                             }
