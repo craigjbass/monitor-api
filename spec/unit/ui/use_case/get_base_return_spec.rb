@@ -4,7 +4,7 @@ describe UI::UseCase::GetBaseReturn do
   context 'Example one' do
     let(:convert_core_return_spy) { spy }
     let(:get_base_return_spy) { spy(execute: { base_return: { id: 3, data: { cat: 'meow' }, schema: { schema: 'schema' } } }) }
-    let(:template) do 
+    let(:template) do
       Common::Domain::Template.new.tap do |p|
         p.schema = {
           my_new_schema: 'cats'
@@ -69,7 +69,7 @@ describe UI::UseCase::GetBaseReturn do
     let(:find_project_spy) { spy(execute: { type: 'somethingelse' }) }
     let(:convert_core_return_spy) { spy }
     let(:get_base_return_spy) { spy(execute: { base_return: { id: 'woof', schema: { dog: 'woof' }, data: { cats: 'meow' } } }) }
-    let(:template) do 
+    let(:template) do
       Common::Domain::Template.new.tap do |p|
         p.schema = {
           another_schema: 'dogs'

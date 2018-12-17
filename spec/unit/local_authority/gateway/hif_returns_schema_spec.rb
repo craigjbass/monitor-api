@@ -71,6 +71,18 @@ describe LocalAuthority::Gateway::HIFReturnsSchemaTemplate do
     end
   end
 
+  context 'MR Review tab' do
+    it 'Does not contain the MR Review Catchup tab when disabled' do
+      expect(template.schema[:properties]).not_to have_key(:reviewAndAssurance)
+    end
+
+    it 'Contains the RM Review Catchup tab when enabled' do
+      ENV['MR_REVIEW_TAB'] = 'Yes'
+
+      expect(template.schema[:properties]).to have_key(:reviewAndAssurance)
+    end
+  end
+
   context 'Outputs actuals tab' do
     it 'Does not contain the outputs actuals tab when disabled' do
       expect(template.schema[:properties]).not_to have_key(:outputsActuals)

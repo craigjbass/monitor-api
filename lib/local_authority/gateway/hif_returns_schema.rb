@@ -1688,6 +1688,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
     add_outputs_actuals_tab
     add_wider_scheme_tab
     add_rm_monthly_catchup_tab
+    add_mr_review_tab
 
     @return_template
   end
@@ -4617,6 +4618,412 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
         'Delayed'
       ],
       default: 'On schedule'
+    }
+  end
+
+  def add_mr_review_tab
+    return if ENV['MR_REVIEW_TAB'].nil?
+    @return_template.schema[:properties][:reviewAndAssurance] = {
+      title: "Review and Assurance",
+      type: "object",
+      laHidden: true,
+      properties: {
+        date: {
+          title: "Date of most recent quarterly meeting",
+          type: "string",
+          format: "date"
+        },
+        assuranceManagerAttendance: {
+          title: "Was the assurance manager in attendance?",
+          type: "string",
+          radio: true,
+          enum: [
+            "Yes",
+            "No"
+          ]
+        },
+        infrastructureDelivery: {
+          type: "array",
+          title: "",
+          items: {
+            type: "object",
+            title: "",
+            horizontal: true,
+            properties: {
+              details: {
+                type: "string",
+                title: "Infrastructure Delivery",
+                extendedText: true
+              },
+              riskRating: {
+                type: "string",
+                title: "Risk Rating",
+                radio: true,
+                enum: [
+                  "High",
+                  "Medium High",
+                  "Medium Low",
+                  "Low",
+                  "Achieved"
+                ]
+              }
+            }
+          }
+        },
+        hifFundedFinancials: {
+          type: "object",
+          title: "HIF Funded Financials",
+          properties: {
+            summary: {
+              title: "Summary",
+              type: "string"
+            },
+            riskRating: {
+              type: "string",
+              title: "Risk Rating",
+              radio: true,
+              enum: [
+                "High",
+                "Medium High",
+                "Medium Low",
+                "Low",
+                "Achieved"
+              ]
+            }
+          }
+        },
+        hifWiderScheme: {
+          type: "object",
+          title: "Wider Scheme",
+          properties: {
+            summary: {
+              title: "Summary",
+              type: "string"
+            },
+            riskRating: {
+              type: "string",
+              title: "Risk Rating",
+              radio: true,
+              enum: [
+                "High",
+                "Medium High",
+                "Medium Low",
+                "Low",
+                "Achieved"
+              ]
+            }
+          }
+        },
+        outputForecast: {
+          type: "object",
+          title: "Output Forecast",
+          properties: {
+            summary: {
+              title: "Summary",
+              type: "string"
+            },
+            riskRating: {
+              type: "string",
+              title: "Risk Rating",
+              radio: true,
+              enum: [
+                "High",
+                "Medium High",
+                "Medium Low",
+                "Low",
+                "Achieved"
+              ]
+            }
+          }
+        },
+        barriers: {
+          type: "object",
+          title: "Barriers",
+          properties: {
+            significantIssues: {
+              type: "array",
+              title: "Significant Issues",
+              addable: true,
+              items: {
+                type: "object",
+                properties: {
+                  barrierType: {
+                    title: "Type",
+                    type: "string",
+                    enum: [
+                      "Land acquisition",
+                      "Site Access - Road",
+                      "Site Access - Railway",
+                      "Flood risk",
+                      "Funding - sources / cashflow",
+                      "Planning",
+                      "Land Remediation",
+                      "Utilities Provision",
+                      "Procurement",
+                      "Other"
+                    ]
+                  },
+                  overview: {
+                    title: "Overview",
+                    type:"string",
+                    extendedText: true
+                  }
+                },
+                dependencies: {
+                  barrierType: {
+                    oneOf: [
+                      {
+                        properties: {
+                          barrierType: {
+                            type: "string",
+                            enum: ["Land acquisition"]
+                          }
+                        }
+                      },
+                      {
+                        properties: {
+                          barrierType: {
+                            type: "string",
+                            enum: ["Site Access - Road"]
+                          }
+                        }
+                      },
+                      {
+                        properties: {
+                          barrierType: {
+                            type: "string",
+                            enum: ["Site Access - Railway"]
+                          }
+                        }
+                      },
+                      {
+                        properties: {
+                          barrierType: {
+                            type: "string",
+                            enum: ["Flood risk"]
+                          }
+                        }
+                      },
+                      {
+                        properties: {
+                          barrierType: {
+                            type: "string",
+                            enum: ["Funding - sources / cashflow"]
+                          }
+                        }
+                      },
+                      {
+                        properties: {
+                          barrierType: {
+                            type: "string",
+                            enum: ["Planning"]
+                          }
+                        }
+                      },
+                      {
+                        properties: {
+                          barrierType: {
+                            type: "string",
+                            enum: ["Land Remediation"]
+                          }
+                        }
+                      },
+                      {
+                        properties: {
+                          barrierType: {
+                            type: "string",
+                            enum: ["Utilities Provision"]
+                          }
+                        }
+                      },
+                      {
+                        properties: {
+                          barrierType: {
+                            type: "string",
+                            enum: ["Procurement"]
+                          }
+                        }
+                      },
+                      {
+                        properties: {
+                          barrierType: {
+                            type: "string",
+                            enum: ["Other"]
+                          },
+                          details: {
+                            title: "Details",
+                            type: "string"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            liveIssues: {
+              type: "array",
+              title: "Live Issues (with mitigation)",
+              addable: true,
+              items: {
+                type: "object",
+                properties: {
+                  barrierType: {
+                    title: "Type",
+                    type: "string",
+                    enum: [
+                      "Land acquisition",
+                      "Site Access - Road",
+                      "Site Access - Railway",
+                      "Flood risk",
+                      "Funding - sources / cashflow",
+                      "Planning",
+                      "Land Remediation",
+                      "Utilities Provision",
+                      "Procurement",
+                      "Other"
+                    ]
+                  },
+                  overview: {
+                    title: "Overview",
+                    type:"string",
+                    extendedText: true
+                  }
+                },
+                dependencies: {
+                  barrierType: {
+                    oneOf: [
+                      {
+                        properties: {
+                          barrierType: {
+                            type: "string",
+                            enum: ["Land acquisition"]
+                          }
+                        }
+                      },
+                      {
+                        properties: {
+                          barrierType: {
+                            type: "string",
+                            enum: ["Site Access - Road"]
+                          }
+                        }
+                      },
+                      {
+                        properties: {
+                          barrierType: {
+                            type: "string",
+                            enum: ["Site Access - Railway"]
+                          }
+                        }
+                      },
+                      {
+                        properties: {
+                          barrierType: {
+                            type: "string",
+                            enum: ["Flood risk"]
+                          }
+                        }
+                      },
+                      {
+                        properties: {
+                          barrierType: {
+                            type: "string",
+                            enum: ["Funding - sources / cashflow"]
+                          }
+                        }
+                      },
+                      {
+                        properties: {
+                          barrierType: {
+                            type: "string",
+                            enum: ["Planning"]
+                          }
+                        }
+                      },
+                      {
+                        properties: {
+                          barrierType: {
+                            type: "string",
+                            enum: ["Land Remediation"]
+                          }
+                        }
+                      },
+                      {
+                        properties: {
+                          barrierType: {
+                            type: "string",
+                            enum: ["Utilities Provision"]
+                          }
+                        }
+                      },
+                      {
+                        properties: {
+                          barrierType: {
+                            type: "string",
+                            enum: ["Procurement"]
+                          }
+                        }
+                      },
+                      {
+                        properties: {
+                          barrierType: {
+                            type: "string",
+                            enum: ["Other"]
+                          },
+                          details: {
+                            title: "Details",
+                            type: "string"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        recommendForRegularMonitoring: {
+          title: "Regular Monitoring",
+          type: "object",
+          properties: {
+            isRecommendForRegularMonitoring: {
+              title: "Recommended For Regular Monitoring",
+              radio: true,
+              enum: ["Yes", "No"]
+            }
+          },
+          dependencies: {
+            isRecommendForRegularMonitoring: {
+              oneOf: [
+                {
+                  properties: {
+                    isRecommendForRegularMonitoring:
+                    {
+                      type: "string",
+                      enum: ["No"]
+                    }
+                  }
+                },
+                {
+                  properties: {
+                    isRecommendForRegularMonitoring: {
+                      type: "string",
+                      enum: ["Yes"]
+                    },
+                    reasonAndProposedFrequency: {
+                      title: "Reason And Proposed Frequency",
+                      type: "string",
+                      extendedText: true
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
     }
   end
 end

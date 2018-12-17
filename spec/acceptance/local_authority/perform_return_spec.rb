@@ -64,6 +64,7 @@ describe 'Performing Return on HIF Project' do
     ENV['CONFIRMATION_TAB'] = 'Yes'
     ENV['S151_TAB'] = 'Yes'
     ENV['RM_MONTHLY_CATCHUP_TAB'] = 'Yes'
+    ENV['MR_REVIEW_TAB'] = 'Yes'
     ENV['OUTPUTS_ACTUALS_TAB'] = 'Yes'
     project_id
   end
@@ -72,13 +73,13 @@ describe 'Performing Return on HIF Project' do
     ENV['OUTPUTS_FORECAST_TAB'] = nil
     ENV['CONFIRMATION_TAB'] = nil
     ENV['S151_TAB'] = nil
-    ENV['RM_MONTHLY_CATCHUP_TAB'] = nil
+    ENV['MR_REVIEW_TAB'] = nil
     ENV['OUTPUTS_ACTUALS_TAB'] = nil
   end
 
   it 'should keep track of Returns' do
     base_return = get_use_case(:get_base_return).execute(project_id: project_id)
- 
+
     expect(base_return[:base_return][:data]).to eq(expected_base_return)
 
     initial_return = {

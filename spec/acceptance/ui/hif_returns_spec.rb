@@ -10,6 +10,7 @@ describe 'Interacting with a HIF Return from the UI' do
     ENV['CONFIRMATION_TAB'] = 'Yes'
     ENV['S151_TAB'] = 'Yes'
     ENV['RM_MONTHLY_CATCHUP_TAB'] = 'Yes'
+    ENV['MR_REVIEW_TAB'] = 'Yes'
     ENV['OUTPUTS_ACTUALS_TAB'] = 'Yes'
     project_id
   end
@@ -19,6 +20,7 @@ describe 'Interacting with a HIF Return from the UI' do
     ENV['CONFIRMATION_TAB'] = nil
     ENV['S151_TAB'] = nil
     ENV['RM_MONTHLY_CATCHUP_TAB'] = nil
+    ENV['MR_REVIEW_TAB'] = nil
     ENV['OUTPUTS_ACTUALS_TAB'] = nil
   end
 
@@ -72,7 +74,7 @@ describe 'Interacting with a HIF Return from the UI' do
       base_return = get_use_case(:ui_get_base_return).execute(project_id: project_id)[:base_return]
 
       return_data = base_return[:data].dup
-      
+
       return_id = dependency_factory.get_use_case(:ui_create_return).execute(project_id: project_id, data: return_data)[:id]
       return_data[:infrastructures][0][:planning][:outlinePlanning][:planningSubmitted][:status] = 'Delayed'
       return_data[:infrastructures][0][:planning][:outlinePlanning][:planningSubmitted][:reason] = 'Distracted by kittens'

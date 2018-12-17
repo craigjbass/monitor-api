@@ -712,5 +712,38 @@
       "smePercent": "23",
       "mmcPercent": "43"
     }
+  },
+  "reviewAndAssurance": {
+    "date": "01/01/1970",
+    "assuranceManagerAttendance": "Yes",
+    "infrastructureDelivery": [
+      {
+        "details": "Some information",
+        "riskRating": "High"
+      }
+    ],
+    "hifFundedFinancials": {
+      "summary": "The summary",
+      "riskRating": "High"
+    },
+    "hifWiderScheme": {
+      "summary": "The summary",
+      "riskRating": "High"
+    },
+    "outputForecast": {
+      "summary": "The summary",
+      "riskRating": "High"
+    },
+    "barriers": {
+      "significantIssues": [{
+        "overview": "Some information",
+        "barrierType": "Other",
+        "details": "Some details"
+      }]
+    },
+    "recommendForRegularMonitoring": {
+      "isRecommendForRegularMonitoring": "Yes",
+      "reasonAndProposedFrequency": "A reason and frequency"
+    }
   }
 }
