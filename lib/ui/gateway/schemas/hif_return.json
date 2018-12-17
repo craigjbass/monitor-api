@@ -4349,11 +4349,12 @@
         },
         "inYearHousingStarts": {
           "type": "object",
-          "title": "In year housing starts",
+          "title": "",
           "properties": {
             "risksToAchieving": {
               "type": "string",
-              "title": "Risks to achieving"
+              "title": "Risks to achieving",
+              "hidden": true
             }
           }
         },
@@ -4442,11 +4443,12 @@
         },
         "inYearHousingCompletions": {
           "type": "object",
-          "title": "In year housing completions",
+          "title": "",
           "properties": {
             "risksToAchieving": {
               "type": "string",
-              "title": "Risks to achieving"
+              "title": "Risks to achieving",
+              "hidden": true
             }
           }
         }
