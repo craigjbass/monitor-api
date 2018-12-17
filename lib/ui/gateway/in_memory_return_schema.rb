@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UI::Gateway::InMemoryReturnSchema
-  def find_by(type:)   
+  def find_by(type:)
     if type == 'hif'
       schema = 'hif_return.json'
     elsif type == 'ac'
@@ -26,14 +26,15 @@ class UI::Gateway::InMemoryReturnSchema
 
     @template
   end
-  
+
   def check_hif_tab_flags
     delete_s151_tab if ENV['S151_TAB'].nil?
     delete_confirmation_tab if ENV['CONFIRMATION_TAB'].nil?
     delete_outputs_forcast_tab if ENV['OUTPUTS_FORECAST_TAB'].nil?
     delete_outputs_actuals_tab if ENV['OUTPUTS_ACTUALS_TAB'].nil?
     delete_wider_scheme_tab if ENV['WIDER_SCHEME_TAB'].nil?
-    delete_rm_monthly_catchup_tab if ENV['RM_MONTHLY_CATCHUP_TAB'].nil?  
+    delete_rm_monthly_catchup_tab if ENV['RM_MONTHLY_CATCHUP_TAB'].nil?
+    delete_mr_review_tab if ENV['MR_REVIEW_TAB'].nil?
   end
 
   def delete_s151_tab
@@ -58,5 +59,9 @@ class UI::Gateway::InMemoryReturnSchema
 
   def delete_rm_monthly_catchup_tab
     @template.schema[:properties].delete(:rmMonthlyCatchup)
+  end
+
+  def delete_mr_review_tab
+    @template.schema[:properties].delete(:reviewAndAssurance)
   end
 end

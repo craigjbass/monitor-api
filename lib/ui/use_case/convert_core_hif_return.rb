@@ -13,6 +13,7 @@ class UI::UseCase::ConvertCoreHIFReturn
     convert_s151
     convert_s151_confirmation
     convert_rm_monthly_catchup
+    convert_mr_review_tab
 
     @converted_return
   end
@@ -273,15 +274,15 @@ class UI::UseCase::ConvertCoreHIFReturn
     @converted_return[:fundingProfiles][:fundingRequest][:forecast] = @return[:fundingProfiles][:fundingRequest].map do |request|
       next if request.nil?
       new_request = { period: request[:period] }
-      
+
       next new_request if request[:forecast].nil?
-      
+
       new_request[:instalment1] = request[:forecast][:instalment1]
       new_request[:instalment2] = request[:forecast][:instalment2]
       new_request[:instalment3] = request[:forecast][:instalment3]
       new_request[:instalment4] = request[:forecast][:instalment4]
       new_request[:total] = request[:forecast][:total]
-      
+
       new_request
     end
 
@@ -301,7 +302,7 @@ class UI::UseCase::ConvertCoreHIFReturn
       end
     end
 
-    
+
     @converted_return[:fundingProfiles][:changeRequired] = @return[:fundingProfiles][:changeRequired]
     @converted_return[:fundingProfiles][:reasonForRequest] = @return[:fundingProfiles][:reasonForRequest]
     @converted_return[:fundingProfiles][:mitigationInPlace] = @return[:fundingProfiles][:mitigationInPlace]
@@ -320,7 +321,7 @@ class UI::UseCase::ConvertCoreHIFReturn
       new_request[:instalment3] = request[:newProfile][:instalment3]
       new_request[:instalment4] = request[:newProfile][:instalment4]
       new_request[:total] = request[:newProfile][:total]
-      
+
       new_request
     end
   end
@@ -383,7 +384,7 @@ class UI::UseCase::ConvertCoreHIFReturn
   def convert_wider_scheme
     @converted_return[:widerScheme] = [{keyLiveIssues: [{}]}]
     return if @return[:widerScheme].nil?
-    
+
     unless @return[:widerScheme][0][:overview].nil?
       @converted_return[:widerScheme][0][:overview] = {
         masterplan: @return[:widerScheme][0][:overview][:masterplan],
@@ -417,7 +418,7 @@ class UI::UseCase::ConvertCoreHIFReturn
 
       new_issue
     end
-    
+
     unless @return[:widerScheme][0][:topRisks].nil?
       @converted_return[:widerScheme][0][:topRisks] = {}
 
@@ -429,11 +430,11 @@ class UI::UseCase::ConvertCoreHIFReturn
       @converted_return[:widerScheme][0][:topRisks][:planningHousing] = convert_top_risk(@return[:widerScheme][0][:topRisks][:planningHousing])
       @converted_return[:widerScheme][0][:topRisks][:delivery] = convert_top_risk(@return[:widerScheme][0][:topRisks][:delivery])
       @converted_return[:widerScheme][0][:topRisks][:fundingPackage] = convert_top_risk(@return[:widerScheme][0][:topRisks][:fundingPackage])
-      
+
       @converted_return[:widerScheme][0][:topRisks][:additionalRisks] = @return[:widerScheme][0][:topRisks][:additionalRisks].map do |risk|
         convert_top_risk(risk)
       end
-      
+
       @converted_return[:widerScheme][0][:topRisks][:progressLastQuarter] = @return[:widerScheme][0][:topRisks][:progressLastQuarter]
       @converted_return[:widerScheme][0][:topRisks][:actionsLastQuarter] = @return[:widerScheme][0][:topRisks][:actionsLastQuarter]
       @converted_return[:widerScheme][0][:topRisks][:riskRegister] = @return[:widerScheme][0][:topRisks][:riskRegister]
@@ -685,7 +686,7 @@ class UI::UseCase::ConvertCoreHIFReturn
             }
           end
         end
-    
+
         unless catch_up[:amberBarriers].nil?
           new_catch_up[:amberBarriers] = catch_up[:amberBarriers].map do |amber_barrier|
             next if amber_barrier.nil?
@@ -696,11 +697,11 @@ class UI::UseCase::ConvertCoreHIFReturn
             }
           end
         end
-    
+
         new_catch_up[:overviewOfEngagement] = catch_up[:overviewOfEngagement]
         new_catch_up[:commentOnProgress] = catch_up[:commentOnProgress]
         new_catch_up[:issuesToRaise] = catch_up[:issuesToRaise]
-        
+
         new_catch_up
       end
     end
@@ -723,5 +724,53 @@ class UI::UseCase::ConvertCoreHIFReturn
     @converted_return[:outputsActuals][:leaseholdPercent] = @return[:outputsActuals][:leaseholdPercent]
     @converted_return[:outputsActuals][:smePercent] = @return[:outputsActuals][:smePercent]
     @converted_return[:outputsActuals][:mmcPercent] = @return[:outputsActuals][:mmcPercent]
+  end
+
+  def convert_mr_review_tab
+    return if @return[:reviewAndAssurance].nil?
+    @converted_return[:reviewAndAssurance] = {}
+    @converted_return[:reviewAndAssurance][:date] = @return[:reviewAndAssurance][:date]
+    @converted_return[:reviewAndAssurance][:assuranceManagerAttendance] = @return[:reviewAndAssurance][:assuranceManagerAttendance]
+    @converted_return[:reviewAndAssurance][:infrastructureDelivery] = @return[:reviewAndAssurance][:infrastructureDelivery].map do |delivery|
+      {
+        details: delivery[:details],
+        riskRating: delivery[:riskRating]
+      }
+    end
+
+    unless @return[:reviewAndAssurance][:hifFundedFinancials].nil?
+      @converted_return[:reviewAndAssurance][:hifFundedFinancials] = {}
+      @converted_return[:reviewAndAssurance][:hifFundedFinancials][:summary] = @return[:reviewAndAssurance][:hifFundedFinancials][:summary]
+      @converted_return[:reviewAndAssurance][:hifFundedFinancials][:riskRating] = @return[:reviewAndAssurance][:hifFundedFinancials][:riskRating]
+    end
+
+    unless @return[:reviewAndAssurance][:hifWiderScheme].nil?
+      @converted_return[:reviewAndAssurance][:hifWiderScheme] = {}
+      @converted_return[:reviewAndAssurance][:hifWiderScheme][:summary] = @return[:reviewAndAssurance][:hifWiderScheme][:summary]
+      @converted_return[:reviewAndAssurance][:hifWiderScheme][:riskRating] = @return[:reviewAndAssurance][:hifWiderScheme][:riskRating]
+    end
+
+    unless @return[:reviewAndAssurance][:outputForecast].nil?
+      @converted_return[:reviewAndAssurance][:outputForecast] = {}
+      @converted_return[:reviewAndAssurance][:outputForecast][:summary] = @return[:reviewAndAssurance][:outputForecast][:summary]
+      @converted_return[:reviewAndAssurance][:outputForecast][:riskRating] = @return[:reviewAndAssurance][:outputForecast][:riskRating]
+    end
+
+    unless @return[:reviewAndAssurance][:barriers].nil?
+      @converted_return[:reviewAndAssurance][:barriers] = {}
+      @converted_return[:reviewAndAssurance][:barriers][:significantIssues] = @return[:reviewAndAssurance][:barriers][:significantIssues].map do |issue|
+        {
+          overview: issue[:overview],
+          barrierType: issue[:barrierType],
+          details: issue[:details]
+        }
+      end
+    end
+
+    unless @return[:reviewAndAssurance][:recommendForRegularMonitoring].nil?
+      @converted_return[:reviewAndAssurance][:recommendForRegularMonitoring] = {}
+      @converted_return[:reviewAndAssurance][:recommendForRegularMonitoring][:isRecommendForRegularMonitoring] = @return[:reviewAndAssurance][:recommendForRegularMonitoring][:isRecommendForRegularMonitoring]
+      @converted_return[:reviewAndAssurance][:recommendForRegularMonitoring][:reasonAndProposedFrequency] = @return[:reviewAndAssurance][:recommendForRegularMonitoring][:reasonAndProposedFrequency]
+    end
   end
 end
