@@ -1289,7 +1289,7 @@
                     },
                     "riskAnyChange": {
                       "type": "string",
-                      "title": "Any change in risk?",
+                      "title": "Any change to risk mitigation?",
                       "radio": true,
                       "enum": ["Yes", "No"]
                     },
@@ -1321,11 +1321,13 @@
                     },
                     "impact": {
                       "type": "string",
-                      "title": "Impact"
+                      "title": "Impact",
+                      "enum": ["1", "2", "3", "4", "5"]
                     },
                     "likelihood": {
                       "type": "string",
-                      "title": "Likelihood"
+                      "title": "Likelihood",
+                      "enum": ["1", "2", "3", "4", "5"]
                     },
                     "mitigations": {
                       "type": "string",
