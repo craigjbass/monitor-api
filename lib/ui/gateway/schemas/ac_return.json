@@ -15,12 +15,12 @@
             "properties": {
               "name": {
                 "type": "string",
-                "title": "Name",
-                "sourceKey": ["baseline_data", "summary", "sitesSummary", "summary", "name"]},
+                "title": "Name"
+              },
               "ref": {
                 "type": "string",
-                "title": "LMT / GIS ref",
-                "sourceKey": ["baseline_data", "summary", "sitesSummary", "summary", "details", "ref"]},
+                "title": "LMT / GIS ref"
+              },
               "totalNoOfUnits": {
                 "type": "object",
                 "title": "Total number of units",
@@ -2193,67 +2193,6 @@
         }
       }
     },
-    "s151GrantClaimApproval": {
-      "title": "S151 Officer Grant Claim Approval",
-      "type": "object",
-      "properties": {
-        "claimSummary": {
-          "title": "Summary of Claim",
-          "type": "object",
-          "properties": {
-            "TotalFundingRequest": {
-              "type": "string",
-              "title": "Total Funding Request",
-              "s151WriteOnly": true,
-              "currency": true
-            },
-            "SpendToDate": {
-              "type": "string",
-              "hidden": true,
-              "title": "Claimed to Date",
-              "s151WriteOnly": true,
-              "currency": true
-            },
-            "AmountOfThisClaim": {
-              "type": "string",
-              "title": "Amount of this Claim",
-              "s151WriteOnly": true,
-              "currency": true
-            }
-          }
-        },
-        "supportingEvidence": {
-          "type": "object",
-          "title": "Supporting Evidence",
-          "properties": {
-            "evidenceOfSpendPastQuarter": {
-              "title": "Evidence of Spend for the Past Quarter.",
-              "type": "string",
-              "s151WriteOnly": true,
-              "hidden": true
-            },
-            "breakdownOfNextQuarterSpend": {
-              "title": "Evidence of Next Quarter Spend",
-              "type": "object",
-              "properties": {
-                "forecast": {
-                  "title": "Forecasted Spend (£)",
-                  "type": "string",
-                  "s151WriteOnly": true,
-                  "currency": true
-                },
-                "descriptionOfSpend": {
-                  "title": "Description of Spend",
-                  "type": "string",
-                  "s151WriteOnly": true,
-                  "extendedText": true
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "housingCompletions": {
       "title": "Housing Completions",
       "type": "array",
@@ -2282,28 +2221,23 @@
                   "properties": {
                     "year": {
                       "type": "string",
-                      "title": "Year",
-                      "readonly": true
+                      "title": "Year"
                     },
                     "Q1Amount": {
                       "type": "string",
-                      "title": "First Quarter",
-                      "readonly": true
+                      "title": "First Quarter"
                     },
                     "Q2Amount": {
                       "type": "string",
-                      "title": "Second Quarter",
-                      "readonly": true
+                      "title": "Second Quarter"
                     },
                     "Q3Amount": {
                       "type": "string",
-                      "title": "Third Quarter",
-                      "readonly": true
+                      "title": "Third Quarter"
                     },
                     "Q4Amount": {
                       "type": "string",
-                      "title": "Fourth Quarter",
-                      "readonly": true
+                      "title": "Fourth Quarter"
                     },
                     "total": {
                       "type": "string",
@@ -2339,8 +2273,7 @@
                     "Q3Amount": {
                       "type": "string",
                       "title": "Third Quarter",
-                      "laReadOnly": true,
-                      "currency": true
+                      "laReadOnly": true
                     },
                     "Q4Amount": {
                       "type": "string",
@@ -2500,6 +2433,67 @@
                       }
                     ]
                   }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "s151GrantClaimApproval": {
+      "title": "S151 Officer Grant Claim Approval",
+      "type": "object",
+      "properties": {
+        "claimSummary": {
+          "title": "Summary of Claim",
+          "type": "object",
+          "properties": {
+            "TotalFundingRequest": {
+              "type": "string",
+              "title": "Total Funding Request",
+              "s151WriteOnly": true,
+              "currency": true
+            },
+            "SpendToDate": {
+              "type": "string",
+              "hidden": true,
+              "title": "Claimed to Date",
+              "s151WriteOnly": true,
+              "currency": true
+            },
+            "AmountOfThisClaim": {
+              "type": "string",
+              "title": "Amount of this Claim",
+              "s151WriteOnly": true,
+              "currency": true
+            }
+          }
+        },
+        "supportingEvidence": {
+          "type": "object",
+          "title": "Supporting Evidence",
+          "properties": {
+            "evidenceOfSpendPastQuarter": {
+              "title": "Evidence of Spend for the Past Quarter.",
+              "type": "string",
+              "s151WriteOnly": true,
+              "hidden": true
+            },
+            "breakdownOfNextQuarterSpend": {
+              "title": "Evidence of Next Quarter Spend",
+              "type": "object",
+              "properties": {
+                "forecast": {
+                  "title": "Forecasted Spend (£)",
+                  "type": "string",
+                  "s151WriteOnly": true,
+                  "currency": true
+                },
+                "descriptionOfSpend": {
+                  "title": "Description of Spend",
+                  "type": "string",
+                  "s151WriteOnly": true,
+                  "extendedText": true
                 }
               }
             }
