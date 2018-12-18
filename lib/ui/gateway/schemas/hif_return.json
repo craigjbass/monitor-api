@@ -3736,7 +3736,7 @@
     },
     "s151Confirmation": {
       "title": "s151 Confirmation",
-      "description": "Screen only editable S.151 officer or delegated officer.",
+      "description": "Screen only editable by S.151 officer or delegated officer.",
       "type": "object",
       "properties": {
         "hifFunding": {
