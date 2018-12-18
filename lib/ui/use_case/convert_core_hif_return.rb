@@ -320,7 +320,9 @@ class UI::UseCase::ConvertCoreHIFReturn
       new_request[:instalment2] = request[:newProfile][:instalment2]
       new_request[:instalment3] = request[:newProfile][:instalment3]
       new_request[:instalment4] = request[:newProfile][:instalment4]
-      new_request[:total] = request[:newProfile][:total]
+
+      new_request[:totalHolder] = {}
+      new_request[:totalHolder][:total] = request[:newProfile][:total]
 
       new_request
     end

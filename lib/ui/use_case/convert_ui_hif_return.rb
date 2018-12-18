@@ -317,7 +317,7 @@ class UI::UseCase::ConvertUIHIFReturn
         instalment2: request[:instalment2],
         instalment3: request[:instalment3],
         instalment4: request[:instalment4],
-        total: request[:total]
+        total: request.dig(:totalHolder,:total)
       }
       new_request
     end
