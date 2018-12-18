@@ -3588,6 +3588,7 @@
     },
     "s151": {
       "title": "s151 Return - Claim",
+      "description": "Screen only editable by S.151 officer or delegated officer.",
       "type": "object",
       "properties": {
         "claimSummary": {
