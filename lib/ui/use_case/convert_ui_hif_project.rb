@@ -33,6 +33,7 @@ class UI::UseCase::ConvertUIHIFProject
       polygonsForHousingSite: @project[:summary][:polygonsForHousingSite],
       totalArea: @project[:summary][:totalArea],
       hifFundingAmount: @project[:summary][:hifFundingAmount],
+      sitePlans: @project[:summary][:sitePlans],
       descriptionOfInfrastructure: @project[:summary][:descriptionOfInfrastructure],
       descriptionOfWiderProjectDeliverables: @project[:summary][:descriptionOfWiderProjectDeliverables]
     }

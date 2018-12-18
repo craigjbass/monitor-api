@@ -797,6 +797,12 @@
           "laReadOnly": true,
           "title": "Description of wider project deliverables",
           "extendedText": true
+        },
+        "sitePlans": {
+          "title": "Site Plans",
+          "description": "Upload any relevant files here.",
+          "uploadFile": "multiple",
+          "type": "string"
         }
       },
       "required": ["jointBidAreas", "totalArea"]
