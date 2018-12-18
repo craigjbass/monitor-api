@@ -100,6 +100,7 @@
     {
       "infrastructure": {
         "HIFAmount": "10000",
+        "baselineCashflows": "cashflows",
         "totalCostOfInfrastructure": "20000",
         "totallyFundedThroughHIF": "No",
         "descriptionOfFundingStack": "Funding stack description",

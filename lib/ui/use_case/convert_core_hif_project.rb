@@ -195,6 +195,7 @@ class UI::UseCase::ConvertCoreHIFProject
         converted_cost[:infrastructure] = {
           HIFAmount: cost[:infrastructure][:HIFAmount],
           totalCostOfInfrastructure: cost[:infrastructure][:totalCostOfInfrastructure],
+          baselineCashflows: cost[:infrastructure][:baselineCashflows],
           fundedThroughHif: {
             totallyFundedThroughHIF: cost[:infrastructure][:totallyFundedThroughHIF],
             descriptionOfFundingStack: cost[:infrastructure][:descriptionOfFundingStack],

@@ -190,6 +190,7 @@ class UI::UseCase::ConvertUIHIFProject
         converted_cost[:infrastructure] = {
           HIFAmount: cost[:infrastructure][:HIFAmount],
           totalCostOfInfrastructure: cost[:infrastructure][:totalCostOfInfrastructure],
+          baselineCashflows: cost[:infrastructure][:baselineCashflows]
         }
         unless cost[:infrastructure][:fundedThroughHif].nil?
           converted_cost[:infrastructure][:totallyFundedThroughHIF]  = cost[:infrastructure][:fundedThroughHif][:totallyFundedThroughHIF]

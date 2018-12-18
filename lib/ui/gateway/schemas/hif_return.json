@@ -1630,6 +1630,12 @@
               }
             }
           }
+        },
+        "projectCashflows": {
+          "title": "Project Cashflow(s)",
+          "type": "string",
+          "uploadFile": "multiple",
+          "description": "Any changes to agreed cashflow will need to be agreed by s.151 officer - you will be asked to agree to this on submission."
         }
       },
       "dependencies": {
@@ -1949,9 +1955,42 @@
             "title": "Overview",
             "properties": {
               "masterplan": {
-                "title": "Masterplan for Scheme - FILE UPLOAD TO COME",
-                "type": "string",
-                "readonly": true
+                "title": "Masterplan for Scheme",
+                "type": "object",
+                "properties": {
+                  "confirmation": {
+                    "title": "Is there a masterplan for the scheme?",
+                    "type": "string",
+                    "enum":["Yes", "No"],
+                    "radio": true
+                  }
+                },
+                "dependencies": {
+                  "confirmation": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "confirmation": {
+                            "enum": ["Yes"]
+                          },
+                          "planAttachment": {
+                            "title": "",
+                            "description": "Please attach the plan here.",
+                            "uploadFile": "single",
+                            "type": "string"
+                          }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "confirmation": {
+                            "enum": ["No"]
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
               },
               "developmentPlan": {
                 "title": "Development Plan for Wider Scheme",
@@ -3577,9 +3616,10 @@
                 "extendedText": true
               },
               "riskRegister": {
-                "title": "Please attach current risk register for scheme - FILE UPLOAD TO COME",
-                "type": "string",
-                "readonly": true
+                "title": "Current risk register for scheme.",
+                "description": "Please attach here.",
+                "uploadFile": "single",
+                "type": "string"
               }
             }
           }
@@ -3613,6 +3653,12 @@
               "title": "Amount of this Claim",
               "currency": true,
               "s151WriteOnly": true
+            },
+            "certifiedClaimForm": {
+              "type": "string",
+              "title": "Certified claim form",
+              "description": "Please attach the form here.",
+              "uploadFile": "single"
             }
           }
         },
@@ -3693,9 +3739,10 @@
             },
             "evidenceOfSpendPastQuarter": {
               "title": "Evidence of Spend for the Past Quarter.",
+              "description": "Evidence can include invoices/ contracts/ accounting system print off. Please attach here.",
+              "uploadFile": "multiple",
               "type": "string",
-              "s151WriteOnly": true,
-              "hidden": true
+              "s151WriteOnly": true
             },
             "breakdownOfNextQuarterSpend": {
               "title": "Evidence of Next Quarter Spend",
@@ -3715,9 +3762,10 @@
                 },
                 "evidenceOfSpendNextQuarter": {
                   "title": "Evidence of Spend for the Past Quarter.",
+                  "description": "Evidence can include contract/ quotes. Please attach here.",
+                  "uploadFile": "multiple",
                   "type": "string",
-                  "s151WriteOnly": true,
-                  "hidden": true
+                  "s151WriteOnly": true
                 }
               }
             }
@@ -3785,6 +3833,12 @@
                           "readonly": true,
                           "hidden": true,
                           "currency": true
+                        },
+                        "evidenceOfVariance": {
+                          "type": "string",
+                          "title": "Evidence of Variance",
+                          "description": "Please attach any evidence here.",
+                          "uploadFile": "multiple"
                         },
                         "varianceFromBaselinePercent": {
                           "type": "string",
@@ -4224,6 +4278,12 @@
                   ]
                 }
               }
+            },
+            "signoff": {
+              "title": "Submission sign off",
+              "description": "Please attach your signature",
+              "type": "string",
+              "uploadFile": "single"
             }
           }
         }

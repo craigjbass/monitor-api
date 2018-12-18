@@ -1399,6 +1399,12 @@
                 "title": "Total Cost of Infrastructure",
                 "currency": true
               },
+              "baselineCashflows": {
+                "type": "string",
+                "uploadFile": "multiple",
+                "title": "Baseline Cashflow(s)",
+                "description": "Uploads any relevant files here."
+              },
               "fundedThroughHif": {
                 "type": "object",
                 "title": " ",

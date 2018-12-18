@@ -268,6 +268,7 @@ class UI::UseCase::ConvertUIHIFReturn
     @converted_return[:fundingProfiles] = {}
     @converted_return[:fundingProfiles][:totalHIFGrant] = @return[:fundingProfiles][:totalHIFGrant]
 
+
     @converted_return[:fundingProfiles][:fundingRequest] = @return[:fundingProfiles][:fundingRequest][:forecast].map do |request|
       next if request.nil?
 
@@ -320,6 +321,8 @@ class UI::UseCase::ConvertUIHIFReturn
       }
       new_request
     end
+
+    @converted_return[:fundingProfiles][:projectCashflows] = @return[:fundingProfiles][:projectCashflows]
   end
 
   def convert_funding_packages
@@ -384,9 +387,14 @@ class UI::UseCase::ConvertUIHIFReturn
 
     unless @return[:widerScheme][0][:overview].nil?
       @converted_return[:widerScheme][0][:overview] = {
-        masterplan: @return[:widerScheme][0][:overview][:masterplan],
         developmentPlan: @return[:widerScheme][0][:overview][:developmentPlan]
       }
+      unless @return[:widerScheme][0][:overview][:masterplan].nil?
+        @converted_return[:widerScheme][0][:overview][:masterplan] = {
+          confirmation: @return[:widerScheme][0][:overview][:masterplan][:confirmation],
+          planAttachment: @return[:widerScheme][0][:overview][:masterplan][:planAttachment]
+        }
+      end
     end
 
     @converted_return[:widerScheme][0][:keyLiveIssues] = @return[:widerScheme][0][:keyLiveIssues].map do |issue|
@@ -552,8 +560,16 @@ class UI::UseCase::ConvertUIHIFReturn
     unless @return[:s151Confirmation][:hifFunding].nil?
       @converted_return[:s151Confirmation][:hifFunding] = {
         hifTotalFundingRequest: @return[:s151Confirmation][:hifFunding][:hifTotalFundingRequest],
-        changesToRequest: @return[:s151Confirmation][:hifFunding][:changesToRequest][:changesToRequestConfirmation]
       }
+      unless @return[:s151Confirmation][:hifFunding][:changesToRequest].nil?
+        @converted_return[:s151Confirmation][:hifFunding][:changesToRequest] = @return[:s151Confirmation][:hifFunding][:changesToRequest][:changesToRequestConfirmation]
+        @converted_return[:s151Confirmation][:hifFunding][:requestedAmount] = @return[:s151Confirmation][:hifFunding][:changesToRequest][:requestedAmount]
+        @converted_return[:s151Confirmation][:hifFunding][:reasonForRequest] = @return[:s151Confirmation][:hifFunding][:changesToRequest][:reasonForRequest]
+        @converted_return[:s151Confirmation][:hifFunding][:varianceFromBaseline] = @return[:s151Confirmation][:hifFunding][:changesToRequest][:varianceFromBaseline]
+        @converted_return[:s151Confirmation][:hifFunding][:evidenceOfVariance] = @return[:s151Confirmation][:hifFunding][:changesToRequest][:evidenceOfVariance]
+        @converted_return[:s151Confirmation][:hifFunding][:varianceFromBaselinePercent] = @return[:s151Confirmation][:hifFunding][:changesToRequest][:varianceFromBaselinePercent]
+        @converted_return[:s151Confirmation][:hifFunding][:mitigationInPlace] = @return[:s151Confirmation][:hifFunding][:changesToRequest][:mitigationInPlace]
+      end
 
       @converted_return[:s151Confirmation][:hifFunding][:hifFundingProfile] = @return[:s151Confirmation][:hifFunding][:hifFundingProfile].map do |profile|
         {
@@ -588,31 +604,39 @@ class UI::UseCase::ConvertUIHIFReturn
     end
 
     return if @return[:s151Confirmation][:submission].nil?
+    
     @converted_return[:s151Confirmation][:submission] = {
-      changeToMilestones: @return[:s151Confirmation][:submission][:changeToMilestones][:changeToMilestonesConfirmation],
-      requestedAmendments: @return[:s151Confirmation][:submission][:changeToMilestones][:requestedAmendments],
-      reasonForRequestOfMilestoneChange: @return[:s151Confirmation][:submission][:changeToMilestones][:reasonForRequestOfMilestoneChange],
-      mitigationInPlaceMilestone: @return[:s151Confirmation][:submission][:changeToMilestones][:mitigationInPlaceMilestone],
-
-      changesToEndDate: @return[:s151Confirmation][:submission][:changesToEndDate][:changesToEndDateConfirmation],
-      reasonForRequestOfDateChange: @return[:s151Confirmation][:submission][:changesToEndDate][:reasonForRequestOfDateChange],
-      requestedChangedEndDate: @return[:s151Confirmation][:submission][:changesToEndDate][:requestedChangedEndDate],
-      mitigationInPlaceEndDate: @return[:s151Confirmation][:submission][:changesToEndDate][:mitigationInPlaceEndDate],
-      varianceFromEndDateBaseline: @return[:s151Confirmation][:submission][:changesToEndDate][:varianceFromEndDateBaseline],
-
-
-      changesToLongstopDate: @return[:s151Confirmation][:submission][:changesToLongstopDate][:changesToLongstopDateConfirmation],
-      reasonForRequestOfLongstopChange: @return[:s151Confirmation][:submission][:changesToLongstopDate][:reasonForRequestOfLongstopChange],
-      requestedLongstopEndDate: @return[:s151Confirmation][:submission][:changesToLongstopDate][:requestedLongstopEndDate],
-      varianceFromLongStopBaseline: @return[:s151Confirmation][:submission][:changesToLongstopDate][:varianceFromLongStopBaseline],
-      mitigationInPlaceLongstopDate: @return[:s151Confirmation][:submission][:changesToLongstopDate][:mitigationInPlaceLongstopDate],
-
-      recoverFunding: @return[:s151Confirmation][:submission][:recoverFunding][:recoverFundingConfirmation],
-      usedOnFutureHosuing: @return[:s151Confirmation][:submission][:recoverFunding][:usedOnFutureHousing],
-
+      signoff: @return[:s151Confirmation][:submission][:signoff],
       hifFundingEndDate: @return[:s151Confirmation][:submission][:hifFundingEndDate],
       projectLongstopDate: @return[:s151Confirmation][:submission][:projectLongstopDate]
-    }
+      }
+    unless @return[:s151Confirmation][:submission][:changeToMilestones].nil?
+      @converted_return[:s151Confirmation][:submission][:changeToMilestones] = @return[:s151Confirmation][:submission][:changeToMilestones][:changeToMilestonesConfirmation]
+      @converted_return[:s151Confirmation][:submission][:requestedAmendments] = @return[:s151Confirmation][:submission][:changeToMilestones][:requestedAmendments]
+      @converted_return[:s151Confirmation][:submission][:reasonForRequestOfMilestoneChange] = @return[:s151Confirmation][:submission][:changeToMilestones][:reasonForRequestOfMilestoneChange]
+      @converted_return[:s151Confirmation][:submission][:mitigationInPlaceMilestone] = @return[:s151Confirmation][:submission][:changeToMilestones][:mitigationInPlaceMilestone]
+    end
+
+    unless @return[:s151Confirmation][:submission][:changesToEndDate].nil?
+      @converted_return[:s151Confirmation][:submission][:changesToEndDate] = @return[:s151Confirmation][:submission][:changesToEndDate][:changesToEndDateConfirmation]
+      @converted_return[:s151Confirmation][:submission][:reasonForRequestOfDateChange] = @return[:s151Confirmation][:submission][:changesToEndDate][:reasonForRequestOfDateChange]
+      @converted_return[:s151Confirmation][:submission][:requestedChangedEndDate] = @return[:s151Confirmation][:submission][:changesToEndDate][:requestedChangedEndDate]
+      @converted_return[:s151Confirmation][:submission][:mitigationInPlaceEndDate] = @return[:s151Confirmation][:submission][:changesToEndDate][:mitigationInPlaceEndDate]
+      @converted_return[:s151Confirmation][:submission][:varianceFromEndDateBaseline] = @return[:s151Confirmation][:submission][:changesToEndDate][:varianceFromEndDateBaseline]
+    end
+
+    unless @return[:s151Confirmation][:submission][:changesToLongstopDate].nil?
+      @converted_return[:s151Confirmation][:submission][:changesToLongstopDate] = @return[:s151Confirmation][:submission][:changesToLongstopDate][:changesToLongstopDateConfirmation]
+      @converted_return[:s151Confirmation][:submission][:reasonForRequestOfLongstopChange] = @return[:s151Confirmation][:submission][:changesToLongstopDate][:reasonForRequestOfLongstopChange]
+      @converted_return[:s151Confirmation][:submission][:requestedLongstopEndDate] = @return[:s151Confirmation][:submission][:changesToLongstopDate][:requestedLongstopEndDate]
+      @converted_return[:s151Confirmation][:submission][:varianceFromLongStopBaseline] = @return[:s151Confirmation][:submission][:changesToLongstopDate][:varianceFromLongStopBaseline]
+      @converted_return[:s151Confirmation][:submission][:mitigationInPlaceLongstopDate] = @return[:s151Confirmation][:submission][:changesToLongstopDate][:mitigationInPlaceLongstopDate]
+    end
+
+    unless @return[:s151Confirmation][:submission][:recoverFunding].nil?
+      @converted_return[:s151Confirmation][:submission][:recoverFunding] = @return[:s151Confirmation][:submission][:recoverFunding][:recoverFundingConfirmation]
+      @converted_return[:s151Confirmation][:submission][:usedOnFutureHosuing] = @return[:s151Confirmation][:submission][:recoverFunding][:usedOnFutureHousing]
+    end
   end
 
   def convert_s151
@@ -623,7 +647,8 @@ class UI::UseCase::ConvertUIHIFReturn
       @converted_return[:s151][:claimSummary] = {
         hifTotalFundingRequest: @return[:s151][:claimSummary][:hifTotalFundingRequest],
         hifSpendToDate: @return[:s151][:claimSummary][:hifSpendToDate],
-        AmountOfThisClaim: @return[:s151][:claimSummary][:AmountOfThisClaim]
+        AmountOfThisClaim: @return[:s151][:claimSummary][:AmountOfThisClaim],
+        certifiedClaimForm: @return[:s151][:claimSummary][:certifiedClaimForm]
       }
     end
 
