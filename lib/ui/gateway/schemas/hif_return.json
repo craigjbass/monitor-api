@@ -1003,7 +1003,7 @@
                   "current": {
                     "type": "string",
                     "format": "date",
-                    "title": "Current Return"
+                    "title": "Current Date"
                   },
                   "reason": {
                     "type": "string",
@@ -1060,7 +1060,7 @@
                   "current": {
                     "type": "string",
                     "format": "date",
-                    "title": "Current Return"
+                    "title": "Current Date"
                   },
                   "reason": {
                     "type": "string",
@@ -1081,6 +1081,7 @@
               "additionalMilestones": {
                 "type": "array",
                 "title": "Additional Milestones",
+                "description": "Click on the plus button to add additional milestones.",
                 "addable": true,
                 "items": {
                   "type": "object",
