@@ -797,6 +797,12 @@
           "laReadOnly": true,
           "title": "Description of wider project deliverables",
           "extendedText": true
+        },
+        "sitePlans": {
+          "title": "Site Plans",
+          "description": "Upload any relevant files here.",
+          "uploadFile": "multiple",
+          "type": "string"
         }
       },
       "required": ["jointBidAreas", "totalArea"]
@@ -1392,6 +1398,12 @@
                 "type": "string",
                 "title": "Total Cost of Infrastructure",
                 "currency": true
+              },
+              "baselineCashflows": {
+                "type": "string",
+                "uploadFile": "multiple",
+                "title": "Baseline Cashflow(s)",
+                "description": "Uploads any relevant files here."
               },
               "fundedThroughHif": {
                 "type": "object",

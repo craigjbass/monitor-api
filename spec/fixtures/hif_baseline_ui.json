@@ -107,6 +107,7 @@
   "costs": [
     {
       "infrastructure": {
+      "baselineCashflows": "cashflows",
         "HIFAmount": "10000",
         "totalCostOfInfrastructure": "20000",
         "fundedThroughHif": {

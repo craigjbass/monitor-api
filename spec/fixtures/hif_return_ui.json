@@ -222,6 +222,7 @@
   ],
   "fundingProfiles": {
     "totalHIFGrant": "10000",
+    "projectCashflows": "cashflows",
     "fundingRequest": {
       "forecast": [
         {
@@ -347,7 +348,10 @@
   "widerScheme": [
     {
       "overview": {
-        "masterplan": "some file",
+        "masterplan": {
+          "confirmation": "Yes",
+          "planAttachment": "some big file"
+        },
         "developmentPlan": "big plan"
       },
       "keyLiveIssues": [
@@ -604,6 +608,7 @@
     "hifFunding": {
       "hifTotalFundingRequest": "spending",
       "changesToRequest": {
+        "evidenceOfVariance": "some proof of funding",
         "changesToRequestConfirmation": "requesting",
         "requestedAmount": "money",
         "reasonForRequest": "reasoning",
@@ -637,6 +642,7 @@
       "cashflowConfirmation": "No"
     },
     "submission": {
+      "signoff": "A signature",
       "changeToMilestones": {
         "changeToMilestonesConfirmation": "Confirmed",
         "reasonForRequestOfMilestoneChange": "no your",
@@ -668,6 +674,7 @@
   "s151": {
     "claimSummary": {
       "hifTotalFundingRequest": "Funding",
+      "certifiedClaimForm": "some form",
       "hifSpendToDate": "1234-65-43",
       "AmountOfThisClaim": "lots"
     },

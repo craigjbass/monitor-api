@@ -222,6 +222,7 @@
   ],
   "fundingProfiles": {
     "totalHIFGrant": "10000",
+    "projectCashflows": "cashflows",
     "fundingRequest": [
       {
         "period": "2019/2020",
@@ -347,7 +348,10 @@
   "widerScheme": [
     {
       "overview": {
-        "masterplan": "some file",
+        "masterplan": {
+          "confirmation": "Yes",
+          "planAttachment": "some big file"
+        },
         "developmentPlan": "big plan"
       },
       "keyLiveIssues": [
@@ -602,6 +606,7 @@
   ],
   "s151Confirmation": {
     "hifFunding": {
+      "evidenceOfVariance": "some proof of funding",
       "hifTotalFundingRequest": "spending",
       "changesToRequest": "requesting",
       "hifFundingProfile": [
@@ -652,11 +657,13 @@
       "requestedLongstopEndDate": "1234-05-65",
       "varianceFromLongStopBaseline": "lots",
       "mitigationInPlaceLongstopDate": "mitigating",
-      "usedOnFutureHosuing": "Yes"
+      "usedOnFutureHosuing": "Yes",
+      "signoff": "A signature"
     }
   },
   "s151": {
     "claimSummary": {
+      "certifiedClaimForm": "some form",
       "hifTotalFundingRequest": "Funding",
       "hifSpendToDate": "1234-65-43",
       "AmountOfThisClaim": "lots"

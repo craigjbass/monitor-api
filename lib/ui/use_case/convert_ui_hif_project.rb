@@ -33,6 +33,7 @@ class UI::UseCase::ConvertUIHIFProject
       polygonsForHousingSite: @project[:summary][:polygonsForHousingSite],
       totalArea: @project[:summary][:totalArea],
       hifFundingAmount: @project[:summary][:hifFundingAmount],
+      sitePlans: @project[:summary][:sitePlans],
       descriptionOfInfrastructure: @project[:summary][:descriptionOfInfrastructure],
       descriptionOfWiderProjectDeliverables: @project[:summary][:descriptionOfWiderProjectDeliverables]
     }
@@ -189,6 +190,7 @@ class UI::UseCase::ConvertUIHIFProject
         converted_cost[:infrastructure] = {
           HIFAmount: cost[:infrastructure][:HIFAmount],
           totalCostOfInfrastructure: cost[:infrastructure][:totalCostOfInfrastructure],
+          baselineCashflows: cost[:infrastructure][:baselineCashflows]
         }
         unless cost[:infrastructure][:fundedThroughHif].nil?
           converted_cost[:infrastructure][:totallyFundedThroughHIF]  = cost[:infrastructure][:fundedThroughHif][:totallyFundedThroughHIF]

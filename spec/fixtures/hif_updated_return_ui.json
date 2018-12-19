@@ -110,6 +110,7 @@
   ],
   "fundingProfiles": {
     "totalHIFGrant": "10000",
+    "projectCashflows": null,
     "currentFunding": {"forecast": []},
     "fundingRequest": {
       "forecast":
@@ -241,6 +242,7 @@
     "hifFunding": {
       "hifTotalFundingRequest": "10000",
       "changesToRequest": {
+        "evidenceOfVariance": null,
         "changesToRequestConfirmation": null,
         "requestedAmount": null,
         "reasonForRequest": null,
@@ -294,6 +296,7 @@
       "cashflowConfirmation": null
     },
     "submission": {
+      "signoff": null,
       "changeToMilestones": {
         "changeToMilestonesConfirmation": null,
         "reasonForRequestOfMilestoneChange": null,
@@ -326,7 +329,8 @@
     "claimSummary": {
       "hifTotalFundingRequest": "10000",
       "hifSpendToDate": null,
-      "AmountOfThisClaim": null
+      "AmountOfThisClaim": null,
+      "certifiedClaimForm": null
     }
   },
   "rmMonthlyCatchup": {
