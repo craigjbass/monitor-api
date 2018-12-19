@@ -1478,10 +1478,15 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                   type: 'string',
                                   currency: true
                                 },
-                                total: {
-                                  title: 'Total',
-                                  type: 'string',
-                                  currency: true
+                                totalHolder: {
+                                  type: 'object',
+                                  properties: {
+                                    total: {
+                                      title: 'Total',
+                                      type: 'string',
+                                      currency: true
+                                    }
+                                  }
                                 }
                               }
                             }

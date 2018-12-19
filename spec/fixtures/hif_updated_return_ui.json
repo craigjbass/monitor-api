@@ -144,7 +144,7 @@
           "instalment3": null,
           "instalment4": null,
           "period": "2019/2020",
-          "total": null
+          "totalHolder": {"total": null}
         },
         {
           "instalment1": null,
@@ -152,7 +152,7 @@
           "instalment3": null,
           "instalment4": null,
           "period": null,
-          "total": null
+          "totalHolder": {"total": null}
         }
       ]
     }
