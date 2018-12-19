@@ -17,6 +17,7 @@
             "current": "2020-07-02",
             "reason": "It's late",
             "percentComplete": "78",
+            "previousReturn": "21/21/21",
             "completedDate": "2020-04-01",
             "onCompletedReference": "Hi"
           },
@@ -27,6 +28,7 @@
             "status": "Completed",
             "current": "2020-07-02",
             "reason": "It's late",
+            "previousReturn": "21/21/21",
             "percentComplete": "78",
             "completedDate": "2020-04-01"
           }
@@ -42,6 +44,7 @@
             "current": "Dogs",
             "reason": "Uggs",
             "percentComplete": "77",
+            "previousReturn": "21/21/21",
             "completedDate": "2019-09-09",
             "onCompletedReference": "Louise Voittons"
           },
@@ -52,6 +55,7 @@
             "status": "Completed",
             "current": "Dogs",
             "reason": "Uggs",
+            "previousReturn": "21/21/21",
             "percentComplete": "75",
             "completedDate": "2017-09-09"
           }
@@ -90,6 +94,7 @@
             "landAssemblyVarianceAgainstBaseReturn": "Top Shop",
             "status": "Delayed",
             "current": "3029-09-08",
+            "previousReturn": "21/21/21",
             "reason": "The shops have gone",
             "percentComplete": "43",
             "completedDate": "1897-02-03"
@@ -120,6 +125,7 @@
             "milestoneSummaryOfCriticalPath": "Summary of critical path",
             "milestoneVarianceAgainstLastReturn": "Different",
             "milestoneVarianceAgainstBaseline": "LEss Different",
+            "milestoneLastReturnDate": "12/12/12",
             "statusAgainstLastReturn": "Completed",
             "currentReturn": "Done",
             "reasonForVariance": "I forgot",
@@ -156,6 +162,7 @@
           "current": "Now",
           "reason": "Not long",
           "perecentComplete": "67",
+          "previousReturn": "21/21/21",
           "completedDate": "5603-98-02"
         },
         "expectedCompletionDateOfInfra": {
@@ -166,6 +173,7 @@
           "current": "Now",
           "reason": "Not long",
           "perecentComplete": "67",
+          "previousReturn": "21/21/21",
           "completedDate": "5603-98-02"
         }
       },

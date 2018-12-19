@@ -44,7 +44,8 @@
           "toBeAquiredBy": "LA",
           "summaryOfAcquisitionRequired": "Summary of critical path",
           "allLandAssemblyAchieved": {
-            "baseline": "2020-01-01"
+            "baseline": "2020-01-01",
+            "previousReturn": null
           }
         }
       },
@@ -68,6 +69,7 @@
             "milestoneVarianceAgainstLastReturn": null,
             "milestoneVarianceAgainstBaseline": null,
             "statusAgainstLastReturn": null,
+            "milestoneLastReturnDate": null,
             "currentReturn": null,
             "reasonForVariance": null,
             "milestonePercentCompleted": null,
