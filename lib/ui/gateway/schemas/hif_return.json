@@ -1692,6 +1692,7 @@
                           "totalHolder": {
                             "type": "object",
                             "validated": true,
+                            "invalidText": "Total exceeds HIF grant",
                             "properties": {
                               "total": {
                                 "title": "Total",
