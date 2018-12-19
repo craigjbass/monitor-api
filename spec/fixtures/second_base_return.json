@@ -50,7 +50,8 @@
           "toBeAquiredBy": "LA",
           "summaryOfAcquisitionRequired": "Summary of critical path",
           "allLandAssemblyAchieved": {
-            "baseline": "2020-01-01"
+            "baseline": "2020-01-01",
+            "previousReturn": null
           }
         }
       },
@@ -70,10 +71,12 @@
         ],
         "previousMilestones": [],
         "expectedInfrastructureStartOnSite": {
-          "baseline": "2020-01-01"
+          "baseline": "2020-01-01",
+          "previousReturn": null
         },
         "expectedCompletionDateOfInfra": {
-          "baseline": "2020-01-01"
+          "baseline": "2020-01-01",
+          "previousReturn": null
         }
       },
       "risks": {

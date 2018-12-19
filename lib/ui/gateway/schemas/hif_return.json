@@ -685,6 +685,10 @@
                                         ],
                                         "readonly": true
                                       },
+                                      "previousReturn": {
+                                        "type": "string",
+                                        "readonly": true
+                                      },
                                       "landAssemblyVarianceAgainstLastReturn": {
                                         "type": "string",
                                         "readonly": true,
@@ -923,16 +927,18 @@
                       "title": "Summary of Baseline Critical Path",
                       "readonly": true
                     },
+                    "milestoneLastReturnDate": {
+                      "type": "string",
+                      "hidden": true
+                    },
                     "milestoneVarianceAgainstLastReturn": {
                       "type": "string",
                       "readonly": true,
-                      "hidden": true,
                       "title": "Variance against last return (Calculated)"
                     },
                     "milestoneVarianceAgainstBaseline": {
                       "type": "string",
                       "readonly": true,
-                      "hidden": true,
                       "title": "Variance against baseline (Calculated)"
                     },
                     "statusAgainstLastReturn": {
@@ -984,14 +990,16 @@
                   "varianceAgainstLastReturn": {
                     "type": "string",
                     "readonly": true,
-                    "hidden": true,
                     "title": "Variance against last return (Calculated)"
                   },
                   "varianceAgainstBaseline": {
                     "type": "string",
                     "readonly": true,
-                    "hidden": true,
                     "title": "Variance against baseline (Calculated)"
+                  },
+                  "previousReturn": {
+                    "type": "string",
+                    "readonly": true
                   },
                   "status": {
                     "title": "Status against last return?",
@@ -1036,6 +1044,10 @@
                     "type": "string",
                     "format": "date",
                     "title": "Baseline date of Completion",
+                    "readonly": true
+                  },
+                  "previousReturn": {
+                    "type": "string",
                     "readonly": true
                   },
                   "varianceAgainstLastReturn": {

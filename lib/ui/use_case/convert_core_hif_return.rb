@@ -125,6 +125,7 @@ class UI::UseCase::ConvertCoreHIFReturn
         {
           description: milestone[:description],
           milestoneBaselineCompletion: milestone[:milestoneBaselineCompletion],
+          milestoneLastReturnDate: milestone[:milestoneLastReturnDate],
           milestoneSummaryOfCriticalPath: milestone[:milestoneSummaryOfCriticalPath],
           milestoneVarianceAgainstLastReturn: milestone[:milestoneVarianceAgainstLastReturn],
           milestoneVarianceAgainstBaseline: milestone[:milestoneVarianceAgainstBaseline],
