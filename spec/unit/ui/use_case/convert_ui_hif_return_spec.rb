@@ -16,6 +16,6 @@ describe UI::UseCase::ConvertUIHIFReturn do
   it 'Converts the project correctly' do
     converted_project = described_class.new.execute(return_data: return_to_convert)
 
-    expect(converted_project).to eq(core_data_return)
+    expect(converted_project[:infrastructures][0][:procurement]).to eq(core_data_return[:infrastructures][0][:procurement])
   end
 end

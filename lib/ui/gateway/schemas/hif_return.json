@@ -808,68 +808,69 @@
                         "readonly": true,
                         "extendedText": true
                       },
-                      "procurementBaselineCompletion": {
-                        "type": "string",
-                        "format": "date",
-                        "title": "Target date of procuring",
-                        "sourceKey": [
-                          "baseline_data",
-                          "infrastructures",
-                          "procurement",
-                          "targetDate"
-                        ],
-                        "readonly": true
-                      },
-                      "procurementVarianceAgainstLastReturn": {
-                        "type": "string",
-                        "readonly": true,
-                        "hidden": true,
-                        "title": "Variance against last return (Calculated)"
-                      },
-                      "procurementVarianceAgainstBaseline": {
-                        "type": "string",
-                        "readonly": true,
-                        "hidden": true,
-                        "title": "Variance against baseline (Calculated)"
-                      },
                       "procurementStatusAgainstLastReturn": {
                         "type": "object",
-                        "title": "Procurement Status Against Last Return",
+                        "title": "Infrastructure contractor procurement.",
+                        "variance": true,
                         "properties": {
-                          "statusAgainstLastReturn": {
+                          "baseline": {
+                            "type": "string",
+                            "format": "date",
+                            "title": "Target date of procuring",
+                            "sourceKey": [
+                              "baseline_data",
+                              "infrastructures",
+                              "procurement",
+                              "targetDate"
+                            ],
+                            "readonly": true
+                          },
+                          "procurementVarianceAgainstLastReturn": {
+                            "type": "string",
+                            "readonly": true,
+                            "title": "Variance against last return (Weeks)"
+                          },
+                          "procurementVarianceAgainstBaseline": {
+                            "type": "string",
+                            "readonly": true,
+                            "title": "Variance against baseline (Weeks)"
+                          },
+                          "status": {
                             "title": "Status against last return?",
                             "type": "string",
                             "radio": true,
                             "enum": ["Completed", "On schedule", "Delayed"],
                             "default": "On schedule"
                           },
-                          "currentReturn": {
+                          "current": {
                             "type": "string",
                             "format": "date",
                             "title": "Current expected date of Procurement"
                           },
-                          "reasonForVariance": {
+                          "previousReturn": {
+                            "type": "string",
+                            "readonly": true
+                          },
+                          "reason": {
                             "type": "string",
                             "title": "Reason for Variance"
+                          },
+                          "percentComplete": {
+                            "type": "string",
+                            "title": "Percent complete",
+                            "percentage": true
+                          },
+                          "completedDate": {
+                            "type": "string",
+                            "readonly": true,
+                            "title": "Completion Date (Calculated)"
+                          },
+                          "onCompletedNameOfContractor": {
+                            "type": "string",
+                            "readonly": true,
+                            "title": "Completion Name of Contractor (Calculated)"
                           }
                         }
-                      },
-                      "percentComplete": {
-                        "type": "string",
-                        "title": "Percent complete",
-                        "percentage": true
-                      },
-                      "procurementCompletedDate": {
-                        "type": "string",
-                        "readonly": true,
-                        "hidden": true,
-                        "title": "Completion Date (Calculated)"
-                      },
-                      "procurementCompletedNameOfContractor": {
-                        "type": "string",
-                        "readonly": true,
-                        "hidden": true,
-                        "title": "Completion Name of Contractor (Calculated)"
                       }
                     }
                   }
