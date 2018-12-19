@@ -9,6 +9,7 @@
         "outlinePlanning": {
           "baselineOutlinePlanningPermissionGranted": "No",
           "baselineSummaryOfCriticalPath": "Summary of critical path",
+          "reference": "Ref101",
           "planningSubmitted": {
             "baseline": "2020-01-01"
           },
@@ -19,6 +20,7 @@
         "fullPlanning": {
           "fullPlanningPermissionGranted": "No",
           "fullPlanningPermissionSummaryOfCriticalPath": "Summary of critical path",
+          "reference": "1234",
           "submitted": {
             "baseline": "2020-03-01"
           },

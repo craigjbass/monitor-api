@@ -44,7 +44,9 @@ class UI::UseCase::ConvertCoreHIFReturn
         baselineOutlinePlanningPermissionGranted: planning[:outlinePlanning][:baselineOutlinePlanningPermissionGranted],
         baselineSummaryOfCriticalPath: planning[:outlinePlanning][:baselineSummaryOfCriticalPath],
         planningSubmitted: planning[:outlinePlanning][:planningSubmitted],
-        planningGranted: planning[:outlinePlanning][:planningGranted]
+        planningGranted: planning[:outlinePlanning][:planningGranted],
+        reference: planning[:outlinePlanning][:reference]
+        
       }
     end
 
@@ -59,7 +61,8 @@ class UI::UseCase::ConvertCoreHIFReturn
         fullPlanningPermissionGranted: planning[:fullPlanning][:fullPlanningPermissionGranted],
         fullPlanningPermissionSummaryOfCriticalPath: planning[:fullPlanning][:fullPlanningPermissionSummaryOfCriticalPath],
         submitted: planning[:fullPlanning][:submitted],
-        granted: planning[:fullPlanning][:granted]
+        granted: planning[:fullPlanning][:granted],
+        reference: planning[:fullPlanning][:reference]
       }
     end
 

@@ -204,6 +204,12 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                               properties: {
                                 baselineOutlinePlanningPermissionGranted: {
                                   enum: ['Yes']
+                                },
+                                reference: {
+                                  type: "string",
+                                  title: "Reference",
+                                  readonly: true,
+                                  sourceKey: %i[baseline_data infrastructures outlinePlanningStatus reference],
                                 }
                               }
                             },
@@ -386,6 +392,12 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                               properties: {
                                 fullPlanningPermissionGranted: {
                                   enum: ['Yes']
+                                },
+                                reference: {
+                                  type: "string",
+                                  title: "Reference",
+                                  readonly: true,
+                                  sourceKey: %i[baseline_data infrastructures fullPlanningStatus grantedReference],
                                 }
                               }
                             },
