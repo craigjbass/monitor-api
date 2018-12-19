@@ -1692,10 +1692,10 @@
                           "totalHolder": {
                             "type": "object",
                             "validated": true,
+                            "title": "Total",
                             "invalidText": "Total exceeds HIF grant",
                             "properties": {
                               "total": {
-                                "title": "Total",
                                 "type": "string",
                                 "currency": true,
                                 "readonly": true
