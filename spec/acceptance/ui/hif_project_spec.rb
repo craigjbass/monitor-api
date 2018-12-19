@@ -5,6 +5,8 @@ require_relative '../shared_context/dependency_factory'
 describe 'Interacting with a HIF Project from the UI' do
   include_context 'dependency factory'
 
+  let(:pcs_url) { 'http://meow.cat/' }
+
   let(:baseline_data_ui) do
     JSON.parse(
       File.open("#{__dir__}/../../fixtures/hif_baseline_ui.json").read,
@@ -43,9 +45,18 @@ describe 'Interacting with a HIF Project from the UI' do
   end
 
   def get_project(id)
-    dependency_factory.get_use_case(:ui_get_project).execute(
+    id = dependency_factory.get_use_case(:ui_get_project).execute(
       id: id
     )
+
+    stub_request(:post, "#{pcs_url}/project/#{id}").to_return(
+      status: 200,
+      body: {
+        ProjectManager: "Michael",
+        Sponsor: "MSPC"
+      }.to_json
+    )
+    id
   end
 
   context 'Creating the project' do
