@@ -162,6 +162,8 @@
     "noOfUnits": [
       "123"
     ],
+    "previousStarts": null,
+    "previousCompletions": null,
     "size": "10"
   },
   "s151Confirmation": {

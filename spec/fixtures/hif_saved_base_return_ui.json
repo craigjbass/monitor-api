@@ -210,10 +210,14 @@
       "size": "10"
     },
     "starts": {
-      "previousStarts": null,
-      "startsSinceLastReturn": null,
-      "previousCompletions": null,
-      "completionsSinceLastReturn": null
+      "starts": {
+        "previousStarts": null,
+        "startsSinceLastReturn": null,
+        "previousCompletions": null,
+        "completionsSinceLastReturn": null,
+        "currentCompletions": null,
+        "currentStarts": null
+      }
     },
     "ownership": {
       "laOwned": null,
