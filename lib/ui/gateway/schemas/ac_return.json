@@ -1902,7 +1902,7 @@
     "grantExpenditure": {
       "title": "Grant Expenditure Profile",
       "type": "object",
-      "calculation": "periodTotal(formData, 'total', 'baseline', 'Q1Amount', 'Q2Amount', 'Q3Amount', 'Q4Amount'); periodTotal(formData, 'total', 'remainingEstimate', 'Q1Amount', 'Q2Amount', 'Q3Amount', 'Q4Amount'); periodTotal(formData, 'total', 'claimedToDate', 'Q1Amount', 'Q2Amount', 'Q3Amount', 'Q4Amount');",
+      "calculation": "periodTotal(formData, ['total'], 'baseline', 'Q1Amount', 'Q2Amount', 'Q3Amount', 'Q4Amount'); periodTotal(formData, ['total'], 'remainingEstimate', 'Q1Amount', 'Q2Amount', 'Q3Amount', 'Q4Amount'); periodTotal(formData, ['total'], 'claimedToDate', 'Q1Amount', 'Q2Amount', 'Q3Amount', 'Q4Amount');",
       "properties": {
         "baseline": {
           "type": "array",
@@ -2202,7 +2202,7 @@
           "details": {
             "type": "object",
             "title": "Housing Completions",
-            "calculation": "periodTotal(formData, 'total', 'baseline', 'Q1Amount', 'Q2Amount', 'Q3Amount', 'Q4Amount'); periodTotal(formData, 'total', 'remainingEstimate', 'Q1Amount', 'Q2Amount', 'Q3Amount', 'Q4Amount'); periodTotal(formData, 'total', 'claimedToDate', 'Q1Amount', 'Q2Amount', 'Q3Amount', 'Q4Amount');",
+            "calculation": "periodTotal(formData, ['total'], 'baseline', 'Q1Amount', 'Q2Amount', 'Q3Amount', 'Q4Amount'); periodTotal(formData, ['total'], 'remainingEstimate', 'Q1Amount', 'Q2Amount', 'Q3Amount', 'Q4Amount'); periodTotal(formData, ['total'], 'claimedToDate', 'Q1Amount', 'Q2Amount', 'Q3Amount', 'Q4Amount');",
             "properties": {
               "siteName": {
                 "type": "string",

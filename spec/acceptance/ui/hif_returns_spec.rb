@@ -97,7 +97,7 @@ describe 'Interacting with a HIF Return from the UI' do
       return_id = dependency_factory.get_use_case(:ui_create_return).execute(project_id: project_id, data: full_return_data)[:id]
       created_return = dependency_factory.get_use_case(:ui_get_return).execute(id: return_id)[:updates].last
 
-      expect(created_return[:outputsForecast]).to eq(full_return_data_after_calcs[:outputsForecast])
+      expect(created_return).to eq(full_return_data_after_calcs)
     end
 
     it 'Allows you to view multiple created returns' do

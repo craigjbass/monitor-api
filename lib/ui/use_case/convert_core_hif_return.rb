@@ -44,7 +44,9 @@ class UI::UseCase::ConvertCoreHIFReturn
         baselineOutlinePlanningPermissionGranted: planning[:outlinePlanning][:baselineOutlinePlanningPermissionGranted],
         baselineSummaryOfCriticalPath: planning[:outlinePlanning][:baselineSummaryOfCriticalPath],
         planningSubmitted: planning[:outlinePlanning][:planningSubmitted],
-        planningGranted: planning[:outlinePlanning][:planningGranted]
+        planningGranted: planning[:outlinePlanning][:planningGranted],
+        reference: planning[:outlinePlanning][:reference]
+        
       }
     end
 
@@ -59,7 +61,8 @@ class UI::UseCase::ConvertCoreHIFReturn
         fullPlanningPermissionGranted: planning[:fullPlanning][:fullPlanningPermissionGranted],
         fullPlanningPermissionSummaryOfCriticalPath: planning[:fullPlanning][:fullPlanningPermissionSummaryOfCriticalPath],
         submitted: planning[:fullPlanning][:submitted],
-        granted: planning[:fullPlanning][:granted]
+        granted: planning[:fullPlanning][:granted],
+        reference: planning[:fullPlanning][:reference]
       }
     end
 
@@ -125,6 +128,7 @@ class UI::UseCase::ConvertCoreHIFReturn
         {
           description: milestone[:description],
           milestoneBaselineCompletion: milestone[:milestoneBaselineCompletion],
+          milestoneLastReturnDate: milestone[:milestoneLastReturnDate],
           milestoneSummaryOfCriticalPath: milestone[:milestoneSummaryOfCriticalPath],
           milestoneVarianceAgainstLastReturn: milestone[:milestoneVarianceAgainstLastReturn],
           milestoneVarianceAgainstBaseline: milestone[:milestoneVarianceAgainstBaseline],
@@ -320,10 +324,15 @@ class UI::UseCase::ConvertCoreHIFReturn
       new_request[:instalment2] = request[:newProfile][:instalment2]
       new_request[:instalment3] = request[:newProfile][:instalment3]
       new_request[:instalment4] = request[:newProfile][:instalment4]
-      new_request[:total] = request[:newProfile][:total]
+
+      new_request[:totalHolder] = {}
+      new_request[:totalHolder][:total] = request[:newProfile][:total]
 
       new_request
     end
+
+    @converted_return[:fundingProfiles][:projectCashflows] = @return[:fundingProfiles][:projectCashflows]
+
   end
 
   def convert_funding_packages
@@ -387,9 +396,15 @@ class UI::UseCase::ConvertCoreHIFReturn
 
     unless @return[:widerScheme][0][:overview].nil?
       @converted_return[:widerScheme][0][:overview] = {
-        masterplan: @return[:widerScheme][0][:overview][:masterplan],
         developmentPlan: @return[:widerScheme][0][:overview][:developmentPlan]
       }
+
+      unless @return[:widerScheme][0][:overview][:masterplan].nil?
+        @converted_return[:widerScheme][0][:overview][:masterplan] = {
+          confirmation: @return[:widerScheme][0][:overview][:masterplan][:confirmation],
+          planAttachment: @return[:widerScheme][0][:overview][:masterplan][:planAttachment]
+        }
+      end
     end
 
     @converted_return[:widerScheme][0][:keyLiveIssues] = @return[:widerScheme][0][:keyLiveIssues].map do |issue|
@@ -562,6 +577,7 @@ class UI::UseCase::ConvertCoreHIFReturn
         requestedAmount: @return[:s151Confirmation][:hifFunding][:requestedAmount],
         reasonForRequest: @return[:s151Confirmation][:hifFunding][:reasonForRequest],
         varianceFromBaseline: @return[:s151Confirmation][:hifFunding][:varianceFromBaseline],
+        evidenceOfVariance: @return[:s151Confirmation][:hifFunding][:evidenceOfVariance],
         varianceFromBaselinePercent: @return[:s151Confirmation][:hifFunding][:varianceFromBaselinePercent],
         mitigationInPlace: @return[:s151Confirmation][:hifFunding][:mitigationInPlace]
       }
@@ -597,7 +613,8 @@ class UI::UseCase::ConvertCoreHIFReturn
 
     @converted_return[:s151Confirmation][:submission] = {
       hifFundingEndDate: @return[:s151Confirmation][:submission][:hifFundingEndDate],
-      projectLongstopDate: @return[:s151Confirmation][:submission][:projectLongstopDate]
+      projectLongstopDate: @return[:s151Confirmation][:submission][:projectLongstopDate],
+      signoff: @return[:s151Confirmation][:submission][:signoff]
     }
 
     @converted_return[:s151Confirmation][:submission][:recoverFunding] = {
@@ -637,7 +654,8 @@ class UI::UseCase::ConvertCoreHIFReturn
       @converted_return[:s151][:claimSummary] = {
         hifTotalFundingRequest: @return[:s151][:claimSummary][:hifTotalFundingRequest],
         hifSpendToDate: @return[:s151][:claimSummary][:hifSpendToDate],
-        AmountOfThisClaim: @return[:s151][:claimSummary][:AmountOfThisClaim]
+        AmountOfThisClaim: @return[:s151][:claimSummary][:AmountOfThisClaim],
+        certifiedClaimForm: @return[:s151][:claimSummary][:certifiedClaimForm]
       }
     end
 

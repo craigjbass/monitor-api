@@ -33,6 +33,13 @@ class HomesEngland::UseCases
       )
     end
 
+    builder.define_use_case :unsubmit_project do
+      HomesEngland::UseCase::UnSubmitProject.new(
+        project_gateway: builder.get_gateway(:project),
+        return_gateway: builder.get_gateway(:return_gateway)
+      )
+    end
+
     builder.define_use_case :get_schema_for_project do
       HomesEngland::UseCase::GetSchemaForProject.new(
         template_gateway: builder.get_gateway(:template)

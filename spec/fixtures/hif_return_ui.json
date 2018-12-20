@@ -9,6 +9,7 @@
         "outlinePlanning": {
           "baselineOutlinePlanningPermissionGranted": "No",
           "baselineSummaryOfCriticalPath": "Summary of critical path",
+          "reference": "my reference",
           "planningSubmitted": {
             "baseline": "2020-01-01",
             "varianceBaselineFullPlanningPermissionSubmitted": "4",
@@ -17,6 +18,7 @@
             "current": "2020-07-02",
             "reason": "It's late",
             "percentComplete": "78",
+            "previousReturn": "21/21/21",
             "completedDate": "2020-04-01",
             "onCompletedReference": "Hi"
           },
@@ -27,6 +29,7 @@
             "status": "Completed",
             "current": "2020-07-02",
             "reason": "It's late",
+            "previousReturn": "21/21/21",
             "percentComplete": "78",
             "completedDate": "2020-04-01"
           }
@@ -34,6 +37,7 @@
         "fullPlanning": {
           "fullPlanningPermissionGranted": "No",
           "fullPlanningPermissionSummaryOfCriticalPath": "Summary of critical path",
+          "reference": "my reference",
           "submitted": {
             "baseline": "2020-03-01",
             "varianceBaselineFullPlanningPermissionSubmitted": "80",
@@ -41,6 +45,7 @@
             "status": "Completed",
             "current": "Dogs",
             "reason":"Uggs",
+            "previousReturn": "21/21/21",
             "percentComplete": "77",
             "completedDate": "2019-09-09",
             "onCompletedReference": "Louise Voittons"
@@ -51,6 +56,7 @@
             "varianceLastReturnFullPlanningPermissionGranted": "89",
             "status": "Completed",
             "current": "Dogs",
+            "previousReturn": "21/21/21",
             "reason":"Uggs",
             "percentComplete": "75",
             "completedDate": "2017-09-09"
@@ -89,6 +95,7 @@
             "landAssemblyVarianceAgainstLastReturn": "Cath Kidson",
             "landAssemblyVarianceAgainstBaseReturn": "Top Shop",
             "status": "Delayed",
+            "previousReturn": "21/21/21",
             "current": "3029-09-08",
             "reason": "The shops have gone",
             "percentComplete": "43",
@@ -121,6 +128,7 @@
             "milestoneVarianceAgainstLastReturn": "Different",
             "milestoneVarianceAgainstBaseline": "LEss Different",
             "statusAgainstLastReturn": "Completed",
+            "milestoneLastReturnDate": "12/12/12",
             "currentReturn": "Done",
             "reasonForVariance": "I forgot",
             "milestonePercentCompleted": "99",
@@ -152,6 +160,7 @@
           "baseline": "2020-01-01",
           "varianceAgainstLastReturn": "67",
           "varianceAgainstBaseline": "78",
+          "previousReturn": "21/21/21",
           "status": "On schedule",
           "current": "Now",
           "reason": "Not long",
@@ -162,6 +171,7 @@
           "baseline": "2020-01-01",
           "varianceAgainstLastReturn": "67",
           "varianceAgainstBaseline": "78",
+          "previousReturn": "21/21/21",
           "status": "On schedule",
           "current": "Now",
           "reason": "Not long",
@@ -222,6 +232,7 @@
   ],
   "fundingProfiles": {
     "totalHIFGrant": "10000",
+    "projectCashflows": "cashflows",
     "fundingRequest": {
       "forecast": [
         {
@@ -257,7 +268,7 @@
         "instalment2": "1000",
         "instalment3": "1000",
         "instalment4": "1000",
-        "total": "4000"
+        "totalHolder": {"total": "4000"}
         }
       ]
     }
@@ -347,7 +358,10 @@
   "widerScheme": [
     {
       "overview": {
-        "masterplan": "some file",
+        "masterplan": {
+          "confirmation": "Yes",
+          "planAttachment": "some big file"
+        },
         "developmentPlan": "big plan"
       },
       "keyLiveIssues": [
@@ -604,6 +618,7 @@
     "hifFunding": {
       "hifTotalFundingRequest": "spending",
       "changesToRequest": {
+        "evidenceOfVariance": "some proof of funding",
         "changesToRequestConfirmation": "requesting",
         "requestedAmount": "money",
         "reasonForRequest": "reasoning",
@@ -637,6 +652,7 @@
       "cashflowConfirmation": "No"
     },
     "submission": {
+      "signoff": "A signature",
       "changeToMilestones": {
         "changeToMilestonesConfirmation": "Confirmed",
         "reasonForRequestOfMilestoneChange": "no your",
@@ -668,6 +684,7 @@
   "s151": {
     "claimSummary": {
       "hifTotalFundingRequest": "Funding",
+      "certifiedClaimForm": "some form",
       "hifSpendToDate": "1234-65-43",
       "AmountOfThisClaim": "lots"
     },

@@ -9,6 +9,7 @@
         "outlinePlanning": {
           "baselineOutlinePlanningPermissionGranted": "No",
           "baselineSummaryOfCriticalPath": "Summary of critical path",
+          "reference": "my reference",
           "planningSubmitted": {
             "baseline": "2020-01-01",
             "varianceBaselineFullPlanningPermissionSubmitted": "4",
@@ -17,6 +18,7 @@
             "current": "2020-07-02",
             "reason": "It's late",
             "percentComplete": "78",
+            "previousReturn": "21/21/21",
             "completedDate": "2020-04-01",
             "onCompletedReference": "Hi"
           },
@@ -27,6 +29,7 @@
             "status": "Completed",
             "current": "2020-07-02",
             "reason": "It's late",
+            "previousReturn": "21/21/21",
             "percentComplete": "78",
             "completedDate": "2020-04-01"
           }
@@ -34,6 +37,7 @@
         "fullPlanning": {
           "fullPlanningPermissionGranted": "No",
           "fullPlanningPermissionSummaryOfCriticalPath": "Summary of critical path",
+          "reference": "my reference",
           "submitted": {
             "baseline": "2020-03-01",
             "varianceBaselineFullPlanningPermissionSubmitted": "80",
@@ -42,6 +46,7 @@
             "current": "Dogs",
             "reason": "Uggs",
             "percentComplete": "77",
+            "previousReturn": "21/21/21",
             "completedDate": "2019-09-09",
             "onCompletedReference": "Louise Voittons"
           },
@@ -52,6 +57,7 @@
             "status": "Completed",
             "current": "Dogs",
             "reason": "Uggs",
+            "previousReturn": "21/21/21",
             "percentComplete": "75",
             "completedDate": "2017-09-09"
           }
@@ -90,6 +96,7 @@
             "landAssemblyVarianceAgainstBaseReturn": "Top Shop",
             "status": "Delayed",
             "current": "3029-09-08",
+            "previousReturn": "21/21/21",
             "reason": "The shops have gone",
             "percentComplete": "43",
             "completedDate": "1897-02-03"
@@ -120,6 +127,7 @@
             "milestoneSummaryOfCriticalPath": "Summary of critical path",
             "milestoneVarianceAgainstLastReturn": "Different",
             "milestoneVarianceAgainstBaseline": "LEss Different",
+            "milestoneLastReturnDate": "12/12/12",
             "statusAgainstLastReturn": "Completed",
             "currentReturn": "Done",
             "reasonForVariance": "I forgot",
@@ -156,6 +164,7 @@
           "current": "Now",
           "reason": "Not long",
           "perecentComplete": "67",
+          "previousReturn": "21/21/21",
           "completedDate": "5603-98-02"
         },
         "expectedCompletionDateOfInfra": {
@@ -166,6 +175,7 @@
           "current": "Now",
           "reason": "Not long",
           "perecentComplete": "67",
+          "previousReturn": "21/21/21",
           "completedDate": "5603-98-02"
         }
       },
@@ -222,6 +232,7 @@
   ],
   "fundingProfiles": {
     "totalHIFGrant": "10000",
+    "projectCashflows": "cashflows",
     "fundingRequest": [
       {
         "period": "2019/2020",
@@ -347,7 +358,10 @@
   "widerScheme": [
     {
       "overview": {
-        "masterplan": "some file",
+        "masterplan": {
+          "confirmation": "Yes",
+          "planAttachment": "some big file"
+        },
         "developmentPlan": "big plan"
       },
       "keyLiveIssues": [
@@ -602,6 +616,7 @@
   ],
   "s151Confirmation": {
     "hifFunding": {
+      "evidenceOfVariance": "some proof of funding",
       "hifTotalFundingRequest": "spending",
       "changesToRequest": "requesting",
       "hifFundingProfile": [
@@ -652,11 +667,13 @@
       "requestedLongstopEndDate": "1234-05-65",
       "varianceFromLongStopBaseline": "lots",
       "mitigationInPlaceLongstopDate": "mitigating",
-      "usedOnFutureHosuing": "Yes"
+      "usedOnFutureHosuing": "Yes",
+      "signoff": "A signature"
     }
   },
   "s151": {
     "claimSummary": {
+      "certifiedClaimForm": "some form",
       "hifTotalFundingRequest": "Funding",
       "hifSpendToDate": "1234-65-43",
       "AmountOfThisClaim": "lots"

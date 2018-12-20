@@ -221,6 +221,11 @@
                         "properties": {
                           "baselineOutlinePlanningPermissionGranted": {
                             "enum": ["Yes"]
+                          },
+                          "reference": {
+                            "type": "string",
+                            "title": "Reference",
+                            "readonly": true
                           }
                         }
                       },
@@ -417,7 +422,12 @@
                       },
                       {
                         "properties": {
-                          "fullPlanningPermissionGranted": { "enum": ["Yes"] }
+                          "fullPlanningPermissionGranted": { "enum": ["Yes"] },
+                          "reference": {
+                            "type": "string",
+                            "title": "Reference",
+                            "readonly": true
+                          }
                         }
                       },
                       {
@@ -685,6 +695,10 @@
                                         ],
                                         "readonly": true
                                       },
+                                      "previousReturn": {
+                                        "type": "string",
+                                        "readonly": true
+                                      },
                                       "landAssemblyVarianceAgainstLastReturn": {
                                         "type": "string",
                                         "readonly": true,
@@ -923,16 +937,18 @@
                       "title": "Summary of Baseline Critical Path",
                       "readonly": true
                     },
+                    "milestoneLastReturnDate": {
+                      "type": "string",
+                      "hidden": true
+                    },
                     "milestoneVarianceAgainstLastReturn": {
                       "type": "string",
                       "readonly": true,
-                      "hidden": true,
                       "title": "Variance against last return (Calculated)"
                     },
                     "milestoneVarianceAgainstBaseline": {
                       "type": "string",
                       "readonly": true,
-                      "hidden": true,
                       "title": "Variance against baseline (Calculated)"
                     },
                     "statusAgainstLastReturn": {
@@ -984,14 +1000,16 @@
                   "varianceAgainstLastReturn": {
                     "type": "string",
                     "readonly": true,
-                    "hidden": true,
                     "title": "Variance against last return (Calculated)"
                   },
                   "varianceAgainstBaseline": {
                     "type": "string",
                     "readonly": true,
-                    "hidden": true,
                     "title": "Variance against baseline (Calculated)"
+                  },
+                  "previousReturn": {
+                    "type": "string",
+                    "readonly": true
                   },
                   "status": {
                     "title": "Status against last return?",
@@ -1003,7 +1021,7 @@
                   "current": {
                     "type": "string",
                     "format": "date",
-                    "title": "Current Return"
+                    "title": "Current Date"
                   },
                   "reason": {
                     "type": "string",
@@ -1038,6 +1056,10 @@
                     "title": "Baseline date of Completion",
                     "readonly": true
                   },
+                  "previousReturn": {
+                    "type": "string",
+                    "readonly": true
+                  },
                   "varianceAgainstLastReturn": {
                     "type": "string",
                     "readonly": true,
@@ -1060,7 +1082,7 @@
                   "current": {
                     "type": "string",
                     "format": "date",
-                    "title": "Current Return"
+                    "title": "Current Date"
                   },
                   "reason": {
                     "type": "string",
@@ -1081,6 +1103,7 @@
               "additionalMilestones": {
                 "type": "array",
                 "title": "Additional Milestones",
+                "description": "Click on the plus button to add additional milestones.",
                 "addable": true,
                 "items": {
                   "type": "object",
@@ -1213,7 +1236,7 @@
                     }
                   }
                 }
-              }         
+              }
             }
           },
           "risks": {
@@ -1497,7 +1520,7 @@
     "fundingProfiles": {
       "type": "object",
       "title": "HIF Grant Expenditure",
-      "calculation": "get(formData, 'changeRequired') === 'Change required' ? set(formData['currentFunding'], 'forecast', get(formData, 'requestedProfiles', 'newProfile')) : set(formData['currentFunding'], 'forecast', get(formData, 'fundingRequest', 'forecast'))",
+      "calculation": "get(formData, 'changeRequired') === 'Change required' ? set(formData['currentFunding'], 'forecast', get(formData, 'requestedProfiles', 'newProfile')) : set(formData['currentFunding'], 'forecast', get(formData, 'fundingRequest', 'forecast')); validateArrayPropertyIsLessThan(formData['requestedProfiles']['newProfile'], ['totalHolder', 'total'], parseMoney(get(formData, 'totalHIFGrant')));",
       "properties": {
         "totalHIFGrant": {
           "type": "string",
@@ -1630,6 +1653,12 @@
               }
             }
           }
+        },
+        "projectCashflows": {
+          "title": "Project Cashflow(s)",
+          "type": "string",
+          "uploadFile": "multiple",
+          "description": "Any changes to agreed cashflow will need to be agreed by s.151 officer - you will be asked to agree to this on submission."
         }
       },
       "dependencies": {
@@ -1650,7 +1679,7 @@
                 "requestedProfiles": {
                   "type": "object",
                   "title": "Funding Request",
-                  "calculation": "periodTotal(formData, 'total', 'newProfile', 'instalment1', 'instalment2', 'instalment3', 'instalment4'); ",
+                  "calculation": "periodTotal(formData, ['totalHolder', 'total'], 'newProfile', 'instalment1', 'instalment2', 'instalment3', 'instalment4');",
                   "properties": {
                     "newProfile": {
                       "title": "New Profile",
@@ -1689,11 +1718,18 @@
                             "type": "string",
                             "currency": true
                           },
-                          "total": {
+                          "totalHolder": {
+                            "type": "object",
+                            "validated": true,
                             "title": "Total",
-                            "type": "string",
-                            "currency": true,
-                            "readonly": true
+                            "invalidText": "Total exceeds HIF grant",
+                            "properties": {
+                              "total": {
+                                "type": "string",
+                                "currency": true,
+                                "readonly": true
+                              }
+                            }
                           }
                         }
                       }
@@ -1949,9 +1985,42 @@
             "title": "Overview",
             "properties": {
               "masterplan": {
-                "title": "Masterplan for Scheme - FILE UPLOAD TO COME",
-                "type": "string",
-                "readonly": true
+                "title": "Masterplan for Scheme",
+                "type": "object",
+                "properties": {
+                  "confirmation": {
+                    "title": "Is there a masterplan for the scheme?",
+                    "type": "string",
+                    "enum":["Yes", "No"],
+                    "radio": true
+                  }
+                },
+                "dependencies": {
+                  "confirmation": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "confirmation": {
+                            "enum": ["Yes"]
+                          },
+                          "planAttachment": {
+                            "title": "",
+                            "description": "Please attach the plan here.",
+                            "uploadFile": "single",
+                            "type": "string"
+                          }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "confirmation": {
+                            "enum": ["No"]
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
               },
               "developmentPlan": {
                 "title": "Development Plan for Wider Scheme",
@@ -3577,9 +3646,10 @@
                 "extendedText": true
               },
               "riskRegister": {
-                "title": "Please attach current risk register for scheme - FILE UPLOAD TO COME",
-                "type": "string",
-                "readonly": true
+                "title": "Current risk register for scheme.",
+                "description": "Please attach here.",
+                "uploadFile": "single",
+                "type": "string"
               }
             }
           }
@@ -3588,6 +3658,7 @@
     },
     "s151": {
       "title": "s151 Return - Claim",
+      "description": "Screen only editable by S.151 officer or delegated officer.",
       "type": "object",
       "properties": {
         "claimSummary": {
@@ -3613,6 +3684,12 @@
               "title": "Amount of this Claim",
               "currency": true,
               "s151WriteOnly": true
+            },
+            "certifiedClaimForm": {
+              "type": "string",
+              "title": "Certified claim form",
+              "description": "Please attach the form here.",
+              "uploadFile": "single"
             }
           }
         },
@@ -3693,9 +3770,10 @@
             },
             "evidenceOfSpendPastQuarter": {
               "title": "Evidence of Spend for the Past Quarter.",
+              "description": "Evidence can include invoices/ contracts/ accounting system print off. Please attach here.",
+              "uploadFile": "multiple",
               "type": "string",
-              "s151WriteOnly": true,
-              "hidden": true
+              "s151WriteOnly": true
             },
             "breakdownOfNextQuarterSpend": {
               "title": "Evidence of Next Quarter Spend",
@@ -3715,9 +3793,10 @@
                 },
                 "evidenceOfSpendNextQuarter": {
                   "title": "Evidence of Spend for the Past Quarter.",
+                  "description": "Evidence can include contract/ quotes. Please attach here.",
+                  "uploadFile": "multiple",
                   "type": "string",
-                  "s151WriteOnly": true,
-                  "hidden": true
+                  "s151WriteOnly": true
                 }
               }
             }
@@ -3727,6 +3806,7 @@
     },
     "s151Confirmation": {
       "title": "s151 Confirmation",
+      "description": "Screen only editable by S.151 officer or delegated officer.",
       "type": "object",
       "properties": {
         "hifFunding": {
@@ -3785,6 +3865,12 @@
                           "readonly": true,
                           "hidden": true,
                           "currency": true
+                        },
+                        "evidenceOfVariance": {
+                          "type": "string",
+                          "title": "Evidence of Variance",
+                          "description": "Please attach any evidence here.",
+                          "uploadFile": "multiple"
                         },
                         "varianceFromBaselinePercent": {
                           "type": "string",
@@ -4224,6 +4310,12 @@
                   ]
                 }
               }
+            },
+            "signoff": {
+              "title": "Submission sign off",
+              "description": "Please attach your signature",
+              "type": "string",
+              "uploadFile": "single"
             }
           }
         }

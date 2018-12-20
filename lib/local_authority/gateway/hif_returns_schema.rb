@@ -204,6 +204,12 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                               properties: {
                                 baselineOutlinePlanningPermissionGranted: {
                                   enum: ['Yes']
+                                },
+                                reference: {
+                                  type: "string",
+                                  title: "Reference",
+                                  readonly: true,
+                                  sourceKey: %i[baseline_data infrastructures outlinePlanningStatus reference],
                                 }
                               }
                             },
@@ -386,6 +392,12 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                               properties: {
                                 fullPlanningPermissionGranted: {
                                   enum: ['Yes']
+                                },
+                                reference: {
+                                  type: "string",
+                                  title: "Reference",
+                                  readonly: true,
+                                  sourceKey: %i[baseline_data infrastructures fullPlanningStatus grantedReference],
                                 }
                               }
                             },
@@ -604,6 +616,10 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                               sourceKey: %i[baseline_data infrastructures landOwnership targetDateToAcquire],
                                               readonly: true
                                             },
+                                            previousReturn: {
+                                              type: 'string',
+                                              sourceKey: %i[baseline_data infrastructures landOwnership current],
+                                            },
                                             # To be calculated
                                             landAssemblyVarianceAgainstLastReturn: {
                                               type: 'string',
@@ -814,6 +830,10 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                             format: 'date',
                             title: 'Completion Date'
                           },
+                          milestoneLastReturnDate:{
+                            type: "string",
+                            sourceKey: %i[last_return infrastructures milestones currentReturn]
+                          },
                           # from milestones.summaryOfCriticalPath
                           milestoneSummaryOfCriticalPath: {
                             sourceKey: %i[baseline_data infrastructures milestones summaryOfCriticalPath],
@@ -824,13 +844,11 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           milestoneVarianceAgainstLastReturn: {
                             type: 'string',
                             readonly: true,
-                            hidden: true,
                             title: 'Variance against last return (Calculated)'
                           },
                           milestoneVarianceAgainstBaseline: {
                             type: 'string',
                             readonly: true,
-                            hidden: true,
                             title: 'Variance against baseline (Calculated)'
                           },
                           statusAgainstLastReturn: status_against_last_return,
@@ -961,6 +979,10 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           title: 'Baseline Start on site',
                           readonly: true
                         },
+                        previousReturn: {
+                          type: "string",
+                          sourceKey: %i[return_data infrastructures milestones expectedInfrastructureStartOnSite current],
+                        },
                         varianceAgainstLastReturn: {
                           type: 'string',
                           readonly: true,
@@ -1017,6 +1039,10 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           format: 'date',
                           title: 'Baseline date of Completion',
                           readonly: true
+                        },
+                        previousReturn: {
+                          type: "string",
+                          sourceKey: %i[return_data infrastructures milestones expectedCompletionDateOfInfra current],
                         },
                         varianceAgainstLastReturn: {
                           type: 'string',
@@ -1478,10 +1504,15 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                   type: 'string',
                                   currency: true
                                 },
-                                total: {
-                                  title: 'Total',
-                                  type: 'string',
-                                  currency: true
+                                totalHolder: {
+                                  type: 'object',
+                                  properties: {
+                                    total: {
+                                      title: 'Total',
+                                      type: 'string',
+                                      currency: true
+                                    }
+                                  }
                                 }
                               }
                             }

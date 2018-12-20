@@ -9,6 +9,7 @@
         "outlinePlanning": {
           "baselineOutlinePlanningPermissionGranted": "No",
           "baselineSummaryOfCriticalPath": "Summary of critical path",
+          "reference": "Ref101",
           "planningSubmitted": {
             "baseline": "2020-01-01"
           },
@@ -19,6 +20,7 @@
         "fullPlanning": {
           "fullPlanningPermissionGranted": "No",
           "fullPlanningPermissionSummaryOfCriticalPath": "Summary of critical path",
+          "reference": "1234",
           "submitted": {
             "baseline": "2020-03-01"
           },
@@ -44,7 +46,8 @@
           "toBeAquiredBy": "LA",
           "summaryOfAcquisitionRequired": "Summary of critical path",
           "allLandAssemblyAchieved": {
-            "baseline": "2020-01-01"
+            "baseline": "2020-01-01",
+            "previousReturn": null
           }
         }
       },
@@ -68,6 +71,7 @@
             "milestoneVarianceAgainstLastReturn": null,
             "milestoneVarianceAgainstBaseline": null,
             "statusAgainstLastReturn": null,
+            "milestoneLastReturnDate": null,
             "currentReturn": null,
             "reasonForVariance": null,
             "milestonePercentCompleted": null,
@@ -99,6 +103,7 @@
   ],
   "fundingProfiles": {
     "totalHIFGrant": "10000",
+    "projectCashflows": null,
     "fundingRequest": {
       "forecast":
       [
@@ -132,7 +137,7 @@
           "instalment3": null,
           "instalment4": null,
           "period": "2019/2020",
-          "total": null
+          "totalHolder": {"total": null}
         },
         {
           "instalment1": null,
@@ -140,7 +145,7 @@
           "instalment3": null,
           "instalment4": null,
           "period": null,
-          "total": null
+          "totalHolder": {"total": null}
         }
       ]
     }
@@ -233,6 +238,7 @@
         "changesToRequestConfirmation": null,
         "requestedAmount": null,
         "reasonForRequest": null,
+        "evidenceOfVariance": null,
         "varianceFromBaseline": null,
         "varianceFromBaselinePercent" : null,
         "mitigationInPlace": null
@@ -283,6 +289,7 @@
       "cashflowConfirmation": null
     },
     "submission": {
+      "signoff": null,
       "changeToMilestones": {
         "changeToMilestonesConfirmation": null,
         "reasonForRequestOfMilestoneChange": null,
@@ -323,6 +330,7 @@
       "evidenceOfSpendPastQuarter": null
     },
     "claimSummary": {
+      "certifiedClaimForm": null,
       "hifTotalFundingRequest": "10000",
       "hifSpendToDate": null,
       "AmountOfThisClaim": null
