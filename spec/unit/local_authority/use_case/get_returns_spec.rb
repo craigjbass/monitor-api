@@ -33,6 +33,7 @@ describe LocalAuthority::UseCase::GetReturns do
             r.id = 2
             r.project_id = 1
             r.status = 'Draft'
+            r.timestamp = 1234
           end
         ]
       end
@@ -60,7 +61,8 @@ describe LocalAuthority::UseCase::GetReturns do
               status: 'Draft',
               updates: [
                 { cats: 'Meow' }
-              ]
+              ],
+              timestamp: 1234
             }
           ]
         )
@@ -89,7 +91,8 @@ describe LocalAuthority::UseCase::GetReturns do
                 updates: [
                   { cats: 'Meow' },
                   { birds: 'chirp' }
-                ]
+                ],
+                timestamp: 1234
               }
             ]
           )
@@ -120,11 +123,13 @@ describe LocalAuthority::UseCase::GetReturns do
             r.id = 2
             r.project_id = 1
             r.status = 'Draft'
+            r.timestamp = 123
           end,
           LocalAuthority::Domain::Return.new.tap do |r|
             r.id = 8
             r.project_id = 6
             r.status = 'Submitted'
+            r.timestamp = 321
           end
         ]
       end
@@ -173,7 +178,8 @@ describe LocalAuthority::UseCase::GetReturns do
               updates: [
                 { cats: 'Meow' },
                 { birds: 'chirp' }
-              ]
+              ],
+              timestamp: 123
             }, {
               id: 8,
               project_id: 6,
@@ -181,7 +187,8 @@ describe LocalAuthority::UseCase::GetReturns do
               updates: [
                 { dogs: 'woof' },
                 { cows: 'moo' }
-              ]
+              ],
+              timestamp: 321
             }
           ]
         )
@@ -209,6 +216,7 @@ describe LocalAuthority::UseCase::GetReturns do
             r.id = 4
             r.project_id = 3
             r.status = 'Submitted'
+            r.timestamp = 987
           end
         ]
       end
@@ -237,7 +245,8 @@ describe LocalAuthority::UseCase::GetReturns do
                 status: 'Submitted',
                 updates: [
                   { dogs: 'woof' }
-                ]
+                ],
+                timestamp: 987
               }
             ]
           )
@@ -267,7 +276,8 @@ describe LocalAuthority::UseCase::GetReturns do
                 updates: [
                   { dogs: 'woof' },
                   { cows: 'moo'}
-                ]
+                ],
+                timestamp: 987
               }
             ]
           )
