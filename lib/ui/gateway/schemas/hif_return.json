@@ -4402,7 +4402,6 @@
                   "baselineAmounts": {
                     "type": "string",
                     "title": "Baseline Amounts",
-                    "currency": true,
                     "readonly": true,
                     "sourceKey": [
                       "baseline_data",
@@ -4447,8 +4446,7 @@
                           },
                           "currentReturnForecast": {
                             "type": "string",
-                            "title": "Current Return Forecast",
-                            "currency": true
+                            "title": "Current Return Forecast"
                           }
                         }
                       }
@@ -4462,12 +4460,60 @@
         },
         "inYearHousingStarts": {
           "type": "object",
-          "title": "",
+          "title": "In Year Housing Starts",
+          "calculation": "formData['baselineAmounts'] ? set(formData, 'progress', calculateVariance(sum(formData['actualAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'), sum(formData['baselineAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'))) : '0'; ",
           "properties": {
-            "risksToAchieving": {
+            "baselineAmounts": {
+              "type": "object",
+              "horizontal": true,
+              "title": "Baseline Amounts",
+              "properties": {
+                "quarter1":{
+                  "type": "string",
+                  "title": "Q1 Current Year"
+                },
+                "quarter2":{
+                  "type": "string",
+                  "title": "Q2 Current Year"
+                },
+                "quarter3":{
+                  "type": "string",
+                  "title": "Q3 Current Year"
+                },
+                "quarter4":{
+                  "type": "string",
+                  "title": "Q4 Current Year"
+                }  
+              }
+            },
+            "actualAmounts": {
+              "type": "object",
+              "horizontal": true,
+              "title": "Actual Amounts",
+              "properties": {
+                "quarter1":{
+                  "type": "string",
+                  "title": "Q1 Current Year"
+                },
+                "quarter2":{
+                  "type": "string",
+                  "title": "Q2 Current Year"
+                },
+                "quarter3":{
+                  "type": "string",
+                  "title": "Q3 Current Year"
+                },
+                "quarter4":{
+                  "type": "string",
+                  "title": "Q4 Current Year"
+                }  
+              }
+            },
+            "progress": {
               "type": "string",
-              "title": "Risks to achieving",
-              "hidden": true
+              "title": "Progress",
+              "percentage": true,
+              "readonly": true
             }
           }
         },
@@ -4497,7 +4543,6 @@
                     "type": "string",
                     "title": "Baseline Amounts",
                     "readonly": true,
-                    "currency": true,
                     "sourceKey": [
                       "baseline_data",
                       "outputsForecast",
@@ -4541,8 +4586,7 @@
                           },
                           "currentReturnForecast": {
                             "type": "string",
-                            "title": "Current Return Forecast",
-                            "currency": true
+                            "title": "Current Return Forecast"
                           }
                         }
                       }
@@ -4556,12 +4600,60 @@
         },
         "inYearHousingCompletions": {
           "type": "object",
-          "title": "",
+          "title": "In Year Housing Completions",
+          "calculation": "formData['baselineAmounts'] ? set(formData, 'progress', calculateVariance(sum(formData['actualAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'), sum(formData['baselineAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'))) : '0'; ",
           "properties": {
-            "risksToAchieving": {
+            "baselineAmounts": {
+              "type": "object",
+              "horizontal": true,
+              "title": "Baseline Amounts",
+              "properties": {
+                "quarter1":{
+                  "type": "string",
+                  "title": "Q1 Current Year"
+                },
+                "quarter2":{
+                  "type": "string",
+                  "title": "Q2 Current Year"
+                },
+                "quarter3":{
+                  "type": "string",
+                  "title": "Q3 Current Year"
+                },
+                "quarter4":{
+                  "type": "string",
+                  "title": "Q4 Current Year"
+                }  
+              }
+            },
+            "actualAmounts": {
+              "type": "object",
+              "horizontal": true,
+              "title": "Actual Amounts",
+              "properties": {
+                "quarter1":{
+                  "type": "string",
+                  "title": "Q1 Current Year"
+                },
+                "quarter2":{
+                  "type": "string",
+                  "title": "Q2 Current Year"
+                },
+                "quarter3":{
+                  "type": "string",
+                  "title": "Q3 Current Year"
+                },
+                "quarter4":{
+                  "type": "string",
+                  "title": "Q4 Current Year"
+                }  
+              }
+            },
+            "progress": {
               "type": "string",
-              "title": "Risks to achieving",
-              "hidden": true
+              "title": "Progress",
+              "percentage": true,
+              "readonly": true
             }
           }
         }
