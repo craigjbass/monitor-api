@@ -63,4 +63,43 @@ describe 'Creating a new HIF FileProject' do
     project = get_use_case(:find_project).execute(id: response[:id])
     expect(project[:status]).to eq('Draft')
   end
+
+  let(:pcs_url) { 'meow.cat' }
+
+  it 'should get pcs data' do
+    ENV['PCS_URL'] = pcs_url
+
+    project_baseline = {
+      summary: {
+        project_name: '',
+        description: '',
+        lead_authority: ''
+      },
+      infrastructure: {
+        type: '',
+        description: '',
+        completion_date: '',
+        planning: {
+          submission_estimated: ''
+        }
+      },
+      financial: {
+        total_amount_estimated: ''
+      }
+    }
+    response = get_use_case(:create_new_project).execute(
+      name: 'a new project', type: 'hif', baseline: project_baseline
+    )
+
+    request = stub_request(:get, "#{pcs_url}/project/#{response[:id]}").to_return(status: 200, body: {
+      ProjectManager: 'Jim',
+      Sponsor: 'Euler'
+    }.to_json)
+
+    project = get_use_case(:populate_baseline).execute(project_id: response[:id])
+
+    expect(request).to have_been_requested
+    expect(project[:data][:summary][:projectManager]).to eq('Jim')
+    expect(project[:data][:summary][:sponsor]).to eq('Euler')
+  end
 end

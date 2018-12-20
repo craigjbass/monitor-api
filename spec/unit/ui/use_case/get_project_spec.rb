@@ -40,7 +40,7 @@ describe UI::UseCase::GetProject do
     end
 
     it 'Passes the ID to the find project usecase' do
-      expect(find_project_spy).to have_received(:execute).with(id: 1)
+      expect(find_project_spy).to have_received(:execute).with(project_id: 1)
     end
 
     it 'Finds the schema from the gateway' do
@@ -148,7 +148,7 @@ describe UI::UseCase::GetProject do
     end
 
     it 'Passes the ID to the find project usecase' do
-      expect(find_project_spy).to have_received(:execute).with(id: 5)
+      expect(find_project_spy).to have_received(:execute).with(project_id: 5)
     end
 
     it 'Finds the schema from the gateway' do

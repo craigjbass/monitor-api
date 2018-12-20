@@ -1,7 +1,7 @@
 {
   "summary": {
-    "ProjectManager": "Michael",
-    "Sponsor": "MSPC"
+    "projectManager": "Michael",
+    "sponsor": "MSPC"
   },
   "infrastructures": [{}],
   "fundingProfiles": { "profiles": []},

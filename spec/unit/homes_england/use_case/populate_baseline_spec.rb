@@ -1,4 +1,4 @@
-describe HomesEngland::UseCase::PopulateBaselineSpec do
+describe HomesEngland::UseCase::PopulateBaseline do
   let(:use_case) { described_class.new(find_project: find_project, pcs_gateway: pcs_gateway)}
 
   context 'example 1' do
@@ -39,8 +39,8 @@ describe HomesEngland::UseCase::PopulateBaselineSpec do
         type: "HIF",
         data: {
           summary: {
-            ProjectManager: "Michael",
-            Sponsor: "MSPC"
+            projectManager: "Michael",
+            sponsor: "MSPC"
           }
         },
         status: "Draft"
@@ -93,8 +93,8 @@ describe HomesEngland::UseCase::PopulateBaselineSpec do
           summary: {
             description: "An important project",
             misc: {},
-            ProjectManager: "Aaron",
-            Sponsor: "LZMA"
+            projectManager: "Aaron",
+            sponsor: "LZMA"
           }
         },
         status: "Draft"

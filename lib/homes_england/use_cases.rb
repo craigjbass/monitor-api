@@ -89,5 +89,12 @@ class HomesEngland::UseCases
         project_gateway: builder.get_gateway(:project)
       )
     end
+
+    builder.define_use_case :populate_baseline do
+      HomesEngland::UseCase::PopulateBaseline.new(
+        find_project: builder.get_use_case(:find_project),
+        pcs_gateway: builder.get_gateway(:pcs)
+      )
+    end
   end
 end

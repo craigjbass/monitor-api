@@ -22,6 +22,8 @@ class UI::UseCase::ConvertCoreHIFProject
     return if @project[:summary].nil?
 
     @converted_project[:summary] = {
+      projectManager: @project[:summary][:projectManager],
+      sponsor: @project[:summary][:sponsor],
       BIDReference: @project[:summary][:BIDReference],
       projectName: @project[:summary][:projectName],
       leadAuthority: @project[:summary][:leadAuthority],

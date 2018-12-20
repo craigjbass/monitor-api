@@ -1,4 +1,4 @@
-class HomesEngland::Gateway::PcsGateway
+class HomesEngland::Gateway::Pcs
   def initialize
     @pcs_url = ENV['PCS_URL']
   end

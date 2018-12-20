@@ -27,7 +27,7 @@ class UI::UseCases
 
     builder.define_use_case :ui_get_project do
       UI::UseCase::GetProject.new(
-        find_project: builder.get_use_case(:find_project),
+        find_project: builder.get_use_case(:populate_baseline),
         convert_core_hif_project: builder.get_use_case(:convert_core_hif_project),
         project_schema_gateway: builder.get_gateway(:ui_project_schema)
       )
@@ -47,7 +47,7 @@ class UI::UseCases
       )
     end
 
-    builder.define_use_case :ui_validate_return do 
+    builder.define_use_case :ui_validate_return do
       UI::UseCase::ValidateReturn.new(
         return_template_gateway: builder.get_gateway(:ui_return_schema),
         get_return_template_path_titles: builder.get_use_case(:get_template_path_titles)
