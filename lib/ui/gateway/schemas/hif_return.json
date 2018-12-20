@@ -3813,6 +3813,7 @@
           "type": "object",
           "title": "HIF Funding and Profiles",
           "required": ["cashflowConfirmation"],
+          "calculation": "setCreate(formData, ['changesToRequest', 'varianceFromBaseline', 'variance'], `${parseMoney(get(formData, 'changesToRequest', 'requestedAmount')) - parseMoney(get(formData, 'hifTotalFundingRequest'))}`); setCreate(formData, ['changesToRequest', 'varianceFromBaseline', 'varianceFromBaselinePercent'], `${percentageDifference(parseMoney(get(formData, 'hifTotalFundingRequest')), parseMoney(get(formData, 'changesToRequest', 'requestedAmount')))}`)",
           "properties": {
             "hifTotalFundingRequest": {
               "type": "string",
@@ -3860,24 +3861,29 @@
                           "s151WriteOnly": true
                         },
                         "varianceFromBaseline": {
-                          "type": "string",
+                          "type": "object",
                           "title": "Variance from Baseline",
-                          "readonly": true,
-                          "hidden": true,
-                          "currency": true
+                          "horizontal": true,
+                          "properties": {
+                            "variance": {
+                              "type": "string",
+                              "title": "Variance from Baseline",
+                              "currency": true,
+                              "readonly": true
+                            },
+                            "varianceFromBaselinePercent": {
+                              "type": "string",
+                              "title": "Variance from Baseline",
+                              "percentage": true,
+                              "readonly": true
+                            }
+                          }
                         },
                         "evidenceOfVariance": {
                           "type": "string",
                           "title": "Evidence of Variance",
                           "description": "Please attach any evidence here.",
                           "uploadFile": "multiple"
-                        },
-                        "varianceFromBaselinePercent": {
-                          "type": "string",
-                          "title": "Variance from Baseline",
-                          "percentage": true,
-                          "readonly": true,
-                          "hidden": true
                         },
                         "mitigationInPlace": {
                           "type": "string",
