@@ -780,6 +780,10 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                 reasonForVariance: {
                                   type: 'string',
                                   title: 'Reason for Variance'
+                                },
+                                previousReturn: {
+                                  type: "string",
+                                  sourceKey: %i[return_data infrastructures procurement procurementStatusAgainstLastReturn currentReturn]
                                 }
                               }
                             },

@@ -101,22 +101,25 @@ class UI::UseCase::ConvertCoreHIFReturn
       contractorProcured: procurement[:contractorProcured],
       nameOfContractor: procurement[:nameOfContractor],
       summaryOfCriticalPath: procurement[:summaryOfCriticalPath],
-      procurementBaselineCompletion: procurement[:procurementBaselineCompletion],
-      procurementVarianceAgainstLastReturn: procurement[:procurementVarianceAgainstLastReturn],
-      procurementVarianceAgainstBaseline: procurement[:procurementVarianceAgainstBaseline],
-      percentComplete: procurement[:percentComplete],
-      procurementCompletedDate: procurement[:procurementCompletedDate],
-      procurementCompletedNameOfContractor: procurement[:procurementCompletedNameOfContractor]
     }
-
+    new_procurement[:procurementStatusAgainstLastReturn] = {}
+    
     unless procurement[:procurementStatusAgainstLastReturn].nil?
       new_procurement[:procurementStatusAgainstLastReturn] = {
-        statusAgainstLastReturn: procurement[:procurementStatusAgainstLastReturn][:statusAgainstLastReturn],
-        currentReturn: procurement[:procurementStatusAgainstLastReturn][:currentReturn],
-        reasonForVariance: procurement[:procurementStatusAgainstLastReturn][:reasonForVariance]
+        status: procurement[:procurementStatusAgainstLastReturn][:statusAgainstLastReturn],
+        current: procurement[:procurementStatusAgainstLastReturn][:currentReturn],
+        reason: procurement[:procurementStatusAgainstLastReturn][:reasonForVariance],
+        previousReturn: procurement[:procurementStatusAgainstLastReturn][:previousReturn]
       }
     end
-
+    
+    new_procurement[:procurementStatusAgainstLastReturn][:baseline] = procurement[:procurementBaselineCompletion]
+    new_procurement[:procurementStatusAgainstLastReturn][:procurementVarianceAgainstLastReturn] = procurement[:procurementVarianceAgainstLastReturn]
+    new_procurement[:procurementStatusAgainstLastReturn][:procurementVarianceAgainstBaseline] = procurement[:procurementVarianceAgainstBaseline]
+    new_procurement[:procurementStatusAgainstLastReturn][:percentComplete] = procurement[:percentComplete]
+    new_procurement[:procurementStatusAgainstLastReturn][:completedDate] = procurement[:procurementCompletedDate]
+    new_procurement[:procurementStatusAgainstLastReturn][:onCompletedNameOfContractor] = procurement[:procurementCompletedNameOfContractor]
+    
     new_procurement
   end
 

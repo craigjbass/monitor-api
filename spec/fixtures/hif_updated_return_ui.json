@@ -67,12 +67,18 @@
         "contractorProcured": "Yes",
         "nameOfContractor": "Steve",
         "summaryOfCriticalPath": "Summary of critical meow",
-        "procurementBaselineCompletion": "2020-01-01",
-        "procurementVarianceAgainstLastReturn": null,
-        "procurementVarianceAgainstBaseline": null,
-        "percentComplete": null,
-        "procurementCompletedDate": null,
-        "procurementCompletedNameOfContractor": null
+        "procurementStatusAgainstLastReturn":{
+          "baseline": "2020-01-01",
+          "current": null,
+          "status": null,
+          "previousReturn": null,
+          "reason": null,
+          "procurementVarianceAgainstLastReturn": null,
+          "procurementVarianceAgainstBaseline": null,
+          "percentComplete": null,
+          "completedDate": null,
+          "onCompletedNameOfContractor": null
+        }
       },
       "milestones": {
         "keyMilestones": [

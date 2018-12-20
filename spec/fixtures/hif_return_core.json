@@ -113,7 +113,8 @@
         "procurementStatusAgainstLastReturn": {
           "statusAgainstLastReturn": "Completed",
           "currentReturn": "2012-03-04",
-          "reasonForVariance": "It is slow"
+          "reasonForVariance": "It is slow",
+          "previousReturn": "12/12/12"
         },
         "percentComplete": "89",
         "procurementCompletedDate": "2013-07-05",
