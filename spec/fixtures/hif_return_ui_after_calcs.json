@@ -342,7 +342,19 @@
       ]
     },
     "inYearHousingStarts": {
-      "risksToAchieving": "A risk"
+      "baselineAmounts": {
+        "quarter1": "2",
+        "quarter2": "4",
+        "quarter3": "6",
+        "quarter4": "8"
+      },
+      "actualAmounts": {
+        "quarter1": "1",
+        "quarter2": "2",
+        "quarter3": "3",
+        "quarter4": "4"
+      },
+      "progress": "50"
     },
     "housingCompletions": {
       "baselineAmounts": [
@@ -362,7 +374,19 @@
       ]
     },
     "inYearHousingCompletions": {
-      "risksToAchieving": "none"
+      "baselineAmounts": {
+        "quarter1": "20",
+        "quarter2": "40",
+        "quarter3": "60",
+        "quarter4": "80"
+      },
+      "actualAmounts": {
+        "quarter1": "10",
+        "quarter2": "20",
+        "quarter3": "30",
+        "quarter4": "40"
+      },
+      "progress": "50"
     }
   },
   "widerScheme": [

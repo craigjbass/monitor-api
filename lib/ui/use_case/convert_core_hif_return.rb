@@ -532,11 +532,8 @@ class UI::UseCase::ConvertCoreHIFReturn
       end
     end
 
-    unless @return[:outputsForecast][:inYearHousingStarts].nil?
-      @converted_return[:outputsForecast][:inYearHousingStarts] = {
-        risksToAchieving: @return[:outputsForecast][:inYearHousingStarts][:risksToAchieving]
-      }
-    end
+    @converted_return[:outputsForecast][:inYearHousingStarts] = @return[:outputsForecast][:inYearHousingStarts]
+
 
     unless @return[:outputsForecast][:housingCompletions].nil?
       @converted_return[:outputsForecast][:housingCompletions] = {}
@@ -559,11 +556,7 @@ class UI::UseCase::ConvertCoreHIFReturn
 
     end
 
-    unless @return[:outputsForecast][:inYearHousingCompletions].nil?
-      @converted_return[:outputsForecast][:inYearHousingCompletions] = {
-        risksToAchieving: @return[:outputsForecast][:inYearHousingCompletions][:risksToAchieving]
-      }
-    end
+    @converted_return[:outputsForecast][:inYearHousingCompletions] = @return[:outputsForecast][:inYearHousingCompletions]
   end
 
   def convert_s151_confirmation
