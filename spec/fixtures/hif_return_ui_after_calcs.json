@@ -116,17 +116,18 @@
         "contractorProcured": "Yes",
         "nameOfContractor": "Steve",
         "summaryOfCriticalPath": "Summary of critical meow",
-        "procurementBaselineCompletion": "2020-01-01",
-        "procurementVarianceAgainstLastReturn": "Not Procured",
-        "procurementVarianceAgainstBaseline": "Procured more than that",
         "procurementStatusAgainstLastReturn": {
-          "statusAgainstLastReturn": "Completed",
-          "currentReturn": "2012-03-04",
-          "reasonForVariance": "It is slow"
-        },
-        "percentComplete": "89",
-        "procurementCompletedDate": "2013-07-05",
-        "procurementCompletedNameOfContractor": "John"
+          "baseline": "2020-01-01",
+          "procurementVarianceAgainstLastReturn": "Not Procured",
+          "procurementVarianceAgainstBaseline": "Procured more than that",
+          "completedDate": "2013-07-05",
+          "status": "Completed",
+          "onCompletedNameOfContractor": "John",
+          "percentComplete": "89",
+          "current": "2012-03-04",
+          "previousReturn": "12/12/12",
+          "reason": "It is slow"
+        }
       },
       "milestones": {
         "keyMilestones": [
