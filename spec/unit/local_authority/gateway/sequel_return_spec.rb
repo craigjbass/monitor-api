@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe LocalAuthority::Gateway::SequelReturn do
   include_context 'with database'
 
@@ -29,6 +31,7 @@ describe LocalAuthority::Gateway::SequelReturn do
       expect(found_return.type).to eq('hif')
       expect(found_return.project_id).to eq(project_id)
       expect(found_return.status).to eq('Draft')
+      expect(found_return.timestamp).to eq(0)
     end
   end
 
@@ -55,6 +58,7 @@ describe LocalAuthority::Gateway::SequelReturn do
       expect(found_return.type).to eq('ac')
       expect(found_return.project_id).to eq(project_id)
       expect(found_return.status).to eq('Submitted')
+      expect(found_return.timestamp).to eq(0)
     end
   end
 
