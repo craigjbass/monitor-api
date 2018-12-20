@@ -19,7 +19,8 @@
             "reason": "It's late",
             "percentComplete": "78",
             "completedDate": "2020-04-01",
-            "onCompletedReference": "Hi"
+            "onCompletedReference": "Hi",
+            "previousReturn": "21/21/21"
           },
           "planningGranted": {
             "baseline": "2020-02-01",
@@ -29,7 +30,8 @@
             "current": "2020-07-02",
             "reason": "It's late",
             "percentComplete": "78",
-            "completedDate": "2020-04-01"
+            "completedDate": "2020-04-01",
+            "previousReturn": "21/21/21"
           }
         },
         "fullPlanning": {
@@ -45,7 +47,8 @@
             "reason": "Uggs",
             "percentComplete": "77",
             "completedDate": "2019-09-09",
-            "onCompletedReference": "Louise Voittons"
+            "onCompletedReference": "Louise Voittons",
+            "previousReturn": "21/21/21"
           },
           "granted": {
             "baseline": "2020-03-01",
@@ -55,7 +58,8 @@
             "current": "Dogs",
             "reason": "Uggs",
             "percentComplete": "75",
-            "completedDate": "2017-09-09"
+            "completedDate": "2017-09-09",
+            "previousReturn": "21/21/21"
           }
         },
         "section106": {
@@ -103,6 +107,7 @@
             "current": "3029-09-08",
             "reason": "The shops have gone",
             "percentComplete": "43",
+            "previousReturn": "21/21/21",
             "completedDate": "1897-02-03"
           }
         }
@@ -135,7 +140,8 @@
             "currentReturn": "Done",
             "reasonForVariance": "I forgot",
             "milestonePercentCompleted": "99",
-            "milestoneCompletedDate": "7019-08-09"
+            "milestoneCompletedDate": "7019-08-09",
+            "milestoneLastReturnDate": "12/12/12"
           }
         ],
         "additionalMilestones": [
@@ -167,6 +173,7 @@
           "current": "Now",
           "reason": "Not long",
           "perecentComplete": "67",
+          "previousReturn": "21/21/21",
           "completedDate": "5603-98-02"
         },
         "expectedCompletionDateOfInfra": {
@@ -177,6 +184,7 @@
           "current": "Now",
           "reason": "Not long",
           "perecentComplete": "67",
+          "previousReturn": "21/21/21",
           "completedDate": "5603-98-02"
         }
       },
@@ -260,6 +268,7 @@
     "changeRequired": "Change required",
     "reasonForRequest": "no bricks",
     "mitigationInPlace": "buy more",
+    "projectCashflows": "cashflows",
     "requestedProfiles": {
       "newProfile": [
         {
@@ -268,7 +277,7 @@
           "instalment2": "1000",
           "instalment3": "1000",
           "instalment4": "1000",
-          "totalHolder": {"total": "4000"}
+          "totalHolder": { "total": "4000" }
         }
       ]
     }
@@ -358,7 +367,10 @@
   "widerScheme": [
     {
       "overview": {
-        "masterplan": "some file",
+        "masterplan": {
+          "confirmation": "Yes",
+          "planAttachment": "some big file"
+        },
         "developmentPlan": "big plan"
       },
       "keyLiveIssues": [
@@ -616,6 +628,7 @@
       "hifTotalFundingRequest": "spending",
       "changesToRequest": {
         "changesToRequestConfirmation": "requesting",
+        "evidenceOfVariance": "some proof of funding",
         "requestedAmount": "money",
         "reasonForRequest": "reasoning",
         "varianceFromBaseline": "varying",
@@ -673,14 +686,16 @@
       "recoverFunding": {
         "recoverFundingConfirmation": "Yes",
         "usedOnFutureHousing": "Yes"
-      }
+      },
+      "signoff": "A signature"
     }
   },
   "s151": {
     "claimSummary": {
       "hifTotalFundingRequest": "Funding",
       "hifSpendToDate": "1234-65-43",
-      "AmountOfThisClaim": "lots"
+      "AmountOfThisClaim": "lots",
+      "certifiedClaimForm": "some form"
     },
     "supportingEvidence": {
       "lastQuarterMonthSpend": {
