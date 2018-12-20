@@ -37,6 +37,7 @@ services:
       MR_REVIEW_TAB: 'yes'
       BACK_TO_BASELINE: 'yes'
       PCS_URL: ''
+      PCS: 'yes'
 
   notify_simulator:
     build: .
