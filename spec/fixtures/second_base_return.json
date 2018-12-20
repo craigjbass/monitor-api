@@ -142,7 +142,9 @@
   "outputsActuals": {
     "localAuthority": ["Local Authority"],
     "noOfUnits": ["123"],
-    "size": "10"
+    "size": "10",
+    "previousCompletions": null,
+    "previousStarts": null
   },
   "s151Confirmation": {
     "hifFunding": {

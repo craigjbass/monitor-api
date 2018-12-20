@@ -4579,27 +4579,42 @@
         "starts": {
           "title": "",
           "type": "object",
-          "horizontal": true,
+          "calculation": "set(formData['starts'], 'currentStarts', `${sum(formData['starts'], 'previousStarts', 'startsSinceLastReturn')}`); set(formData['starts'], 'currentCompletions', `${sum(formData['starts'], 'previousCompletions', 'completionsSinceLastReturn')}`);",
           "properties": {
-            "previousStarts": {
-              "type": "string",
-              "title": "Previous Starts",
-              "hidden": true,
-              "readonly": true
-            },
-            "startsSinceLastReturn": {
-              "type": "string",
-              "title": "Starts since last return"
-            },
-            "previousCompletions": {
-              "type": "string",
-              "title": "Previous Completions",
-              "hidden": "true",
-              "readonly": "true"
-            },
-            "completionsSinceLastReturn": {
-              "type": "string",
-              "title": "Completions since last return"
+            "starts": {
+              "type": "object",
+              "horizontal": true,
+              "title": "",
+              "properties": {
+                "previousStarts": {
+                  "type": "string",
+                  "title": "Previous Starts",
+                  "readonly": true
+                },
+                "currentStarts": {
+                  "type": "string",
+                  "title": "Previous Starts",
+                  "hidden": true
+                },
+                "startsSinceLastReturn": {
+                  "type": "string",
+                  "title": "Starts since last return"
+                },
+                "previousCompletions": {
+                  "type": "string",
+                  "title": "Previous Completions",
+                  "readonly": true
+                },
+                "currentCompletions": {
+                  "type": "string",
+                  "title": "Previous Completions",
+                  "hidden": true
+                },
+                "completionsSinceLastReturn": {
+                  "type": "string",
+                  "title": "Completions since last return"
+                }
+              }
             }
           }
         },

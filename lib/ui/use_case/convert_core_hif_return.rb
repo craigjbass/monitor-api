@@ -727,26 +727,36 @@ class UI::UseCase::ConvertCoreHIFReturn
 
   def convert_outputs_actuals
     return if @return[:outputsActuals].nil?
-    @converted_return[:outputsActuals] = {
-      details: {},
-      starts: {},
-      ownership: {},
-      percentages: {}
+    @converted_return[:outputsActuals] = {}
+
+    @converted_return[:outputsActuals][:details] = {
+      localAuthority: @return[:outputsActuals][:localAuthority],
+      noOfUnits: @return[:outputsActuals][:noOfUnits],
+      size: @return[:outputsActuals][:size]
     }
 
-    @converted_return[:outputsActuals][:details][:localAuthority] = @return[:outputsActuals][:localAuthority]
-    @converted_return[:outputsActuals][:details][:noOfUnits] = @return[:outputsActuals][:noOfUnits]
-    @converted_return[:outputsActuals][:details][:size] = @return[:outputsActuals][:size]
-    @converted_return[:outputsActuals][:starts][:previousStarts] = @return[:outputsActuals][:previousStarts]
-    @converted_return[:outputsActuals][:starts][:startsSinceLastReturn] = @return[:outputsActuals][:startsSinceLastReturn]
-    @converted_return[:outputsActuals][:starts][:previousCompletions] = @return[:outputsActuals][:previousCompletions]
-    @converted_return[:outputsActuals][:starts][:completionsSinceLastReturn] = @return[:outputsActuals][:completionsSinceLastReturn]
-    @converted_return[:outputsActuals][:ownership][:laOwned] = @return[:outputsActuals][:laOwned]
-    @converted_return[:outputsActuals][:ownership][:pslLand] = @return[:outputsActuals][:pslLand]
-    @converted_return[:outputsActuals][:percentages][:brownfieldPercent] = @return[:outputsActuals][:brownfieldPercent]
-    @converted_return[:outputsActuals][:percentages][:leaseholdPercent] = @return[:outputsActuals][:leaseholdPercent]
-    @converted_return[:outputsActuals][:percentages][:smePercent] = @return[:outputsActuals][:smePercent]
-    @converted_return[:outputsActuals][:percentages][:mmcPercent] = @return[:outputsActuals][:mmcPercent]
+    @converted_return[:outputsActuals][:starts] = {}
+
+    @converted_return[:outputsActuals][:starts][:starts] = {
+      previousStarts: @return[:outputsActuals][:previousStarts],
+      currentStarts: @return[:outputsActuals][:currentStarts],
+      startsSinceLastReturn: @return[:outputsActuals][:startsSinceLastReturn],
+      previousCompletions: @return[:outputsActuals][:previousCompletions],
+      currentCompletions: @return[:outputsActuals][:currentCompletions],
+      completionsSinceLastReturn: @return[:outputsActuals][:completionsSinceLastReturn]
+    }
+
+    @converted_return[:outputsActuals][:ownership] = {
+      laOwned: @return[:outputsActuals][:laOwned],
+      pslLand: @return[:outputsActuals][:pslLand]
+    }
+
+    @converted_return[:outputsActuals][:percentages] = {
+      brownfieldPercent: @return[:outputsActuals][:brownfieldPercent],
+      leaseholdPercent: @return[:outputsActuals][:leaseholdPercent],
+      smePercent: @return[:outputsActuals][:smePercent],
+      mmcPercent: @return[:outputsActuals][:mmcPercent]
+    }
   end
 
   def convert_mr_review_tab

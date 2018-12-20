@@ -714,10 +714,14 @@
       "size": "10"
     },
     "starts": {
-      "previousStarts": "starting",
-      "startsSinceLastReturn": "5",
-      "previousCompletions": "56",
-      "completionsSinceLastReturn": "3"
+      "starts": {
+        "previousStarts": "starting",
+        "startsSinceLastReturn": "5",
+        "previousCompletions": "56",
+        "currentCompletions": "345",
+        "currentStarts": "768",
+        "completionsSinceLastReturn": "3"
+      }
     },
     "ownership": {
       "laOwned": "Yes",

@@ -699,6 +699,8 @@
     "localAuthority": "Local Authority",
     "noOfUnits": "123",
     "size": "10",
+    "currentStarts": "768",
+    "currentCompletions": "345",
     "previousStarts": "starting",
     "startsSinceLastReturn": "5",
     "previousCompletions": "56",

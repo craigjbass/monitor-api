@@ -734,10 +734,14 @@ class UI::UseCase::ConvertUIHIFReturn
     end
 
     unless @return[:outputsActuals][:starts].nil?
-      @converted_return[:outputsActuals][:previousStarts] = @return[:outputsActuals][:starts][:previousStarts]
-      @converted_return[:outputsActuals][:startsSinceLastReturn] = @return[:outputsActuals][:starts][:startsSinceLastReturn]
-      @converted_return[:outputsActuals][:previousCompletions] = @return[:outputsActuals][:starts][:previousCompletions]
-      @converted_return[:outputsActuals][:completionsSinceLastReturn] = @return[:outputsActuals][:starts][:completionsSinceLastReturn]
+      unless @return[:outputsActuals][:starts][:starts].nil?
+        @converted_return[:outputsActuals][:previousStarts] = @return[:outputsActuals][:starts][:starts][:previousStarts]
+        @converted_return[:outputsActuals][:startsSinceLastReturn] = @return[:outputsActuals][:starts][:starts][:startsSinceLastReturn]
+        @converted_return[:outputsActuals][:previousCompletions] = @return[:outputsActuals][:starts][:starts][:previousCompletions]
+        @converted_return[:outputsActuals][:completionsSinceLastReturn] = @return[:outputsActuals][:starts][:starts][:completionsSinceLastReturn]
+        @converted_return[:outputsActuals][:currentStarts] = @return[:outputsActuals][:starts][:starts][:currentStarts]
+        @converted_return[:outputsActuals][:currentCompletions] = @return[:outputsActuals][:starts][:starts][:currentCompletions]
+      end
     end
 
     unless @return[:outputsActuals][:ownership].nil?

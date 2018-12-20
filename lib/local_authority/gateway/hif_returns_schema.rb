@@ -4579,8 +4579,12 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
         previousStarts: {
           type: 'string',
           title: 'Previous Starts',
-          hidden: true,
-          readonly: true
+          readonly: true,
+          sourceKey: %i[return_data outputsActuals currentStarts]
+        },
+        currentStarts: {
+          type: 'string',
+          hidden: true
         },
         startsSinceLastReturn: {
           type: 'string',
@@ -4589,8 +4593,12 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
         previousCompletions: {
           type: 'string',
           title: 'Previous Completions',
-          hidden: 'true',
-          readonly: 'true'
+          sourceKey: %i[return_data outputsActuals currentCompletions],
+          readonly: true
+        },
+        currentCompletions: {
+          type: 'string',
+          hidden: true
         },
         completionsSinceLastReturn: {
           type: 'string',
