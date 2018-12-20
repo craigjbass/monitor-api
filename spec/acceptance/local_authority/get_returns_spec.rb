@@ -1,5 +1,6 @@
 require 'rspec'
 require_relative '../shared_context/dependency_factory'
+require 'timecop'
 
 describe 'Getting multiple returns' do
   include_context 'dependency factory'
@@ -69,6 +70,10 @@ describe 'Getting multiple returns' do
       project_id: project_id, data: { dogs: 'woof' }
     )[:id]
 
+    time_now = Time.now
+    Timecop.freeze(time_now)
+    time_now = time_now.to_i
+
     expected_returns = [
       {
         id: return1_id,
@@ -76,7 +81,8 @@ describe 'Getting multiple returns' do
         updates: [
           { cats: 'meow' }
         ],
-        status: 'Submitted'
+        status: 'Submitted',
+        timestamp: time_now
       },
       {
         id: return2_id,
@@ -84,7 +90,8 @@ describe 'Getting multiple returns' do
         updates: [
           { dogs: 'woof' }
         ],
-        status: 'Draft'
+        status: 'Draft',
+        timestamp: 0
       }
     ]
 
