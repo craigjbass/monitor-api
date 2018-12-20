@@ -40,7 +40,8 @@ class LocalAuthority::Gateway::SequelReturn
     @database[:returns].where(id: return_id).delete
   end
 
-  def submit(return_id:)
+  def submit(return_id:, timestamp:)
     @database[:returns].where(id: return_id).update(status: 'Submitted')
+    @database[:returns].where(id: return_id).update(timestamp: timestamp)
   end
 end
