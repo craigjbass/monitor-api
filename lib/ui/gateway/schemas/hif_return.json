@@ -1521,7 +1521,7 @@
     "fundingProfiles": {
       "type": "object",
       "title": "HIF Grant Expenditure",
-      "calculation": "get(formData, 'changeRequired') === 'Change required' ? set(formData['currentFunding'], 'forecast', get(formData, 'requestedProfiles', 'newProfile')) : set(formData['currentFunding'], 'forecast', get(formData, 'fundingRequest', 'forecast')); validateArrayPropertyIsLessThan(formData['requestedProfiles']['newProfile'], ['totalHolder', 'total'], parseMoney(get(formData, 'totalHIFGrant')));",
+      "calculation": "get(formData, 'changeRequired') === 'Change required' ? set(formData['currentFunding'], 'forecast', get(formData, 'requestedProfiles', 'newProfile')) : set(formData['currentFunding'], 'forecast', get(formData, 'fundingRequest', 'forecast')); validateArrayPropertyIsLessThan(formData['requestedProfiles']['newProfile'], ['totalHolder', 'total'], parseMoney(get(formData, 'totalHIFGrant'))); setArrayVariance(formData['fundingRequest']['forecast'], 'instalment1', formData['requestedProfiles']['newProfile'], 'instalment1', 'instalment1Variance'); setArrayVariance(formData['fundingRequest']['forecast'], 'instalment2', formData['requestedProfiles']['newProfile'], 'instalment2', 'instalment2Variance'); setArrayVariance(formData['fundingRequest']['forecast'], 'instalment3', formData['requestedProfiles']['newProfile'], 'instalment3', 'instalment3Variance'); setArrayVariance(formData['fundingRequest']['forecast'], 'instalment4', formData['requestedProfiles']['newProfile'], 'instalment4', 'instalment4Variance');",
       "properties": {
         "totalHIFGrant": {
           "type": "string",
@@ -1697,27 +1697,56 @@
                               "fundingProfiles",
                               "period"
                             ],
-                            "readonly": true
+                            "readonly": true,
+                            "varianceField": "varianceTitle"
                           },
                           "instalment1": {
                             "title": "1st Quarter",
                             "type": "string",
+                            "varianceField": "instalment1Variance",
+                            "currency": true
+                          },
+                          "instalment1Variance": {
+                            "title": "Instalment 1 Variance",
+                            "type": "string",
+                            "hidden": true,
                             "currency": true
                           },
                           "instalment2": {
                             "title": "2nd Quarter",
                             "type": "string",
+                            "varianceField": "instalment2Variance",
                             "currency": true
+                          },
+                          "instalment2Variance": {
+                            "title": "Instalment 1 Variance",
+                            "type": "string",
+                            "currency": true,
+                            "hidden": true
                           },
                           "instalment3": {
                             "title": "3rd Quarter",
                             "type": "string",
+                            "varianceField": "instalment3Variance",
                             "currency": true
+                          },
+                          "instalment3Variance": {
+                            "title": "Instalment 1 Variance",
+                            "type": "string",
+                            "currency": true,
+                            "hidden": true
                           },
                           "instalment4": {
                             "title": "4th Quarter",
                             "type": "string",
+                            "varianceField": "instalment4Variance",
                             "currency": true
+                          },
+                          "instalment4Variance": {
+                            "title": "Instalment 1 Variance",
+                            "type": "string",
+                            "currency": true,
+                            "hidden": true
                           },
                           "totalHolder": {
                             "type": "object",
