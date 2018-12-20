@@ -3,11 +3,12 @@ require_relative '../../simulator/notification'
 
 describe 'Notifying project members' do
   include_context 'dependency factory'
+  
   let(:notification_url) { 'http://meow.cat/' }
-  let(:simulator) { Simulator::Notification.new(self, notification_url) }
   let(:notification_request) do
     stub_request(:post, "#{notification_url}v2/notifications/email").to_return(status: 200, body: {}.to_json)
   end
+  let(:simulator) { Simulator::Notification.new(self, notification_url) }
 
   let(:new_project) do
     HomesEngland::Domain::Project.new.tap do |p|
