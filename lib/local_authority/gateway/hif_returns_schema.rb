@@ -29,6 +29,12 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                       title: 'Description',
                       sourceKey: %i[baseline_data infrastructures description],
                       readonly: true
+                    },
+                    housingSitesBenefitting: {
+                      type: "string",
+                      title: "Housing Sites Benefitting",
+                      sourceKey: %i[baseline_data infrastructures housingSitesBenefitting],
+                      readonly: true
                     }
                   }
                 },

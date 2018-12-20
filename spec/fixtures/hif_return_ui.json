@@ -3,7 +3,8 @@
     {
       "summary": {
         "type": "A House",
-        "description": "A house of cats"
+        "description": "A house of cats",
+        "housingSitesBenefitting": "A benefiting housing site"
       },
       "planning": {
         "outlinePlanning": {

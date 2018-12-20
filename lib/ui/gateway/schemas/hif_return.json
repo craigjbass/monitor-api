@@ -28,6 +28,14 @@
                   "description"
                 ],
                 "readonly": true
+              },
+              "housingSitesBenefitting": {
+                "type": "string",
+                "title": "Housing Sites Benefitting",
+                "sourceKey": [
+                  "baseline_data", "infrastructures", "type"
+                ],
+                "readonly": true
               }
             }
           },
