@@ -1833,12 +1833,60 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
           }
         },
         inYearHousingStarts: {
-          type: 'object',
-          title: 'In year housing starts',
+          type: "object",
+          title: "In Year Housing Starts",
           properties: {
-            risksToAchieving: {
-              type: 'string',
-              title: 'Risks to achieving'
+            baselineAmounts: {
+              type: "object",
+              horizontal: true,
+              title: "Baseline Amounts",
+              properties: {
+                quarter1:{
+                  type: "string",
+                  title: "Q1 Current Year"
+                },
+                quarter2:{
+                  type: "string",
+                  title: "Q2 Current Year"
+                },
+                quarter3:{
+                  type: "string",
+                  title: "Q3 Current Year"
+                },
+                quarter4:{
+                  type: "string",
+                  title: "Q4 Current Year"
+                }  
+              }
+            },
+            actualAmounts: {
+              type: "object",
+              horizontal: true,
+              title: "Actual Amounts",
+              properties: {
+                quarter1:{
+                  type: "string",
+                  title: "Q1 Current Year"
+                },
+                quarter2:{
+                  type: "string",
+                  title: "Q2 Current Year"
+                },
+                quarter3:{
+                  type: "string",
+                  title: "Q3 Current Year"
+                },
+                quarter4:{
+                  type: "string",
+                  title: "Q4 Current Year"
+                }  
+              }
+            },
+            progress: {
+              type: "string",
+              title: "Progress",
+              percentage: true,
+              readonly: true
             }
           }
         },
@@ -1914,16 +1962,64 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
             }
           }
         },
-        inYearHousingCompletions: {
-          type: 'object',
-          title: 'In year housing completions',
+        inYearHousingStarts: {
+          type: "object",
+          title: "In Year Housing Starts",
           properties: {
-            risksToAchieving: {
-              type: 'string',
-              title: 'Risks to achieving'
+            baselineAmounts: {
+              type: "object",
+              horizontal: true,
+              title: "Baseline Amounts",
+              properties: {
+                quarter1:{
+                  type: "string",
+                  title: "Q1 Current Year"
+                },
+                quarter2:{
+                  type: "string",
+                  title: "Q2 Current Year"
+                },
+                quarter3:{
+                  type: "string",
+                  title: "Q3 Current Year"
+                },
+                quarter4:{
+                  type: "string",
+                  title: "Q4 Current Year"
+                }  
+              }
+            },
+            actualAmounts: {
+              type: "object",
+              horizontal: true,
+              title: "Actual Amounts",
+              properties: {
+                quarter1:{
+                  type: "string",
+                  title: "Q1 Current Year"
+                },
+                quarter2:{
+                  type: "string",
+                  title: "Q2 Current Year"
+                },
+                quarter3:{
+                  type: "string",
+                  title: "Q3 Current Year"
+                },
+                quarter4:{
+                  type: "string",
+                  title: "Q4 Current Year"
+                }  
+              }
+            },
+            progress: {
+              type: "string",
+              title: "Progress",
+              percentage: true,
+              readonly: true
             }
           }
-        }
+        },
       }
     }
   end

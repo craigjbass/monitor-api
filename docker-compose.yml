@@ -35,7 +35,7 @@ services:
       OUTPUTS_ACTUALS_TAB: 'yes'
       WIDER_SCHEME_TAB: 'yes'
       MR_REVIEW_TAB: 'yes'
-
+      
   notify_simulator:
     build: .
     volumes:

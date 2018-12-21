@@ -528,7 +528,9 @@ class UI::UseCase::ConvertUIHIFReturn
 
     unless @return[:outputsForecast][:inYearHousingStarts].nil?
       @converted_return[:outputsForecast][:inYearHousingStarts] = {
-        risksToAchieving: @return[:outputsForecast][:inYearHousingStarts][:risksToAchieving]
+        baselineAmounts: @return[:outputsForecast][:inYearHousingStarts][:baselineAmounts],
+        actualAmounts: @return[:outputsForecast][:inYearHousingStarts][:actualAmounts],
+        progress: @return[:outputsForecast][:inYearHousingStarts][:progress]
       }
     end
 
@@ -555,7 +557,9 @@ class UI::UseCase::ConvertUIHIFReturn
 
     unless @return[:outputsForecast][:inYearHousingCompletions].nil?
       @converted_return[:outputsForecast][:inYearHousingCompletions] = {
-        risksToAchieving: @return[:outputsForecast][:inYearHousingCompletions][:risksToAchieving]
+        baselineAmounts: @return[:outputsForecast][:inYearHousingCompletions][:baselineAmounts],
+        actualAmounts: @return[:outputsForecast][:inYearHousingCompletions][:actualAmounts],
+        progress: @return[:outputsForecast][:inYearHousingCompletions][:progress]
       }
     end
   end
