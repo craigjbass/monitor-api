@@ -460,7 +460,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                       }
                                     },
                                     statutoryConsents: {
-                                      title: 'Current Statutory Consents',
+                                      title: 'Status of Statutory Consents',
                                       type: 'array',
                                       items: {
                                         type: 'object',
