@@ -201,7 +201,8 @@
       }
     },
     "claimSummary": {
-      "hifTotalFundingRequest": "10000"
+      "hifTotalFundingRequest": "10000",
+      "hifSpendToDate": null
     }
   }
 }

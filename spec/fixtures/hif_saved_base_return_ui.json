@@ -336,13 +336,12 @@
       "lastQuarterMonthSpend": {
         "forecast": null,
         "actual": null,
-        "hasVariance": null,
-        "varianceAgainstForcastAmount": null,
-        "varianceAgainstForcastPercentage": null
+        "varianceReason": null
       },
       "evidenceOfSpendPastQuarter": null
     },
     "claimSummary": {
+      "runningClaimTotal": null,
       "certifiedClaimForm": null,
       "hifTotalFundingRequest": "10000",
       "hifSpendToDate": null,

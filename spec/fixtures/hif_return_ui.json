@@ -714,15 +714,18 @@
       "hifTotalFundingRequest": "Funding",
       "certifiedClaimForm": "some form",
       "hifSpendToDate": "1234-65-43",
-      "AmountOfThisClaim": "lots"
+      "AmountOfThisClaim": "lots",
+      "runningClaimTotal": "23"
     },
     "supportingEvidence": {
       "lastQuarterMonthSpend": {
         "forecast": "500",
         "actual": "400",
-        "hasVariance": "No",
-        "varianceAgainstForcastAmount": "456728",
-        "varianceAgainstForcastPercentage": "123456"
+        "varianceReason": "Areason",
+        "variance": {
+          "varianceAgainstForcastAmount": "456728",
+          "varianceAgainstForcastPercentage": "123456"
+        }
       },
       "evidenceOfSpendPastQuarter": "Much",
       "breakdownOfNextQuarterSpend": {
