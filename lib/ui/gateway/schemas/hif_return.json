@@ -4112,7 +4112,7 @@
         "submission": {
           "type": "object",
           "title": "Submission",
-          "calculation": "set(formData['changesToEndDate'], 'varianceFromEndDateBaseline', weeksPassed(get(formData, 'hifFundingEndDate'), get(formData, 'changesToEndDate', 'requestedChangedEndDate')));",
+          "calculation": "set(formData['changesToEndDate'], 'varianceFromEndDateBaseline', weeksPassed(get(formData, 'hifFundingEndDate'), get(formData, 'changesToEndDate', 'requestedChangedEndDate'))); set(formData['changesToLongstopDate'], 'varianceFromLongStopBaseline', weeksPassed(get(formData, 'projectLongstopDate'), get(formData, 'changesToLongstopDate', 'requestedLongstopEndDate')));",
           "properties": {
             "changeToMilestones": {
               "title": "",
@@ -4263,13 +4263,13 @@
                         "requestedLongstopEndDate": {
                           "type": "string",
                           "s151WriteOnly": true,
+                          "format": "date",
                           "title": "Requested new end date"
                         },
                         "varianceFromLongStopBaseline": {
                           "type": "string",
                           "title": "Variance from Baseline",
-                          "readonly": true,
-                          "hidden": true
+                          "readonly": true
                         },
                         "mitigationInPlaceLongstopDate": {
                           "type": "string",
