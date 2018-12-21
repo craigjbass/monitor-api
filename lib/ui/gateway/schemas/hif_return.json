@@ -506,14 +506,14 @@
                                 }
                               },
                               "statutoryConsents": {
-                                "title": "Current Statutory Consents",
+                                "title": "Status of Statutory Consents",
                                 "type": "array",
                                 "items": {
                                   "type": "object",
                                   "calculation": "set(formData, 'varianceAgainstBaseline', weeksPassed(get(formData, 'baselineCompletion'), get(formData, 'currentReturn'))); set(formData, 'varianceAgainstLastReturn', weeksPassed(get(formData, 'previousReturn'), get(formData, 'currentReturn')));",
                                   "properties": {
                                     "baselineCompletion": {
-                                      "title": "Baseline completion",
+                                      "title": "Baseline Target",
                                       "type": "string",
                                       "format": "date",
                                       "sourceKey": [
@@ -522,7 +522,8 @@
                                         "statutoryConsents",
                                         "consents",
                                         "targetDateToBeMet"
-                                      ]
+                                      ],
+                                      "readonly": true
                                     },
                                     "varianceAgainstBaseline": {
                                       "title": "Variance against baseline (Calculated)",
@@ -694,7 +695,7 @@
                                       "baseline": {
                                         "type": "string",
                                         "format": "date",
-                                        "title": "Baseline Completion",
+                                        "title": "Baseline Target",
                                         "sourceKey": [
                                           "baseline_data",
                                           "infrastructures",

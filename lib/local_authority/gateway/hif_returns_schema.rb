@@ -466,16 +466,17 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                       }
                                     },
                                     statutoryConsents: {
-                                      title: 'Current Statutory Consents',
+                                      title: 'Status of Statutory Consents',
                                       type: 'array',
                                       items: {
                                         type: 'object',
                                         properties: {
                                           baselineCompletion: {
-                                            title: 'Baseline completion',
+                                            title: 'Baseline Target',
                                             type: 'string',
                                             format: 'date',
-                                            sourceKey: %i[baseline_data infrastructures statutoryConsents consents targetDateToBeMet]
+                                            sourceKey: %i[baseline_data infrastructures statutoryConsents consents targetDateToBeMet],
+                                            readonly: true
                                           },
                                           varianceAgainstBaseline: {
                                             hidden: true,
@@ -618,7 +619,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                             baseline: {
                                               type: 'string',
                                               format: 'date',
-                                              title: 'Baseline Completion',
+                                              title: 'Baseline Target',
                                               sourceKey: %i[baseline_data infrastructures landOwnership targetDateToAcquire],
                                               readonly: true
                                             },
