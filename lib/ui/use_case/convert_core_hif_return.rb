@@ -662,7 +662,8 @@ class UI::UseCase::ConvertCoreHIFReturn
         hifTotalFundingRequest: @return[:s151][:claimSummary][:hifTotalFundingRequest],
         hifSpendToDate: @return[:s151][:claimSummary][:hifSpendToDate],
         AmountOfThisClaim: @return[:s151][:claimSummary][:AmountOfThisClaim],
-        certifiedClaimForm: @return[:s151][:claimSummary][:certifiedClaimForm]
+        certifiedClaimForm: @return[:s151][:claimSummary][:certifiedClaimForm],
+        runningClaimTotal: @return[:s151][:claimSummary][:runningClaimTotal]
       }
     end
 

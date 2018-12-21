@@ -341,6 +341,7 @@
       "evidenceOfSpendPastQuarter": null
     },
     "claimSummary": {
+      "runningClaimTotal": null,
       "certifiedClaimForm": null,
       "hifTotalFundingRequest": "10000",
       "hifSpendToDate": null,

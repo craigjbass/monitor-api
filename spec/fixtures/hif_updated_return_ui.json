@@ -346,7 +346,8 @@
       "hifTotalFundingRequest": "10000",
       "hifSpendToDate": null,
       "AmountOfThisClaim": null,
-      "certifiedClaimForm": null
+      "certifiedClaimForm": null,
+      "runningClaimTotal": null
     }
   },
   "rmMonthlyCatchup": {

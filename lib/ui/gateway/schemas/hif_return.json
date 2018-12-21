@@ -3702,6 +3702,7 @@
       "properties": {
         "claimSummary": {
           "title": "Summary of Claim",
+          "calculation": "set(formData, 'runningClaimTotal',`${sum(formData, 'hifSpendToDate', 'AmountOfThisClaim')}`);",
           "type": "object",
           "properties": {
             "hifTotalFundingRequest": {
@@ -3713,9 +3714,9 @@
             },
             "hifSpendToDate": {
               "type": "string",
-              "hidden": true,
               "title": "HIF Spend to Date",
               "s151WriteOnly": true,
+              "readonly": true,
               "currency": true
             },
             "AmountOfThisClaim": {
@@ -3723,6 +3724,10 @@
               "title": "Amount of this Claim",
               "currency": true,
               "s151WriteOnly": true
+            },
+            "runningClaimTotal": {
+              "type": "string",
+              "hidden": true
             },
             "certifiedClaimForm": {
               "type": "string",

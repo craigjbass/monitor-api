@@ -702,7 +702,8 @@
       "certifiedClaimForm": "some form",
       "hifTotalFundingRequest": "Funding",
       "hifSpendToDate": "1234-65-43",
-      "AmountOfThisClaim": "lots"
+      "AmountOfThisClaim": "lots",
+      "runningClaimTotal": "23"
     },
     "supportingEvidence": {
       "lastQuarterMonthSpend": {

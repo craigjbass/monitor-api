@@ -4173,16 +4173,20 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
             },
             hifSpendToDate: {
               type: 'string',
-              hidden: true,
               title: 'HIF Spend to Date',
-              s151WriteOnly: true,
-              currency: true
+              currency: true,
+              readonly: true,
+              sourceKey: %i[return_data s151 claimSummary runningClaimTotal]
             },
             AmountOfThisClaim: {
               type: 'string',
               title: 'Amount of this Claim',
               currency: true,
               s151WriteOnly: true
+            },
+            runningClaimTotal: {
+              type: 'string',
+              hidden: true
             }
           }
         },
