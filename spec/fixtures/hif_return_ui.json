@@ -648,8 +648,10 @@
         "changesToRequestConfirmation": "requesting",
         "requestedAmount": "money",
         "reasonForRequest": "reasoning",
-        "varianceFromBaseline": "varying",
-        "varianceFromBaselinePercent" : "67",
+        "varianceFromBaseline": {
+          "variance": "varying",
+          "varianceFromBaselinePercent" : "67"
+        },
         "mitigationInPlace": "mitigating"
       },
       "hifFundingProfile": [
