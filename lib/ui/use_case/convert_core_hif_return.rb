@@ -673,10 +673,14 @@ class UI::UseCase::ConvertCoreHIFReturn
       @converted_return[:s151][:supportingEvidence][:lastQuarterMonthSpend] = {
         forecast: @return[:s151][:supportingEvidence][:lastQuarterMonthSpend][:forecast],
         actual: @return[:s151][:supportingEvidence][:lastQuarterMonthSpend][:actual],
-        hasVariance: @return[:s151][:supportingEvidence][:lastQuarterMonthSpend][:hasVariance],
-        varianceAgainstForcastAmount: @return[:s151][:supportingEvidence][:lastQuarterMonthSpend][:varianceAgainstForcastAmount],
-        varianceAgainstForcastPercentage: @return[:s151][:supportingEvidence][:lastQuarterMonthSpend][:varianceAgainstForcastPercentage]
+        varianceReason: @return[:s151][:supportingEvidence][:lastQuarterMonthSpend][:varianceReason]
       }
+      unless @return[:s151][:supportingEvidence][:lastQuarterMonthSpend][:variance].nil?
+        @converted_return[:s151][:supportingEvidence][:lastQuarterMonthSpend][:variance] = {
+          varianceAgainstForcastAmount: @return[:s151][:supportingEvidence][:lastQuarterMonthSpend][:variance][:varianceAgainstForcastAmount],
+          varianceAgainstForcastPercentage: @return[:s151][:supportingEvidence][:lastQuarterMonthSpend][:variance][:varianceAgainstForcastPercentage]
+        }
+      end
     end
 
     @converted_return[:s151][:supportingEvidence][:evidenceOfSpendPastQuarter] = @return[:s151][:supportingEvidence][:evidenceOfSpendPastQuarter]

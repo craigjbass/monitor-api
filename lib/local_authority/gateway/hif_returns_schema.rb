@@ -4215,49 +4215,22 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                   title: '',
                   type: 'object',
                   properties: {
-                    hasVariance: {
-                      title: 'Does this vary to the forecasted amount?',
+                    varianceAgainstForecastAmount: {
+                      title: 'Variance Against Forecast',
                       type: 'string',
-                      radio: true,
                       s151WriteOnly: true,
-                      enum: %w[Yes No]
-                    }
-                  },
-                  dependencies: {
-                    hasVariance: {
-                      oneOf: [
-                        {
-                          properties: {
-                            hasVariance: {
-                              enum: ['No']
-                            }
-                          }
-                        },
-                        {
-                          properties: {
-                            hasVariance: {
-                              enum: ['Yes']
-                            },
-                            varianceAgainstForecastAmount: {
-                              title: 'Variance Against Forecast',
-                              type: 'string',
-                              s151WriteOnly: true,
-                              currency: true
-                            },
-                            varianceAgainstForecastPercentage: {
-                              title: 'Variance Against Forecast',
-                              type: 'string',
-                              s151WriteOnly: true,
-                              percentage: true
-                            },
-                            varianceReason: {
-                              title: 'Reason for Variance',
-                              s151WriteOnly: true,
-                              type: 'string'
-                            }
-                          }
-                        }
-                      ]
+                      currency: true
+                    },
+                    varianceAgainstForecastPercentage: {
+                      title: 'Variance Against Forecast',
+                      type: 'string',
+                      s151WriteOnly: true,
+                      percentage: true
+                    },
+                    varianceReason: {
+                      title: 'Reason for Variance',
+                      s151WriteOnly: true,
+                      type: 'string'
                     }
                   }
                 }

@@ -334,9 +334,7 @@
       "lastQuarterMonthSpend": {
         "forecast": null,
         "actual": null,
-        "hasVariance": null,
-        "varianceAgainstForcastAmount": null,
-        "varianceAgainstForcastPercentage": null
+        "varianceReason": null
       },
       "evidenceOfSpendPastQuarter": null
     },

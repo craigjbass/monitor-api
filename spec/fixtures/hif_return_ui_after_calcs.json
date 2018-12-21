@@ -728,9 +728,11 @@
       "lastQuarterMonthSpend": {
         "forecast": "500",
         "actual": "400",
-        "hasVariance": "Yes",
-        "varianceAgainstForcastAmount": "100",
-        "varianceAgainstForcastPercentage": "20"
+        "variance": {
+          "varianceAgainstForcastAmount": "456728",
+          "varianceAgainstForcastPercentage": "123456"
+        },
+        "varianceReason": "Areason"
       },
       "evidenceOfSpendPastQuarter": "Much",
       "breakdownOfNextQuarterSpend": {
