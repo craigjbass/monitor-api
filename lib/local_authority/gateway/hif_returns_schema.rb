@@ -469,7 +469,8 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                             title: 'Baseline Target',
                                             type: 'string',
                                             format: 'date',
-                                            sourceKey: %i[baseline_data infrastructures statutoryConsents consents targetDateToBeMet]
+                                            sourceKey: %i[baseline_data infrastructures statutoryConsents consents targetDateToBeMet],
+                                            readonly: true
                                           },
                                           varianceAgainstBaseline: {
                                             hidden: true,

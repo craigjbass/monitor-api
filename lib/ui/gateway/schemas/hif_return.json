@@ -514,7 +514,8 @@
                                         "statutoryConsents",
                                         "consents",
                                         "targetDateToBeMet"
-                                      ]
+                                      ],
+                                      "readonly": true
                                     },
                                     "varianceAgainstBaseline": {
                                       "title": "Variance against baseline (Calculated)",
