@@ -631,8 +631,10 @@
         "evidenceOfVariance": "some proof of funding",
         "requestedAmount": "money",
         "reasonForRequest": "reasoning",
-        "varianceFromBaseline": "varying",
-        "varianceFromBaselinePercent": "67",
+        "varianceFromBaseline": {
+          "variance": "varying",
+          "varianceFromBaselinePercent": "67"
+        },
         "mitigationInPlace": "mitigating"
       },
       "hifFundingProfile": [
