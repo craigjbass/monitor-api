@@ -4461,7 +4461,7 @@
         "inYearHousingStarts": {
           "type": "object",
           "title": "In Year Housing Starts",
-          "calculation": "formData['baselineAmounts'] ? set(formData, 'progress', calculateVariance(sum(formData['actualAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'), sum(formData['baselineAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'))) : '0'; ",
+          "calculation": "get(formData, 'baselineAmounts') ? set(formData, 'progress', calculateVariance(sum(formData['actualAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'), sum(formData['baselineAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'))) : '0'; ",
           "properties": {
             "baselineAmounts": {
               "type": "object",

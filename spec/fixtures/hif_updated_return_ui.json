@@ -212,8 +212,6 @@
       "anyChanges": null,
       "currentReturnAmounts": [{ "period": "18/19" }, { "period": "19/20" }]
     },
-    "inYearHousingStarts": null,
-    "inYearHousingCompletions": null,
     "housingCompletions": {
       "baselineAmounts": [
         { "period": "18/19", "baselineAmounts": "0" },

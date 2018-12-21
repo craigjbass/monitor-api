@@ -532,8 +532,13 @@ class UI::UseCase::ConvertCoreHIFReturn
       end
     end
 
-    @converted_return[:outputsForecast][:inYearHousingStarts] = @return[:outputsForecast][:inYearHousingStarts]
-
+    unless @return[:outputsForecast][:inYearHousingStarts].nil?
+      @converted_return[:outputsForecast][:inYearHousingStarts] = {
+        baselineAmounts: @return[:outputsForecast][:inYearHousingStarts][:baselineAmounts],
+        actualAmounts: @return[:outputsForecast][:inYearHousingStarts][:actualAmounts],
+        progress: @return[:outputsForecast][:inYearHousingStarts][:progress]
+      }
+    end
 
     unless @return[:outputsForecast][:housingCompletions].nil?
       @converted_return[:outputsForecast][:housingCompletions] = {}
@@ -556,7 +561,13 @@ class UI::UseCase::ConvertCoreHIFReturn
 
     end
 
-    @converted_return[:outputsForecast][:inYearHousingCompletions] = @return[:outputsForecast][:inYearHousingCompletions]
+    unless @return[:outputsForecast][:inYearHousingCompletions].nil?
+      @converted_return[:outputsForecast][:inYearHousingCompletions] = {
+        baselineAmounts: @return[:outputsForecast][:inYearHousingCompletions][:baselineAmounts],
+        actualAmounts: @return[:outputsForecast][:inYearHousingCompletions][:actualAmounts],
+        progress: @return[:outputsForecast][:inYearHousingCompletions][:progress]
+      }
+    end  
   end
 
   def convert_s151_confirmation
