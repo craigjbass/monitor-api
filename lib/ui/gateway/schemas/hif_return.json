@@ -3862,7 +3862,7 @@
                         },
                         "varianceFromBaseline": {
                           "type": "object",
-                          "title": "Variance from Baseline",
+                          "title": "",
                           "horizontal": true,
                           "properties": {
                             "variance": {
@@ -3873,7 +3873,7 @@
                             },
                             "varianceFromBaselinePercent": {
                               "type": "string",
-                              "title": "Variance from Baseline",
+                              "title": "Percentage Variance from Baseline",
                               "percentage": true,
                               "readonly": true
                             }
@@ -4112,6 +4112,7 @@
         "submission": {
           "type": "object",
           "title": "Submission",
+          "calculation": "set(formData['changesToEndDate'], 'varianceFromEndDateBaseline', weeksPassed(get(formData, 'hifFundingEndDate'), get(formData, 'changesToEndDate', 'requestedChangedEndDate')));",
           "properties": {
             "changeToMilestones": {
               "title": "",
@@ -4202,13 +4203,13 @@
                         "requestedChangedEndDate": {
                           "type": "string",
                           "title": "Requested new end date",
+                          "format": "date",
                           "s151WriteOnly": true
                         },
                         "varianceFromEndDateBaseline": {
                           "type": "string",
-                          "title": "Variance from Baseline",
-                          "readonly": true,
-                          "hidden": true
+                          "title": "Variance from Baseline (Weeks)",
+                          "readonly": true
                         },
                         "mitigationInPlaceEndDate": {
                           "type": "string",

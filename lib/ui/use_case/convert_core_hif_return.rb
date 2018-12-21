@@ -576,10 +576,13 @@ class UI::UseCase::ConvertCoreHIFReturn
         changesToRequestConfirmation: @return[:s151Confirmation][:hifFunding][:changesToRequest],
         requestedAmount: @return[:s151Confirmation][:hifFunding][:requestedAmount],
         reasonForRequest: @return[:s151Confirmation][:hifFunding][:reasonForRequest],
-        varianceFromBaseline: @return[:s151Confirmation][:hifFunding][:varianceFromBaseline],
         evidenceOfVariance: @return[:s151Confirmation][:hifFunding][:evidenceOfVariance],
-        varianceFromBaselinePercent: @return[:s151Confirmation][:hifFunding][:varianceFromBaselinePercent],
         mitigationInPlace: @return[:s151Confirmation][:hifFunding][:mitigationInPlace]
+      }
+
+      @converted_return[:s151Confirmation][:hifFunding][:changesToRequest][:varianceFromBaseline] = {
+        varianceFromBaselinePercent: @return[:s151Confirmation][:hifFunding][:varianceFromBaselinePercent],
+        variance: @return[:s151Confirmation][:hifFunding][:varianceFromBaseline]
       }
 
       @converted_return[:s151Confirmation][:hifFunding][:hifFundingProfile] = @return[:s151Confirmation][:hifFunding][:hifFundingProfile].map do |profile|
