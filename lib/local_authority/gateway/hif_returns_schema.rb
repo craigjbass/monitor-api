@@ -1857,7 +1857,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                 quarter4:{
                   type: "string",
                   title: "Q4 Current Year"
-                }  
+                }
               }
             },
             actualAmounts: {
@@ -1880,7 +1880,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                 quarter4:{
                   type: "string",
                   title: "Q4 Current Year"
-                }  
+                }
               }
             },
             progress: {
@@ -1987,7 +1987,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                 quarter4:{
                   type: "string",
                   title: "Q4 Current Year"
-                }  
+                }
               }
             },
             actualAmounts: {
@@ -2010,7 +2010,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                 quarter4:{
                   type: "string",
                   title: "Q4 Current Year"
-                }  
+                }
               }
             },
             progress: {
@@ -2122,7 +2122,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
               landAssembly: {
                 type: "object",
                 title: "Land Assembly",
-                calculation: "get(formData, 'dates') ? set(formData, 'varianceAmount', daysPassed(get(formData, 'dates', 'expectedCompletion'), get(formData, 'dates', 'currentReturnCompletionDate'))) : ''",
+                calculation: "get(formData, 'dates') ? set(formData, 'varianceAmount', weeksPassed(get(formData, 'dates', 'expectedCompletion'), get(formData, 'dates', 'currentReturnCompletionDate'))) : ''",
                 properties: {
                   liveRisk: {
                     type: "string",
@@ -2165,7 +2165,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           varianceAmount: {
                             type: "string",
-                            title: "Variance Amount (days)",
+                            title: "Variance Amount (weeks)",
                             readonly: true
                           },
                           varianceReason: {
