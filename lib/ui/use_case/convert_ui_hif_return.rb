@@ -102,7 +102,7 @@ class UI::UseCase::ConvertUIHIFReturn
       nameOfContractor: procurement[:nameOfContractor],
       summaryOfCriticalPath: procurement[:summaryOfCriticalPath],
     }
-    
+
     unless procurement[:procurementStatusAgainstLastReturn].nil?
       new_procurement[:procurementBaselineCompletion] = procurement[:procurementStatusAgainstLastReturn][:baseline]
       new_procurement[:procurementVarianceAgainstLastReturn] = procurement[:procurementStatusAgainstLastReturn][:procurementVarianceAgainstLastReturn]
@@ -110,7 +110,7 @@ class UI::UseCase::ConvertUIHIFReturn
       new_procurement[:percentComplete] = procurement[:procurementStatusAgainstLastReturn][:percentComplete]
       new_procurement[:procurementCompletedDate] = procurement[:procurementStatusAgainstLastReturn][:completedDate]
       new_procurement[:procurementCompletedNameOfContractor] = procurement[:procurementStatusAgainstLastReturn][:onCompletedNameOfContractor]
-      
+
       new_procurement[:procurementStatusAgainstLastReturn] = {
         statusAgainstLastReturn: procurement[:procurementStatusAgainstLastReturn][:status],
         currentReturn: procurement[:procurementStatusAgainstLastReturn][:current],
@@ -443,8 +443,10 @@ class UI::UseCase::ConvertUIHIFReturn
       @converted_return[:widerScheme][0][:topRisks][:delivery] = convert_top_risk(@return[:widerScheme][0][:topRisks][:delivery])
       @converted_return[:widerScheme][0][:topRisks][:fundingPackage] = convert_top_risk(@return[:widerScheme][0][:topRisks][:fundingPackage])
 
-      @converted_return[:widerScheme][0][:topRisks][:additionalRisks] = @return[:widerScheme][0][:topRisks][:additionalRisks].map do |risk|
-        convert_top_risk(risk)
+      unless @return[:widerScheme][0][:topRisks][:additionalRisks].nil?
+        @converted_return[:widerScheme][0][:topRisks][:additionalRisks] = @return[:widerScheme][0][:topRisks][:additionalRisks].map do |risk|
+          convert_top_risk(risk)
+        end
       end
 
       @converted_return[:widerScheme][0][:topRisks][:progressLastQuarter] = @return[:widerScheme][0][:topRisks][:progressLastQuarter]
@@ -576,7 +578,7 @@ class UI::UseCase::ConvertUIHIFReturn
         @converted_return[:s151Confirmation][:hifFunding][:changesToRequest] = @return[:s151Confirmation][:hifFunding][:changesToRequest][:changesToRequestConfirmation]
         @converted_return[:s151Confirmation][:hifFunding][:requestedAmount] = @return[:s151Confirmation][:hifFunding][:changesToRequest][:requestedAmount]
         @converted_return[:s151Confirmation][:hifFunding][:reasonForRequest] = @return[:s151Confirmation][:hifFunding][:changesToRequest][:reasonForRequest]
-        
+
         unless @return[:s151Confirmation][:hifFunding][:changesToRequest][:varianceFromBaseline].nil?
           @converted_return[:s151Confirmation][:hifFunding][:varianceFromBaseline] = @return[:s151Confirmation][:hifFunding][:changesToRequest][:varianceFromBaseline][:variance]
           @converted_return[:s151Confirmation][:hifFunding][:varianceFromBaselinePercent] = @return[:s151Confirmation][:hifFunding][:changesToRequest][:varianceFromBaseline][:varianceFromBaselinePercent]
@@ -617,7 +619,7 @@ class UI::UseCase::ConvertUIHIFReturn
     end
 
     return if @return[:s151Confirmation][:submission].nil?
-    
+
     @converted_return[:s151Confirmation][:submission] = {
       signoff: @return[:s151Confirmation][:submission][:signoff],
       hifFundingEndDate: @return[:s151Confirmation][:submission][:hifFundingEndDate],

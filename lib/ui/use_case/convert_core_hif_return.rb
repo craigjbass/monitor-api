@@ -46,7 +46,7 @@ class UI::UseCase::ConvertCoreHIFReturn
         planningSubmitted: planning[:outlinePlanning][:planningSubmitted],
         planningGranted: planning[:outlinePlanning][:planningGranted],
         reference: planning[:outlinePlanning][:reference]
-        
+
       }
     end
 
@@ -103,7 +103,7 @@ class UI::UseCase::ConvertCoreHIFReturn
       summaryOfCriticalPath: procurement[:summaryOfCriticalPath],
     }
     new_procurement[:procurementStatusAgainstLastReturn] = {}
-    
+
     unless procurement[:procurementStatusAgainstLastReturn].nil?
       new_procurement[:procurementStatusAgainstLastReturn] = {
         status: procurement[:procurementStatusAgainstLastReturn][:statusAgainstLastReturn],
@@ -112,14 +112,14 @@ class UI::UseCase::ConvertCoreHIFReturn
         previousReturn: procurement[:procurementStatusAgainstLastReturn][:previousReturn]
       }
     end
-    
+
     new_procurement[:procurementStatusAgainstLastReturn][:baseline] = procurement[:procurementBaselineCompletion]
     new_procurement[:procurementStatusAgainstLastReturn][:procurementVarianceAgainstLastReturn] = procurement[:procurementVarianceAgainstLastReturn]
     new_procurement[:procurementStatusAgainstLastReturn][:procurementVarianceAgainstBaseline] = procurement[:procurementVarianceAgainstBaseline]
     new_procurement[:procurementStatusAgainstLastReturn][:percentComplete] = procurement[:percentComplete]
     new_procurement[:procurementStatusAgainstLastReturn][:completedDate] = procurement[:procurementCompletedDate]
     new_procurement[:procurementStatusAgainstLastReturn][:onCompletedNameOfContractor] = procurement[:procurementCompletedNameOfContractor]
-    
+
     new_procurement
   end
 
@@ -449,8 +449,10 @@ class UI::UseCase::ConvertCoreHIFReturn
       @converted_return[:widerScheme][0][:topRisks][:delivery] = convert_top_risk(@return[:widerScheme][0][:topRisks][:delivery])
       @converted_return[:widerScheme][0][:topRisks][:fundingPackage] = convert_top_risk(@return[:widerScheme][0][:topRisks][:fundingPackage])
 
-      @converted_return[:widerScheme][0][:topRisks][:additionalRisks] = @return[:widerScheme][0][:topRisks][:additionalRisks].map do |risk|
-        convert_top_risk(risk)
+      unless @return[:widerScheme][0][:topRisks][:additionalRisks].nil?
+        @converted_return[:widerScheme][0][:topRisks][:additionalRisks] = @return[:widerScheme][0][:topRisks][:additionalRisks].map do |risk|
+          convert_top_risk(risk)
+        end
       end
 
       @converted_return[:widerScheme][0][:topRisks][:progressLastQuarter] = @return[:widerScheme][0][:topRisks][:progressLastQuarter]
@@ -567,7 +569,7 @@ class UI::UseCase::ConvertCoreHIFReturn
         actualAmounts: @return[:outputsForecast][:inYearHousingCompletions][:actualAmounts],
         progress: @return[:outputsForecast][:inYearHousingCompletions][:progress]
       }
-    end  
+    end
   end
 
   def convert_s151_confirmation
