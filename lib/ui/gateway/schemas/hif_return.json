@@ -833,8 +833,8 @@
                       },
                       "procurementStatusAgainstLastReturn": {
                         "type": "object",
-                        "title": "Infrastructure contractor procurement.",
-                        "variance": true,
+                        "title": "Infrastructure contractor procurement",
+                        "calculation": "set(formData, 'procurementVarianceAgainstBaseline', calculateVariance(parseMoney(get(formData, 'current')), parseMoney(get(formData, 'baseline')))); set(formData, 'procurementVarianceAgainstLastReturn', calculateVariance(parseMoney(get(formData, 'current')), parseMoney(get(formData, 'previousReturn'))));",
                         "properties": {
                           "baseline": {
                             "type": "string",
@@ -871,8 +871,17 @@
                             "title": "Current expected date of Procurement"
                           },
                           "previousReturn": {
+                            "title": "Previous return target date",
                             "type": "string",
-                            "readonly": true
+                            "format": "date",
+                            "readonly": true,
+                            "sourceKey": [
+                              "return_data",
+                              "infrastructures",
+                              "procurement",
+                              "procurementStatusAgainstLastReturn",
+                              "current"
+                            ]
                           },
                           "reason": {
                             "type": "string",
@@ -2314,7 +2323,7 @@
                 }
               },
               "procurementInfrastructure": {
-                "title": "Procurement- Infrastructure",
+                "title": "Procurement - Infrastructure",
                 "type": "object",
                 "properties": {
                   "liveRisk": {

@@ -2296,7 +2296,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                 }
               },
               procurementInfrastructure: {
-                title: "Procurement- Infrastructure",
+                title: "Procurement - Infrastructure",
                 type: "object",
                 properties: {
                   liveRisk: {
