@@ -848,28 +848,6 @@
                             ],
                             "readonly": true
                           },
-                          "procurementVarianceAgainstLastReturn": {
-                            "type": "string",
-                            "readonly": true,
-                            "title": "Variance against last return (Weeks)"
-                          },
-                          "procurementVarianceAgainstBaseline": {
-                            "type": "string",
-                            "readonly": true,
-                            "title": "Variance against baseline (Weeks)"
-                          },
-                          "status": {
-                            "title": "Status against last return?",
-                            "type": "string",
-                            "radio": true,
-                            "enum": ["Completed", "On schedule", "Delayed"],
-                            "default": "On schedule"
-                          },
-                          "current": {
-                            "type": "string",
-                            "format": "date",
-                            "title": "Current expected date of Procurement"
-                          },
                           "previousReturn": {
                             "title": "Previous return target date",
                             "type": "string",
@@ -883,24 +861,57 @@
                               "current"
                             ]
                           },
-                          "reason": {
+                          "status": {
+                            "title": "Status against last return?",
                             "type": "string",
-                            "title": "Reason for Variance"
-                          },
-                          "percentComplete": {
-                            "type": "string",
-                            "title": "Percent complete",
-                            "percentage": true
-                          },
-                          "completedDate": {
-                            "type": "string",
-                            "readonly": true,
-                            "title": "Completion Date (Calculated)"
-                          },
-                          "onCompletedNameOfContractor": {
-                            "type": "string",
-                            "readonly": true,
-                            "title": "Completion Name of Contractor (Calculated)"
+                            "radio": true,
+                            "enum": ["Completed", "On schedule", "Delayed"],
+                            "default": "On schedule"
+                          }
+                        },
+                        "dependencies": {
+                          "status": {
+                            "oneOf": [
+                              {
+                                "properties": {
+                                  "status": { "enum": ["Delayed"] },
+                                  "procurementVarianceAgainstLastReturn": {
+                                    "type": "string",
+                                    "readonly": true,
+                                    "title": "Variance against last return (Weeks)"
+                                  },
+                                  "procurementVarianceAgainstBaseline": {
+                                    "type": "string",
+                                    "readonly": true,
+                                    "title": "Variance against baseline (Weeks)"
+                                  },
+                                  "current": {
+                                    "type": "string",
+                                    "format": "date",
+                                    "title": "Current expected date of Procurement"
+                                  },
+                                  "reason": {
+                                    "type": "string",
+                                    "title": "Reason for Variance"
+                                  },
+                                  "percentComplete": {
+                                    "type": "string",
+                                    "title": "Percent complete",
+                                    "percentage": true
+                                  },
+                                  "completedDate": {
+                                    "type": "string",
+                                    "readonly": true,
+                                    "title": "Completion Date (Calculated)"
+                                  },
+                                  "onCompletedNameOfContractor": {
+                                    "type": "string",
+                                    "readonly": true,
+                                    "title": "Completion Name of Contractor (Calculated)"
+                                  }
+                                }
+                              }
+                            ]
                           }
                         }
                       }
