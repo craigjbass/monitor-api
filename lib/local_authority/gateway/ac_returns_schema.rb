@@ -16,8 +16,8 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                   type: 'object', 
                   title: 'Summary', 
                   properties: {
-                    name: { type: 'string', title: 'Name', sourceKey: %i[baseline_data summary sitesSummary summary name]},
-                    ref: { type: 'string', title: 'LMT / GIS ref', sourceKey: %i[baseline_data summary sitesSummary summary details ref]},
+                    name: { type: 'string', title: 'Name', sourceKey: %i[baseline_data summary sitesSummary innerSummary name]},
+                    ref: { type: 'string', title: 'LMT / GIS ref', sourceKey: %i[baseline_data summary sitesSummary innerSummary details ref]},
                     totalNoOfUnits: {
                       type: 'object', 
                       title: 'Total number of units', 

@@ -31,7 +31,7 @@
           "items": {
             "type": "object",
             "properties": {
-              "summary": {
+              "innerSummary": {
                 "type": "object",
                 "title": "",
                 "properties": {
@@ -78,7 +78,7 @@
               },
               "units": {
                 "type": "object",
-                "calculation": "formData.numberOfUnitsTotal = formData.numberOfUnits ? parseMoney(formData.numberOfUnits.numberOfUnitsMarket) + parseMoney(formData.numberOfUnits.numberOfUnitsSharedOwnership) + parseMoney(formData.numberOfUnits.numberOfUnitsAffordable) + parseMoney(formData.numberOfUnits.numberOfUnitsPRS) + parseMoney(formData.numberOfUnits.numberOfUnitsOther): 0;",
+                "calculation": "set(formData, 'numberOfUnitsTotal', get(formData, 'numberOfUnits') ? parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsMarket')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsSharedOwnership')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsAffordable')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsPRS')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsOther')): 0);",
                 "title": "",
                 "properties": {
                   "numberOfUnits": {
@@ -110,7 +110,8 @@
                   },
                   "numberOfUnitsTotal": {
                     "type": "string",
-                    "title": "Total number of units"
+                    "title": "Total number of units",
+                    "readonly": true
                   }
                 }
               }
@@ -227,6 +228,7 @@
         "receipts": {
           "type": "object",
           "title": "Receipts",
+          "calculation": "set(formData, 'projectValue', accumulateMoney(get(formData, 'expectedDisposalReceipt'), 'amount'));",
           "properties": {
             "detailsOnPaymentStructure": {
               "type": "string",
@@ -256,7 +258,8 @@
               "type": "string",
               "title": "Total projected (clean site) value",
               "currency": true,
-              "currencyMaximum": "99999999"
+              "currencyMaximum": "99999999",
+              "readonly": true
             },
             "clawback": {
               "type": "string",

@@ -15,7 +15,7 @@ class UI::UseCase::UpdateProject
       timestamp: timestamp
     )
 
-    { successful: response[:successful], errors: response[:errors] }
+    { successful: response[:successful], errors: response[:errors], timestamp: response[:timestamp] }
   end
 
   private

@@ -21,6 +21,20 @@ describe LocalAuthority::Gateway::HIFReturnsSchemaTemplate do
     end
   end
 
+  context 'Wider Scheme tab' do
+    it 'Does not contain the outputs forecast tab when disabled' do
+      expect(template.schema[:properties]).not_to have_key(:widerSchema)
+    end
+
+    it 'Contains the outputs forecast tab when enabled' do
+      ENV['WIDER_SCHEME_TAB'] = 'Yes'
+
+      expect(template.schema[:properties]).to have_key(:widerScheme)
+
+      ENV['WIDER_SCHEME_TAB'] = nil
+    end
+  end
+
   context 's151 Confirmation Tab' do
     it 'Does not contain the confirmation tab when disabled' do
       expect(template.schema[:properties]).not_to have_key(:s151Confirmation)
@@ -54,6 +68,18 @@ describe LocalAuthority::Gateway::HIFReturnsSchemaTemplate do
       ENV['RM_MONTHLY_CATCHUP_TAB'] = 'Yes'
 
       expect(template.schema[:properties]).to have_key(:rmMonthlyCatchup)
+    end
+  end
+
+  context 'MR Review tab' do
+    it 'Does not contain the MR Review Catchup tab when disabled' do
+      expect(template.schema[:properties]).not_to have_key(:reviewAndAssurance)
+    end
+
+    it 'Contains the RM Review Catchup tab when enabled' do
+      ENV['MR_REVIEW_TAB'] = 'Yes'
+
+      expect(template.schema[:properties]).to have_key(:reviewAndAssurance)
     end
   end
 

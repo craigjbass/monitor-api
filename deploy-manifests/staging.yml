@@ -1,0 +1,6 @@
+---
+applications:
+- name: monitor-api-staging
+  #memory: 512M
+  #services:
+  #- monitor-staging-db

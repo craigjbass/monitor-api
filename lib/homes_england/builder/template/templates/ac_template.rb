@@ -22,84 +22,114 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
 
   def ac_summary
     {
-      type: 'object',
-      title: 'Project Summary',
+      type: "object",
+      title: "Project Summary",
       properties: {
         localAuthority: {
-          type: 'string',
-          title: 'Local Authority'
+          type: "string",
+          title: "Local Authority"
         },
         projectName: {
-          type: 'string',
-          title: 'Project Name'
+          type: "string",
+          title: "Project Name"
         },
         projectRef: {
-          type: 'string',
-          title: 'Project reference'
+          type: "string",
+          title: "Project reference"
         },
         projectDescription: {
-          type: 'string',
-          format: 'textarea',
-          title: 'Project Description'
+          type: "string",
+          title: "Project Description",
+          extendedText: true
         },
         sitesSummary: {
-          type: 'array',
+          type: "array",
           addable: true,
-          title: 'Site(s) Summary',
+          title: "Site(s)",
           items: {
-            type: 'object',
+            type: "object",
             properties: {
-              name: {
-                type: 'string',
-                title: 'Parcel/Sub Site name'
-              },
-              ref: {
-                type: 'string',
-                title: 'LMT / GIS ref'
-              },
-              size: {
-                type: 'string',
-                title: 'Size (hectares)'
-              },
-              planningStatus: {
-                type: 'string',
-                title: 'Planning status'
-              },
-              laContact: {
-                type: 'string',
-                title: 'Key local authority contact'
-              },
-              heContact: {
-                type: 'string',
-                title: 'Key Homes England contact'
+              innerSummary: {
+                type: "object",
+                title: "",
+                properties: {
+                  name: {
+                    type: "string",
+                    title: "Parcel/Sub Site name"
+                  },
+                  details: {
+                    type: "object",
+                    horizontal: true,
+                    properties: {
+                      ref: {
+                        type: "string",
+                        title: "LMT / GIS ref"
+                      },
+                      size: {
+                        type: "string",
+                        title: "Size (Ha)"
+                      }
+                    }
+                  },
+                  planningStatus: {
+                    type: "string",
+                    title: "Planning status",
+                    enum: ["Not in allocated for housing in Local Plan", "Provisional allocation for housing", "Allocated for housing in Local Plan", "Outline or Reserved Matters consent granted"]
+                  },
+                  contacts: {
+                    type: "object",
+                    horizontal: true,
+                    properties: {
+                      laContact: {
+                        type: "string",
+                        title: "Key local authority contact email",
+                        format: "email"
+                      },
+                      heContact: {
+                        type: "string",
+                        title: "Key Homes England contact email",
+                        format: "email"
+                      }
+                    }
+                  }
+                }
               },
               units: {
-                type: 'object',
-                title: 'Units',
+                type: "object",
+                calculation: "set(formData, 'numberOfUnitsTotal', get(formData, 'numberOfUnits') ? parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsMarket')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsSharedOwnership')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsAffordable')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsPRS')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsOther')): 0);",
+                title: "",
                 properties: {
+                  numberOfUnits: {
+                    type: "object",
+                    title: "Number of:",
+                    horizontal: true,
+                    properties: {
+                      numberOfUnitsMarket: {
+                        type: "string",
+                        title: "Market sale"
+                      },
+                      numberOfUnitsSharedOwnership: {
+                        type: "string",
+                        title: "Shared ownership"
+                      },
+                      numberOfUnitsAffordable: {
+                        type: "string",
+                        title: "Affordable/social rent"
+                      },
+                      numberOfUnitsPRS: {
+                        type: "string",
+                        title: "Private Rented"
+                      },
+                      numberOfUnitsOther: {
+                        type: "string",
+                        title: "Other"
+                      }
+                    }
+                  },
                   numberOfUnitsTotal: {
-                    type: 'string',
-                    title: 'Total number of units'
-                  },
-                  numberOfUnitsMarket: {
-                    type: 'string',
-                    title: 'Number units - market sale'
-                  },
-                  numberOfUnitsSharedOwnership: {
-                    type: 'string',
-                    title: 'Number units - shared ownership'
-                  },
-                  numberOfUnitsAffordable: {
-                    type: 'string',
-                    title: 'Number units - affordable/social rent'
-                  },
-                  numberOfUnitsPRS: {
-                    type: 'string',
-                    title: 'Number units - Private Rented'
-                  },
-                  numberOfUnitsOther: {
-                    type: 'string',
-                    title: 'Number units - Other'
+                    type: "string",
+                    title: "Total number of units",
+                    readonly: true
                   }
                 }
               }
@@ -112,100 +142,65 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
 
   def ac_conditions
     {
-      type: 'object',
-      title: 'Conditions',
+      type: "object",
+      title: "Conditions",
       properties: {
         predrawdownConditions: {
-          type: 'object',
-          title: 'Pre-Drawdown Conditions',
+          type: "object",
+          title: "Pre-Drawdown Conditions",
           properties: {
             conditions: {
-              title: 'Conditions',
-              type: 'array',
+              title: "",
+              type: "array",
+              numbered: true,
               addable: true,
               items: {
-                type: 'object',
+                type: "object",
                 properties: {
                   conditionName: {
-                    type: 'string',
-                    title: 'Condition Name'
+                    type: "string",
+                    title: "Condition Name"
                   },
                   conditionExplanation: {
-                    type: 'string',
-                    title: 'Condition Explanation'
-                  },
-                  conditionSite: {
-                    type: 'string',
-                    title: 'Site'
-                  },
-                  conditionForecast: {
-                    type: 'string',
-                    title: 'Condition Forecast',
-                    format: 'date'
-                  },
-                  conditionMet: {
-                    type: 'string',
-                    title: 'Condition Met',
-                    format: 'date'
-                  },
-                  reviewed: {
-                    type: 'string',
-                    title: 'Reviewed and Approved',
-                    format: 'date'
+                    type: "string",
+                    title: "Condition explanation"
                   }
                 }
               }
-            },
-            mitigationsAndAssurance: {
-              type: 'string',
-              title: 'Mitigations and Assurance',
-              format: 'textarea'
             }
           }
         },
         fundingItems: {
-          type: 'object',
-          title: 'Funding Items',
+          type: "object",
+          title: "Funding Items",
           properties: {
             fundItems: {
-              title: 'Items',
-              type: 'array',
+              title: "",
+              type: "array",
               addable: true,
               items: {
-                type: 'object',
+                type: "object",
                 properties: {
-                  fundingItem: {
-                    type: 'string',
-                    title: 'Funding item'
-                  },
-                  fundingSite: {
-                    type: 'string',
-                    title: 'Site'
-                  },
-                  fundingAgreed: {
-                    type: 'string',
-                    title: 'AC Funding agreed'
-                  },
-                  fundingRequired: {
-                    type: 'string',
-                    title: 'AC Funding Required'
-                  },
-                  variance: {
-                    type: 'string',
-                    readonly: true,
-                    title: 'Variance'
-                  },
-                  reasonForVariance: {
-                    type: 'string',
-                    title: 'Reason for Variance'
+                  itemToFund: {
+                    title: "",
+                    type: "object",
+                    horizontal: true,
+                    properties: {
+                      fundingItem: {
+                        type: "string",
+                        title: "Funding item",
+                        extendedText: true
+                      },
+                      estimatedFunding: {
+                        type: "string",
+                        title: "Estimated funding",
+                        currency: "true",
+                        currencyMaximum: "99999999"
+                      }
+                    }
                   }
                 }
               }
-            },
-            mitigationsAndAssurance: {
-              type: 'string',
-              title: 'Mitigations and Assurance',
-              format: 'textarea'
             }
           }
         }
@@ -215,101 +210,86 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
 
   def ac_financials
     {
-      type: 'object',
-      title: 'Financials',
+      type: "object",
+      title: "Financials",
       properties: {
         expenditure: {
-          type: 'array',
-          title: 'Expenditure',
-          items: {
-            type: 'object',
-            properties: {
-              fundingDrawdown: {
-                type: 'object',
-                horizontal: true,
-                title: 'Funding Drawdown',
-                properties: {
-                  year: {
-                    type: 'string',
-                    title: 'Year'
-                  },
-                  Q1Amount: {
-                    type: 'string',
-                    title: 'First Quarter'
-                  },
-                  Q2Amount: {
-                    type: 'string',
-                    title: 'Second Quarter'
-                  },
-                  Q3Amount: {
-                    type: 'string',
-                    title: 'Third Quarter'
-                  },
-                  Q4Amount: {
-                    type: 'string',
-                    title: 'Fourth Quarter'
-                  }
-                }
-              }
-            }
-          }
-        },
-        fundingStack: {
-          type: 'array',
+          type: "array",
+          quarterly: true,
           addable: true,
-          title: 'Funding Stack',
+          title: "Funding Drawdown",
           items: {
-            type: 'object',
+            type: "object",
             properties: {
               year: {
-                type: 'string',
-                title: 'Year'
+                type: "string",
+                title: "Year",
+                enum: ["2018/19",  "2019/20", "2020/21"]
               },
-              homesEnglandGrant: {
-                type: 'string',
-                title: 'Homes England Grant'
+              Q1Amount: {
+                type: "string",
+                title: "First Quarter",
+                currency: true
               },
-              otherSources: {
-                type: 'array',
-                title: 'Other Sources',
-                items: {
-                  type: 'object',
-                  properties: {
-                    fundingSource: {
-                      type: 'string',
-                      title: 'Funding Source'
-                    }
-                  }
-                }
+              Q2Amount: {
+                type: "string",
+                title: "Second Quarter",
+                currency: true
+              },
+              Q3Amount: {
+                type: "string",
+                title: "Third Quarter",
+                currency: true
+              },
+              Q4Amount: {
+                type: "string",
+                title: "Fourth Quarter",
+                currency: true
               }
             }
           }
         },
         receipts: {
-          type: 'object',
-          title: 'Receipts',
+          type: "object",
+          title: "Receipts",
+          calculation: "set(formData, 'projectValue', accumulateMoney(get(formData, 'expectedDisposalReceipt'), 'amount'));",
           properties: {
             detailsOnPaymentStructure: {
-              type: 'string',
-              title: 'Details on payment structure'
+              type: "string",
+              title: "Details on payment structure"
             },
             expectedDisposalReceipt: {
-              type: 'array',
+              type: "array",
               addable: true,
-              title: 'Expected Disposal Receipt',
+              quarterly: true,
+              title: "",
               items: {
-                type: 'object',
+                type: "object",
                 properties: {
                   site: {
-                    type: 'string',
-                    title: 'Site'
+                    type: "string",
+                    title: "Site Name"
                   },
                   amount: {
-                    type: 'string',
-                    title: 'Amount'
+                    type: "string",
+                    title: "Projected (clean site) value",
+                    currency: true
                   }
                 }
               }
+            },
+            projectValue: {
+              type: "string",
+              title: "Total projected (clean site) value",
+              currency: true,
+              currencyMaximum: "99999999",
+              readonly: true
+            },
+            clawback: {
+              type: "string",
+              title: "Clawback",
+              percentage: true,
+              currencyMaximum: "9999"
             }
           }
         }
@@ -319,106 +299,148 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
 
   def ac_milestones
     {
-      type: 'object',
-      title: 'Milestones',
+      type: "object",
+      title: "Milestones",
       properties: {
-        description: {
-          type: 'string',
-          title: 'Description of disposal and delivery approach'
+        surveysAndDueDiligence: {
+          type: "object",
+          title: "",
+          horizontal: true,
+          properties: {
+            commencementOfDueDiligence: {
+              type: "string",
+              format: "date",
+              title: "Commencement of surveys and due diligence"
+            },
+            completionOfSurveys: {
+              type: "string",
+              format: "date",
+              title: "Completion of surveys and due diligence"
+            }
+          }
         },
-        procurementOfWorksCommencementDate: {
-          type: 'string',
-          format: 'date',
-          title: 'Procurement of works commencement date'
+        procurementProvision: {
+          type: "object",
+          title: "",
+          horizontal: true,
+          properties: {
+            procurementOfWorksCommencementDate: {
+              type: "string",
+              format: "date",
+              title: "Procurement of works commencement date"
+            },
+            provisionOfDetailedWorks: {
+              type: "string",
+              format: "date",
+              title: "Provision of detailed works specification and milestones"
+            }
+          }
         },
-        provisionOfDetailedWorks: {
-          type: 'string',
-          format: 'date',
-          title: 'Provision of detailed works specification and milestones'
+        worksDate: {
+          type: "object",
+          title: "",
+          horizontal: true,
+          properties: {
+            commencementDate: {
+              type: "string",
+              format: "date",
+              title: "Commencement of works date (first, if multiple)"
+            },
+            completionDate: {
+              type: "string",
+              format: "date",
+              title: "Completion of works date (last, if multiple)"
+            }
+          }
         },
-        commencementDate: {
-          type: 'string',
-          format: 'date',
-          title: 'Commencement of works date (first, if multiple)'
-        },
-        completionDate: {
-          type: 'string',
-          format: 'date',
-          title: 'Completion of works date (last, if multiple)'
-        },
-        outlinePlanningSubmissionDate: {
-          type: 'string',
-          format: 'date',
-          title: 'Outline planning permission submitted date'
-        },
-        outlinePlanningGrantedDate: {
-          type: 'string',
-          format: 'date',
-          title: 'Outline planning permission granted date'
-        },
-        detailedPlanningSubmissionDate: {
-          type: 'string',
-          format: 'date',
-          title: 'Detailed planning permission submitted date'
-        },
-        detailsPlanningGrantedDate: {
-          type: 'string',
-          format: 'date',
-          title: 'Detailed planning permission granted date'
+        outlinePlanning: {
+          type: "object",
+          title: "",
+          horizontal: true,
+          properties: {
+            outlinePlanningGrantedDate: {
+              type: "string",
+              format: "date",
+              title: "Outline planning permission granted date"
+            },
+            reservedMatterPermissionGrantedDate: {
+              type: "string",
+              format: "date",
+              title: "Reserved Matter Permission Granted date"
+            }
+          }
         },
         marketingCommenced: {
-          type: 'string',
-          format: 'date',
-          title: 'Developer Partner marketing commenced (EOI or formal tender)'
+          type: "string",
+          format: "date",
+          title: "Developer Partner marketing commenced (EOI or formal tender)"
         },
-        conditionalContractSigned: {
-          type: 'string',
-          format: 'date',
-          title: 'Conditional contract signed'
+        contractSigned: {
+          type: "object",
+          title: "",
+          horizontal: true,
+          properties: {
+            conditionalContractSigned: {
+              type: "string",
+              format: "date",
+              title: "Conditional contract signed"
+            },
+            unconditionalContractSigned: {
+              type: "string",
+              format: "date",
+              title: "Unconditional contract signed"
+            }
+          }
         },
-        unconditionalContractSigned: {
-          type: 'string',
-          format: 'date',
-          title: 'Unconditional contract signed'
+        workDates: {
+          type: "object",
+          title: "",
+          horizontal: true,
+          properties: {
+            startOnSiteDate: {
+              type: "string",
+              format: "date",
+              title: "Start on site date"
+            },
+            startOnFirstUnitDate: {
+              type: "string",
+              format: "date",
+              title: "Start of first unit date"
+            }
+          }
         },
-        typeOfContract: {
-          type: 'string',
-          title: 'Type of contract (eg Building Lease)'
-        },
-        nameOfDeliveryPartner: {
-          type: 'string',
-          title: 'Name of delivery partner/purchaser'
-        },
-        startOnSiteDate: {
-          type: 'string',
-          format: 'date',
-          title: 'Start on site date'
-        },
-        startOnFirstUnitDate: {
-          type: 'string',
-          format: 'date',
-          title: 'Start of first unit date'
-        },
-        developmentEndDate: {
-          type: 'string',
-          format: 'date',
-          title: 'Development end date (final unit completion)'
+        completionDates: {
+          type: "object",
+          title: "",
+          horizontal: true,
+          properties: {
+            completionOfFinalUnitData: {
+              type: "string",
+              title: "Completion of Final Unit Date",
+              format: "date"
+            },
+            projectCompletionDate: {
+              type: "string",
+              title: "Project Completion Date",
+              format: "date"
+            }
+          }
         },
         customMileStones: {
-          type: 'array',
+          type: "array",
           addable: true,
-          title: 'Custom Milestones',
+          title: "Custom Milestones",
           items: {
-            type: 'object',
+            type: "object",
             properties: {
-              custom: {
-                type: 'string',
-                title: 'Milestone'
+              customTitle: {
+                type: "string",
+                title: "Milestone"
               },
               customDate: {
-                type: 'string',
-                title: 'Date',
-                format: 'date'
+                type: "string",
+                title: "Date",
+                format: "date"
               }
             }
           }
@@ -428,78 +450,55 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
   end
 
   def ac_outputs
-    {
-      type: 'object',
-      title: 'Outputs',
+   {
+      type: "object",
+      title: "Outputs",
       properties: {
-        unitCompletions: {
-          title: 'Unit Completions',
-          type: 'array',
-          items: {
-            type: 'object',
-            properties: {
-              year: {
-                type: 'string',
-                title: 'Year'
-              },
-              Q1Amount: {
-                type: 'string',
-                title: 'First Quarter'
-              },
-              Q2Amount: {
-                type: 'string',
-                title: 'Second Quarter'
-              },
-              Q3Amount: {
-                type: 'string',
-                title: 'Third Quarter'
-              },
-              Q4Amount: {
-                type: 'string',
-                title: 'Fourth Quarter'
-              }
+        keyProgrammeObjectives: {
+          type: "object",
+          title: "Key Programme Objectives",
+          horizontal: true,
+          properties: {
+            localMarketPace: {
+              type: "string",
+              title: "Local Market Pace (units pm)",
+              currencyMaximum:"99999"
+            },
+            schemePace: {
+              type: "string",
+              title: "Scheme Pace (units pm)",
+              currencyMaximum: "99999"
             }
           }
         },
-        keyProgrammeObjectives: {
-          type: 'object',
-          title: 'Key Programme Objectives',
+        mmcCategory: {
+          title: "MMC Category",
+          type: "object",
           properties: {
-            localMarketPace: {
-              type: 'string',
-              title: 'Local Market Pace (units pm)'
+            catA: {
+              type: "string",
+              title: "Category A - Volumetric",
+              percentage: true
             },
-            schemePace: {
-              type: 'string',
-              title: 'Scheme Pace (units pm)'
+            catB: {
+              type: "string",
+              title: "Category B - Hybrid",
+              percentage: true
             },
-            mmcCategory: {
-              title: 'MMC Category',
-              type: 'array',
-              addable: true,
-              items: {
-                type: 'object',
-                properties: {
-                  title: {
-                    type: 'string',
-                    title: 'Category Title'
-                  },
-                  percent: {
-                    type: 'string',
-                    title: 'Percent Amount'
-                  }
-                }
-              }
+            catC: {
+              type: "string",
+              title: "Category C - Panellised",
+              percentage: true
             },
-            startOfFirstUnit: {
-              type: 'string',
-              format: 'date',
-              title: 'Start of first unit'
+            catD: {
+              type: "string",
+              title: "Category D -  Sub-Assemblies and Components",
+              percentage: true
             },
-            completionOfFinalUnit: {
-              type: 'string',
-              format: 'date',
-              title: 'Completion of final unit'
+            catE: {
+              type: "string",
+              title: "Category E - Non-OSM/MMC Construction",
+              percentage: true
             }
           }
         }

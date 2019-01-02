@@ -3,11 +3,13 @@
     {
       "summary": {
         "type": "A House",
-        "description": "A house of cats"
+        "description": "A house of cats",
+        "housingSitesBenefitting": "Housing Sites Benefitting"
       },
       "planning": {
         "outlinePlanning": {
           "baselineOutlinePlanningPermissionGranted": "No",
+          "reference": "Ref101",
           "baselineSummaryOfCriticalPath": "Summary of critical path",
           "planningSubmitted": {
             "baseline": "2020-01-01"
@@ -19,6 +21,7 @@
         "fullPlanning": {
           "fullPlanningPermissionGranted": "No",
           "fullPlanningPermissionSummaryOfCriticalPath": "Summary of critical path",
+          "reference": "1234",
           "submitted": {
             "baseline": "2020-03-01"
           },
@@ -44,7 +47,8 @@
           "toBeAquiredBy": "LA",
           "summaryOfAcquisitionRequired": "Summary of critical path",
           "allLandAssemblyAchieved": {
-            "baseline": "2020-01-01"
+            "baseline": "2020-01-01",
+            "previousReturn": null
           }
         }
       },
@@ -85,13 +89,14 @@
     "totalHIFGrant": "10000",
     "fundingRequest": [
       {
-        "period": "2019/2020",
-        "forecast": {
-          "instalment1": "1000",
-          "instalment2": "1000",
-          "instalment3": "1000",
-          "instalment4": "1000",
-          "total": "4000"
+      "period": "2019/2020",
+      "forecast":
+        {
+        "instalment1": "1000",
+        "instalment2": "1000",
+        "instalment3": "1000",
+        "instalment4": "1000",
+        "total": "4000"
         }
       },
       {
@@ -105,7 +110,15 @@
         }
       }
     ],
-    "requestedProfiles": [{ "period": "2019/2020" }, {"period": null} ]
+    "currentFunding": {"forecast": []},
+    "requestedProfiles": [
+      {
+        "period": "2019/2020"
+      },
+      {
+        "period": null
+      }
+    ]
   },
   "fundingPackages": [
     {
@@ -150,6 +163,8 @@
     "noOfUnits": [
       "123"
     ],
+    "previousStarts": null,
+    "previousCompletions": null,
     "size": "10"
   },
   "s151Confirmation": {
@@ -186,7 +201,8 @@
       }
     },
     "claimSummary": {
-      "hifTotalFundingRequest": "10000"
+      "hifTotalFundingRequest": "10000",
+      "hifSpendToDate": null
     }
   }
 }

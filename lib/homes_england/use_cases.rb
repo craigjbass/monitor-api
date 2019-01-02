@@ -33,6 +33,13 @@ class HomesEngland::UseCases
       )
     end
 
+    builder.define_use_case :unsubmit_project do
+      HomesEngland::UseCase::UnSubmitProject.new(
+        project_gateway: builder.get_gateway(:project),
+        return_gateway: builder.get_gateway(:return_gateway)
+      )
+    end
+
     builder.define_use_case :get_schema_for_project do
       HomesEngland::UseCase::GetSchemaForProject.new(
         template_gateway: builder.get_gateway(:template)
@@ -80,6 +87,13 @@ class HomesEngland::UseCases
       HomesEngland::UseCase::ExportProjectData.new(
         find_project: builder.get_use_case(:find_project),
         get_returns: builder.get_use_case(:get_returns)
+      )
+    end
+
+    builder.define_use_case :export_all_projects do
+      HomesEngland::UseCase::ExportAllProjects.new(
+        export_project: builder.get_use_case(:export_project_data),
+        project_gateway: builder.get_gateway(:project)
       )
     end
   end

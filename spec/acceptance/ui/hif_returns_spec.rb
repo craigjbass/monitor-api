@@ -10,6 +10,7 @@ describe 'Interacting with a HIF Return from the UI' do
     ENV['CONFIRMATION_TAB'] = 'Yes'
     ENV['S151_TAB'] = 'Yes'
     ENV['RM_MONTHLY_CATCHUP_TAB'] = 'Yes'
+    ENV['MR_REVIEW_TAB'] = 'Yes'
     ENV['OUTPUTS_ACTUALS_TAB'] = 'Yes'
     project_id
   end
@@ -19,6 +20,7 @@ describe 'Interacting with a HIF Return from the UI' do
     ENV['CONFIRMATION_TAB'] = nil
     ENV['S151_TAB'] = nil
     ENV['RM_MONTHLY_CATCHUP_TAB'] = nil
+    ENV['MR_REVIEW_TAB'] = nil
     ENV['OUTPUTS_ACTUALS_TAB'] = nil
   end
 
@@ -32,14 +34,14 @@ describe 'Interacting with a HIF Return from the UI' do
 
   let(:hif_get_return) do
     JSON.parse(
-      File.open("#{__dir__}/../../fixtures/hif_saved_base_return.json").read,
+      File.open("#{__dir__}/../../fixtures/hif_saved_base_return_ui.json").read,
       symbolize_names: true
     )
   end
 
   let(:expected_updated_return) do
     JSON.parse(
-      File.open("#{__dir__}/../../fixtures/hif_updated_return.json").read,
+      File.open("#{__dir__}/../../fixtures/hif_updated_return_ui.json").read,
       symbolize_names: true
     )
   end
@@ -72,7 +74,7 @@ describe 'Interacting with a HIF Return from the UI' do
       base_return = get_use_case(:ui_get_base_return).execute(project_id: project_id)[:base_return]
 
       return_data = base_return[:data].dup
-      
+
       return_id = dependency_factory.get_use_case(:ui_create_return).execute(project_id: project_id, data: return_data)[:id]
       return_data[:infrastructures][0][:planning][:outlinePlanning][:planningSubmitted][:status] = 'Delayed'
       return_data[:infrastructures][0][:planning][:outlinePlanning][:planningSubmitted][:reason] = 'Distracted by kittens'
@@ -88,14 +90,14 @@ describe 'Interacting with a HIF Return from the UI' do
 
       created_return = dependency_factory.get_use_case(:ui_get_return).execute(id: return_id)[:updates].last
 
-      expect(created_return[:s151]).to eq(expected_updated_return[:s151])
+      expect(created_return).to eq(expected_updated_return)
     end
 
     it 'Allows you to create a return with all the data in' do
       return_id = dependency_factory.get_use_case(:ui_create_return).execute(project_id: project_id, data: full_return_data)[:id]
       created_return = dependency_factory.get_use_case(:ui_get_return).execute(id: return_id)[:updates].last
 
-      expect(created_return[:outputsForecast]).to eq(full_return_data_after_calcs[:outputsForecast])
+      expect(created_return).to eq(full_return_data_after_calcs)
     end
 
     it 'Allows you to view multiple created returns' do

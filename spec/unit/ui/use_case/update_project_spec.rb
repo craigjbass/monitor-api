@@ -2,7 +2,7 @@
 
 describe UI::UseCase::UpdateProject do
   context 'Example one' do
-    let(:update_project_spy) { spy(execute: { successful: true, errors: [] }) }
+    let(:update_project_spy) { spy(execute: { successful: true, errors: [], timestamp: 4 }) }
     let(:convert_ui_hif_project_spy) { spy(execute: { catto: 'meow' }) }
     let(:use_case) do
       described_class.new(
@@ -32,6 +32,10 @@ describe UI::UseCase::UpdateProject do
 
     it 'Returns the errors array' do
       expect(response[:errors]).to eq([])
+    end
+
+    it 'Returns the timestamp' do
+      expect(response[:timestamp]).to eq(4)
     end
 
     it 'Passes the update project use case the timestamp' do
@@ -86,7 +90,7 @@ describe UI::UseCase::UpdateProject do
   end
 
   context 'Example two' do
-    let(:update_project_spy) { spy(execute: { successful: false, errors: [:incorrect_timestamp] }) }
+    let(:update_project_spy) { spy(execute: { successful: false, errors: [:incorrect_timestamp], timestamp: 8 }) }
     let(:convert_ui_hif_project_spy) { spy(execute: { doggo: 'woof' }) }
     let(:use_case) do
       described_class.new(
@@ -114,6 +118,10 @@ describe UI::UseCase::UpdateProject do
 
     it 'Returns the errors array' do
       expect(response[:errors]).to eq([:incorrect_timestamp])
+    end
+
+    it 'Returns the timestamp' do
+      expect(response[:timestamp]).to eq(8)
     end
     
     it 'Passes the update project use case the timestamp' do

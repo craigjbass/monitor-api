@@ -12,10 +12,17 @@ describe HomesEngland::UseCase::UpdateProject do
         timestamp: timestamp
       )
     end
+    let(:time_now) { Time.now }
+
     let(:la_project) { HomesEngland::Domain::Project.new }
   
     before do
+      Timecop.freeze(time_now)
       response
+    end
+
+    after do
+      Timecop.return
     end
   
   
@@ -51,8 +58,8 @@ describe HomesEngland::UseCase::UpdateProject do
           end
         end
   
-        it 'Should return successful' do
-          expect(response).to eq(successful: true, errors:[])
+        it 'Should return successful, no errors and timestamp' do
+          expect(response).to eq(successful: true, errors:[], timestamp: time_now.to_i)
         end
   
         it 'Should pass Draft status to the gateway' do
@@ -89,6 +96,10 @@ describe HomesEngland::UseCase::UpdateProject do
         it 'returns an incorrect timestamp error' do
           expect(response[:errors]).to eq([:incorrect_timestamp])
         end
+
+        it 'returns an unchanged timestamp' do
+          expect(response[:timestamp]).to eq(0)
+        end
       end
     end
     
@@ -123,7 +134,7 @@ describe HomesEngland::UseCase::UpdateProject do
         end
   
         it 'Should return successful' do
-          expect(response).to eq(successful: true, errors:[])
+          expect(response).to eq(successful: true, errors:[], timestamp: time_now.to_i)
         end
   
         it 'Should pass Draft status to the gateway' do
@@ -159,6 +170,10 @@ describe HomesEngland::UseCase::UpdateProject do
 
         it 'returns an incorrect timestamp error' do
           expect(response[:errors]).to eq([:incorrect_timestamp])
+        end
+
+        it 'returns an unchanged timestamp' do
+          expect(response[:timestamp]).to eq(4)
         end
       end
     end

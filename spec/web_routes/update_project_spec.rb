@@ -5,7 +5,7 @@ require_relative 'delivery_mechanism_spec_helper'
 
 describe 'Updating a project' do
   let(:get_project_spy) { spy(execute: { type: 'hif' })}
-  let(:update_project_spy) { spy(execute: { successful: true, errors: [] }) }
+  let(:update_project_spy) { spy(execute: { successful: true, errors: [], timestamp: 6 }) }
   let(:create_new_project_spy) { spy(execute: project_id) }
   let(:project_id) { 1 }
 
@@ -69,7 +69,7 @@ describe 'Updating a project' do
     end
 
     context 'timestamp' do
-      let(:update_project_spy) { spy(execute: { successful: true, errors: :incorrect_timestamp }) }
+      let(:update_project_spy) { spy(execute: { successful: true, errors: :incorrect_timestamp, timestamp: 6 }) }
       it 'should return error message and 200' do
         post '/project/update', { project_id: project_id, project_data: {data: 'some'}, timestamp: '1'}.to_json
         response = Common::DeepSymbolizeKeys.to_symbolized_hash(
@@ -77,7 +77,7 @@ describe 'Updating a project' do
         )
 
         expect(last_response.status).to eq(200)
-        expect(response).to eq(errors: "incorrect_timestamp")
+        expect(response).to eq(errors: "incorrect_timestamp", timestamp: 6)
       end
     end
   end

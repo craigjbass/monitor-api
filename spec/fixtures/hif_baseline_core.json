@@ -7,6 +7,7 @@
     "projectDescription": "Descripion of project",
     "greenOrBrownField": "Greenfield",
     "noOfHousingSites": "10",
+    "polygonsForHousingSite": "www.mypolygon.com",
     "totalArea": "10",
     "hifFundingAmount": "10000",
     "descriptionOfInfrastructure": "An infrastructure",
@@ -99,6 +100,7 @@
     {
       "infrastructure": {
         "HIFAmount": "10000",
+        "baselineCashflows": "cashflows",
         "totalCostOfInfrastructure": "20000",
         "totallyFundedThroughHIF": "No",
         "descriptionOfFundingStack": "Funding stack description",

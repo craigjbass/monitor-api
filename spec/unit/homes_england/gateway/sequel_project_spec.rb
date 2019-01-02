@@ -142,4 +142,117 @@ describe HomesEngland::Gateway::SequelProject do
       end
     end
   end
+
+  context 'get all projects' do
+    context 'example 1' do
+      let(:project) do
+        HomesEngland::Domain::Project.new.tap do |p|
+          p.name = 'New project'
+          p.type = 'FarmAnimals'
+          p.data = {
+            field: [
+              { animal: 'cow', noise: 'moo' },
+              { animal: 'sheep', noise: 'baa' }
+            ],
+            barn: []
+          }
+        end
+      end
+      let(:second_project) do
+        HomesEngland::Domain::Project.new.tap do |p|
+          p.name = 'Second New project'
+          p.type = 'UrbanAnimals'
+          p.data = {
+            field: [
+              { animal: 'Fox', noise: 'scream' },
+              { animal: 'Badger', noise: 'digging' }
+            ],
+            barn: []
+          }
+        end
+      end
+      it 'returns projects from database' do
+        project_gateway.create(project)
+        project_gateway.create(second_project)
+        all_projects = project_gateway.all
+        expect(all_projects[0].name).to eq('New project')
+        expect(all_projects[0].type).to eq('FarmAnimals')
+        expect(all_projects[0].data).to eq(
+                                          field: [
+                                            { animal: 'cow', noise: 'moo' },
+                                            { animal: 'sheep', noise: 'baa' }
+                                          ],
+                                          barn: []
+                                        )
+
+        expect(all_projects[1].name).to eq('Second New project')
+        expect(all_projects[1].type).to eq('UrbanAnimals')
+        expect(all_projects[1].data).to eq(
+                                          field: [
+                                            { animal: 'Fox', noise: 'scream' },
+                                            { animal: 'Badger', noise: 'digging' }
+                                          ],
+                                          barn: []
+                                        )
+      end
+    end
+    context 'example 2' do
+      let(:project) do
+        HomesEngland::Domain::Project.new.tap do |p|
+          p.name = 'New project2'
+          p.type = 'FarmAnimals2'
+          p.status = 'Submitted'
+          p.data = {
+            field: [
+              { animal: 'cow2', noise: 'moo2' },
+              { animal: 'sheep2', noise: 'baa2' }
+            ],
+            barn: []
+          }
+        end
+      end
+      let(:second_project) do
+        HomesEngland::Domain::Project.new.tap do |p|
+          p.name = 'Second New project2'
+          p.type = 'UrbanAnimals2'
+          p.status = 'Draft'
+          p.data = {
+            field: [
+              { animal: 'Fox2', noise: 'scream2' },
+              { animal: 'Badger2', noise: 'digging2' }
+            ],
+            barn: []
+          }
+        end
+      end
+      it 'returns projects from database' do
+        project_id_first = project_gateway.create(project)
+        project_id_second = project_gateway.create(second_project)
+        all_projects = project_gateway.all
+        expect(all_projects[0].id).to eq(project_id_first)
+        expect(all_projects[0].name).to eq('New project2')
+        expect(all_projects[0].status).to eq('Submitted')
+        expect(all_projects[0].type).to eq('FarmAnimals2')
+        expect(all_projects[0].data).to eq(
+                                          field: [
+                                            { animal: 'cow2', noise: 'moo2' },
+                                            { animal: 'sheep2', noise: 'baa2' }
+                                          ],
+                                          barn: []
+                                        )
+
+        expect(all_projects[1].id).to eq(project_id_second)
+        expect(all_projects[1].name).to eq('Second New project2')
+        expect(all_projects[1].status).to eq('Draft')
+        expect(all_projects[1].type).to eq('UrbanAnimals2')
+        expect(all_projects[1].data).to eq(
+                                          field: [
+                                            { animal: 'Fox2', noise: 'scream2' },
+                                            { animal: 'Badger2', noise: 'digging2' }
+                                          ],
+                                          barn: []
+                                        )
+      end
+    end
+  end
 end

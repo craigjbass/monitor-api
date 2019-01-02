@@ -1,5 +1,8 @@
 class LocalAuthority::UseCase::FindPathData
   def execute(baseline_data:, path:)
+
+    path = choose_path(baseline_data, path) if path[0] == :return_or_baseline 
+
     found = search_hash(baseline_data, path)
     if !(found.nil? || found.empty?)
       { found: found }
@@ -9,6 +12,14 @@ class LocalAuthority::UseCase::FindPathData
   end
 
   private
+
+  def choose_path(baseline_data, path)
+    if baseline_data[:return_data].empty?
+      path[1]
+    else
+      path[2]
+    end
+  end
 
   def search_array(baseline_data, path)
     baseline_data.map do |x|

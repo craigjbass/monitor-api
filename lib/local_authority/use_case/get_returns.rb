@@ -13,7 +13,8 @@ class LocalAuthority::UseCase::GetReturns
           id: r.id,
           project_id: r.project_id,
           status: r.status,
-          updates: @return_update_gateway.updates_for(return_id: r.id).map(&:data)
+          updates: @return_update_gateway.updates_for(return_id: r.id).map(&:data),
+          timestamp: r.timestamp
         }
       end
     }

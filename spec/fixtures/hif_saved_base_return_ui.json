@@ -3,12 +3,14 @@
     {
       "summary": {
         "type": "A House",
-        "description": "A house of cats"
+        "description": "A house of cats",
+        "housingSitesBenefitting": "Housing Sites Benefitting"
       },
       "planning": {
         "outlinePlanning": {
           "baselineOutlinePlanningPermissionGranted": "No",
           "baselineSummaryOfCriticalPath": "Summary of critical path",
+          "reference": "Ref101",
           "planningSubmitted": {
             "baseline": "2020-01-01"
           },
@@ -19,6 +21,7 @@
         "fullPlanning": {
           "fullPlanningPermissionGranted": "No",
           "fullPlanningPermissionSummaryOfCriticalPath": "Summary of critical path",
+          "reference": "1234",
           "submitted": {
             "baseline": "2020-03-01"
           },
@@ -44,7 +47,8 @@
           "toBeAquiredBy": "LA",
           "summaryOfAcquisitionRequired": "Summary of critical path",
           "allLandAssemblyAchieved": {
-            "baseline": "2020-01-01"
+            "baseline": "2020-01-01",
+            "previousReturn": null
           }
         }
       },
@@ -52,12 +56,18 @@
         "contractorProcured": "Yes",
         "nameOfContractor": "Steve",
         "summaryOfCriticalPath": "Summary of critical meow",
-        "procurementBaselineCompletion": "2020-01-01",
-        "procurementVarianceAgainstLastReturn": null,
-        "procurementVarianceAgainstBaseline": null,
-        "percentComplete": null,
-        "procurementCompletedDate": null,
-        "procurementCompletedNameOfContractor": null
+        "procurementStatusAgainstLastReturn": {
+          "baseline": "2020-01-01",
+          "procurementVarianceAgainstLastReturn": null,
+          "procurementVarianceAgainstBaseline": null,
+          "percentComplete": null,
+          "completedDate": null,
+          "onCompletedNameOfContractor": null,
+          "previousReturn": null,
+          "reason": null,
+          "current": null,
+          "status": null
+        }
       },
       "milestones": {
         "keyMilestones": [
@@ -68,6 +78,7 @@
             "milestoneVarianceAgainstLastReturn": null,
             "milestoneVarianceAgainstBaseline": null,
             "statusAgainstLastReturn": null,
+            "milestoneLastReturnDate": null,
             "currentReturn": null,
             "reasonForVariance": null,
             "milestonePercentCompleted": null,
@@ -85,6 +96,7 @@
         "baselineRisks": [
           {
             "riskBaselineRisk": "Risk one",
+            "riskCurrentReturnLikelihood": null,
             "riskBaselineImpact": "High",
             "riskBaselineLikelihood": "High",
             "riskBaselineMitigationsInPlace": "Do not do the thing",
@@ -98,32 +110,52 @@
   ],
   "fundingProfiles": {
     "totalHIFGrant": "10000",
-    "fundingRequest": [
-      {
+    "projectCashflows": null,
+    "fundingRequest": {
+      "forecast":
+      [
+        {
         "period": "2019/2020",
-        "forecast": {
-          "instalment1": "1000",
-          "instalment2": "1000",
-          "instalment3": "1000",
-          "instalment4": "1000",
-          "total": "4000"
-        }
-      },
-      {
-        "period": null,
-        "forecast": {
+        "instalment1": "1000",
+        "instalment2": "1000",
+        "instalment3": "1000",
+        "instalment4": "1000",
+        "total": "4000"
+        },
+        {
+          "period": null,
           "instalment1": null,
           "instalment2": null,
           "instalment3": null,
           "instalment4": null,
           "total": null
         }
-      }
-    ],
+      ]
+      },
+    "currentFunding": {"forecast":[]},
     "changeRequired": null,
     "reasonForRequest": null,
     "mitigationInPlace": null,
-    "requestedProfiles": [{ "period": "2019/2020" }, { "period": null }]
+    "requestedProfiles": {
+      "newProfile": [
+        {
+          "instalment1": null,
+          "instalment2": null,
+          "instalment3": null,
+          "instalment4": null,
+          "period": "2019/2020",
+          "totalHolder": {"total": null}
+        },
+        {
+          "instalment1": null,
+          "instalment2": null,
+          "instalment3": null,
+          "instalment4": null,
+          "period": null,
+          "totalHolder": {"total": null}
+        }
+      ]
+    }
   },
   "fundingPackages": [
     {
@@ -179,20 +211,37 @@
     }
   },
   "outputsActuals": {
-    "localAuthority": ["Local Authority"],
-    "noOfUnits": ["123"],
-    "size": "10",
-    "previousStarts": null,
-    "startsSinceLastReturn": null,
-    "previousCompletions": null,
-    "completionsSinceLastReturn": null,
-    "laOwned": null,
-    "pslLand": null,
-    "brownfieldPercent": null,
-    "leaseholdPercent": null,
-    "smePercent": null,
-    "mmcPercent": null
+    "details": {
+      "localAuthority": ["Local Authority"],
+      "noOfUnits": ["123"],
+      "size": "10"
+    },
+    "starts": {
+      "starts": {
+        "previousStarts": null,
+        "startsSinceLastReturn": null,
+        "previousCompletions": null,
+        "completionsSinceLastReturn": null,
+        "currentCompletions": null,
+        "currentStarts": null
+      }
+    },
+    "ownership": {
+      "laOwned": null,
+      "pslLand": null
+    },
+    "percentages": {
+      "brownfieldPercent": null,
+      "leaseholdPercent": null,
+      "smePercent": null,
+      "mmcPercent": null
+    }
   },
+  "widerScheme": [
+    {
+      "keyLiveIssues": [{"description": null, "mitigationActions": null, "ratingAfterMitigation": null}]
+    }
+  ],
   "s151Confirmation": {
     "hifFunding": {
       "hifTotalFundingRequest": "10000",
@@ -200,8 +249,11 @@
         "changesToRequestConfirmation": null,
         "requestedAmount": null,
         "reasonForRequest": null,
-        "varianceFromBaseline": null,
-        "varianceFromBaselinePercent" : null,
+        "evidenceOfVariance": null,
+        "varianceFromBaseline": {
+          "variance": null,
+          "varianceFromBaselinePercent" : null
+        },
         "mitigationInPlace": null
       },
       "hifFundingProfile": [
@@ -250,6 +302,7 @@
       "cashflowConfirmation": null
     },
     "submission": {
+      "signoff": null,
       "changeToMilestones": {
         "changeToMilestonesConfirmation": null,
         "reasonForRequestOfMilestoneChange": null,
@@ -283,16 +336,24 @@
       "lastQuarterMonthSpend": {
         "forecast": null,
         "actual": null,
-        "hasVariance": null,
-        "varianceAgainstForcastAmount": null,
-        "varianceAgainstForcastPercentage": null
+        "varianceReason": null
       },
       "evidenceOfSpendPastQuarter": null
     },
     "claimSummary": {
+      "runningClaimTotal": null,
+      "certifiedClaimForm": null,
       "hifTotalFundingRequest": "10000",
       "hifSpendToDate": null,
       "AmountOfThisClaim": null
     }
-  }
+  },
+  "rmMonthlyCatchup": {
+    "catchUp": [{
+    "commentOnProgress": null,
+    "dateOfCatchUp": null,
+    "issuesToRaise": null,
+    "overallRatingForScheme": null,
+    "overviewOfEngagement": null
+  }]}
 }

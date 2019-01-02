@@ -23,6 +23,7 @@ class LocalAuthority::Gateway::SequelReturn
       r.type = row[:type]
       r.project_id = row[:project_id]
       r.status = row[:return_status]
+      r.timestamp = row[:timestamp]
     end
   end
 
@@ -32,11 +33,17 @@ class LocalAuthority::Gateway::SequelReturn
         r.id = db_r[:id]
         r.project_id = db_r[:project_id]
         r.status = db_r[:status]
+        r.timestamp = db_r[:timestamp]
       end
     end
   end
 
-  def submit(return_id:)
+  def delete(return_id:)
+    @database[:returns].where(id: return_id).delete
+  end
+
+  def submit(return_id:, timestamp:)
     @database[:returns].where(id: return_id).update(status: 'Submitted')
+    @database[:returns].where(id: return_id).update(timestamp: timestamp)
   end
 end

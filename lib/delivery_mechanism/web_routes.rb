@@ -134,6 +134,16 @@ module DeliveryMechanism
       end
     end
 
+    get '/projects/export' do
+      response.body = {}.to_json
+      guard_bi_access env, params, request do |_request_hash|
+        {
+          projects:
+            @dependency_factory.get_use_case(:export_all_projects).execute[:compiled_projects]
+        }.to_json
+      end
+    end
+
     get '/project/:id/export' do
       response.body = {}.to_json
       guard_bi_access env, params, request do |_request_hash|
@@ -189,7 +199,8 @@ module DeliveryMechanism
           type: project[:type],
           status: project[:status],
           data: Common::DeepCamelizeKeys.to_camelized_hash(project[:data]),
-          schema: project[:schema]
+          schema: project[:schema],
+          timestamp: project[:timestamp]
         }.to_json
         response.headers['Cache-Control'] = 'no-cache'
         response.status = 200
@@ -232,7 +243,7 @@ module DeliveryMechanism
           )
 
           response.status = update_successful?(update_response) ? 200 : 404
-          response.body = { errors: update_response[:errors] }.to_json
+          response.body = { errors: update_response[:errors], timestamp: update_response[:timestamp] }.to_json
         else
           response.status = 400
         end
@@ -270,6 +281,18 @@ module DeliveryMechanism
         @dependency_factory.get_use_case(:notify_project_members_of_creation).execute(project_id: request_hash[:project_id].to_i, url: request_hash[:url])
 
         response.status = 200
+      end
+    end
+
+    unless ENV['BACK_TO_BASELINE'].nil?
+      post '/project/unsubmit' do
+        guard_access env, params, request do |request_hash|
+          @dependency_factory.get_use_case(:unsubmit_project).execute(
+            project_id: request_hash[:project_id].to_i
+          )
+
+          response.status = 200
+        end
       end
     end
 

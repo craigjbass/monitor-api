@@ -1,6 +1,7 @@
-version: 2
-jobs:
-  build:
+version: 2.1
+
+executors:
+  ruby:
     docker:
       - image: circleci/ruby:2.5.3
       - image: circleci/postgres:9.4.18-alpine
@@ -14,6 +15,10 @@ jobs:
     environment:
       DATABASE_URL: 'postgres://circleci:super-secret@localhost/monitor_api'
       NO_LOGS: 'true'
+
+jobs:
+  build_and_test:
+    executor: ruby
 
     steps:
       - checkout
@@ -55,3 +60,61 @@ jobs:
       - store_artifacts:
           path: coverage
           destination: coverage
+
+  deploy_staging:
+    executor: ruby
+    steps:
+      - checkout
+      - run: scripts/deploy.sh staging
+
+  deploy_dark_production:
+    executor: ruby
+    steps:
+      - checkout
+      - run: scripts/deploy.sh production
+
+  flip_production:
+    executor: ruby
+    steps:
+      - checkout
+      - run: scripts/flip-dark-to-live.sh production
+
+  revert_production:
+    executor: ruby
+    steps:
+      - checkout
+      - run: scripts/flip-dark-to-live.sh production
+
+workflows:
+  version: 2
+  build_test_deploy:
+    jobs:
+      - build_and_test
+      - deploy_staging:
+          requires:
+            - build_and_test
+          filters:
+            branches:
+              only:
+                - master
+      - hold_production_deploy:
+          type: approval
+          requires:
+            - deploy_staging
+      - deploy_dark_production:
+          requires:
+            - hold_production_deploy
+      - hold_flip_production:
+          type: approval
+          requires:
+            - deploy_dark_production
+      - flip_production:
+          requires:
+            - hold_flip_production
+      - hold_revert_production:
+          type: approval
+          requires:
+            - flip_production
+      - revert_production:
+          requires:
+            - hold_revert_production

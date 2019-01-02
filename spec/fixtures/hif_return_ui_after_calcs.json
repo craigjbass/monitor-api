@@ -3,12 +3,14 @@
     {
       "summary": {
         "type": "A House",
-        "description": "A house of cats"
+        "description": "A house of cats",
+        "housingSitesBenefitting": "A benefiting housing site"
       },
       "planning": {
         "outlinePlanning": {
           "baselineOutlinePlanningPermissionGranted": "No",
           "baselineSummaryOfCriticalPath": "Summary of critical path",
+          "reference": "my reference",
           "planningSubmitted": {
             "baseline": "2020-01-01",
             "varianceBaselineFullPlanningPermissionSubmitted": "4",
@@ -18,7 +20,8 @@
             "reason": "It's late",
             "percentComplete": "78",
             "completedDate": "2020-04-01",
-            "onCompletedReference": "Hi"
+            "onCompletedReference": "Hi",
+            "previousReturn": "21/21/21"
           },
           "planningGranted": {
             "baseline": "2020-02-01",
@@ -28,22 +31,25 @@
             "current": "2020-07-02",
             "reason": "It's late",
             "percentComplete": "78",
-            "completedDate": "2020-04-01"
+            "completedDate": "2020-04-01",
+            "previousReturn": "21/21/21"
           }
         },
         "fullPlanning": {
           "fullPlanningPermissionGranted": "No",
           "fullPlanningPermissionSummaryOfCriticalPath": "Summary of critical path",
+          "reference": "my reference",
           "submitted": {
             "baseline": "2020-03-01",
             "varianceBaselineFullPlanningPermissionSubmitted": "80",
             "varianceLastReturnFullPlanningPermissionSubmitted": "89",
             "status": "Completed",
             "current": "Dogs",
-            "reason":"Uggs",
+            "reason": "Uggs",
             "percentComplete": "77",
             "completedDate": "2019-09-09",
-            "onCompletedReference": "Louise Voittons"
+            "onCompletedReference": "Louise Voittons",
+            "previousReturn": "21/21/21"
           },
           "granted": {
             "baseline": "2020-03-01",
@@ -51,9 +57,10 @@
             "varianceLastReturnFullPlanningPermissionGranted": "89",
             "status": "Completed",
             "current": "Dogs",
-            "reason":"Uggs",
+            "reason": "Uggs",
             "percentComplete": "75",
-            "completedDate": "2017-09-09"
+            "completedDate": "2017-09-09",
+            "previousReturn": "21/21/21"
           }
         },
         "section106": {
@@ -71,8 +78,8 @@
                 "varianceReason": "Monolos",
                 "percentComplete": "78",
                 "completionDate": "2022-07-08"
-                }
-              ]
+              }
+            ]
           }
         },
         "planningNotGranted": {
@@ -101,6 +108,7 @@
             "current": "3029-09-08",
             "reason": "The shops have gone",
             "percentComplete": "43",
+            "previousReturn": "21/21/21",
             "completedDate": "1897-02-03"
           }
         }
@@ -109,17 +117,18 @@
         "contractorProcured": "Yes",
         "nameOfContractor": "Steve",
         "summaryOfCriticalPath": "Summary of critical meow",
-        "procurementBaselineCompletion": "2020-01-01",
-        "procurementVarianceAgainstLastReturn": "Not Procured",
-        "procurementVarianceAgainstBaseline": "Procured more than that",
         "procurementStatusAgainstLastReturn": {
-          "statusAgainstLastReturn": "Completed",
-          "currentReturn": "2012-03-04",
-          "reasonForVariance": "It is slow"
-        },
-        "percentComplete": "89",
-        "procurementCompletedDate": "2013-07-05",
-        "procurementCompletedNameOfContractor": "John"
+          "baseline": "2020-01-01",
+          "procurementVarianceAgainstLastReturn": "Not Procured",
+          "procurementVarianceAgainstBaseline": "Procured more than that",
+          "completedDate": "2013-07-05",
+          "status": "Completed",
+          "onCompletedNameOfContractor": "John",
+          "percentComplete": "89",
+          "current": "2012-03-04",
+          "previousReturn": "12/12/12",
+          "reason": "It is slow"
+        }
       },
       "milestones": {
         "keyMilestones": [
@@ -133,7 +142,8 @@
             "currentReturn": "Done",
             "reasonForVariance": "I forgot",
             "milestonePercentCompleted": "99",
-            "milestoneCompletedDate": "7019-08-09"
+            "milestoneCompletedDate": "7019-08-09",
+            "milestoneLastReturnDate": "12/12/12"
           }
         ],
         "additionalMilestones": [
@@ -141,6 +151,20 @@
             "description": "My new milestones",
             "completion": "2019-02-03",
             "criticalPath": "Not long"
+          }
+        ],
+        "previousMilestones": [
+          {
+            "completion": "djeioq",
+            "criticalPath": "jreu",
+            "currentReturn": "ewncwe",
+            "description": "describing a mielstone",
+            "milestoneCompletedDate": "fewui",
+            "milestonePercentCompleted": "rcwuio",
+            "milestoneVarianceAgainstBaseline": "fhui",
+            "milestoneVarianceAgainstLastReturn": "2",
+            "reasonForVariance": "fhewui",
+            "statusAgainstLastReturn": "ewuhif"
           }
         ],
         "expectedInfrastructureStartOnSite": {
@@ -151,6 +175,7 @@
           "current": "Now",
           "reason": "Not long",
           "perecentComplete": "67",
+          "previousReturn": "21/21/21",
           "completedDate": "5603-98-02"
         },
         "expectedCompletionDateOfInfra": {
@@ -161,6 +186,7 @@
           "current": "Now",
           "reason": "Not long",
           "perecentComplete": "67",
+          "previousReturn": "21/21/21",
           "completedDate": "5603-98-02"
         }
       },
@@ -171,6 +197,7 @@
             "riskBaselineImpact": "High",
             "riskBaselineLikelihood": "High",
             "riskBaselineMitigationsInPlace": "Do not do the thing",
+            "riskCurrentReturnLikelihood": null,
             "riskAnyChange": "No",
             "riskCurrentReturnMitigationsInPlace": "None",
             "riskMetDate": "2024-67-40"
@@ -186,11 +213,11 @@
         ],
         "previousRisks": [
           {
-            "riskBaselineRisk": "Risk one",
-            "riskBaselineImpact": "High",
-            "riskBaselineLikelihood": "High",
+            "description": "Risk one",
+            "impact": "High",
+            "likelihood": "High",
             "riskCurrentReturnLikelihood": "6",
-            "riskBaselineMitigationsInPlace": "Do not do the thing",
+            "mitigations": "Do not do the thing",
             "riskAnyChange": "No",
             "riskCurrentReturnMitigationsInPlace": "None",
             "riskMetDate": "2024-67-40"
@@ -202,7 +229,7 @@
         "progressAgainstActions": [
           {
             "description": "been on holiday",
-            "met" : "Yes",
+            "met": "Yes",
             "progress": "Running"
           }
         ],
@@ -216,33 +243,46 @@
   ],
   "fundingProfiles": {
     "totalHIFGrant": "10000",
-    "fundingRequest": [
-      {
-        "period": "2019/2020",
-        "forecast": {
+    "fundingRequest": {
+      "forecast": [
+        {
+          "period": "2019/2020",
           "instalment1": "1000",
           "instalment2": "1000",
           "instalment3": "1000",
           "instalment4": "1000",
           "total": "4000"
         }
-      }
-    ],
+      ]
+    },
+    "currentFunding": {
+      "forecast": [
+        {
+          "period": "2019/2020",
+          "instalment1": "1000",
+          "instalment2": "1000",
+          "instalment3": "1000",
+          "instalment4": "1000",
+          "total": "4000"
+        }
+      ]
+    },
     "changeRequired": "Change required",
     "reasonForRequest": "no bricks",
     "mitigationInPlace": "buy more",
-    "requestedProfiles": [
-      {
-        "period": "2019/2020",
-        "newProfile": {
+    "projectCashflows": "cashflows",
+    "requestedProfiles": {
+      "newProfile": [
+        {
+          "period": "2019/2020",
           "instalment1": "1000",
           "instalment2": "1000",
           "instalment3": "1000",
           "instalment4": "1000",
-          "total": "4000"
+          "totalHolder": { "total": "4000" }
         }
-      }
-    ]
+      ]
+    }
   },
   "fundingPackages": [
     {
@@ -303,7 +343,19 @@
       ]
     },
     "inYearHousingStarts": {
-      "risksToAchieving": "A risk"
+      "baselineAmounts": {
+        "quarter1": "2",
+        "quarter2": "4",
+        "quarter3": "6",
+        "quarter4": "8"
+      },
+      "actualAmounts": {
+        "quarter1": "1",
+        "quarter2": "2",
+        "quarter3": "3",
+        "quarter4": "4"
+      },
+      "progress": "50"
     },
     "housingCompletions": {
       "baselineAmounts": [
@@ -323,18 +375,292 @@
       ]
     },
     "inYearHousingCompletions": {
-      "risksToAchieving": "none"
+      "baselineAmounts": {
+        "quarter1": "20",
+        "quarter2": "40",
+        "quarter3": "60",
+        "quarter4": "80"
+      },
+      "actualAmounts": {
+        "quarter1": "10",
+        "quarter2": "20",
+        "quarter3": "30",
+        "quarter4": "40"
+      },
+      "progress": "50"
     }
   },
+  "widerScheme": [
+    {
+      "overview": {
+        "masterplan": {
+          "confirmation": "Yes",
+          "planAttachment": "some big file"
+        },
+        "developmentPlan": "big plan"
+      },
+      "keyLiveIssues": [
+        {
+          "description": "describe my risk",
+          "dates": {
+            "dateRaised": "01/02/2010",
+            "estimatedCompletionDate": "01/02/2011"
+          },
+          "currentdetails": {
+            "impact": "2",
+            "currentStatus": "Amber",
+            "currentReturnLikelihood": "3"
+          },
+          "mitigationActions": "mitigating",
+          "ratingAfterMitigation": "4"
+        }
+      ],
+      "topRisks": {
+        "landAssembly": {
+          "liveRisk": "Yes",
+          "description": "describing this",
+          "dates": {
+            "expectedCompletion": "11/11/2012",
+            "currentReturnCompletionDate": "13/14/2038"
+          },
+          "varianceAmount": "56",
+          "varianceReason": "varying",
+          "ratings": {
+            "baselineImpact": "1",
+            "baselineLikelihood": "2",
+            "currentReturnLikelihood": "3"
+          },
+          "baselineMitigationMeasures": "measuring",
+          "anyChange": {
+            "confirmation": "Yes",
+            "updatedMeasures": "measiure"
+          },
+          "riskAfterMitigation": "4",
+          "riskMet": {
+            "confirmation": "No",
+            "dateMet": "02/12/2014"
+          }
+        },
+        "procurementInfrastructure": {
+          "liveRisk": "Yes",
+          "description": "describing this",
+          "dates": {
+            "expectedCompletion": "11/11/2012",
+            "currentReturnCompletionDate": "13/14/2038"
+          },
+          "varianceAmount": "56",
+          "varianceReason": "varying",
+          "ratings": {
+            "baselineImpact": "1",
+            "baselineLikelihood": "2",
+            "currentReturnLikelihood": "3"
+          },
+          "baselineMitigationMeasures": "measuring",
+          "anyChange": {
+            "confirmation": "Yes",
+            "updatedMeasures": "measiure"
+          },
+          "riskAfterMitigation": "4",
+          "riskMet": {
+            "confirmation": "No",
+            "dateMet": "02/12/2014"
+          }
+        },
+        "planningInfrastructure": {
+          "liveRisk": "Yes",
+          "description": "describing this",
+          "dates": {
+            "expectedCompletion": "11/11/2012",
+            "currentReturnCompletionDate": "13/14/2038"
+          },
+          "varianceAmount": "56",
+          "varianceReason": "varying",
+          "ratings": {
+            "baselineImpact": "1",
+            "baselineLikelihood": "2",
+            "currentReturnLikelihood": "3"
+          },
+          "baselineMitigationMeasures": "measuring",
+          "anyChange": {
+            "confirmation": "Yes",
+            "updatedMeasures": "measiure"
+          },
+          "riskAfterMitigation": "4",
+          "riskMet": {
+            "confirmation": "No",
+            "dateMet": "02/12/2014"
+          }
+        },
+        "deliveryInfrastructure": {
+          "liveRisk": "Yes",
+          "description": "describing this",
+          "dates": {
+            "expectedCompletion": "11/11/2012",
+            "currentReturnCompletionDate": "13/14/2038"
+          },
+          "varianceAmount": "56",
+          "varianceReason": "varying",
+          "ratings": {
+            "baselineImpact": "1",
+            "baselineLikelihood": "2",
+            "currentReturnLikelihood": "3"
+          },
+          "baselineMitigationMeasures": "measuring",
+          "anyChange": {
+            "confirmation": "Yes",
+            "updatedMeasures": "measiure"
+          },
+          "riskAfterMitigation": "4",
+          "riskMet": {
+            "confirmation": "No",
+            "dateMet": "02/12/2014"
+          }
+        },
+        "procurementHousing": {
+          "liveRisk": "Yes",
+          "description": "describing this",
+          "dates": {
+            "expectedCompletion": "11/11/2012",
+            "currentReturnCompletionDate": "13/14/2038"
+          },
+          "varianceAmount": "56",
+          "varianceReason": "varying",
+          "ratings": {
+            "baselineImpact": "1",
+            "baselineLikelihood": "2",
+            "currentReturnLikelihood": "3"
+          },
+          "baselineMitigationMeasures": "measuring",
+          "anyChange": {
+            "confirmation": "Yes",
+            "updatedMeasures": "measiure"
+          },
+          "riskAfterMitigation": "4",
+          "riskMet": {
+            "confirmation": "No",
+            "dateMet": "02/12/2014"
+          }
+        },
+        "planningHousing": {
+          "liveRisk": "Yes",
+          "description": "describing this",
+          "dates": {
+            "expectedCompletion": "11/11/2012",
+            "currentReturnCompletionDate": "13/14/2038"
+          },
+          "varianceAmount": "56",
+          "varianceReason": "varying",
+          "ratings": {
+            "baselineImpact": "1",
+            "baselineLikelihood": "2",
+            "currentReturnLikelihood": "3"
+          },
+          "baselineMitigationMeasures": "measuring",
+          "anyChange": {
+            "confirmation": "Yes",
+            "updatedMeasures": "measiure"
+          },
+          "riskAfterMitigation": "4",
+          "riskMet": {
+            "confirmation": "No",
+            "dateMet": "02/12/2014"
+          }
+        },
+        "delivery": {
+          "liveRisk": "Yes",
+          "description": "describing this",
+          "dates": {
+            "expectedCompletion": "11/11/2012",
+            "currentReturnCompletionDate": "13/14/2038"
+          },
+          "varianceAmount": "56",
+          "varianceReason": "varying",
+          "ratings": {
+            "baselineImpact": "1",
+            "baselineLikelihood": "2",
+            "currentReturnLikelihood": "3"
+          },
+          "baselineMitigationMeasures": "measuring",
+          "anyChange": {
+            "confirmation": "Yes",
+            "updatedMeasures": "measiure"
+          },
+          "riskAfterMitigation": "4",
+          "riskMet": {
+            "confirmation": "No",
+            "dateMet": "02/12/2014"
+          }
+        },
+        "fundingPackage": {
+          "liveRisk": "Yes",
+          "description": "describing this",
+          "dates": {
+            "expectedCompletion": "11/11/2012",
+            "currentReturnCompletionDate": "13/14/2038"
+          },
+          "varianceAmount": "56",
+          "varianceReason": "varying",
+          "ratings": {
+            "baselineImpact": "1",
+            "baselineLikelihood": "2",
+            "currentReturnLikelihood": "3"
+          },
+          "baselineMitigationMeasures": "measuring",
+          "anyChange": {
+            "confirmation": "Yes",
+            "updatedMeasures": "measiure"
+          },
+          "riskAfterMitigation": "4",
+          "riskMet": {
+            "confirmation": "No",
+            "dateMet": "02/12/2014"
+          }
+        },
+        "additionalRisks": [
+          {
+            "liveRisk": "Yes",
+            "description": "describing this",
+            "dates": {
+              "expectedCompletion": "11/11/2012",
+              "currentReturnCompletionDate": "13/14/2038"
+            },
+            "varianceAmount": "56",
+            "varianceReason": "varying",
+            "ratings": {
+              "baselineImpact": "1",
+              "baselineLikelihood": "2",
+              "currentReturnLikelihood": "3"
+            },
+            "baselineMitigationMeasures": "measuring",
+            "anyChange": {
+              "confirmation": "Yes",
+              "updatedMeasures": "measiure"
+            },
+            "riskAfterMitigation": "4",
+            "riskMet": {
+              "confirmation": "No",
+              "dateMet": "02/12/2014"
+            }
+          }
+        ],
+        "progressLastQuarter": "much",
+        "actionsLastQuarter": "some",
+        "riskRegister": "none"
+      }
+    }
+  ],
   "s151Confirmation": {
     "hifFunding": {
       "hifTotalFundingRequest": "spending",
       "changesToRequest": {
         "changesToRequestConfirmation": "requesting",
+        "evidenceOfVariance": "some proof of funding",
         "requestedAmount": "money",
         "reasonForRequest": "reasoning",
-        "varianceFromBaseline": "varying",
-        "varianceFromBaselinePercent" : "67",
+        "varianceFromBaseline": {
+          "variance": "varying",
+          "varianceFromBaselinePercent": "67"
+        },
         "mitigationInPlace": "mitigating"
       },
       "hifFundingProfile": [
@@ -388,22 +714,27 @@
       "recoverFunding": {
         "recoverFundingConfirmation": "Yes",
         "usedOnFutureHousing": "Yes"
-      }
+      },
+      "signoff": "A signature"
     }
   },
   "s151": {
     "claimSummary": {
       "hifTotalFundingRequest": "Funding",
       "hifSpendToDate": "1234-65-43",
-      "AmountOfThisClaim": "lots"
+      "AmountOfThisClaim": "lots",
+      "certifiedClaimForm": "some form",
+      "runningClaimTotal": "23"
     },
     "supportingEvidence": {
       "lastQuarterMonthSpend": {
         "forecast": "500",
         "actual": "400",
-        "hasVariance": "Yes",
-        "varianceAgainstForcastAmount": "100",
-        "varianceAgainstForcastPercentage": "20"
+        "variance": {
+          "varianceAgainstForcastAmount": "456728",
+          "varianceAgainstForcastPercentage": "123456"
+        },
+        "varianceReason": "Areason"
       },
       "evidenceOfSpendPastQuarter": "Much",
       "breakdownOfNextQuarterSpend": {
@@ -414,35 +745,68 @@
     }
   },
   "rmMonthlyCatchup": {
-    "dateOfCatchUp": "1234-09-45",
-    "overallRatingForScheme": "4",
-    "redBarriers": [
-      {
-        "overview": "barriers"
-      }
-    ],
-    "amberBarriers": [
-      {
-        "overview": "More barriers"
-      }
-    ],
-    "overviewOfEngagement": "Overviewing",
-    "commentOnProgress": "Commenting",
-    "issuesToRaise": "Issuing"
+    "catchUp": [null]
   },
   "outputsActuals": {
-    "localAuthority": "Local Authority",
-    "noOfUnits": "123",
-    "size": "10",
-    "previousStarts": "starting",
-    "startsSinceLastReturn": "5",
-    "previousCompletions": "56",
-    "completionsSinceLastReturn": "3",
-    "laOwned": "Yes",
-    "pslLand": "No",
-    "brownfieldPercent": "78",
-    "leaseholdPercent": "98",
-    "smePercent": "23",
-    "mmcPercent": "43"
+    "details": {
+      "localAuthority": "Local Authority",
+      "noOfUnits": "123",
+      "size": "10"
+    },
+    "ownership": {
+      "laOwned": "Yes",
+      "pslLand": "No"
+    },
+    "percentages": {
+      "brownfieldPercent": "78",
+      "leaseholdPercent": "98",
+      "smePercent": "23",
+      "mmcPercent": "43"
+    },
+    "starts": {
+      "starts": {
+        "startsSinceLastReturn": "5",
+        "previousCompletions": "56",
+        "completionsSinceLastReturn": "3",
+        "currentCompletions": "345",
+        "currentStarts": "768",
+        "previousStarts": "starting"
+      }
+    }
+  },
+  "reviewAndAssurance": {
+    "date": "01/01/1970",
+    "assuranceManagerAttendance": "Yes",
+    "infrastructureDelivery": [
+      {
+        "details": "Some information",
+        "riskRating": "High"
+      }
+    ],
+    "hifFundedFinancials": {
+      "summary": "The summary",
+      "riskRating": "High"
+    },
+    "hifWiderScheme": {
+      "summary": "The summary",
+      "riskRating": "High"
+    },
+    "outputForecast": {
+      "summary": "The summary",
+      "riskRating": "High"
+    },
+    "barriers": {
+      "significantIssues": [
+        {
+          "overview": "Some information",
+          "barrierType": "Other",
+          "details": "Some details"
+        }
+      ]
+    },
+    "recommendForRegularMonitoring": {
+      "isRecommendForRegularMonitoring": "Yes",
+      "reasonAndProposedFrequency": "A reason and frequency"
+    }
   }
 }

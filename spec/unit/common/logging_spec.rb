@@ -5,6 +5,27 @@ describe Common::Proxy::Logging do
     let(:proxy) { described_class.new(logger: logger_spy, use_case: use_case_spy) }
     before { response }
 
+    describe 'Empty execute' do
+      let(:response) { proxy.execute }
+      class ExampleUseCase
+        attr_reader :executed
+
+        def initialize
+          @executed = false
+        end
+
+        def execute
+          @executed = true
+        end
+      end
+
+      let(:use_case_spy) { ExampleUseCase.new }
+
+      it 'Calls the usecase execute method' do
+        expect(use_case_spy.executed).to eq(true)
+      end
+    end
+
     describe 'Example one' do
       class ExampleUseCaseOne
         attr_reader :executed_with

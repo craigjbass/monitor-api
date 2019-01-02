@@ -773,6 +773,12 @@
           "laReadOnly": true,
           "title": "Number of housing sites"
         },
+        "polygonsForHousingSite": {
+          "title": "Polygons for housing sites",
+          "type": "string",
+          "description": "Paste a link here to the housing site polygons.",
+          "format": "uri"
+        },
         "totalArea": { "type": "string", "title": "Total Area (hectares)" },
         "hifFundingAmount": {
           "type": "string",
@@ -791,6 +797,12 @@
           "laReadOnly": true,
           "title": "Description of wider project deliverables",
           "extendedText": true
+        },
+        "sitePlans": {
+          "title": "Site Plans",
+          "description": "Upload any relevant files here.",
+          "uploadFile": "multiple",
+          "type": "string"
         }
       },
       "required": ["jointBidAreas", "totalArea"]
@@ -1371,21 +1383,27 @@
       "title": "Costs",
       "items": {
         "type": "object",
-        "title": "Cost",
+        "title": "Infrastructure",
         "properties": {
           "infrastructure": {
             "type": "object",
-            "title": "Infrastructure",
+            "title": "Cost",
             "properties": {
               "HIFAmount": {
                 "type": "string",
-                "title": "Total HIF Amount",
+                "title": "Amount of Infrastructure Funded by HIF",
                 "currency": true
               },
               "totalCostOfInfrastructure": {
                 "type": "string",
                 "title": "Total Cost of Infrastructure",
                 "currency": true
+              },
+              "baselineCashflows": {
+                "type": "string",
+                "uploadFile": "multiple",
+                "title": "Baseline Cashflow(s)",
+                "description": "Uploads any relevant files here."
               },
               "fundedThroughHif": {
                 "type": "object",
@@ -1909,7 +1927,7 @@
                         "West Oxfordshire",
                         "West Somerset",
                         "West Sussex",
-                        "West Yorkshire Combined Authority",              
+                        "West Yorkshire Combined Authority",
                         "Westminster",
                         "Weymouth and Portland",
                         "Wigan",
