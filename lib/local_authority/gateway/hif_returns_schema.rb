@@ -2339,7 +2339,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           varianceAmount: {
                             type: "string",
-                            title: "Variance Amount (days)",
+                            title: "Variance Amount (weeks)",
                             readonly: true
                           },
                           varianceReason: {
@@ -2513,7 +2513,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           varianceAmount: {
                             type: "string",
-                            title: "Variance Amount (days)",
+                            title: "Variance Amount (weeks)",
                             readonly: true
                           },
                           varianceReason: {
@@ -2644,7 +2644,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                 }
               },
               deliveryInfrastructure: {
-                title: "Delivery- Infrastructure",
+                title: "Delivery - Infrastructure",
                 type: "object",
                 properties: {
                   liveRisk: {
@@ -2687,7 +2687,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           varianceAmount: {
                             type: "string",
-                            title: "Variance Amount (days)",
+                            title: "Variance Amount (weeks)",
                             readonly: true
                           },
                           varianceReason: {
@@ -2861,7 +2861,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           varianceAmount: {
                             type: "string",
-                            title: "Variance Amount (days)",
+                            title: "Variance Amount (weeks)",
                             readonly: true
                           },
                           varianceReason: {
@@ -2992,7 +2992,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                 }
               },
               planningHousing: {
-                title: "Planning- Housing",
+                title: "Planning - Housing",
                 type: "object",
                 properties: {
                   liveRisk: {
@@ -3035,7 +3035,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           varianceAmount: {
                             type: "string",
-                            title: "Variance Amount (days)",
+                            title: "Variance Amount (weeks)",
                             readonly: true
                           },
                           varianceReason: {
@@ -3209,7 +3209,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           varianceAmount: {
                             type: "string",
-                            title: "Variance Amount (days)",
+                            title: "Variance Amount (weeks)",
                             readonly: true
                           },
                           varianceReason: {
@@ -3383,7 +3383,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           varianceAmount: {
                             type: "string",
-                            title: "Variance Amount (days)",
+                            title: "Variance Amount (weeks)",
                             readonly: true
                           },
                           varianceReason: {
@@ -3545,7 +3545,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                     },
                     varianceAmount: {
                       type: "string",
-                      title: "Variance Amount (days)",
+                      title: "Variance Amount (weeks)",
                       readonly: true
                     },
                     varianceReason: {

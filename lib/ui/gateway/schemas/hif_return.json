@@ -2387,7 +2387,7 @@
                           },
                           "varianceAmount": {
                             "type": "string",
-                            "title": "Variance Amount (days)",
+                            "title": "Variance Amount (weeks)",
                             "readonly": true
                           },
                           "varianceReason": {
@@ -2561,7 +2561,7 @@
                           },
                           "varianceAmount": {
                             "type": "string",
-                            "title": "Variance Amount (days)",
+                            "title": "Variance Amount (weeks)",
                             "readonly": true
                           },
                           "varianceReason": {
@@ -2692,7 +2692,7 @@
                 }
               },
               "deliveryInfrastructure": {
-                "title": "Delivery- Infrastructure",
+                "title": "Delivery - Infrastructure",
                 "type": "object",
                 "properties": {
                   "liveRisk": {
@@ -2735,7 +2735,7 @@
                           },
                           "varianceAmount": {
                             "type": "string",
-                            "title": "Variance Amount (days)",
+                            "title": "Variance Amount (weeks)",
                             "readonly": true
                           },
                           "varianceReason": {
@@ -2909,7 +2909,7 @@
                           },
                           "varianceAmount": {
                             "type": "string",
-                            "title": "Variance Amount (days)",
+                            "title": "Variance Amount (weeks)",
                             "readonly": true
                           },
                           "varianceReason": {
@@ -3040,7 +3040,7 @@
                 }
               },
               "planningHousing": {
-                "title": "Planning- Housing",
+                "title": "Planning - Housing",
                 "type": "object",
                 "properties": {
                   "liveRisk": {
@@ -3083,7 +3083,7 @@
                           },
                           "varianceAmount": {
                             "type": "string",
-                            "title": "Variance Amount (days)",
+                            "title": "Variance Amount (weeks)",
                             "readonly": true
                           },
                           "varianceReason": {
@@ -3257,7 +3257,7 @@
                           },
                           "varianceAmount": {
                             "type": "string",
-                            "title": "Variance Amount (days)",
+                            "title": "Variance Amount (weeks)",
                             "readonly": true
                           },
                           "varianceReason": {
@@ -3431,7 +3431,7 @@
                           },
                           "varianceAmount": {
                             "type": "string",
-                            "title": "Variance Amount (days)",
+                            "title": "Variance Amount (weeks)",
                             "readonly": true
                           },
                           "varianceReason": {
@@ -3593,7 +3593,7 @@
                     },
                     "varianceAmount": {
                       "type": "string",
-                      "title": "Variance Amount (days)",
+                      "title": "Variance Amount (weeks)",
                       "readonly": true
                     },
                     "varianceReason": {
