@@ -262,10 +262,8 @@
         "changesToRequestConfirmation": null,
         "requestedAmount": null,
         "reasonForRequest": null,
-        "varianceFromBaseline": {
-          "variance": null,
-          "varianceFromBaselinePercent": null
-        },
+        "variance": null,
+        "varianceFromBaselinePercent": null,
         "mitigationInPlace": null
       },
       "hifFundingProfile": [

@@ -250,10 +250,8 @@
         "requestedAmount": null,
         "reasonForRequest": null,
         "evidenceOfVariance": null,
-        "varianceFromBaseline": {
-          "variance": null,
-          "varianceFromBaselinePercent" : null
-        },
+        "variance": null,
+        "varianceFromBaselinePercent" : null,
         "mitigationInPlace": null
       },
       "hifFundingProfile": [

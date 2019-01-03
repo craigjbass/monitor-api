@@ -576,17 +576,14 @@ class UI::UseCase::ConvertCoreHIFReturn
 
     unless @return[:s151Confirmation][:hifFunding].nil?
       @converted_return[:s151Confirmation][:hifFunding] = {}
-      
+
       @converted_return[:s151Confirmation][:hifFunding][:changesToRequest] = {
         hifTotalFundingRequest: @return[:s151Confirmation][:hifFunding][:hifTotalFundingRequest],
         changesToRequestConfirmation: @return[:s151Confirmation][:hifFunding][:changesToRequest],
         requestedAmount: @return[:s151Confirmation][:hifFunding][:requestedAmount],
         reasonForRequest: @return[:s151Confirmation][:hifFunding][:reasonForRequest],
         evidenceOfVariance: @return[:s151Confirmation][:hifFunding][:evidenceOfVariance],
-        mitigationInPlace: @return[:s151Confirmation][:hifFunding][:mitigationInPlace]
-      }
-
-      @converted_return[:s151Confirmation][:hifFunding][:changesToRequest][:varianceFromBaseline] = {
+        mitigationInPlace: @return[:s151Confirmation][:hifFunding][:mitigationInPlace],
         varianceFromBaselinePercent: @return[:s151Confirmation][:hifFunding][:varianceFromBaselinePercent],
         variance: @return[:s151Confirmation][:hifFunding][:varianceFromBaseline]
       }

@@ -3837,11 +3837,11 @@
           "type": "object",
           "title": "HIF Funding and Profiles",
           "required": ["cashflowConfirmation"],
-          "calculation": "setCreate(formData, ['changesToRequest', 'varianceFromBaseline', 'variance'], `${parseMoney(get(formData, 'changesToRequest', 'requestedAmount')) - parseMoney(get(formData, 'hifTotalFundingRequest'))}`); setCreate(formData, ['changesToRequest', 'varianceFromBaseline', 'varianceFromBaselinePercent'], `${percentageDifference(parseMoney(get(formData, 'hifTotalFundingRequest')), parseMoney(get(formData, 'changesToRequest', 'requestedAmount')))}`)",
           "properties": {
             "changesToRequest": {
               "title": "",
               "type": "object",
+              "calculation": "setCreate(formData, ['variance'], '' + parseMoney(get(formData, 'requestedAmount')) - parseMoney(get(formData, 'hifTotalFundingRequest'))); setCreate(formData, ['varianceFromBaselinePercent'], ''+percentageDifference(parseMoney(get(formData, 'hifTotalFundingRequest')), parseMoney(get(formData, 'requestedAmount'))))",
               "properties": {
                 "hifTotalFundingRequest": {
                   "type": "string",
@@ -3884,24 +3884,17 @@
                           "currency": true,
                           "s151WriteOnly": true
                         },
-                        "varianceFromBaseline": {
-                          "type": "object",
-                          "title": "",
-                          "horizontal": true,
-                          "properties": {
-                            "variance": {
-                              "type": "string",
-                              "title": "Variance from Baseline",
-                              "currency": true,
-                              "readonly": true
-                            },
-                            "varianceFromBaselinePercent": {
-                              "type": "string",
-                              "title": "Percentage Variance from Baseline",
-                              "percentage": true,
-                              "readonly": true
-                            }
-                          }
+                        "variance": {
+                          "type": "string",
+                          "title": "Variance from Baseline",
+                          "currency": true,
+                          "readonly": true
+                        },
+                        "varianceFromBaselinePercent": {
+                          "type": "string",
+                          "title": "Percentage Variance from Baseline",
+                          "percentage": true,
+                          "readonly": true
                         },
                         "evidenceOfVariance": {
                           "type": "string",
