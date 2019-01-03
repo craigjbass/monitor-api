@@ -651,8 +651,8 @@
   ],
   "s151Confirmation": {
     "hifFunding": {
-      "hifTotalFundingRequest": "spending",
       "changesToRequest": {
+        "hifTotalFundingRequest": "spending",
         "changesToRequestConfirmation": "requesting",
         "evidenceOfVariance": "some proof of funding",
         "requestedAmount": "money",

@@ -46,7 +46,7 @@ class UI::UseCase::ConvertCoreHIFReturn
         planningSubmitted: planning[:outlinePlanning][:planningSubmitted],
         planningGranted: planning[:outlinePlanning][:planningGranted],
         reference: planning[:outlinePlanning][:reference]
-        
+
       }
     end
 
@@ -103,7 +103,7 @@ class UI::UseCase::ConvertCoreHIFReturn
       summaryOfCriticalPath: procurement[:summaryOfCriticalPath],
     }
     new_procurement[:procurementStatusAgainstLastReturn] = {}
-    
+
     unless procurement[:procurementStatusAgainstLastReturn].nil?
       new_procurement[:procurementStatusAgainstLastReturn] = {
         status: procurement[:procurementStatusAgainstLastReturn][:statusAgainstLastReturn],
@@ -112,14 +112,14 @@ class UI::UseCase::ConvertCoreHIFReturn
         previousReturn: procurement[:procurementStatusAgainstLastReturn][:previousReturn]
       }
     end
-    
+
     new_procurement[:procurementStatusAgainstLastReturn][:baseline] = procurement[:procurementBaselineCompletion]
     new_procurement[:procurementStatusAgainstLastReturn][:procurementVarianceAgainstLastReturn] = procurement[:procurementVarianceAgainstLastReturn]
     new_procurement[:procurementStatusAgainstLastReturn][:procurementVarianceAgainstBaseline] = procurement[:procurementVarianceAgainstBaseline]
     new_procurement[:procurementStatusAgainstLastReturn][:percentComplete] = procurement[:percentComplete]
     new_procurement[:procurementStatusAgainstLastReturn][:completedDate] = procurement[:procurementCompletedDate]
     new_procurement[:procurementStatusAgainstLastReturn][:onCompletedNameOfContractor] = procurement[:procurementCompletedNameOfContractor]
-    
+
     new_procurement
   end
 
@@ -567,7 +567,7 @@ class UI::UseCase::ConvertCoreHIFReturn
         actualAmounts: @return[:outputsForecast][:inYearHousingCompletions][:actualAmounts],
         progress: @return[:outputsForecast][:inYearHousingCompletions][:progress]
       }
-    end  
+    end
   end
 
   def convert_s151_confirmation
@@ -575,11 +575,10 @@ class UI::UseCase::ConvertCoreHIFReturn
     @converted_return[:s151Confirmation] = {}
 
     unless @return[:s151Confirmation][:hifFunding].nil?
-      @converted_return[:s151Confirmation][:hifFunding] = {
-        hifTotalFundingRequest: @return[:s151Confirmation][:hifFunding][:hifTotalFundingRequest]
-      }
-
+      @converted_return[:s151Confirmation][:hifFunding] = {}
+      
       @converted_return[:s151Confirmation][:hifFunding][:changesToRequest] = {
+        hifTotalFundingRequest: @return[:s151Confirmation][:hifFunding][:hifTotalFundingRequest],
         changesToRequestConfirmation: @return[:s151Confirmation][:hifFunding][:changesToRequest],
         requestedAmount: @return[:s151Confirmation][:hifFunding][:requestedAmount],
         reasonForRequest: @return[:s151Confirmation][:hifFunding][:reasonForRequest],

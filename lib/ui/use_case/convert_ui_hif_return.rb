@@ -102,7 +102,7 @@ class UI::UseCase::ConvertUIHIFReturn
       nameOfContractor: procurement[:nameOfContractor],
       summaryOfCriticalPath: procurement[:summaryOfCriticalPath],
     }
-    
+
     unless procurement[:procurementStatusAgainstLastReturn].nil?
       new_procurement[:procurementBaselineCompletion] = procurement[:procurementStatusAgainstLastReturn][:baseline]
       new_procurement[:procurementVarianceAgainstLastReturn] = procurement[:procurementStatusAgainstLastReturn][:procurementVarianceAgainstLastReturn]
@@ -110,7 +110,7 @@ class UI::UseCase::ConvertUIHIFReturn
       new_procurement[:percentComplete] = procurement[:procurementStatusAgainstLastReturn][:percentComplete]
       new_procurement[:procurementCompletedDate] = procurement[:procurementStatusAgainstLastReturn][:completedDate]
       new_procurement[:procurementCompletedNameOfContractor] = procurement[:procurementStatusAgainstLastReturn][:onCompletedNameOfContractor]
-      
+
       new_procurement[:procurementStatusAgainstLastReturn] = {
         statusAgainstLastReturn: procurement[:procurementStatusAgainstLastReturn][:status],
         currentReturn: procurement[:procurementStatusAgainstLastReturn][:current],
@@ -569,14 +569,13 @@ class UI::UseCase::ConvertUIHIFReturn
     @converted_return[:s151Confirmation] = {}
 
     unless @return[:s151Confirmation][:hifFunding].nil?
-      @converted_return[:s151Confirmation][:hifFunding] = {
-        hifTotalFundingRequest: @return[:s151Confirmation][:hifFunding][:hifTotalFundingRequest],
-      }
+      @converted_return[:s151Confirmation][:hifFunding] = {}
       unless @return[:s151Confirmation][:hifFunding][:changesToRequest].nil?
         @converted_return[:s151Confirmation][:hifFunding][:changesToRequest] = @return[:s151Confirmation][:hifFunding][:changesToRequest][:changesToRequestConfirmation]
+        @converted_return[:s151Confirmation][:hifFunding][:hifTotalFundingRequest] = @return[:s151Confirmation][:hifFunding][:changesToRequest][:hifTotalFundingRequest]
         @converted_return[:s151Confirmation][:hifFunding][:requestedAmount] = @return[:s151Confirmation][:hifFunding][:changesToRequest][:requestedAmount]
         @converted_return[:s151Confirmation][:hifFunding][:reasonForRequest] = @return[:s151Confirmation][:hifFunding][:changesToRequest][:reasonForRequest]
-        
+
         unless @return[:s151Confirmation][:hifFunding][:changesToRequest][:varianceFromBaseline].nil?
           @converted_return[:s151Confirmation][:hifFunding][:varianceFromBaseline] = @return[:s151Confirmation][:hifFunding][:changesToRequest][:varianceFromBaseline][:variance]
           @converted_return[:s151Confirmation][:hifFunding][:varianceFromBaselinePercent] = @return[:s151Confirmation][:hifFunding][:changesToRequest][:varianceFromBaseline][:varianceFromBaselinePercent]
@@ -617,7 +616,7 @@ class UI::UseCase::ConvertUIHIFReturn
     end
 
     return if @return[:s151Confirmation][:submission].nil?
-    
+
     @converted_return[:s151Confirmation][:submission] = {
       signoff: @return[:s151Confirmation][:submission][:signoff],
       hifFundingEndDate: @return[:s151Confirmation][:submission][:hifFundingEndDate],

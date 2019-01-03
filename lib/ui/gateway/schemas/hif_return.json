@@ -3839,17 +3839,17 @@
           "required": ["cashflowConfirmation"],
           "calculation": "setCreate(formData, ['changesToRequest', 'varianceFromBaseline', 'variance'], `${parseMoney(get(formData, 'changesToRequest', 'requestedAmount')) - parseMoney(get(formData, 'hifTotalFundingRequest'))}`); setCreate(formData, ['changesToRequest', 'varianceFromBaseline', 'varianceFromBaselinePercent'], `${percentageDifference(parseMoney(get(formData, 'hifTotalFundingRequest')), parseMoney(get(formData, 'changesToRequest', 'requestedAmount')))}`)",
           "properties": {
-            "hifTotalFundingRequest": {
-              "type": "string",
-              "title": "HIF Total Funding Request",
-              "sourceKey": ["baseline_data", "summary", "hifFundingAmount"],
-              "readonly": true,
-              "currency": true
-            },
             "changesToRequest": {
               "title": "",
               "type": "object",
               "properties": {
+                "hifTotalFundingRequest": {
+                  "type": "string",
+                  "title": "HIF Total Funding Request",
+                  "sourceKey": ["baseline_data", "summary", "hifFundingAmount"],
+                  "readonly": true,
+                  "currency": true
+                },
                 "changesToRequestConfirmation": {
                   "type": "string",
                   "title": "Please confirm there are no changes to the total HIF request",
@@ -4484,7 +4484,7 @@
                 "quarter4":{
                   "type": "string",
                   "title": "Q4 Current Year"
-                }  
+                }
               }
             },
             "actualAmounts": {
@@ -4507,7 +4507,7 @@
                 "quarter4":{
                   "type": "string",
                   "title": "Q4 Current Year"
-                }  
+                }
               }
             },
             "progress": {
@@ -4624,7 +4624,7 @@
                 "quarter4":{
                   "type": "string",
                   "title": "Q4 Current Year"
-                }  
+                }
               }
             },
             "actualAmounts": {
@@ -4647,7 +4647,7 @@
                 "quarter4":{
                   "type": "string",
                   "title": "Q4 Current Year"
-                }  
+                }
               }
             },
             "progress": {

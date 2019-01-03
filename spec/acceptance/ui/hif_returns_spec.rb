@@ -83,8 +83,8 @@ describe 'Interacting with a HIF Return from the UI' do
           hifTotalFundingRequest: '10000',
           hifSpendToDate: nil,
           AmountOfThisClaim: nil
-          }
         }
+      }
       return_data[:s151Confirmation][:hifFunding][:hifTotalFundingRequest] = '10000'
       dependency_factory.get_use_case(:ui_update_return).execute(return_id: return_id, return_data: return_data)
 

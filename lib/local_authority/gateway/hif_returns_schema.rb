@@ -1857,7 +1857,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                 quarter4:{
                   type: "string",
                   title: "Q4 Current Year"
-                }  
+                }
               }
             },
             actualAmounts: {
@@ -1880,7 +1880,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                 quarter4:{
                   type: "string",
                   title: "Q4 Current Year"
-                }  
+                }
               }
             },
             progress: {
@@ -1987,7 +1987,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                 quarter4:{
                   type: "string",
                   title: "Q4 Current Year"
-                }  
+                }
               }
             },
             actualAmounts: {
@@ -2010,7 +2010,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                 quarter4:{
                   type: "string",
                   title: "Q4 Current Year"
-                }  
+                }
               }
             },
             progress: {
