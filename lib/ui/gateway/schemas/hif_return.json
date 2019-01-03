@@ -527,34 +527,55 @@
                                 "Delayed"
                               ],
                               "default": "On schedule"
-                            },
-                            "currentReturn": {
-                              "title": "Current return",
-                              "type": "string",
-                              "format": "date"
-                            },
-                            "previousReturn": {
-                              "title": "Previous Return",
-                              "readonly": true,
-                              "type": "string",
-                              "format": "date",
-                              "sourceKey": ["return_data", "infrastructures", "planning", "section106", "statutoryConsents", "statutoryConsents", "currentReturn"]
-                            },
-                            "varianceReason": {
-                              "title": "Reason for variance",
-                              "type": "string"
-                            },
-                            "percentComplete": {
-                              "title": "Percentage complete",
-                              "type": "string",
-                              "percentage": true
-                            },
-                            "completionDate": {
-                              "hidden": true,
-                              "title": "Completion date (Calculated)",
-                              "type": "string",
-                              "format": "date",
-                              "readonly": true
+                            }
+                          },
+                          "dependencies": {
+                            "statusAgainstLastReturn": {
+                              "oneOf": [
+                                {
+                                  "properties": {
+                                    "statusAgainstLastReturn": { "enum": ["On schedule"] },
+                                    "percentComplete": {
+                                      "title": "Percentage complete",
+                                      "type": "string",
+                                      "percentage": true
+                                    }
+                                  }
+                                },
+                                {
+                                  "properties": {
+                                    "statusAgainstLastReturn": { "enum": ["Completed"] },
+                                    "completionDate": {
+                                      "title": "Completion date (Calculated)",
+                                      "type": "string",
+                                      "format": "date",
+                                      "readonly": true
+                                    }
+                                  }
+                                },
+                                {
+                                  "properties": {
+                                    "statusAgainstLastReturn": { "enum": ["Delayed"] },
+                                    "currentReturn": {
+                                      "title": "Current return",
+                                      "type": "string",
+                                      "format": "date",
+                                      "sourceKey": ["return_data", "infrastructures", "planning", "section106", "statutoryConsents", "statutoryConsents", "currentReturn"]
+                                    },
+                                    "previousReturn": {
+                                      "title": "Previous Return",
+                                      "readonly": true,
+                                      "type": "string",
+                                      "format": "date",
+                                      "sourceKey": ["return_data", "infrastructures", "planning", "section106", "statutoryConsents", "statutoryConsents", "currentReturn"]
+                                    },
+                                    "varianceReason": {
+                                      "title": "Reason for variance",
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              ]
                             }
                           }
                         }

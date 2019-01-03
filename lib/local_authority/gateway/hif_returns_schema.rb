@@ -494,7 +494,8 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                           currentReturn: {
                                             title: 'Current return',
                                             type: 'string',
-                                            format: 'date'
+                                            format: 'date',
+                                            sourceKey: %i[return_data infrastructures planning section106 statutoryConsents statutoryConsents currentReturn]
                                           },
                                           previousReturn: {
                                             title: 'Previous Return',
@@ -1857,7 +1858,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                 quarter4:{
                   type: "string",
                   title: "Q4 Current Year"
-                }  
+                }
               }
             },
             actualAmounts: {
@@ -1880,7 +1881,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                 quarter4:{
                   type: "string",
                   title: "Q4 Current Year"
-                }  
+                }
               }
             },
             progress: {
@@ -1987,7 +1988,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                 quarter4:{
                   type: "string",
                   title: "Q4 Current Year"
-                }  
+                }
               }
             },
             actualAmounts: {
@@ -2010,7 +2011,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                 quarter4:{
                   type: "string",
                   title: "Q4 Current Year"
-                }  
+                }
               }
             },
             progress: {
