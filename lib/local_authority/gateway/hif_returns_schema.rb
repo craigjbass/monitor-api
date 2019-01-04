@@ -494,7 +494,8 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                           currentReturn: {
                                             title: 'Current return',
                                             type: 'string',
-                                            format: 'date'
+                                            format: 'date',
+                                            sourceKey: %i[return_data infrastructures planning section106 statutoryConsents statutoryConsents currentReturn]
                                           },
                                           previousReturn: {
                                             title: 'Previous Return',
