@@ -1599,6 +1599,26 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           readonly: true,
                           currency: true
                         },
+                        lastReturn: {
+                          type: 'string',
+                          title: 'Last Return',
+                          sourceKey: %i[return_data fundingPackages fundingStack totalCost current]
+                        },
+                        anyChange: {
+                          type: 'string',
+                          enum: ['Yes', 'No']
+                        },
+                        variance: {
+                          type: 'object',
+                          properties: {
+                            baseline: {
+                              type: 'string'
+                            },
+                            lastReturn: {
+                              type: 'string'
+                            }
+                          }
+                        },
                         current: {
                           type: 'string',
                           title: 'Current return',
@@ -1607,11 +1627,6 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                         varianceReason: {
                           type: 'string',
                           title: 'Reason for variance'
-                        },
-                        percentComplete: {
-                          type: 'string',
-                          title: 'Percent complete',
-                          percentage: true
                         }
                       }
                     },

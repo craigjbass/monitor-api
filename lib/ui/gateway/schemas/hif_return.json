@@ -1833,7 +1833,7 @@
               "totalCost": {
                 "title": "Total Cost",
                 "type": "object",
-                "horizontal": true,
+                "calculation": "setCreate(formData, ['variance', 'baseline'], '' + parseMoney(get(formData, 'variance', 'current')) - parseMoney(get(formData, 'baseline'))); setCreate(formData, ['variance', 'lastReturn'], '' + parseMoney(get(formData, 'variance', 'current')) - parseMoney(get(formData, 'lastReturn')));",
                 "properties": {
                   "baseline": {
                     "type": "string",
@@ -1847,20 +1847,63 @@
                     "readonly": true,
                     "currency": true
                   },
-                  "current": {
+                  "lastReturn": {
                     "type": "string",
-                    "title": "Current return",
-                    "currency": true
+                    "title": "Last Return Amount",
+                    "currency": true,
+                    "readonly": true
                   },
-                  "varianceReason": {
+                  "anyChange": {
+                    "title": "Any change to baseline/ last return?",
                     "type": "string",
-                    "title": "Reason for variance"
-                  },
-                  "percentComplete": {
-                    "type": "string",
-                    "title": "Percent complete",
-                    "readonly": true,
-                    "percentage": true
+                    "enum": ["Yes", "No"],
+                    "radio": true
+                  }
+                },
+                "dependencies": {
+                  "anyChange": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "anyChange": {
+                            "enum": ["Yes"]
+                          },
+                          "variance": {
+                            "type": "object",
+                            "title": "",
+                            "horizontal": true,
+                            "properties": {
+                              "current": {
+                                "type": "string",
+                                "title": "Current return",
+                                "currency": true
+                              },
+                              "baseline": {
+                                "type": "string",
+                                "title": "Variance against baseline (£)",
+                                "readonly": true
+                              },
+                              "lastReturn": {
+                                "type": "string",
+                                "title": "Variance Against Last Return (£)",
+                                "readonly": true
+                              }
+                            }
+                          },
+                          "varianceReason": {
+                            "type": "string",
+                            "title": "Reason for variance"
+                          }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "anyChange": {
+                            "enum": ["No"]
+                          }
+                        }
+                      }
+                    ]
                   }
                 }
               },

@@ -180,9 +180,9 @@
         },
         "totalCost": {
           "baseline": "20000",
-          "current": null,
-          "varianceReason": null,
-          "percentComplete": null
+          "lastReturn": null,
+          "anyChange": null,
+          "varianceReason": null
         },
         "fundedThroughHIF": "No",
         "descriptionOfFundingStack": "Funding stack description",

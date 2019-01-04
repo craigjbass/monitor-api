@@ -286,9 +286,14 @@
         },
         "totalCost": {
           "baseline": "20000",
-          "current": "567329",
-          "varianceReason": "No more money",
-          "percentComplete": "78"
+          "lastReturn": "10000",
+          "anyChange": "Yes",
+          "variance": {
+            "current": "567329",
+            "baseline": "0",
+            "lastReturn": "0"
+          },
+          "varianceReason": "No more money"
         },
         "fundedThroughHIF": "No",
         "descriptionOfFundingStack": "Funding stack description",
