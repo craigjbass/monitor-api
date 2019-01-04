@@ -834,7 +834,7 @@
                       },
                       "procurementStatusAgainstLastReturn": {
                         "type": "object",
-                        "title": "Infrastructure contractor procurement",
+                        "title": "Infrastructure Contractor Procurement",
                         "calculation": "set(formData, 'procurementVarianceAgainstBaseline', calculateVariance(parseMoney(get(formData, 'current')), parseMoney(get(formData, 'baseline')))); set(formData, 'procurementVarianceAgainstLastReturn', calculateVariance(parseMoney(get(formData, 'current')), parseMoney(get(formData, 'previousReturn'))));",
                         "properties": {
                           "baseline": {
@@ -878,13 +878,12 @@
                                   "status": { "enum": ["Completed"] },
                                   "completedDate": {
                                     "type": "string",
-                                    "readonly": true,
-                                    "title": "Completion Date (Calculated)"
+                                    "format": "date",
+                                    "title": "Completion Date"
                                   },
                                   "onCompletedNameOfContractor": {
                                     "type": "string",
-                                    "readonly": true,
-                                    "title": "Completion Name of Contractor (Calculated)"
+                                    "title": "Completion Name of Contractor"
                                   }
                                 }
                               },
