@@ -256,16 +256,14 @@
   ],
   "s151Confirmation": {
     "hifFunding": {
-      "hifTotalFundingRequest": "10000",
       "changesToRequest": {
+        "hifTotalFundingRequest": "10000",
         "evidenceOfVariance": null,
         "changesToRequestConfirmation": null,
         "requestedAmount": null,
         "reasonForRequest": null,
-        "varianceFromBaseline": {
-          "variance": null,
-          "varianceFromBaselinePercent": null
-        },
+        "variance": null,
+        "varianceFromBaselinePercent": null,
         "mitigationInPlace": null
       },
       "hifFundingProfile": [
