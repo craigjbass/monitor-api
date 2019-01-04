@@ -86,16 +86,16 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                       type: 'string',
                                       readonly: true,
                                       hidden: true,
-                                      title: 'Variance against Baseline submitted date (Week) (Calculated)'
+                                      title: 'Variance Against Baseline Submitted Date (weeks) (Calculated)'
                                     },
                                     varianceLastReturnFullPlanningPermissionSubmitted: {
                                       type: 'string',
                                       readonly: true,
                                       hidden: true,
-                                      title: 'Variance against Last Return submitted date (Week) (Calculated)'
+                                      title: 'Variance Against Last Return Submitted Date (weeks) (Calculated)'
                                     },
                                     status: {
-                                      title: 'Status against last return?',
+                                      title: 'Status Against Last Return?',
                                       type: 'string',
                                       radio: true,
                                       enum: [
@@ -130,7 +130,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                       format: 'date',
                                       readonly: true,
                                       hidden: true,
-                                      title: 'Completed date (Calculated)'
+                                      title: 'Completed Date (Calculated)'
                                     },
                                     onCompletedReference: {
                                       type: 'string',
@@ -156,13 +156,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                       type: 'string',
                                       readonly: true,
                                       hidden: true,
-                                      title: 'Variance against Baseline granted date (Weeks) (Calculated)'
+                                      title: 'Variance Against Baseline Granted Date (weeks) (Calculated)'
                                     },
                                     varianceLastReturnFullPlanningPermissionGranted: {
                                       type: 'string',
                                       readonly: true,
                                       hidden: true,
-                                      title: 'Variance against Last Return granted date (Weeks) (Calculated)'
+                                      title: 'Variance Against Last Return Granted Date (weeks) (Calculated)'
                                     },
                                     status: {
                                       title: 'Status against last return?',
@@ -192,7 +192,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                     },
                                     percentComplete: {
                                       type: 'string',
-                                      title: 'Percent complete',
+                                      title: 'Percent Complete',
                                       percentage: true
                                     },
                                     completedDate: {
@@ -200,7 +200,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                       format: 'date',
                                       readonly: true,
                                       hidden: true,
-                                      title: 'Completed date (Calculated)'
+                                      title: 'Completed Date (Calculated)'
                                     }
                                   }
                                 }
@@ -274,13 +274,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                       type: 'string',
                                       readonly: true,
                                       hidden: true,
-                                      title: 'Variance against Baseline submitted date (Week) (Calculated)'
+                                      title: 'Variance Against Baseline Submitted Date (week) (Calculated)'
                                     },
                                     varianceLastReturnFullPlanningPermissionSubmitted: {
                                       type: 'string',
                                       readonly: true,
                                       hidden: true,
-                                      title: 'Variance against Last Return submitted date (Week) (Calculated)'
+                                      title: 'Variance Against Last Return Submitted Date (week) (Calculated)'
                                     },
                                     status: {
                                       title: 'Status against last return?',
@@ -310,7 +310,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                     },
                                     percentComplete: {
                                       type: 'string',
-                                      title: 'Percent complete',
+                                      title: 'Percent Complete',
                                       percentage: true
                                     },
                                     completedDate: {
@@ -318,7 +318,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                       format: 'date',
                                       readonly: true,
                                       hidden: true,
-                                      title: 'Completed date (Calculated)'
+                                      title: 'Completed Date (Calculated)'
                                     },
                                     onCompletedReference: {
                                       type: 'string',
@@ -344,13 +344,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                       type: 'string',
                                       readonly: true,
                                       hidden: true,
-                                      title: 'Variance against Baseline granted date (Weeks) (Calculated)'
+                                      title: 'Variance Against Baseline Granted Date (weeks) (Calculated)'
                                     },
                                     varianceLastReturnFullPlanningPermissionGranted: {
                                       type: 'string',
                                       readonly: true,
                                       hidden: true,
-                                      title: 'Variance against Last Return granted date (Weeks) (Calculated)'
+                                      title: 'Variance Against Last Return Granted Date (weeks) (Calculated)'
                                     },
                                     status: {
                                       title: 'Status against last return?',
@@ -380,7 +380,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                     },
                                     percentComplete: {
                                       type: 'string',
-                                      title: 'Percent complete',
+                                      title: 'Percent Complete',
                                       percentage: true
                                     },
                                     completedDate: {
@@ -388,7 +388,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                       format: 'date',
                                       readonly: true,
                                       hidden: true,
-                                      title: 'Completed date (Calculated)'
+                                      title: 'Completed Date (Calculated)'
                                     }
                                   }
                                 }
@@ -480,13 +480,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                           },
                                           varianceAgainstBaseline: {
                                             hidden: true,
-                                            title: 'Variance against baseline (Calculated)',
+                                            title: 'Variance Against Baseline (weeks) (Calculated)',
                                             type: 'string',
                                             readonly: true
                                           },
                                           varianceAgainstLastReturn: {
                                             hidden: true,
-                                            title: 'Variance against last return (Calculated)',
+                                            title: 'Variance Against Last Return (weeks) (Calculated)',
                                             type: 'string',
                                             readonly: true
                                           },
@@ -505,17 +505,17 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                             sourceKey: %i[return_data infrastructures planning section106 statutoryConsents statutoryConsents currentReturn]
                                           },
                                           varianceReason: {
-                                            title: 'Reason for variance',
+                                            title: 'Reason for Variance',
                                             type: 'string'
                                           },
                                           percentComplete: {
-                                            title: 'Percentage complete',
+                                            title: 'Percentage Complete',
                                             type: 'string',
                                             percentage: true
                                           },
                                           completionDate: {
                                             hidden: true,
-                                            title: 'Completion date (Calculated)',
+                                            title: 'Completion Date (Calculated)',
                                             type: 'string',
                                             format: 'date',
                                             readonly: true
@@ -633,14 +633,14 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                               type: 'string',
                                               readonly: true,
                                               hidden: true,
-                                              title: 'Variance Against Last Return (Calculated)'
+                                              title: 'Variance Against Last Return (weeks) (Calculated)'
                                             },
                                             # To be calculated
                                             landAssemblyVarianceAgainstBaseReturn: {
                                               type: 'string',
                                               readonly: true,
                                               hidden: true,
-                                              title: 'Variance Against Base Return (Calculated)'
+                                              title: 'Variance Against Base Return (weeks) (Calculated)'
                                             },
                                             status: {
                                               title: 'Status against last return?',
@@ -664,7 +664,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                             },
                                             percentComplete: {
                                               type: 'string',
-                                              title: 'Percent complete',
+                                              title: 'Percent Complete',
                                               percentage: true
                                             },
                                             completedDate: {
@@ -672,7 +672,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                               format: 'date',
                                               readonly: true,
                                               hidden: true,
-                                              title: 'On Completed date (Calculated)'
+                                              title: 'On Completed Date (Calculated)'
                                             }
                                           }
                                         }
@@ -749,7 +749,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                             procurementBaselineCompletion: {
                               type: 'string',
                               format: 'date',
-                              title: 'Target date of procuring',
+                              title: 'Target Date of Procuring',
                               sourceKey: %i[baseline_data infrastructures procurement targetDate],
                               readonly: true
                             },
@@ -757,20 +757,20 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                               type: 'string',
                               readonly: true,
                               hidden: true,
-                              title: 'Variance against last return (Calculated)'
+                              title: 'Variance Against Last Return (weeks) (Calculated)'
                             },
                             procurementVarianceAgainstBaseline: {
                               type: 'string',
                               readonly: true,
                               hidden: true,
-                              title: 'Variance against baseline (Calculated)'
+                              title: 'Variance Against Baseline (weeks) (Calculated)'
                             },
                             procurementStatusAgainstLastReturn: {
                               type: 'object',
                               title: 'Procurement Status Against Last Return',
                               properties: {
                                 statusAgainstLastReturn: {
-                                  title: 'Status against last return?',
+                                  title: 'Status Against Last Return?',
                                   type: 'string',
                                   radio: true,
                                   enum: [
@@ -797,7 +797,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                             },
                             percentComplete: {
                               type: 'string',
-                              title: 'Percent complete',
+                              title: 'Percent Complete',
                               percentage: true
                             },
                             procurementCompletedDate: {
@@ -856,12 +856,12 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           milestoneVarianceAgainstLastReturn: {
                             type: 'string',
                             readonly: true,
-                            title: 'Variance against last return (Calculated)'
+                            title: 'Variance Against Last Return (Calculated)'
                           },
                           milestoneVarianceAgainstBaseline: {
                             type: 'string',
                             readonly: true,
-                            title: 'Variance against baseline (Calculated)'
+                            title: 'Variance Against Baseline (Calculated)'
                           },
                           statusAgainstLastReturn: status_against_last_return,
                           currentReturn: {
@@ -883,7 +883,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                             format: 'date',
                             readonly: true,
                             hidden: true,
-                            title: 'On Completed date (Calculated)'
+                            title: 'On Completed Date (Calculated)'
                           }
                         }
                       }
@@ -946,13 +946,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                             type: 'string',
                             readonly: true,
                             hidden: true,
-                            title: 'Variance against last return (Calculated)'
+                            title: 'Variance Against Last Return (weeks) (Calculated)'
                           },
                           milestoneVarianceAgainstBaseline: {
                             type: 'string',
                             readonly: true,
                             hidden: true,
-                            title: 'Variance against baseline (Calculated)'
+                            title: 'Variance Against Baseline (weeks) (Calculated)'
                           },
                           statusAgainstLastReturn: status_against_last_return,
                           currentReturn: {
@@ -966,7 +966,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           milestonePercentCompleted: {
                             type: 'string',
-                            title: 'Percent complete',
+                            title: 'Percent Complete',
                             percentage: true
                           },
                           milestoneCompletedDate: {
@@ -974,14 +974,14 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                             format: 'date',
                             readonly: true,
                             hidden: true,
-                            title: 'On Completed date (Calculated)'
+                            title: 'On Completed Date (Calculated)'
                           }
                         }
                       }
                     },
                     expectedInfrastructureStartOnSite: {
                       type: 'object',
-                      title: 'Expected infrastructure start on site',
+                      title: 'Expected Infrastructure Start on Site',
                       variance: true,
                       properties: {
                         baseline: {
@@ -999,13 +999,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           type: 'string',
                           readonly: true,
                           hidden: true,
-                          title: 'Variance against last return (Calculated)'
+                          title: 'Variance Against Last Return (weeks) (Calculated)'
                         },
                         varianceAgainstBaseline: {
                           type: 'string',
                           readonly: true,
                           hidden: true,
-                          title: 'Variance against baseline (Calculated)'
+                          title: 'Variance Against Baseline (weeks) (Calculated)'
                         },
                         status: {
                           title: 'Status against last return?',
@@ -1060,13 +1060,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           type: 'string',
                           readonly: true,
                           hidden: true,
-                          title: 'Variance against last return (Calculated)'
+                          title: 'Variance Against Last Return (weeks) (Calculated)'
                         },
                         varianceAgainstBaseline: {
                           type: 'string',
                           readonly: true,
                           hidden: true,
-                          title: 'Variance against baseline (Calculated)'
+                          title: 'Variance Against Baseline (weeks) (Calculated)'
                         },
                         status: {
                           title: 'Status against last return?',
@@ -1146,27 +1146,27 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           riskAnyChange: {
                             type: 'string',
-                            title: 'Any change in risk?',
+                            title: 'Any Change in Risk?',
                             radio: true,
                             enum: %w[Yes No]
                           },
                           riskCurrentReturnMitigationsInPlace: {
                             type: 'string',
-                            title: 'Current Return Mitigations in place'
+                            title: 'Current Return Mitigations in Place'
                           },
                           riskMetDate: {
                             type: 'string',
                             format: 'date',
                             readonly: true,
                             hidden: true,
-                            title: 'Risk met date (Calculated)'
+                            title: 'Risk Met Date (Calculated)'
                           }
                         }
                       }
                     },
                     additionalRisks: {
                       type: 'array',
-                      title: 'Any additional risks to baseline?',
+                      title: 'Any Additional Risks to Baseline?',
                       addable: true,
                       items: {
                         type: 'object',
@@ -1260,20 +1260,20 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           riskAnyChange: {
                             type: 'string',
-                            title: 'Any change in risk?',
+                            title: 'Any Change in Risk?',
                             radio: true,
                             enum: %w[Yes No]
                           },
                           riskCurrentReturnMitigationsInPlace: {
                             type: 'string',
-                            title: 'Current Return Mitigations in place'
+                            title: 'Current Return Mitigations in Place'
                           },
                           riskMetDate: {
                             type: 'string',
                             format: 'date',
                             readonly: true,
                             hidden: true,
-                            title: 'Risk met date (Calculated)'
+                            title: 'Risk Met Date (Calculated)'
                           }
                         }
                       }
@@ -1286,11 +1286,11 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                   properties: {
                     describeQuarterProgress: {
                       type: 'string',
-                      title: 'Describe progress for last quarter'
+                      title: 'Describe Progress for Last Quarter'
                     },
                     progressAgainstActions: {
                       type: 'array',
-                      title: 'Progress against Actions',
+                      title: 'Progress Against Actions',
                       items: {
                         type: 'object',
                         horizontal: true,
@@ -1300,7 +1300,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                             type: 'string',
                             readonly: true,
                             # from actions for next quarter
-                            title: 'Description of live action (Calculated)'
+                            title: 'Description of Live Action (Calculated)'
                           },
                           met: {
                             type: 'string',
@@ -1310,7 +1310,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           progress: {
                             type: 'string',
-                            title: 'Progress against action if not met'
+                            title: 'Progress Against Action if not Met'
                           }
                         }
                       }
@@ -2123,7 +2123,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
               landAssembly: {
                 type: "object",
                 title: "Land Assembly",
-                calculation: "get(formData, 'dates') ? set(formData, 'varianceAmount', daysPassed(get(formData, 'dates', 'expectedCompletion'), get(formData, 'dates', 'currentReturnCompletionDate'))) : ''",
+                calculation: "get(formData, 'dates') ? set(formData, 'varianceAmount', weeksPassed(get(formData, 'dates', 'expectedCompletion'), get(formData, 'dates', 'currentReturnCompletionDate'))) : ''",
                 properties: {
                   liveRisk: {
                     type: "string",
@@ -2166,7 +2166,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           varianceAmount: {
                             type: "string",
-                            title: "Variance Amount (days)",
+                            title: "Variance Amount (weeks)",
                             readonly: true
                           },
                           varianceReason: {
@@ -2297,7 +2297,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                 }
               },
               procurementInfrastructure: {
-                title: "Procurement- Infrastructure",
+                title: "Procurement - Infrastructure",
                 type: "object",
                 properties: {
                   liveRisk: {
@@ -2340,7 +2340,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           varianceAmount: {
                             type: "string",
-                            title: "Variance Amount (days)",
+                            title: "Variance Amount (weeks)",
                             readonly: true
                           },
                           varianceReason: {
@@ -2514,7 +2514,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           varianceAmount: {
                             type: "string",
-                            title: "Variance Amount (days)",
+                            title: "Variance Amount (weeks)",
                             readonly: true
                           },
                           varianceReason: {
@@ -2645,7 +2645,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                 }
               },
               deliveryInfrastructure: {
-                title: "Delivery- Infrastructure",
+                title: "Delivery - Infrastructure",
                 type: "object",
                 properties: {
                   liveRisk: {
@@ -2688,7 +2688,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           varianceAmount: {
                             type: "string",
-                            title: "Variance Amount (days)",
+                            title: "Variance Amount (weeks)",
                             readonly: true
                           },
                           varianceReason: {
@@ -2862,7 +2862,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           varianceAmount: {
                             type: "string",
-                            title: "Variance Amount (days)",
+                            title: "Variance Amount (weeks)",
                             readonly: true
                           },
                           varianceReason: {
@@ -2993,7 +2993,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                 }
               },
               planningHousing: {
-                title: "Planning- Housing",
+                title: "Planning - Housing",
                 type: "object",
                 properties: {
                   liveRisk: {
@@ -3036,7 +3036,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           varianceAmount: {
                             type: "string",
-                            title: "Variance Amount (days)",
+                            title: "Variance Amount (weeks)",
                             readonly: true
                           },
                           varianceReason: {
@@ -3210,7 +3210,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           varianceAmount: {
                             type: "string",
-                            title: "Variance Amount (days)",
+                            title: "Variance Amount (weeks)",
                             readonly: true
                           },
                           varianceReason: {
@@ -3384,7 +3384,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           varianceAmount: {
                             type: "string",
-                            title: "Variance Amount (days)",
+                            title: "Variance Amount (weeks)",
                             readonly: true
                           },
                           varianceReason: {
@@ -3546,7 +3546,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                     },
                     varianceAmount: {
                       type: "string",
-                      title: "Variance Amount (days)",
+                      title: "Variance Amount (weeks)",
                       readonly: true
                     },
                     varianceReason: {
