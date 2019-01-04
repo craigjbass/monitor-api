@@ -102,12 +102,12 @@
                               "varianceBaselineFullPlanningPermissionSubmitted": {
                                 "type": "string",
                                 "readonly": true,
-                                "title": "Variance against Baseline submitted date (Week) (Calculated)"
+                                "title": "Variance Against Baseline Submitted Date (weeks) (Calculated)"
                               },
                               "varianceLastReturnFullPlanningPermissionSubmitted": {
                                 "type": "string",
                                 "readonly": true,
-                                "title": "Variance against Last Return submitted date (Week) (Calculated)"
+                                "title": "Variance Against Last Return Submitted Date (weeks) (Calculated)"
                               },
                               "status": {
                                 "title": "Status against last return?",
@@ -146,7 +146,7 @@
                                 "type": "string",
                                 "format": "date",
                                 "readonly": true,
-                                "title": "Completed date (Calculated)"
+                                "title": "Completed Date (Calculated)"
                               },
                               "onCompletedReference": {
                                 "type": "string",
@@ -175,12 +175,12 @@
                               "varianceBaselineFullPlanningPermissionGranted": {
                                 "type": "string",
                                 "readonly": true,
-                                "title": "Variance against Baseline granted date (Weeks) (Calculated)"
+                                "title": "Variance Against Baseline Granted Date (weeks) (Calculated)"
                               },
                               "varianceLastReturnFullPlanningPermissionGranted": {
                                 "type": "string",
                                 "readonly": true,
-                                "title": "Variance against Last Return granted date (Weeks) (Calculated)"
+                                "title": "Variance Against Last Return Granted Date (weeks) (Calculated)"
                               },
                               "status": {
                                 "title": "Status against last return?",
@@ -212,14 +212,14 @@
                               },
                               "percentComplete": {
                                 "type": "string",
-                                "title": "Percent complete",
+                                "title": "Percent Complete",
                                 "percentage": true
                               },
                               "completedDate": {
                                 "type": "string",
                                 "format": "date",
                                 "readonly": true,
-                                "title": "Completed date (Calculated)"
+                                "title": "Completed Date (Calculated)"
                               }
                             }
                           }
@@ -305,12 +305,12 @@
                               "varianceBaselineFullPlanningPermissionSubmitted": {
                                 "type": "string",
                                 "readonly": true,
-                                "title": "Variance against Baseline submitted date (Week) (Calculated)"
+                                "title": "Variance Against Baseline Submitted Date (weeks) (Calculated)"
                               },
                               "varianceLastReturnFullPlanningPermissionSubmitted": {
                                 "type": "string",
                                 "readonly": true,
-                                "title": "Variance against Last Return submitted date (Week) (Calculated)"
+                                "title": "Variance Against Last Return Submitted Date (weeks) (Calculated)"
                               },
                               "status": {
                                 "title": "Status against last return?",
@@ -342,14 +342,14 @@
                               },
                               "percentComplete": {
                                 "type": "string",
-                                "title": "Percent complete",
+                                "title": "Percent Complete",
                                 "percentage": true
                               },
                               "completedDate": {
                                 "type": "string",
                                 "format": "date",
                                 "readonly": true,
-                                "title": "Completed date (Calculated)"
+                                "title": "Completed Date (Calculated)"
                               },
                               "onCompletedReference": {
                                 "type": "string",
@@ -378,12 +378,12 @@
                               "varianceBaselineFullPlanningPermissionGranted": {
                                 "type": "string",
                                 "readonly": true,
-                                "title": "Variance against Baseline granted date (Weeks) (Calculated)"
+                                "title": "Variance Against Baseline Granted Date (weeks) (Calculated)"
                               },
                               "varianceLastReturnFullPlanningPermissionGranted": {
                                 "type": "string",
                                 "readonly": true,
-                                "title": "Variance against Last Return granted date (Weeks) (Calculated)"
+                                "title": "Variance Against Last Return Granted Date (weeks) (Calculated)"
                               },
                               "status": {
                                 "title": "Status against last return?",
@@ -415,14 +415,14 @@
                               },
                               "percentComplete": {
                                 "type": "string",
-                                "title": "Percent complete",
+                                "title": "Percent Complete",
                                 "percentage": true
                               },
                               "completedDate": {
                                 "type": "string",
                                 "format": "date",
                                 "readonly": true,
-                                "title": "Completed date (Calculated)"
+                                "title": "Completed Date (Calculated)"
                               }
                             }
                           }
@@ -526,12 +526,12 @@
                                       "readonly": true
                                     },
                                     "varianceAgainstBaseline": {
-                                      "title": "Variance against baseline (Calculated)",
+                                      "title": "Variance Against Baseline (weeks) (Calculated)",
                                       "type": "string",
                                       "readonly": true
                                     },
                                     "varianceAgainstLastReturn": {
-                                      "title": "Variance against last return (Calculated)",
+                                      "title": "Variance Against Last Return (weeks) (Calculated)",
                                       "type": "string",
                                       "readonly": true
                                     },
@@ -559,17 +559,17 @@
                                       "sourceKey": ["return_data", "infrastructures", "planning", "section106", "statutoryConsents", "statutoryConsents", "currentReturn"]
                                     },
                                     "varianceReason": {
-                                      "title": "Reason for variance",
+                                      "title": "Reason for Variance",
                                       "type": "string"
                                     },
                                     "percentComplete": {
-                                      "title": "Percentage complete",
+                                      "title": "Percentage Complete",
                                       "type": "string",
                                       "percentage": true
                                     },
                                     "completionDate": {
                                       "hidden": true,
-                                      "title": "Completion date (Calculated)",
+                                      "title": "Completion Date (Calculated)",
                                       "type": "string",
                                       "format": "date",
                                       "readonly": true
@@ -706,17 +706,18 @@
                                       },
                                       "previousReturn": {
                                         "type": "string",
+                                        "format": "date",
                                         "readonly": true
                                       },
                                       "landAssemblyVarianceAgainstLastReturn": {
                                         "type": "string",
                                         "readonly": true,
-                                        "title": "Variance Against Last Return (Calculated)"
+                                        "title": "Variance Against Last Return (weeks) (Calculated)"
                                       },
                                       "landAssemblyVarianceAgainstBaseReturn": {
                                         "type": "string",
                                         "readonly": true,
-                                        "title": "Variance Against Base Return (Calculated)"
+                                        "title": "Variance Against Base Return (weeks) (Calculated)"
                                       },
                                       "status": {
                                         "title": "Status against last return?",
@@ -748,7 +749,7 @@
                                         "format": "date",
                                         "readonly": true,
                                         "hidden": true,
-                                        "title": "On Completed date (Calculated)"
+                                        "title": "On Completed Date (Calculated)"
                                       }
                                     }
                                   }
@@ -833,8 +834,8 @@
                       },
                       "procurementStatusAgainstLastReturn": {
                         "type": "object",
-                        "title": "Infrastructure contractor procurement.",
-                        "variance": true,
+                        "title": "Infrastructure Contractor Procurement",
+                        "calculation": "set(formData, 'procurementVarianceAgainstBaseline', calculateVariance(parseMoney(get(formData, 'current')), parseMoney(get(formData, 'baseline')))); set(formData, 'procurementVarianceAgainstLastReturn', calculateVariance(parseMoney(get(formData, 'current')), parseMoney(get(formData, 'previousReturn'))));",
                         "properties": {
                           "baseline": {
                             "type": "string",
@@ -848,15 +849,18 @@
                             ],
                             "readonly": true
                           },
-                          "procurementVarianceAgainstLastReturn": {
+                          "previousReturn": {
+                            "title": "Previous return target date",
                             "type": "string",
+                            "format": "date",
                             "readonly": true,
-                            "title": "Variance against last return (Weeks)"
-                          },
-                          "procurementVarianceAgainstBaseline": {
-                            "type": "string",
-                            "readonly": true,
-                            "title": "Variance against baseline (Weeks)"
+                            "sourceKey": [
+                              "return_data",
+                              "infrastructures",
+                              "procurement",
+                              "procurementStatusAgainstLastReturn",
+                              "current"
+                            ]
                           },
                           "status": {
                             "title": "Status against last return?",
@@ -864,34 +868,60 @@
                             "radio": true,
                             "enum": ["Completed", "On schedule", "Delayed"],
                             "default": "On schedule"
-                          },
-                          "current": {
-                            "type": "string",
-                            "format": "date",
-                            "title": "Current expected date of Procurement"
-                          },
-                          "previousReturn": {
-                            "type": "string",
-                            "readonly": true
-                          },
-                          "reason": {
-                            "type": "string",
-                            "title": "Reason for Variance"
-                          },
-                          "percentComplete": {
-                            "type": "string",
-                            "title": "Percent complete",
-                            "percentage": true
-                          },
-                          "completedDate": {
-                            "type": "string",
-                            "readonly": true,
-                            "title": "Completion Date (Calculated)"
-                          },
-                          "onCompletedNameOfContractor": {
-                            "type": "string",
-                            "readonly": true,
-                            "title": "Completion Name of Contractor (Calculated)"
+                          }
+                        },
+                        "dependencies": {
+                          "status": {
+                            "oneOf": [
+                              {
+                                "properties": {
+                                  "status": { "enum": ["Completed"] },
+                                  "completedDate": {
+                                    "type": "string",
+                                    "format": "date",
+                                    "title": "Completion Date"
+                                  },
+                                  "onCompletedNameOfContractor": {
+                                    "type": "string",
+                                    "title": "Completion Name of Contractor"
+                                  }
+                                }
+                              },
+                              {
+                                "properties": {
+                                  "status": { "enum": ["On schedule"] },
+                                  "percentComplete": {
+                                    "type": "string",
+                                    "title": "Percent complete",
+                                    "percentage": true
+                                  }
+                                }
+                              },
+                              {
+                                "properties": {
+                                  "status": { "enum": ["Delayed"] },
+                                  "procurementVarianceAgainstLastReturn": {
+                                    "type": "string",
+                                    "readonly": true,
+                                    "title": "Variance against last return (Weeks)"
+                                  },
+                                  "procurementVarianceAgainstBaseline": {
+                                    "type": "string",
+                                    "readonly": true,
+                                    "title": "Variance against baseline (Weeks)"
+                                  },
+                                  "current": {
+                                    "type": "string",
+                                    "format": "date",
+                                    "title": "Current expected date of Procurement"
+                                  },
+                                  "reason": {
+                                    "type": "string",
+                                    "title": "Reason for Variance"
+                                  }
+                                }
+                              }
+                            ]
                           }
                         }
                       }
@@ -954,12 +984,12 @@
                     "milestoneVarianceAgainstLastReturn": {
                       "type": "string",
                       "readonly": true,
-                      "title": "Variance against last return (Calculated)"
+                      "title": "Variance Against Last Return (weeks) (Calculated)"
                     },
                     "milestoneVarianceAgainstBaseline": {
                       "type": "string",
                       "readonly": true,
-                      "title": "Variance against baseline (Calculated)"
+                      "title": "Variance Against Baseline (weeks) (Calculated)"
                     },
                     "statusAgainstLastReturn": {
                       "title": "Status against last return?",
@@ -1010,12 +1040,12 @@
                   "varianceAgainstLastReturn": {
                     "type": "string",
                     "readonly": true,
-                    "title": "Variance against last return (Calculated)"
+                    "title": "Variance Against Last Return (weeks) (Calculated)"
                   },
                   "varianceAgainstBaseline": {
                     "type": "string",
                     "readonly": true,
-                    "title": "Variance against baseline (Calculated)"
+                    "title": "Variance Against Baseline (weeks) (Calculated)"
                   },
                   "previousReturn": {
                     "type": "string",
@@ -1074,13 +1104,13 @@
                     "type": "string",
                     "readonly": true,
                     "hidden": true,
-                    "title": "Variance against last return (Calculated)"
+                    "title": "Variance Against Last Return (weeks) (Calculated)"
                   },
                   "varianceAgainstBaseline": {
                     "type": "string",
                     "readonly": true,
                     "hidden": true,
-                    "title": "Variance against baseline (Calculated)"
+                    "title": "Variance Against Baseline (weeks) (Calculated)"
                   },
                   "status": {
                     "title": "Status against last return?",
@@ -1208,16 +1238,16 @@
                       "type": "string",
                       "readonly": true,
                       "hidden": true,
-                      "title": "Variance against last return (Calculated)"
+                      "title": "Variance Against Last Return (weeks) (Calculated)"
                     },
                     "milestoneVarianceAgainstBaseline": {
                       "type": "string",
                       "readonly": true,
                       "hidden": true,
-                      "title": "Variance against baseline (Calculated)"
+                      "title": "Variance Against Baseline (weeks) (Calculated)"
                     },
                     "statusAgainstLastReturn": {
-                      "title": "Status against last return?",
+                      "title": "Status Against Last Return?",
                       "type": "string",
                       "radio": true,
                       "enum": ["Completed", "On schedule", "Delayed"],
@@ -1324,7 +1354,7 @@
                       "format": "date",
                       "readonly": true,
                       "hidden": true,
-                      "title": "Risk met date (Calculated)"
+                      "title": "Risk Met Date (Calculated)"
                     }
                   }
                 }
@@ -1461,7 +1491,7 @@
                       "format": "date",
                       "readonly": true,
                       "hidden": true,
-                      "title": "Risk met date (Calculated)"
+                      "title": "Risk Met Date (Calculated)"
                     }
                   }
                 }
@@ -1493,7 +1523,7 @@
                       ],
                       "type": "string",
                       "readonly": true,
-                      "title": "Description of live action (Calculated)"
+                      "title": "Description of Live Action (Calculated)"
                     },
                     "met": {
                       "type": "string",
@@ -2140,7 +2170,7 @@
               "landAssembly": {
                 "type": "object",
                 "title": "Land Assembly",
-                "calculation": "get(formData, 'dates') ? set(formData, 'varianceAmount', daysPassed(get(formData, 'dates', 'expectedCompletion'), get(formData, 'dates', 'currentReturnCompletionDate'))) : ''",
+                "calculation": "get(formData, 'dates') ? set(formData, 'varianceAmount', weeksPassed(get(formData, 'dates', 'expectedCompletion'), get(formData, 'dates', 'currentReturnCompletionDate'))) : ''",
                 "properties": {
                   "liveRisk": {
                     "type": "string",
@@ -2183,7 +2213,7 @@
                           },
                           "varianceAmount": {
                             "type": "string",
-                            "title": "Variance Amount (days)",
+                            "title": "Variance Amount (weeks)",
                             "readonly": true
                           },
                           "varianceReason": {
@@ -2314,7 +2344,7 @@
                 }
               },
               "procurementInfrastructure": {
-                "title": "Procurement- Infrastructure",
+                "title": "Procurement - Infrastructure",
                 "type": "object",
                 "properties": {
                   "liveRisk": {
@@ -2357,7 +2387,7 @@
                           },
                           "varianceAmount": {
                             "type": "string",
-                            "title": "Variance Amount (days)",
+                            "title": "Variance Amount (weeks)",
                             "readonly": true
                           },
                           "varianceReason": {
@@ -2531,7 +2561,7 @@
                           },
                           "varianceAmount": {
                             "type": "string",
-                            "title": "Variance Amount (days)",
+                            "title": "Variance Amount (weeks)",
                             "readonly": true
                           },
                           "varianceReason": {
@@ -2662,7 +2692,7 @@
                 }
               },
               "deliveryInfrastructure": {
-                "title": "Delivery- Infrastructure",
+                "title": "Delivery - Infrastructure",
                 "type": "object",
                 "properties": {
                   "liveRisk": {
@@ -2705,7 +2735,7 @@
                           },
                           "varianceAmount": {
                             "type": "string",
-                            "title": "Variance Amount (days)",
+                            "title": "Variance Amount (weeks)",
                             "readonly": true
                           },
                           "varianceReason": {
@@ -2879,7 +2909,7 @@
                           },
                           "varianceAmount": {
                             "type": "string",
-                            "title": "Variance Amount (days)",
+                            "title": "Variance Amount (weeks)",
                             "readonly": true
                           },
                           "varianceReason": {
@@ -3010,7 +3040,7 @@
                 }
               },
               "planningHousing": {
-                "title": "Planning- Housing",
+                "title": "Planning - Housing",
                 "type": "object",
                 "properties": {
                   "liveRisk": {
@@ -3053,7 +3083,7 @@
                           },
                           "varianceAmount": {
                             "type": "string",
-                            "title": "Variance Amount (days)",
+                            "title": "Variance Amount (weeks)",
                             "readonly": true
                           },
                           "varianceReason": {
@@ -3227,7 +3257,7 @@
                           },
                           "varianceAmount": {
                             "type": "string",
-                            "title": "Variance Amount (days)",
+                            "title": "Variance Amount (weeks)",
                             "readonly": true
                           },
                           "varianceReason": {
@@ -3401,7 +3431,7 @@
                           },
                           "varianceAmount": {
                             "type": "string",
-                            "title": "Variance Amount (days)",
+                            "title": "Variance Amount (weeks)",
                             "readonly": true
                           },
                           "varianceReason": {
@@ -3563,7 +3593,7 @@
                     },
                     "varianceAmount": {
                       "type": "string",
-                      "title": "Variance Amount (days)",
+                      "title": "Variance Amount (weeks)",
                       "readonly": true
                     },
                     "varianceReason": {
