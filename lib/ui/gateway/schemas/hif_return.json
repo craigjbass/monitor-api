@@ -1830,43 +1830,6 @@
                 "extendedText": true,
                 "readonly": true
               },
-              "hifSpend": {
-                "title": "HIF Amount",
-                "type": "object",
-                "horizontal": true,
-                "properties": {
-                  "baseline": {
-                    "type": "string",
-                    "title": "HIF Baseline Amount",
-                    "sourceKey": [
-                      "baseline_data",
-                      "costs",
-                      "infrastructure",
-                      "HIFAmount"
-                    ],
-                    "readonly": true,
-                    "currency": true
-                  },
-                  "current": {
-                    "type": "string",
-                    "title": "Current Return",
-                    "currency": true
-                  },
-                  "lastReturn": {
-                    "type": "string",
-                    "title": "Last Return",
-                    "readonly": true,
-                    "currency": true,
-                    "sourceKey": [
-                      "return_data",
-                      "fundingPackages",
-                      "fundingStack",
-                      "hifSpend",
-                      "current"
-                    ]
-                  }
-                }
-              },
               "totalCost": {
                 "title": "Total Cost",
                 "type": "object",
@@ -1940,39 +1903,44 @@
                           "infrastructure",
                           "descriptionOfFundingStack"
                         ]
-                      },
-                      "riskToFundingPackage": {
+                      },        
+                      "hifSpend": {
+                        "title": "HIF Amount",
                         "type": "object",
-                        "title": "Risk to funding package",
+                        "horizontal": true,
                         "properties": {
-                          "risk": {
-                            "title": "Is there a risk?",
+                          "baseline": {
                             "type": "string",
-                            "radio": true,
-                            "enum": ["Yes", "No"]
-                          }
-                        },
-                        "dependencies": {
-                          "risk": {
-                            "oneOf": [
-                              {
-                                "properties": {
-                                  "risk": { "enum": ["Yes"] },
-                                  "description": {
-                                    "title": "Description of risk",
-                                    "type": "string"
-                                  }
-                                }
-                              },
-                              {
-                                "properties": {
-                                  "risk": { "enum": ["No"] }
-                                }
-                              }
+                            "title": "HIF Baseline Amount",
+                            "sourceKey": [
+                              "baseline_data",
+                              "costs",
+                              "infrastructure",
+                              "HIFAmount"
+                            ],
+                            "readonly": true,
+                            "currency": true
+                          },
+                          "current": {
+                            "type": "string",
+                            "title": "Current Return",
+                            "currency": true
+                          },
+                          "lastReturn": {
+                            "type": "string",
+                            "title": "Last Return",
+                            "readonly": true,
+                            "currency": true,
+                            "sourceKey": [
+                              "return_data",
+                              "fundingPackages",
+                              "fundingStack",
+                              "hifSpend",
+                              "current"
                             ]
                           }
                         }
-                      },
+                      },     
                       "public": {
                         "title": "Total Public",
                         "type": "object",
@@ -2036,6 +2004,38 @@
                             "title": "Amount secured to date",
                             "type": "string",
                             "currency": true
+                          }
+                        }
+                      },
+                      "riskToFundingPackage": {
+                        "type": "object",
+                        "title": "Risk to funding package",
+                        "properties": {
+                          "risk": {
+                            "title": "Is there a risk?",
+                            "type": "string",
+                            "radio": true,
+                            "enum": ["Yes", "No"]
+                          }
+                        },
+                        "dependencies": {
+                          "risk": {
+                            "oneOf": [
+                              {
+                                "properties": {
+                                  "risk": { "enum": ["Yes"] },
+                                  "description": {
+                                    "title": "Description of risk",
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              {
+                                "properties": {
+                                  "risk": { "enum": ["No"] }
+                                }
+                              }
+                            ]
                           }
                         }
                       }
