@@ -507,16 +507,6 @@
                               ],
                               "readonly": true
                             },
-                            "varianceAgainstBaseline": {
-                              "title": "Variance against baseline (Calculated)",
-                              "type": "string",
-                              "readonly": true
-                            },
-                            "varianceAgainstLastReturn": {
-                              "title": "Variance against last return (Calculated)",
-                              "type": "string",
-                              "readonly": true
-                            },
                             "statusAgainstLastReturn": {
                               "title": "Status against last return?",
                               "type": "string",
@@ -546,10 +536,15 @@
                                   "properties": {
                                     "statusAgainstLastReturn": { "enum": ["Completed"] },
                                     "completionDate": {
-                                      "title": "Completion date (Calculated)",
+                                      "title": "Completion date",
                                       "type": "string",
                                       "format": "date",
                                       "readonly": true
+                                    },
+                                    "percentComplete": {
+                                      "title": "Percentage complete",
+                                      "type": "string",
+                                      "percentage": true
                                     }
                                   }
                                 },
@@ -568,6 +563,16 @@
                                       "type": "string",
                                       "format": "date",
                                       "sourceKey": ["return_data", "infrastructures", "planning", "section106", "statutoryConsents", "statutoryConsents", "currentReturn"]
+                                    },
+                                    "varianceAgainstBaseline": {
+                                      "title": "Variance against baseline (Calculated)",
+                                      "type": "string",
+                                      "readonly": true
+                                    },
+                                    "varianceAgainstLastReturn": {
+                                      "title": "Variance against last return (Calculated)",
+                                      "type": "string",
+                                      "readonly": true
                                     },
                                     "varianceReason": {
                                       "title": "Reason for variance",
