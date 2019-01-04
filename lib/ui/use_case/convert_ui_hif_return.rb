@@ -335,8 +335,10 @@ class UI::UseCase::ConvertUIHIFReturn
   def convert_funding_packages
     return if @return[:fundingPackages].nil?
     @converted_return[:fundingPackages] = @return[:fundingPackages].map do |package|
-      new_package = {}
       next if package[:fundingStack].nil?
+      new_package = {
+        descriptionOfInfrastructure: package[:fundingStack][:descriptionOfInfrastructure]
+      }
       new_package[:fundingStack] = {}
       unless package[:fundingStack][:hifSpend].nil?
         new_package[:fundingStack][:hifSpend] = {

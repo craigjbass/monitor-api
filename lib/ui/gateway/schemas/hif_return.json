@@ -1824,8 +1824,14 @@
             "title": "Funding stack",
             "calculation": "set(formData['totalCost'], 'percentComplete', calculateVariance(parseMoney(get(formData,'totalCost', 'current')), parseMoney(get(formData,'totalCost', 'baseline'))));",
             "properties": {
+              "descriptionOfInfrastructure": {
+                "title": "Description of Infrastructure",
+                "type": "string",
+                "extendedText": true,
+                "readonly": true
+              },
               "hifSpend": {
-                "title": "HIF Spend",
+                "title": "HIF Amount",
                 "type": "object",
                 "horizontal": true,
                 "properties": {

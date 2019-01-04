@@ -343,7 +343,9 @@ class UI::UseCase::ConvertCoreHIFReturn
     @converted_return[:fundingPackages] = @return[:fundingPackages].map do |package|
       new_package = {}
       next if package[:fundingStack].nil?
-      new_package[:fundingStack] = {}
+      new_package[:fundingStack] = {
+        descriptionOfInfrastructure: package[:descriptionOfInfrastructure]
+      }
       unless package[:fundingStack][:hifSpend].nil?
         new_package[:fundingStack][:hifSpend] = {
           baseline: package[:fundingStack][:hifSpend][:baseline],

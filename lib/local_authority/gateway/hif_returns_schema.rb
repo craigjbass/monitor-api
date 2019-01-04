@@ -1550,6 +1550,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
               type: 'object',
               title: 'Funding for Infrastructure',
               properties: {
+                descriptionOfInfrastructure: {
+                  title: "Description of Infrastructure",
+                  type: "string",
+                  extendedText: true,
+                  readonly: true,
+                  sourceKey: %i[baseline_data infrastructures description]
+                },
                 fundingStack: {
                   type: 'object',
                   title: 'Funding stack',

@@ -278,6 +278,7 @@
   "fundingPackages": [
     {
       "fundingStack": {
+        "descriptionOfInfrastructure": "infras",
         "hifSpend": {
           "baseline": "10000",
           "current": "7685",

@@ -172,6 +172,7 @@
   "fundingPackages": [
     {
       "fundingStack": {
+        "descriptionOfInfrastructure": "A house of cats",
         "hifSpend": {
           "baseline": "10000",
           "current": null,
