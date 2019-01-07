@@ -1822,8 +1822,13 @@
           "fundingStack": {
             "type": "object",
             "title": "Funding stack",
-            "calculation": "set(formData['totalCost'], 'percentComplete', calculateVariance(parseMoney(get(formData,'totalCost', 'current')), parseMoney(get(formData,'totalCost', 'baseline'))));",
+            "calculation": "get(formData, 'anyChangeToDescription', 'confirmation') === 'Yes' ? set(formData, 'currentFundingStackDescription', get(formData, 'anyChangeToDescription', 'updatedFundingStack')) : set(formData, 'currentFundingStackDescription', get(formData, 'descriptionOfFundingStack')); set(formData['totalCost'], 'percentComplete', calculateVariance(parseMoney(get(formData,'totalCost', 'current')), parseMoney(get(formData,'totalCost', 'baseline'))));",
             "properties": {
+              "currentFundingStackDescription": {
+                "type": "string", 
+                "hidden": true, 
+                "title": ""
+              },
               "descriptionOfInfrastructure": {
                 "title": "Description of Infrastructure",
                 "type": "string",
@@ -1908,7 +1913,7 @@
                             "properties": {
                               "confirmation": {
                                 "type": "string",
-                                "title": "If applicable, Are increased costs funded?",
+                                "title": "If costs have increased, are the funded?",
                                 "enum": ["Yes", "No", "N/A"],
                                 "radio": true
                               }
@@ -1976,6 +1981,43 @@
                   "infrastructure",
                   "totallyFundedThroughHIF"
                 ]
+              },
+              "anyChange": {
+                "type": "object",
+                "title": "",
+                "properties": {
+                  "confirmation": {
+                    "type": "string",
+                    "title": "Has position changed from baseline/ last return?",
+                    "enum": ["Yes", "No"],
+                    "radio": true
+                  }
+                },
+                "dependencies": {
+                  "confirmation": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "confirmation": {
+                            "enum": ["Yes"]
+                          },
+                          "descriptionOfChange": {
+                            "type": "string",
+                            "title": "Description of Change",
+                            "extendedText": true
+                          }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "confirmation": {
+                            "enum": ["No"]
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
               }
             },
             "dependencies": {
@@ -2003,7 +2045,44 @@
                           "infrastructure",
                           "descriptionOfFundingStack"
                         ]
-                      },        
+                      },
+                      "anyChangeToDescription": {
+                        "type": "object",
+                        "title": "",
+                        "properties": {
+                          "confirmation": {
+                            "title": "Any change to baseline/last return?",
+                            "type": "string",
+                            "radio": true,
+                            "enum": ["Yes", "No"]
+                          } 
+                        },
+                        "dependencies": {
+                          "confirmation": {
+                            "oneOf": [
+                              {
+                                "properties": {
+                                  "confirmation": {
+                                    "enum": ["Yes"]
+                                  },
+                                  "updatedFundingStack": {
+                                    "type": "string",
+                                    "title": "Updated Funding Stack",
+                                    "extendedText": true
+                                  }
+                                }
+                              },
+                              {
+                                "properties": {
+                                  "confirmation": {
+                                    "enum":["No"]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      },      
                       "hifSpend": {
                         "title": "HIF Amount",
                         "type": "object",
@@ -2143,6 +2222,7 @@
                   }
                 ]
               }
+              
             }
           }
         }

@@ -161,6 +161,7 @@
     {
       "fundingStack": {
         "descriptionOfInfrastructure": "A house of cats",
+        "currentFundingStackDescription": null,
         "hifSpend": {
           "baseline": "10000",
           "current": null,

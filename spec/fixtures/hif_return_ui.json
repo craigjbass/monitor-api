@@ -279,6 +279,7 @@
     {
       "fundingStack": {
         "descriptionOfInfrastructure": "infras",
+        "currentFundingStackDescription": "fund",
         "hifSpend": {
           "baseline": "10000",
           "current": "7685",
@@ -303,7 +304,15 @@
           "varianceReason": "No more money"
         },
         "fundedThroughHIF": "No",
+        "anyChange": {
+          "confirmation": "Yes",
+          "descriptionOfChange": "change"
+        },
         "descriptionOfFundingStack": "Funding stack description",
+        "anyChangeToDescription": {
+          "confirmation": "Yes",
+          "updatedFundingStack": "update"
+        },
         "riskToFundingPackage": {
           "risk": "No more houses",
           "description": "build some"

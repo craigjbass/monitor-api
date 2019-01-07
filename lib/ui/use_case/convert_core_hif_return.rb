@@ -382,7 +382,23 @@ class UI::UseCase::ConvertCoreHIFReturn
       end
 
       new_package[:fundingStack][:fundedThroughHIF] = package[:fundingStack][:fundedThroughHIF]
+      
+      unless package[:fundingStack][:anyChange].nil?
+        new_package[:fundingStack][:anyChange] = {
+          confirmation: package[:fundingStack][:anyChange][:confirmation],
+          descriptionOfChange: package[:fundingStack][:anyChange][:descriptionOfChange]
+        }
+      end
+
       new_package[:fundingStack][:descriptionOfFundingStack] = package[:fundingStack][:descriptionOfFundingStack]
+      new_package[:fundingStack][:currentFundingStackDescription] = package[:fundingStack][:currentFundingStackDescription]
+
+      unless package[:fundingStack][:anyChangeToDescription].nil?
+        new_package[:fundingStack][:anyChangeToDescription] = {
+          confirmation: package[:fundingStack][:anyChangeToDescription][:confirmation],
+          updatedFundingStack: package[:fundingStack][:anyChangeToDescription][:updatedFundingStack]
+        }
+      end
 
       unless package[:fundingStack][:riskToFundingPackage].nil?
         new_package[:fundingStack][:riskToFundingPackage] = {

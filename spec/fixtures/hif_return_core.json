@@ -300,8 +300,17 @@
           },
           "varianceReason": "No more money"
         },
+        "anyChange": {
+          "confirmation": "Yes",
+          "descriptionOfChange": "change"
+        },
+        "currentFundingStackDescription": "fund",
         "fundedThroughHIF": "No",
         "descriptionOfFundingStack": "Funding stack description",
+        "anyChangeToDescription": {
+          "confirmation": "Yes",
+          "updatedFundingStack": "update"
+        },
         "riskToFundingPackage": {
           "risk": "No more houses",
           "description": "build some"

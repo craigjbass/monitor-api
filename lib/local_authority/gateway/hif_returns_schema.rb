@@ -1655,6 +1655,22 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                       enum: %w[Yes No],
                       readonly: true,
                       sourceKey: %i[baseline_data costs infrastructure totallyFundedThroughHIF]
+                    },
+                    currentFundingStackDescription: {
+                      type: 'string'
+                    },
+                    anyChange: {
+                      type: 'object',
+                      properties: {
+                        confirmation: {
+                          type: 'string',
+                          title: 'Has position changed from baseline/ last return?',
+                        },
+                        descriptionOfChange: {
+                          type: 'string',
+                          title: 'Description of Change'
+                        }
+                      }
                     }
                   },
                   dependencies: {
@@ -1676,7 +1692,18 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                               type: 'string',
                               title: 'Description of funding stack',
                               readonly: true,
-                              sourceKey: %i[baseline_data costs infrastructure descriptionOfFundingStack]
+                              sourceKey: [:return_or_baseline, [:baseline_data, :costs, :infrastructure, :descriptionOfFundingStack], [:return_data, :fundingPackages, :fundingStack, :currentFundingStackDescription]]
+                            },
+                            anyChangeToDescription: {
+                              type: 'object',
+                              properties: {
+                                confirmation: {
+                                  type: 'string'
+                                },
+                                updatedFundingStack: {
+                                  type: 'string'
+                                }
+                              }
                             },
                             riskToFundingPackage: {
                               type: 'object',
