@@ -294,9 +294,16 @@
           "lastReturn": "783273"
         },
         "totalCost": {
-          "baseline": "20000",
-          "lastReturn": "10000",
+          "previousAmounts": {
+            "baseline": "20000",
+            "lastReturn": "10000"
+          },
           "anyChange": "Yes",
+          "areCostsFunded": {
+            "confirmation": "Yes",
+            "description": "describing",
+            "fundingExplanation": "explaining"
+          },
           "variance": {
             "current": "567329",
             "lastReturn": "0",

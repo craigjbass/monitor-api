@@ -1627,6 +1627,24 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                         varianceReason: {
                           type: 'string',
                           title: 'Reason for variance'
+                        },
+                        areCostsFunded: {
+                          type: 'object',
+                          properties: {
+                            confirmation: {
+                              type: 'string',
+                              title: "If applicable, Are increased costs funded?",
+                              enum: ['Yes', 'No', 'N/A']
+                            },
+                            fundingExplanation: {
+                              type: 'string',
+                              title: 'How are you intending to fund additional costs?'
+                            },
+                            description: {
+                              type: 'string',
+                              title: 'Desciption of how increased costs are funded'
+                            }
+                          }
                         }
                       }
                     },

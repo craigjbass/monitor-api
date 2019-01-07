@@ -167,8 +167,10 @@
           "lastReturn": null
         },
         "totalCost": {
-          "baseline": "20000",
-          "lastReturn": null,
+          "previousAmounts": {
+            "baseline": "20000",
+            "lastReturn": null
+          },
           "anyChange": null,
           "varianceReason": null
         },

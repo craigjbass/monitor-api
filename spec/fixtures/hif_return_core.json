@@ -293,6 +293,11 @@
             "baseline": "0",
             "lastReturn": "0"
           },
+          "areCostsFunded": {
+            "confirmation": "Yes",
+            "fundingExplanation": "explaining",
+            "description": "describing"
+          },
           "varianceReason": "No more money"
         },
         "fundedThroughHIF": "No",

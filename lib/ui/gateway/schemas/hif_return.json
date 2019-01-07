@@ -1833,25 +1833,32 @@
               "totalCost": {
                 "title": "Total Cost",
                 "type": "object",
-                "calculation": "setCreate(formData, ['variance', 'baseline'], '' + parseMoney(get(formData, 'variance', 'current')) - parseMoney(get(formData, 'baseline'))); setCreate(formData, ['variance', 'lastReturn'], '' + parseMoney(get(formData, 'variance', 'current')) - parseMoney(get(formData, 'lastReturn')));",
+                "calculation": "setCreate(formData, ['variance', 'baseline'], '' + parseMoney(get(formData, 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline'))); setCreate(formData, ['variance', 'lastReturn'], '' + parseMoney(get(formData, 'variance', 'current')) - parseMoney(get(formData,'previousAmounts', 'lastReturn')));",
                 "properties": {
-                  "baseline": {
-                    "type": "string",
-                    "title": "Baseline Amount",
-                    "sourceKey": [
-                      "baseline_data",
-                      "costs",
-                      "infrastructure",
-                      "totalCostOfInfrastructure"
-                    ],
-                    "readonly": true,
-                    "currency": true
-                  },
-                  "lastReturn": {
-                    "type": "string",
-                    "title": "Last Return Amount",
-                    "currency": true,
-                    "readonly": true
+                  "previousAmounts": {
+                    "type": "object",
+                    "horizontal": true,
+                    "title": "",
+                    "properties": {
+                      "baseline": {
+                        "type": "string",
+                        "title": "Baseline Amount",
+                        "sourceKey": [
+                          "baseline_data",
+                          "costs",
+                          "infrastructure",
+                          "totalCostOfInfrastructure"
+                        ],
+                        "readonly": true,
+                        "currency": true
+                      },
+                      "lastReturn": {
+                        "type": "string",
+                        "title": "Last Return Amount",
+                        "currency": true,
+                        "readonly": true
+                      }
+                    }
                   },
                   "anyChange": {
                     "title": "Any change to baseline/ last return?",
@@ -1892,7 +1899,57 @@
                           },
                           "varianceReason": {
                             "type": "string",
-                            "title": "Reason for variance"
+                            "title": "Reason for variance",
+                            "extendedText": true
+                          },
+                          "areCostsFunded": {
+                            "type": "object",
+                            "title": "",
+                            "properties": {
+                              "confirmation": {
+                                "type": "string",
+                                "title": "If applicable, Are increased costs funded?",
+                                "enum": ["Yes", "No", "N/A"],
+                                "radio": true
+                              }
+                            },
+                            "dependencies": {
+                              "confirmation": {
+                                "oneOf": [
+                                  {
+                                    "properties": {
+                                      "confirmation": {
+                                        "enum": ["No"]
+                                      },
+                                      "fundingExplanation": {
+                                        "title": "How are you intending to fund additional costs?",
+                                        "type": "string",
+                                        "extendedText": true
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "properties": {
+                                      "confirmation": {
+                                        "enum": ["Yes"]
+                                      },
+                                      "description": {
+                                        "title": "Desciption of how increased costs are funded",
+                                        "type": "string",
+                                        "extendedText": true
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "properties": {
+                                      "confirmation": {
+                                        "enum": ["N/A"]
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
                           }
                         }
                       },

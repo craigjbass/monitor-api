@@ -356,11 +356,21 @@ class UI::UseCase::ConvertCoreHIFReturn
 
       unless package[:fundingStack][:totalCost].nil?
         new_package[:fundingStack][:totalCost] = {
-          baseline: package[:fundingStack][:totalCost][:baseline],
-          lastReturn: package[:fundingStack][:totalCost][:lastReturn],
+          previousAmounts: {
+            baseline: package[:fundingStack][:totalCost][:baseline],
+            lastReturn: package[:fundingStack][:totalCost][:lastReturn],
+          },
           anyChange: package[:fundingStack][:totalCost][:anyChange],
           varianceReason: package[:fundingStack][:totalCost][:varianceReason]
         }
+
+        unless package[:fundingStack][:totalCost][:areCostsFunded].nil?
+          new_package[:fundingStack][:totalCost][:areCostsFunded] = {
+            confirmation: package[:fundingStack][:totalCost][:areCostsFunded][:confirmation],
+            fundingExplanation: package[:fundingStack][:totalCost][:areCostsFunded][:fundingExplanation],
+            description: package[:fundingStack][:totalCost][:areCostsFunded][:description]
+          }
+        end
 
         unless package[:fundingStack][:totalCost][:variance].nil?
           new_package[:fundingStack][:totalCost][:variance] = {
