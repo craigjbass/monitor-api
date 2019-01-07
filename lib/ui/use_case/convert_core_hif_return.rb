@@ -348,10 +348,27 @@ class UI::UseCase::ConvertCoreHIFReturn
       }
       unless package[:fundingStack][:hifSpend].nil?
         new_package[:fundingStack][:hifSpend] = {
-          baseline: package[:fundingStack][:hifSpend][:baseline],
-          current: package[:fundingStack][:hifSpend][:current],
-          lastReturn: package[:fundingStack][:hifSpend][:lastReturn]
+          previousAmounts: {
+            baseline: package[:fundingStack][:hifSpend][:baseline],
+            lastReturn: package[:fundingStack][:hifSpend][:lastReturn]
+          }
         }
+        unless package[:fundingStack][:hifSpend][:anyChangeToBaseline].nil?
+          new_package[:fundingStack][:hifSpend][:anyChangeToBaseline] = { 
+            confirmation: package[:fundingStack][:hifSpend][:anyChangeToBaseline][:confirmation],
+            varianceReason: package[:fundingStack][:hifSpend][:anyChangeToBaseline][:varianceReason]
+          }
+
+          unless package[:fundingStack][:hifSpend][:anyChangeToBaseline][:variance].nil?
+            new_package[:fundingStack][:hifSpend][:anyChangeToBaseline][:variance] = {
+              current: package[:fundingStack][:hifSpend][:current],
+              baseline: package[:fundingStack][:hifSpend][:anyChangeToBaseline][:variance][:baseline],
+              lastReturn: package[:fundingStack][:hifSpend][:anyChangeToBaseline][:variance][:lastReturn],
+            }
+          end
+        end
+
+
       end
 
       unless package[:fundingStack][:totalCost].nil?

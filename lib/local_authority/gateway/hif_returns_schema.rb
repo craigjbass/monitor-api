@@ -1584,6 +1584,29 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           readonly: true,
                           currency: true,
                           sourceKey: %i[return_data fundingPackages fundingStack hifSpend current]
+                        },
+                        anyChangeToBaseline: {
+                          type: 'object',
+                          properties: {
+                            confirmation: {
+                              type: 'string',
+                              enum: ['Yes', 'No']
+                            },
+                            varianceReason: {
+                              type: 'string'
+                            },
+                            variance: {
+                              type: 'object',
+                              properties: {
+                                baseline: {
+                                  type: 'string'
+                                },
+                                lastReturn: {
+                                  type: 'string'
+                                }
+                              }
+                            }
+                          }
                         }
                       }
                     },

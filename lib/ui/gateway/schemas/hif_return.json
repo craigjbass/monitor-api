@@ -1836,14 +1836,14 @@
                 "readonly": true
               },
               "totalCost": {
-                "title": "Total Cost",
+                "title": "",
                 "type": "object",
                 "calculation": "setCreate(formData, ['variance', 'baseline'], '' + parseMoney(get(formData, 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline'))); setCreate(formData, ['variance', 'lastReturn'], '' + parseMoney(get(formData, 'variance', 'current')) - parseMoney(get(formData,'previousAmounts', 'lastReturn')));",
                 "properties": {
                   "previousAmounts": {
                     "type": "object",
                     "horizontal": true,
-                    "title": "",
+                    "title": "Total Cost",
                     "properties": {
                       "baseline": {
                         "type": "string",
@@ -2085,38 +2085,98 @@
                       },      
                       "hifSpend": {
                         "title": "HIF Amount",
+                        "calculation": "setCreate(formData, ['anyChangeToBaseline', 'variance', 'baseline'], '' + parseMoney(get(formData,'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline')));get(formData,'previousAmounts', 'lastReturn') ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturn'], '' + parseMoney(get(formData,'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData,'previousAmounts', 'lastReturn'))) : setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturn'], 'N/A');",
                         "type": "object",
-                        "horizontal": true,
                         "properties": {
-                          "baseline": {
-                            "type": "string",
-                            "title": "HIF Baseline Amount",
-                            "sourceKey": [
-                              "baseline_data",
-                              "costs",
-                              "infrastructure",
-                              "HIFAmount"
-                            ],
-                            "readonly": true,
-                            "currency": true
+                          "previousAmounts": {
+                            "type": "object",
+                            "title": "",
+                            "horizontal": true,
+                            "properties": {
+                              "baseline": {
+                                "type": "string",
+                                "title": "HIF Baseline Amount",
+                                "sourceKey": [
+                                  "baseline_data",
+                                  "costs",
+                                  "infrastructure",
+                                  "HIFAmount"
+                                ],
+                                "readonly": true,
+                                "currency": true
+                              },
+                              "lastReturn": {
+                                "type": "string",
+                                "title": "Last Return",
+                                "readonly": true,
+                                "currency": true,
+                                "sourceKey": [
+                                  "return_data",
+                                  "fundingPackages",
+                                  "fundingStack",
+                                  "hifSpend",
+                                  "current"
+                                ]
+                              }
+                            }
                           },
-                          "current": {
-                            "type": "string",
-                            "title": "Current Return",
-                            "currency": true
-                          },
-                          "lastReturn": {
-                            "type": "string",
-                            "title": "Last Return",
-                            "readonly": true,
-                            "currency": true,
-                            "sourceKey": [
-                              "return_data",
-                              "fundingPackages",
-                              "fundingStack",
-                              "hifSpend",
-                              "current"
-                            ]
+                          "anyChangeToBaseline": {
+                            "type": "object",
+                            "title": "",
+                            "properties": {
+                              "confirmation": {
+                                "title": "Any change to baseline/ last return?",
+                                "type": "string",
+                                "enum": ["Yes", "No"],
+                                "radio": true
+                              }
+                            },
+                            "dependencies": {
+                              "confirmation": {
+                                "oneOf": [
+                                  {
+                                    "properties": {
+                                      "confirmation": {
+                                        "enum": ["Yes"]
+                                      },
+                                      "variance": {
+                                        "type": "object",
+                                        "title": "",
+                                        "horizontal": true,
+                                        "properties": {
+                                          "current": {
+                                            "type": "string",
+                                            "title": "Current return",
+                                            "currency": true
+                                          },
+                                          "baseline": {
+                                            "type": "string",
+                                            "title": "Variance against baseline (£)",
+                                            "readonly": true
+                                          },
+                                          "lastReturn": {
+                                            "type": "string",
+                                            "title": "Variance Against Last Return (£)",
+                                            "readonly": true
+                                          }
+                                        }
+                                      },
+                                      "varianceReason": {
+                                        "type": "string",
+                                        "title": "Reason for variance",
+                                        "extendedText": true
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "properties": {
+                                      "confirmation": 
+                                      { "enum": ["No"] }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
                           }
                         }
                       },     

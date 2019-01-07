@@ -175,9 +175,10 @@
         "descriptionOfInfrastructure": "A house of cats",
         "currentFundingStackDescription": null,
         "hifSpend": {
-          "baseline": "10000",
-          "current": null,
-          "lastReturn": null
+          "previousAmounts": {
+            "baseline": "10000",
+            "lastReturn": null
+          }
         },
         "totalCost": {
           "previousAmounts": {

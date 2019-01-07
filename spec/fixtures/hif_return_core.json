@@ -282,7 +282,15 @@
         "hifSpend": {
           "baseline": "10000",
           "current": "7685",
-          "lastReturn": "783273"
+          "lastReturn": "783273",
+          "anyChangeToBaseline": {
+            "confirmation": "Yes",
+            "varianceReason": "a reason",
+            "variance": {
+              "baseline": "2333",
+              "lastReturn": "1234"
+            }
+          }
         },
         "totalCost": {
           "baseline": "20000",

@@ -281,9 +281,19 @@
         "descriptionOfInfrastructure": "infras",
         "currentFundingStackDescription": "fund",
         "hifSpend": {
-          "baseline": "10000",
-          "current": "7685",
-          "lastReturn": "783273"
+          "previousAmounts": {
+            "baseline": "10000",
+            "lastReturn": "783273"
+          },
+          "anyChangeToBaseline": {
+            "confirmation": "Yes",
+            "variance": {
+              "current": "7685",
+              "baseline": "2333",
+              "lastReturn": "1234"
+            },
+            "varianceReason": "a reason"
+          }
         },
         "totalCost": {
           "previousAmounts": {
