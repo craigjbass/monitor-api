@@ -5338,4 +5338,8 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
       }
     }
   end
+
+  def add_hif_recovery_tab
+    return if ENV['HIF_RECOVERY_TAB'].nil?
+  end
 end
