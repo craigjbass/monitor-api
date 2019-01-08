@@ -2207,68 +2207,266 @@
                         }
                       },     
                       "public": {
-                        "title": "Total Public",
+                        "title": "",
                         "type": "object",
-                        "horizontal": true,
+                        "calculation": "setCreate(formData, ['balancesSecured','remainingToBeSecured'], ''+parseMoney(get(formData, 'previousAmounts', 'baseline')) -parseMoney(get(formData, 'balancesSecured', 'amountSecured')));setCreate(formData, ['balancesSecured', 'securedAgainstBaseline'], calculateVariance(parseMoney(get(formData, 'balancesSecured', 'amountSecured')), parseMoney(get(formData, 'previousAmounts', 'baseline'))));setCreate(formData, ['anyChangeToBaseline', 'variance', 'baselineVariance'], ''+parseMoney(get(formData, 'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline'))); get(formData, 'previousAmounts', 'lastReturn') ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturnVariance'], ''+parseMoney(get(formData, 'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'lastReturn'))) : 'N/A';",
                         "properties": {
-                          "baseline": {
-                            "title": "Total baseline amount",
-                            "type": "string",
-                            "readonly": true,
-                            "currency": true,
-                            "sourceKey": [
-                              "baseline_data",
-                              "costs",
-                              "infrastructure",
-                              "totalPublic"
-                            ]
+                          "previousAmounts": {
+                            "type": "object",
+                            "title": "Total Public",
+                            "horizontal": true,
+                            "properties": {
+                              "baseline": {
+                                "title": "Total baseline Amount",
+                                "type": "string",
+                                "readonly": true,
+                                "currency": true,
+                                "sourceKey": [
+                                  "baseline_data",
+                                  "costs",
+                                  "infrastructure",
+                                  "totalPublic"
+                                ]
+                              },
+                              "lastReturn": {
+                                "title": "Total Last Return Amount",
+                                "type": "string",
+                                "readonly": true,
+                                "currency": true
+                              }
+                            }
                           },
-                          "current": {
-                            "title": "Total - Current return",
-                            "type": "string",
-                            "currency": true
+                          "anyChangeToBaseline": {
+                            "title": "",
+                            "type": "object",
+                            "properties": {
+                              "confirmation": {
+                                "title": "Any Change to Baseline/ Last Return.",
+                                "type": "string",
+                                "enum": ["Yes", "No"],
+                                "radio": true
+                              }
+                            },
+                            "dependencies": {
+                              "confirmation": {
+                                "oneOf":[
+                                  {
+                                    "properties": {
+                                      "confirmation": {
+                                        "enum": ["Yes"]
+                                      },
+                                      "variance": {
+                                        "type": "object",
+                                        "title": "",
+                                        "horizontal": true,
+                                        "properties": {
+                                          "current": {
+                                            "title": "Current Return",
+                                            "type": "string",
+                                            "currency": true
+                                          },
+                                          "baselineVariance": {
+                                            "title": "Variance Against Baseline",
+                                            "type": "string",
+                                            "readonly": true
+                                          },
+                                          "lastReturnVariance": {
+                                            "title": "Variance Against Last Return",
+                                            "type": "string",
+                                            "readonly": true
+                                          }
+                                        }
+                                      },
+                                      "reason": {
+                                        "title": "Reason for Variance",
+                                        "type": "string",
+                                        "extendedText": true
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "properties": {
+                                      "confirmation": {
+                                        "enum": ["No"]
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
                           },
-                          "reason": {
-                            "title": "Reason for variance",
-                            "type": "string"
+                          "balancesSecured": {
+                            "type": "object",
+                            "title": "",
+                            "horizontal": true,
+                            "properties": {
+                              "amountSecured": {
+                                "title": "Amount secured to date",
+                                "type": "string",
+                                "currency": true
+                              },
+                              "remainingToBeSecured": {
+                                "title": "Remaining to be Secured",
+                                "type": "string",
+                                "currency": true,
+                                "readonly": true
+                              },
+                              "securedAgainstBaseline": {
+                                "title": "Secured Against Baseline",
+                                "type": "string",
+                                "percentage": true,
+                                "readonly": true
+                              }
+                            }
                           },
-                          "amountSecured": {
-                            "title": "Amount secured to date",
-                            "type": "string",
-                            "currency": true
+                          "comparisons": {
+                            "type": "object",
+                            "title": "",
+                            "horizontal": true,
+                            "properties": {
+                              "increaseOnLastReturn": {
+                                "title": "Increase on Last Return",
+                                "type": "string",
+                                "currency": true
+                              },
+                              "increaseOnLastReturnPercent": {
+                                "title": "Increase on Last Return",
+                                "type": "string",
+                                "percentage": true
+                              }
+                            }
                           }
                         }
                       },
                       "private": {
-                        "title": "Total Private",
+                        "title": "",
                         "type": "object",
-                        "horizontal": true,
+                        "calculation": "setCreate(formData, ['balancesSecured','remainingToBeSecured'], ''+parseMoney(get(formData, 'previousAmounts', 'baseline')) -parseMoney(get(formData, 'balancesSecured', 'amountSecured')));setCreate(formData, ['balancesSecured', 'securedAgainstBaseline'], calculateVariance(parseMoney(get(formData, 'balancesSecured', 'amountSecured')), parseMoney(get(formData, 'previousAmounts', 'baseline'))));setCreate(formData, ['anyChangeToBaseline', 'variance', 'baselineVariance'], ''+parseMoney(get(formData, 'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline'))); get(formData, 'previousAmounts', 'lastReturn') ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturnVariance'], ''+parseMoney(get(formData, 'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'lastReturn'))) : 'N/A';",
                         "properties": {
-                          "baseline": {
-                            "title": "Total baseline amount",
-                            "type": "string",
-                            "readonly": true,
-                            "currency": true,
-                            "sourceKey": [
-                              "baseline_data",
-                              "costs",
-                              "infrastructure",
-                              "totalPrivate"
-                            ]
+                          "previousAmounts": {
+                            "type": "object",
+                            "horizontal": true,
+                            "title": "Total Private",
+                            "properties": {
+                              "baseline": {
+                                "title": "Total baseline amount",
+                                "type": "string",
+                                "readonly": true,
+                                "currency": true,
+                                "sourceKey": [
+                                  "baseline_data",
+                                  "costs",
+                                  "infrastructure",
+                                  "totalPrivate"
+                                ]
+                              },
+                              "lastReturn": {
+                                "title": "Total Last Return Amount",
+                                "type": "string",
+                                "currency": true,
+                                "readonly": true
+                              }
+                            }
                           },
-                          "current": {
-                            "title": "Total - Current return",
-                            "type": "string",
-                            "currency": true
+                          "anyChangeToBaseline": {
+                            "title": "",
+                            "type": "object",
+                            "properties": {
+                              "confirmation": {
+                                "title": "Any Change to Baseline/ Last Return.",
+                                "type": "string",
+                                "enum": ["Yes", "No"],
+                                "radio": true
+                              }
+                            },
+                            "dependencies": {
+                              "confirmation": {
+                                "oneOf":[
+                                  {
+                                    "properties": {
+                                      "confirmation": {
+                                        "enum": ["Yes"]
+                                      },
+                                      "variance": {
+                                        "type": "object",
+                                        "title": "",
+                                        "horizontal": true,
+                                        "properties": {
+                                          "current": {
+                                            "title": "Current Return",
+                                            "type": "string",
+                                            "currency": true
+                                          },
+                                          "baselineVariance": {
+                                            "title": "Variance Against Baseline",
+                                            "type": "string",
+                                            "readonly": true
+                                          },
+                                          "lastReturnVariance": {
+                                            "title": "Variance Against Last Return",
+                                            "type": "string",
+                                            "readonly": true
+                                          }
+                                        }
+                                      },
+                                      "reason": {
+                                        "title": "Reason for Variance",
+                                        "type": "string",
+                                        "extendedText": true
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "properties": {
+                                      "confirmation": {
+                                        "enum": ["No"]
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
                           },
-                          "reason": {
-                            "title": "Reason for variance",
-                            "type": "string"
+                          "balancesSecured": {
+                            "type": "object",
+                            "title": "",
+                            "horizontal": true,
+                            "properties": {
+                              "amountSecured": {
+                                "title": "Amount secured to date",
+                                "type": "string",
+                                "currency": true
+                              },
+                              "remainingToBeSecured": {
+                                "title": "Remaining to be Secured",
+                                "type": "string",
+                                "currency": true,
+                                "readonly": true
+                              },
+                              "securedAgainstBaseline": {
+                                "title": "Secured Against Baseline",
+                                "type": "string",
+                                "percentage": true,
+                                "readonly": true
+                              }
+                            }
                           },
-                          "amountSecured": {
-                            "title": "Amount secured to date",
-                            "type": "string",
-                            "currency": true
+                          "comparisons": {
+                            "type": "object",
+                            "title": "",
+                            "horizontal": true,
+                            "properties": {
+                              "increaseOnLastReturn": {
+                                "title": "Increase on Last Return",
+                                "type": "string",
+                                "currency": true
+                              },
+                              "increaseOnLastReturnPercent": {
+                                "title": "Increase on Last Return",
+                                "type": "string",
+                                "percentage": true
+                              }
+                            }
                           }
                         }
                       },

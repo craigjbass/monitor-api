@@ -179,16 +179,20 @@
         "fundedThroughHIF": "No",
         "descriptionOfFundingStack": "Funding stack description",
         "public": {
-          "baseline": "5000",
-          "current": null,
-          "reason": null,
-          "amountSecured": null
+          "previousAmounts": {
+            "baseline": "5000",
+            "lastReturn": null
+          }
         },
         "private": {
-          "baseline": "5000",
-          "current": null,
-          "reason": null,
-          "amountSecured": null
+          "previousAmounts": {
+            "baseline": "5000",
+            "lastReturn": null
+          },
+          "anyChangeToBaseline": {
+            "confirmation": null,
+            "reason": null
+          }
         }
       }
     }
