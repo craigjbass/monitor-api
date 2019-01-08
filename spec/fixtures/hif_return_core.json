@@ -314,6 +314,7 @@
         },
         "currentFundingStackDescription": "fund",
         "fundedThroughHIF": "No",
+        "fundedThroughHIFbaseline": "Yes",
         "descriptionOfFundingStack": "Funding stack description",
         "anyChangeToDescription": {
           "confirmation": "Yes",

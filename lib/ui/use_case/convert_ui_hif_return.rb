@@ -397,6 +397,7 @@ class UI::UseCase::ConvertUIHIFReturn
       end
 
       new_package[:fundingStack][:fundedThroughHIF] = package[:fundingStack][:fundedThroughHIF]
+      new_package[:fundingStack][:fundedThroughHIFbaseline] = package[:fundingStack][:fundedThroughHIFbaseline]
 
       unless package[:fundingStack][:anyChange].nil?
         new_package[:fundingStack][:anyChange] = {

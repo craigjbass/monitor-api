@@ -1677,8 +1677,14 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                       title: 'Totally funded through HIF?',
                       radio: true,
                       enum: %w[Yes No],
+                      sourceKey: [:return_or_baseline, [:baseline_data, :costs, :infrastructure, :totallyFundedThroughHIF], [:return_data, :fundingPackages, :fundingStack, :fundedThroughHIF]],
                       readonly: true,
-                      sourceKey: %i[baseline_data costs infrastructure totallyFundedThroughHIF]
+                    },
+                    fundedThroughHIFbaseline: {
+                      type: 'string',
+                      title: 'Totally funded through HIF?',
+                      enum: %w[Yes No],
+                      sourceKey: [:return_or_baseline, [:baseline_data, :costs, :infrastructure, :totallyFundedThroughHIF], [:return_data, :fundingPackages, :fundingStack, :fundedThroughHIF]]
                     },
                     currentFundingStackDescription: {
                       type: 'string'

@@ -189,6 +189,7 @@
           "varianceReason": null
         },
         "fundedThroughHIF": "No",
+        "fundedThroughHIFbaseline": "No",
         "descriptionOfFundingStack": "Funding stack description",
         "public": {
           "previousAmounts": {

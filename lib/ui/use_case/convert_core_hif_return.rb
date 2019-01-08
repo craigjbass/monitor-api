@@ -367,8 +367,6 @@ class UI::UseCase::ConvertCoreHIFReturn
             }
           end
         end
-
-
       end
 
       unless package[:fundingStack][:totalCost].nil?
@@ -399,6 +397,7 @@ class UI::UseCase::ConvertCoreHIFReturn
       end
 
       new_package[:fundingStack][:fundedThroughHIF] = package[:fundingStack][:fundedThroughHIF]
+      new_package[:fundingStack][:fundedThroughHIFbaseline] = package[:fundingStack][:fundedThroughHIFbaseline]
 
       unless package[:fundingStack][:anyChange].nil?
         new_package[:fundingStack][:anyChange] = {

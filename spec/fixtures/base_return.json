@@ -131,6 +131,7 @@
           "baseline": "20000"
         },
         "fundedThroughHIF": "No",
+        "fundedThroughHIFbaseline": "No",
         "descriptionOfFundingStack": "Funding stack description",
         "public": { "baseline": "5000" },
         "private": { "baseline": "5000" }

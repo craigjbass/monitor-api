@@ -323,6 +323,7 @@
           "varianceReason": "No more money"
         },
         "fundedThroughHIF": "No",
+        "fundedThroughHIFbaseline": "Yes",
         "anyChange": {
           "confirmation": "Yes",
           "descriptionOfChange": "change"
