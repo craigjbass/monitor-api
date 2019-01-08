@@ -354,7 +354,7 @@ class UI::UseCase::ConvertCoreHIFReturn
           }
         }
         unless package[:fundingStack][:hifSpend][:anyChangeToBaseline].nil?
-          new_package[:fundingStack][:hifSpend][:anyChangeToBaseline] = { 
+          new_package[:fundingStack][:hifSpend][:anyChangeToBaseline] = {
             confirmation: package[:fundingStack][:hifSpend][:anyChangeToBaseline][:confirmation],
             varianceReason: package[:fundingStack][:hifSpend][:anyChangeToBaseline][:varianceReason]
           }
@@ -399,7 +399,7 @@ class UI::UseCase::ConvertCoreHIFReturn
       end
 
       new_package[:fundingStack][:fundedThroughHIF] = package[:fundingStack][:fundedThroughHIF]
-      
+
       unless package[:fundingStack][:anyChange].nil?
         new_package[:fundingStack][:anyChange] = {
           confirmation: package[:fundingStack][:anyChange][:confirmation],
@@ -830,11 +830,13 @@ class UI::UseCase::ConvertCoreHIFReturn
     @converted_return[:reviewAndAssurance] = {}
     @converted_return[:reviewAndAssurance][:date] = @return[:reviewAndAssurance][:date]
     @converted_return[:reviewAndAssurance][:assuranceManagerAttendance] = @return[:reviewAndAssurance][:assuranceManagerAttendance]
-    @converted_return[:reviewAndAssurance][:infrastructureDelivery] = @return[:reviewAndAssurance][:infrastructureDelivery].map do |delivery|
-      {
-        details: delivery[:details],
-        riskRating: delivery[:riskRating]
-      }
+    unless @return[:reviewAndAssurance][:infrastructureDelivery].nil?
+      @converted_return[:reviewAndAssurance][:infrastructureDelivery] = @return[:reviewAndAssurance][:infrastructureDelivery].map do |delivery|
+        {
+          details: delivery[:details],
+          riskRating: delivery[:riskRating]
+        }
+      end
     end
 
     unless @return[:reviewAndAssurance][:hifFundedFinancials].nil?
