@@ -377,7 +377,7 @@ class UI::UseCase::ConvertUIHIFReturn
         new_package[:fundingStack][:totalCost][:anyChange] = package[:fundingStack][:totalCost][:anyChange]
 
         new_package[:fundingStack][:totalCost][:varianceReason] = package[:fundingStack][:totalCost][:varianceReason]
-        
+
         unless package[:fundingStack][:totalCost][:areCostsFunded].nil?
           new_package[:fundingStack][:totalCost][:areCostsFunded] = {
             confirmation: package[:fundingStack][:totalCost][:areCostsFunded][:confirmation],
@@ -386,7 +386,7 @@ class UI::UseCase::ConvertUIHIFReturn
           }
         end
 
-        unless package[:fundingStack][:totalCost][:variance].nil?    
+        unless package[:fundingStack][:totalCost][:variance].nil?
           new_package[:fundingStack][:totalCost][:current] = package[:fundingStack][:totalCost][:variance][:current]
 
           new_package[:fundingStack][:totalCost][:variance] = {
@@ -395,7 +395,7 @@ class UI::UseCase::ConvertUIHIFReturn
           }
         end
       end
-      
+
       new_package[:fundingStack][:fundedThroughHIF] = package[:fundingStack][:fundedThroughHIF]
 
       unless package[:fundingStack][:anyChange].nil?
@@ -832,11 +832,13 @@ class UI::UseCase::ConvertUIHIFReturn
     @converted_return[:reviewAndAssurance] = {}
     @converted_return[:reviewAndAssurance][:date] = @return[:reviewAndAssurance][:date]
     @converted_return[:reviewAndAssurance][:assuranceManagerAttendance] = @return[:reviewAndAssurance][:assuranceManagerAttendance]
-    @converted_return[:reviewAndAssurance][:infrastructureDelivery] = @return[:reviewAndAssurance][:infrastructureDelivery].map do |delivery|
-      {
-        details: delivery[:details],
-        riskRating: delivery[:riskRating]
-      }
+    unless @return[:reviewAndAssurance][:infrastructureDelivery].nil?
+      @converted_return[:reviewAndAssurance][:infrastructureDelivery] = @return[:reviewAndAssurance][:infrastructureDelivery].map do |delivery|
+        {
+          details: delivery[:details],
+          riskRating: delivery[:riskRating]
+        }
+      end
     end
 
     unless @return[:reviewAndAssurance][:hifFundedFinancials].nil?
