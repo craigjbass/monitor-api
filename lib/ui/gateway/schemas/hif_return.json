@@ -1838,7 +1838,7 @@
               "totalCost": {
                 "title": "",
                 "type": "object",
-                "calculation": "setCreate(formData, ['variance', 'baseline'], '' + parseMoney(get(formData, 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline'))); setCreate(formData, ['variance', 'lastReturn'], '' + parseMoney(get(formData, 'variance', 'current')) - parseMoney(get(formData,'previousAmounts', 'lastReturn')));",
+                "calculation": "setCreate(formData, ['variance', 'baseline'], '' + parseMoney(get(formData, 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline'))); get(formData,'previousAmounts', 'lastReturn') ? setCreate(formData, ['variance', 'lastReturn'], '' + parseMoney(get(formData, 'variance', 'current')) - parseMoney(get(formData,'previousAmounts', 'lastReturn'))) : setCreate(formData, ['variance', 'lastReturn'], 'N/A');",
                 "properties": {
                   "previousAmounts": {
                     "type": "object",
@@ -2084,13 +2084,13 @@
                         }
                       },      
                       "hifSpend": {
-                        "title": "HIF Amount",
+                        "title": "",
                         "calculation": "setCreate(formData, ['anyChangeToBaseline', 'variance', 'baseline'], '' + parseMoney(get(formData,'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline')));get(formData,'previousAmounts', 'lastReturn') ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturn'], '' + parseMoney(get(formData,'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData,'previousAmounts', 'lastReturn'))) : setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturn'], 'N/A');",
                         "type": "object",
                         "properties": {
                           "previousAmounts": {
                             "type": "object",
-                            "title": "",
+                            "title": "HIF Amount",
                             "horizontal": true,
                             "properties": {
                               "baseline": {
@@ -2248,10 +2248,10 @@
                       },
                       "riskToFundingPackage": {
                         "type": "object",
-                        "title": "Risk to funding package",
+                        "title": "Funding Package Risk",
                         "properties": {
                           "risk": {
-                            "title": "Is there a risk?",
+                            "title": "Are there any risks to the funding package?",
                             "type": "string",
                             "radio": true,
                             "enum": ["Yes", "No"]
