@@ -1551,6 +1551,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
               type: 'object',
               title: 'Funding for Infrastructure',
               properties: {
+                descriptionOfInfrastructure: {
+                  title: "Description of Infrastructure",
+                  type: "string",
+                  extendedText: true,
+                  readonly: true,
+                  sourceKey: %i[baseline_data infrastructures description]
+                },
                 fundingStack: {
                   type: 'object',
                   title: 'Funding stack',
@@ -1578,6 +1585,29 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           readonly: true,
                           currency: true,
                           sourceKey: %i[return_data fundingPackages fundingStack hifSpend current]
+                        },
+                        anyChangeToBaseline: {
+                          type: 'object',
+                          properties: {
+                            confirmation: {
+                              type: 'string',
+                              enum: ['Yes', 'No']
+                            },
+                            varianceReason: {
+                              type: 'string'
+                            },
+                            variance: {
+                              type: 'object',
+                              properties: {
+                                baseline: {
+                                  type: 'string'
+                                },
+                                lastReturn: {
+                                  type: 'string'
+                                }
+                              }
+                            }
+                          }
                         }
                       }
                     },
@@ -1593,6 +1623,26 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           readonly: true,
                           currency: true
                         },
+                        lastReturn: {
+                          type: 'string',
+                          title: 'Last Return',
+                          sourceKey: %i[return_data fundingPackages fundingStack totalCost current]
+                        },
+                        anyChange: {
+                          type: 'string',
+                          enum: ['Yes', 'No']
+                        },
+                        variance: {
+                          type: 'object',
+                          properties: {
+                            baseline: {
+                              type: 'string'
+                            },
+                            lastReturn: {
+                              type: 'string'
+                            }
+                          }
+                        },
                         current: {
                           type: 'string',
                           title: 'Current return',
@@ -1602,10 +1652,23 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           type: 'string',
                           title: 'Reason for variance'
                         },
-                        percentComplete: {
-                          type: 'string',
-                          title: 'Percent complete',
-                          percentage: true
+                        areCostsFunded: {
+                          type: 'object',
+                          properties: {
+                            confirmation: {
+                              type: 'string',
+                              title: "If applicable, Are increased costs funded?",
+                              enum: ['Yes', 'No', 'N/A']
+                            },
+                            fundingExplanation: {
+                              type: 'string',
+                              title: 'How are you intending to fund additional costs?'
+                            },
+                            description: {
+                              type: 'string',
+                              title: 'Desciption of how increased costs are funded'
+                            }
+                          }
                         }
                       }
                     },
@@ -1616,6 +1679,22 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                       enum: %w[Yes No],
                       readonly: true,
                       sourceKey: %i[baseline_data costs infrastructure totallyFundedThroughHIF]
+                    },
+                    currentFundingStackDescription: {
+                      type: 'string'
+                    },
+                    anyChange: {
+                      type: 'object',
+                      properties: {
+                        confirmation: {
+                          type: 'string',
+                          title: 'Has position changed from baseline/ last return?',
+                        },
+                        descriptionOfChange: {
+                          type: 'string',
+                          title: 'Description of Change'
+                        }
+                      }
                     }
                   },
                   dependencies: {
@@ -1637,7 +1716,18 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                               type: 'string',
                               title: 'Description of funding stack',
                               readonly: true,
-                              sourceKey: %i[baseline_data costs infrastructure descriptionOfFundingStack]
+                              sourceKey: [:return_or_baseline, [:baseline_data, :costs, :infrastructure, :descriptionOfFundingStack], [:return_data, :fundingPackages, :fundingStack, :currentFundingStackDescription]]
+                            },
+                            anyChangeToDescription: {
+                              type: 'object',
+                              properties: {
+                                confirmation: {
+                                  type: 'string'
+                                },
+                                updatedFundingStack: {
+                                  type: 'string'
+                                }
+                              }
                             },
                             riskToFundingPackage: {
                               type: 'object',

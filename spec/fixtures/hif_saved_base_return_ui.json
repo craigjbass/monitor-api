@@ -160,16 +160,21 @@
   "fundingPackages": [
     {
       "fundingStack": {
+        "descriptionOfInfrastructure": "A house of cats",
+        "currentFundingStackDescription": null,
         "hifSpend": {
-          "baseline": "10000",
-          "current": null,
-          "lastReturn": null
+          "previousAmounts": {
+            "baseline": "10000",
+            "lastReturn": null
+          }
         },
         "totalCost": {
-          "baseline": "20000",
-          "current": null,
-          "varianceReason": null,
-          "percentComplete": null
+          "previousAmounts": {
+            "baseline": "20000",
+            "lastReturn": null
+          },
+          "anyChange": null,
+          "varianceReason": null
         },
         "fundedThroughHIF": "No",
         "descriptionOfFundingStack": "Funding stack description",

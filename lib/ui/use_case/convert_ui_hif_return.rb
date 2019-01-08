@@ -335,28 +335,85 @@ class UI::UseCase::ConvertUIHIFReturn
   def convert_funding_packages
     return if @return[:fundingPackages].nil?
     @converted_return[:fundingPackages] = @return[:fundingPackages].map do |package|
-      new_package = {}
       next if package[:fundingStack].nil?
+      new_package = {
+        descriptionOfInfrastructure: package[:fundingStack][:descriptionOfInfrastructure]
+      }
       new_package[:fundingStack] = {}
       unless package[:fundingStack][:hifSpend].nil?
-        new_package[:fundingStack][:hifSpend] = {
-          baseline: package[:fundingStack][:hifSpend][:baseline],
-          current: package[:fundingStack][:hifSpend][:current],
-          lastReturn: package[:fundingStack][:hifSpend][:lastReturn]
-        }
+        unless package[:fundingStack][:hifSpend][:previousAmounts].nil?
+          new_package[:fundingStack][:hifSpend] = {
+            baseline: package[:fundingStack][:hifSpend][:previousAmounts][:baseline],
+            lastReturn: package[:fundingStack][:hifSpend][:previousAmounts][:lastReturn]
+          }
+        end
+
+        unless package[:fundingStack][:hifSpend][:anyChangeToBaseline].nil?
+
+          new_package[:fundingStack][:hifSpend][:anyChangeToBaseline] = {
+            confirmation: package[:fundingStack][:hifSpend][:anyChangeToBaseline][:confirmation],
+          }
+          new_package[:fundingStack][:hifSpend][:anyChangeToBaseline][:varianceReason] = package[:fundingStack][:hifSpend][:anyChangeToBaseline][:varianceReason]
+
+          unless package[:fundingStack][:hifSpend][:anyChangeToBaseline][:variance].nil?
+            new_package[:fundingStack][:hifSpend][:current] = package[:fundingStack][:hifSpend][:anyChangeToBaseline][:variance][:current]
+
+            new_package[:fundingStack][:hifSpend][:anyChangeToBaseline][:variance] = {
+              baseline: package[:fundingStack][:hifSpend][:anyChangeToBaseline][:variance][:baseline],
+              lastReturn: package[:fundingStack][:hifSpend][:anyChangeToBaseline][:variance][:lastReturn]
+            }
+          end
+        end
       end
 
       unless package[:fundingStack][:totalCost].nil?
-        new_package[:fundingStack][:totalCost] = {
-          baseline: package[:fundingStack][:totalCost][:baseline],
-          current: package[:fundingStack][:totalCost][:current],
-          varianceReason: package[:fundingStack][:totalCost][:varianceReason],
-          percentComplete: package[:fundingStack][:totalCost][:percentComplete]
+        unless package[:fundingStack][:totalCost][:previousAmounts].nil?
+          new_package[:fundingStack][:totalCost] = {
+            baseline: package[:fundingStack][:totalCost][:previousAmounts][:baseline],
+            lastReturn: package[:fundingStack][:totalCost][:previousAmounts][:lastReturn]
+          }
+        end
+
+        new_package[:fundingStack][:totalCost][:anyChange] = package[:fundingStack][:totalCost][:anyChange]
+
+        new_package[:fundingStack][:totalCost][:varianceReason] = package[:fundingStack][:totalCost][:varianceReason]
+        
+        unless package[:fundingStack][:totalCost][:areCostsFunded].nil?
+          new_package[:fundingStack][:totalCost][:areCostsFunded] = {
+            confirmation: package[:fundingStack][:totalCost][:areCostsFunded][:confirmation],
+            fundingExplanation: package[:fundingStack][:totalCost][:areCostsFunded][:fundingExplanation],
+            description: package[:fundingStack][:totalCost][:areCostsFunded][:description]
+          }
+        end
+
+        unless package[:fundingStack][:totalCost][:variance].nil?    
+          new_package[:fundingStack][:totalCost][:current] = package[:fundingStack][:totalCost][:variance][:current]
+
+          new_package[:fundingStack][:totalCost][:variance] = {
+            baseline: package[:fundingStack][:totalCost][:variance][:baseline],
+            lastReturn: package[:fundingStack][:totalCost][:variance][:lastReturn]
+          }
+        end
+      end
+      
+      new_package[:fundingStack][:fundedThroughHIF] = package[:fundingStack][:fundedThroughHIF]
+
+      unless package[:fundingStack][:anyChange].nil?
+        new_package[:fundingStack][:anyChange] = {
+          confirmation: package[:fundingStack][:anyChange][:confirmation],
+          descriptionOfChange: package[:fundingStack][:anyChange][:descriptionOfChange]
         }
       end
 
-      new_package[:fundingStack][:fundedThroughHIF] = package[:fundingStack][:fundedThroughHIF]
       new_package[:fundingStack][:descriptionOfFundingStack] = package[:fundingStack][:descriptionOfFundingStack]
+      new_package[:fundingStack][:currentFundingStackDescription] = package[:fundingStack][:currentFundingStackDescription]
+
+      unless package[:fundingStack][:anyChangeToDescription].nil?
+        new_package[:fundingStack][:anyChangeToDescription] = {
+          confirmation: package[:fundingStack][:anyChangeToDescription][:confirmation],
+          updatedFundingStack: package[:fundingStack][:anyChangeToDescription][:updatedFundingStack]
+        }
+      end
 
       unless package[:fundingStack][:riskToFundingPackage].nil?
         new_package[:fundingStack][:riskToFundingPackage] = {

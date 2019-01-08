@@ -1848,76 +1848,150 @@
           "fundingStack": {
             "type": "object",
             "title": "Funding stack",
-            "calculation": "set(formData['totalCost'], 'percentComplete', calculateVariance(parseMoney(get(formData,'totalCost', 'current')), parseMoney(get(formData,'totalCost', 'baseline'))));",
+            "calculation": "get(formData, 'anyChangeToDescription', 'confirmation') === 'Yes' ? set(formData, 'currentFundingStackDescription', get(formData, 'anyChangeToDescription', 'updatedFundingStack')) : set(formData, 'currentFundingStackDescription', get(formData, 'descriptionOfFundingStack')); set(formData['totalCost'], 'percentComplete', calculateVariance(parseMoney(get(formData,'totalCost', 'current')), parseMoney(get(formData,'totalCost', 'baseline'))));",
             "properties": {
-              "hifSpend": {
-                "title": "HIF Spend",
-                "type": "object",
-                "horizontal": true,
-                "properties": {
-                  "baseline": {
-                    "type": "string",
-                    "title": "HIF Baseline Amount",
-                    "sourceKey": [
-                      "baseline_data",
-                      "costs",
-                      "infrastructure",
-                      "HIFAmount"
-                    ],
-                    "readonly": true,
-                    "currency": true
-                  },
-                  "current": {
-                    "type": "string",
-                    "title": "Current Return",
-                    "currency": true
-                  },
-                  "lastReturn": {
-                    "type": "string",
-                    "title": "Last Return",
-                    "readonly": true,
-                    "currency": true,
-                    "sourceKey": [
-                      "return_data",
-                      "fundingPackages",
-                      "fundingStack",
-                      "hifSpend",
-                      "current"
-                    ]
-                  }
-                }
+              "currentFundingStackDescription": {
+                "type": "string", 
+                "hidden": true, 
+                "title": ""
+              },
+              "descriptionOfInfrastructure": {
+                "title": "Description of Infrastructure",
+                "type": "string",
+                "extendedText": true,
+                "readonly": true
               },
               "totalCost": {
-                "title": "Total Cost",
+                "title": "",
                 "type": "object",
-                "horizontal": true,
+                "calculation": "setCreate(formData, ['variance', 'baseline'], '' + parseMoney(get(formData, 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline'))); get(formData,'previousAmounts', 'lastReturn') ? setCreate(formData, ['variance', 'lastReturn'], '' + parseMoney(get(formData, 'variance', 'current')) - parseMoney(get(formData,'previousAmounts', 'lastReturn'))) : setCreate(formData, ['variance', 'lastReturn'], 'N/A');",
                 "properties": {
-                  "baseline": {
-                    "type": "string",
-                    "title": "Baseline Amount",
-                    "sourceKey": [
-                      "baseline_data",
-                      "costs",
-                      "infrastructure",
-                      "totalCostOfInfrastructure"
-                    ],
-                    "readonly": true,
-                    "currency": true
+                  "previousAmounts": {
+                    "type": "object",
+                    "horizontal": true,
+                    "title": "Total Cost",
+                    "properties": {
+                      "baseline": {
+                        "type": "string",
+                        "title": "Baseline Amount",
+                        "sourceKey": [
+                          "baseline_data",
+                          "costs",
+                          "infrastructure",
+                          "totalCostOfInfrastructure"
+                        ],
+                        "readonly": true,
+                        "currency": true
+                      },
+                      "lastReturn": {
+                        "type": "string",
+                        "title": "Last Return Amount",
+                        "currency": true,
+                        "readonly": true
+                      }
+                    }
                   },
-                  "current": {
+                  "anyChange": {
+                    "title": "Any change to baseline/ last return?",
                     "type": "string",
-                    "title": "Current return",
-                    "currency": true
-                  },
-                  "varianceReason": {
-                    "type": "string",
-                    "title": "Reason for variance"
-                  },
-                  "percentComplete": {
-                    "type": "string",
-                    "title": "Percent complete",
-                    "readonly": true,
-                    "percentage": true
+                    "enum": ["Yes", "No"],
+                    "radio": true
+                  }
+                },
+                "dependencies": {
+                  "anyChange": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "anyChange": {
+                            "enum": ["Yes"]
+                          },
+                          "variance": {
+                            "type": "object",
+                            "title": "",
+                            "horizontal": true,
+                            "properties": {
+                              "current": {
+                                "type": "string",
+                                "title": "Current return",
+                                "currency": true
+                              },
+                              "baseline": {
+                                "type": "string",
+                                "title": "Variance against baseline (£)",
+                                "readonly": true
+                              },
+                              "lastReturn": {
+                                "type": "string",
+                                "title": "Variance Against Last Return (£)",
+                                "readonly": true
+                              }
+                            }
+                          },
+                          "varianceReason": {
+                            "type": "string",
+                            "title": "Reason for variance",
+                            "extendedText": true
+                          },
+                          "areCostsFunded": {
+                            "type": "object",
+                            "title": "",
+                            "properties": {
+                              "confirmation": {
+                                "type": "string",
+                                "title": "If costs have increased, are the funded?",
+                                "enum": ["Yes", "No", "N/A"],
+                                "radio": true
+                              }
+                            },
+                            "dependencies": {
+                              "confirmation": {
+                                "oneOf": [
+                                  {
+                                    "properties": {
+                                      "confirmation": {
+                                        "enum": ["No"]
+                                      },
+                                      "fundingExplanation": {
+                                        "title": "How are you intending to fund additional costs?",
+                                        "type": "string",
+                                        "extendedText": true
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "properties": {
+                                      "confirmation": {
+                                        "enum": ["Yes"]
+                                      },
+                                      "description": {
+                                        "title": "Desciption of how increased costs are funded",
+                                        "type": "string",
+                                        "extendedText": true
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "properties": {
+                                      "confirmation": {
+                                        "enum": ["N/A"]
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "anyChange": {
+                            "enum": ["No"]
+                          }
+                        }
+                      }
+                    ]
                   }
                 }
               },
@@ -1933,6 +2007,43 @@
                   "infrastructure",
                   "totallyFundedThroughHIF"
                 ]
+              },
+              "anyChange": {
+                "type": "object",
+                "title": "",
+                "properties": {
+                  "confirmation": {
+                    "type": "string",
+                    "title": "Has position changed from baseline/ last return?",
+                    "enum": ["Yes", "No"],
+                    "radio": true
+                  }
+                },
+                "dependencies": {
+                  "confirmation": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "confirmation": {
+                            "enum": ["Yes"]
+                          },
+                          "descriptionOfChange": {
+                            "type": "string",
+                            "title": "Description of Change",
+                            "extendedText": true
+                          }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "confirmation": {
+                            "enum": ["No"]
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
               }
             },
             "dependencies": {
@@ -1961,38 +2072,140 @@
                           "descriptionOfFundingStack"
                         ]
                       },
-                      "riskToFundingPackage": {
+                      "anyChangeToDescription": {
                         "type": "object",
-                        "title": "Risk to funding package",
+                        "title": "",
                         "properties": {
-                          "risk": {
-                            "title": "Is there a risk?",
+                          "confirmation": {
+                            "title": "Any change to baseline/last return?",
                             "type": "string",
                             "radio": true,
                             "enum": ["Yes", "No"]
-                          }
+                          } 
                         },
                         "dependencies": {
-                          "risk": {
+                          "confirmation": {
                             "oneOf": [
                               {
                                 "properties": {
-                                  "risk": { "enum": ["Yes"] },
-                                  "description": {
-                                    "title": "Description of risk",
-                                    "type": "string"
+                                  "confirmation": {
+                                    "enum": ["Yes"]
+                                  },
+                                  "updatedFundingStack": {
+                                    "type": "string",
+                                    "title": "Updated Funding Stack",
+                                    "extendedText": true
                                   }
                                 }
                               },
                               {
                                 "properties": {
-                                  "risk": { "enum": ["No"] }
+                                  "confirmation": {
+                                    "enum":["No"]
+                                  }
                                 }
                               }
                             ]
                           }
                         }
-                      },
+                      },      
+                      "hifSpend": {
+                        "title": "",
+                        "calculation": "setCreate(formData, ['anyChangeToBaseline', 'variance', 'baseline'], '' + parseMoney(get(formData,'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline')));get(formData,'previousAmounts', 'lastReturn') ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturn'], '' + parseMoney(get(formData,'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData,'previousAmounts', 'lastReturn'))) : setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturn'], 'N/A');",
+                        "type": "object",
+                        "properties": {
+                          "previousAmounts": {
+                            "type": "object",
+                            "title": "HIF Amount",
+                            "horizontal": true,
+                            "properties": {
+                              "baseline": {
+                                "type": "string",
+                                "title": "HIF Baseline Amount",
+                                "sourceKey": [
+                                  "baseline_data",
+                                  "costs",
+                                  "infrastructure",
+                                  "HIFAmount"
+                                ],
+                                "readonly": true,
+                                "currency": true
+                              },
+                              "lastReturn": {
+                                "type": "string",
+                                "title": "Last Return",
+                                "readonly": true,
+                                "currency": true,
+                                "sourceKey": [
+                                  "return_data",
+                                  "fundingPackages",
+                                  "fundingStack",
+                                  "hifSpend",
+                                  "current"
+                                ]
+                              }
+                            }
+                          },
+                          "anyChangeToBaseline": {
+                            "type": "object",
+                            "title": "",
+                            "properties": {
+                              "confirmation": {
+                                "title": "Any change to baseline/ last return?",
+                                "type": "string",
+                                "enum": ["Yes", "No"],
+                                "radio": true
+                              }
+                            },
+                            "dependencies": {
+                              "confirmation": {
+                                "oneOf": [
+                                  {
+                                    "properties": {
+                                      "confirmation": {
+                                        "enum": ["Yes"]
+                                      },
+                                      "variance": {
+                                        "type": "object",
+                                        "title": "",
+                                        "horizontal": true,
+                                        "properties": {
+                                          "current": {
+                                            "type": "string",
+                                            "title": "Current return",
+                                            "currency": true
+                                          },
+                                          "baseline": {
+                                            "type": "string",
+                                            "title": "Variance against baseline (£)",
+                                            "readonly": true
+                                          },
+                                          "lastReturn": {
+                                            "type": "string",
+                                            "title": "Variance Against Last Return (£)",
+                                            "readonly": true
+                                          }
+                                        }
+                                      },
+                                      "varianceReason": {
+                                        "type": "string",
+                                        "title": "Reason for variance",
+                                        "extendedText": true
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "properties": {
+                                      "confirmation": 
+                                      { "enum": ["No"] }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },     
                       "public": {
                         "title": "Total Public",
                         "type": "object",
@@ -2058,11 +2271,44 @@
                             "currency": true
                           }
                         }
+                      },
+                      "riskToFundingPackage": {
+                        "type": "object",
+                        "title": "Funding Package Risk",
+                        "properties": {
+                          "risk": {
+                            "title": "Are there any risks to the funding package?",
+                            "type": "string",
+                            "radio": true,
+                            "enum": ["Yes", "No"]
+                          }
+                        },
+                        "dependencies": {
+                          "risk": {
+                            "oneOf": [
+                              {
+                                "properties": {
+                                  "risk": { "enum": ["Yes"] },
+                                  "description": {
+                                    "title": "Description of risk",
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              {
+                                "properties": {
+                                  "risk": { "enum": ["No"] }
+                                }
+                              }
+                            ]
+                          }
+                        }
                       }
                     }
                   }
                 ]
               }
+              
             }
           }
         }

@@ -287,19 +287,51 @@
   "fundingPackages": [
     {
       "fundingStack": {
+        "descriptionOfInfrastructure": "infras",
+        "currentFundingStackDescription": "fund",
         "hifSpend": {
-          "baseline": "10000",
-          "current": "7685",
-          "lastReturn": "783273"
+          "previousAmounts": {
+            "baseline": "10000",
+            "lastReturn": "783273"
+          },
+          "anyChangeToBaseline": {
+            "confirmation": "Yes",
+            "variance": {
+              "baseline": "2333",
+              "current": "7685",
+              "lastReturn": "1234"
+            },
+            "varianceReason": "a reason"
+          }
         },
         "totalCost": {
-          "baseline": "20000",
-          "current": "567329",
-          "varianceReason": "No more money",
-          "percentComplete": "78"
+          "previousAmounts": {
+            "baseline": "20000",
+            "lastReturn": "10000"
+          },
+          "anyChange": "Yes",
+          "areCostsFunded": {
+            "confirmation": "Yes",
+            "description": "describing",
+            "fundingExplanation": "explaining"
+          },
+          "variance": {
+            "current": "567329",
+            "lastReturn": "0",
+            "baseline": "0"
+          },
+          "varianceReason": "No more money"
         },
         "fundedThroughHIF": "No",
+        "anyChange": {
+          "confirmation": "Yes",
+          "descriptionOfChange": "change"
+        },
         "descriptionOfFundingStack": "Funding stack description",
+        "anyChangeToDescription": {
+          "confirmation": "Yes",
+          "updatedFundingStack": "update"
+        },
         "riskToFundingPackage": {
           "risk": "No more houses",
           "description": "build some"
