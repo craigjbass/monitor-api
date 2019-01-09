@@ -1579,12 +1579,18 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           title: 'Current Return',
                           currency: true
                         },
+                        currentAmount: {
+                          type: 'string',
+                          title: '',
+                          hidden: true,
+                          sourceKey: %i[return_data fundingPackages fundingStack hifSpend currentAmount]
+                        },
                         lastReturn: {
                           type: 'string',
                           title: 'Last Return',
                           readonly: true,
                           currency: true,
-                          sourceKey: %i[return_data fundingPackages fundingStack hifSpend current]
+                          sourceKey: %i[return_data fundingPackages fundingStack hifSpend currentAmount]
                         },
                         anyChangeToBaseline: {
                           type: 'object',
@@ -1625,8 +1631,14 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                         },
                         lastReturn: {
                           type: 'string',
-                          title: 'Last Return',
-                          sourceKey: %i[return_data fundingPackages fundingStack totalCost current]
+                          title: 'Last Return (If Applicable)',
+                          sourceKey: %i[return_data fundingPackages fundingStack totalCost currentAmount]
+                        },
+                        currentAmount: {
+                          type: 'string',
+                          title: '',
+                          hidden: true,
+                          sourceKey: %i[return_data fundingPackages fundingStack totalCost currentAmount]
                         },
                         anyChange: {
                           type: 'string',
@@ -1767,7 +1779,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                 lastReturn: {
                                   title: 'Last Return Amount',
                                   type: 'string',
-                                  sourceKey: [:return_data, :fundingPackages, :fundingStack, :public, :current]
+                                  sourceKey: [:return_data, :fundingPackages, :fundingStack, :public, :currentAmount]
                                 },
                                 anyChangeToBaseline: {
                                   type: 'object',
@@ -1817,6 +1829,12 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                   title: 'Total - Current return',
                                   type: 'string',
                                   currency: true
+                                },
+                                currentAmount: {
+                                  type: 'string',
+                                  title: '',
+                                  hidden: true,
+                                  sourceKey: [:return_data, :fundingPackages, :fundingStack, :public, :currentAmount]
                                 },
                                 reason: {
                                   title: 'Reason for variance',
@@ -1844,7 +1862,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                 lastReturn: {
                                   title: 'Last Return Amount',
                                   type: 'string',
-                                  sourceKey: [:return_data, :fundingPackages, :fundingStack, :private, :current]
+                                  sourceKey: [:return_data, :fundingPackages, :fundingStack, :private, :currentAmount]
                                 },
                                 anyChangeToBaseline: {
                                   type: 'object',
@@ -1894,6 +1912,12 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                   title: 'Total - Current return',
                                   type: 'string',
                                   currency: true
+                                },
+                                currentAmount: {
+                                  type: 'string',
+                                  title: '',
+                                  hidden: true,
+                                  sourceKey: [:return_data, :fundingPackages, :fundingStack, :private, :currentAmount]
                                 },
                                 reason: {
                                   title: 'Reason for variance',

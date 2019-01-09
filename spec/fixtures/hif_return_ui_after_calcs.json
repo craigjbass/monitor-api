@@ -299,6 +299,7 @@
             "variance": {
               "baseline": "2333",
               "current": "7685",
+              "currentAmount": "7654",
               "lastReturn": "1234"
             },
             "varianceReason": "a reason"
@@ -317,6 +318,7 @@
           },
           "variance": {
             "current": "567329",
+            "currentAmount": "567329",
             "lastReturn": "0",
             "baseline": "0"
           },
@@ -348,6 +350,7 @@
             "variance": {
               "baselineVariance": "2345",
               "current": "756",
+              "currentAmount": "5678",
               "lastReturnVariance": "12345"
             }
           },
@@ -372,6 +375,7 @@
             "variance": {
               "baselineVariance": "2345",
               "current": "756",
+              "currentAmount": "9876",
               "lastReturnVariance": "12345"
             }
           },

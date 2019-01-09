@@ -282,6 +282,7 @@
         "hifSpend": {
           "baseline": "10000",
           "current": "7685",
+          "currentAmount": "7654",
           "lastReturn": "783273",
           "anyChangeToBaseline": {
             "confirmation": "Yes",
@@ -295,6 +296,7 @@
         "totalCost": {
           "baseline": "20000",
           "lastReturn": "10000",
+          "currentAmount": "567329",
           "current": "567329",
           "anyChange": "Yes",
           "variance": {
@@ -338,6 +340,7 @@
             "remainingToBeSecured": "12321",
             "securedAgainstBaseline": "122"
           },
+          "currentAmount": "5678",
           "current": "756",
           "reason": "298",
           "amountSecured": "45782",
@@ -361,6 +364,7 @@
             "securedAgainstBaseline": "12"
           },
           "current": "756",
+          "currentAmount": "9876",
           "reason": "298",
           "amountSecured": "45782",
           "comparisons": {

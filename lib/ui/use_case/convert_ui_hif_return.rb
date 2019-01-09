@@ -357,6 +357,7 @@ class UI::UseCase::ConvertUIHIFReturn
 
           unless package[:fundingStack][:hifSpend][:anyChangeToBaseline][:variance].nil?
             new_package[:fundingStack][:hifSpend][:current] = package[:fundingStack][:hifSpend][:anyChangeToBaseline][:variance][:current]
+            new_package[:fundingStack][:hifSpend][:currentAmount] = package[:fundingStack][:hifSpend][:anyChangeToBaseline][:variance][:currentAmount]
 
             new_package[:fundingStack][:hifSpend][:anyChangeToBaseline][:variance] = {
               baseline: package[:fundingStack][:hifSpend][:anyChangeToBaseline][:variance][:baseline],
@@ -388,6 +389,8 @@ class UI::UseCase::ConvertUIHIFReturn
 
         unless package[:fundingStack][:totalCost][:variance].nil?
           new_package[:fundingStack][:totalCost][:current] = package[:fundingStack][:totalCost][:variance][:current]
+          new_package[:fundingStack][:totalCost][:currentAmount] = package[:fundingStack][:totalCost][:variance][:currentAmount]
+
 
           new_package[:fundingStack][:totalCost][:variance] = {
             baseline: package[:fundingStack][:totalCost][:variance][:baseline],
@@ -440,6 +443,7 @@ class UI::UseCase::ConvertUIHIFReturn
           new_package[:fundingStack][:public][:reason] = package[:fundingStack][:public][:anyChangeToBaseline][:reason]
           unless package[:fundingStack][:public][:anyChangeToBaseline][:variance].nil?
             new_package[:fundingStack][:public][:current] = package[:fundingStack][:public][:anyChangeToBaseline][:variance][:current]
+            new_package[:fundingStack][:public][:currentAmount] = package[:fundingStack][:public][:anyChangeToBaseline][:variance][:currentAmount]
             new_package[:fundingStack][:public][:anyChangeToBaseline][:variance] = {
               baselineVariance: package[:fundingStack][:public][:anyChangeToBaseline][:variance][:baselineVariance],
               lastReturnVariance: package[:fundingStack][:public][:anyChangeToBaseline][:variance][:lastReturnVariance]
@@ -480,6 +484,8 @@ class UI::UseCase::ConvertUIHIFReturn
           new_package[:fundingStack][:private][:reason] = package[:fundingStack][:private][:anyChangeToBaseline][:reason]
           unless package[:fundingStack][:private][:anyChangeToBaseline][:variance].nil?
             new_package[:fundingStack][:private][:current] = package[:fundingStack][:private][:anyChangeToBaseline][:variance][:current]
+            new_package[:fundingStack][:private][:currentAmount] = package[:fundingStack][:private][:anyChangeToBaseline][:variance][:currentAmount]
+
             new_package[:fundingStack][:private][:anyChangeToBaseline][:variance] = {
               baselineVariance: package[:fundingStack][:private][:anyChangeToBaseline][:variance][:baselineVariance],
               lastReturnVariance: package[:fundingStack][:private][:anyChangeToBaseline][:variance][:lastReturnVariance]

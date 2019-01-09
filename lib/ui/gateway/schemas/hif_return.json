@@ -1854,7 +1854,7 @@
               "totalCost": {
                 "title": "",
                 "type": "object",
-                "calculation": "setCreate(formData, ['variance', 'baseline'], '' + parseMoney(get(formData, 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline'))); get(formData,'previousAmounts', 'lastReturn') ? setCreate(formData, ['variance', 'lastReturn'], '' + parseMoney(get(formData, 'variance', 'current')) - parseMoney(get(formData,'previousAmounts', 'lastReturn'))) : setCreate(formData, ['variance', 'lastReturn'], 'N/A');",
+                "calculation": "get(formData, 'anyChange') === 'Yes' ? setCreate(formData, ['variance', 'currentAmount'], get(formData, 'variance', 'current')) : setCreate(formData, ['variance', 'currentAmount'], get(formData, 'previousAmounts', 'lastReturn')); setCreate(formData, ['variance', 'baseline'], '' + parseMoney(get(formData, 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline'))); get(formData,'previousAmounts', 'lastReturn') ? setCreate(formData, ['variance', 'lastReturn'], '' + parseMoney(get(formData, 'variance', 'current')) - parseMoney(get(formData,'previousAmounts', 'lastReturn'))) : setCreate(formData, ['variance', 'lastReturn'], 'N/A');",
                 "properties": {
                   "previousAmounts": {
                     "type": "object",
@@ -1905,6 +1905,11 @@
                                 "type": "string",
                                 "title": "Current return",
                                 "currency": true
+                              },
+                              "currentAmount": {
+                                "type": "string",
+                                "title": "",
+                                "hidden": true
                               },
                               "baseline": {
                                 "type": "string",
@@ -2113,7 +2118,7 @@
                       },
                       "hifSpend": {
                         "title": "",
-                        "calculation": "setCreate(formData, ['anyChangeToBaseline', 'variance', 'baseline'], '' + parseMoney(get(formData,'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline')));get(formData,'previousAmounts', 'lastReturn') ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturn'], '' + parseMoney(get(formData,'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData,'previousAmounts', 'lastReturn'))) : setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturn'], 'N/A');",
+                        "calculation": "get(formData, 'anyChangeToBaseline', 'confirmation') === 'Yes' ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'currentAmount'], get(formData,'anyChangeToBaseline', 'variance', 'current')) : setCreate(formData, ['anyChangeToBaseline','variance', 'currentAmount'], get(formData, 'previousAmounts', 'lastReturn')); setCreate(formData, ['anyChangeToBaseline', 'variance', 'baseline'], '' + parseMoney(get(formData,'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline')));get(formData,'previousAmounts', 'lastReturn') ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturn'], '' + parseMoney(get(formData,'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData,'previousAmounts', 'lastReturn'))) : setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturn'], 'N/A');",
                         "type": "object",
                         "properties": {
                           "previousAmounts": {
@@ -2177,6 +2182,11 @@
                                             "title": "Current return",
                                             "currency": true
                                           },
+                                          "currentAmount": {
+                                            "type": "string",
+                                            "title": "",
+                                            "hidden": true
+                                          },
                                           "baseline": {
                                             "type": "string",
                                             "title": "Variance against baseline (£)",
@@ -2210,7 +2220,7 @@
                       "public": {
                         "title": "",
                         "type": "object",
-                        "calculation": "setCreate(formData, ['balancesSecured','remainingToBeSecured'], ''+parseMoney(get(formData, 'previousAmounts', 'baseline')) -parseMoney(get(formData, 'balancesSecured', 'amountSecured')));setCreate(formData, ['balancesSecured', 'securedAgainstBaseline'], calculateVariance(parseMoney(get(formData, 'balancesSecured', 'amountSecured')), parseMoney(get(formData, 'previousAmounts', 'baseline'))));setCreate(formData, ['anyChangeToBaseline', 'variance', 'baselineVariance'], ''+parseMoney(get(formData, 'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline'))); get(formData, 'previousAmounts', 'lastReturn') ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturnVariance'], ''+parseMoney(get(formData, 'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'lastReturn'))) : setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturnVariance'], 'N/A');",
+                        "calculation": "get(formData, 'anyChangeToBaseline', 'confirmation') === 'Yes' ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'currentAmount'], get(formData,'anyChangeToBaseline', 'variance', 'current')) : setCreate(formData, ['anyChangeToBaseline','variance', 'currentAmount'], get(formData, 'previousAmounts', 'lastReturn')); setCreate(formData, ['balancesSecured','remainingToBeSecured'], ''+parseMoney(get(formData, 'previousAmounts', 'baseline')) -parseMoney(get(formData, 'balancesSecured', 'amountSecured')));setCreate(formData, ['balancesSecured', 'securedAgainstBaseline'], calculateVariance(parseMoney(get(formData, 'balancesSecured', 'amountSecured')), parseMoney(get(formData, 'previousAmounts', 'baseline'))));setCreate(formData, ['anyChangeToBaseline', 'variance', 'baselineVariance'], ''+parseMoney(get(formData, 'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline'))); get(formData, 'previousAmounts', 'lastReturn') ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturnVariance'], ''+parseMoney(get(formData, 'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'lastReturn'))) : setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturnVariance'], 'N/A');",
                         "properties": {
                           "previousAmounts": {
                             "type": "object",
@@ -2265,6 +2275,11 @@
                                             "title": "Current Return",
                                             "type": "string",
                                             "currency": true
+                                          },
+                                          "currentAmount": {
+                                            "title": "",
+                                            "type": "string",
+                                            "hidden": true
                                           },
                                           "baselineVariance": {
                                             "title": "Variance Against Baseline",
@@ -2342,7 +2357,7 @@
                       "private": {
                         "title": "",
                         "type": "object",
-                        "calculation": "setCreate(formData, ['balancesSecured','remainingToBeSecured'], ''+parseMoney(get(formData, 'previousAmounts', 'baseline')) -parseMoney(get(formData, 'balancesSecured', 'amountSecured')));setCreate(formData, ['balancesSecured', 'securedAgainstBaseline'], calculateVariance(parseMoney(get(formData, 'balancesSecured', 'amountSecured')), parseMoney(get(formData, 'previousAmounts', 'baseline'))));setCreate(formData, ['anyChangeToBaseline', 'variance', 'baselineVariance'], ''+parseMoney(get(formData, 'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline'))); get(formData, 'previousAmounts', 'lastReturn') ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturnVariance'], ''+parseMoney(get(formData, 'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'lastReturn'))) : setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturnVariance'], 'N/A');",
+                        "calculation": "get(formData, 'anyChangeToBaseline', 'confirmation') === 'Yes' ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'currentAmount'], get(formData,'anyChangeToBaseline', 'variance', 'current')) : setCreate(formData, ['anyChangeToBaseline','variance', 'currentAmount'], get(formData, 'previousAmounts', 'lastReturn')); setCreate(formData, ['balancesSecured','remainingToBeSecured'], ''+parseMoney(get(formData, 'previousAmounts', 'baseline')) -parseMoney(get(formData, 'balancesSecured', 'amountSecured')));setCreate(formData, ['balancesSecured', 'securedAgainstBaseline'], calculateVariance(parseMoney(get(formData, 'balancesSecured', 'amountSecured')), parseMoney(get(formData, 'previousAmounts', 'baseline'))));setCreate(formData, ['anyChangeToBaseline', 'variance', 'baselineVariance'], ''+parseMoney(get(formData, 'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline'))); get(formData, 'previousAmounts', 'lastReturn') ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturnVariance'], ''+parseMoney(get(formData, 'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'lastReturn'))) : setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturnVariance'], 'N/A');",
                         "properties": {
                           "previousAmounts": {
                             "type": "object",
@@ -2397,6 +2412,11 @@
                                             "title": "Current Return",
                                             "type": "string",
                                             "currency": true
+                                          },
+                                          "currentAmount": {
+                                            "title": "",
+                                            "type": "string",
+                                            "hidden": true
                                           },
                                           "baselineVariance": {
                                             "title": "Variance Against Baseline",

@@ -289,6 +289,7 @@
             "confirmation": "Yes",
             "variance": {
               "current": "7685",
+              "currentAmount": "7654",
               "baseline": "2333",
               "lastReturn": "1234"
             },
@@ -303,6 +304,7 @@
           "anyChange": "Yes",
           "variance": {
             "current": "567329",
+            "currentAmount": "567329",
             "baseline": "0",
             "lastReturn": "0"
           },
@@ -337,6 +339,7 @@
             "confirmation": "Yes",
             "variance": {
               "current": "756",
+              "currentAmount": "5678",
               "baselineVariance": "2345",
               "lastReturnVariance": "12345"
             },
@@ -361,6 +364,7 @@
             "confirmation": "Yes",
             "variance": {
               "current": "756",
+              "currentAmount": "9876",
               "baselineVariance": "2345",
               "lastReturnVariance": "12345"
             },

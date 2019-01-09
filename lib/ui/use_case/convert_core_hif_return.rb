@@ -359,12 +359,14 @@ class UI::UseCase::ConvertCoreHIFReturn
             varianceReason: package[:fundingStack][:hifSpend][:anyChangeToBaseline][:varianceReason]
           }
 
+          new_package[:fundingStack][:hifSpend][:anyChangeToBaseline][:variance] = {
+            current: package[:fundingStack][:hifSpend][:current],
+            currentAmount: package[:fundingStack][:hifSpend][:currentAmount]
+          }
+
           unless package[:fundingStack][:hifSpend][:anyChangeToBaseline][:variance].nil?
-            new_package[:fundingStack][:hifSpend][:anyChangeToBaseline][:variance] = {
-              current: package[:fundingStack][:hifSpend][:current],
-              baseline: package[:fundingStack][:hifSpend][:anyChangeToBaseline][:variance][:baseline],
-              lastReturn: package[:fundingStack][:hifSpend][:anyChangeToBaseline][:variance][:lastReturn],
-            }
+            new_package[:fundingStack][:hifSpend][:anyChangeToBaseline][:variance][:baseline] = package[:fundingStack][:hifSpend][:anyChangeToBaseline][:variance][:baseline]
+            new_package[:fundingStack][:hifSpend][:anyChangeToBaseline][:variance][:lastReturn] = package[:fundingStack][:hifSpend][:anyChangeToBaseline][:variance][:lastReturn]
           end
         end
       end
@@ -387,12 +389,14 @@ class UI::UseCase::ConvertCoreHIFReturn
           }
         end
 
-        unless package[:fundingStack][:totalCost][:variance].nil?
-          new_package[:fundingStack][:totalCost][:variance] = {
+        new_package[:fundingStack][:totalCost][:variance] = {
             current: package[:fundingStack][:totalCost][:current],
-            baseline: package[:fundingStack][:totalCost][:variance][:baseline],
-            lastReturn: package[:fundingStack][:totalCost][:variance][:lastReturn]
+            currentAmount: package[:fundingStack][:totalCost][:currentAmount]
           }
+
+        unless package[:fundingStack][:totalCost][:variance].nil?
+          new_package[:fundingStack][:totalCost][:variance][:baseline] = package[:fundingStack][:totalCost][:variance][:baseline]
+          new_package[:fundingStack][:totalCost][:variance][:lastReturn] = package[:fundingStack][:totalCost][:variance][:lastReturn]
         end
       end
 
@@ -439,6 +443,7 @@ class UI::UseCase::ConvertCoreHIFReturn
           unless package[:fundingStack][:public][:anyChangeToBaseline][:variance].nil?
             new_package[:fundingStack][:public][:anyChangeToBaseline][:variance] = {
               current: package[:fundingStack][:public][:current],
+              currentAmount: package[:fundingStack][:public][:currentAmount],
               baselineVariance: package[:fundingStack][:public][:anyChangeToBaseline][:variance][:baselineVariance],
               lastReturnVariance: package[:fundingStack][:public][:anyChangeToBaseline][:variance][:lastReturnVariance]
             }
@@ -479,6 +484,7 @@ class UI::UseCase::ConvertCoreHIFReturn
           unless package[:fundingStack][:private][:anyChangeToBaseline][:variance].nil?
             new_package[:fundingStack][:private][:anyChangeToBaseline][:variance] = {
               current: package[:fundingStack][:private][:current],
+              currentAmount: package[:fundingStack][:private][:currentAmount],
               baselineVariance: package[:fundingStack][:private][:anyChangeToBaseline][:variance][:baselineVariance],
               lastReturnVariance: package[:fundingStack][:private][:anyChangeToBaseline][:variance][:lastReturnVariance]
             }

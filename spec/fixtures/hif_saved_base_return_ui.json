@@ -174,7 +174,13 @@
             "lastReturn": null
           },
           "anyChange": null,
-          "varianceReason": null
+          "varianceReason": null,
+          "variance": {
+            "current": null,
+            "currentAmount": null,
+            "baseline": null,
+            "lastReturn": null
+          }
         },
         "fundedThroughHIF": "No",
         "fundedThroughHIFbaseline": "No",
