@@ -471,6 +471,12 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                       items: {
                                         type: 'object',
                                         properties: {
+                                          detailsOfConsent: {
+                                            title: 'Details of Consent',
+                                            type: 'string',
+                                            readonly: true,
+                                            sourceKey: %i[baseline_data infrastructures statutoryConsents consents detailsOfConsent]
+                                          },
                                           baselineCompletion: {
                                             title: 'Baseline Target',
                                             type: 'string',

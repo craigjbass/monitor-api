@@ -71,6 +71,7 @@
             "statutoryConsents": [
               {
                 "baselineCompletion": "2020-01-01",
+                "detailsOfConsent": "A consent",
                 "varianceAgainstBaseline": "4",
                 "varianceAgainstLastReturn": "56",
                 "statusAgainstLastReturn": "On schedule",
