@@ -1568,20 +1568,31 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                       properties: {
                         currentReturn: {
                           title: "Current Return",
+                          type: "string",
                           currency: true
                         },
                         cumulativeIncCurrentReturn: {
                           title: "Cumulative Including Current Return",
+                          type: "string",
                           currency: true
                         },
                         cumulativeExCurrentReturn: {
                           title: "Cumulative Excluding Current Return",
-                          sourceKey: %i[return_data fundingPackages fundingStack hifSpendSinceLastReturn cumulativeIncCurrentReturn],
+                          sourceKey: %i[
+                            return_data
+                            fundingPackages
+                            fundingStack
+                            hifSpendSinceLastReturn
+                            cumulativeIncCurrentReturn
+                          ],
                           hidden: true,
-                          currency: true
+                          type: "string",
+                          currency: true,
+                          readonly: true
                         },
                         remaining: {
                           title: "Remaining",
+                          type: "string",
                           currency: true
                         }
                       }
@@ -1814,7 +1825,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                 balancesSecured: {
                                   remainingToBeSecured: {
                                     title: 'Remaining to be Secured',
-                                    type: 'string' 
+                                    type: 'string'
                                   },
                                   securedAgainstBaseline: {
                                     title: 'Secured Against Baseline',
@@ -1891,7 +1902,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                 balancesSecured: {
                                   remainingToBeSecured: {
                                     title: 'Remaining to be Secured',
-                                    type: 'string' 
+                                    type: 'string'
                                   },
                                   securedAgainstBaseline: {
                                     title: 'Secured Against Baseline',

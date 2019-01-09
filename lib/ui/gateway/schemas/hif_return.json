@@ -1848,7 +1848,7 @@
           "fundingStack": {
             "type": "object",
             "title": "Funding stack",
-            "calculation": "get(formData, 'anyChangeToDescription', 'confirmation') === 'Yes' ? set(formData, 'currentFundingStackDescription', get(formData, 'anyChangeToDescription', 'updatedFundingStack')) : set(formData, 'currentFundingStackDescription', get(formData, 'descriptionOfFundingStack')); set(formData['totalCost'], 'percentComplete', calculateVariance(parseMoney(get(formData,'totalCost', 'current')), parseMoney(get(formData,'totalCost', 'baseline'))));",
+            "calculation": "setCreate(formData, ['hifSpendSinceLastReturn', 'remaining'], ''+(parseMoney(get(formData, 'totalCost', 'previousAmounts', 'baseline')) - parseMoney(get(formData, 'hifSpendSinceLastReturn', 'cumulativeIncCurrentReturn')))); get(formData, 'anyChangeToDescription', 'confirmation') === 'Yes' ? set(formData, 'currentFundingStackDescription', get(formData, 'anyChangeToDescription', 'updatedFundingStack')) : set(formData, 'currentFundingStackDescription', get(formData, 'descriptionOfFundingStack')); set(formData['totalCost'], 'percentComplete', calculateVariance(parseMoney(get(formData,'totalCost', 'current')), parseMoney(get(formData,'totalCost', 'baseline'))));",
             "properties": {
               "currentFundingStackDescription": {
                 "type": "string",
@@ -2044,6 +2044,30 @@
                     ]
                   }
                 }
+              },
+              "hifSpendSinceLastReturn": {
+                "title": "HIF Spend Since Last Return",
+                "type": "object",
+                "calculation": "set(formData, 'cumulativeIncCurrentReturn', ''+sum(formData, 'currentReturn', 'cumulativeExCurrentReturn'));",
+                "properties": {
+                  "currentReturn": {
+                    "title": "Current Return",
+                    "type": "string",
+                    "currency": true
+                  },
+                  "cumulativeIncCurrentReturn": {
+                    "title": "Cumulative Including Current Return",
+                    "type": "string",
+                    "currency": true,
+                    "readonly": true
+                  },
+                  "remaining": {
+                    "title": "Remaining",
+                    "type": "string",
+                    "currency": true,
+                    "readonly": true
+                  }
+                }
               }
             },
             "dependencies": {
@@ -2106,36 +2130,6 @@
                                 }
                               }
                             ]
-                          }
-                        }
-                      },
-                      "hifSpendSinceLastReturn": {
-                        "title": "HIF Spend Since Last Return",
-                        "type": "object",
-                        "properties": {
-                          "currentReturn": {
-                            "title": "Current Return",
-                            "currency": true
-                          },
-                          "cumulativeIncCurrentReturn": {
-                            "title": "Cumulative Including Current Return",
-                            "currency": true
-                          },
-                          "cumulativeExCurrentReturn": {
-                            "title": "Cumulative Excluding Current Return",
-                            "sourceKey": [
-                              "return_data",
-                              "fundingPackages",
-                              "fundingStack",
-                              "hifSpendSinceLastReturn",
-                              "cumulativeIncCurrentReturn"
-                            ],
-                            "hidden": true,
-                            "currency": true
-                          },
-                          "remaining": {
-                            "title": "Remaining",
-                            "currency": true
                           }
                         }
                       },
