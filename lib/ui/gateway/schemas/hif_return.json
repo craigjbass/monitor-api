@@ -6036,7 +6036,6 @@
       "properties": {
         "recovery": {
           "title": "",
-          "calculation": "set(formData['expectedAmountToRecover'], 'varianceAgainstBaseline', subtract(formData['expectedAmountToRecover']['baselineAmount'], formData['expectedAmountToRecover']['currentReturn'])); set(formData['expectedAmountToRecover'], 'varianceAgainstLastReturn', subtract(formData['expectedAmountToRecover']['lastReturn'], formData['expectedAmountToRecover']['currentReturn']));",
           "type": "object",
           "properties": {
             "aimToRecoverFunding": {
@@ -6066,6 +6065,7 @@
                     },
                     "expectedAmountToRecover": {
                       "type": "object",
+                      "calculation": "set(formData, 'varianceAgainstBaseline', subtract(formData['baselineAmount'], formData['currentReturn'])); set(formData, 'varianceAgainstLastReturn', subtract(formData['lastReturn'], formData['currentReturn']));",
                       "title": "Expected Amount to Recover",
                       "properties": {
                         "baselineAmount": {
