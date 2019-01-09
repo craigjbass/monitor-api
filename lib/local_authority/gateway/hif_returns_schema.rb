@@ -1782,6 +1782,55 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                   currency: true,
                                   sourceKey: %i[baseline_data costs infrastructure totalPublic]
                                 },
+                                lastReturn: {
+                                  title: 'Last Return Amount',
+                                  type: 'string',
+                                  sourceKey: [:return_data, :fundingPackages, :fundingStack, :public, :current]
+                                },
+                                anyChangeToBaseline: {
+                                  type: 'object',
+                                  properties: {
+                                    confirmation: {
+                                      type: 'string',
+                                      enum: ['Yes', 'No']
+                                    },
+                                    variance: {
+                                      type: 'object',
+                                      properties: {
+                                        baselineVariance: {
+                                          title: 'Variance Against Baseline',
+                                          type: 'string',
+                                          readonly: true
+                                        },
+                                        lastReturnVariance: {
+                                          title: 'Variance Against Last Return',
+                                          type: 'string',
+                                          readonly: true
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                balancesSecured: {
+                                  remainingToBeSecured: {
+                                    title: 'Remaining to be Secured',
+                                    type: 'string' 
+                                  },
+                                  securedAgainstBaseline: {
+                                    title: 'Secured Against Baseline',
+                                    type: 'string'
+                                  }
+                                },
+                                comparisons: {
+                                  increaseOnLastReturn: {
+                                    title: 'Increase on Last Return',
+                                    type: 'string'
+                                  },
+                                  increaseOnLastReturnPercent: {
+                                    title: 'Increase on Last Return',
+                                    type: 'string'
+                                  }
+                                },
                                 current: {
                                   title: 'Total - Current return',
                                   type: 'string',
@@ -1809,6 +1858,55 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                   readonly: true,
                                   currency: true,
                                   sourceKey: %i[baseline_data costs infrastructure totalPrivate]
+                                },
+                                lastReturn: {
+                                  title: 'Last Return Amount',
+                                  type: 'string',
+                                  sourceKey: [:return_data, :fundingPackages, :fundingStack, :private, :current]
+                                },
+                                anyChangeToBaseline: {
+                                  type: 'object',
+                                  properties: {
+                                    confirmation: {
+                                      type: 'string',
+                                      enum: ['Yes', 'No']
+                                    },
+                                    variance: {
+                                      type: 'object',
+                                      properties: {
+                                        baselineVariance: {
+                                          title: 'Variance Against Baseline',
+                                          type: 'string',
+                                          readonly: true
+                                        },
+                                        lastReturnVariance: {
+                                          title: 'Variance Against Last Return',
+                                          type: 'string',
+                                          readonly: true
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                balancesSecured: {
+                                  remainingToBeSecured: {
+                                    title: 'Remaining to be Secured',
+                                    type: 'string' 
+                                  },
+                                  securedAgainstBaseline: {
+                                    title: 'Secured Against Baseline',
+                                    type: 'string'
+                                  }
+                                },
+                                comparisons: {
+                                  increaseOnLastReturn: {
+                                    title: 'Increase on Last Return',
+                                    type: 'string'
+                                  },
+                                  increaseOnLastReturnPercent: {
+                                    title: 'Increase on Last Return',
+                                    type: 'string'
+                                  }
                                 },
                                 current: {
                                   title: 'Total - Current return',
