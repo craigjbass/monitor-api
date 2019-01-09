@@ -1790,7 +1790,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                 balancesSecured: {
                                   remainingToBeSecured: {
                                     title: 'Remaining to be Secured',
-                                    type: 'string' 
+                                    type: 'string'
                                   },
                                   securedAgainstBaseline: {
                                     title: 'Secured Against Baseline',
@@ -1867,7 +1867,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                 balancesSecured: {
                                   remainingToBeSecured: {
                                     title: 'Remaining to be Secured',
-                                    type: 'string' 
+                                    type: 'string'
                                   },
                                   securedAgainstBaseline: {
                                     title: 'Secured Against Baseline',
@@ -4238,6 +4238,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           type: 'string',
                           s151WriteOnly: true,
                           title: 'Mitigation in place to reduce further slippage'
+                        },
+                        evidenceUpload: {
+                          title: "Evidence of Change to End Date",
+                          description: "Evidence can include invoices/ contracts/ accounting system print off. Please attach here.",
+                          uploadFile: "multiple",
+                          type: "string",
+                          s151WriteOnly: true
                         }
                       }
                     }

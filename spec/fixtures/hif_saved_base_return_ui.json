@@ -321,7 +321,8 @@
         "reasonForRequestOfDateChange": null,
         "requestedChangedEndDate": null,
         "varianceFromEndDateBaseline": null,
-        "mitigationInPlaceEndDate": null
+        "mitigationInPlaceEndDate": null,
+        "evidenceUpload": null
       },
       "hifFundingEndDate": "2020-01-01",
       "projectLongstopDate": "2020-01-01",
