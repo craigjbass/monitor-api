@@ -14,6 +14,7 @@ class UI::UseCase::ConvertCoreHIFReturn
     convert_s151_confirmation
     convert_rm_monthly_catchup
     convert_mr_review_tab
+    convert_hif_recovery_tab
 
     @converted_return
   end
@@ -919,12 +920,14 @@ class UI::UseCase::ConvertCoreHIFReturn
 
     unless @return[:reviewAndAssurance][:barriers].nil?
       @converted_return[:reviewAndAssurance][:barriers] = {}
-      @converted_return[:reviewAndAssurance][:barriers][:significantIssues] = @return[:reviewAndAssurance][:barriers][:significantIssues].map do |issue|
-        {
-          overview: issue[:overview],
-          barrierType: issue[:barrierType],
-          details: issue[:details]
-        }
+      unless @return[:reviewAndAssurance][:barriers][:significantIssues].nil?
+        @converted_return[:reviewAndAssurance][:barriers][:significantIssues] = @return[:reviewAndAssurance][:barriers][:significantIssues].map do |issue|
+          {
+            overview: issue[:overview],
+            barrierType: issue[:barrierType],
+            details: issue[:details]
+          }
+        end
       end
     end
 
@@ -933,5 +936,11 @@ class UI::UseCase::ConvertCoreHIFReturn
       @converted_return[:reviewAndAssurance][:recommendForRegularMonitoring][:isRecommendForRegularMonitoring] = @return[:reviewAndAssurance][:recommendForRegularMonitoring][:isRecommendForRegularMonitoring]
       @converted_return[:reviewAndAssurance][:recommendForRegularMonitoring][:reasonAndProposedFrequency] = @return[:reviewAndAssurance][:recommendForRegularMonitoring][:reasonAndProposedFrequency]
     end
+  end
+
+  def convert_hif_recovery_tab
+    return if @return[:hifRecovery].nil?
+
+    @converted_return[:hifRecovery] = @return[:hifRecovery]
   end
 end

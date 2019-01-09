@@ -2521,10 +2521,6 @@
                   }
                 ]
               }
-<<<<<<< HEAD
-
-=======
->>>>>>> Completed basic structure of page
             }
           }
         }
@@ -6065,7 +6061,7 @@
                       "type": "string",
                       "enum": ["Yes"]
                     },
-                    "exoectedAmountToRecover": {
+                    "expectedAmountToRecover": {
                       "type": "object",
                       "title": "Expected Amount to Recover",
                       "properties": {
