@@ -5341,5 +5341,150 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
 
   def add_hif_recovery_tab
     return if ENV['HIF_RECOVERY_TAB'].nil?
+    @return_template.schema[:properties][:hifRecovery] = {
+      title: "HIF Recovery",
+      type: "object",
+      properties: {
+        recovery: {
+          title: "",
+          type: "object",
+          properties: {
+            aimToRecoverFunding: {
+              title: "Aim to recover funding?",
+              radio: true,
+              enum: ["Yes", "No"]
+            }
+          },
+          dependencies: {
+            aimToRecoverFunding: {
+              oneOf: [
+                {
+                  properties: {
+                    aimToRecoverFunding: {
+                      type: "string",
+                      enum: ["No"]
+                    }
+                  }
+                },
+                {
+                  properties: {
+                    aimToRecoverFunding: {
+                      type: "string",
+                      enum: ["Yes"]
+                    },
+                    expectedAmountToRecover: {
+                      type: "object",
+                      title: "Expected Amount to Recover",
+                      properties: {
+                        baselineAmount: {
+                          title: "Baseline Amount",
+                          type: "string",
+                          readonly: true,
+                          currency: true
+                        },
+                        changeToBaseline: {
+                          title: "Any Change?",
+                          type: "string",
+                          enum: ["Yes", "No"],
+                          radio: true
+                        }
+                      },
+                      dependencies: {
+                        changeToBaseline: {
+                          oneOf: [
+                            {
+                              properties: {
+                                changeToBaseline: {
+                                  type: "string",
+                                  enum: ["No"]
+                                }
+                              }
+                            },
+                            {
+                              properties: {
+                                changeToBaseline: {
+                                  type: "string",
+                                  enum: ["Yes"]
+                                },
+                                currentReturn: {
+                                  title: "Current Return",
+                                  type: "string",
+                                  currency: true
+                                },
+                                lastReturn: {
+                                  title: "Last Return",
+                                  type: "string",
+                                  currency: true,
+                                  readonly: true
+                                },
+                                varianceAgainstBaseline: {
+                                  title: "Variance Against Baseline",
+                                  type: "string",
+                                  currency: true,
+                                  readonly: true
+                                },
+                                varianceAgainstLastReturn: {
+                                  title: "Variance Against Last Return",
+                                  type: "string",
+                                  currency: true,
+                                  readonly: true
+                                },
+                                reasonForVariance: {
+                                  title: "Reason for Variance",
+                                  type: "string",
+                                  extendedText: true
+                                },
+                                methodOfRecovery: {
+                                  title: "Method of Recovery",
+                                  type: "string"
+                                },
+                                amountRecovered: {
+                                  title: "Amount Recovered",
+                                  type: "object",
+                                  properties: {
+                                    currentReturn: {
+                                      title: "Current Return",
+                                      type: "string",
+                                      currency: true
+                                    },
+                                    cumulative: {
+                                      title: "Cumulative Amount",
+                                      type: "string",
+                                      currency: true,
+                                      readonly: true
+                                    },
+                                    remaining: {
+                                      title: "Remaining Amount",
+                                      type: "string",
+                                      currency: true,
+                                      readonly: true
+                                    },
+                                    useOfRecoveredFunding: {
+                                      title: "Use of Recovered Funding",
+                                      type: "string",
+                                      extendedText: true
+                                    },
+                                    planAttachment: {
+                                      title: "",
+                                      description: "Please attach the evidence here.",
+                                      uploadFile: "single",
+                                      type: "string"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
   end
 end

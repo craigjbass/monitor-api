@@ -32,9 +32,7 @@
               "housingSitesBenefitting": {
                 "type": "string",
                 "title": "Housing Sites Benefitting",
-                "sourceKey": [
-                  "baseline_data", "infrastructures", "type"
-                ],
+                "sourceKey": ["baseline_data", "infrastructures", "type"],
                 "readonly": true
               }
             }
@@ -511,11 +509,7 @@
                               "title": "Status against last return?",
                               "type": "string",
                               "radio": true,
-                              "enum": [
-                                "Completed",
-                                "On schedule",
-                                "Delayed"
-                              ],
+                              "enum": ["Completed", "On schedule", "Delayed"],
                               "default": "On schedule"
                             }
                           },
@@ -524,7 +518,9 @@
                               "oneOf": [
                                 {
                                   "properties": {
-                                    "statusAgainstLastReturn": { "enum": ["On schedule"] },
+                                    "statusAgainstLastReturn": {
+                                      "enum": ["On schedule"]
+                                    },
                                     "percentComplete": {
                                       "title": "Percentage complete",
                                       "type": "string",
@@ -534,7 +530,9 @@
                                 },
                                 {
                                   "properties": {
-                                    "statusAgainstLastReturn": { "enum": ["Completed"] },
+                                    "statusAgainstLastReturn": {
+                                      "enum": ["Completed"]
+                                    },
                                     "completionDate": {
                                       "title": "Completion date",
                                       "type": "string",
@@ -550,19 +548,37 @@
                                 },
                                 {
                                   "properties": {
-                                    "statusAgainstLastReturn": { "enum": ["Delayed"] },
+                                    "statusAgainstLastReturn": {
+                                      "enum": ["Delayed"]
+                                    },
                                     "currentReturn": {
                                       "title": "Current return",
                                       "type": "string",
                                       "format": "date",
-                                      "sourceKey": ["return_data", "infrastructures", "planning", "section106", "statutoryConsents", "statutoryConsents", "currentReturn"]
+                                      "sourceKey": [
+                                        "return_data",
+                                        "infrastructures",
+                                        "planning",
+                                        "section106",
+                                        "statutoryConsents",
+                                        "statutoryConsents",
+                                        "currentReturn"
+                                      ]
                                     },
                                     "previousReturn": {
                                       "title": "Previous Return",
                                       "readonly": true,
                                       "type": "string",
                                       "format": "date",
-                                      "sourceKey": ["return_data", "infrastructures", "planning", "section106", "statutoryConsents", "statutoryConsents", "currentReturn"]
+                                      "sourceKey": [
+                                        "return_data",
+                                        "infrastructures",
+                                        "planning",
+                                        "section106",
+                                        "statutoryConsents",
+                                        "statutoryConsents",
+                                        "currentReturn"
+                                      ]
                                     },
                                     "varianceAgainstBaseline": {
                                       "title": "Variance Against Baseline (weeks) (Calculated)",
@@ -2101,7 +2117,7 @@
                               {
                                 "properties": {
                                   "confirmation": {
-                                    "enum":["No"]
+                                    "enum": ["No"]
                                   }
                                 }
                               }
@@ -2196,8 +2212,7 @@
                                   },
                                   {
                                     "properties": {
-                                      "confirmation":
-                                      { "enum": ["No"] }
+                                      "confirmation": { "enum": ["No"] }
                                     }
                                   }
                                 ]
@@ -2506,7 +2521,10 @@
                   }
                 ]
               }
+<<<<<<< HEAD
 
+=======
+>>>>>>> Completed basic structure of page
             }
           }
         }
@@ -2530,7 +2548,7 @@
                   "confirmation": {
                     "title": "Is there a masterplan for the scheme?",
                     "type": "string",
-                    "enum":["Yes", "No"],
+                    "enum": ["Yes", "No"],
                     "radio": true
                   }
                 },
@@ -4962,19 +4980,19 @@
               "horizontal": true,
               "title": "Baseline Amounts",
               "properties": {
-                "quarter1":{
+                "quarter1": {
                   "type": "string",
                   "title": "Q1 Current Year"
                 },
-                "quarter2":{
+                "quarter2": {
                   "type": "string",
                   "title": "Q2 Current Year"
                 },
-                "quarter3":{
+                "quarter3": {
                   "type": "string",
                   "title": "Q3 Current Year"
                 },
-                "quarter4":{
+                "quarter4": {
                   "type": "string",
                   "title": "Q4 Current Year"
                 }
@@ -4985,19 +5003,19 @@
               "horizontal": true,
               "title": "Actual Amounts",
               "properties": {
-                "quarter1":{
+                "quarter1": {
                   "type": "string",
                   "title": "Q1 Current Year"
                 },
-                "quarter2":{
+                "quarter2": {
                   "type": "string",
                   "title": "Q2 Current Year"
                 },
-                "quarter3":{
+                "quarter3": {
                   "type": "string",
                   "title": "Q3 Current Year"
                 },
-                "quarter4":{
+                "quarter4": {
                   "type": "string",
                   "title": "Q4 Current Year"
                 }
@@ -5102,19 +5120,19 @@
               "horizontal": true,
               "title": "Baseline Amounts",
               "properties": {
-                "quarter1":{
+                "quarter1": {
                   "type": "string",
                   "title": "Q1 Current Year"
                 },
-                "quarter2":{
+                "quarter2": {
                   "type": "string",
                   "title": "Q2 Current Year"
                 },
-                "quarter3":{
+                "quarter3": {
                   "type": "string",
                   "title": "Q3 Current Year"
                 },
-                "quarter4":{
+                "quarter4": {
                   "type": "string",
                   "title": "Q4 Current Year"
                 }
@@ -5125,19 +5143,19 @@
               "horizontal": true,
               "title": "Actual Amounts",
               "properties": {
-                "quarter1":{
+                "quarter1": {
                   "type": "string",
                   "title": "Q1 Current Year"
                 },
-                "quarter2":{
+                "quarter2": {
                   "type": "string",
                   "title": "Q2 Current Year"
                 },
-                "quarter3":{
+                "quarter3": {
                   "type": "string",
                   "title": "Q3 Current Year"
                 },
-                "quarter4":{
+                "quarter4": {
                   "type": "string",
                   "title": "Q4 Current Year"
                 }
@@ -5273,7 +5291,11 @@
               "title": "SME",
               "percentage": true
             },
-            "mmcPercent": { "type": "string", "title": "MMC", "percentage": true }
+            "mmcPercent": {
+              "type": "string",
+              "title": "MMC",
+              "percentage": true
+            }
           }
         }
       }
@@ -5652,10 +5674,7 @@
           "title": "Was the assurance manager in attendance?",
           "type": "string",
           "radio": true,
-          "enum": [
-            "Yes",
-            "No"
-          ]
+          "enum": ["Yes", "No"]
         },
         "infrastructureDelivery": {
           "type": "array",
@@ -5674,13 +5693,7 @@
                 "type": "string",
                 "title": "Risk Rating",
                 "radio": true,
-                "enum": [
-                  "High",
-                  "Medium High",
-                  "Medium Low",
-                  "Low",
-                  "Achieved"
-                ]
+                "enum": ["High", "Medium High", "Medium Low", "Low", "Achieved"]
               }
             }
           }
@@ -5697,13 +5710,7 @@
               "type": "string",
               "title": "Risk Rating",
               "radio": true,
-              "enum": [
-                "High",
-                "Medium High",
-                "Medium Low",
-                "Low",
-                "Achieved"
-              ]
+              "enum": ["High", "Medium High", "Medium Low", "Low", "Achieved"]
             }
           }
         },
@@ -5719,13 +5726,7 @@
               "type": "string",
               "title": "Risk Rating",
               "radio": true,
-              "enum": [
-                "High",
-                "Medium High",
-                "Medium Low",
-                "Low",
-                "Achieved"
-              ]
+              "enum": ["High", "Medium High", "Medium Low", "Low", "Achieved"]
             }
           }
         },
@@ -5741,13 +5742,7 @@
               "type": "string",
               "title": "Risk Rating",
               "radio": true,
-              "enum": [
-                "High",
-                "Medium High",
-                "Medium Low",
-                "Low",
-                "Achieved"
-              ]
+              "enum": ["High", "Medium High", "Medium Low", "Low", "Achieved"]
             }
           }
         },
@@ -5780,7 +5775,7 @@
                   },
                   "overview": {
                     "title": "Overview",
-                    "type":"string",
+                    "type": "string",
                     "extendedText": true
                   }
                 },
@@ -5901,7 +5896,7 @@
                   },
                   "overview": {
                     "title": "Overview",
-                    "type":"string",
+                    "type": "string",
                     "extendedText": true
                   }
                 },
@@ -6014,8 +6009,7 @@
               "oneOf": [
                 {
                   "properties": {
-                    "isRecommendForRegularMonitoring":
-                    {
+                    "isRecommendForRegularMonitoring": {
                       "type": "string",
                       "enum": ["No"]
                     }
@@ -6031,6 +6025,151 @@
                       "title": "Reason And Proposed Frequency",
                       "type": "string",
                       "extendedText": true
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "hifRecovery": {
+      "title": "HIF Recovery",
+      "type": "object",
+      "properties": {
+        "recovery": {
+          "title": "",
+          "type": "object",
+          "properties": {
+            "aimToRecoverFunding": {
+              "title": "Aim to recover funding?",
+              "radio": true,
+              "enum": ["Yes", "No"]
+            }
+          },
+          "dependencies": {
+            "aimToRecoverFunding": {
+              "oneOf": [
+                {
+                  "properties": {
+                    "aimToRecoverFunding": {
+                      "type": "string",
+                      "enum": ["No"]
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "aimToRecoverFunding": {
+                      "type": "string",
+                      "enum": ["Yes"]
+                    },
+                    "exoectedAmountToRecover": {
+                      "type": "object",
+                      "title": "Expected Amount to Recover",
+                      "properties": {
+                        "baselineAmount": {
+                          "title": "Baseline Amount",
+                          "type": "string",
+                          "readonly": true,
+                          "currency": true
+                        },
+                        "changeToBaseline": {
+                          "title": "Any Change?",
+                          "type": "string",
+                          "enum": ["Yes", "No"],
+                          "radio": true
+                        }
+                      },
+                      "dependencies": {
+                        "changeToBaseline": {
+                          "oneOf": [
+                            {
+                              "properties": {
+                                "changeToBaseline": {
+                                  "type": "string",
+                                  "enum": ["No"]
+                                }
+                              }
+                            },
+                            {
+                              "properties": {
+                                "changeToBaseline": {
+                                  "type": "string",
+                                  "enum": ["Yes"]
+                                },
+                                "currentReturn": {
+                                  "title": "Current Return",
+                                  "type": "string",
+                                  "currency": true
+                                },
+                                "lastReturn": {
+                                  "title": "Last Return",
+                                  "type": "string",
+                                  "currency": true,
+                                  "readonly": true
+                                },
+                                "varianceAgainstBaseline": {
+                                  "title": "Variance Against Baseline",
+                                  "type": "string",
+                                  "currency": true,
+                                  "readonly": true
+                                },
+                                "varianceAgainstLastReturn": {
+                                  "title": "Variance Against Last Return",
+                                  "type": "string",
+                                  "currency": true,
+                                  "readonly": true
+                                },
+                                "reasonForVariance": {
+                                  "title": "Reason for Variance",
+                                  "type": "string",
+                                  "extendedText": true
+                                },
+                                "methodOfRecovery": {
+                                  "title": "Method of Recovery",
+                                  "type": "string"
+                                },
+                                "amountRecovered": {
+                                  "title": "Amount Recovered",
+                                  "type": "object",
+                                  "properties": {
+                                    "currentReturn": {
+                                      "title": "Current Return",
+                                      "type": "string",
+                                      "currency": true
+                                    },
+                                    "cumulative": {
+                                      "title": "Cumulative Amount",
+                                      "type": "string",
+                                      "currency": true,
+                                      "readonly": true
+                                    },
+                                    "remaining": {
+                                      "title": "Remaining Amount",
+                                      "type": "string",
+                                      "currency": true,
+                                      "readonly": true
+                                    },
+                                    "useOfRecoveredFunding": {
+                                      "title": "Use of Recovered Funding",
+                                      "type": "string",
+                                      "extendedText": true
+                                    },
+                                    "planAttachment": {
+                                      "title": "",
+                                      "description": "Please attach the evidence here.",
+                                      "uploadFile": "single",
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
                     }
                   }
                 }
