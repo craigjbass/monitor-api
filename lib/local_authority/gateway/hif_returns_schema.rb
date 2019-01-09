@@ -4439,7 +4439,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
               hidden: true
             },
             breakdownOfNextQuarterSpend: {
-              title: 'Evidence of Next Quarter Spend',
+              title: 'Breakdown of Next Quarter Spend',
               type: 'object',
               properties: {
                 forecast: {
