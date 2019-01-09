@@ -5454,6 +5454,12 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                       type: "string",
                                       currency: true
                                     },
+                                    previousCumulator: {
+                                      type: "string",
+                                      readonly: true,
+                                      hidden: true,
+                                      sourceKey: %i[return_data hifRecovery recovery expectedAmountToRecover amountRecovered cumulative]
+                                    },
                                     cumulative: {
                                       title: "Cumulative Amount",
                                       type: "string",

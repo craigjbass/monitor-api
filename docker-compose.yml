@@ -36,6 +36,7 @@ services:
       WIDER_SCHEME_TAB: 'yes'
       MR_REVIEW_TAB: 'yes'
       HIF_RECOVERY_TAB: 'yes'
+      NO_LOGS: 'yes'
 
   notify_simulator:
     build: .

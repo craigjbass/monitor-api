@@ -6065,7 +6065,7 @@
                     },
                     "expectedAmountToRecover": {
                       "type": "object",
-                      "calculation": "set(formData, 'varianceAgainstBaseline', subtract(formData['baselineAmount'], formData['currentReturn'])); set(formData, 'varianceAgainstLastReturn', subtract(formData['lastReturn'], formData['currentReturn']));",
+                      "calculation": "set(formData, 'varianceAgainstBaseline', subtract(formData['baselineAmount'], formData['currentReturn'])); set(formData, 'varianceAgainstLastReturn', subtract(formData['lastReturn'], formData['currentReturn'])); set(formData['amountRecovered'], 'remaining', subtract(formData['baselineAmount'], formData['amountRecovered']['cumulative']));",
                       "title": "Expected Amount to Recover",
                       "properties": {
                         "baselineAmount": {
@@ -6135,11 +6135,18 @@
                                 "amountRecovered": {
                                   "title": "Amount Recovered",
                                   "type": "object",
+                                  "calculation": "set(formData, 'cumulative', add(formData['currentReturn'], formData['previousCumulator']));",
                                   "properties": {
                                     "currentReturn": {
                                       "title": "Current Return",
                                       "type": "string",
                                       "currency": true
+                                    },
+                                    "previousCumulator": {
+                                      "type": "string",
+                                      "readonly": true,
+                                      "hidden": true,
+                                      "sourceKey": ["return_data", "hifRecovery", "recovery", "expectedAmountToRecover", "amountRecovered", "cumulative"]
                                     },
                                     "cumulative": {
                                       "title": "Cumulative Amount",
