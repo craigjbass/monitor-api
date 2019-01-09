@@ -1042,7 +1042,7 @@
                       "type": "string",
                       "format": "date",
                       "readonly": true,
-                      "title": "Completed Date"
+                      "title": "Baseline Target"
                     }
                   }
                 }
@@ -1851,8 +1851,8 @@
             "calculation": "get(formData, 'anyChangeToDescription', 'confirmation') === 'Yes' ? set(formData, 'currentFundingStackDescription', get(formData, 'anyChangeToDescription', 'updatedFundingStack')) : set(formData, 'currentFundingStackDescription', get(formData, 'descriptionOfFundingStack')); set(formData['totalCost'], 'percentComplete', calculateVariance(parseMoney(get(formData,'totalCost', 'current')), parseMoney(get(formData,'totalCost', 'baseline'))));",
             "properties": {
               "currentFundingStackDescription": {
-                "type": "string", 
-                "hidden": true, 
+                "type": "string",
+                "hidden": true,
                 "title": ""
               },
               "descriptionOfInfrastructure": {
@@ -2081,7 +2081,7 @@
                             "type": "string",
                             "radio": true,
                             "enum": ["Yes", "No"]
-                          } 
+                          }
                         },
                         "dependencies": {
                           "confirmation": {
@@ -2108,7 +2108,7 @@
                             ]
                           }
                         }
-                      },      
+                      },
                       "hifSpend": {
                         "title": "",
                         "calculation": "setCreate(formData, ['anyChangeToBaseline', 'variance', 'baseline'], '' + parseMoney(get(formData,'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline')));get(formData,'previousAmounts', 'lastReturn') ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturn'], '' + parseMoney(get(formData,'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData,'previousAmounts', 'lastReturn'))) : setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturn'], 'N/A');",
@@ -2196,7 +2196,7 @@
                                   },
                                   {
                                     "properties": {
-                                      "confirmation": 
+                                      "confirmation":
                                       { "enum": ["No"] }
                                     }
                                   }
@@ -2205,7 +2205,7 @@
                             }
                           }
                         }
-                      },     
+                      },
                       "public": {
                         "title": "Total Public",
                         "type": "object",
@@ -2308,7 +2308,7 @@
                   }
                 ]
               }
-              
+
             }
           }
         }
