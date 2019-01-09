@@ -29,6 +29,12 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                       title: 'Description',
                       sourceKey: %i[baseline_data infrastructures description],
                       readonly: true
+                    },
+                    housingSitesBenefitting: {
+                      type: "string",
+                      title: "Housing Sites Benefitting",
+                      sourceKey: %i[baseline_data infrastructures housingSitesBenefitting],
+                      readonly: true
                     }
                   }
                 },
@@ -80,16 +86,16 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                       type: 'string',
                                       readonly: true,
                                       hidden: true,
-                                      title: 'Variance against Baseline submitted date (Week) (Calculated)'
+                                      title: 'Variance Against Baseline Submitted Date (weeks) (Calculated)'
                                     },
                                     varianceLastReturnFullPlanningPermissionSubmitted: {
                                       type: 'string',
                                       readonly: true,
                                       hidden: true,
-                                      title: 'Variance against Last Return submitted date (Week) (Calculated)'
+                                      title: 'Variance Against Last Return Submitted Date (weeks) (Calculated)'
                                     },
                                     status: {
-                                      title: 'Status against last return?',
+                                      title: 'Status Against Last Return?',
                                       type: 'string',
                                       radio: true,
                                       enum: [
@@ -124,7 +130,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                       format: 'date',
                                       readonly: true,
                                       hidden: true,
-                                      title: 'Completed date (Calculated)'
+                                      title: 'Completed Date (Calculated)'
                                     },
                                     onCompletedReference: {
                                       type: 'string',
@@ -150,13 +156,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                       type: 'string',
                                       readonly: true,
                                       hidden: true,
-                                      title: 'Variance against Baseline granted date (Weeks) (Calculated)'
+                                      title: 'Variance Against Baseline Granted Date (weeks) (Calculated)'
                                     },
                                     varianceLastReturnFullPlanningPermissionGranted: {
                                       type: 'string',
                                       readonly: true,
                                       hidden: true,
-                                      title: 'Variance against Last Return granted date (Weeks) (Calculated)'
+                                      title: 'Variance Against Last Return Granted Date (weeks) (Calculated)'
                                     },
                                     status: {
                                       title: 'Status against last return?',
@@ -186,7 +192,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                     },
                                     percentComplete: {
                                       type: 'string',
-                                      title: 'Percent complete',
+                                      title: 'Percent Complete',
                                       percentage: true
                                     },
                                     completedDate: {
@@ -194,7 +200,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                       format: 'date',
                                       readonly: true,
                                       hidden: true,
-                                      title: 'Completed date (Calculated)'
+                                      title: 'Completed Date (Calculated)'
                                     }
                                   }
                                 }
@@ -268,13 +274,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                       type: 'string',
                                       readonly: true,
                                       hidden: true,
-                                      title: 'Variance against Baseline submitted date (Week) (Calculated)'
+                                      title: 'Variance Against Baseline Submitted Date (week) (Calculated)'
                                     },
                                     varianceLastReturnFullPlanningPermissionSubmitted: {
                                       type: 'string',
                                       readonly: true,
                                       hidden: true,
-                                      title: 'Variance against Last Return submitted date (Week) (Calculated)'
+                                      title: 'Variance Against Last Return Submitted Date (week) (Calculated)'
                                     },
                                     status: {
                                       title: 'Status against last return?',
@@ -304,7 +310,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                     },
                                     percentComplete: {
                                       type: 'string',
-                                      title: 'Percent complete',
+                                      title: 'Percent Complete',
                                       percentage: true
                                     },
                                     completedDate: {
@@ -312,7 +318,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                       format: 'date',
                                       readonly: true,
                                       hidden: true,
-                                      title: 'Completed date (Calculated)'
+                                      title: 'Completed Date (Calculated)'
                                     },
                                     onCompletedReference: {
                                       type: 'string',
@@ -338,13 +344,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                       type: 'string',
                                       readonly: true,
                                       hidden: true,
-                                      title: 'Variance against Baseline granted date (Weeks) (Calculated)'
+                                      title: 'Variance Against Baseline Granted Date (weeks) (Calculated)'
                                     },
                                     varianceLastReturnFullPlanningPermissionGranted: {
                                       type: 'string',
                                       readonly: true,
                                       hidden: true,
-                                      title: 'Variance against Last Return granted date (Weeks) (Calculated)'
+                                      title: 'Variance Against Last Return Granted Date (weeks) (Calculated)'
                                     },
                                     status: {
                                       title: 'Status against last return?',
@@ -374,7 +380,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                     },
                                     percentComplete: {
                                       type: 'string',
-                                      title: 'Percent complete',
+                                      title: 'Percent Complete',
                                       percentage: true
                                     },
                                     completedDate: {
@@ -382,7 +388,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                       format: 'date',
                                       readonly: true,
                                       hidden: true,
-                                      title: 'Completed date (Calculated)'
+                                      title: 'Completed Date (Calculated)'
                                     }
                                   }
                                 }
@@ -460,26 +466,27 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                       }
                                     },
                                     statutoryConsents: {
-                                      title: 'Current Statutory Consents',
+                                      title: 'Status of Statutory Consents',
                                       type: 'array',
                                       items: {
                                         type: 'object',
                                         properties: {
                                           baselineCompletion: {
-                                            title: 'Baseline completion',
+                                            title: 'Baseline Target',
                                             type: 'string',
                                             format: 'date',
-                                            sourceKey: %i[baseline_data infrastructures statutoryConsents consents targetDateToBeMet]
+                                            sourceKey: %i[baseline_data infrastructures statutoryConsents consents targetDateToBeMet],
+                                            readonly: true
                                           },
                                           varianceAgainstBaseline: {
                                             hidden: true,
-                                            title: 'Variance against baseline (Calculated)',
+                                            title: 'Variance Against Baseline (weeks) (Calculated)',
                                             type: 'string',
                                             readonly: true
                                           },
                                           varianceAgainstLastReturn: {
                                             hidden: true,
-                                            title: 'Variance against last return (Calculated)',
+                                            title: 'Variance Against Last Return (weeks) (Calculated)',
                                             type: 'string',
                                             readonly: true
                                           },
@@ -487,7 +494,8 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                           currentReturn: {
                                             title: 'Current return',
                                             type: 'string',
-                                            format: 'date'
+                                            format: 'date',
+                                            sourceKey: %i[return_data infrastructures planning section106 statutoryConsents statutoryConsents currentReturn]
                                           },
                                           previousReturn: {
                                             title: 'Previous Return',
@@ -497,17 +505,17 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                             sourceKey: %i[return_data infrastructures planning section106 statutoryConsents statutoryConsents currentReturn]
                                           },
                                           varianceReason: {
-                                            title: 'Reason for variance',
+                                            title: 'Reason for Variance',
                                             type: 'string'
                                           },
                                           percentComplete: {
-                                            title: 'Percentage complete',
+                                            title: 'Percentage Complete',
                                             type: 'string',
                                             percentage: true
                                           },
                                           completionDate: {
                                             hidden: true,
-                                            title: 'Completion date (Calculated)',
+                                            title: 'Completion Date (Calculated)',
                                             type: 'string',
                                             format: 'date',
                                             readonly: true
@@ -612,7 +620,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                             baseline: {
                                               type: 'string',
                                               format: 'date',
-                                              title: 'Baseline Completion',
+                                              title: 'Baseline Target',
                                               sourceKey: %i[baseline_data infrastructures landOwnership targetDateToAcquire],
                                               readonly: true
                                             },
@@ -625,14 +633,14 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                               type: 'string',
                                               readonly: true,
                                               hidden: true,
-                                              title: 'Variance Against Last Return (Calculated)'
+                                              title: 'Variance Against Last Return (weeks) (Calculated)'
                                             },
                                             # To be calculated
                                             landAssemblyVarianceAgainstBaseReturn: {
                                               type: 'string',
                                               readonly: true,
                                               hidden: true,
-                                              title: 'Variance Against Base Return (Calculated)'
+                                              title: 'Variance Against Base Return (weeks) (Calculated)'
                                             },
                                             status: {
                                               title: 'Status against last return?',
@@ -656,7 +664,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                             },
                                             percentComplete: {
                                               type: 'string',
-                                              title: 'Percent complete',
+                                              title: 'Percent Complete',
                                               percentage: true
                                             },
                                             completedDate: {
@@ -664,7 +672,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                               format: 'date',
                                               readonly: true,
                                               hidden: true,
-                                              title: 'On Completed date (Calculated)'
+                                              title: 'On Completed Date (Calculated)'
                                             }
                                           }
                                         }
@@ -741,7 +749,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                             procurementBaselineCompletion: {
                               type: 'string',
                               format: 'date',
-                              title: 'Target date of procuring',
+                              title: 'Target Date of Procuring',
                               sourceKey: %i[baseline_data infrastructures procurement targetDate],
                               readonly: true
                             },
@@ -749,20 +757,20 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                               type: 'string',
                               readonly: true,
                               hidden: true,
-                              title: 'Variance against last return (Calculated)'
+                              title: 'Variance Against Last Return (weeks) (Calculated)'
                             },
                             procurementVarianceAgainstBaseline: {
                               type: 'string',
                               readonly: true,
                               hidden: true,
-                              title: 'Variance against baseline (Calculated)'
+                              title: 'Variance Against Baseline (weeks) (Calculated)'
                             },
                             procurementStatusAgainstLastReturn: {
                               type: 'object',
                               title: 'Procurement Status Against Last Return',
                               properties: {
                                 statusAgainstLastReturn: {
-                                  title: 'Status against last return?',
+                                  title: 'Status Against Last Return?',
                                   type: 'string',
                                   radio: true,
                                   enum: [
@@ -780,12 +788,16 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                 reasonForVariance: {
                                   type: 'string',
                                   title: 'Reason for Variance'
+                                },
+                                previousReturn: {
+                                  type: "string",
+                                  sourceKey: %i[return_data infrastructures procurement procurementStatusAgainstLastReturn currentReturn]
                                 }
                               }
                             },
                             percentComplete: {
                               type: 'string',
-                              title: 'Percent complete',
+                              title: 'Percent Complete',
                               percentage: true
                             },
                             procurementCompletedDate: {
@@ -844,12 +856,12 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           milestoneVarianceAgainstLastReturn: {
                             type: 'string',
                             readonly: true,
-                            title: 'Variance against last return (Calculated)'
+                            title: 'Variance Against Last Return (Calculated)'
                           },
                           milestoneVarianceAgainstBaseline: {
                             type: 'string',
                             readonly: true,
-                            title: 'Variance against baseline (Calculated)'
+                            title: 'Variance Against Baseline (Calculated)'
                           },
                           statusAgainstLastReturn: status_against_last_return,
                           currentReturn: {
@@ -871,7 +883,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                             format: 'date',
                             readonly: true,
                             hidden: true,
-                            title: 'On Completed date (Calculated)'
+                            title: 'On Completed Date (Calculated)'
                           }
                         }
                       }
@@ -934,13 +946,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                             type: 'string',
                             readonly: true,
                             hidden: true,
-                            title: 'Variance against last return (Calculated)'
+                            title: 'Variance Against Last Return (weeks) (Calculated)'
                           },
                           milestoneVarianceAgainstBaseline: {
                             type: 'string',
                             readonly: true,
                             hidden: true,
-                            title: 'Variance against baseline (Calculated)'
+                            title: 'Variance Against Baseline (weeks) (Calculated)'
                           },
                           statusAgainstLastReturn: status_against_last_return,
                           currentReturn: {
@@ -954,7 +966,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           milestonePercentCompleted: {
                             type: 'string',
-                            title: 'Percent complete',
+                            title: 'Percent Complete',
                             percentage: true
                           },
                           milestoneCompletedDate: {
@@ -962,14 +974,14 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                             format: 'date',
                             readonly: true,
                             hidden: true,
-                            title: 'On Completed date (Calculated)'
+                            title: 'On Completed Date (Calculated)'
                           }
                         }
                       }
                     },
                     expectedInfrastructureStartOnSite: {
                       type: 'object',
-                      title: 'Expected infrastructure start on site',
+                      title: 'Expected Infrastructure Start on Site',
                       variance: true,
                       properties: {
                         baseline: {
@@ -987,13 +999,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           type: 'string',
                           readonly: true,
                           hidden: true,
-                          title: 'Variance against last return (Calculated)'
+                          title: 'Variance Against Last Return (weeks) (Calculated)'
                         },
                         varianceAgainstBaseline: {
                           type: 'string',
                           readonly: true,
                           hidden: true,
-                          title: 'Variance against baseline (Calculated)'
+                          title: 'Variance Against Baseline (weeks) (Calculated)'
                         },
                         status: {
                           title: 'Status against last return?',
@@ -1048,13 +1060,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           type: 'string',
                           readonly: true,
                           hidden: true,
-                          title: 'Variance against last return (Calculated)'
+                          title: 'Variance Against Last Return (weeks) (Calculated)'
                         },
                         varianceAgainstBaseline: {
                           type: 'string',
                           readonly: true,
                           hidden: true,
-                          title: 'Variance against baseline (Calculated)'
+                          title: 'Variance Against Baseline (weeks) (Calculated)'
                         },
                         status: {
                           title: 'Status against last return?',
@@ -1134,27 +1146,27 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           riskAnyChange: {
                             type: 'string',
-                            title: 'Any change in risk?',
+                            title: 'Any Change in Risk?',
                             radio: true,
                             enum: %w[Yes No]
                           },
                           riskCurrentReturnMitigationsInPlace: {
                             type: 'string',
-                            title: 'Current Return Mitigations in place'
+                            title: 'Current Return Mitigations in Place'
                           },
                           riskMetDate: {
                             type: 'string',
                             format: 'date',
                             readonly: true,
                             hidden: true,
-                            title: 'Risk met date (Calculated)'
+                            title: 'Risk Met Date (Calculated)'
                           }
                         }
                       }
                     },
                     additionalRisks: {
                       type: 'array',
-                      title: 'Any additional risks to baseline?',
+                      title: 'Any Additional Risks to Baseline?',
                       addable: true,
                       items: {
                         type: 'object',
@@ -1248,20 +1260,20 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           riskAnyChange: {
                             type: 'string',
-                            title: 'Any change in risk?',
+                            title: 'Any Change in Risk?',
                             radio: true,
                             enum: %w[Yes No]
                           },
                           riskCurrentReturnMitigationsInPlace: {
                             type: 'string',
-                            title: 'Current Return Mitigations in place'
+                            title: 'Current Return Mitigations in Place'
                           },
                           riskMetDate: {
                             type: 'string',
                             format: 'date',
                             readonly: true,
                             hidden: true,
-                            title: 'Risk met date (Calculated)'
+                            title: 'Risk Met Date (Calculated)'
                           }
                         }
                       }
@@ -1274,11 +1286,11 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                   properties: {
                     describeQuarterProgress: {
                       type: 'string',
-                      title: 'Describe progress for last quarter'
+                      title: 'Describe Progress for Last Quarter'
                     },
                     progressAgainstActions: {
                       type: 'array',
-                      title: 'Progress against Actions',
+                      title: 'Progress Against Actions',
                       items: {
                         type: 'object',
                         horizontal: true,
@@ -1288,7 +1300,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                             type: 'string',
                             readonly: true,
                             # from actions for next quarter
-                            title: 'Description of live action (Calculated)'
+                            title: 'Description of Live Action (Calculated)'
                           },
                           met: {
                             type: 'string',
@@ -1298,7 +1310,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           progress: {
                             type: 'string',
-                            title: 'Progress against action if not met'
+                            title: 'Progress Against Action if not Met'
                           }
                         }
                       }
@@ -1539,6 +1551,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
               type: 'object',
               title: 'Funding for Infrastructure',
               properties: {
+                descriptionOfInfrastructure: {
+                  title: "Description of Infrastructure",
+                  type: "string",
+                  extendedText: true,
+                  readonly: true,
+                  sourceKey: %i[baseline_data infrastructures description]
+                },
                 fundingStack: {
                   type: 'object',
                   title: 'Funding stack',
@@ -1566,6 +1585,29 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           readonly: true,
                           currency: true,
                           sourceKey: %i[return_data fundingPackages fundingStack hifSpend current]
+                        },
+                        anyChangeToBaseline: {
+                          type: 'object',
+                          properties: {
+                            confirmation: {
+                              type: 'string',
+                              enum: ['Yes', 'No']
+                            },
+                            varianceReason: {
+                              type: 'string'
+                            },
+                            variance: {
+                              type: 'object',
+                              properties: {
+                                baseline: {
+                                  type: 'string'
+                                },
+                                lastReturn: {
+                                  type: 'string'
+                                }
+                              }
+                            }
+                          }
                         }
                       }
                     },
@@ -1581,6 +1623,26 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           readonly: true,
                           currency: true
                         },
+                        lastReturn: {
+                          type: 'string',
+                          title: 'Last Return',
+                          sourceKey: %i[return_data fundingPackages fundingStack totalCost current]
+                        },
+                        anyChange: {
+                          type: 'string',
+                          enum: ['Yes', 'No']
+                        },
+                        variance: {
+                          type: 'object',
+                          properties: {
+                            baseline: {
+                              type: 'string'
+                            },
+                            lastReturn: {
+                              type: 'string'
+                            }
+                          }
+                        },
                         current: {
                           type: 'string',
                           title: 'Current return',
@@ -1590,10 +1652,23 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           type: 'string',
                           title: 'Reason for variance'
                         },
-                        percentComplete: {
-                          type: 'string',
-                          title: 'Percent complete',
-                          percentage: true
+                        areCostsFunded: {
+                          type: 'object',
+                          properties: {
+                            confirmation: {
+                              type: 'string',
+                              title: "If applicable, Are increased costs funded?",
+                              enum: ['Yes', 'No', 'N/A']
+                            },
+                            fundingExplanation: {
+                              type: 'string',
+                              title: 'How are you intending to fund additional costs?'
+                            },
+                            description: {
+                              type: 'string',
+                              title: 'Desciption of how increased costs are funded'
+                            }
+                          }
                         }
                       }
                     },
@@ -1604,6 +1679,22 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                       enum: %w[Yes No],
                       readonly: true,
                       sourceKey: %i[baseline_data costs infrastructure totallyFundedThroughHIF]
+                    },
+                    currentFundingStackDescription: {
+                      type: 'string'
+                    },
+                    anyChange: {
+                      type: 'object',
+                      properties: {
+                        confirmation: {
+                          type: 'string',
+                          title: 'Has position changed from baseline/ last return?',
+                        },
+                        descriptionOfChange: {
+                          type: 'string',
+                          title: 'Description of Change'
+                        }
+                      }
                     }
                   },
                   dependencies: {
@@ -1625,7 +1716,18 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                               type: 'string',
                               title: 'Description of funding stack',
                               readonly: true,
-                              sourceKey: %i[baseline_data costs infrastructure descriptionOfFundingStack]
+                              sourceKey: [:return_or_baseline, [:baseline_data, :costs, :infrastructure, :descriptionOfFundingStack], [:return_data, :fundingPackages, :fundingStack, :currentFundingStackDescription]]
+                            },
+                            anyChangeToDescription: {
+                              type: 'object',
+                              properties: {
+                                confirmation: {
+                                  type: 'string'
+                                },
+                                updatedFundingStack: {
+                                  type: 'string'
+                                }
+                              }
                             },
                             riskToFundingPackage: {
                               type: 'object',
@@ -1656,6 +1758,55 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                   currency: true,
                                   sourceKey: %i[baseline_data costs infrastructure totalPublic]
                                 },
+                                lastReturn: {
+                                  title: 'Last Return Amount',
+                                  type: 'string',
+                                  sourceKey: [:return_data, :fundingPackages, :fundingStack, :public, :current]
+                                },
+                                anyChangeToBaseline: {
+                                  type: 'object',
+                                  properties: {
+                                    confirmation: {
+                                      type: 'string',
+                                      enum: ['Yes', 'No']
+                                    },
+                                    variance: {
+                                      type: 'object',
+                                      properties: {
+                                        baselineVariance: {
+                                          title: 'Variance Against Baseline',
+                                          type: 'string',
+                                          readonly: true
+                                        },
+                                        lastReturnVariance: {
+                                          title: 'Variance Against Last Return',
+                                          type: 'string',
+                                          readonly: true
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                balancesSecured: {
+                                  remainingToBeSecured: {
+                                    title: 'Remaining to be Secured',
+                                    type: 'string'
+                                  },
+                                  securedAgainstBaseline: {
+                                    title: 'Secured Against Baseline',
+                                    type: 'string'
+                                  }
+                                },
+                                comparisons: {
+                                  increaseOnLastReturn: {
+                                    title: 'Increase on Last Return',
+                                    type: 'string'
+                                  },
+                                  increaseOnLastReturnPercent: {
+                                    title: 'Increase on Last Return',
+                                    type: 'string'
+                                  }
+                                },
                                 current: {
                                   title: 'Total - Current return',
                                   type: 'string',
@@ -1683,6 +1834,55 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                   readonly: true,
                                   currency: true,
                                   sourceKey: %i[baseline_data costs infrastructure totalPrivate]
+                                },
+                                lastReturn: {
+                                  title: 'Last Return Amount',
+                                  type: 'string',
+                                  sourceKey: [:return_data, :fundingPackages, :fundingStack, :private, :current]
+                                },
+                                anyChangeToBaseline: {
+                                  type: 'object',
+                                  properties: {
+                                    confirmation: {
+                                      type: 'string',
+                                      enum: ['Yes', 'No']
+                                    },
+                                    variance: {
+                                      type: 'object',
+                                      properties: {
+                                        baselineVariance: {
+                                          title: 'Variance Against Baseline',
+                                          type: 'string',
+                                          readonly: true
+                                        },
+                                        lastReturnVariance: {
+                                          title: 'Variance Against Last Return',
+                                          type: 'string',
+                                          readonly: true
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                balancesSecured: {
+                                  remainingToBeSecured: {
+                                    title: 'Remaining to be Secured',
+                                    type: 'string'
+                                  },
+                                  securedAgainstBaseline: {
+                                    title: 'Secured Against Baseline',
+                                    type: 'string'
+                                  }
+                                },
+                                comparisons: {
+                                  increaseOnLastReturn: {
+                                    title: 'Increase on Last Return',
+                                    type: 'string'
+                                  },
+                                  increaseOnLastReturnPercent: {
+                                    title: 'Increase on Last Return',
+                                    type: 'string'
+                                  }
                                 },
                                 current: {
                                   title: 'Total - Current return',
@@ -1823,12 +2023,60 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
           }
         },
         inYearHousingStarts: {
-          type: 'object',
-          title: 'In year housing starts',
+          type: "object",
+          title: "In Year Housing Starts",
           properties: {
-            risksToAchieving: {
-              type: 'string',
-              title: 'Risks to achieving'
+            baselineAmounts: {
+              type: "object",
+              horizontal: true,
+              title: "Baseline Amounts",
+              properties: {
+                quarter1:{
+                  type: "string",
+                  title: "Q1 Current Year"
+                },
+                quarter2:{
+                  type: "string",
+                  title: "Q2 Current Year"
+                },
+                quarter3:{
+                  type: "string",
+                  title: "Q3 Current Year"
+                },
+                quarter4:{
+                  type: "string",
+                  title: "Q4 Current Year"
+                }
+              }
+            },
+            actualAmounts: {
+              type: "object",
+              horizontal: true,
+              title: "Actual Amounts",
+              properties: {
+                quarter1:{
+                  type: "string",
+                  title: "Q1 Current Year"
+                },
+                quarter2:{
+                  type: "string",
+                  title: "Q2 Current Year"
+                },
+                quarter3:{
+                  type: "string",
+                  title: "Q3 Current Year"
+                },
+                quarter4:{
+                  type: "string",
+                  title: "Q4 Current Year"
+                }
+              }
+            },
+            progress: {
+              type: "string",
+              title: "Progress",
+              percentage: true,
+              readonly: true
             }
           }
         },
@@ -1904,16 +2152,64 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
             }
           }
         },
-        inYearHousingCompletions: {
-          type: 'object',
-          title: 'In year housing completions',
+        inYearHousingStarts: {
+          type: "object",
+          title: "In Year Housing Starts",
           properties: {
-            risksToAchieving: {
-              type: 'string',
-              title: 'Risks to achieving'
+            baselineAmounts: {
+              type: "object",
+              horizontal: true,
+              title: "Baseline Amounts",
+              properties: {
+                quarter1:{
+                  type: "string",
+                  title: "Q1 Current Year"
+                },
+                quarter2:{
+                  type: "string",
+                  title: "Q2 Current Year"
+                },
+                quarter3:{
+                  type: "string",
+                  title: "Q3 Current Year"
+                },
+                quarter4:{
+                  type: "string",
+                  title: "Q4 Current Year"
+                }
+              }
+            },
+            actualAmounts: {
+              type: "object",
+              horizontal: true,
+              title: "Actual Amounts",
+              properties: {
+                quarter1:{
+                  type: "string",
+                  title: "Q1 Current Year"
+                },
+                quarter2:{
+                  type: "string",
+                  title: "Q2 Current Year"
+                },
+                quarter3:{
+                  type: "string",
+                  title: "Q3 Current Year"
+                },
+                quarter4:{
+                  type: "string",
+                  title: "Q4 Current Year"
+                }
+              }
+            },
+            progress: {
+              type: "string",
+              title: "Progress",
+              percentage: true,
+              readonly: true
             }
           }
-        }
+        },
       }
     }
   end
@@ -2015,7 +2311,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
               landAssembly: {
                 type: "object",
                 title: "Land Assembly",
-                calculation: "get(formData, 'dates') ? set(formData, 'varianceAmount', daysPassed(get(formData, 'dates', 'expectedCompletion'), get(formData, 'dates', 'currentReturnCompletionDate'))) : ''",
+                calculation: "get(formData, 'dates') ? set(formData, 'varianceAmount', weeksPassed(get(formData, 'dates', 'expectedCompletion'), get(formData, 'dates', 'currentReturnCompletionDate'))) : ''",
                 properties: {
                   liveRisk: {
                     type: "string",
@@ -2058,7 +2354,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           varianceAmount: {
                             type: "string",
-                            title: "Variance Amount (days)",
+                            title: "Variance Amount (weeks)",
                             readonly: true
                           },
                           varianceReason: {
@@ -2189,7 +2485,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                 }
               },
               procurementInfrastructure: {
-                title: "Procurement- Infrastructure",
+                title: "Procurement - Infrastructure",
                 type: "object",
                 properties: {
                   liveRisk: {
@@ -2232,7 +2528,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           varianceAmount: {
                             type: "string",
-                            title: "Variance Amount (days)",
+                            title: "Variance Amount (weeks)",
                             readonly: true
                           },
                           varianceReason: {
@@ -2406,7 +2702,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           varianceAmount: {
                             type: "string",
-                            title: "Variance Amount (days)",
+                            title: "Variance Amount (weeks)",
                             readonly: true
                           },
                           varianceReason: {
@@ -2537,7 +2833,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                 }
               },
               deliveryInfrastructure: {
-                title: "Delivery- Infrastructure",
+                title: "Delivery - Infrastructure",
                 type: "object",
                 properties: {
                   liveRisk: {
@@ -2580,7 +2876,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           varianceAmount: {
                             type: "string",
-                            title: "Variance Amount (days)",
+                            title: "Variance Amount (weeks)",
                             readonly: true
                           },
                           varianceReason: {
@@ -2754,7 +3050,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           varianceAmount: {
                             type: "string",
-                            title: "Variance Amount (days)",
+                            title: "Variance Amount (weeks)",
                             readonly: true
                           },
                           varianceReason: {
@@ -2885,7 +3181,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                 }
               },
               planningHousing: {
-                title: "Planning- Housing",
+                title: "Planning - Housing",
                 type: "object",
                 properties: {
                   liveRisk: {
@@ -2928,7 +3224,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           varianceAmount: {
                             type: "string",
-                            title: "Variance Amount (days)",
+                            title: "Variance Amount (weeks)",
                             readonly: true
                           },
                           varianceReason: {
@@ -3102,7 +3398,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           varianceAmount: {
                             type: "string",
-                            title: "Variance Amount (days)",
+                            title: "Variance Amount (weeks)",
                             readonly: true
                           },
                           varianceReason: {
@@ -3276,7 +3572,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           varianceAmount: {
                             type: "string",
-                            title: "Variance Amount (days)",
+                            title: "Variance Amount (weeks)",
                             readonly: true
                           },
                           varianceReason: {
@@ -3438,7 +3734,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                     },
                     varianceAmount: {
                       type: "string",
-                      title: "Variance Amount (days)",
+                      title: "Variance Amount (weeks)",
                       readonly: true
                     },
                     varianceReason: {
@@ -3942,6 +4238,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           type: 'string',
                           s151WriteOnly: true,
                           title: 'Mitigation in place to reduce further slippage'
+                        },
+                        evidenceUpload: {
+                          title: "Evidence of Change to End Date",
+                          description: "Evidence can include invoices/ contracts/ accounting system print off. Please attach here.",
+                          uploadFile: "multiple",
+                          type: "string",
+                          s151WriteOnly: true
                         }
                       }
                     }
@@ -4066,16 +4369,20 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
             },
             hifSpendToDate: {
               type: 'string',
-              hidden: true,
               title: 'HIF Spend to Date',
-              s151WriteOnly: true,
-              currency: true
+              currency: true,
+              readonly: true,
+              sourceKey: %i[return_data s151 claimSummary runningClaimTotal]
             },
             AmountOfThisClaim: {
               type: 'string',
               title: 'Amount of this Claim',
               currency: true,
               s151WriteOnly: true
+            },
+            runningClaimTotal: {
+              type: 'string',
+              hidden: true
             }
           }
         },
@@ -4104,49 +4411,22 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                   title: '',
                   type: 'object',
                   properties: {
-                    hasVariance: {
-                      title: 'Does this vary to the forecasted amount?',
+                    varianceAgainstForecastAmount: {
+                      title: 'Variance Against Forecast',
                       type: 'string',
-                      radio: true,
                       s151WriteOnly: true,
-                      enum: %w[Yes No]
-                    }
-                  },
-                  dependencies: {
-                    hasVariance: {
-                      oneOf: [
-                        {
-                          properties: {
-                            hasVariance: {
-                              enum: ['No']
-                            }
-                          }
-                        },
-                        {
-                          properties: {
-                            hasVariance: {
-                              enum: ['Yes']
-                            },
-                            varianceAgainstForecastAmount: {
-                              title: 'Variance Against Forecast',
-                              type: 'string',
-                              s151WriteOnly: true,
-                              currency: true
-                            },
-                            varianceAgainstForecastPercentage: {
-                              title: 'Variance Against Forecast',
-                              type: 'string',
-                              s151WriteOnly: true,
-                              percentage: true
-                            },
-                            varianceReason: {
-                              title: 'Reason for Variance',
-                              s151WriteOnly: true,
-                              type: 'string'
-                            }
-                          }
-                        }
-                      ]
+                      currency: true
+                    },
+                    varianceAgainstForecastPercentage: {
+                      title: 'Variance Against Forecast',
+                      type: 'string',
+                      s151WriteOnly: true,
+                      percentage: true
+                    },
+                    varianceReason: {
+                      title: 'Reason for Variance',
+                      s151WriteOnly: true,
+                      type: 'string'
                     }
                   }
                 }
@@ -4159,7 +4439,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
               hidden: true
             },
             breakdownOfNextQuarterSpend: {
-              title: 'Evidence of Next Quarter Spend',
+              title: 'Breakdown of Next Quarter Spend',
               type: 'object',
               properties: {
                 forecast: {
@@ -4579,8 +4859,12 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
         previousStarts: {
           type: 'string',
           title: 'Previous Starts',
-          hidden: true,
-          readonly: true
+          readonly: true,
+          sourceKey: %i[return_data outputsActuals currentStarts]
+        },
+        currentStarts: {
+          type: 'string',
+          hidden: true
         },
         startsSinceLastReturn: {
           type: 'string',
@@ -4589,8 +4873,12 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
         previousCompletions: {
           type: 'string',
           title: 'Previous Completions',
-          hidden: 'true',
-          readonly: 'true'
+          sourceKey: %i[return_data outputsActuals currentCompletions],
+          readonly: true
+        },
+        currentCompletions: {
+          type: 'string',
+          hidden: true
         },
         completionsSinceLastReturn: {
           type: 'string',

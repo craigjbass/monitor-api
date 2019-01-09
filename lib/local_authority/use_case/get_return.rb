@@ -31,7 +31,8 @@ class LocalAuthority::UseCase::GetReturn
         type: found_return.type,
         project_id: found_return.project_id,
         status: found_return.status,
-        updates: updates.map(&:data)
+        updates: updates.map(&:data),
+        timestamp: found_return.timestamp
       }
     end
   end

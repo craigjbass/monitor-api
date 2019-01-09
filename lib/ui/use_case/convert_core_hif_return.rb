@@ -46,7 +46,7 @@ class UI::UseCase::ConvertCoreHIFReturn
         planningSubmitted: planning[:outlinePlanning][:planningSubmitted],
         planningGranted: planning[:outlinePlanning][:planningGranted],
         reference: planning[:outlinePlanning][:reference]
-        
+
       }
     end
 
@@ -101,21 +101,24 @@ class UI::UseCase::ConvertCoreHIFReturn
       contractorProcured: procurement[:contractorProcured],
       nameOfContractor: procurement[:nameOfContractor],
       summaryOfCriticalPath: procurement[:summaryOfCriticalPath],
-      procurementBaselineCompletion: procurement[:procurementBaselineCompletion],
-      procurementVarianceAgainstLastReturn: procurement[:procurementVarianceAgainstLastReturn],
-      procurementVarianceAgainstBaseline: procurement[:procurementVarianceAgainstBaseline],
-      percentComplete: procurement[:percentComplete],
-      procurementCompletedDate: procurement[:procurementCompletedDate],
-      procurementCompletedNameOfContractor: procurement[:procurementCompletedNameOfContractor]
     }
+    new_procurement[:procurementStatusAgainstLastReturn] = {}
 
     unless procurement[:procurementStatusAgainstLastReturn].nil?
       new_procurement[:procurementStatusAgainstLastReturn] = {
-        statusAgainstLastReturn: procurement[:procurementStatusAgainstLastReturn][:statusAgainstLastReturn],
-        currentReturn: procurement[:procurementStatusAgainstLastReturn][:currentReturn],
-        reasonForVariance: procurement[:procurementStatusAgainstLastReturn][:reasonForVariance]
+        status: procurement[:procurementStatusAgainstLastReturn][:statusAgainstLastReturn],
+        current: procurement[:procurementStatusAgainstLastReturn][:currentReturn],
+        reason: procurement[:procurementStatusAgainstLastReturn][:reasonForVariance],
+        previousReturn: procurement[:procurementStatusAgainstLastReturn][:previousReturn]
       }
     end
+
+    new_procurement[:procurementStatusAgainstLastReturn][:baseline] = procurement[:procurementBaselineCompletion]
+    new_procurement[:procurementStatusAgainstLastReturn][:procurementVarianceAgainstLastReturn] = procurement[:procurementVarianceAgainstLastReturn]
+    new_procurement[:procurementStatusAgainstLastReturn][:procurementVarianceAgainstBaseline] = procurement[:procurementVarianceAgainstBaseline]
+    new_procurement[:procurementStatusAgainstLastReturn][:percentComplete] = procurement[:percentComplete]
+    new_procurement[:procurementStatusAgainstLastReturn][:completedDate] = procurement[:procurementCompletedDate]
+    new_procurement[:procurementStatusAgainstLastReturn][:onCompletedNameOfContractor] = procurement[:procurementCompletedNameOfContractor]
 
     new_procurement
   end
@@ -340,26 +343,79 @@ class UI::UseCase::ConvertCoreHIFReturn
     @converted_return[:fundingPackages] = @return[:fundingPackages].map do |package|
       new_package = {}
       next if package[:fundingStack].nil?
-      new_package[:fundingStack] = {}
+      new_package[:fundingStack] = {
+        descriptionOfInfrastructure: package[:descriptionOfInfrastructure]
+      }
       unless package[:fundingStack][:hifSpend].nil?
         new_package[:fundingStack][:hifSpend] = {
-          baseline: package[:fundingStack][:hifSpend][:baseline],
-          current: package[:fundingStack][:hifSpend][:current],
-          lastReturn: package[:fundingStack][:hifSpend][:lastReturn]
+          previousAmounts: {
+            baseline: package[:fundingStack][:hifSpend][:baseline],
+            lastReturn: package[:fundingStack][:hifSpend][:lastReturn]
+          }
         }
+        unless package[:fundingStack][:hifSpend][:anyChangeToBaseline].nil?
+          new_package[:fundingStack][:hifSpend][:anyChangeToBaseline] = {
+            confirmation: package[:fundingStack][:hifSpend][:anyChangeToBaseline][:confirmation],
+            varianceReason: package[:fundingStack][:hifSpend][:anyChangeToBaseline][:varianceReason]
+          }
+
+          unless package[:fundingStack][:hifSpend][:anyChangeToBaseline][:variance].nil?
+            new_package[:fundingStack][:hifSpend][:anyChangeToBaseline][:variance] = {
+              current: package[:fundingStack][:hifSpend][:current],
+              baseline: package[:fundingStack][:hifSpend][:anyChangeToBaseline][:variance][:baseline],
+              lastReturn: package[:fundingStack][:hifSpend][:anyChangeToBaseline][:variance][:lastReturn],
+            }
+          end
+        end
+
+
       end
 
       unless package[:fundingStack][:totalCost].nil?
         new_package[:fundingStack][:totalCost] = {
-          baseline: package[:fundingStack][:totalCost][:baseline],
-          current: package[:fundingStack][:totalCost][:current],
-          varianceReason: package[:fundingStack][:totalCost][:varianceReason],
-          percentComplete: package[:fundingStack][:totalCost][:percentComplete]
+          previousAmounts: {
+            baseline: package[:fundingStack][:totalCost][:baseline],
+            lastReturn: package[:fundingStack][:totalCost][:lastReturn],
+          },
+          anyChange: package[:fundingStack][:totalCost][:anyChange],
+          varianceReason: package[:fundingStack][:totalCost][:varianceReason]
         }
+
+        unless package[:fundingStack][:totalCost][:areCostsFunded].nil?
+          new_package[:fundingStack][:totalCost][:areCostsFunded] = {
+            confirmation: package[:fundingStack][:totalCost][:areCostsFunded][:confirmation],
+            fundingExplanation: package[:fundingStack][:totalCost][:areCostsFunded][:fundingExplanation],
+            description: package[:fundingStack][:totalCost][:areCostsFunded][:description]
+          }
+        end
+
+        unless package[:fundingStack][:totalCost][:variance].nil?
+          new_package[:fundingStack][:totalCost][:variance] = {
+            current: package[:fundingStack][:totalCost][:current],
+            baseline: package[:fundingStack][:totalCost][:variance][:baseline],
+            lastReturn: package[:fundingStack][:totalCost][:variance][:lastReturn]
+          }
+        end
       end
 
       new_package[:fundingStack][:fundedThroughHIF] = package[:fundingStack][:fundedThroughHIF]
+
+      unless package[:fundingStack][:anyChange].nil?
+        new_package[:fundingStack][:anyChange] = {
+          confirmation: package[:fundingStack][:anyChange][:confirmation],
+          descriptionOfChange: package[:fundingStack][:anyChange][:descriptionOfChange]
+        }
+      end
+
       new_package[:fundingStack][:descriptionOfFundingStack] = package[:fundingStack][:descriptionOfFundingStack]
+      new_package[:fundingStack][:currentFundingStackDescription] = package[:fundingStack][:currentFundingStackDescription]
+
+      unless package[:fundingStack][:anyChangeToDescription].nil?
+        new_package[:fundingStack][:anyChangeToDescription] = {
+          confirmation: package[:fundingStack][:anyChangeToDescription][:confirmation],
+          updatedFundingStack: package[:fundingStack][:anyChangeToDescription][:updatedFundingStack]
+        }
+      end
 
       unless package[:fundingStack][:riskToFundingPackage].nil?
         new_package[:fundingStack][:riskToFundingPackage] = {
@@ -370,20 +426,80 @@ class UI::UseCase::ConvertCoreHIFReturn
 
       unless package[:fundingStack][:public].nil?
         new_package[:fundingStack][:public] = {
-          baseline: package[:fundingStack][:public][:baseline],
-          current: package[:fundingStack][:public][:current],
-          reason: package[:fundingStack][:public][:reason],
-          amountSecured: package[:fundingStack][:public][:amountSecured]
+          previousAmounts: {
+            baseline: package[:fundingStack][:public][:baseline],
+            lastReturn: package[:fundingStack][:public][:lastReturn]
+          }
         }
+
+        unless package[:fundingStack][:public][:anyChangeToBaseline].nil?
+          new_package[:fundingStack][:public][:anyChangeToBaseline] = {
+            reason: package[:fundingStack][:public][:reason],
+            confirmation: package[:fundingStack][:public][:anyChangeToBaseline][:confirmation]
+          }
+          unless package[:fundingStack][:public][:anyChangeToBaseline][:variance].nil?
+            new_package[:fundingStack][:public][:anyChangeToBaseline][:variance] = {
+              current: package[:fundingStack][:public][:current],
+              baselineVariance: package[:fundingStack][:public][:anyChangeToBaseline][:variance][:baselineVariance],
+              lastReturnVariance: package[:fundingStack][:public][:anyChangeToBaseline][:variance][:lastReturnVariance]
+            }
+          end
+        end
+
+        unless package[:fundingStack][:public][:balancesSecured].nil?
+          new_package[:fundingStack][:public][:balancesSecured] = {
+            amountSecured: package[:fundingStack][:public][:amountSecured],
+            remainingToBeSecured: package[:fundingStack][:public][:balancesSecured][:remainingToBeSecured],
+            securedAgainstBaseline: package[:fundingStack][:public][:balancesSecured][:securedAgainstBaseline]
+          }
+        end
+
+        unless package[:fundingStack][:public][:comparisons].nil?
+          new_package[:fundingStack][:public][:comparisons] = {
+            increaseOnLastReturn: package[:fundingStack][:public][:comparisons][:increaseOnLastReturn],
+            increaseOnLastReturnPercent: package[:fundingStack][:public][:comparisons][:increaseOnLastReturnPercent]
+          }
+        end
       end
 
       unless package[:fundingStack][:private].nil?
         new_package[:fundingStack][:private] = {
-          baseline: package[:fundingStack][:private][:baseline],
-          current: package[:fundingStack][:private][:current],
-          reason: package[:fundingStack][:private][:reason],
-          amountSecured: package[:fundingStack][:private][:amountSecured]
+          previousAmounts: {
+            baseline: package[:fundingStack][:private][:baseline],
+            lastReturn: package[:fundingStack][:private][:lastReturn]
+          }
         }
+
+        new_package[:fundingStack][:private][:anyChangeToBaseline] = {
+          reason: package[:fundingStack][:private][:reason]
+        }
+
+        unless package[:fundingStack][:private][:anyChangeToBaseline].nil?
+          new_package[:fundingStack][:private][:anyChangeToBaseline][:confirmation] = package[:fundingStack][:private][:anyChangeToBaseline][:confirmation]
+
+          unless package[:fundingStack][:private][:anyChangeToBaseline][:variance].nil?
+            new_package[:fundingStack][:private][:anyChangeToBaseline][:variance] = {
+              current: package[:fundingStack][:private][:current],
+              baselineVariance: package[:fundingStack][:private][:anyChangeToBaseline][:variance][:baselineVariance],
+              lastReturnVariance: package[:fundingStack][:private][:anyChangeToBaseline][:variance][:lastReturnVariance]
+            }
+          end
+        end
+
+        unless package[:fundingStack][:private][:balancesSecured].nil?
+          new_package[:fundingStack][:private][:balancesSecured] = {
+            amountSecured: package[:fundingStack][:private][:amountSecured],
+            remainingToBeSecured: package[:fundingStack][:private][:balancesSecured][:remainingToBeSecured],
+            securedAgainstBaseline: package[:fundingStack][:private][:balancesSecured][:securedAgainstBaseline]
+          }
+        end
+
+        unless package[:fundingStack][:private][:comparisons].nil?
+          new_package[:fundingStack][:private][:comparisons] = {
+            increaseOnLastReturn: package[:fundingStack][:private][:comparisons][:increaseOnLastReturn],
+            increaseOnLastReturnPercent: package[:fundingStack][:private][:comparisons][:increaseOnLastReturnPercent]
+          }
+        end
       end
 
       new_package
@@ -446,8 +562,10 @@ class UI::UseCase::ConvertCoreHIFReturn
       @converted_return[:widerScheme][0][:topRisks][:delivery] = convert_top_risk(@return[:widerScheme][0][:topRisks][:delivery])
       @converted_return[:widerScheme][0][:topRisks][:fundingPackage] = convert_top_risk(@return[:widerScheme][0][:topRisks][:fundingPackage])
 
-      @converted_return[:widerScheme][0][:topRisks][:additionalRisks] = @return[:widerScheme][0][:topRisks][:additionalRisks].map do |risk|
-        convert_top_risk(risk)
+      unless @return[:widerScheme][0][:topRisks][:additionalRisks].nil?
+        @converted_return[:widerScheme][0][:topRisks][:additionalRisks] = @return[:widerScheme][0][:topRisks][:additionalRisks].map do |risk|
+          convert_top_risk(risk)
+        end
       end
 
       @converted_return[:widerScheme][0][:topRisks][:progressLastQuarter] = @return[:widerScheme][0][:topRisks][:progressLastQuarter]
@@ -531,7 +649,9 @@ class UI::UseCase::ConvertCoreHIFReturn
 
     unless @return[:outputsForecast][:inYearHousingStarts].nil?
       @converted_return[:outputsForecast][:inYearHousingStarts] = {
-        risksToAchieving: @return[:outputsForecast][:inYearHousingStarts][:risksToAchieving]
+        baselineAmounts: @return[:outputsForecast][:inYearHousingStarts][:baselineAmounts],
+        actualAmounts: @return[:outputsForecast][:inYearHousingStarts][:actualAmounts],
+        progress: @return[:outputsForecast][:inYearHousingStarts][:progress]
       }
     end
 
@@ -558,7 +678,9 @@ class UI::UseCase::ConvertCoreHIFReturn
 
     unless @return[:outputsForecast][:inYearHousingCompletions].nil?
       @converted_return[:outputsForecast][:inYearHousingCompletions] = {
-        risksToAchieving: @return[:outputsForecast][:inYearHousingCompletions][:risksToAchieving]
+        baselineAmounts: @return[:outputsForecast][:inYearHousingCompletions][:baselineAmounts],
+        actualAmounts: @return[:outputsForecast][:inYearHousingCompletions][:actualAmounts],
+        progress: @return[:outputsForecast][:inYearHousingCompletions][:progress]
       }
     end
   end
@@ -568,18 +690,17 @@ class UI::UseCase::ConvertCoreHIFReturn
     @converted_return[:s151Confirmation] = {}
 
     unless @return[:s151Confirmation][:hifFunding].nil?
-      @converted_return[:s151Confirmation][:hifFunding] = {
-        hifTotalFundingRequest: @return[:s151Confirmation][:hifFunding][:hifTotalFundingRequest]
-      }
+      @converted_return[:s151Confirmation][:hifFunding] = {}
 
       @converted_return[:s151Confirmation][:hifFunding][:changesToRequest] = {
+        hifTotalFundingRequest: @return[:s151Confirmation][:hifFunding][:hifTotalFundingRequest],
         changesToRequestConfirmation: @return[:s151Confirmation][:hifFunding][:changesToRequest],
         requestedAmount: @return[:s151Confirmation][:hifFunding][:requestedAmount],
         reasonForRequest: @return[:s151Confirmation][:hifFunding][:reasonForRequest],
-        varianceFromBaseline: @return[:s151Confirmation][:hifFunding][:varianceFromBaseline],
         evidenceOfVariance: @return[:s151Confirmation][:hifFunding][:evidenceOfVariance],
+        mitigationInPlace: @return[:s151Confirmation][:hifFunding][:mitigationInPlace],
         varianceFromBaselinePercent: @return[:s151Confirmation][:hifFunding][:varianceFromBaselinePercent],
-        mitigationInPlace: @return[:s151Confirmation][:hifFunding][:mitigationInPlace]
+        variance: @return[:s151Confirmation][:hifFunding][:varianceFromBaseline]
       }
 
       @converted_return[:s151Confirmation][:hifFunding][:hifFundingProfile] = @return[:s151Confirmation][:hifFunding][:hifFundingProfile].map do |profile|
@@ -642,7 +763,8 @@ class UI::UseCase::ConvertCoreHIFReturn
       reasonForRequestOfDateChange: @return[:s151Confirmation][:submission][:reasonForRequestOfDateChange],
       requestedChangedEndDate: @return[:s151Confirmation][:submission][:requestedChangedEndDate],
       mitigationInPlaceEndDate: @return[:s151Confirmation][:submission][:mitigationInPlaceEndDate],
-      varianceFromEndDateBaseline: @return[:s151Confirmation][:submission][:varianceFromEndDateBaseline]
+      varianceFromEndDateBaseline: @return[:s151Confirmation][:submission][:varianceFromEndDateBaseline],
+      evidenceUpload: @return[:s151Confirmation][:submission][:evidenceUpload]
     }
   end
 
@@ -655,7 +777,8 @@ class UI::UseCase::ConvertCoreHIFReturn
         hifTotalFundingRequest: @return[:s151][:claimSummary][:hifTotalFundingRequest],
         hifSpendToDate: @return[:s151][:claimSummary][:hifSpendToDate],
         AmountOfThisClaim: @return[:s151][:claimSummary][:AmountOfThisClaim],
-        certifiedClaimForm: @return[:s151][:claimSummary][:certifiedClaimForm]
+        certifiedClaimForm: @return[:s151][:claimSummary][:certifiedClaimForm],
+        runningClaimTotal: @return[:s151][:claimSummary][:runningClaimTotal]
       }
     end
 
@@ -665,10 +788,14 @@ class UI::UseCase::ConvertCoreHIFReturn
       @converted_return[:s151][:supportingEvidence][:lastQuarterMonthSpend] = {
         forecast: @return[:s151][:supportingEvidence][:lastQuarterMonthSpend][:forecast],
         actual: @return[:s151][:supportingEvidence][:lastQuarterMonthSpend][:actual],
-        hasVariance: @return[:s151][:supportingEvidence][:lastQuarterMonthSpend][:hasVariance],
-        varianceAgainstForcastAmount: @return[:s151][:supportingEvidence][:lastQuarterMonthSpend][:varianceAgainstForcastAmount],
-        varianceAgainstForcastPercentage: @return[:s151][:supportingEvidence][:lastQuarterMonthSpend][:varianceAgainstForcastPercentage]
+        varianceReason: @return[:s151][:supportingEvidence][:lastQuarterMonthSpend][:varianceReason]
       }
+      unless @return[:s151][:supportingEvidence][:lastQuarterMonthSpend][:variance].nil?
+        @converted_return[:s151][:supportingEvidence][:lastQuarterMonthSpend][:variance] = {
+          varianceAgainstForcastAmount: @return[:s151][:supportingEvidence][:lastQuarterMonthSpend][:variance][:varianceAgainstForcastAmount],
+          varianceAgainstForcastPercentage: @return[:s151][:supportingEvidence][:lastQuarterMonthSpend][:variance][:varianceAgainstForcastPercentage]
+        }
+      end
     end
 
     @converted_return[:s151][:supportingEvidence][:evidenceOfSpendPastQuarter] = @return[:s151][:supportingEvidence][:evidenceOfSpendPastQuarter]
@@ -727,26 +854,36 @@ class UI::UseCase::ConvertCoreHIFReturn
 
   def convert_outputs_actuals
     return if @return[:outputsActuals].nil?
-    @converted_return[:outputsActuals] = {
-      details: {},
-      starts: {},
-      ownership: {},
-      percentages: {}
+    @converted_return[:outputsActuals] = {}
+
+    @converted_return[:outputsActuals][:details] = {
+      localAuthority: @return[:outputsActuals][:localAuthority],
+      noOfUnits: @return[:outputsActuals][:noOfUnits],
+      size: @return[:outputsActuals][:size]
     }
 
-    @converted_return[:outputsActuals][:details][:localAuthority] = @return[:outputsActuals][:localAuthority]
-    @converted_return[:outputsActuals][:details][:noOfUnits] = @return[:outputsActuals][:noOfUnits]
-    @converted_return[:outputsActuals][:details][:size] = @return[:outputsActuals][:size]
-    @converted_return[:outputsActuals][:starts][:previousStarts] = @return[:outputsActuals][:previousStarts]
-    @converted_return[:outputsActuals][:starts][:startsSinceLastReturn] = @return[:outputsActuals][:startsSinceLastReturn]
-    @converted_return[:outputsActuals][:starts][:previousCompletions] = @return[:outputsActuals][:previousCompletions]
-    @converted_return[:outputsActuals][:starts][:completionsSinceLastReturn] = @return[:outputsActuals][:completionsSinceLastReturn]
-    @converted_return[:outputsActuals][:ownership][:laOwned] = @return[:outputsActuals][:laOwned]
-    @converted_return[:outputsActuals][:ownership][:pslLand] = @return[:outputsActuals][:pslLand]
-    @converted_return[:outputsActuals][:percentages][:brownfieldPercent] = @return[:outputsActuals][:brownfieldPercent]
-    @converted_return[:outputsActuals][:percentages][:leaseholdPercent] = @return[:outputsActuals][:leaseholdPercent]
-    @converted_return[:outputsActuals][:percentages][:smePercent] = @return[:outputsActuals][:smePercent]
-    @converted_return[:outputsActuals][:percentages][:mmcPercent] = @return[:outputsActuals][:mmcPercent]
+    @converted_return[:outputsActuals][:starts] = {}
+
+    @converted_return[:outputsActuals][:starts][:starts] = {
+      previousStarts: @return[:outputsActuals][:previousStarts],
+      currentStarts: @return[:outputsActuals][:currentStarts],
+      startsSinceLastReturn: @return[:outputsActuals][:startsSinceLastReturn],
+      previousCompletions: @return[:outputsActuals][:previousCompletions],
+      currentCompletions: @return[:outputsActuals][:currentCompletions],
+      completionsSinceLastReturn: @return[:outputsActuals][:completionsSinceLastReturn]
+    }
+
+    @converted_return[:outputsActuals][:ownership] = {
+      laOwned: @return[:outputsActuals][:laOwned],
+      pslLand: @return[:outputsActuals][:pslLand]
+    }
+
+    @converted_return[:outputsActuals][:percentages] = {
+      brownfieldPercent: @return[:outputsActuals][:brownfieldPercent],
+      leaseholdPercent: @return[:outputsActuals][:leaseholdPercent],
+      smePercent: @return[:outputsActuals][:smePercent],
+      mmcPercent: @return[:outputsActuals][:mmcPercent]
+    }
   end
 
   def convert_mr_review_tab
@@ -754,11 +891,13 @@ class UI::UseCase::ConvertCoreHIFReturn
     @converted_return[:reviewAndAssurance] = {}
     @converted_return[:reviewAndAssurance][:date] = @return[:reviewAndAssurance][:date]
     @converted_return[:reviewAndAssurance][:assuranceManagerAttendance] = @return[:reviewAndAssurance][:assuranceManagerAttendance]
-    @converted_return[:reviewAndAssurance][:infrastructureDelivery] = @return[:reviewAndAssurance][:infrastructureDelivery].map do |delivery|
-      {
-        details: delivery[:details],
-        riskRating: delivery[:riskRating]
-      }
+    unless @return[:reviewAndAssurance][:infrastructureDelivery].nil?
+      @converted_return[:reviewAndAssurance][:infrastructureDelivery] = @return[:reviewAndAssurance][:infrastructureDelivery].map do |delivery|
+        {
+          details: delivery[:details],
+          riskRating: delivery[:riskRating]
+        }
+      end
     end
 
     unless @return[:reviewAndAssurance][:hifFundedFinancials].nil?
@@ -781,12 +920,14 @@ class UI::UseCase::ConvertCoreHIFReturn
 
     unless @return[:reviewAndAssurance][:barriers].nil?
       @converted_return[:reviewAndAssurance][:barriers] = {}
-      @converted_return[:reviewAndAssurance][:barriers][:significantIssues] = @return[:reviewAndAssurance][:barriers][:significantIssues].map do |issue|
-        {
-          overview: issue[:overview],
-          barrierType: issue[:barrierType],
-          details: issue[:details]
-        }
+      unless @return[:reviewAndAssurance][:barriers][:significantIssues].nil?
+        @converted_return[:reviewAndAssurance][:barriers][:significantIssues] = @return[:reviewAndAssurance][:barriers][:significantIssues].map do |issue|
+          {
+            overview: issue[:overview],
+            barrierType: issue[:barrierType],
+            details: issue[:details]
+          }
+        end
       end
     end
 

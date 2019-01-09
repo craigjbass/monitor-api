@@ -3,7 +3,8 @@
     {
       "summary": {
         "type": "A House",
-        "description": "A house of cats"
+        "description": "A house of cats",
+        "housingSitesBenefitting": "Housing Sites Benefitting"
       },
       "planning": {
         "outlinePlanning": {
@@ -121,6 +122,7 @@
   },
   "fundingPackages": [
     {
+      "descriptionOfInfrastructure": "A house of cats",
       "fundingStack": {
         "hifSpend": {
           "baseline": "10000"
@@ -162,6 +164,8 @@
     "noOfUnits": [
       "123"
     ],
+    "previousStarts": null,
+    "previousCompletions": null,
     "size": "10"
   },
   "s151Confirmation": {
@@ -198,7 +202,8 @@
       }
     },
     "claimSummary": {
-      "hifTotalFundingRequest": "10000"
+      "hifTotalFundingRequest": "10000",
+      "hifSpendToDate": null
     }
   }
 }

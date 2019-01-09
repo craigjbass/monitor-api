@@ -3,7 +3,8 @@
     {
       "summary": {
         "type": "A House",
-        "description": "A house of cats"
+        "description": "A house of cats",
+        "housingSitesBenefitting": "A benefiting housing site"
       },
       "planning": {
         "outlinePlanning": {
@@ -113,7 +114,8 @@
         "procurementStatusAgainstLastReturn": {
           "statusAgainstLastReturn": "Completed",
           "currentReturn": "2012-03-04",
-          "reasonForVariance": "It is slow"
+          "reasonForVariance": "It is slow",
+          "previousReturn": "12/12/12"
         },
         "percentComplete": "89",
         "procurementCompletedDate": "2013-07-05",
@@ -275,35 +277,95 @@
   },
   "fundingPackages": [
     {
+      "descriptionOfInfrastructure": "infras",
       "fundingStack": {
         "hifSpend": {
           "baseline": "10000",
           "current": "7685",
-          "lastReturn": "783273"
+          "lastReturn": "783273",
+          "anyChangeToBaseline": {
+            "confirmation": "Yes",
+            "varianceReason": "a reason",
+            "variance": {
+              "baseline": "2333",
+              "lastReturn": "1234"
+            }
+          }
         },
         "totalCost": {
           "baseline": "20000",
+          "lastReturn": "10000",
           "current": "567329",
-          "varianceReason": "No more money",
-          "percentComplete": "78"
+          "anyChange": "Yes",
+          "variance": {
+            "baseline": "0",
+            "lastReturn": "0"
+          },
+          "areCostsFunded": {
+            "confirmation": "Yes",
+            "fundingExplanation": "explaining",
+            "description": "describing"
+          },
+          "varianceReason": "No more money"
         },
+        "anyChange": {
+          "confirmation": "Yes",
+          "descriptionOfChange": "change"
+        },
+        "currentFundingStackDescription": "fund",
         "fundedThroughHIF": "No",
         "descriptionOfFundingStack": "Funding stack description",
+        "anyChangeToDescription": {
+          "confirmation": "Yes",
+          "updatedFundingStack": "update"
+        },
         "riskToFundingPackage": {
           "risk": "No more houses",
           "description": "build some"
         },
         "public": {
           "baseline": "5000",
+          "lastReturn": "1000",
+          "anyChangeToBaseline": {
+            "confirmation": "Yes",
+            "variance": {
+              "baselineVariance": "2345",
+              "lastReturnVariance": "12345"
+            }
+          },
+          "balancesSecured": {
+            "remainingToBeSecured": "12321",
+            "securedAgainstBaseline": "122"
+          },
           "current": "756",
           "reason": "298",
-          "amountSecured": "45782"
+          "amountSecured": "45782",
+          "comparisons": {
+            "increaseOnLastReturn": "34",
+            "increaseOnLastReturnPercent": "98"
+          }
         },
         "private": {
           "baseline": "5000",
+          "lastReturn": "1000",
+          "anyChangeToBaseline": {
+            "confirmation": "Yes",
+            "variance": {
+              "baselineVariance": "2345",
+              "lastReturnVariance": "12345"
+            }
+          },
+          "balancesSecured": {
+            "remainingToBeSecured": "12321",
+            "securedAgainstBaseline": "12"
+          },
           "current": "756",
           "reason": "298",
-          "amountSecured": "45782"
+          "amountSecured": "45782",
+          "comparisons": {
+            "increaseOnLastReturn": "34",
+            "increaseOnLastReturnPercent": "98"
+          }
         }
       }
     }
@@ -332,7 +394,19 @@
       ]
     },
     "inYearHousingStarts": {
-      "risksToAchieving": "A risk"
+      "baselineAmounts": {
+        "quarter1": "2",
+        "quarter2": "4",
+        "quarter3": "6",
+        "quarter4": "8"
+      },
+      "actualAmounts": {
+        "quarter1": "1",
+        "quarter2": "2",
+        "quarter3": "3",
+        "quarter4": "4"
+      },
+      "progress": "50"
     },
     "housingCompletions": {
       "baselineAmounts": [
@@ -352,7 +426,19 @@
       ]
     },
     "inYearHousingCompletions": {
-      "risksToAchieving": "none"
+      "baselineAmounts": {
+        "quarter1": "20",
+        "quarter2": "40",
+        "quarter3": "60",
+        "quarter4": "80"
+      },
+      "actualAmounts": {
+        "quarter1": "10",
+        "quarter2": "20",
+        "quarter3": "30",
+        "quarter4": "40"
+      },
+      "progress": "50"
     }
   },
   "widerScheme": [
@@ -663,6 +749,7 @@
       "requestedChangedEndDate": "3456-01-22",
       "varianceFromEndDateBaseline": "baselineing",
       "mitigationInPlaceEndDate": "changing date",
+      "evidenceUpload": "V2VsY29tZSBUbyBUaGUgQmxhY2sgUGFyYWRl",
       "reasonForRequestOfLongstopChange": "need to",
       "requestedLongstopEndDate": "1234-05-65",
       "varianceFromLongStopBaseline": "lots",
@@ -676,15 +763,18 @@
       "certifiedClaimForm": "some form",
       "hifTotalFundingRequest": "Funding",
       "hifSpendToDate": "1234-65-43",
-      "AmountOfThisClaim": "lots"
+      "AmountOfThisClaim": "lots",
+      "runningClaimTotal": "23"
     },
     "supportingEvidence": {
       "lastQuarterMonthSpend": {
         "forecast": "500",
         "actual": "400",
-        "hasVariance": "No",
-        "varianceAgainstForcastAmount": "456728",
-        "varianceAgainstForcastPercentage": "123456"
+        "varianceReason": "Areason",
+        "variance": {
+          "varianceAgainstForcastAmount": "456728",
+          "varianceAgainstForcastPercentage": "123456"
+        }
       },
       "evidenceOfSpendPastQuarter": "Much",
       "breakdownOfNextQuarterSpend": {
@@ -699,6 +789,8 @@
     "localAuthority": "Local Authority",
     "noOfUnits": "123",
     "size": "10",
+    "currentStarts": "768",
+    "currentCompletions": "345",
     "previousStarts": "starting",
     "startsSinceLastReturn": "5",
     "previousCompletions": "56",

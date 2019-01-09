@@ -6,15 +6,14 @@ module DeliveryMechanism
   class WebRoutes < Sinatra::Base
     before do
       @dependency_factory = Dependencies.dependency_factory
-      response.headers['Access-Control-Allow-Origin'] = '*'
     end
 
     after do
       @dependency_factory.database.disconnect
+      set_cors_header(response)
     end
 
     options '*' do
-      response.headers['Access-Control-Allow-Origin'] = '*'
       response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Accept, API_KEY'
       200
     end
@@ -399,5 +398,14 @@ module DeliveryMechanism
       !request_body.dig(:project_id).nil? &&
         !request_body.dig(:project_data).nil?
     end
+
+    def set_cors_header(response)
+      response.headers['Access-Control-Allow-Origin'] ||= get_cors_header()
+    end
+
+    def get_cors_header()
+      ENV['CORS_ORIGIN'] || '*'
+    end
+
   end
 end

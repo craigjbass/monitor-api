@@ -3,7 +3,8 @@
     {
       "summary": {
         "type": "A House",
-        "description": "A house of cats"
+        "description": "A house of cats",
+        "housingSitesBenefitting": "Housing Sites Benefitting"
       },
       "planning": {
         "outlinePlanning": {
@@ -67,12 +68,18 @@
         "contractorProcured": "Yes",
         "nameOfContractor": "Steve",
         "summaryOfCriticalPath": "Summary of critical meow",
-        "procurementBaselineCompletion": "2020-01-01",
-        "procurementVarianceAgainstLastReturn": null,
-        "procurementVarianceAgainstBaseline": null,
-        "percentComplete": null,
-        "procurementCompletedDate": null,
-        "procurementCompletedNameOfContractor": null
+        "procurementStatusAgainstLastReturn":{
+          "baseline": "2020-01-01",
+          "current": null,
+          "status": null,
+          "previousReturn": null,
+          "reason": null,
+          "procurementVarianceAgainstLastReturn": null,
+          "procurementVarianceAgainstBaseline": null,
+          "percentComplete": null,
+          "completedDate": null,
+          "onCompletedNameOfContractor": null
+        }
       },
       "milestones": {
         "keyMilestones": [
@@ -165,30 +172,39 @@
   "fundingPackages": [
     {
       "fundingStack": {
+        "descriptionOfInfrastructure": "A house of cats",
+        "currentFundingStackDescription": null,
         "hifSpend": {
-          "baseline": "10000",
-          "current": null,
-          "lastReturn": null
+          "previousAmounts": {
+            "baseline": "10000",
+            "lastReturn": null
+          }
         },
         "totalCost": {
-          "baseline": "20000",
-          "current": null,
-          "varianceReason": null,
-          "percentComplete": null
+          "previousAmounts": {
+            "baseline": "20000",
+            "lastReturn": null
+          },
+          "anyChange": null,
+          "varianceReason": null
         },
         "fundedThroughHIF": "No",
         "descriptionOfFundingStack": "Funding stack description",
         "public": {
-          "baseline": "5000",
-          "current": null,
-          "reason": null,
-          "amountSecured": null
+          "previousAmounts": {
+            "baseline": "5000",
+            "lastReturn": null
+          }
         },
         "private": {
-          "baseline": "5000",
-          "current": null,
-          "reason": null,
-          "amountSecured": null
+          "previousAmounts": {
+            "baseline": "5000",
+            "lastReturn": null
+          },
+          "anyChangeToBaseline": {
+            "reason": null,
+            "confirmation": null
+          }
         }
       }
     }
@@ -222,10 +238,14 @@
       "size": "10"
     },
     "starts": {
-      "previousStarts": null,
-      "startsSinceLastReturn": null,
-      "previousCompletions": null,
-      "completionsSinceLastReturn": null
+      "starts": {
+        "previousStarts": null,
+        "startsSinceLastReturn": null,
+        "previousCompletions": null,
+        "completionsSinceLastReturn": null,
+        "currentCompletions": null,
+        "currentStarts": null
+      }
     },
     "ownership": {
       "laOwned": null,
@@ -245,13 +265,13 @@
   ],
   "s151Confirmation": {
     "hifFunding": {
-      "hifTotalFundingRequest": "10000",
       "changesToRequest": {
+        "hifTotalFundingRequest": "10000",
         "evidenceOfVariance": null,
         "changesToRequestConfirmation": null,
         "requestedAmount": null,
         "reasonForRequest": null,
-        "varianceFromBaseline": null,
+        "variance": null,
         "varianceFromBaselinePercent": null,
         "mitigationInPlace": null
       },
@@ -313,7 +333,8 @@
         "reasonForRequestOfDateChange": null,
         "requestedChangedEndDate": null,
         "varianceFromEndDateBaseline": null,
-        "mitigationInPlaceEndDate": null
+        "mitigationInPlaceEndDate": null,
+        "evidenceUpload": null
       },
       "hifFundingEndDate": "2020-01-01",
       "projectLongstopDate": "2020-01-01",
@@ -335,7 +356,8 @@
       "hifTotalFundingRequest": "10000",
       "hifSpendToDate": null,
       "AmountOfThisClaim": null,
-      "certifiedClaimForm": null
+      "certifiedClaimForm": null,
+      "runningClaimTotal": null
     }
   },
   "rmMonthlyCatchup": {
