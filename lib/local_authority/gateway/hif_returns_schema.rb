@@ -5353,7 +5353,9 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
             aimToRecoverFunding: {
               title: "Aim to recover funding?",
               radio: true,
-              enum: ["Yes", "No"]
+              enum: ["Yes", "No"],
+              sourceKey: %i[baseline_data recovery aimToRecover],
+              readonly: true
             }
           },
           dependencies: {
@@ -5381,7 +5383,14 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           title: "Baseline Amount",
                           type: "string",
                           readonly: true,
-                          currency: true
+                          currency: true,
+                          sourceKey: %i[baseline_data recovery expectedAmount]
+                        },
+                        methodOfRecovery: {
+                          title: "Method of Recovery",
+                          type: "string",
+                          readonly: true,
+                          sourceKey: %i[baseline_data recovery methodOfRecovery]
                         },
                         changeToBaseline: {
                           title: "Any Change?",
@@ -5435,10 +5444,6 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                   title: "Reason for Variance",
                                   type: "string",
                                   extendedText: true
-                                },
-                                methodOfRecovery: {
-                                  title: "Method of Recovery",
-                                  type: "string"
                                 },
                                 amountRecovered: {
                                   title: "Amount Recovered",

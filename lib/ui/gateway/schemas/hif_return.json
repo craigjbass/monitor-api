@@ -6041,7 +6041,9 @@
             "aimToRecoverFunding": {
               "title": "Aim to recover funding?",
               "radio": true,
-              "enum": ["Yes", "No"]
+              "enum": ["Yes", "No"],
+              "sourceKey": ["baseline_data", "recovery", "aimToRecover"],
+              "readonly": true
             }
           },
           "dependencies": {
@@ -6069,7 +6071,14 @@
                           "title": "Baseline Amount",
                           "type": "string",
                           "readonly": true,
-                          "currency": true
+                          "currency": true,
+                          "sourceKey": ["baseline_data", "recovery", "expectedAmount"]
+                        },
+                        "methodOfRecovery": {
+                          "title": "Method of Recovery",
+                          "type": "string",
+                          "readonly": true,
+                          "sourceKey": ["baseline_data", "recovery", "methodOfRecovery"]
                         },
                         "changeToBaseline": {
                           "title": "Any Change?",
@@ -6123,10 +6132,6 @@
                                   "title": "Reason for Variance",
                                   "type": "string",
                                   "extendedText": true
-                                },
-                                "methodOfRecovery": {
-                                  "title": "Method of Recovery",
-                                  "type": "string"
                                 },
                                 "amountRecovered": {
                                   "title": "Amount Recovered",
