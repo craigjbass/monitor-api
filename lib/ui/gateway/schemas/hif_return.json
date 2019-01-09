@@ -32,9 +32,7 @@
               "housingSitesBenefitting": {
                 "type": "string",
                 "title": "Housing Sites Benefitting",
-                "sourceKey": [
-                  "baseline_data", "infrastructures", "type"
-                ],
+                "sourceKey": ["baseline_data", "infrastructures", "type"],
                 "readonly": true
               }
             }
@@ -90,7 +88,7 @@
                               "baseline": {
                                 "type": "string",
                                 "format": "date",
-                                "title": "Full Planning Permission submitted date",
+                                "title": "Baseline Target Date",
                                 "sourceKey": [
                                   "baseline_data",
                                   "infrastructures",
@@ -163,7 +161,7 @@
                               "baseline": {
                                 "type": "string",
                                 "format": "date",
-                                "title": "Outline Planning Permission granted date",
+                                "title": "Baseline Target Date",
                                 "sourceKey": [
                                   "baseline_data",
                                   "infrastructures",
@@ -293,7 +291,7 @@
                               "baseline": {
                                 "type": "string",
                                 "format": "date",
-                                "title": "Full Planning Permission submitted date",
+                                "title": "Baseline Target Date",
                                 "sourceKey": [
                                   "baseline_data",
                                   "infrastructures",
@@ -366,7 +364,7 @@
                               "baseline": {
                                 "type": "string",
                                 "format": "date",
-                                "title": "Full Planning Permission granted date",
+                                "title": "Baseline Target Date",
                                 "sourceKey": [
                                   "baseline_data",
                                   "infrastructures",
@@ -511,11 +509,7 @@
                               "title": "Status against last return?",
                               "type": "string",
                               "radio": true,
-                              "enum": [
-                                "Completed",
-                                "On schedule",
-                                "Delayed"
-                              ],
+                              "enum": ["Completed", "On schedule", "Delayed"],
                               "default": "On schedule"
                             }
                           },
@@ -524,7 +518,9 @@
                               "oneOf": [
                                 {
                                   "properties": {
-                                    "statusAgainstLastReturn": { "enum": ["On schedule"] },
+                                    "statusAgainstLastReturn": {
+                                      "enum": ["On schedule"]
+                                    },
                                     "percentComplete": {
                                       "title": "Percentage complete",
                                       "type": "string",
@@ -534,7 +530,9 @@
                                 },
                                 {
                                   "properties": {
-                                    "statusAgainstLastReturn": { "enum": ["Completed"] },
+                                    "statusAgainstLastReturn": {
+                                      "enum": ["Completed"]
+                                    },
                                     "completionDate": {
                                       "title": "Completion date",
                                       "type": "string",
@@ -550,19 +548,37 @@
                                 },
                                 {
                                   "properties": {
-                                    "statusAgainstLastReturn": { "enum": ["Delayed"] },
+                                    "statusAgainstLastReturn": {
+                                      "enum": ["Delayed"]
+                                    },
                                     "currentReturn": {
                                       "title": "Current return",
                                       "type": "string",
                                       "format": "date",
-                                      "sourceKey": ["return_data", "infrastructures", "planning", "section106", "statutoryConsents", "statutoryConsents", "currentReturn"]
+                                      "sourceKey": [
+                                        "return_data",
+                                        "infrastructures",
+                                        "planning",
+                                        "section106",
+                                        "statutoryConsents",
+                                        "statutoryConsents",
+                                        "currentReturn"
+                                      ]
                                     },
                                     "previousReturn": {
                                       "title": "Previous Return",
                                       "readonly": true,
                                       "type": "string",
                                       "format": "date",
-                                      "sourceKey": ["return_data", "infrastructures", "planning", "section106", "statutoryConsents", "statutoryConsents", "currentReturn"]
+                                      "sourceKey": [
+                                        "return_data",
+                                        "infrastructures",
+                                        "planning",
+                                        "section106",
+                                        "statutoryConsents",
+                                        "statutoryConsents",
+                                        "currentReturn"
+                                      ]
                                     },
                                     "varianceAgainstBaseline": {
                                       "title": "Variance Against Baseline (weeks) (Calculated)",
@@ -817,11 +833,8 @@
                   "contractorProcured"
                 ],
                 "readonly": true,
-                "items": {
-                  "type": "string",
-                  "radio": true,
-                  "enum": ["Yes", "No"]
-                }
+                "radio": true,
+                "enum": ["Yes", "No"]
               }
             },
             "dependencies": {
@@ -861,7 +874,7 @@
                       "procurementStatusAgainstLastReturn": {
                         "type": "object",
                         "title": "Infrastructure Contractor Procurement",
-                        "calculation": "set(formData, 'procurementVarianceAgainstBaseline', calculateVariance(parseMoney(get(formData, 'current')), parseMoney(get(formData, 'baseline')))); set(formData, 'procurementVarianceAgainstLastReturn', calculateVariance(parseMoney(get(formData, 'current')), parseMoney(get(formData, 'previousReturn'))));",
+                        "variance": true,
                         "properties": {
                           "baseline": {
                             "type": "string",
@@ -894,60 +907,39 @@
                             "radio": true,
                             "enum": ["Completed", "On schedule", "Delayed"],
                             "default": "On schedule"
-                          }
-                        },
-                        "dependencies": {
-                          "status": {
-                            "oneOf": [
-                              {
-                                "properties": {
-                                  "status": { "enum": ["Completed"] },
-                                  "completedDate": {
-                                    "type": "string",
-                                    "format": "date",
-                                    "title": "Completion Date"
-                                  },
-                                  "onCompletedNameOfContractor": {
-                                    "type": "string",
-                                    "title": "Completion Name of Contractor"
-                                  }
-                                }
-                              },
-                              {
-                                "properties": {
-                                  "status": { "enum": ["On schedule"] },
-                                  "percentComplete": {
-                                    "type": "string",
-                                    "title": "Percent complete",
-                                    "percentage": true
-                                  }
-                                }
-                              },
-                              {
-                                "properties": {
-                                  "status": { "enum": ["Delayed"] },
-                                  "procurementVarianceAgainstLastReturn": {
-                                    "type": "string",
-                                    "readonly": true,
-                                    "title": "Variance against last return (Weeks)"
-                                  },
-                                  "procurementVarianceAgainstBaseline": {
-                                    "type": "string",
-                                    "readonly": true,
-                                    "title": "Variance against baseline (Weeks)"
-                                  },
-                                  "current": {
-                                    "type": "string",
-                                    "format": "date",
-                                    "title": "Current expected date of Procurement"
-                                  },
-                                  "reason": {
-                                    "type": "string",
-                                    "title": "Reason for Variance"
-                                  }
-                                }
-                              }
-                            ]
+                          },
+                          "completedDate": {
+                            "type": "string",
+                            "format": "date",
+                            "title": "Completion Date"
+                          },
+                          "onCompletedNameOfContractor": {
+                            "type": "string",
+                            "title": "Name of Contractor"
+                          },
+                          "percentComplete": {
+                            "type": "string",
+                            "title": "Percent complete",
+                            "percentage": true
+                          },
+                          "procurementVarianceAgainstLastReturn": {
+                            "type": "string",
+                            "readonly": true,
+                            "title": "Variance against last return (Weeks)"
+                          },
+                          "procurementVarianceAgainstBaseline": {
+                            "type": "string",
+                            "readonly": true,
+                            "title": "Variance against baseline (Weeks)"
+                          },
+                          "current": {
+                            "type": "string",
+                            "format": "date",
+                            "title": "Current expected date of Procurement"
+                          },
+                          "reason": {
+                            "type": "string",
+                            "title": "Reason for Variance"
                           }
                         }
                       }
@@ -1060,7 +1052,7 @@
                       "targetDateOfAchievingStart"
                     ],
                     "type": "string",
-                    "title": "Baseline Start on site",
+                    "title": "Baseline Target Date",
                     "readonly": true
                   },
                   "varianceAgainstLastReturn": {
@@ -1107,7 +1099,7 @@
               },
               "expectedCompletionDateOfInfra": {
                 "type": "object",
-                "title": "Expected Completion date of infra",
+                "title": "Expected Completion Date of Infrastructure",
                 "variance": true,
                 "properties": {
                   "baseline": {
@@ -1119,7 +1111,7 @@
                     ],
                     "type": "string",
                     "format": "date",
-                    "title": "Baseline date of Completion",
+                    "title": "Baseline Date of Completion",
                     "readonly": true
                   },
                   "previousReturn": {
@@ -1129,13 +1121,11 @@
                   "varianceAgainstLastReturn": {
                     "type": "string",
                     "readonly": true,
-                    "hidden": true,
                     "title": "Variance Against Last Return (weeks) (Calculated)"
                   },
                   "varianceAgainstBaseline": {
                     "type": "string",
                     "readonly": true,
-                    "hidden": true,
                     "title": "Variance Against Baseline (weeks) (Calculated)"
                   },
                   "status": {
@@ -1580,8 +1570,8 @@
               }
             }
           }
-        }
       }
+    }
     },
     "fundingProfiles": {
       "type": "object",
@@ -2101,7 +2091,7 @@
                               {
                                 "properties": {
                                   "confirmation": {
-                                    "enum":["No"]
+                                    "enum": ["No"]
                                   }
                                 }
                               }
@@ -2196,8 +2186,7 @@
                                   },
                                   {
                                     "properties": {
-                                      "confirmation":
-                                      { "enum": ["No"] }
+                                      "confirmation": { "enum": ["No"] }
                                     }
                                   }
                                 ]
@@ -2249,7 +2238,7 @@
                             },
                             "dependencies": {
                               "confirmation": {
-                                "oneOf":[
+                                "oneOf": [
                                   {
                                     "properties": {
                                       "confirmation": {
@@ -2381,7 +2370,7 @@
                             },
                             "dependencies": {
                               "confirmation": {
-                                "oneOf":[
+                                "oneOf": [
                                   {
                                     "properties": {
                                       "confirmation": {
@@ -2506,7 +2495,6 @@
                   }
                 ]
               }
-
             }
           }
         }
@@ -2530,7 +2518,7 @@
                   "confirmation": {
                     "title": "Is there a masterplan for the scheme?",
                     "type": "string",
-                    "enum":["Yes", "No"],
+                    "enum": ["Yes", "No"],
                     "radio": true
                   }
                 },
@@ -4962,19 +4950,19 @@
               "horizontal": true,
               "title": "Baseline Amounts",
               "properties": {
-                "quarter1":{
+                "quarter1": {
                   "type": "string",
                   "title": "Q1 Current Year"
                 },
-                "quarter2":{
+                "quarter2": {
                   "type": "string",
                   "title": "Q2 Current Year"
                 },
-                "quarter3":{
+                "quarter3": {
                   "type": "string",
                   "title": "Q3 Current Year"
                 },
-                "quarter4":{
+                "quarter4": {
                   "type": "string",
                   "title": "Q4 Current Year"
                 }
@@ -4985,19 +4973,19 @@
               "horizontal": true,
               "title": "Actual Amounts",
               "properties": {
-                "quarter1":{
+                "quarter1": {
                   "type": "string",
                   "title": "Q1 Current Year"
                 },
-                "quarter2":{
+                "quarter2": {
                   "type": "string",
                   "title": "Q2 Current Year"
                 },
-                "quarter3":{
+                "quarter3": {
                   "type": "string",
                   "title": "Q3 Current Year"
                 },
-                "quarter4":{
+                "quarter4": {
                   "type": "string",
                   "title": "Q4 Current Year"
                 }
@@ -5102,19 +5090,19 @@
               "horizontal": true,
               "title": "Baseline Amounts",
               "properties": {
-                "quarter1":{
+                "quarter1": {
                   "type": "string",
                   "title": "Q1 Current Year"
                 },
-                "quarter2":{
+                "quarter2": {
                   "type": "string",
                   "title": "Q2 Current Year"
                 },
-                "quarter3":{
+                "quarter3": {
                   "type": "string",
                   "title": "Q3 Current Year"
                 },
-                "quarter4":{
+                "quarter4": {
                   "type": "string",
                   "title": "Q4 Current Year"
                 }
@@ -5125,19 +5113,19 @@
               "horizontal": true,
               "title": "Actual Amounts",
               "properties": {
-                "quarter1":{
+                "quarter1": {
                   "type": "string",
                   "title": "Q1 Current Year"
                 },
-                "quarter2":{
+                "quarter2": {
                   "type": "string",
                   "title": "Q2 Current Year"
                 },
-                "quarter3":{
+                "quarter3": {
                   "type": "string",
                   "title": "Q3 Current Year"
                 },
-                "quarter4":{
+                "quarter4": {
                   "type": "string",
                   "title": "Q4 Current Year"
                 }
@@ -5652,10 +5640,7 @@
           "title": "Was the assurance manager in attendance?",
           "type": "string",
           "radio": true,
-          "enum": [
-            "Yes",
-            "No"
-          ]
+          "enum": ["Yes", "No"]
         },
         "infrastructureDelivery": {
           "type": "array",
@@ -5674,13 +5659,7 @@
                 "type": "string",
                 "title": "Risk Rating",
                 "radio": true,
-                "enum": [
-                  "High",
-                  "Medium High",
-                  "Medium Low",
-                  "Low",
-                  "Achieved"
-                ]
+                "enum": ["High", "Medium High", "Medium Low", "Low", "Achieved"]
               }
             }
           }
@@ -5697,13 +5676,7 @@
               "type": "string",
               "title": "Risk Rating",
               "radio": true,
-              "enum": [
-                "High",
-                "Medium High",
-                "Medium Low",
-                "Low",
-                "Achieved"
-              ]
+              "enum": ["High", "Medium High", "Medium Low", "Low", "Achieved"]
             }
           }
         },
@@ -5719,13 +5692,7 @@
               "type": "string",
               "title": "Risk Rating",
               "radio": true,
-              "enum": [
-                "High",
-                "Medium High",
-                "Medium Low",
-                "Low",
-                "Achieved"
-              ]
+              "enum": ["High", "Medium High", "Medium Low", "Low", "Achieved"]
             }
           }
         },
@@ -5741,13 +5708,7 @@
               "type": "string",
               "title": "Risk Rating",
               "radio": true,
-              "enum": [
-                "High",
-                "Medium High",
-                "Medium Low",
-                "Low",
-                "Achieved"
-              ]
+              "enum": ["High", "Medium High", "Medium Low", "Low", "Achieved"]
             }
           }
         },
@@ -5780,7 +5741,7 @@
                   },
                   "overview": {
                     "title": "Overview",
-                    "type":"string",
+                    "type": "string",
                     "extendedText": true
                   }
                 },
@@ -5901,7 +5862,7 @@
                   },
                   "overview": {
                     "title": "Overview",
-                    "type":"string",
+                    "type": "string",
                     "extendedText": true
                   }
                 },
@@ -6014,8 +5975,7 @@
               "oneOf": [
                 {
                   "properties": {
-                    "isRecommendForRegularMonitoring":
-                    {
+                    "isRecommendForRegularMonitoring": {
                       "type": "string",
                       "enum": ["No"]
                     }

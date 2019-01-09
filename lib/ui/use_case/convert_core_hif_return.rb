@@ -919,12 +919,14 @@ class UI::UseCase::ConvertCoreHIFReturn
 
     unless @return[:reviewAndAssurance][:barriers].nil?
       @converted_return[:reviewAndAssurance][:barriers] = {}
-      @converted_return[:reviewAndAssurance][:barriers][:significantIssues] = @return[:reviewAndAssurance][:barriers][:significantIssues].map do |issue|
-        {
-          overview: issue[:overview],
-          barrierType: issue[:barrierType],
-          details: issue[:details]
-        }
+      unless @return[:reviewAndAssurance][:barriers][:significantIssues].nil?
+        @converted_return[:reviewAndAssurance][:barriers][:significantIssues] = @return[:reviewAndAssurance][:barriers][:significantIssues].map do |issue|
+          {
+            overview: issue[:overview],
+            barrierType: issue[:barrierType],
+            details: issue[:details]
+          }
+        end
       end
     end
 
