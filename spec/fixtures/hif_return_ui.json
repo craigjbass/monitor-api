@@ -295,6 +295,12 @@
             "varianceReason": "a reason"
           }
         },
+        "hifSpendSinceLastReturn": {
+          "currentReturn": "123",
+          "cumulativeIncCurrentReturn": "128",
+          "cumulativeExCurrentReturn": "5",
+          "remaining": "22"
+        },
         "totalCost": {
           "previousAmounts": {
             "baseline": "20000",

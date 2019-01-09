@@ -1939,7 +1939,7 @@
                             "properties": {
                               "confirmation": {
                                 "type": "string",
-                                "title": "If costs have increased, are the funded?",
+                                "title": "If costs have increased, are they funded?",
                                 "enum": ["Yes", "No", "N/A"],
                                 "radio": true
                               }
@@ -2106,6 +2106,36 @@
                                 }
                               }
                             ]
+                          }
+                        }
+                      },
+                      "hifSpendSinceLastReturn": {
+                        "title": "HIF Spend Since Last Return",
+                        "type": "object",
+                        "properties": {
+                          "currentReturn": {
+                            "title": "Current Return",
+                            "currency": true
+                          },
+                          "cumulativeIncCurrentReturn": {
+                            "title": "Cumulative Including Current Return",
+                            "currency": true
+                          },
+                          "cumulativeExCurrentReturn": {
+                            "title": "Cumulative Excluding Current Return",
+                            "sourceKey": [
+                              "return_data",
+                              "fundingPackages",
+                              "fundingStack",
+                              "hifSpendSinceLastReturn",
+                              "cumulativeIncCurrentReturn"
+                            ],
+                            "hidden": true,
+                            "currency": true
+                          },
+                          "remaining": {
+                            "title": "Remaining",
+                            "currency": true
                           }
                         }
                       },

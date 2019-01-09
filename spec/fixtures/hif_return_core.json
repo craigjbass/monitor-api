@@ -279,6 +279,12 @@
     {
       "descriptionOfInfrastructure": "infras",
       "fundingStack": {
+        "hifSpendSinceLastReturn": {
+          "currentReturn": "123",
+          "cumulativeIncCurrentReturn": "128",
+          "cumulativeExCurrentReturn": "5",
+          "remaining": "22"
+        },
         "hifSpend": {
           "baseline": "10000",
           "current": "7685",

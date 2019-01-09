@@ -1562,6 +1562,30 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                   type: 'object',
                   title: 'Funding stack',
                   properties: {
+                    hifSpendSinceLastReturn: {
+                      title: 'HIF Spend Since Last Return',
+                      type: 'object',
+                      properties: {
+                        currentReturn: {
+                          title: "Current Return",
+                          currency: true
+                        },
+                        cumulativeIncCurrentReturn: {
+                          title: "Cumulative Including Current Return",
+                          currency: true
+                        },
+                        cumulativeExCurrentReturn: {
+                          title: "Cumulative Excluding Current Return",
+                          sourceKey: %i[return_data fundingPackages fundingStack hifSpendSinceLastReturn cumulativeIncCurrentReturn],
+                          hidden: true,
+                          currency: true
+                        },
+                        remaining: {
+                          title: "Remaining",
+                          currency: true
+                        }
+                      }
+                    },
                     hifSpend: {
                       title: 'HIF Spend',
                       type: 'object',
