@@ -4862,6 +4862,7 @@
             "disposalStrategy": {
               "type": "string",
               "title": "Disposal Strategy/Critical Path",
+              "extendedText": true,
               "readonly": true,
               "sourceKey": [
                 "baseline_data",
