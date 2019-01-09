@@ -8,7 +8,8 @@ class UI::UseCase::GetProject
   end
 
   def execute(id:)
-    found_project = @find_project.execute(id: id)
+    found_project = @find_project.execute(project_id: id)
+
     template = @project_schema_gateway.find_by(type: found_project[:type])
 
     found_project[:data] = convert_data(found_project) if found_project[:type] == 'hif'
