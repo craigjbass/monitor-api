@@ -1790,7 +1790,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                 balancesSecured: {
                                   remainingToBeSecured: {
                                     title: 'Remaining to be Secured',
-                                    type: 'string' 
+                                    type: 'string'
                                   },
                                   securedAgainstBaseline: {
                                     title: 'Secured Against Baseline',
@@ -1867,7 +1867,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                 balancesSecured: {
                                   remainingToBeSecured: {
                                     title: 'Remaining to be Secured',
-                                    type: 'string' 
+                                    type: 'string'
                                   },
                                   securedAgainstBaseline: {
                                     title: 'Secured Against Baseline',
@@ -1920,6 +1920,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
     add_wider_scheme_tab
     add_rm_monthly_catchup_tab
     add_mr_review_tab
+    add_hif_recovery_tab
 
     @return_template
   end
@@ -5415,6 +5416,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                   title: "Last Return",
                                   type: "string",
                                   currency: true,
+                                  sourceKey: %i[return_data hifRecovery recovery expectedAmountToRecover currentReturn],
                                   readonly: true
                                 },
                                 varianceAgainstBaseline: {

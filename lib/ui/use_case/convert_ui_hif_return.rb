@@ -432,7 +432,7 @@ class UI::UseCase::ConvertUIHIFReturn
             lastReturn: package[:fundingStack][:public][:previousAmounts][:lastReturn]
           }
         end
-        
+
         unless package[:fundingStack][:public][:anyChangeToBaseline].nil?
           new_package[:fundingStack][:public][:anyChangeToBaseline] = {
             confirmation: package[:fundingStack][:public][:anyChangeToBaseline][:confirmation]
@@ -444,10 +444,10 @@ class UI::UseCase::ConvertUIHIFReturn
               baselineVariance: package[:fundingStack][:public][:anyChangeToBaseline][:variance][:baselineVariance],
               lastReturnVariance: package[:fundingStack][:public][:anyChangeToBaseline][:variance][:lastReturnVariance]
             }
-          end          
+          end
         end
 
-        unless package[:fundingStack][:public][:balancesSecured].nil? 
+        unless package[:fundingStack][:public][:balancesSecured].nil?
           new_package[:fundingStack][:public][:amountSecured] = package[:fundingStack][:public][:balancesSecured][:amountSecured]
           new_package[:fundingStack][:public][:balancesSecured] = {
             remainingToBeSecured: package[:fundingStack][:public][:balancesSecured][:remainingToBeSecured],
@@ -472,7 +472,7 @@ class UI::UseCase::ConvertUIHIFReturn
             lastReturn: package[:fundingStack][:private][:previousAmounts][:lastReturn]
           }
         end
-        
+
         unless package[:fundingStack][:private][:anyChangeToBaseline].nil?
           new_package[:fundingStack][:private][:anyChangeToBaseline] = {
             confirmation: package[:fundingStack][:private][:anyChangeToBaseline][:confirmation]
@@ -484,10 +484,10 @@ class UI::UseCase::ConvertUIHIFReturn
               baselineVariance: package[:fundingStack][:private][:anyChangeToBaseline][:variance][:baselineVariance],
               lastReturnVariance: package[:fundingStack][:private][:anyChangeToBaseline][:variance][:lastReturnVariance]
             }
-          end          
+          end
         end
 
-        unless package[:fundingStack][:private][:balancesSecured].nil? 
+        unless package[:fundingStack][:private][:balancesSecured].nil?
           new_package[:fundingStack][:private][:amountSecured] = package[:fundingStack][:private][:balancesSecured][:amountSecured]
           new_package[:fundingStack][:private][:balancesSecured] = {
             remainingToBeSecured: package[:fundingStack][:private][:balancesSecured][:remainingToBeSecured],

@@ -6104,6 +6104,7 @@
                                   "title": "Last Return",
                                   "type": "string",
                                   "currency": true,
+                                  "sourceKey": ["return_data", "hifRecovery", "recovery", "expectedAmountToRecover", "currentReturn"],
                                   "readonly": true
                                 },
                                 "varianceAgainstBaseline": {
