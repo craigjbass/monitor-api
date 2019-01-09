@@ -337,16 +337,52 @@
           "description": "build some"
         },
         "public": {
-          "baseline": "5000",
-          "current": "756",
-          "reason": "298",
-          "amountSecured": "45782"
+          "previousAmounts": {
+            "baseline": "5000",
+            "lastReturn": "1000"
+          },
+          "anyChangeToBaseline": {
+            "confirmation": "Yes",
+            "reason": "298",
+            "variance": {
+              "baselineVariance": "2345",
+              "current": "756",
+              "lastReturnVariance": "12345"
+            }
+          },
+          "balancesSecured": {
+            "amountSecured": "45782",
+            "remainingToBeSecured": "12321",
+            "securedAgainstBaseline": "122"
+          },
+          "comparisons": {
+            "increaseOnLastReturn": "34",
+            "increaseOnLastReturnPercent": "98"
+          }
         },
         "private": {
-          "baseline": "5000",
-          "current": "756",
-          "reason": "298",
-          "amountSecured": "45782"
+          "previousAmounts": {
+            "baseline": "5000",
+            "lastReturn": "1000"
+          },
+          "anyChangeToBaseline": {
+            "confirmation": "Yes",
+            "reason": "298",
+            "variance": {
+              "baselineVariance": "2345",
+              "current": "756",
+              "lastReturnVariance": "12345"
+            }
+          },
+          "balancesSecured": {
+            "amountSecured": "45782",
+            "remainingToBeSecured": "12321",
+            "securedAgainstBaseline": "12"
+          },
+          "comparisons": {
+            "increaseOnLastReturn": "34",
+            "increaseOnLastReturnPercent": "98"
+          }
         }
       }
     }
