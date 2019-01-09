@@ -5294,7 +5294,8 @@
             "properties": {
               "dateOfCatchUp": {
                 "type": "string",
-                "title": "Date of Catch Up"
+                "title": "Date of Catch Up",
+                "format": "date"
               },
               "overallRatingForScheme": {
                 "type": "string",
