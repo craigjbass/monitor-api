@@ -356,10 +356,10 @@
           },
           "balancesSecured": {
             "amountSecured": "45782",
+            "amountSecuredLastReturn": "45781",
             "remainingToBeSecured": "12321",
-            "securedAgainstBaseline": "122"
-          },
-          "comparisons": {
+            "securedAgainstBaseline": "122",
+            "securedAgainstBaselineLastReturn": "121",
             "increaseOnLastReturn": "34",
             "increaseOnLastReturnPercent": "98"
           }
@@ -381,10 +381,10 @@
           },
           "balancesSecured": {
             "amountSecured": "45782",
+            "amountSecuredLastReturn": "45781",
             "remainingToBeSecured": "12321",
-            "securedAgainstBaseline": "12"
-          },
-          "comparisons": {
+            "securedAgainstBaseline": "12",
+            "securedAgainstBaselineLastReturn": "11",
             "increaseOnLastReturn": "34",
             "increaseOnLastReturnPercent": "98"
           }

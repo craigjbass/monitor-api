@@ -453,16 +453,13 @@ class UI::UseCase::ConvertUIHIFReturn
 
         unless package[:fundingStack][:public][:balancesSecured].nil?
           new_package[:fundingStack][:public][:amountSecured] = package[:fundingStack][:public][:balancesSecured][:amountSecured]
+          new_package[:fundingStack][:public][:amountSecuredLastReturn] = package[:fundingStack][:public][:balancesSecured][:amountSecuredLastReturn]
           new_package[:fundingStack][:public][:balancesSecured] = {
             remainingToBeSecured: package[:fundingStack][:public][:balancesSecured][:remainingToBeSecured],
-            securedAgainstBaseline: package[:fundingStack][:public][:balancesSecured][:securedAgainstBaseline]
-          }
-        end
-
-        unless package[:fundingStack][:public][:comparisons].nil?
-          new_package[:fundingStack][:public][:comparisons] = {
-            increaseOnLastReturn: package[:fundingStack][:public][:comparisons][:increaseOnLastReturn],
-            increaseOnLastReturnPercent: package[:fundingStack][:public][:comparisons][:increaseOnLastReturnPercent]
+            securedAgainstBaseline: package[:fundingStack][:public][:balancesSecured][:securedAgainstBaseline],
+            securedAgainstBaselineLastReturn: package[:fundingStack][:public][:balancesSecured][:securedAgainstBaselineLastReturn],
+            increaseOnLastReturn: package[:fundingStack][:public][:balancesSecured][:increaseOnLastReturn],
+            increaseOnLastReturnPercent: package[:fundingStack][:public][:balancesSecured][:increaseOnLastReturnPercent]
           }
         end
       end
@@ -495,16 +492,13 @@ class UI::UseCase::ConvertUIHIFReturn
 
         unless package[:fundingStack][:private][:balancesSecured].nil?
           new_package[:fundingStack][:private][:amountSecured] = package[:fundingStack][:private][:balancesSecured][:amountSecured]
+          new_package[:fundingStack][:private][:amountSecuredLastReturn] = package[:fundingStack][:private][:balancesSecured][:amountSecuredLastReturn]
           new_package[:fundingStack][:private][:balancesSecured] = {
             remainingToBeSecured: package[:fundingStack][:private][:balancesSecured][:remainingToBeSecured],
-            securedAgainstBaseline: package[:fundingStack][:private][:balancesSecured][:securedAgainstBaseline]
-          }
-        end
-
-        unless package[:fundingStack][:private][:comparisons].nil?
-          new_package[:fundingStack][:private][:comparisons] = {
-            increaseOnLastReturn: package[:fundingStack][:private][:comparisons][:increaseOnLastReturn],
-            increaseOnLastReturnPercent: package[:fundingStack][:private][:comparisons][:increaseOnLastReturnPercent]
+            securedAgainstBaseline: package[:fundingStack][:private][:balancesSecured][:securedAgainstBaseline],
+            securedAgainstBaselineLastReturn: package[:fundingStack][:private][:balancesSecured][:securedAgainstBaselineLastReturn],
+            increaseOnLastReturn: package[:fundingStack][:private][:balancesSecured][:increaseOnLastReturn],
+            increaseOnLastReturnPercent: package[:fundingStack][:private][:balancesSecured][:increaseOnLastReturnPercent]
           }
         end
       end

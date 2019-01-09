@@ -111,14 +111,37 @@
     {
       "descriptionOfInfrastructure": "A house of cats",
       "fundingStack": {
+        "fundedThroughHIFbaseline": "Yes",
+        "descriptionOfFundingStack": "describe",
+        "fundedThroughHIF": "Yes",
         "hifSpend": {
-          "baseline": "10000"
+          "baseline": "10000",
+          "currentAmount": "23",
+          "lastReturn": "23"
         },
         "totalCost": {
-          "baseline": "20000"
+          "baseline": "20000",
+          "lastReturn": "34",
+          "currentAmount": "34"
         },
-        "public": { "baseline": "5000" },
-        "private": { "baseline": "5000" }
+        "public": {
+          "baseline": "5000",
+          "lastReturn": "23",
+          "currentAmount": "23",
+          "balancesSecured": {
+            "securedAgainstBaselineLastReturn": "123"
+          },
+          "amountSecuredLastReturn": "12"
+        },
+        "private": {
+          "lastReturn": "12",
+          "currentAmount": "12",
+          "baseline": "5000", 
+          "balancesSecured": {
+            "securedAgainstBaselineLastReturn": "124"
+          },
+          "amountSecuredLastReturn": "13"
+        }
       }
     }
   ],
