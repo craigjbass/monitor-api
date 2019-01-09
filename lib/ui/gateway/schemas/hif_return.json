@@ -1218,7 +1218,7 @@
               },
               "previousMilestones": {
                 "type": "array",
-                "title": "Previous Milestones",
+                "title": "Start and Completion Milestones",
                 "items": {
                   "type": "object",
                   "horizontal": true,
