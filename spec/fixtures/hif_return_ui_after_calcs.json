@@ -168,27 +168,29 @@
             "statusAgainstLastReturn": "ewuhif"
           }
         ],
-        "expectedInfrastructureStartOnSite": {
-          "baseline": "2020-01-01",
-          "varianceAgainstLastReturn": "67",
-          "varianceAgainstBaseline": "78",
-          "status": "On schedule",
-          "current": "Now",
-          "reason": "Not long",
-          "perecentComplete": "67",
-          "previousReturn": "21/21/21",
-          "completedDate": "5603-98-02"
-        },
-        "expectedCompletionDateOfInfra": {
-          "baseline": "2020-01-01",
-          "varianceAgainstLastReturn": "67",
-          "varianceAgainstBaseline": "78",
-          "status": "On schedule",
-          "current": "Now",
-          "reason": "Not long",
-          "perecentComplete": "67",
-          "previousReturn": "21/21/21",
-          "completedDate": "5603-98-02"
+        "startAndCompletionMilestones": {
+          "expectedInfrastructureStartOnSite": {
+            "baseline": "2020-01-01",
+            "varianceAgainstLastReturn": "67",
+            "varianceAgainstBaseline": "78",
+            "status": "On schedule",
+            "current": "Now",
+            "reason": "Not long",
+            "perecentComplete": "67",
+            "previousReturn": "21/21/21",
+            "completedDate": "5603-98-02"
+          },
+          "expectedCompletionDateOfInfra": {
+            "baseline": "2020-01-01",
+            "varianceAgainstLastReturn": "67",
+            "varianceAgainstBaseline": "78",
+            "status": "On schedule",
+            "current": "Now",
+            "reason": "Not long",
+            "perecentComplete": "67",
+            "previousReturn": "21/21/21",
+            "completedDate": "5603-98-02"
+          }
         }
       },
       "risks": {

@@ -181,9 +181,10 @@ class UI::UseCase::ConvertCoreHIFReturn
         }
       end
     end
-
-    new_milestones[:expectedInfrastructureStartOnSite] = milestones[:expectedInfrastructureStartOnSite]
-    new_milestones[:expectedCompletionDateOfInfra] = milestones[:expectedCompletionDateOfInfra]
+    new_milestones[:startAndCompletionMilestones] = {
+      expectedInfrastructureStartOnSite: milestones[:expectedInfrastructureStartOnSite],
+      expectedCompletionDateOfInfra: milestones[:expectedCompletionDateOfInfra]
+    }
 
     new_milestones
   end

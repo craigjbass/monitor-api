@@ -180,9 +180,10 @@ class UI::UseCase::ConvertUIHIFReturn
         }
       end
     end
-
-    new_milestones[:expectedInfrastructureStartOnSite] = milestones[:expectedInfrastructureStartOnSite]
-    new_milestones[:expectedCompletionDateOfInfra] = milestones[:expectedCompletionDateOfInfra]
+    unless milestones[:startAndCompletionMilestones].nil?
+      new_milestones[:expectedInfrastructureStartOnSite] = milestones[:startAndCompletionMilestones][:expectedInfrastructureStartOnSite]
+      new_milestones[:expectedCompletionDateOfInfra] = milestones[:startAndCompletionMilestones][:expectedCompletionDateOfInfra]
+    end
 
     new_milestones
   end
