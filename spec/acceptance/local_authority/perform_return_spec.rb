@@ -203,6 +203,11 @@ describe 'Performing Return on HIF Project' do
                 current: 'Tomorrow'
               }
             }
+          },
+          milestones: {
+            keyMilestones: [
+              { currentReturn: "12/12/2012" }
+            ]
           }
         }
       ],

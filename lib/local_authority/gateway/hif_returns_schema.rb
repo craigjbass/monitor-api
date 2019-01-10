@@ -850,7 +850,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           milestoneLastReturnDate:{
                             type: "string",
-                            sourceKey: %i[last_return infrastructures milestones currentReturn]
+                            sourceKey: %i[return_data infrastructures milestones keyMilestones currentReturn]
                           },
                           # from milestones.summaryOfCriticalPath
                           milestoneSummaryOfCriticalPath: {
