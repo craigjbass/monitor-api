@@ -471,6 +471,12 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                       items: {
                                         type: 'object',
                                         properties: {
+                                          detailsOfConsent: {
+                                            title: 'Details of Consent',
+                                            type: 'string',
+                                            readonly: true,
+                                            sourceKey: %i[baseline_data infrastructures statutoryConsents consents detailsOfConsent]
+                                          },
                                           baselineCompletion: {
                                             title: 'Baseline Target',
                                             type: 'string',
@@ -626,7 +632,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                             },
                                             previousReturn: {
                                               type: 'string',
-                                              sourceKey: %i[baseline_data infrastructures landOwnership current],
+                                              sourceKey: %i[return_data infrastructures landOwnership laDoesNotControlSite allLandAssemblyAchieved current],
                                             },
                                             # To be calculated
                                             landAssemblyVarianceAgainstLastReturn: {
@@ -1614,12 +1620,18 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           title: 'Current Return',
                           currency: true
                         },
+                        currentAmount: {
+                          type: 'string',
+                          title: '',
+                          hidden: true,
+                          sourceKey: %i[return_data fundingPackages fundingStack hifSpend currentAmount]
+                        },
                         lastReturn: {
                           type: 'string',
                           title: 'Last Return',
                           readonly: true,
                           currency: true,
-                          sourceKey: %i[return_data fundingPackages fundingStack hifSpend current]
+                          sourceKey: %i[return_data fundingPackages fundingStack hifSpend currentAmount]
                         },
                         anyChangeToBaseline: {
                           type: 'object',
@@ -1660,8 +1672,14 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                         },
                         lastReturn: {
                           type: 'string',
-                          title: 'Last Return',
-                          sourceKey: %i[return_data fundingPackages fundingStack totalCost current]
+                          title: 'Last Return (If Applicable)',
+                          sourceKey: %i[return_data fundingPackages fundingStack totalCost currentAmount]
+                        },
+                        currentAmount: {
+                          type: 'string',
+                          title: '',
+                          hidden: true,
+                          sourceKey: %i[return_data fundingPackages fundingStack totalCost currentAmount]
                         },
                         anyChange: {
                           type: 'string',
@@ -1712,8 +1730,14 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                       title: 'Totally funded through HIF?',
                       radio: true,
                       enum: %w[Yes No],
+                      sourceKey: [:return_or_baseline, [:baseline_data, :costs, :infrastructure, :totallyFundedThroughHIF], [:return_data, :fundingPackages, :fundingStack, :fundedThroughHIF]],
                       readonly: true,
-                      sourceKey: %i[baseline_data costs infrastructure totallyFundedThroughHIF]
+                    },
+                    fundedThroughHIFbaseline: {
+                      type: 'string',
+                      title: 'Totally funded through HIF?',
+                      enum: %w[Yes No],
+                      sourceKey: [:return_or_baseline, [:baseline_data, :costs, :infrastructure, :totallyFundedThroughHIF], [:return_data, :fundingPackages, :fundingStack, :fundedThroughHIF]]
                     },
                     currentFundingStackDescription: {
                       type: 'string'
@@ -1796,7 +1820,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                 lastReturn: {
                                   title: 'Last Return Amount',
                                   type: 'string',
-                                  sourceKey: [:return_data, :fundingPackages, :fundingStack, :public, :current]
+                                  sourceKey: [:return_data, :fundingPackages, :fundingStack, :public, :currentAmount]
                                 },
                                 anyChangeToBaseline: {
                                   type: 'object',
@@ -1823,29 +1847,43 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                   }
                                 },
                                 balancesSecured: {
-                                  remainingToBeSecured: {
-                                    title: 'Remaining to be Secured',
-                                    type: 'string'
-                                  },
-                                  securedAgainstBaseline: {
-                                    title: 'Secured Against Baseline',
-                                    type: 'string'
-                                  }
-                                },
-                                comparisons: {
-                                  increaseOnLastReturn: {
-                                    title: 'Increase on Last Return',
-                                    type: 'string'
-                                  },
-                                  increaseOnLastReturnPercent: {
-                                    title: 'Increase on Last Return',
-                                    type: 'string'
+                                  type: 'object',
+                                  title: '',
+                                  properties: {
+                                    remainingToBeSecured: {
+                                      title: 'Remaining to be Secured',
+                                      type: 'string'
+                                    },
+                                    securedAgainstBaseline: {
+                                      title: 'Secured Against Baseline',
+                                      type: 'string'
+                                    },
+                                    securedAgainstBaselineLastReturn: {
+                                      title: '',
+                                      type: 'string',
+                                      hidden: true,
+                                      sourceKey: [:return_data, :fundingPackages, :fundingStack, :public, :balancesSecured, :securedAgainstBaseline]
+                                    },
+                                    increaseOnLastReturn: {
+                                      title: 'Increase on Last Return',
+                                      type: 'string'
+                                    },
+                                    increaseOnLastReturnPercent: {
+                                      title: 'Increase on Last Return',
+                                      type: 'string'
+                                    }
                                   }
                                 },
                                 current: {
                                   title: 'Total - Current return',
                                   type: 'string',
                                   currency: true
+                                },
+                                currentAmount: {
+                                  type: 'string',
+                                  title: '',
+                                  hidden: true,
+                                  sourceKey: [:return_data, :fundingPackages, :fundingStack, :public, :currentAmount]
                                 },
                                 reason: {
                                   title: 'Reason for variance',
@@ -1855,6 +1893,11 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                   title: 'Amount secured to date',
                                   type: 'string',
                                   currency: true
+                                },
+                                amountSecuredLastReturn: {
+                                  title: '',
+                                  type: 'string',
+                                  sourceKey: [:return_data, :fundingPackages, :fundingStack, :public, :amountSecured]
                                 }
                               }
                             },
@@ -1873,7 +1916,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                 lastReturn: {
                                   title: 'Last Return Amount',
                                   type: 'string',
-                                  sourceKey: [:return_data, :fundingPackages, :fundingStack, :private, :current]
+                                  sourceKey: [:return_data, :fundingPackages, :fundingStack, :private, :currentAmount]
                                 },
                                 anyChangeToBaseline: {
                                   type: 'object',
@@ -1900,29 +1943,43 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                   }
                                 },
                                 balancesSecured: {
-                                  remainingToBeSecured: {
-                                    title: 'Remaining to be Secured',
-                                    type: 'string'
-                                  },
-                                  securedAgainstBaseline: {
-                                    title: 'Secured Against Baseline',
-                                    type: 'string'
-                                  }
-                                },
-                                comparisons: {
-                                  increaseOnLastReturn: {
-                                    title: 'Increase on Last Return',
-                                    type: 'string'
-                                  },
-                                  increaseOnLastReturnPercent: {
-                                    title: 'Increase on Last Return',
-                                    type: 'string'
+                                  type: 'object',
+                                  title: '',
+                                  properties: {
+                                    securedAgainstBaselineLastReturn: {
+                                      title: '',
+                                      type: 'string',
+                                      hidden: true,
+                                      sourceKey: [:return_data, :fundingPackages, :fundingStack, :private, :balancesSecured, :securedAgainstBaseline]
+                                    },
+                                    remainingToBeSecured: {
+                                      title: 'Remaining to be Secured',
+                                      type: 'string'
+                                    },
+                                    securedAgainstBaseline: {
+                                      title: 'Secured Against Baseline',
+                                      type: 'string'
+                                    },
+                                    increaseOnLastReturn: {
+                                      title: 'Increase on Last Return',
+                                      type: 'string'
+                                    },
+                                    increaseOnLastReturnPercent: {
+                                      title: 'Increase on Last Return',
+                                      type: 'string'
+                                    }
                                   }
                                 },
                                 current: {
                                   title: 'Total - Current return',
                                   type: 'string',
                                   currency: true
+                                },
+                                currentAmount: {
+                                  type: 'string',
+                                  title: '',
+                                  hidden: true,
+                                  sourceKey: [:return_data, :fundingPackages, :fundingStack, :private, :currentAmount]
                                 },
                                 reason: {
                                   title: 'Reason for variance',
@@ -1932,6 +1989,11 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                   title: 'Amount secured to date',
                                   type: 'string',
                                   currency: true
+                                },
+                                amountSecuredLastReturn: {
+                                  title: '',
+                                  type: 'string',
+                                  sourceKey: [:return_data, :fundingPackages, :fundingStack, :private, :amountSecured]
                                 }
                               }
                             }
@@ -4273,6 +4335,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           type: 'string',
                           s151WriteOnly: true,
                           title: 'Mitigation in place to reduce further slippage'
+                        },
+                        evidenceUpload: {
+                          title: "Evidence of Change to End Date",
+                          description: "Evidence can include invoices/ contracts/ accounting system print off. Please attach here.",
+                          uploadFile: "multiple",
+                          type: "string",
+                          s151WriteOnly: true
                         }
                       }
                     }
@@ -4467,7 +4536,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
               hidden: true
             },
             breakdownOfNextQuarterSpend: {
-              title: 'Evidence of Next Quarter Spend',
+              title: 'Breakdown of Next Quarter Spend',
               type: 'object',
               properties: {
                 forecast: {

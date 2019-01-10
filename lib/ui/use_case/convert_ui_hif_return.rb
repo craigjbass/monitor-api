@@ -366,6 +366,7 @@ class UI::UseCase::ConvertUIHIFReturn
 
           unless package[:fundingStack][:hifSpend][:anyChangeToBaseline][:variance].nil?
             new_package[:fundingStack][:hifSpend][:current] = package[:fundingStack][:hifSpend][:anyChangeToBaseline][:variance][:current]
+            new_package[:fundingStack][:hifSpend][:currentAmount] = package[:fundingStack][:hifSpend][:anyChangeToBaseline][:variance][:currentAmount]
 
             new_package[:fundingStack][:hifSpend][:anyChangeToBaseline][:variance] = {
               baseline: package[:fundingStack][:hifSpend][:anyChangeToBaseline][:variance][:baseline],
@@ -397,6 +398,8 @@ class UI::UseCase::ConvertUIHIFReturn
 
         unless package[:fundingStack][:totalCost][:variance].nil?
           new_package[:fundingStack][:totalCost][:current] = package[:fundingStack][:totalCost][:variance][:current]
+          new_package[:fundingStack][:totalCost][:currentAmount] = package[:fundingStack][:totalCost][:variance][:currentAmount]
+
 
           new_package[:fundingStack][:totalCost][:variance] = {
             baseline: package[:fundingStack][:totalCost][:variance][:baseline],
@@ -406,6 +409,7 @@ class UI::UseCase::ConvertUIHIFReturn
       end
 
       new_package[:fundingStack][:fundedThroughHIF] = package[:fundingStack][:fundedThroughHIF]
+      new_package[:fundingStack][:fundedThroughHIFbaseline] = package[:fundingStack][:fundedThroughHIFbaseline]
 
       unless package[:fundingStack][:anyChange].nil?
         new_package[:fundingStack][:anyChange] = {
@@ -440,7 +444,7 @@ class UI::UseCase::ConvertUIHIFReturn
             lastReturn: package[:fundingStack][:public][:previousAmounts][:lastReturn]
           }
         end
-        
+
         unless package[:fundingStack][:public][:anyChangeToBaseline].nil?
           new_package[:fundingStack][:public][:anyChangeToBaseline] = {
             confirmation: package[:fundingStack][:public][:anyChangeToBaseline][:confirmation]
@@ -448,25 +452,23 @@ class UI::UseCase::ConvertUIHIFReturn
           new_package[:fundingStack][:public][:reason] = package[:fundingStack][:public][:anyChangeToBaseline][:reason]
           unless package[:fundingStack][:public][:anyChangeToBaseline][:variance].nil?
             new_package[:fundingStack][:public][:current] = package[:fundingStack][:public][:anyChangeToBaseline][:variance][:current]
+            new_package[:fundingStack][:public][:currentAmount] = package[:fundingStack][:public][:anyChangeToBaseline][:variance][:currentAmount]
             new_package[:fundingStack][:public][:anyChangeToBaseline][:variance] = {
               baselineVariance: package[:fundingStack][:public][:anyChangeToBaseline][:variance][:baselineVariance],
               lastReturnVariance: package[:fundingStack][:public][:anyChangeToBaseline][:variance][:lastReturnVariance]
             }
-          end          
+          end
         end
 
-        unless package[:fundingStack][:public][:balancesSecured].nil? 
+        unless package[:fundingStack][:public][:balancesSecured].nil?
           new_package[:fundingStack][:public][:amountSecured] = package[:fundingStack][:public][:balancesSecured][:amountSecured]
+          new_package[:fundingStack][:public][:amountSecuredLastReturn] = package[:fundingStack][:public][:balancesSecured][:amountSecuredLastReturn]
           new_package[:fundingStack][:public][:balancesSecured] = {
             remainingToBeSecured: package[:fundingStack][:public][:balancesSecured][:remainingToBeSecured],
-            securedAgainstBaseline: package[:fundingStack][:public][:balancesSecured][:securedAgainstBaseline]
-          }
-        end
-
-        unless package[:fundingStack][:public][:comparisons].nil?
-          new_package[:fundingStack][:public][:comparisons] = {
-            increaseOnLastReturn: package[:fundingStack][:public][:comparisons][:increaseOnLastReturn],
-            increaseOnLastReturnPercent: package[:fundingStack][:public][:comparisons][:increaseOnLastReturnPercent]
+            securedAgainstBaseline: package[:fundingStack][:public][:balancesSecured][:securedAgainstBaseline],
+            securedAgainstBaselineLastReturn: package[:fundingStack][:public][:balancesSecured][:securedAgainstBaselineLastReturn],
+            increaseOnLastReturn: package[:fundingStack][:public][:balancesSecured][:increaseOnLastReturn],
+            increaseOnLastReturnPercent: package[:fundingStack][:public][:balancesSecured][:increaseOnLastReturnPercent]
           }
         end
       end
@@ -480,7 +482,7 @@ class UI::UseCase::ConvertUIHIFReturn
             lastReturn: package[:fundingStack][:private][:previousAmounts][:lastReturn]
           }
         end
-        
+
         unless package[:fundingStack][:private][:anyChangeToBaseline].nil?
           new_package[:fundingStack][:private][:anyChangeToBaseline] = {
             confirmation: package[:fundingStack][:private][:anyChangeToBaseline][:confirmation]
@@ -488,25 +490,24 @@ class UI::UseCase::ConvertUIHIFReturn
           new_package[:fundingStack][:private][:reason] = package[:fundingStack][:private][:anyChangeToBaseline][:reason]
           unless package[:fundingStack][:private][:anyChangeToBaseline][:variance].nil?
             new_package[:fundingStack][:private][:current] = package[:fundingStack][:private][:anyChangeToBaseline][:variance][:current]
+            new_package[:fundingStack][:private][:currentAmount] = package[:fundingStack][:private][:anyChangeToBaseline][:variance][:currentAmount]
+
             new_package[:fundingStack][:private][:anyChangeToBaseline][:variance] = {
               baselineVariance: package[:fundingStack][:private][:anyChangeToBaseline][:variance][:baselineVariance],
               lastReturnVariance: package[:fundingStack][:private][:anyChangeToBaseline][:variance][:lastReturnVariance]
             }
-          end          
+          end
         end
 
-        unless package[:fundingStack][:private][:balancesSecured].nil? 
+        unless package[:fundingStack][:private][:balancesSecured].nil?
           new_package[:fundingStack][:private][:amountSecured] = package[:fundingStack][:private][:balancesSecured][:amountSecured]
+          new_package[:fundingStack][:private][:amountSecuredLastReturn] = package[:fundingStack][:private][:balancesSecured][:amountSecuredLastReturn]
           new_package[:fundingStack][:private][:balancesSecured] = {
             remainingToBeSecured: package[:fundingStack][:private][:balancesSecured][:remainingToBeSecured],
-            securedAgainstBaseline: package[:fundingStack][:private][:balancesSecured][:securedAgainstBaseline]
-          }
-        end
-
-        unless package[:fundingStack][:private][:comparisons].nil?
-          new_package[:fundingStack][:private][:comparisons] = {
-            increaseOnLastReturn: package[:fundingStack][:private][:comparisons][:increaseOnLastReturn],
-            increaseOnLastReturnPercent: package[:fundingStack][:private][:comparisons][:increaseOnLastReturnPercent]
+            securedAgainstBaseline: package[:fundingStack][:private][:balancesSecured][:securedAgainstBaseline],
+            securedAgainstBaselineLastReturn: package[:fundingStack][:private][:balancesSecured][:securedAgainstBaselineLastReturn],
+            increaseOnLastReturn: package[:fundingStack][:private][:balancesSecured][:increaseOnLastReturn],
+            increaseOnLastReturnPercent: package[:fundingStack][:private][:balancesSecured][:increaseOnLastReturnPercent]
           }
         end
       end
@@ -763,6 +764,7 @@ class UI::UseCase::ConvertUIHIFReturn
       @converted_return[:s151Confirmation][:submission][:requestedChangedEndDate] = @return[:s151Confirmation][:submission][:changesToEndDate][:requestedChangedEndDate]
       @converted_return[:s151Confirmation][:submission][:mitigationInPlaceEndDate] = @return[:s151Confirmation][:submission][:changesToEndDate][:mitigationInPlaceEndDate]
       @converted_return[:s151Confirmation][:submission][:varianceFromEndDateBaseline] = @return[:s151Confirmation][:submission][:changesToEndDate][:varianceFromEndDateBaseline]
+      @converted_return[:s151Confirmation][:submission][:evidenceUpload] = @return[:s151Confirmation][:submission][:changesToEndDate][:evidenceUpload]
     end
 
     unless @return[:s151Confirmation][:submission][:changesToLongstopDate].nil?
@@ -932,12 +934,14 @@ class UI::UseCase::ConvertUIHIFReturn
 
     unless @return[:reviewAndAssurance][:barriers].nil?
       @converted_return[:reviewAndAssurance][:barriers] = {}
-      @converted_return[:reviewAndAssurance][:barriers][:significantIssues] = @return[:reviewAndAssurance][:barriers][:significantIssues].map do |issue|
-        {
-          overview: issue[:overview],
-          barrierType: issue[:barrierType],
-          details: issue[:details]
-        }
+      unless @return[:reviewAndAssurance][:barriers][:significantIssues].nil?
+        @converted_return[:reviewAndAssurance][:barriers][:significantIssues] = @return[:reviewAndAssurance][:barriers][:significantIssues].map do |issue|
+          {
+            overview: issue[:overview],
+            barrierType: issue[:barrierType],
+            details: issue[:details]
+          }
+        end
       end
     end
 

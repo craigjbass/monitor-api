@@ -71,6 +71,7 @@
             "statutoryConsents": [
               {
                 "baselineCompletion": "2020-01-01",
+                "detailsOfConsent": "A consent",
                 "varianceAgainstBaseline": "4",
                 "varianceAgainstLastReturn": "56",
                 "statusAgainstLastReturn": "On schedule",
@@ -289,6 +290,7 @@
             "confirmation": "Yes",
             "variance": {
               "current": "7685",
+              "currentAmount": "7654",
               "baseline": "2333",
               "lastReturn": "1234"
             },
@@ -309,6 +311,7 @@
           "anyChange": "Yes",
           "variance": {
             "current": "567329",
+            "currentAmount": "567329",
             "baseline": "0",
             "lastReturn": "0"
           },
@@ -319,6 +322,7 @@
           },
           "varianceReason": "No more money"
         },
+        "fundedThroughHIFbaseline": "Yes",
         "fundedThroughHIF": "No",
         "anyChange": {
           "confirmation": "Yes",
@@ -342,6 +346,7 @@
             "confirmation": "Yes",
             "variance": {
               "current": "756",
+              "currentAmount": "5678",
               "baselineVariance": "2345",
               "lastReturnVariance": "12345"
             },
@@ -349,10 +354,10 @@
           },
           "balancesSecured": {
             "amountSecured": "45782",
+            "amountSecuredLastReturn": "45781",
             "remainingToBeSecured": "12321",
-            "securedAgainstBaseline": "122"
-          },
-          "comparisons": {
+            "securedAgainstBaseline": "122",
+            "securedAgainstBaselineLastReturn": "121",
             "increaseOnLastReturn": "34",
             "increaseOnLastReturnPercent": "98"
           }
@@ -366,6 +371,7 @@
             "confirmation": "Yes",
             "variance": {
               "current": "756",
+              "currentAmount": "9876",
               "baselineVariance": "2345",
               "lastReturnVariance": "12345"
             },
@@ -373,10 +379,10 @@
           },
           "balancesSecured": {
             "amountSecured": "45782",
+            "amountSecuredLastReturn": "45781",
             "remainingToBeSecured": "12321",
-            "securedAgainstBaseline": "12"
-          },
-          "comparisons": {
+            "securedAgainstBaseline": "12",
+            "securedAgainstBaselineLastReturn": "11",
             "increaseOnLastReturn": "34",
             "increaseOnLastReturnPercent": "98"
           }
@@ -764,7 +770,8 @@
         "reasonForRequestOfDateChange": "Dogs",
         "requestedChangedEndDate": "3456-01-22",
         "mitigationInPlaceEndDate": "changing date",
-        "varianceFromEndDateBaseline": "baselineing"
+        "varianceFromEndDateBaseline": "baselineing",
+        "evidenceUpload": "V2VsY29tZSBUbyBUaGUgQmxhY2sgUGFyYWRl"
       },
       "hifFundingEndDate": "4567-23-34",
       "projectLongstopDate": "5647-12-23",
