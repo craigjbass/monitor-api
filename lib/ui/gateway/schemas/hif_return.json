@@ -1219,7 +1219,7 @@
               },
               "previousMilestones": {
                 "type": "array",
-                "title": "Previous Milestones",
+                "title": "Previous Return Milestones (Additional to Baseline)",
                 "items": {
                   "type": "object",
                   "horizontal": true,
