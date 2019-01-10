@@ -1162,10 +1162,15 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           riskMetDate: {
                             type: 'string',
+                            enum: %w[Yes No],                          
+                            title: 'Risk Met?',
+                            sourceKey: %i[return_data infrastructures risks baselineRisks riskMetDate]
+                          },
+                          riskCompletionDate: {
+                            type: 'string',
                             format: 'date',
-                            readonly: true,
-                            hidden: true,
-                            title: 'Risk Met Date (Calculated)'
+                            title: 'Completion Date',
+                            sourceKey: %i[return_data infrastructures risks baselineRisks riskCompletionDate]
                           }
                         }
                       }

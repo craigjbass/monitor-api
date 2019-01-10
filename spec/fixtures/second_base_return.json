@@ -92,7 +92,9 @@
             "riskBaselineRisk": "Risk one",
             "riskBaselineImpact": "High",
             "riskBaselineLikelihood": "High",
-            "riskBaselineMitigationsInPlace": "Do not do the thing"
+            "riskBaselineMitigationsInPlace": "Do not do the thing",
+            "riskMetDate": "Yes",
+            "riskCompletionDate": "01/01/2018" 
           }
         ],
         "previousRisks": []

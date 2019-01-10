@@ -101,7 +101,8 @@
             "riskBaselineMitigationsInPlace": "Do not do the thing",
             "riskAnyChange": null,
             "riskCurrentReturnMitigationsInPlace": null,
-            "riskMetDate": null
+            "riskMet": null,
+            "riskCompletionDate": null
           }
         ]
       }

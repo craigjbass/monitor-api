@@ -192,7 +192,8 @@
             "riskAnyChange": "No",
             "riskCurrentReturnLikelihood": null,
             "riskCurrentReturnMitigationsInPlace": "None",
-            "riskMetDate": "2024-67-40"
+            "riskMet": "Yes",
+            "riskCompletionDate": "01-01-01"
           }
         ],
         "additionalRisks": [

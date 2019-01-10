@@ -1347,7 +1347,8 @@
                     },
                     "riskCurrentReturnLikelihood": {
                       "type": "string",
-                      "title": "Current Return Likelihood"
+                      "title": "Current Likelihood",
+                      "enum": ["1", "2", "3", "4", "5"]
                     },
                     "riskBaselineMitigationsInPlace": {
                       "sourceKey": [
@@ -1362,7 +1363,7 @@
                     },
                     "riskAnyChange": {
                       "type": "string",
-                      "title": "Any change to risk mitigation?",
+                      "title": "Any Change to Mitigation?",
                       "radio": true,
                       "enum": ["Yes", "No"]
                     },
@@ -1370,12 +1371,15 @@
                       "type": "string",
                       "title": "Current Return Mitigations in place"
                     },
-                    "riskMetDate": {
+                    "riskMet": {
                       "type": "string",
-                      "format": "date",
-                      "readonly": true,
-                      "hidden": true,
-                      "title": "Risk Met Date (Calculated)"
+                      "enum": ["Yes", "No"],
+                      "title": "Risk Met?"
+                    },
+                    "riskCompletionDate": {
+                      "type": "string",
+                      "title": "Completion Date",
+                      "format": "date"
                     }
                   }
                 }

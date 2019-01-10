@@ -192,7 +192,8 @@
             "riskBaselineMitigationsInPlace": "Do not do the thing",
             "riskAnyChange": "No",
             "riskCurrentReturnMitigationsInPlace": "None",
-            "riskMetDate": "2024-67-40"
+            "riskMetDate": "Yes",
+            "riskCompletionDate": "01-01-01"
           }
         ],
         "additionalRisks": [
