@@ -39,7 +39,7 @@
           "statutoryConsents": {
             "anyStatutoryConsents": "Yes",
             "statutoryConsents": [
-              { "baselineCompletion": "2020-01-01"}
+              { "baselineCompletion": "2020-01-01", "detailsOfConsent": "Details of consent"}
             ]
           }
         }

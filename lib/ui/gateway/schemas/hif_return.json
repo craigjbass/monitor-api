@@ -492,6 +492,11 @@
                           "type": "object",
                           "calculation": "set(formData, 'varianceAgainstBaseline', weeksPassed(get(formData, 'baselineCompletion'), get(formData, 'currentReturn'))); set(formData, 'varianceAgainstLastReturn', weeksPassed(get(formData, 'previousReturn'), get(formData, 'currentReturn')));",
                           "properties": {
+                            "detailsOfConsent": {
+                              "title": "Details of Consent",
+                              "type": "string",
+                              "readonly": true
+                            },
                             "baselineCompletion": {
                               "title": "Baseline Target",
                               "type": "string",
