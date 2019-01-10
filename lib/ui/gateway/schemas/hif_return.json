@@ -479,132 +479,149 @@
                           "anyConsents"
                         ],
                         "readonly": true,
-                        "items": {
-                          "type": "string",
-                          "radio": true,
-                          "enum": ["Yes", "No"]
-                        }
-                      },
-                      "statutoryConsents": {
-                        "title": "Status of Statutory Consents",
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "calculation": "set(formData, 'varianceAgainstBaseline', weeksPassed(get(formData, 'baselineCompletion'), get(formData, 'currentReturn'))); set(formData, 'varianceAgainstLastReturn', weeksPassed(get(formData, 'previousReturn'), get(formData, 'currentReturn')));",
-                          "properties": {
-                            "detailsOfConsent": {
-                              "title": "Details of Consent",
-                              "type": "string",
-                              "readonly": true
-                            },
-                            "baselineCompletion": {
-                              "title": "Baseline Target",
-                              "type": "string",
-                              "format": "date",
-                              "sourceKey": [
-                                "baseline_data",
-                                "infrastructures",
-                                "statutoryConsents",
-                                "consents",
-                                "targetDateToBeMet"
-                              ],
-                              "readonly": true
-                            },
-                            "statusAgainstLastReturn": {
-                              "title": "Status against last return?",
-                              "type": "string",
-                              "radio": true,
-                              "enum": ["Completed", "On schedule", "Delayed"],
-                              "default": "On schedule"
-                            }
-                          },
-                          "dependencies": {
-                            "statusAgainstLastReturn": {
-                              "oneOf": [
-                                {
+                        "radio": true,
+                        "enum": ["Yes", "No"]
+                      }
+                    },
+                    "dependencies": {
+                      "anyStatutoryConsents": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "anyStatutoryConsents": {
+                                "enum": ["Yes"]
+                              },
+                              "statutoryConsents": {
+                                "title": "Status of Statutory Consents",
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "calculation": "set(formData, 'varianceAgainstBaseline', weeksPassed(get(formData, 'baselineCompletion'), get(formData, 'currentReturn'))); set(formData, 'varianceAgainstLastReturn', weeksPassed(get(formData, 'previousReturn'), get(formData, 'currentReturn')));",
                                   "properties": {
-                                    "statusAgainstLastReturn": {
-                                      "enum": ["On schedule"]
-                                    },
-                                    "percentComplete": {
-                                      "title": "Percentage complete",
+                                    "detailsOfConsent": {
+                                      "title": "Details of Consent",
                                       "type": "string",
-                                      "percentage": true
-                                    }
-                                  }
-                                },
-                                {
-                                  "properties": {
-                                    "statusAgainstLastReturn": {
-                                      "enum": ["Completed"]
-                                    },
-                                    "completionDate": {
-                                      "title": "Completion date",
-                                      "type": "string",
-                                      "format": "date",
                                       "readonly": true
                                     },
-                                    "percentComplete": {
-                                      "title": "Percentage complete",
-                                      "type": "string",
-                                      "percentage": true
-                                    }
-                                  }
-                                },
-                                {
-                                  "properties": {
-                                    "statusAgainstLastReturn": {
-                                      "enum": ["Delayed"]
-                                    },
-                                    "currentReturn": {
-                                      "title": "Current return",
+                                    "baselineCompletion": {
+                                      "title": "Baseline Target",
                                       "type": "string",
                                       "format": "date",
                                       "sourceKey": [
-                                        "return_data",
+                                        "baseline_data",
                                         "infrastructures",
-                                        "planning",
-                                        "section106",
                                         "statutoryConsents",
-                                        "statutoryConsents",
-                                        "currentReturn"
-                                      ]
-                                    },
-                                    "previousReturn": {
-                                      "title": "Previous Return",
-                                      "readonly": true,
-                                      "type": "string",
-                                      "format": "date",
-                                      "sourceKey": [
-                                        "return_data",
-                                        "infrastructures",
-                                        "planning",
-                                        "section106",
-                                        "statutoryConsents",
-                                        "statutoryConsents",
-                                        "currentReturn"
-                                      ]
-                                    },
-                                    "varianceAgainstBaseline": {
-                                      "title": "Variance Against Baseline (weeks) (Calculated)",
-                                      "type": "string",
+                                        "consents",
+                                        "targetDateToBeMet"
+                                      ],
                                       "readonly": true
                                     },
-                                    "varianceAgainstLastReturn": {
-                                      "title": "Variance Against Last Return (weeks) (Calculated)",
+                                    "statusAgainstLastReturn": {
+                                      "title": "Status against last return?",
                                       "type": "string",
-                                      "readonly": true
-                                    },
-                                    "varianceReason": {
-                                      "title": "Reason for variance",
-                                      "type": "string"
+                                      "radio": true,
+                                      "enum": ["Completed", "On schedule", "Delayed"],
+                                      "default": "On schedule"
+                                    }
+                                  },
+                                  "dependencies": {
+                                    "statusAgainstLastReturn": {
+                                      "oneOf": [
+                                        {
+                                          "properties": {
+                                            "statusAgainstLastReturn": {
+                                              "enum": ["On schedule"]
+                                            },
+                                            "percentComplete": {
+                                              "title": "Percentage complete",
+                                              "type": "string",
+                                              "percentage": true
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "properties": {
+                                            "statusAgainstLastReturn": {
+                                              "enum": ["Completed"]
+                                            },
+                                            "completionDate": {
+                                              "title": "Completion date",
+                                              "type": "string",
+                                              "format": "date",
+                                              "readonly": true
+                                            },
+                                            "percentComplete": {
+                                              "title": "Percentage complete",
+                                              "type": "string",
+                                              "percentage": true
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "properties": {
+                                            "statusAgainstLastReturn": {
+                                              "enum": ["Delayed"]
+                                            },
+                                            "currentReturn": {
+                                              "title": "Current return",
+                                              "type": "string",
+                                              "format": "date",
+                                              "sourceKey": [
+                                                "return_data",
+                                                "infrastructures",
+                                                "planning",
+                                                "section106",
+                                                "statutoryConsents",
+                                                "statutoryConsents",
+                                                "currentReturn"
+                                              ]
+                                            },
+                                            "previousReturn": {
+                                              "title": "Previous Return",
+                                              "readonly": true,
+                                              "type": "string",
+                                              "format": "date",
+                                              "sourceKey": [
+                                                "return_data",
+                                                "infrastructures",
+                                                "planning",
+                                                "section106",
+                                                "statutoryConsents",
+                                                "statutoryConsents",
+                                                "currentReturn"
+                                              ]
+                                            },
+                                            "varianceAgainstBaseline": {
+                                              "title": "Variance Against Baseline (weeks) (Calculated)",
+                                              "type": "string",
+                                              "readonly": true
+                                            },
+                                            "varianceAgainstLastReturn": {
+                                              "title": "Variance Against Last Return (weeks) (Calculated)",
+                                              "type": "string",
+                                              "readonly": true
+                                            },
+                                            "varianceReason": {
+                                              "title": "Reason for variance",
+                                              "type": "string"
+                                            }
+                                          }
+                                        }
+                                      ]
                                     }
                                   }
                                 }
-                              ]
+                              }
+                            }
+                          },
+                          {
+                            "properties": {
+                              "anyStatutoryConsents": {
+                                "enum": ["No"]
+                              }
                             }
                           }
-                        }
+                        ]
                       }
                     }
                   }
