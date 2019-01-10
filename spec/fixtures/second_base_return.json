@@ -54,7 +54,7 @@
           "summaryOfAcquisitionRequired": "Summary of critical path",
           "allLandAssemblyAchieved": {
             "baseline": "2020-01-01",
-            "previousReturn": null
+            "previousReturn": "Tomorrow"
           }
         }
       },

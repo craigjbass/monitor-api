@@ -626,7 +626,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                             },
                                             previousReturn: {
                                               type: 'string',
-                                              sourceKey: %i[baseline_data infrastructures landOwnership current],
+                                              sourceKey: %i[return_data infrastructures landOwnership laDoesNotControlSite allLandAssemblyAchieved current],
                                             },
                                             # To be calculated
                                             landAssemblyVarianceAgainstLastReturn: {
