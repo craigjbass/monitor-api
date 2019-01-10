@@ -987,7 +987,7 @@
                       "readonly": true,
                       "type": "string",
                       "format": "date",
-                      "title": "Baseline Completion Date"
+                      "title": "Baseline Target Date"
                     },
                     "milestoneSummaryOfCriticalPath": {
                       "sourceKey": [
