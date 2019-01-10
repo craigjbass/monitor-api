@@ -341,12 +341,14 @@ class UI::UseCase::ConvertUIHIFReturn
       }
       new_package[:fundingStack] = {}
       unless package[:fundingStack][:hifSpendSinceLastReturn].nil?
-        new_package[:fundingStack][:hifSpendSinceLastReturn] = {
-          currentReturn: package[:fundingStack][:hifSpendSinceLastReturn][:currentReturn],
-          cumulativeIncCurrentReturn: package[:fundingStack][:hifSpendSinceLastReturn][:cumulativeIncCurrentReturn],
-          cumulativeExCurrentReturn: package[:fundingStack][:hifSpendSinceLastReturn][:cumulativeExCurrentReturn],
-          remaining: package[:fundingStack][:hifSpendSinceLastReturn][:remaining]
-        }
+        unless package[:fundingStack][:hifSpendSinceLastReturn][:hifSpendSinceLastReturnHolder].nil?
+          new_package[:fundingStack][:hifSpendSinceLastReturn] = {
+            currentReturn: package[:fundingStack][:hifSpendSinceLastReturn][:hifSpendSinceLastReturnHolder][:currentReturn],
+            cumulativeIncCurrentReturn: package[:fundingStack][:hifSpendSinceLastReturn][:hifSpendSinceLastReturnHolder][:cumulativeIncCurrentReturn],
+            cumulativeExCurrentReturn: package[:fundingStack][:hifSpendSinceLastReturn][:hifSpendSinceLastReturnHolder][:cumulativeExCurrentReturn],
+            remaining: package[:fundingStack][:hifSpendSinceLastReturn][:hifSpendSinceLastReturnHolder][:remaining]
+          }
+        end
       end
 
       unless package[:fundingStack][:hifSpend].nil?

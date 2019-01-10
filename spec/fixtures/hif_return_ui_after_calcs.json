@@ -291,10 +291,12 @@
         "descriptionOfInfrastructure": "infras",
         "currentFundingStackDescription": "fund",
         "hifSpendSinceLastReturn": {
-          "currentReturn": "123",
-          "cumulativeIncCurrentReturn": "128",
-          "cumulativeExCurrentReturn": "5",
-          "remaining": "22"
+          "hifSpendSinceLastReturnHolder": {
+            "currentReturn": "123",
+            "cumulativeIncCurrentReturn": "128",
+            "cumulativeExCurrentReturn": "5",
+            "remaining": "22"
+          }
         },
         "hifSpend": {
           "previousAmounts": {

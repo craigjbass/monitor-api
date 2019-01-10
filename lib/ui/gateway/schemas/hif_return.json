@@ -1843,7 +1843,7 @@
           "fundingStack": {
             "type": "object",
             "title": "Funding stack",
-            "calculation": "setCreate(formData, ['hifSpendSinceLastReturn', 'remaining'], ''+(parseMoney(get(formData, 'totalCost', 'previousAmounts', 'baseline')) - parseMoney(get(formData, 'hifSpendSinceLastReturn', 'cumulativeIncCurrentReturn')))); get(formData, 'anyChangeToDescription', 'confirmation') === 'Yes' ? set(formData, 'currentFundingStackDescription', get(formData, 'anyChangeToDescription', 'updatedFundingStack')) : set(formData, 'currentFundingStackDescription', get(formData, 'descriptionOfFundingStack')); set(formData['totalCost'], 'percentComplete', calculateVariance(parseMoney(get(formData,'totalCost', 'current')), parseMoney(get(formData,'totalCost', 'baseline'))));get(formData, 'anyChange', 'confirmation') === 'Yes' ? get(formData, 'fundedThroughHIFbaseline') === 'Yes' ? set(formData, 'fundedThroughHIF', 'No') : set(formData, 'fundedThroughHIF', 'Yes') : set(formData, 'fundedThroughHIF', get(formData, 'fundedThroughHIFbaseline')); get(formData, 'anyChangeToDescription', 'confirmation') === 'Yes' ? set(formData, 'currentFundingStackDescription', get(formData, 'anyChangeToDescription', 'updatedFundingStack')) : set(formData, 'currentFundingStackDescription', get(formData, 'descriptionOfFundingStack')); set(formData['totalCost'], 'percentComplete', calculateVariance(parseMoney(get(formData,'totalCost', 'current')), parseMoney(get(formData,'totalCost', 'baseline'))));",
+            "calculation": "setCreate(formData, ['hifSpendSinceLastReturn', 'hifSpendSinceLastReturnHolder', 'remaining'], ''+(parseMoney(get(formData, 'totalCost', 'previousAmounts', 'baseline')) - parseMoney(get(formData, 'hifSpendSinceLastReturn', 'hifSpendSinceLastReturnHolder', 'cumulativeIncCurrentReturn')))); get(formData, 'anyChangeToDescription', 'confirmation') === 'Yes' ? set(formData, 'currentFundingStackDescription', get(formData, 'anyChangeToDescription', 'updatedFundingStack')) : set(formData, 'currentFundingStackDescription', get(formData, 'descriptionOfFundingStack')); set(formData['totalCost'], 'percentComplete', calculateVariance(parseMoney(get(formData,'totalCost', 'current')), parseMoney(get(formData,'totalCost', 'baseline'))));get(formData, 'anyChange', 'confirmation') === 'Yes' ? get(formData, 'fundedThroughHIFbaseline') === 'Yes' ? set(formData, 'fundedThroughHIF', 'No') : set(formData, 'fundedThroughHIF', 'Yes') : set(formData, 'fundedThroughHIF', get(formData, 'fundedThroughHIFbaseline')); get(formData, 'anyChangeToDescription', 'confirmation') === 'Yes' ? set(formData, 'currentFundingStackDescription', get(formData, 'anyChangeToDescription', 'updatedFundingStack')) : set(formData, 'currentFundingStackDescription', get(formData, 'descriptionOfFundingStack')); set(formData['totalCost'], 'percentComplete', calculateVariance(parseMoney(get(formData,'totalCost', 'current')), parseMoney(get(formData,'totalCost', 'baseline'))));",
             "properties": {
               "currentFundingStackDescription": {
                 "type": "string",
@@ -2058,26 +2058,33 @@
                 }
               },
               "hifSpendSinceLastReturn": {
-                "title": "HIF Spend Since Last Return",
+                "title": "",
                 "type": "object",
-                "calculation": "set(formData, 'cumulativeIncCurrentReturn', ''+sum(formData, 'currentReturn', 'cumulativeExCurrentReturn'));",
+                "calculation": "setCreate(formData, ['hifSpendSinceLastReturnHolder','cumulativeIncCurrentReturn'], ''+sum(formData['hifSpendSinceLastReturnHolder'], 'currentReturn', 'cumulativeExCurrentReturn'));",
                 "properties": {
-                  "currentReturn": {
-                    "title": "Current Return",
-                    "type": "string",
-                    "currency": true
-                  },
-                  "cumulativeIncCurrentReturn": {
-                    "title": "Cumulative Including Current Return",
-                    "type": "string",
-                    "currency": true,
-                    "readonly": true
-                  },
-                  "remaining": {
-                    "title": "Remaining",
-                    "type": "string",
-                    "currency": true,
-                    "readonly": true
+                  "hifSpendSinceLastReturnHolder": {
+                    "title": "HIF Spend Since Last Return",
+                    "type": "object",
+                    "horizontal": true,
+                    "properties": {
+                      "currentReturn": {
+                        "title": "Current Return",
+                        "type": "string",
+                        "currency": true
+                      },
+                      "cumulativeIncCurrentReturn": {
+                        "title": "Cumulative Including Current Return",
+                        "type": "string",
+                        "currency": true,
+                        "readonly": true
+                      },
+                      "remaining": {
+                        "title": "Remaining",
+                        "type": "string",
+                        "currency": true,
+                        "readonly": true
+                      }
+                    }
                   }
                 }
               }
