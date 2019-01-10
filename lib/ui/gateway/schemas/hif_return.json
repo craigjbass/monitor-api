@@ -1440,7 +1440,7 @@
               },
               "previousRisks": {
                 "type": "array",
-                "title": "Previous Risks",
+                "title": "Previous Return Risks (Additional to Baseline)",
                 "items": {
                   "type": "object",
                   "horizontal": true,
