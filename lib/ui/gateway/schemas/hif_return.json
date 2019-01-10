@@ -1044,120 +1044,126 @@
                   }
                 }
               },
-              "expectedInfrastructureStartOnSite": {
+              "startAndCompletionMilestones": {
+                "title": "Start and Completion Milestones",
                 "type": "object",
-                "title": "Expected infrastructure start on site",
-                "variance": true,
                 "properties": {
-                  "baseline": {
-                    "sourceKey": [
-                      "baseline_data",
-                      "infrastructures",
-                      "expectedInfrastructureStart",
-                      "targetDateOfAchievingStart"
-                    ],
-                    "type": "string",
-                    "title": "Baseline Target Date",
-                    "readonly": true
+                  "expectedInfrastructureStartOnSite": {
+                    "type": "object",
+                    "title": "Expected infrastructure start on site",
+                    "variance": true,
+                    "properties": {
+                      "baseline": {
+                        "sourceKey": [
+                          "baseline_data",
+                          "infrastructures",
+                          "expectedInfrastructureStart",
+                          "targetDateOfAchievingStart"
+                        ],
+                        "type": "string",
+                        "title": "Baseline Target Date",
+                        "readonly": true
+                      },
+                      "varianceAgainstLastReturn": {
+                        "type": "string",
+                        "readonly": true,
+                        "title": "Variance Against Last Return (weeks) (Calculated)"
+                      },
+                      "varianceAgainstBaseline": {
+                        "type": "string",
+                        "readonly": true,
+                        "title": "Variance Against Baseline (weeks) (Calculated)"
+                      },
+                      "previousReturn": {
+                        "type": "string",
+                        "readonly": true
+                      },
+                      "status": {
+                        "title": "Status against last return?",
+                        "type": "string",
+                        "radio": true,
+                        "enum": ["Completed", "On schedule", "Delayed"],
+                        "default": "On schedule"
+                      },
+                      "current": {
+                        "type": "string",
+                        "format": "date",
+                        "title": "Current Date"
+                      },
+                      "reason": {
+                        "type": "string",
+                        "title": "Reason for variance"
+                      },
+                      "percentComplete": {
+                        "type": "string",
+                        "title": "Percent complete",
+                        "perentage": true
+                      },
+                      "completedDate": {
+                        "type": "string",
+                        "format": "date",
+                        "title": "Completed Date"
+                      }
+                    }
                   },
-                  "varianceAgainstLastReturn": {
-                    "type": "string",
-                    "readonly": true,
-                    "title": "Variance Against Last Return (weeks) (Calculated)"
-                  },
-                  "varianceAgainstBaseline": {
-                    "type": "string",
-                    "readonly": true,
-                    "title": "Variance Against Baseline (weeks) (Calculated)"
-                  },
-                  "previousReturn": {
-                    "type": "string",
-                    "readonly": true
-                  },
-                  "status": {
-                    "title": "Status against last return?",
-                    "type": "string",
-                    "radio": true,
-                    "enum": ["Completed", "On schedule", "Delayed"],
-                    "default": "On schedule"
-                  },
-                  "current": {
-                    "type": "string",
-                    "format": "date",
-                    "title": "Current Date"
-                  },
-                  "reason": {
-                    "type": "string",
-                    "title": "Reason for variance"
-                  },
-                  "percentComplete": {
-                    "type": "string",
-                    "title": "Percent complete",
-                    "perentage": true
-                  },
-                  "completedDate": {
-                    "type": "string",
-                    "format": "date",
-                    "title": "Completed Date"
-                  }
-                }
-              },
-              "expectedCompletionDateOfInfra": {
-                "type": "object",
-                "title": "Expected Completion Date of Infrastructure",
-                "variance": true,
-                "properties": {
-                  "baseline": {
-                    "sourceKey": [
-                      "baseline_data",
-                      "infrastructures",
-                      "expectedInfrastructureCompletion",
-                      "targetDateOfAchievingCompletion"
-                    ],
-                    "type": "string",
-                    "format": "date",
-                    "title": "Baseline Date of Completion",
-                    "readonly": true
-                  },
-                  "previousReturn": {
-                    "type": "string",
-                    "readonly": true
-                  },
-                  "varianceAgainstLastReturn": {
-                    "type": "string",
-                    "readonly": true,
-                    "title": "Variance Against Last Return (weeks) (Calculated)"
-                  },
-                  "varianceAgainstBaseline": {
-                    "type": "string",
-                    "readonly": true,
-                    "title": "Variance Against Baseline (weeks) (Calculated)"
-                  },
-                  "status": {
-                    "title": "Status against last return?",
-                    "type": "string",
-                    "radio": true,
-                    "enum": ["Completed", "On schedule", "Delayed"],
-                    "default": "On schedule"
-                  },
-                  "current": {
-                    "type": "string",
-                    "format": "date",
-                    "title": "Current Date"
-                  },
-                  "reason": {
-                    "type": "string",
-                    "title": "Reason for variance"
-                  },
-                  "percentComplete": {
-                    "type": "string",
-                    "title": "Percent complete",
-                    "percentage": true
-                  },
-                  "completedDate": {
-                    "type": "string",
-                    "format": "date",
-                    "title": "Completed Date"
+                  "expectedCompletionDateOfInfra": {
+                    "type": "object",
+                    "title": "Expected Completion Date of Infrastructure",
+                    "variance": true,
+                    "properties": {
+                      "baseline": {
+                        "sourceKey": [
+                          "baseline_data",
+                          "infrastructures",
+                          "expectedInfrastructureCompletion",
+                          "targetDateOfAchievingCompletion"
+                        ],
+                        "type": "string",
+                        "format": "date",
+                        "title": "Baseline Date of Completion",
+                        "readonly": true
+                      },
+                      "previousReturn": {
+                        "type": "string",
+                        "readonly": true
+                      },
+                      "varianceAgainstLastReturn": {
+                        "type": "string",
+                        "readonly": true,
+                        "title": "Variance Against Last Return (weeks) (Calculated)"
+                      },
+                      "varianceAgainstBaseline": {
+                        "type": "string",
+                        "readonly": true,
+                        "title": "Variance Against Baseline (weeks) (Calculated)"
+                      },
+                      "status": {
+                        "title": "Status against last return?",
+                        "type": "string",
+                        "radio": true,
+                        "enum": ["Completed", "On schedule", "Delayed"],
+                        "default": "On schedule"
+                      },
+                      "current": {
+                        "type": "string",
+                        "format": "date",
+                        "title": "Current Date"
+                      },
+                      "reason": {
+                        "type": "string",
+                        "title": "Reason for variance"
+                      },
+                      "percentComplete": {
+                        "type": "string",
+                        "title": "Percent complete",
+                        "percentage": true
+                      },
+                      "completedDate": {
+                        "type": "string",
+                        "format": "date",
+                        "title": "Completed Date"
+                      }
+                    }
                   }
                 }
               },
@@ -1213,7 +1219,7 @@
               },
               "previousMilestones": {
                 "type": "array",
-                "title": "Start and Completion Milestones",
+                "title": "Previous Milestones",
                 "items": {
                   "type": "object",
                   "horizontal": true,

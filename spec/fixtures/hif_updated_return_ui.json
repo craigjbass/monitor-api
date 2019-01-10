@@ -95,11 +95,13 @@
             "milestoneCompletedDate": null
           }
         ],
-        "expectedInfrastructureStartOnSite": {
-          "baseline": "2020-01-01"
-        },
-        "expectedCompletionDateOfInfra": {
-          "baseline": "2020-01-01"
+        "startAndCompletionMilestones": {
+          "expectedInfrastructureStartOnSite": {
+            "baseline": "2020-01-01"
+          },
+          "expectedCompletionDateOfInfra": {
+            "baseline": "2020-01-01"
+          }
         }
       },
       "risks": {
