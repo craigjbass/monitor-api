@@ -340,6 +340,17 @@ class UI::UseCase::ConvertUIHIFReturn
         descriptionOfInfrastructure: package[:fundingStack][:descriptionOfInfrastructure]
       }
       new_package[:fundingStack] = {}
+      unless package[:fundingStack][:hifSpendSinceLastReturn].nil?
+        unless package[:fundingStack][:hifSpendSinceLastReturn][:hifSpendSinceLastReturnHolder].nil?
+          new_package[:fundingStack][:hifSpendSinceLastReturn] = {
+            currentReturn: package[:fundingStack][:hifSpendSinceLastReturn][:hifSpendSinceLastReturnHolder][:currentReturn],
+            cumulativeIncCurrentReturn: package[:fundingStack][:hifSpendSinceLastReturn][:hifSpendSinceLastReturnHolder][:cumulativeIncCurrentReturn],
+            cumulativeExCurrentReturn: package[:fundingStack][:hifSpendSinceLastReturn][:hifSpendSinceLastReturnHolder][:cumulativeExCurrentReturn],
+            remaining: package[:fundingStack][:hifSpendSinceLastReturn][:hifSpendSinceLastReturnHolder][:remaining]
+          }
+        end
+      end
+
       unless package[:fundingStack][:hifSpend].nil?
         unless package[:fundingStack][:hifSpend][:previousAmounts].nil?
           new_package[:fundingStack][:hifSpend] = {

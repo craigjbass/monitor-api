@@ -115,6 +115,9 @@
         "fundedThroughHIFbaseline": "Yes",
         "descriptionOfFundingStack": "describe",
         "fundedThroughHIF": "Yes",
+        "hifSpendSinceLastReturn": {
+          "cumulativeExCurrentReturn": null
+        },
         "hifSpend": {
           "baseline": "10000",
           "currentAmount": "23",
@@ -137,7 +140,7 @@
         "private": {
           "lastReturn": "12",
           "currentAmount": "12",
-          "baseline": "5000", 
+          "baseline": "5000",
           "balancesSecured": {
             "securedAgainstBaselineLastReturn": "124"
           },

@@ -1568,6 +1568,41 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                   type: 'object',
                   title: 'Funding stack',
                   properties: {
+                    hifSpendSinceLastReturn: {
+                      title: 'HIF Spend Since Last Return',
+                      type: 'object',
+                      properties: {
+                        currentReturn: {
+                          title: "Current Return",
+                          type: "string",
+                          currency: true
+                        },
+                        cumulativeIncCurrentReturn: {
+                          title: "Cumulative Including Current Return",
+                          type: "string",
+                          currency: true
+                        },
+                        cumulativeExCurrentReturn: {
+                          title: "Cumulative Excluding Current Return",
+                          sourceKey: %i[
+                            return_data
+                            fundingPackages
+                            fundingStack
+                            hifSpendSinceLastReturn
+                            cumulativeIncCurrentReturn
+                          ],
+                          hidden: true,
+                          type: "string",
+                          currency: true,
+                          readonly: true
+                        },
+                        remaining: {
+                          title: "Remaining",
+                          type: "string",
+                          currency: true
+                        }
+                      }
+                    },
                     hifSpend: {
                       title: 'HIF Spend',
                       type: 'object',
@@ -1817,7 +1852,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                   properties: {
                                     remainingToBeSecured: {
                                       title: 'Remaining to be Secured',
-                                      type: 'string' 
+                                      type: 'string'
                                     },
                                     securedAgainstBaseline: {
                                       title: 'Secured Against Baseline',
@@ -1919,7 +1954,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                     },
                                     remainingToBeSecured: {
                                       title: 'Remaining to be Secured',
-                                      type: 'string' 
+                                      type: 'string'
                                     },
                                     securedAgainstBaseline: {
                                       title: 'Secured Against Baseline',
