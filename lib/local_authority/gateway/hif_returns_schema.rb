@@ -2214,7 +2214,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
             }
           }
         },
-        inYearHousingStarts: {
+        inYearHousingCompletions: {
           type: "object",
           title: "In Year Housing Starts",
           properties: {
@@ -2271,7 +2271,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
               readonly: true
             }
           }
-        },
+        }
       }
     }
   end
