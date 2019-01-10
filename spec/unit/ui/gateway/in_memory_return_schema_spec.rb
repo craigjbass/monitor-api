@@ -41,6 +41,10 @@ describe UI::Gateway::InMemoryReturnSchema do
     expect_no_tab_for('MR_REVIEW', 'reviewAndAssurance')
   end
 
+  it 'will delete the hif recovery tab if the env variables is set to nil' do
+    expect_no_tab_for('HIF_RECOVERY', 'hifRecovery')
+  end
+
   private
 
   def expect_no_tab_for(env_name, section_name)
