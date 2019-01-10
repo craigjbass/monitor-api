@@ -5720,7 +5720,6 @@
               "riskRating": {
                 "type": "string",
                 "title": "Risk Rating",
-                "radio": true,
                 "enum": ["High", "Medium High", "Medium Low", "Low", "Achieved"]
               }
             }
@@ -5737,7 +5736,6 @@
             "riskRating": {
               "type": "string",
               "title": "Risk Rating",
-              "radio": true,
               "enum": ["High", "Medium High", "Medium Low", "Low", "Achieved"]
             }
           }
@@ -5753,7 +5751,6 @@
             "riskRating": {
               "type": "string",
               "title": "Risk Rating",
-              "radio": true,
               "enum": ["High", "Medium High", "Medium Low", "Low", "Achieved"]
             }
           }
@@ -5769,7 +5766,6 @@
             "riskRating": {
               "type": "string",
               "title": "Risk Rating",
-              "radio": true,
               "enum": ["High", "Medium High", "Medium Low", "Low", "Achieved"]
             }
           }
