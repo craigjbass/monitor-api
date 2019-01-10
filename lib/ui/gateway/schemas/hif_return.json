@@ -6065,7 +6065,7 @@
                     },
                     "expectedAmountToRecover": {
                       "type": "object",
-                      "calculation": "set(formData, 'varianceAgainstBaseline', subtract(formData['baselineAmount'], formData['currentReturn'])); set(formData, 'varianceAgainstLastReturn', subtract(formData['lastReturn'], formData['currentReturn'])); set(formData['amountRecovered'], 'remaining', subtract(formData['baselineAmount'], formData['amountRecovered']['cumulative']));",
+                      "calculation": "set(formData, 'varianceAgainstBaseline', subtract(formData['currentReturn'], formData['baselineAmount'])); set(formData, 'varianceAgainstLastReturn', subtract(formData['currentReturn'], formData['lastReturn'])); set(formData['amountRecovered'], 'remaining', subtract(formData['amountRecovered']['cumulative'], formData['baselineAmount']));",
                       "title": "Expected Amount to Recover",
                       "properties": {
                         "baselineAmount": {
