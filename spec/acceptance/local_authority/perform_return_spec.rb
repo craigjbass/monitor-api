@@ -66,6 +66,7 @@ describe 'Performing Return on HIF Project' do
     ENV['RM_MONTHLY_CATCHUP_TAB'] = 'Yes'
     ENV['MR_REVIEW_TAB'] = 'Yes'
     ENV['OUTPUTS_ACTUALS_TAB'] = 'Yes'
+    ENV['HIF_RECOVERY_TAB'] = 'Yes'
     project_id
   end
 
@@ -75,6 +76,7 @@ describe 'Performing Return on HIF Project' do
     ENV['S151_TAB'] = nil
     ENV['MR_REVIEW_TAB'] = nil
     ENV['OUTPUTS_ACTUALS_TAB'] = nil
+    ENV['HIF_RECOVERY_TAB'] = nil
   end
 
   it 'should keep track of Returns' do

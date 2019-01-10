@@ -123,6 +123,19 @@
       }
     }
   ],
+  "hifRecovery": {
+    "recovery": {
+      "aimToRecoverFunding": "Yes",
+      "expectedAmountToRecover": {
+        "amountRecovered": {
+          "previousCumulator": null
+        },
+        "baselineAmount": "1234",
+        "lastReturn": null,
+        "methodOfRecovery": "Recovery will be undertaken"
+      }
+    }
+  },
   "outputsForecast": {
     "summary": {
       "totalUnits": "10",
