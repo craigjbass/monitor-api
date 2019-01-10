@@ -776,6 +776,7 @@ class UI::UseCase::ConvertUIHIFReturn
       @converted_return[:s151Confirmation][:submission][:requestedLongstopEndDate] = @return[:s151Confirmation][:submission][:changesToLongstopDate][:requestedLongstopEndDate]
       @converted_return[:s151Confirmation][:submission][:varianceFromLongStopBaseline] = @return[:s151Confirmation][:submission][:changesToLongstopDate][:varianceFromLongStopBaseline]
       @converted_return[:s151Confirmation][:submission][:mitigationInPlaceLongstopDate] = @return[:s151Confirmation][:submission][:changesToLongstopDate][:mitigationInPlaceLongstopDate]
+      @converted_return[:s151Confirmation][:submission][:evidenceUploadLongstopDate] = @return[:s151Confirmation][:submission][:changesToLongstopDate][:evidenceUploadLongstopDate]
     end
 
     unless @return[:s151Confirmation][:submission][:recoverFunding].nil?

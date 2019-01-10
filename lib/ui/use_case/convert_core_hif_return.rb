@@ -760,6 +760,8 @@ class UI::UseCase::ConvertCoreHIFReturn
       requestedLongstopEndDate: @return[:s151Confirmation][:submission][:requestedLongstopEndDate],
       varianceFromLongStopBaseline: @return[:s151Confirmation][:submission][:varianceFromLongStopBaseline],
       mitigationInPlaceLongstopDate: @return[:s151Confirmation][:submission][:mitigationInPlaceLongstopDate],
+      evidenceUploadLongstopDate: @return[:s151Confirmation][:submission][:evidenceUploadLongstopDate]
+
     }
 
     @converted_return[:s151Confirmation][:submission][:changeToMilestones] = {

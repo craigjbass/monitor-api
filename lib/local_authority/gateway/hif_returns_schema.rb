@@ -4399,6 +4399,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           type: 'string',
                           s151WriteOnly: true,
                           title: 'Mitigation in place to reduce further slippage'
+                        },
+                        evidenceUploadLongstopDate: {
+                          title: "Evidence of Change to Project Longstop Date",
+                          description: "Evidence can include invoices/ contracts/ accounting system print off. Please attach here.",
+                          uploadFile: "multiple",
+                          type: "string",
+                          s151WriteOnly: true
                         }
                       }
                     }
