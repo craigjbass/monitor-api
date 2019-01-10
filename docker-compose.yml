@@ -37,6 +37,7 @@ services:
       MR_REVIEW_TAB: 'yes'
       HIF_RECOVERY_TAB: 'yes'
       NO_LOGS: 'yes'
+      BACK_TO_BASELINE: 'yes'
 
   notify_simulator:
     build: .

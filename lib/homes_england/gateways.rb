@@ -13,6 +13,9 @@ class HomesEngland::Gateways
     builder.define_gateway :template_builder do
       HomesEngland::Builder::Template::TemplateBuilder.new
     end
+
+    builder.define_gateway :pcs do
+      HomesEngland::Gateway::Pcs.new
+    end
   end
 end
-

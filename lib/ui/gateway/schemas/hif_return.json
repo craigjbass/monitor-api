@@ -88,7 +88,7 @@
                               "baseline": {
                                 "type": "string",
                                 "format": "date",
-                                "title": "Full Planning Permission submitted date",
+                                "title": "Baseline Target Date",
                                 "sourceKey": [
                                   "baseline_data",
                                   "infrastructures",
@@ -161,7 +161,7 @@
                               "baseline": {
                                 "type": "string",
                                 "format": "date",
-                                "title": "Outline Planning Permission granted date",
+                                "title": "Baseline Target Date",
                                 "sourceKey": [
                                   "baseline_data",
                                   "infrastructures",
@@ -291,7 +291,7 @@
                               "baseline": {
                                 "type": "string",
                                 "format": "date",
-                                "title": "Full Planning Permission submitted date",
+                                "title": "Baseline Target Date",
                                 "sourceKey": [
                                   "baseline_data",
                                   "infrastructures",
@@ -364,7 +364,7 @@
                               "baseline": {
                                 "type": "string",
                                 "format": "date",
-                                "title": "Full Planning Permission granted date",
+                                "title": "Baseline Target Date",
                                 "sourceKey": [
                                   "baseline_data",
                                   "infrastructures",
@@ -492,6 +492,11 @@
                           "type": "object",
                           "calculation": "set(formData, 'varianceAgainstBaseline', weeksPassed(get(formData, 'baselineCompletion'), get(formData, 'currentReturn'))); set(formData, 'varianceAgainstLastReturn', weeksPassed(get(formData, 'previousReturn'), get(formData, 'currentReturn')));",
                           "properties": {
+                            "detailsOfConsent": {
+                              "title": "Details of Consent",
+                              "type": "string",
+                              "readonly": true
+                            },
                             "baselineCompletion": {
                               "title": "Baseline Target",
                               "type": "string",
@@ -833,11 +838,8 @@
                   "contractorProcured"
                 ],
                 "readonly": true,
-                "items": {
-                  "type": "string",
-                  "radio": true,
-                  "enum": ["Yes", "No"]
-                }
+                "radio": true,
+                "enum": ["Yes", "No"]
               }
             },
             "dependencies": {
@@ -877,7 +879,7 @@
                       "procurementStatusAgainstLastReturn": {
                         "type": "object",
                         "title": "Infrastructure Contractor Procurement",
-                        "calculation": "set(formData, 'procurementVarianceAgainstBaseline', calculateVariance(parseMoney(get(formData, 'current')), parseMoney(get(formData, 'baseline')))); set(formData, 'procurementVarianceAgainstLastReturn', calculateVariance(parseMoney(get(formData, 'current')), parseMoney(get(formData, 'previousReturn'))));",
+                        "variance": true,
                         "properties": {
                           "baseline": {
                             "type": "string",
@@ -910,60 +912,39 @@
                             "radio": true,
                             "enum": ["Completed", "On schedule", "Delayed"],
                             "default": "On schedule"
-                          }
-                        },
-                        "dependencies": {
-                          "status": {
-                            "oneOf": [
-                              {
-                                "properties": {
-                                  "status": { "enum": ["Completed"] },
-                                  "completedDate": {
-                                    "type": "string",
-                                    "format": "date",
-                                    "title": "Completion Date"
-                                  },
-                                  "onCompletedNameOfContractor": {
-                                    "type": "string",
-                                    "title": "Completion Name of Contractor"
-                                  }
-                                }
-                              },
-                              {
-                                "properties": {
-                                  "status": { "enum": ["On schedule"] },
-                                  "percentComplete": {
-                                    "type": "string",
-                                    "title": "Percent complete",
-                                    "percentage": true
-                                  }
-                                }
-                              },
-                              {
-                                "properties": {
-                                  "status": { "enum": ["Delayed"] },
-                                  "procurementVarianceAgainstLastReturn": {
-                                    "type": "string",
-                                    "readonly": true,
-                                    "title": "Variance against last return (Weeks)"
-                                  },
-                                  "procurementVarianceAgainstBaseline": {
-                                    "type": "string",
-                                    "readonly": true,
-                                    "title": "Variance against baseline (Weeks)"
-                                  },
-                                  "current": {
-                                    "type": "string",
-                                    "format": "date",
-                                    "title": "Current expected date of Procurement"
-                                  },
-                                  "reason": {
-                                    "type": "string",
-                                    "title": "Reason for Variance"
-                                  }
-                                }
-                              }
-                            ]
+                          },
+                          "completedDate": {
+                            "type": "string",
+                            "format": "date",
+                            "title": "Completion Date"
+                          },
+                          "onCompletedNameOfContractor": {
+                            "type": "string",
+                            "title": "Name of Contractor"
+                          },
+                          "percentComplete": {
+                            "type": "string",
+                            "title": "Percent complete",
+                            "percentage": true
+                          },
+                          "procurementVarianceAgainstLastReturn": {
+                            "type": "string",
+                            "readonly": true,
+                            "title": "Variance against last return (Weeks)"
+                          },
+                          "procurementVarianceAgainstBaseline": {
+                            "type": "string",
+                            "readonly": true,
+                            "title": "Variance against baseline (Weeks)"
+                          },
+                          "current": {
+                            "type": "string",
+                            "format": "date",
+                            "title": "Current expected date of Procurement"
+                          },
+                          "reason": {
+                            "type": "string",
+                            "title": "Reason for Variance"
                           }
                         }
                       }
@@ -1076,7 +1057,7 @@
                       "targetDateOfAchievingStart"
                     ],
                     "type": "string",
-                    "title": "Baseline Start on site",
+                    "title": "Baseline Target Date",
                     "readonly": true
                   },
                   "varianceAgainstLastReturn": {
@@ -1123,7 +1104,7 @@
               },
               "expectedCompletionDateOfInfra": {
                 "type": "object",
-                "title": "Expected Completion date of infra",
+                "title": "Expected Completion Date of Infrastructure",
                 "variance": true,
                 "properties": {
                   "baseline": {
@@ -1135,7 +1116,7 @@
                     ],
                     "type": "string",
                     "format": "date",
-                    "title": "Baseline date of Completion",
+                    "title": "Baseline Date of Completion",
                     "readonly": true
                   },
                   "previousReturn": {
@@ -1145,13 +1126,11 @@
                   "varianceAgainstLastReturn": {
                     "type": "string",
                     "readonly": true,
-                    "hidden": true,
                     "title": "Variance Against Last Return (weeks) (Calculated)"
                   },
                   "varianceAgainstBaseline": {
                     "type": "string",
                     "readonly": true,
-                    "hidden": true,
                     "title": "Variance Against Baseline (weeks) (Calculated)"
                   },
                   "status": {
@@ -1596,8 +1575,8 @@
               }
             }
           }
-        }
       }
+    }
     },
     "fundingProfiles": {
       "type": "object",
@@ -1864,7 +1843,7 @@
           "fundingStack": {
             "type": "object",
             "title": "Funding stack",
-            "calculation": "get(formData, 'anyChangeToDescription', 'confirmation') === 'Yes' ? set(formData, 'currentFundingStackDescription', get(formData, 'anyChangeToDescription', 'updatedFundingStack')) : set(formData, 'currentFundingStackDescription', get(formData, 'descriptionOfFundingStack')); set(formData['totalCost'], 'percentComplete', calculateVariance(parseMoney(get(formData,'totalCost', 'current')), parseMoney(get(formData,'totalCost', 'baseline'))));",
+            "calculation": "get(formData, 'anyChange', 'confirmation') === 'Yes' ? get(formData, 'fundedThroughHIFbaseline') === 'Yes' ? set(formData, 'fundedThroughHIF', 'No') : set(formData, 'fundedThroughHIF', 'Yes') : set(formData, 'fundedThroughHIF', get(formData, 'fundedThroughHIFbaseline')); get(formData, 'anyChangeToDescription', 'confirmation') === 'Yes' ? set(formData, 'currentFundingStackDescription', get(formData, 'anyChangeToDescription', 'updatedFundingStack')) : set(formData, 'currentFundingStackDescription', get(formData, 'descriptionOfFundingStack')); set(formData['totalCost'], 'percentComplete', calculateVariance(parseMoney(get(formData,'totalCost', 'current')), parseMoney(get(formData,'totalCost', 'baseline'))));",
             "properties": {
               "currentFundingStackDescription": {
                 "type": "string",
@@ -1880,7 +1859,7 @@
               "totalCost": {
                 "title": "",
                 "type": "object",
-                "calculation": "setCreate(formData, ['variance', 'baseline'], '' + parseMoney(get(formData, 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline'))); get(formData,'previousAmounts', 'lastReturn') ? setCreate(formData, ['variance', 'lastReturn'], '' + parseMoney(get(formData, 'variance', 'current')) - parseMoney(get(formData,'previousAmounts', 'lastReturn'))) : setCreate(formData, ['variance', 'lastReturn'], 'N/A');",
+                "calculation": "get(formData, 'anyChange') === 'Yes' ? setCreate(formData, ['variance', 'currentAmount'], get(formData, 'variance', 'current')) : setCreate(formData, ['variance', 'currentAmount'], get(formData, 'previousAmounts', 'lastReturn')); setCreate(formData, ['variance', 'baseline'], '' + parseMoney(get(formData, 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline'))); get(formData,'previousAmounts', 'lastReturn') ? setCreate(formData, ['variance', 'lastReturn'], '' + parseMoney(get(formData, 'variance', 'current')) - parseMoney(get(formData,'previousAmounts', 'lastReturn'))) : setCreate(formData, ['variance', 'lastReturn'], 'N/A');",
                 "properties": {
                   "previousAmounts": {
                     "type": "object",
@@ -1932,6 +1911,11 @@
                                 "title": "Current return",
                                 "currency": true
                               },
+                              "currentAmount": {
+                                "type": "string",
+                                "title": "",
+                                "hidden": true
+                              },
                               "baseline": {
                                 "type": "string",
                                 "title": "Variance against baseline (£)",
@@ -1955,7 +1939,7 @@
                             "properties": {
                               "confirmation": {
                                 "type": "string",
-                                "title": "If costs have increased, are the funded?",
+                                "title": "If costs have increased, are these funded?",
                                 "enum": ["Yes", "No", "N/A"],
                                 "radio": true
                               }
@@ -2011,12 +1995,24 @@
                   }
                 }
               },
-              "fundedThroughHIF": {
+              "fundedThroughHIFbaseline": {
                 "type": "string",
                 "title": "Totally funded through HIF?",
                 "radio": true,
                 "enum": ["Yes", "No"],
                 "readonly": true,
+                "sourceKey": [
+                  "baseline_data",
+                  "costs",
+                  "infrastructure",
+                  "totallyFundedThroughHIF"
+                ]
+              },
+              "fundedThroughHIF": {
+                "type": "string",
+                "title": "Totally funded through HIF?",
+                "enum": ["Yes", "No"],
+                "hidden": true,
                 "sourceKey": [
                   "baseline_data",
                   "costs",
@@ -2109,7 +2105,7 @@
                                   },
                                   "updatedFundingStack": {
                                     "type": "string",
-                                    "title": "Updated Funding Stack",
+                                    "title": "Updated Description Funding Stack",
                                     "extendedText": true
                                   }
                                 }
@@ -2127,7 +2123,7 @@
                       },
                       "hifSpend": {
                         "title": "",
-                        "calculation": "setCreate(formData, ['anyChangeToBaseline', 'variance', 'baseline'], '' + parseMoney(get(formData,'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline')));get(formData,'previousAmounts', 'lastReturn') ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturn'], '' + parseMoney(get(formData,'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData,'previousAmounts', 'lastReturn'))) : setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturn'], 'N/A');",
+                        "calculation": "get(formData, 'anyChangeToBaseline', 'confirmation') === 'Yes' ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'currentAmount'], get(formData,'anyChangeToBaseline', 'variance', 'current')) : setCreate(formData, ['anyChangeToBaseline','variance', 'currentAmount'], get(formData, 'previousAmounts', 'lastReturn')); setCreate(formData, ['anyChangeToBaseline', 'variance', 'baseline'], '' + parseMoney(get(formData,'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline')));get(formData,'previousAmounts', 'lastReturn') ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturn'], '' + parseMoney(get(formData,'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData,'previousAmounts', 'lastReturn'))) : setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturn'], 'N/A');",
                         "type": "object",
                         "properties": {
                           "previousAmounts": {
@@ -2191,6 +2187,11 @@
                                             "title": "Current return",
                                             "currency": true
                                           },
+                                          "currentAmount": {
+                                            "type": "string",
+                                            "title": "",
+                                            "hidden": true
+                                          },
                                           "baseline": {
                                             "type": "string",
                                             "title": "Variance against baseline (£)",
@@ -2224,7 +2225,7 @@
                       "public": {
                         "title": "",
                         "type": "object",
-                        "calculation": "setCreate(formData, ['balancesSecured','remainingToBeSecured'], ''+parseMoney(get(formData, 'previousAmounts', 'baseline')) -parseMoney(get(formData, 'balancesSecured', 'amountSecured')));setCreate(formData, ['balancesSecured', 'securedAgainstBaseline'], calculateVariance(parseMoney(get(formData, 'balancesSecured', 'amountSecured')), parseMoney(get(formData, 'previousAmounts', 'baseline'))));setCreate(formData, ['anyChangeToBaseline', 'variance', 'baselineVariance'], ''+parseMoney(get(formData, 'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline'))); get(formData, 'previousAmounts', 'lastReturn') ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturnVariance'], ''+parseMoney(get(formData, 'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'lastReturn'))) : 'N/A';",
+                        "calculation": "setCreate(formData, ['balancesSecured', 'securedAgainstBaseline'], calculateVariance(parseMoney(get(formData, 'balancesSecured', 'amountSecured')), parseMoney(get(formData, 'previousAmounts', 'baseline')))); (get(formData, 'balancesSecured', 'amountSecuredLastReturn') && get(formData, 'balancesSecured', 'amountSecured'))? setCreate(formData, ['balancesSecured', 'increaseOnLastReturn'], '£ ' +(''+parseMoney(get(formData, 'balancesSecured', 'amountSecured')) - parseMoney(get(formData, 'balancesSecured', 'amountSecuredLastReturn')))) : setCreate(formData, ['balancesSecured', 'increaseOnLastReturn'], '');(get(formData, 'balancesSecured', 'securedAgainstBaselineLastReturn') && get(formData, 'balancesSecured', 'amountSecured')) ? setCreate(formData, ['balancesSecured', 'increaseOnLastReturnPercent'], ''+get(formData, 'balancesSecured', 'securedAgainstBaseline') -get(formData, 'balancesSecured', 'securedAgainstBaselineLastReturn')) : setCreate(formData, ['balancesSecured', 'increaseOnLastReturnPercent'], ''); get(formData, 'anyChangeToBaseline', 'confirmation') === 'Yes' ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'currentAmount'], get(formData,'anyChangeToBaseline', 'variance', 'current')) : setCreate(formData, ['anyChangeToBaseline','variance', 'currentAmount'], get(formData, 'previousAmounts', 'lastReturn')); setCreate(formData, ['balancesSecured','remainingToBeSecured'], ''+parseMoney(get(formData, 'previousAmounts', 'baseline')) -parseMoney(get(formData, 'balancesSecured', 'amountSecured')));;setCreate(formData, ['anyChangeToBaseline', 'variance', 'baselineVariance'], ''+parseMoney(get(formData, 'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline'))); get(formData, 'previousAmounts', 'lastReturn') ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturnVariance'], ''+parseMoney(get(formData, 'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'lastReturn'))) : setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturnVariance'], 'N/A');",
                         "properties": {
                           "previousAmounts": {
                             "type": "object",
@@ -2264,7 +2265,7 @@
                             },
                             "dependencies": {
                               "confirmation": {
-                                "oneOf":[
+                                "oneOf": [
                                   {
                                     "properties": {
                                       "confirmation": {
@@ -2279,6 +2280,11 @@
                                             "title": "Current Return",
                                             "type": "string",
                                             "currency": true
+                                          },
+                                          "currentAmount": {
+                                            "title": "",
+                                            "type": "string",
+                                            "hidden": true
                                           },
                                           "baselineVariance": {
                                             "title": "Variance Against Baseline",
@@ -2312,42 +2318,46 @@
                           },
                           "balancesSecured": {
                             "type": "object",
-                            "title": "",
+                            "title": "Amount Secured",
                             "horizontal": true,
                             "properties": {
                               "amountSecured": {
-                                "title": "Amount secured to date",
+                                "title": "To Date",
                                 "type": "string",
                                 "currency": true
                               },
+                              "amountSecuredLastReturn": {
+                                "title": "",
+                                "type": "string",
+                                "hidden": true
+                              },
                               "remainingToBeSecured": {
-                                "title": "Remaining to be Secured",
+                                "title": "Remaining",
                                 "type": "string",
                                 "currency": true,
                                 "readonly": true
                               },
                               "securedAgainstBaseline": {
-                                "title": "Secured Against Baseline",
+                                "title": "Against the Baseline",
                                 "type": "string",
                                 "percentage": true,
                                 "readonly": true
-                              }
-                            }
-                          },
-                          "comparisons": {
-                            "type": "object",
-                            "title": "",
-                            "horizontal": true,
-                            "properties": {
+                              },
+                              "securedAgainstBaselineLastReturn": {
+                                "title": "",
+                                "type": "string",
+                                "hidden": true
+                              },
                               "increaseOnLastReturn": {
                                 "title": "Increase on Last Return",
                                 "type": "string",
-                                "currency": true
+                                "readonly": true
                               },
                               "increaseOnLastReturnPercent": {
-                                "title": "Increase on Last Return",
+                                "title": "% Increase on Last Return",
                                 "type": "string",
-                                "percentage": true
+                                "percentage": true,
+                                "readonly": true
                               }
                             }
                           }
@@ -2356,7 +2366,7 @@
                       "private": {
                         "title": "",
                         "type": "object",
-                        "calculation": "setCreate(formData, ['balancesSecured','remainingToBeSecured'], ''+parseMoney(get(formData, 'previousAmounts', 'baseline')) -parseMoney(get(formData, 'balancesSecured', 'amountSecured')));setCreate(formData, ['balancesSecured', 'securedAgainstBaseline'], calculateVariance(parseMoney(get(formData, 'balancesSecured', 'amountSecured')), parseMoney(get(formData, 'previousAmounts', 'baseline'))));setCreate(formData, ['anyChangeToBaseline', 'variance', 'baselineVariance'], ''+parseMoney(get(formData, 'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline'))); get(formData, 'previousAmounts', 'lastReturn') ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturnVariance'], ''+parseMoney(get(formData, 'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'lastReturn'))) : 'N/A';",
+                        "calculation": "setCreate(formData, ['balancesSecured', 'securedAgainstBaseline'], calculateVariance(parseMoney(get(formData, 'balancesSecured', 'amountSecured')), parseMoney(get(formData, 'previousAmounts', 'baseline')))); (get(formData, 'balancesSecured', 'amountSecuredLastReturn') && get(formData, 'balancesSecured', 'amountSecured'))? setCreate(formData, ['balancesSecured', 'increaseOnLastReturn'], '£ ' +(''+parseMoney(get(formData, 'balancesSecured', 'amountSecured')) - parseMoney(get(formData, 'balancesSecured', 'amountSecuredLastReturn')))) : setCreate(formData, ['balancesSecured', 'increaseOnLastReturn'], '');(get(formData, 'balancesSecured', 'securedAgainstBaselineLastReturn') && get(formData, 'balancesSecured', 'amountSecured')) ? setCreate(formData, ['balancesSecured', 'increaseOnLastReturnPercent'], ''+get(formData, 'balancesSecured', 'securedAgainstBaseline') -get(formData, 'balancesSecured', 'securedAgainstBaselineLastReturn')) : setCreate(formData, ['balancesSecured', 'increaseOnLastReturnPercent'], ''); get(formData, 'anyChangeToBaseline', 'confirmation') === 'Yes' ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'currentAmount'], get(formData,'anyChangeToBaseline', 'variance', 'current')) : setCreate(formData, ['anyChangeToBaseline','variance', 'currentAmount'], get(formData, 'previousAmounts', 'lastReturn')); setCreate(formData, ['balancesSecured','remainingToBeSecured'], ''+parseMoney(get(formData, 'previousAmounts', 'baseline')) -parseMoney(get(formData, 'balancesSecured', 'amountSecured')));setCreate(formData, ['anyChangeToBaseline', 'variance', 'baselineVariance'], ''+parseMoney(get(formData, 'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline'))); get(formData, 'previousAmounts', 'lastReturn') ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturnVariance'], ''+parseMoney(get(formData, 'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'lastReturn'))) : setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturnVariance'], 'N/A');",
                         "properties": {
                           "previousAmounts": {
                             "type": "object",
@@ -2396,7 +2406,7 @@
                             },
                             "dependencies": {
                               "confirmation": {
-                                "oneOf":[
+                                "oneOf": [
                                   {
                                     "properties": {
                                       "confirmation": {
@@ -2411,6 +2421,11 @@
                                             "title": "Current Return",
                                             "type": "string",
                                             "currency": true
+                                          },
+                                          "currentAmount": {
+                                            "title": "",
+                                            "type": "string",
+                                            "hidden": true
                                           },
                                           "baselineVariance": {
                                             "title": "Variance Against Baseline",
@@ -2444,22 +2459,44 @@
                           },
                           "balancesSecured": {
                             "type": "object",
-                            "title": "",
+                            "title": "Amount Secured",
                             "horizontal": true,
                             "properties": {
                               "amountSecured": {
-                                "title": "Amount secured to date",
+                                "title": "To date",
                                 "type": "string",
                                 "currency": true
                               },
+                              "amountSecuredLastReturn": {
+                                "title": "",
+                                "type": "string",
+                                "hidden": true
+                              },
                               "remainingToBeSecured": {
-                                "title": "Remaining to be Secured",
+                                "title": "Remaining",
                                 "type": "string",
                                 "currency": true,
                                 "readonly": true
                               },
                               "securedAgainstBaseline": {
-                                "title": "Secured Against Baseline",
+                                "title": "Against the Baseline",
+                                "type": "string",
+                                "percentage": true,
+                                "readonly": true
+                              },
+                              "securedAgainstBaselineLastReturn": {
+                                "title": "",
+                                "type": "string",
+                                "hidden": true
+                              },
+                              "increaseOnLastReturn": {
+                                "title": "Increase on Last Return",
+                                "type": "string",
+                                "currency": true,
+                                "readonly": true
+                              },
+                              "increaseOnLastReturnPercent": {
+                                "title": "% Increase on Last Return",
                                 "type": "string",
                                 "percentage": true,
                                 "readonly": true
@@ -2471,16 +2508,6 @@
                             "title": "",
                             "horizontal": true,
                             "properties": {
-                              "increaseOnLastReturn": {
-                                "title": "Increase on Last Return",
-                                "type": "string",
-                                "currency": true
-                              },
-                              "increaseOnLastReturnPercent": {
-                                "title": "Increase on Last Return",
-                                "type": "string",
-                                "percentage": true
-                              }
                             }
                           }
                         }
@@ -4746,6 +4773,13 @@
                           "type": "string",
                           "s151WriteOnly": true,
                           "title": "Mitigation in place to reduce further slippage"
+                        },
+                        "evidenceUpload": {
+                          "title": "Evidence of Change to End Date",
+                          "description": "Evidence can include invoices/ contracts/ accounting system print off. Please attach here.",
+                          "uploadFile": "multiple",
+                          "type": "string",
+                          "s151WriteOnly": true
                         }
                       }
                     }
@@ -4876,6 +4910,7 @@
             "disposalStrategy": {
               "type": "string",
               "title": "Disposal Strategy/Critical Path",
+              "extendedText": true,
               "readonly": true,
               "sourceKey": [
                 "baseline_data",
@@ -5312,7 +5347,8 @@
             "properties": {
               "dateOfCatchUp": {
                 "type": "string",
-                "title": "Date of Catch Up"
+                "title": "Date of Catch Up",
+                "format": "date"
               },
               "overallRatingForScheme": {
                 "type": "string",
@@ -5688,7 +5724,6 @@
               "riskRating": {
                 "type": "string",
                 "title": "Risk Rating",
-                "radio": true,
                 "enum": ["High", "Medium High", "Medium Low", "Low", "Achieved"]
               }
             }
@@ -5705,7 +5740,6 @@
             "riskRating": {
               "type": "string",
               "title": "Risk Rating",
-              "radio": true,
               "enum": ["High", "Medium High", "Medium Low", "Low", "Achieved"]
             }
           }
@@ -5721,7 +5755,6 @@
             "riskRating": {
               "type": "string",
               "title": "Risk Rating",
-              "radio": true,
               "enum": ["High", "Medium High", "Medium Low", "Low", "Achieved"]
             }
           }
@@ -5737,7 +5770,6 @@
             "riskRating": {
               "type": "string",
               "title": "Risk Rating",
-              "radio": true,
               "enum": ["High", "Medium High", "Medium Low", "Low", "Achieved"]
             }
           }

@@ -147,6 +147,34 @@ describe 'Performing Return on HIF Project' do
           }
         }
       },
+      fundingPackages: {
+        fundingStack: [
+          {
+            currentFundingStackDescription: 'describe',
+            fundedThroughHIF: 'Yes',
+            totalCost: {
+              currentAmount: '34'
+            },
+            hifSpend: {
+              currentAmount: '23'
+            },
+            public: {
+              currentAmount: '23',
+              balancesSecured: {
+                securedAgainstBaseline: '123'
+              },
+              amountSecured: '12'
+            },
+            private: {
+              currentAmount: '12',
+              balancesSecured: {
+                securedAgainstBaseline: '124'
+              },
+              amountSecured: '13'
+            }
+          }
+        ]
+      },
       summary: {
         project_name: 'Dogs Protection League',
         description: 'A new headquarters for all the Dogs',
@@ -168,6 +196,13 @@ describe 'Performing Return on HIF Project' do
                     varianceLastReturnFullPlanningPermissionSubmitted: nil
                   }
                 }
+              }
+            }
+          },
+          landOwnership: {
+            laDoesNotControlSite: {
+              allLandAssemblyAchieved: {
+                current: 'Tomorrow'
               }
             }
           }
