@@ -200,7 +200,8 @@ class UI::UseCase::ConvertUIHIFReturn
         new_risk[:riskBaselineMitigationsInPlace] = risk[:riskBaselineMitigationsInPlace]
         new_risk[:riskAnyChange] = risk[:riskAnyChange]
         new_risk[:riskCurrentReturnMitigationsInPlace] = risk[:riskCurrentReturnMitigationsInPlace]
-        new_risk[:riskMetDate] = risk[:riskMetDate]
+        new_risk[:riskMetDate] = risk[:riskMet]
+        new_risk[:riskCompletionDate] = risk[:riskCompletionDate]
         new_risk
       end
     end

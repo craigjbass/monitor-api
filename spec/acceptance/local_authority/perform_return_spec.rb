@@ -210,6 +210,14 @@ describe 'Performing Return on HIF Project' do
             keyMilestones: [
               { currentReturn: "12/12/2012" }
             ]
+          },
+          risks: {
+            baselineRisks: [
+              {
+                riskMetDate: 'Yes',
+                riskCompletionDate: '01/01/2018' 
+              }
+            ]
           }
         }
       ],
