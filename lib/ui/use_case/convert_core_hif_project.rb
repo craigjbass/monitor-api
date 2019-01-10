@@ -12,6 +12,7 @@ class UI::UseCase::ConvertCoreHIFProject
     convert_baseline_cash_flow
     convert_s151
     convert_outputs
+    convert_recovery
 
     @converted_project
   end
@@ -243,6 +244,12 @@ class UI::UseCase::ConvertCoreHIFProject
         outputsActuals: outputs_actuals
       }
     ]
+  end
+
+  def convert_recovery
+    return if @project[:recovery].nil?
+
+    @converted_project[:recovery] = @project[:recovery]
   end
 
   def outputs_forecast

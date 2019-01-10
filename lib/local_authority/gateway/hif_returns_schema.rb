@@ -2017,6 +2017,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
     add_wider_scheme_tab
     add_rm_monthly_catchup_tab
     add_mr_review_tab
+    add_hif_recovery_tab
 
     @return_template
   end
@@ -5432,6 +5433,172 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                       title: "Reason And Proposed Frequency",
                       type: "string",
                       extendedText: true
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  end
+
+  def add_hif_recovery_tab
+    return if ENV['HIF_RECOVERY_TAB'].nil?
+    @return_template.schema[:properties][:hifRecovery] = {
+      title: "HIF Recovery",
+      type: "object",
+      properties: {
+        recovery: {
+          title: "",
+          type: "object",
+          properties: {
+            aimToRecoverFunding: {
+              title: "Aim to recover funding?",
+              radio: true,
+              enum: ["Yes", "No"],
+              sourceKey: %i[baseline_data recovery aimToRecover],
+              readonly: true
+            }
+          },
+          dependencies: {
+            aimToRecoverFunding: {
+              oneOf: [
+                {
+                  properties: {
+                    aimToRecoverFunding: {
+                      type: "string",
+                      enum: ["No"]
+                    }
+                  }
+                },
+                {
+                  properties: {
+                    aimToRecoverFunding: {
+                      type: "string",
+                      enum: ["Yes"]
+                    },
+                    expectedAmountToRecover: {
+                      type: "object",
+                      title: "Expected Amount to Recover",
+                      properties: {
+                        baselineAmount: {
+                          title: "Baseline Amount",
+                          type: "string",
+                          readonly: true,
+                          currency: true,
+                          sourceKey: %i[baseline_data recovery expectedAmount]
+                        },
+                        methodOfRecovery: {
+                          title: "Method of Recovery",
+                          type: "string",
+                          readonly: true,
+                          sourceKey: %i[baseline_data recovery methodOfRecovery]
+                        },
+                        changeToBaseline: {
+                          title: "Any Change?",
+                          type: "string",
+                          enum: ["Yes", "No"],
+                          radio: true
+                        }
+                      },
+                      dependencies: {
+                        changeToBaseline: {
+                          oneOf: [
+                            {
+                              properties: {
+                                changeToBaseline: {
+                                  type: "string",
+                                  enum: ["No"]
+                                }
+                              }
+                            },
+                            {
+                              properties: {
+                                changeToBaseline: {
+                                  type: "string",
+                                  enum: ["Yes"]
+                                },
+                                currentReturn: {
+                                  title: "Current Return",
+                                  type: "string",
+                                  currency: true
+                                },
+                                currentCopy: {
+                                  type: 'string',
+                                  hidden: true,
+                                  sourceKey: %i[return_data hifRecovery recovery expectedAmountToRecover currentReturn]
+                                },
+                                lastReturn: {
+                                  title: "Last Return",
+                                  type: "string",
+                                  currency: true,
+                                  sourceKey: %i[return_data hifRecovery recovery expectedAmountToRecover currentCopy],
+                                  readonly: true
+                                },
+                                varianceAgainstBaseline: {
+                                  title: "Variance Against Baseline",
+                                  type: "string",
+                                  currency: true,
+                                  readonly: true
+                                },
+                                varianceAgainstLastReturn: {
+                                  title: "Variance Against Last Return",
+                                  type: "string",
+                                  currency: true,
+                                  readonly: true
+                                },
+                                reasonForVariance: {
+                                  title: "Reason for Variance",
+                                  type: "string",
+                                  extendedText: true
+                                },
+                                amountRecovered: {
+                                  title: "Amount Recovered",
+                                  type: "object",
+                                  properties: {
+                                    currentReturn: {
+                                      title: "Current Return",
+                                      type: "string",
+                                      currency: true
+                                    },
+                                    previousCumulator: {
+                                      type: "string",
+                                      readonly: true,
+                                      hidden: true,
+                                      sourceKey: %i[return_data hifRecovery recovery expectedAmountToRecover amountRecovered cumulative]
+                                    },
+                                    cumulative: {
+                                      title: "Cumulative Amount",
+                                      type: "string",
+                                      currency: true,
+                                      readonly: true
+                                    },
+                                    remaining: {
+                                      title: "Remaining Amount",
+                                      type: "string",
+                                      currency: true,
+                                      readonly: true
+                                    },
+                                    useOfRecoveredFunding: {
+                                      title: "Use of Recovered Funding",
+                                      type: "string",
+                                      extendedText: true
+                                    },
+                                    planAttachment: {
+                                      title: "",
+                                      description: "Please attach the evidence here.",
+                                      uploadFile: "single",
+                                      type: "string"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
                     }
                   }
                 }

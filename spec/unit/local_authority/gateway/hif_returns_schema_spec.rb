@@ -35,6 +35,20 @@ describe LocalAuthority::Gateway::HIFReturnsSchemaTemplate do
     end
   end
 
+  context 'Hif Recovery tab' do
+    it 'Does not contain the hif recovery tab when disabled' do
+      expect(template.schema[:properties]).not_to have_key(:hifRecovery)
+    end
+
+    it 'Contains the outputs forecast tab when enabled' do
+      ENV['HIF_RECOVERY_TAB'] = 'Yes'
+
+      expect(template.schema[:properties]).to have_key(:hifRecovery)
+
+      ENV['HIF_RECOVERY_TAB'] = nil
+    end
+  end
+
   context 's151 Confirmation Tab' do
     it 'Does not contain the confirmation tab when disabled' do
       expect(template.schema[:properties]).not_to have_key(:s151Confirmation)

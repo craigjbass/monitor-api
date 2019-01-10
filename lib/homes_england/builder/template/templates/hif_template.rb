@@ -96,6 +96,49 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
             }
           }
         },
+        recovery: {
+          type: 'object',
+          title: 'Recovery',
+          properties: {
+            aimToRecover: {
+              type: 'string',
+              title: 'Aim to recover funds?',
+              radio: true,
+              enum: %w[Yes No]
+            }
+          },
+          dependencies: {
+            aimToRecover: {
+              oneOf: [
+                {
+                  properties: {
+                    aimToRecover: {
+                      enum: ['Yes']
+                    },
+                    expectedAmount: {
+                      type: 'string',
+                      title: 'Expected Amount',
+                      currency: true
+                    },
+                    methodOfRecovery: {
+                      type: 'string',
+                      title: 'Method of Recovery',
+                      extendedText: true
+                    }
+                  }
+
+                },
+                {
+                  properties: {
+                    aimToRecover: {
+                      enum: ['No']
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
         s151: hif_s151,
         outputsForecast: outputs_forecast,
         outputsActuals: outputs_actuals

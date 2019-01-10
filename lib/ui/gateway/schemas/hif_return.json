@@ -5353,7 +5353,11 @@
               "title": "SME",
               "percentage": true
             },
-            "mmcPercent": { "type": "string", "title": "MMC", "percentage": true }
+            "mmcPercent": {
+              "type": "string",
+              "title": "MMC",
+              "percentage": true
+            }
           }
         }
       }
@@ -6080,6 +6084,168 @@
                       "title": "Reason And Proposed Frequency",
                       "type": "string",
                       "extendedText": true
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "hifRecovery": {
+      "title": "HIF Recovery",
+      "type": "object",
+      "properties": {
+        "recovery": {
+          "title": "",
+          "type": "object",
+          "properties": {
+            "aimToRecoverFunding": {
+              "title": "Aim to recover funding?",
+              "radio": true,
+              "enum": ["Yes", "No"],
+              "sourceKey": ["baseline_data", "recovery", "aimToRecover"],
+              "readonly": true
+            }
+          },
+          "dependencies": {
+            "aimToRecoverFunding": {
+              "oneOf": [
+                {
+                  "properties": {
+                    "aimToRecoverFunding": {
+                      "type": "string",
+                      "enum": ["No"]
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "aimToRecoverFunding": {
+                      "type": "string",
+                      "enum": ["Yes"]
+                    },
+                    "expectedAmountToRecover": {
+                      "type": "object",
+                      "calculation": "set(formData, 'varianceAgainstBaseline', subtract(formData['currentReturn'], formData['baselineAmount'])); set(formData, 'varianceAgainstLastReturn', subtract(formData['currentReturn'], formData['lastReturn'])); set(formData['amountRecovered'], 'remaining', subtract(formData['amountRecovered']['cumulative'], formData['baselineAmount']));",
+                      "title": "Expected Amount to Recover",
+                      "properties": {
+                        "baselineAmount": {
+                          "title": "Baseline Amount",
+                          "type": "string",
+                          "readonly": true,
+                          "currency": true,
+                          "sourceKey": ["baseline_data", "recovery", "expectedAmount"]
+                        },
+                        "methodOfRecovery": {
+                          "title": "Method of Recovery",
+                          "type": "string",
+                          "readonly": true,
+                          "sourceKey": ["baseline_data", "recovery", "methodOfRecovery"]
+                        },
+                        "changeToBaseline": {
+                          "title": "Any Change?",
+                          "type": "string",
+                          "enum": ["Yes", "No"],
+                          "radio": true
+                        }
+                      },
+                      "dependencies": {
+                        "changeToBaseline": {
+                          "oneOf": [
+                            {
+                              "properties": {
+                                "changeToBaseline": {
+                                  "type": "string",
+                                  "enum": ["No"]
+                                }
+                              }
+                            },
+                            {
+                              "properties": {
+                                "changeToBaseline": {
+                                  "type": "string",
+                                  "enum": ["Yes"]
+                                },
+                                "currentReturn": {
+                                  "title": "Current Return",
+                                  "type": "string",
+                                  "currency": true
+                                },
+                                "currentCopy": {
+                                  "type": "string",
+                                  "hidden": true,
+                                  "sourceKey": ["return_data", "hifRecovery", "recovery", "expectedAmountToRecover", "currentReturn"]
+                                },
+                                "lastReturn": {
+                                  "title": "Last Return",
+                                  "type": "string",
+                                  "currency": true,
+                                  "sourceKey": ["return_data", "hifRecovery", "recovery", "expectedAmountToRecover", "currentReturn"],
+                                  "readonly": true
+                                },
+                                "varianceAgainstBaseline": {
+                                  "title": "Variance Against Baseline (£)",
+                                  "type": "string",
+                                  "readonly": true
+                                },
+                                "varianceAgainstLastReturn": {
+                                  "title": "Variance Against Last Return (£)",
+                                  "type": "string",
+                                  "readonly": true
+                                },
+                                "reasonForVariance": {
+                                  "title": "Reason for Variance",
+                                  "type": "string",
+                                  "extendedText": true
+                                },
+                                "amountRecovered": {
+                                  "title": "Amount Recovered",
+                                  "type": "object",
+                                  "calculation": "set(formData, 'cumulative', add(formData['currentReturn'], formData['previousCumulator']));",
+                                  "properties": {
+                                    "currentReturn": {
+                                      "title": "Current Return",
+                                      "type": "string",
+                                      "currency": true
+                                    },
+                                    "previousCumulator": {
+                                      "type": "string",
+                                      "readonly": true,
+                                      "hidden": true,
+                                      "sourceKey": ["return_data", "hifRecovery", "recovery", "expectedAmountToRecover", "amountRecovered", "cumulative"]
+                                    },
+                                    "cumulative": {
+                                      "title": "Cumulative Amount",
+                                      "type": "string",
+                                      "currency": true,
+                                      "readonly": true
+                                    },
+                                    "remaining": {
+                                      "title": "Remaining Amount",
+                                      "type": "string",
+                                      "currency": true,
+                                      "readonly": true
+                                    },
+                                    "useOfRecoveredFunding": {
+                                      "title": "Use of Recovered Funding",
+                                      "type": "string",
+                                      "extendedText": true
+                                    },
+                                    "planAttachment": {
+                                      "title": "",
+                                      "description": "Please attach the evidence here.",
+                                      "uploadFile": "single",
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
                     }
                   }
                 }

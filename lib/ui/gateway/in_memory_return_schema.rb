@@ -35,6 +35,7 @@ class UI::Gateway::InMemoryReturnSchema
     delete_wider_scheme_tab if ENV['WIDER_SCHEME_TAB'].nil?
     delete_rm_monthly_catchup_tab if ENV['RM_MONTHLY_CATCHUP_TAB'].nil?
     delete_mr_review_tab if ENV['MR_REVIEW_TAB'].nil?
+    delete_hif_recovery_tab if ENV['HIF_RECOVERY_TAB'].nil?
   end
 
   def delete_s151_tab
@@ -63,5 +64,9 @@ class UI::Gateway::InMemoryReturnSchema
 
   def delete_mr_review_tab
     @template.schema[:properties].delete(:reviewAndAssurance)
+  end
+
+  def delete_hif_recovery_tab
+    @template.schema[:properties].delete(:hifRecovery)
   end
 end

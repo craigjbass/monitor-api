@@ -13,6 +13,7 @@ class UI::UseCase::ConvertUIHIFProject
     convert_s151
     convert_outputs_forecast
     convert_outputs_actuals
+    convert_recovery
 
     @converted_project
   end
@@ -268,5 +269,11 @@ class UI::UseCase::ConvertUIHIFProject
         }
       end
     }
+  end
+
+  def convert_recovery
+    return if @project[:recovery].nil?
+
+    @converted_project[:recovery] = @project[:recovery]
   end
 end
