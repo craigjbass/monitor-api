@@ -145,6 +145,7 @@
           "previousCumulator": null
         },
         "baselineAmount": "1234",
+        "currentCopy": null,
         "lastReturn": null,
         "methodOfRecovery": "Recovery will be undertaken"
       }

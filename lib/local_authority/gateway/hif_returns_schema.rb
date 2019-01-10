@@ -5490,11 +5490,16 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                   type: "string",
                                   currency: true
                                 },
+                                currentCopy: {
+                                  type: 'string',
+                                  hidden: true,
+                                  sourceKey: %i[return_data hifRecovery recovery expectedAmountToRecover currentReturn]
+                                },
                                 lastReturn: {
                                   title: "Last Return",
                                   type: "string",
                                   currency: true,
-                                  sourceKey: %i[return_data hifRecovery recovery expectedAmountToRecover currentReturn],
+                                  sourceKey: %i[return_data hifRecovery recovery expectedAmountToRecover currentCopy],
                                   readonly: true
                                 },
                                 varianceAgainstBaseline: {

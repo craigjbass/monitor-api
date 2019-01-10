@@ -136,7 +136,7 @@
         "private": {
           "lastReturn": "12",
           "currentAmount": "12",
-          "baseline": "5000", 
+          "baseline": "5000",
           "balancesSecured": {
             "securedAgainstBaselineLastReturn": "124"
           },
@@ -153,6 +153,7 @@
           "previousCumulator": null
         },
         "baselineAmount": "1234",
+        "currentCopy": null,
         "lastReturn": null,
         "methodOfRecovery": "Recovery will be undertaken"
       }

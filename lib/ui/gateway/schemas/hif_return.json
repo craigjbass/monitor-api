@@ -6142,6 +6142,11 @@
                                   "type": "string",
                                   "currency": true
                                 },
+                                "currentCopy": {
+                                  "type": "string",
+                                  "hidden": true,
+                                  "sourceKey": ["return_data", "hifRecovery", "recovery", "expectedAmountToRecover", "currentReturn"]
+                                },
                                 "lastReturn": {
                                   "title": "Last Return",
                                   "type": "string",
