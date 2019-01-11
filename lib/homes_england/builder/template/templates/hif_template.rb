@@ -819,221 +819,216 @@ class HomesEngland::Builder::Template::Templates::HIFTemplate
       type: 'object',
       title: 'RM Baseline',
       properties: {
-        projectLinks: {
+        heContacts: {
           type: 'object',
-          title: 'Project Links and Contacts',
+          title: 'Homes England Contacts',
           properties: {
-            heContacts: {
+            relationshipManager: {
+              type: 'string',
+              title: 'Relationship Manager'
+            },
+            projectAssuranceManager: {
+              type: 'string',
+              title: 'Project Assurance Manager'
+            }
+          }
+        },
+        strategicLinks: {
+          type: 'object',
+          title: 'Strategic Links',
+          properties: {
+            heProgrammeLinks: {
               type: 'object',
-              title: 'Homes England Contacts',
+              title: 'Links with Homes England Programmes',
               properties: {
-                relationshipManager: {
+                programmes: {
                   type: 'string',
-                  title: 'Relationship Manager'
+                  title: 'Programmes',
+                  enum: [
+                    'Accelerated Construction',
+                    'Accelerated Land Disposal',
+                    'Affordable Homes Programme',
+                    'Build to Rent',
+                    'City Deals',
+                    'Economic Assets',
+                    'Estate Regeneration',
+                    'Get Britain Building',
+                    'Local Infrastructure Fund',
+                    'Pilot Transfer',
+                    'Property and Regeneration',
+                    'Public Land Investment Fund',
+                    'Public Sector Land Acquisitions',
+                    'Single Land',
+                    'THBF - Long Term Fund',
+                    'THBF - Short Term Fund'
+                  ]
                 },
-                projectAssuranceManager: {
+                description: {
                   type: 'string',
-                  title: 'Project Assurance Manager'
+                  title: 'Description'
+                },
+                pcsRef: {
+                  type: 'string',
+                  title: 'PCS Reference'
                 }
               }
             },
-            strategicLinks: {
+            mhclgLinks: {
               type: 'object',
-              title: 'Strategic Links',
+              title: 'Links with other MHCLG Programmes',
               properties: {
-                heProgrammeLinks: {
-                  type: 'object',
-                  title: 'Links with Homes England Programmes',
-                  properties: {
-                    programmes: {
-                      type: 'string',
-                      title: 'Programmes',
-                      enum: [
-                        'Accelerated Construction',
-                        'Accelerated Land Disposal',
-                        'Affordable Homes Programme',
-                        'Build to Rent',
-                        'City Deals',
-                        'Economic Assets',
-                        'Estate Regeneration',
-                        'Get Britain Building',
-                        'Local Infrastructure Fund',
-                        'Pilot Transfer',
-                        'Property and Regeneration',
-                        'Public Land Investment Fund',
-                        'Public Sector Land Acquisitions',
-                        'Single Land',
-                        'THBF - Long Term Fund',
-                        'THBF - Short Term Fund'
-                      ]
-                    },
-                    description: {
-                      type: 'string',
-                      title: 'Description'
-                    },
-                    pcsRef: {
-                      type: 'string',
-                      title: 'PCS Reference'
-                    }
-                  }
+                programmes: {
+                  type: 'string',
+                  title: 'Programmes',
+                  enum: [
+                    'Accelerated Construction',
+                    'Accelerated Land Disposal',
+                    'Affordable Homes Programme',
+                    'Build to Rent',
+                    'City Deals',
+                    'Economic Assets',
+                    'Estate Regeneration',
+                    'Get Britain Building',
+                    'Local Infrastructure Fund',
+                    'Pilot Transfer',
+                    'Property and Regeneration',
+                    'Public Land Investment Fund',
+                    'Public Sector Land Acquisitions',
+                    'Single Land',
+                    'THBF - Long Term Fund',
+                    'THBF - Short Term Fund'
+                  ]
                 },
-                mhclgLinks: {
-                  type: 'object',
-                  title: 'Links with other MHCLG Programmes',
-                  properties: {
-                    programmes: {
-                      type: 'string',
-                      title: 'Programmes',
-                      enum: [
-                        'Accelerated Construction',
-                        'Accelerated Land Disposal',
-                        'Affordable Homes Programme',
-                        'Build to Rent',
-                        'City Deals',
-                        'Economic Assets',
-                        'Estate Regeneration',
-                        'Get Britain Building',
-                        'Local Infrastructure Fund',
-                        'Pilot Transfer',
-                        'Property and Regeneration',
-                        'Public Land Investment Fund',
-                        'Public Sector Land Acquisitions',
-                        'Single Land',
-                        'THBF - Long Term Fund',
-                        'THBF - Short Term Fund'
-                      ]
-                    },
-                    description: {
-                      type: 'string',
-                      title: 'Description'
-                    }
-                  }
+                description: {
+                  type: 'string',
+                  title: 'Description'
+                }
+              }
+            },
+            ogdLinks: {
+              type: 'object',
+              title: 'Links with OGB programmes',
+              properties: {
+                programmes: {
+                  type: 'string',
+                  title: 'Programmes',
+                  enum: [
+                    'NPIF',
+                    'Growth and Housing Fund',
+                    'RIS',
+                    'RIS2',
+                    'Other'
+                  ]
                 },
-                ogdLinks: {
-                  type: 'object',
-                  title: 'Links with OGB programmes',
-                  properties: {
-                    programmes: {
-                      type: 'string',
-                      title: 'Programmes',
-                      enum: [
-                        'NPIF',
-                        'Growth and Housing Fund',
-                        'RIS',
-                        'RIS2',
-                        'Other'
-                      ]
-                    },
-                    description: {
-                      type: 'string',
-                      title: 'Description'
-                    }
-                  }
+                description: {
+                  type: 'string',
+                  title: 'Description'
+                }
+              }
+            },
+            otherGovDepts: {
+              type: 'object',
+              title: 'Other Government Deparments interested',
+              properties: {
+                departments: {
+                  type: 'string',
+                  title: 'Departments',
+                  enum: %w[
+                    DfT
+                    MHCLG
+                    BEIS
+                    DECC
+                    DEFRA
+                    DfE
+                    DH
+                    HMT
+                    MOD
+                  ]
                 },
-                otherGovDepts: {
-                  type: 'object',
-                  title: 'Other Government Deparments interested',
-                  properties: {
-                    departments: {
-                      type: 'string',
-                      title: 'Departments',
-                      enum: [
-                        'DfT',
-                        'MHCLG',
-                        'BEIS',
-                        'DECC',
-                        'DEFRA',
-                        'DfE',
-                        'DH',
-                        'HMT',
-                        'MOD'
-                      ]
-                    },
-                    description: {
-                      type: 'string',
-                      title: 'Description'
-                    }
-                  }
-                },
-                housingPolicyAreas: {
-                  type: 'object',
+                description: {
+                  type: 'string',
+                  title: 'Description'
+                }
+              }
+            },
+            housingPolicyAreas: {
+              type: 'object',
+              title: 'Housing Policy Areas',
+              properties: {
+                policies: {
+                  type: 'string',
                   title: 'Housing Policy Areas',
-                  properties: {
-                    policies: {
-                      type: 'string',
-                      title: 'Housing Policy Areas',
-                      enum: [
-                        'Custom Builds',
-                        'Modern Method of Construction',
-                        'SME',
-                        'Garden Towns / Villages / Communities',
-                        'Public Sector Land',
-                        'Housing Zones',
-                        'Accelerated Construction',
-                        'Housing Deal',
-                        'Brownfield Land',
-                        'Large Development'
-                      ]
-                    },
-                    description: {
-                      type: 'string',
-                      title: 'Description'
-                    }
+                  enum: [
+                    'Custom Builds',
+                    'Modern Method of Construction',
+                    'SME',
+                    'Garden Towns / Villages / Communities',
+                    'Public Sector Land',
+                    'Housing Zones',
+                    'Accelerated Construction',
+                    'Housing Deal',
+                    'Brownfield Land',
+                    'Large Development'
+                  ]
+                },
+                description: {
+                  type: 'string',
+                  title: 'Description'
+                }
+              }
+            }
+          }
+        },
+        laContacts: {
+          type: 'object',
+          title: 'LA Contacts',
+          properties: {
+            laLead: {
+              type: 'object',
+              title: 'LA Lead Contact',
+              properties: {
+                name: {
+                  type: 'string',
+                  title: 'Name'
+                },
+                email: {
+                  type: 'string',
+                  title: 'Email',
+                  format: 'email'
+                }
+              }
+            },
+            laSupporting: {
+              type: 'array',
+              title: 'LA Supporting Contacts',
+              addable: true,
+              items: {
+                title: 'Contacts',
+                type: 'object',
+                properties: {
+                  name: {
+                    type: 'string',
+                    title: 'Name'
+                  },
+                  email: {
+                    type: 'string',
+                    title: 'Email',
+                    format: 'email'
                   }
                 }
               }
             },
-            laContacts: {
+            laS151: {
               type: 'object',
-              title: 'LA Contacts',
+              title: 'LA S151 Officer',
               properties: {
-                laLead: {
-                  type: 'object',
-                  title: 'LA Lead Contact',
-                  properties: {
-                    name: {
-                      type: 'string',
-                      title: 'Name'
-                    },
-                    email: {
-                      type: 'string',
-                      title: 'Email',
-                      format: 'email'
-                    }
-                  }
+                name: {
+                  type: 'string',
+                  title: 'Name'
                 },
-                laSupporting: {
-                  type: 'array',
-                  title: 'LA Supporting Contacts',
-                  items: {
-                    title: '',
-                    type: 'object',
-                    properties: {
-                      name: {
-                        type: 'string',
-                        title: 'Name'
-                      },
-                      email: {
-                        type: 'string',
-                        title: 'Email',
-                        format: 'email'
-                      }
-                    }
-                  }
-                },
-                laS151: {
-                  type: 'object',
-                  title: 'LA S151 Officer',
-                  properties: {
-                    name: {
-                      type: 'string',
-                      title: 'Name'
-                    },
-                    email: {
-                      type: 'string',
-                      title: 'email'
-                    }
-                  }
+                email: {
+                  type: 'string',
+                  title: 'Email'
                 }
               }
             }
