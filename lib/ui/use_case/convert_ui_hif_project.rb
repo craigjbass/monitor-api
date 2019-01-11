@@ -14,6 +14,7 @@ class UI::UseCase::ConvertUIHIFProject
     convert_outputs_forecast
     convert_outputs_actuals
     convert_recovery
+    convert_rm_baseline
 
     @converted_project
   end
@@ -267,5 +268,11 @@ class UI::UseCase::ConvertUIHIFProject
     return if @project[:recovery].nil?
 
     @converted_project[:recovery] = @project[:recovery]
+  end
+
+  def convert_rm_baseline
+    return if @project[:rmBaseline].nil?
+
+    @converted_project[:rmBaseline] = @project[:rmBaseline]
   end
 end
