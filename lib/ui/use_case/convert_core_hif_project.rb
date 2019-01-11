@@ -206,14 +206,6 @@ class UI::UseCase::ConvertCoreHIFProject
             totalPrivate: cost[:infrastructure][:totalPrivate]
           }
         }
-
-        unless cost[:infrastructure][:recovery].nil?
-          converted_cost[:infrastructure][:recovery] = {
-            aimToRecover: cost[:infrastructure][:recovery][:aimToRecover],
-            expectedAmount: cost[:infrastructure][:recovery][:expectedAmount],
-            methodOfRecovery: cost[:infrastructure][:recovery][:methodOfRecovery]
-          }
-        end
       end
 
       converted_cost

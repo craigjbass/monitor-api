@@ -107,12 +107,7 @@
         "totallyFundedThroughHIF": "No",
         "descriptionOfFundingStack": "Funding stack description",
         "totalPublic": "5000",
-        "totalPrivate": "5000",
-        "recovery": {
-          "aimToRecover": "Yes",
-          "expectedAmount": "539487",
-          "methodOfRecovery": "steal it"
-        }
+        "totalPrivate": "5000"
       }
     }
   ],
