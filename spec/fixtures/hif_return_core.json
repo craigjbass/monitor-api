@@ -848,5 +848,31 @@
       "isRecommendForRegularMonitoring": "Yes",
       "reasonAndProposedFrequency": "A reason and frequency"
     }
+  },
+  "hifRecovery": {
+    "recovery": {
+      "aimToRecoverFunding": "Yes",
+      "expectedAmountToRecover": {
+        "baselineAmount": "123",
+        "methodOfRecovery": "A Method",
+        "changeToBaseline": {
+          "confirmation": "No",
+          "currentReturn": "12",
+          "currentCopy": "13",
+          "lastReturn": "14",
+          "varianceAgainstBaseline": "15",
+          "varianceAgainstLastReturn": "16",
+          "reasonForVariance": "A reason"
+        }
+      },
+      "amountRecovered": {
+        "currentReturn": "12",
+        "previousCumulator": "13",
+        "cumulative": "14",
+        "remaining": "15",
+        "useOfRecoveredFunding": "more money",
+        "planAttachment": "fewyiufgueiwhfiuBig File"
+      }
+    }
   }
 }

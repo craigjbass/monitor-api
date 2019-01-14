@@ -144,7 +144,6 @@
   "recovery": {
     "aimToRecover": "Yes",
     "expectedAmount": "1234",
-    "expectedAmountToRecover": "54321",
     "methodOfRecovery": "Recovery will be undertaken"
   }
 }
