@@ -1197,12 +1197,12 @@
                       "type": "string",
                       "title": "Description"
                     },
-                    "completion": {
+                    "milestoneBaselineCompletion": {
                       "type": "string",
                       "format": "date",
                       "title": "Target date of completion"
                     },
-                    "criticalPath": {
+                    "milestoneSummaryOfCriticalPath": {
                       "type": "string",
                       "title": "Summary of Critical Path"
                     }
@@ -1220,17 +1220,34 @@
                       "title": "Description",
                       "hidden": true
                     },
-                    "completion": {
+                    "milestoneBaselineCompletion": {
                       "type": "string",
                       "format": "date",
                       "title": "Target date of completion",
                       "hidden": true
                     },
-                    "criticalPath": {
+                    "milestoneSummaryOfCriticalPath": {
                       "type": "string",
                       "title": "Summary of Critical Path",
                       "hidden": true
-                    }
+                    },
+                    "currentReturn": {
+                      "type": "string",
+                      "hidden": true
+                    },
+                    "milestonePercentCompleted": {
+                      "type": "string",
+                      "hidden": true
+                    },
+                   "milestoneCompletedDate": {
+                     "type": "string",
+                     "hidden": true
+                   },
+                   "statusAgainstLastReturn": {
+                     "type": "string",
+                     "hidden": true,
+                     "enum": ["Completed", "On schedule", "Delayed"]
+                   }
                   }
                 }
               },
@@ -1239,7 +1256,7 @@
                 "title": "Previous Return Milestones (Additional to Baseline)",
                 "items": {
                   "type": "object",
-                  "horizontal": true,
+                  "milestone": true,
                   "properties": {
                     "description": {
                       "sourceKey": [
@@ -1253,7 +1270,7 @@
                       "type": "string",
                       "title": "Description"
                     },
-                    "completion": {
+                    "milestonesBaselineCompletion": {
                       "sourceKey": [
                         "return_data",
                         "infrastructures",
@@ -1266,7 +1283,7 @@
                       "format": "date",
                       "title": "Completion Date"
                     },
-                    "criticalPath": {
+                    "milestoneSummaryOfCriticalPath": {
                       "sourceKey": [
                         "return_data",
                         "infrastructures",
@@ -1277,6 +1294,10 @@
                       "type": "string",
                       "title": "Summary of Baseline Critical Path",
                       "readonly": true
+                    },
+                    "milestoneLastReturnDate": {
+                      "type": "string",
+                      "hidden": true
                     },
                     "milestoneVarianceAgainstLastReturn": {
                       "type": "string",

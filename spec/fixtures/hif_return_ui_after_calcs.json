@@ -150,19 +150,20 @@
         "additionalMilestones": [
           {
             "description": "My new milestones",
-            "completion": "2019-02-03",
-            "criticalPath": "Not long"
+            "milestoneBaselineCompletion": "2019-02-03",
+            "milestoneSummaryOfCriticalPath": "Not long"
           }
         ],
         "previousMilestones": [
           {
-            "completion": "djeioq",
-            "criticalPath": "jreu",
+            "milestoneBaselineCompletion": "djeioq",
+            "milestoneSummaryOfCriticalPath": "jreu",
             "currentReturn": "ewncwe",
             "description": "describing a mielstone",
             "milestoneCompletedDate": "fewui",
             "milestonePercentCompleted": "rcwuio",
             "milestoneVarianceAgainstBaseline": "fhui",
+            "milestoneLastReturnDate": "1",
             "milestoneVarianceAgainstLastReturn": "2",
             "reasonForVariance": "fhewui",
             "statusAgainstLastReturn": "ewuhif"

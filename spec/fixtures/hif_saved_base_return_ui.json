@@ -78,6 +78,7 @@
             "milestoneVarianceAgainstBaseline": null,
             "statusAgainstLastReturn": null,
             "milestoneLastReturnDate": null,
+            "milestoneLastReturnDate": null,
             "currentReturn": null,
             "reasonForVariance": null,
             "milestonePercentCompleted": null,
