@@ -2479,7 +2479,7 @@
               "hidden": true
             },
             "breakdownOfNextQuarterSpend": {
-              "title": "Evidence of Next Quarter Spend",
+              "title": "Next Quarter Spend",
               "type": "object",
               "properties": {
                 "forecast": {
