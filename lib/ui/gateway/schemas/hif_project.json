@@ -809,6 +809,7 @@
     },
     "infrastructures": {
       "type": "array",
+      "addable": true,
       "title": "Infrastructures",
       "items": {
         "title": "Infrastructure",
