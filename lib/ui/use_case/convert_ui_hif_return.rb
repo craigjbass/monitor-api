@@ -591,14 +591,17 @@ class UI::UseCase::ConvertUIHIFReturn
 
   def convert_top_risk(risk)
     return if risk.nil?
-    new_risk = {
-      liveRisk: risk[:liveRisk],
-      description: risk[:description],
-      varianceAmount: risk[:varianceAmount],
-      varianceReason: risk[:varianceReason],
-      baselineMitigationMeasures: risk[:baselineMitigationMeasures],
-      riskAfterMitigation: risk[:riskAfterMitigation]
-    }
+    new_risk = {}
+
+    new_risk[:varianceAmount] = risk[:varianceAmount]
+    new_risk[:varianceReason] = risk[:varianceReason]
+    new_risk[:baselineMitigationMeasures] = risk[:baselineMitigationMeasures]
+    new_risk[:riskAfterMitigation] = risk[:riskAfterMitigation]
+
+    unless risk[:riskHolder].nil?
+      new_risk[:liveRisk] = risk[:riskHolder][:liveRisk]
+      new_risk[:description] = risk[:riskHolder][:description]
+    end
 
     unless risk[:dates].nil?
       new_risk[:dates] = {
