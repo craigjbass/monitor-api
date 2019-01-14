@@ -2724,27 +2724,69 @@
                 "title": "Land Assembly",
                 "calculation": "get(formData, 'dates') ? set(formData, 'varianceAmount', weeksPassed(get(formData, 'dates', 'expectedCompletion'), get(formData, 'dates', 'currentReturnCompletionDate'))) : ''",
                 "properties": {
-                  "liveRisk": {
-                    "type": "string",
-                    "title": "Live Risk?",
-                    "enum": ["Yes", "No"],
-                    "radio": true
+                  "riskHolder": {
+                    "horizontal": true,
+                    "type": "object",
+                    "properties": {
+                      "liveRisk": {
+                        "type": "string",
+                        "title": "Live Risk?",
+                        "enum": ["Yes", "No"],
+                        "radio": true
+                      }
+                    },
+                    "dependencies": {
+                      "liveRisk": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "liveRisk": {
+                                "type": "string",
+                                "title": "Live Risk?",
+                                "enum": ["Yes"],
+                                "radio": true
+                              },
+                              "description": {
+                                "type": "string",
+                                "title": "Description Of Risk",
+                                "extendedText": true,
+                                "readonly": false
+                              }
+                            }
+                          },
+                          {
+                            "properties": {
+                              "liveRisk": {
+                                "type": "string",
+                                "title": "Live Risk?",
+                                "enum": ["No"],
+                                "radio": true
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
                   }
                 },
                 "dependencies": {
-                  "liveRisk": {
+                  "riskHolder": {
                     "oneOf": [
                       {
                         "properties": {
-                          "liveRisk": {
-                            "enum": ["Yes"]
+                          "riskHolder": {
+                            "horizontal": true,
+                            "type": "object",
+                            "properties": {
+                              "liveRisk": {
+                                "type": "string",
+                                "title": "Live Risk?",
+                                "enum": ["Yes"],
+                                "radio": true
+                              }
+                            }
                           },
-                          "description": {
-                            "type": "string",
-                            "title": "Description Of Risk",
-                            "extendedText": true,
-                            "readonly": false
-                          },
+
                           "dates": {
                             "type": "object",
                             "title": "",
@@ -2886,8 +2928,17 @@
                       },
                       {
                         "properties": {
-                          "liveRisk": {
-                            "enum": ["No"]
+                          "riskHolder": {
+                            "horizontal": true,
+                            "type": "object",
+                            "properties": {
+                              "liveRisk": {
+                                "type": "string",
+                                "title": "Live Risk?",
+                                "enum": ["No"],
+                                "radio": true
+                              }
+                            }
                           }
                         }
                       }
@@ -2896,30 +2947,73 @@
                 }
               },
               "procurementInfrastructure": {
-                "title": "Procurement - Infrastructure",
                 "type": "object",
+                "title": "Procurement - Infrastructure",
+                "calculation": "get(formData, 'dates') ? set(formData, 'varianceAmount', weeksPassed(get(formData, 'dates', 'expectedCompletion'), get(formData, 'dates', 'currentReturnCompletionDate'))) : ''",
                 "properties": {
-                  "liveRisk": {
-                    "type": "string",
-                    "title": "Live Risk?",
-                    "enum": ["Yes", "No"],
-                    "radio": true
+                  "riskHolder": {
+                    "horizontal": true,
+                    "type": "object",
+                    "properties": {
+                      "liveRisk": {
+                        "type": "string",
+                        "title": "Live Risk?",
+                        "enum": ["Yes", "No"],
+                        "radio": true
+                      }
+                    },
+                    "dependencies": {
+                      "liveRisk": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "liveRisk": {
+                                "type": "string",
+                                "title": "Live Risk?",
+                                "enum": ["Yes"],
+                                "radio": true
+                              },
+                              "description": {
+                                "type": "string",
+                                "title": "Description Of Risk",
+                                "extendedText": true,
+                                "readonly": false
+                              }
+                            }
+                          },
+                          {
+                            "properties": {
+                              "liveRisk": {
+                                "type": "string",
+                                "title": "Live Risk?",
+                                "enum": ["No"],
+                                "radio": true
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
                   }
                 },
                 "dependencies": {
-                  "liveRisk": {
+                  "riskHolder": {
                     "oneOf": [
                       {
                         "properties": {
-                          "liveRisk": {
-                            "enum": ["Yes"]
+                          "riskHolder": {
+                            "horizontal": true,
+                            "type": "object",
+                            "properties": {
+                              "liveRisk": {
+                                "type": "string",
+                                "title": "Live Risk?",
+                                "enum": ["Yes"],
+                                "radio": true
+                              }
+                            }
                           },
-                          "description": {
-                            "type": "string",
-                            "title": "Description Of Risk",
-                            "extendedText": true,
-                            "readonly": false
-                          },
+
                           "dates": {
                             "type": "object",
                             "title": "",
@@ -2933,7 +3027,8 @@
                               },
                               "currentReturnCompletionDate": {
                                 "type": "string",
-                                "title": "Expected Return Completion Date"
+                                "title": "Expected Return Completion Date",
+                                "format": "date"
                               }
                             }
                           },
@@ -3060,8 +3155,17 @@
                       },
                       {
                         "properties": {
-                          "liveRisk": {
-                            "enum": ["No"]
+                          "riskHolder": {
+                            "horizontal": true,
+                            "type": "object",
+                            "properties": {
+                              "liveRisk": {
+                                "type": "string",
+                                "title": "Live Risk?",
+                                "enum": ["No"],
+                                "radio": true
+                              }
+                            }
                           }
                         }
                       }
@@ -3070,30 +3174,73 @@
                 }
               },
               "planningInfrastructure": {
-                "title": "Planning- Infrastructure",
                 "type": "object",
+                "title": "Planning- Infrastructure",
+                "calculation": "get(formData, 'dates') ? set(formData, 'varianceAmount', weeksPassed(get(formData, 'dates', 'expectedCompletion'), get(formData, 'dates', 'currentReturnCompletionDate'))) : ''",
                 "properties": {
-                  "liveRisk": {
-                    "type": "string",
-                    "title": "Live Risk?",
-                    "enum": ["Yes", "No"],
-                    "radio": true
+                  "riskHolder": {
+                    "horizontal": true,
+                    "type": "object",
+                    "properties": {
+                      "liveRisk": {
+                        "type": "string",
+                        "title": "Live Risk?",
+                        "enum": ["Yes", "No"],
+                        "radio": true
+                      }
+                    },
+                    "dependencies": {
+                      "liveRisk": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "liveRisk": {
+                                "type": "string",
+                                "title": "Live Risk?",
+                                "enum": ["Yes"],
+                                "radio": true
+                              },
+                              "description": {
+                                "type": "string",
+                                "title": "Description Of Risk",
+                                "extendedText": true,
+                                "readonly": false
+                              }
+                            }
+                          },
+                          {
+                            "properties": {
+                              "liveRisk": {
+                                "type": "string",
+                                "title": "Live Risk?",
+                                "enum": ["No"],
+                                "radio": true
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
                   }
                 },
                 "dependencies": {
-                  "liveRisk": {
+                  "riskHolder": {
                     "oneOf": [
                       {
                         "properties": {
-                          "liveRisk": {
-                            "enum": ["Yes"]
+                          "riskHolder": {
+                            "horizontal": true,
+                            "type": "object",
+                            "properties": {
+                              "liveRisk": {
+                                "type": "string",
+                                "title": "Live Risk?",
+                                "enum": ["Yes"],
+                                "radio": true
+                              }
+                            }
                           },
-                          "description": {
-                            "type": "string",
-                            "title": "Description Of Risk",
-                            "extendedText": true,
-                            "readonly": false
-                          },
+
                           "dates": {
                             "type": "object",
                             "title": "",
@@ -3107,7 +3254,8 @@
                               },
                               "currentReturnCompletionDate": {
                                 "type": "string",
-                                "title": "Expected Return Completion Date"
+                                "title": "Expected Return Completion Date",
+                                "format": "date"
                               }
                             }
                           },
@@ -3234,8 +3382,17 @@
                       },
                       {
                         "properties": {
-                          "liveRisk": {
-                            "enum": ["No"]
+                          "riskHolder": {
+                            "horizontal": true,
+                            "type": "object",
+                            "properties": {
+                              "liveRisk": {
+                                "type": "string",
+                                "title": "Live Risk?",
+                                "enum": ["No"],
+                                "radio": true
+                              }
+                            }
                           }
                         }
                       }
@@ -3244,30 +3401,73 @@
                 }
               },
               "deliveryInfrastructure": {
-                "title": "Delivery - Infrastructure",
                 "type": "object",
+                "title": "Delivery - Infrastructure",
+                "calculation": "get(formData, 'dates') ? set(formData, 'varianceAmount', weeksPassed(get(formData, 'dates', 'expectedCompletion'), get(formData, 'dates', 'currentReturnCompletionDate'))) : ''",
                 "properties": {
-                  "liveRisk": {
-                    "type": "string",
-                    "title": "Live Risk?",
-                    "enum": ["Yes", "No"],
-                    "radio": true
+                  "riskHolder": {
+                    "horizontal": true,
+                    "type": "object",
+                    "properties": {
+                      "liveRisk": {
+                        "type": "string",
+                        "title": "Live Risk?",
+                        "enum": ["Yes", "No"],
+                        "radio": true
+                      }
+                    },
+                    "dependencies": {
+                      "liveRisk": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "liveRisk": {
+                                "type": "string",
+                                "title": "Live Risk?",
+                                "enum": ["Yes"],
+                                "radio": true
+                              },
+                              "description": {
+                                "type": "string",
+                                "title": "Description Of Risk",
+                                "extendedText": true,
+                                "readonly": false
+                              }
+                            }
+                          },
+                          {
+                            "properties": {
+                              "liveRisk": {
+                                "type": "string",
+                                "title": "Live Risk?",
+                                "enum": ["No"],
+                                "radio": true
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
                   }
                 },
                 "dependencies": {
-                  "liveRisk": {
+                  "riskHolder": {
                     "oneOf": [
                       {
                         "properties": {
-                          "liveRisk": {
-                            "enum": ["Yes"]
+                          "riskHolder": {
+                            "horizontal": true,
+                            "type": "object",
+                            "properties": {
+                              "liveRisk": {
+                                "type": "string",
+                                "title": "Live Risk?",
+                                "enum": ["Yes"],
+                                "radio": true
+                              }
+                            }
                           },
-                          "description": {
-                            "type": "string",
-                            "title": "Description Of Risk",
-                            "extendedText": true,
-                            "readonly": false
-                          },
+
                           "dates": {
                             "type": "object",
                             "title": "",
@@ -3281,7 +3481,8 @@
                               },
                               "currentReturnCompletionDate": {
                                 "type": "string",
-                                "title": "Expected Return Completion Date"
+                                "title": "Expected Return Completion Date",
+                                "format": "date"
                               }
                             }
                           },
@@ -3408,8 +3609,17 @@
                       },
                       {
                         "properties": {
-                          "liveRisk": {
-                            "enum": ["No"]
+                          "riskHolder": {
+                            "horizontal": true,
+                            "type": "object",
+                            "properties": {
+                              "liveRisk": {
+                                "type": "string",
+                                "title": "Live Risk?",
+                                "enum": ["No"],
+                                "radio": true
+                              }
+                            }
                           }
                         }
                       }
@@ -3418,30 +3628,73 @@
                 }
               },
               "procurementHousing": {
-                "title": "Procurement- Housing",
                 "type": "object",
+                "title": "Procurement- Housing",
+                "calculation": "get(formData, 'dates') ? set(formData, 'varianceAmount', weeksPassed(get(formData, 'dates', 'expectedCompletion'), get(formData, 'dates', 'currentReturnCompletionDate'))) : ''",
                 "properties": {
-                  "liveRisk": {
-                    "type": "string",
-                    "title": "Live Risk?",
-                    "enum": ["Yes", "No"],
-                    "radio": true
+                  "riskHolder": {
+                    "horizontal": true,
+                    "type": "object",
+                    "properties": {
+                      "liveRisk": {
+                        "type": "string",
+                        "title": "Live Risk?",
+                        "enum": ["Yes", "No"],
+                        "radio": true
+                      }
+                    },
+                    "dependencies": {
+                      "liveRisk": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "liveRisk": {
+                                "type": "string",
+                                "title": "Live Risk?",
+                                "enum": ["Yes"],
+                                "radio": true
+                              },
+                              "description": {
+                                "type": "string",
+                                "title": "Description Of Risk",
+                                "extendedText": true,
+                                "readonly": false
+                              }
+                            }
+                          },
+                          {
+                            "properties": {
+                              "liveRisk": {
+                                "type": "string",
+                                "title": "Live Risk?",
+                                "enum": ["No"],
+                                "radio": true
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
                   }
                 },
                 "dependencies": {
-                  "liveRisk": {
+                  "riskHolder": {
                     "oneOf": [
                       {
                         "properties": {
-                          "liveRisk": {
-                            "enum": ["Yes"]
+                          "riskHolder": {
+                            "horizontal": true,
+                            "type": "object",
+                            "properties": {
+                              "liveRisk": {
+                                "type": "string",
+                                "title": "Live Risk?",
+                                "enum": ["Yes"],
+                                "radio": true
+                              }
+                            }
                           },
-                          "description": {
-                            "type": "string",
-                            "title": "Description Of Risk",
-                            "extendedText": true,
-                            "readonly": false
-                          },
+
                           "dates": {
                             "type": "object",
                             "title": "",
@@ -3455,7 +3708,8 @@
                               },
                               "currentReturnCompletionDate": {
                                 "type": "string",
-                                "title": "Expected Return Completion Date"
+                                "title": "Expected Return Completion Date",
+                                "format": "date"
                               }
                             }
                           },
@@ -3582,8 +3836,17 @@
                       },
                       {
                         "properties": {
-                          "liveRisk": {
-                            "enum": ["No"]
+                          "riskHolder": {
+                            "horizontal": true,
+                            "type": "object",
+                            "properties": {
+                              "liveRisk": {
+                                "type": "string",
+                                "title": "Live Risk?",
+                                "enum": ["No"],
+                                "radio": true
+                              }
+                            }
                           }
                         }
                       }
@@ -3592,30 +3855,73 @@
                 }
               },
               "planningHousing": {
-                "title": "Planning - Housing",
                 "type": "object",
+                "title": "Planning - Housing",
+                "calculation": "get(formData, 'dates') ? set(formData, 'varianceAmount', weeksPassed(get(formData, 'dates', 'expectedCompletion'), get(formData, 'dates', 'currentReturnCompletionDate'))) : ''",
                 "properties": {
-                  "liveRisk": {
-                    "type": "string",
-                    "title": "Live Risk?",
-                    "enum": ["Yes", "No"],
-                    "radio": true
+                  "riskHolder": {
+                    "horizontal": true,
+                    "type": "object",
+                    "properties": {
+                      "liveRisk": {
+                        "type": "string",
+                        "title": "Live Risk?",
+                        "enum": ["Yes", "No"],
+                        "radio": true
+                      }
+                    },
+                    "dependencies": {
+                      "liveRisk": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "liveRisk": {
+                                "type": "string",
+                                "title": "Live Risk?",
+                                "enum": ["Yes"],
+                                "radio": true
+                              },
+                              "description": {
+                                "type": "string",
+                                "title": "Description Of Risk",
+                                "extendedText": true,
+                                "readonly": false
+                              }
+                            }
+                          },
+                          {
+                            "properties": {
+                              "liveRisk": {
+                                "type": "string",
+                                "title": "Live Risk?",
+                                "enum": ["No"],
+                                "radio": true
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
                   }
                 },
                 "dependencies": {
-                  "liveRisk": {
+                  "riskHolder": {
                     "oneOf": [
                       {
                         "properties": {
-                          "liveRisk": {
-                            "enum": ["Yes"]
+                          "riskHolder": {
+                            "horizontal": true,
+                            "type": "object",
+                            "properties": {
+                              "liveRisk": {
+                                "type": "string",
+                                "title": "Live Risk?",
+                                "enum": ["Yes"],
+                                "radio": true
+                              }
+                            }
                           },
-                          "description": {
-                            "type": "string",
-                            "title": "Description Of Risk",
-                            "extendedText": true,
-                            "readonly": false
-                          },
+
                           "dates": {
                             "type": "object",
                             "title": "",
@@ -3629,7 +3935,8 @@
                               },
                               "currentReturnCompletionDate": {
                                 "type": "string",
-                                "title": "Expected Return Completion Date"
+                                "title": "Expected Return Completion Date",
+                                "format": "date"
                               }
                             }
                           },
@@ -3756,8 +4063,17 @@
                       },
                       {
                         "properties": {
-                          "liveRisk": {
-                            "enum": ["No"]
+                          "riskHolder": {
+                            "horizontal": true,
+                            "type": "object",
+                            "properties": {
+                              "liveRisk": {
+                                "type": "string",
+                                "title": "Live Risk?",
+                                "enum": ["No"],
+                                "radio": true
+                              }
+                            }
                           }
                         }
                       }
@@ -3766,30 +4082,73 @@
                 }
               },
               "delivery": {
-                "title": "Delivery- Housing",
                 "type": "object",
+                "title": "Delivery- Housing",
+                "calculation": "get(formData, 'dates') ? set(formData, 'varianceAmount', weeksPassed(get(formData, 'dates', 'expectedCompletion'), get(formData, 'dates', 'currentReturnCompletionDate'))) : ''",
                 "properties": {
-                  "liveRisk": {
-                    "type": "string",
-                    "title": "Live Risk?",
-                    "enum": ["Yes", "No"],
-                    "radio": true
+                  "riskHolder": {
+                    "horizontal": true,
+                    "type": "object",
+                    "properties": {
+                      "liveRisk": {
+                        "type": "string",
+                        "title": "Live Risk?",
+                        "enum": ["Yes", "No"],
+                        "radio": true
+                      }
+                    },
+                    "dependencies": {
+                      "liveRisk": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "liveRisk": {
+                                "type": "string",
+                                "title": "Live Risk?",
+                                "enum": ["Yes"],
+                                "radio": true
+                              },
+                              "description": {
+                                "type": "string",
+                                "title": "Description Of Risk",
+                                "extendedText": true,
+                                "readonly": false
+                              }
+                            }
+                          },
+                          {
+                            "properties": {
+                              "liveRisk": {
+                                "type": "string",
+                                "title": "Live Risk?",
+                                "enum": ["No"],
+                                "radio": true
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
                   }
                 },
                 "dependencies": {
-                  "liveRisk": {
+                  "riskHolder": {
                     "oneOf": [
                       {
                         "properties": {
-                          "liveRisk": {
-                            "enum": ["Yes"]
+                          "riskHolder": {
+                            "horizontal": true,
+                            "type": "object",
+                            "properties": {
+                              "liveRisk": {
+                                "type": "string",
+                                "title": "Live Risk?",
+                                "enum": ["Yes"],
+                                "radio": true
+                              }
+                            }
                           },
-                          "description": {
-                            "type": "string",
-                            "title": "Description Of Risk",
-                            "extendedText": true,
-                            "readonly": false
-                          },
+
                           "dates": {
                             "type": "object",
                             "title": "",
@@ -3803,7 +4162,8 @@
                               },
                               "currentReturnCompletionDate": {
                                 "type": "string",
-                                "title": "Expected Return Completion Date"
+                                "title": "Expected Return Completion Date",
+                                "format": "date"
                               }
                             }
                           },
@@ -3930,8 +4290,17 @@
                       },
                       {
                         "properties": {
-                          "liveRisk": {
-                            "enum": ["No"]
+                          "riskHolder": {
+                            "horizontal": true,
+                            "type": "object",
+                            "properties": {
+                              "liveRisk": {
+                                "type": "string",
+                                "title": "Live Risk?",
+                                "enum": ["No"],
+                                "radio": true
+                              }
+                            }
                           }
                         }
                       }
@@ -3940,30 +4309,73 @@
                 }
               },
               "fundingPackage": {
-                "title": "Funding Package",
                 "type": "object",
+                "title": "Funding Package",
+                "calculation": "get(formData, 'dates') ? set(formData, 'varianceAmount', weeksPassed(get(formData, 'dates', 'expectedCompletion'), get(formData, 'dates', 'currentReturnCompletionDate'))) : ''",
                 "properties": {
-                  "liveRisk": {
-                    "type": "string",
-                    "title": "Live Risk?",
-                    "enum": ["Yes", "No"],
-                    "radio": true
+                  "riskHolder": {
+                    "horizontal": true,
+                    "type": "object",
+                    "properties": {
+                      "liveRisk": {
+                        "type": "string",
+                        "title": "Live Risk?",
+                        "enum": ["Yes", "No"],
+                        "radio": true
+                      }
+                    },
+                    "dependencies": {
+                      "liveRisk": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "liveRisk": {
+                                "type": "string",
+                                "title": "Live Risk?",
+                                "enum": ["Yes"],
+                                "radio": true
+                              },
+                              "description": {
+                                "type": "string",
+                                "title": "Description Of Risk",
+                                "extendedText": true,
+                                "readonly": false
+                              }
+                            }
+                          },
+                          {
+                            "properties": {
+                              "liveRisk": {
+                                "type": "string",
+                                "title": "Live Risk?",
+                                "enum": ["No"],
+                                "radio": true
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
                   }
                 },
                 "dependencies": {
-                  "liveRisk": {
+                  "riskHolder": {
                     "oneOf": [
                       {
                         "properties": {
-                          "liveRisk": {
-                            "enum": ["Yes"]
+                          "riskHolder": {
+                            "horizontal": true,
+                            "type": "object",
+                            "properties": {
+                              "liveRisk": {
+                                "type": "string",
+                                "title": "Live Risk?",
+                                "enum": ["Yes"],
+                                "radio": true
+                              }
+                            }
                           },
-                          "description": {
-                            "type": "string",
-                            "title": "Description Of Risk",
-                            "extendedText": true,
-                            "readonly": false
-                          },
+
                           "dates": {
                             "type": "object",
                             "title": "",
@@ -3977,7 +4389,8 @@
                               },
                               "currentReturnCompletionDate": {
                                 "type": "string",
-                                "title": "Expected Return Completion Date"
+                                "title": "Expected Return Completion Date",
+                                "format": "date"
                               }
                             }
                           },
@@ -4104,8 +4517,17 @@
                       },
                       {
                         "properties": {
-                          "liveRisk": {
-                            "enum": ["No"]
+                          "riskHolder": {
+                            "horizontal": true,
+                            "type": "object",
+                            "properties": {
+                              "liveRisk": {
+                                "type": "string",
+                                "title": "Live Risk?",
+                                "enum": ["No"],
+                                "radio": true
+                              }
+                            }
                           }
                         }
                       }
@@ -4121,137 +4543,227 @@
                 "items": {
                   "type": "object",
                   "title": "Risk",
+                  "calculation": "get(formData, 'dates') ? set(formData, 'varianceAmount', weeksPassed(get(formData, 'dates', 'expectedCompletion'), get(formData, 'dates', 'currentReturnCompletionDate'))) : ''",
                   "properties": {
-                    "liveRisk": {
-                      "type": "string",
-                      "title": "Live Risk?",
-                      "enum": ["Yes", "No"]
-                    },
-                    "description": {
-                      "type": "string",
-                      "title": "Description Of Risk",
-                      "extendedText": true,
-                      "readonly": false
-                    },
-                    "expectedCompletion": {
-                      "type": "string",
-                      "title": "Expected Completion Date",
-                      "format": "date",
-                      "readonly": false
-                    },
-                    "currentReturnCompletionDate": {
-                      "type": "string",
-                      "title": "Expected Return Completion Date"
-                    },
-                    "varianceAmount": {
-                      "type": "string",
-                      "title": "Variance Amount (weeks)",
-                      "readonly": true
-                    },
-                    "varianceReason": {
-                      "type": "string",
-                      "title": "Variance Reason",
-                      "extendedText": true
-                    },
-                    "baselineImpact": {
-                      "type": "string",
-                      "title": "Baseline Impact",
-                      "enum": ["1", "2", "3", "4", "5"],
-                      "readonly": false
-                    },
-                    "baselineLikelihood": {
-                      "type": "string",
-                      "title": "Baseline Likelihood",
-                      "enum": ["1", "2", "3", "4", "5"],
-                      "readonly": false
-                    },
-                    "currentReturnLikelihood": {
-                      "type": "string",
-                      "title": "Current Return Likelihood",
-                      "enum": ["1", "2", "3", "4", "5"]
-                    },
-                    "baselineMitigationMeasures": {
-                      "type": "string",
-                      "title": "Baseline Mitigation Measures",
-                      "extendedText": true,
-                      "readonly": false
-                    },
-                    "anyChange": {
+                    "riskHolder": {
+                      "horizontal": true,
                       "type": "object",
-                      "title": " ",
                       "properties": {
-                        "confirmation": {
-                          "title": "Any Change?",
+                        "liveRisk": {
                           "type": "string",
-                          "enum": ["Yes", "No"]
+                          "title": "Live Risk?",
+                          "enum": ["Yes", "No"],
+                          "radio": true
                         }
                       },
                       "dependencies": {
-                        "confirmation": {
+                        "liveRisk": {
                           "oneOf": [
                             {
                               "properties": {
-                                "confirmation": {
-                                  "enum": ["Yes"]
-                                },
-                                "updatedMeasures": {
-                                  "title": "Updated of Mitigation Measures",
+                                "liveRisk": {
                                   "type": "string",
-                                  "extendedText": true
+                                  "title": "Live Risk?",
+                                  "enum": ["Yes"],
+                                  "radio": true
+                                },
+                                "description": {
+                                  "type": "string",
+                                  "title": "Description Of Risk",
+                                  "extendedText": true,
+                                  "readonly": false
                                 }
                               }
                             },
                             {
                               "properties": {
-                                "confirmation": {
-                                  "enum": ["No"]
+                                "liveRisk": {
+                                  "type": "string",
+                                  "title": "Live Risk?",
+                                  "enum": ["No"],
+                                  "radio": true
                                 }
                               }
                             }
                           ]
                         }
                       }
-                    },
-                    "riskAfterMitigation": {
-                      "title": "Risk Rating after Mitigation",
-                      "type": "string",
-                      "enum": ["1", "2", "3", "4", "5"]
-                    },
-                    "riskMet": {
-                      "type": "object",
-                      "title": " ",
-                      "properties": {
-                        "confirmation": {
-                          "title": "Risk Met?",
-                          "type": "string",
-                          "enum": ["Yes", "No"]
-                        }
-                      },
-                      "dependencies": {
-                        "confirmation": {
-                          "oneOf": [
-                            {
+                    }
+                  },
+                  "dependencies": {
+                    "riskHolder": {
+                      "oneOf": [
+                        {
+                          "properties": {
+                            "riskHolder": {
+                              "horizontal": true,
+                              "type": "object",
                               "properties": {
-                                "confirmation": {
-                                  "enum": ["Yes"]
-                                },
-                                "dateMet": {
-                                  "title": "Date Risk Met",
+                                "liveRisk": {
                                   "type": "string",
+                                  "title": "Live Risk?",
+                                  "enum": ["Yes"],
+                                  "radio": true
+                                }
+                              }
+                            },
+
+                            "dates": {
+                              "type": "object",
+                              "title": "",
+                              "horizontal": true,
+                              "properties": {
+                                "expectedCompletion": {
+                                  "type": "string",
+                                  "title": "Expected Completion Date",
+                                  "format": "date",
+                                  "readonly": false
+                                },
+                                "currentReturnCompletionDate": {
+                                  "type": "string",
+                                  "title": "Expected Return Completion Date",
                                   "format": "date"
                                 }
                               }
                             },
-                            {
+                            "varianceAmount": {
+                              "type": "string",
+                              "title": "Variance Amount (weeks)",
+                              "readonly": true
+                            },
+                            "varianceReason": {
+                              "type": "string",
+                              "title": "Variance Reason",
+                              "extendedText": true
+                            },
+                            "ratings": {
+                              "type": "object",
+                              "horizontal": "true",
+                              "title": "",
+                              "properties": {
+                                "baselineImpact": {
+                                  "type": "string",
+                                  "title": "Baseline Impact",
+                                  "enum": ["1", "2", "3", "4", "5"],
+                                  "readonly": false
+                                },
+                                "baselineLikelihood": {
+                                  "type": "string",
+                                  "title": "Baseline Likelihood",
+                                  "enum": ["1", "2", "3", "4", "5"],
+                                  "readonly": false
+                                },
+                                "currentReturnLikelihood": {
+                                  "type": "string",
+                                  "title": "Current Return Likelihood",
+                                  "enum": ["1", "2", "3", "4", "5"]
+                                }
+                              }
+                            },
+                            "baselineMitigationMeasures": {
+                              "type": "string",
+                              "title": "Baseline Mitigation Measures",
+                              "extendedText": true,
+                              "readonly": false
+                            },
+                            "anyChange": {
+                              "type": "object",
+                              "title": " ",
                               "properties": {
                                 "confirmation": {
-                                  "enum": ["No"]
+                                  "title": "Any Change?",
+                                  "type": "string",
+                                  "enum": ["Yes", "No"],
+                                  "radio": true
+                                }
+                              },
+                              "dependencies": {
+                                "confirmation": {
+                                  "oneOf": [
+                                    {
+                                      "properties": {
+                                        "confirmation": {
+                                          "enum": ["Yes"]
+                                        },
+                                        "updatedMeasures": {
+                                          "title": "Updated Mitigation Measures",
+                                          "type": "string",
+                                          "extendedText": true
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "properties": {
+                                        "confirmation": {
+                                          "enum": ["No"]
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            "riskAfterMitigation": {
+                              "title": "Risk Rating after Mitigation",
+                              "type": "string",
+                              "enum": ["1", "2", "3", "4", "5"]
+                            },
+                            "riskMet": {
+                              "type": "object",
+                              "title": " ",
+                              "properties": {
+                                "confirmation": {
+                                  "title": "Risk Met?",
+                                  "type": "string",
+                                  "enum": ["Yes", "No"],
+                                  "radio": true
+                                }
+                              },
+                              "dependencies": {
+                                "confirmation": {
+                                  "oneOf": [
+                                    {
+                                      "properties": {
+                                        "confirmation": {
+                                          "enum": ["Yes"]
+                                        },
+                                        "dateMet": {
+                                          "title": "Date Risk Met",
+                                          "type": "string",
+                                          "format": "date"
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "properties": {
+                                        "confirmation": {
+                                          "enum": ["No"]
+                                        }
+                                      }
+                                    }
+                                  ]
                                 }
                               }
                             }
-                          ]
+                          }
+                        },
+                        {
+                          "properties": {
+                            "riskHolder": {
+                              "horizontal": true,
+                              "type": "object",
+                              "properties": {
+                                "liveRisk": {
+                                  "type": "string",
+                                  "title": "Live Risk?",
+                                  "enum": ["No"],
+                                  "radio": true
+                                }
+                              }
+                            }
+                          }
                         }
-                      }
+                      ]
                     }
                   }
                 }
