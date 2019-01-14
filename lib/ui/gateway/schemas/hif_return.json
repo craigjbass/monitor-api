@@ -144,12 +144,12 @@
                                 "type": "string",
                                 "format": "date",
                                 "readonly": true,
-                                "title": "Completed Date (Calculated)"
+                                "title": "Completed Date"
                               },
                               "onCompletedReference": {
                                 "type": "string",
                                 "readonly": true,
-                                "title": "Completed Reference (Calculated)"
+                                "title": "Completed Reference"
                               }
                             }
                           },
@@ -217,7 +217,7 @@
                                 "type": "string",
                                 "format": "date",
                                 "readonly": true,
-                                "title": "Completed Date (Calculated)"
+                                "title": "Completed Date"
                               }
                             }
                           }
