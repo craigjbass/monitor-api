@@ -82,7 +82,7 @@
             "properties": {
               "baselineunits": {
                 "type": "string",
-                "title": "Units",
+                "title": "Baseline Total Units",
                 "readonly": true,
                 "sourceKey": [
                   "baseline_data",
