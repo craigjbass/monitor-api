@@ -2464,7 +2464,6 @@
             "AmountOfThisClaim": {
               "type": "string",
               "title": "Amount of this Claim",
-              "s151WriteOnly": true,
               "currency": true
             }
           }
@@ -2475,9 +2474,9 @@
           "properties": {
             "evidenceOfSpendPastQuarter": {
               "title": "Evidence of Spend for the Past Quarter.",
-              "type": "string",
-              "s151WriteOnly": true,
-              "hidden": true
+              "description": "Evidence can include contract/ quotes. Please attach here.",
+              "uploadFile": "multiple",
+              "type": "string"
             },
             "breakdownOfNextQuarterSpend": {
               "title": "Next Quarter Spend",
@@ -2486,14 +2485,18 @@
                 "forecast": {
                   "title": "Forecasted Spend (£)",
                   "type": "string",
-                  "s151WriteOnly": true,
                   "currency": true
                 },
                 "descriptionOfSpend": {
                   "title": "Description of Spend",
                   "type": "string",
-                  "s151WriteOnly": true,
                   "extendedText": true
+                },
+                "evidenceOfSpendNextQuarter": {
+                  "title": "Evidence of Spend for the Next Quarter.",
+                  "description": "Evidence can include contract/ quotes. Please attach here.",
+                  "uploadFile": "multiple",
+                  "type": "string"
                 }
               }
             }
