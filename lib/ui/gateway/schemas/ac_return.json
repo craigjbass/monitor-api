@@ -105,7 +105,7 @@
                   "numberOfUnits": {
                     "type": "object",
                     "horizontal": true,
-                    "title": "Units and Tenures",
+                    "title": "Latest Units and Tenures",
                     "properties": {
                       "numberOfUnitsMarket": {
                         "type": "string",
@@ -2161,7 +2161,7 @@
           "radio": true,
           "title": "Changes Required?",
           "enum": [
-            "Do not change the baseline",
+            "Do not change the baseline - Where there are variances, these will be rectified in due course",
             "Request change to baseline to match latest estimates"
           ]
         }
@@ -2171,7 +2171,7 @@
           "oneOf": [
             {
               "properties": {
-                "changesRequired": { "enum": ["Do not change the baseline"] }
+                "changesRequired": { "enum": ["Do not change the baseline - Where there are variances, these will be rectified in due course"] }
               }
             },
             {
@@ -2403,7 +2403,7 @@
                     "title": " ",
                     "radio": true,
                     "enum": [
-                      "Do not change the baseline",
+                      "Do not change the baseline - Where there are variances, these will be rectified in due course",
                       "Request change to baseline to match latest estimates"
                     ]
                   }
@@ -2413,7 +2413,7 @@
                     "oneOf": [
                       {
                         "properties": {
-                          "changesConfirmation": { "enum": ["Do not change the baseline"] }
+                          "changesConfirmation": { "enum": ["Do not change the baseline - Where there are variances, these will be rectified in due course"] }
                         }
                       },
                       {
@@ -2479,7 +2479,7 @@
               "hidden": true
             },
             "breakdownOfNextQuarterSpend": {
-              "title": "Evidence of Next Quarter Spend",
+              "title": "Next Quarter Spend",
               "type": "object",
               "properties": {
                 "forecast": {
