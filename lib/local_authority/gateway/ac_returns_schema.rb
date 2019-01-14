@@ -2288,7 +2288,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                 type: 'string', 
                 title: 'Site Name', 
                 readonly: true,
-                sourceKey: %i[baseline_data summary sitesSummary summary name]
+                sourceKey: %i[baseline_data summary sitesSummary innerSummary name]
 
               },
               baseline: {
