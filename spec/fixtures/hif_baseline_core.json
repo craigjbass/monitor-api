@@ -146,5 +146,52 @@
     "expectedAmount": "1234",
     "expectedAmountToRecover": "54321",
     "methodOfRecovery": "Recovery will be undertaken"
+  },
+  "rmBaseline": {
+    "heContacts": {
+      "projectAssuranceManager": "Dog McDogg",
+      "relationshipManager": "Kat Caterson"
+    },
+    "laContacts": {
+      "laLead": {
+        "name": "Egwene",
+        "email": "egwene@emails.com"
+      },
+      "laS151": {
+        "name": "Perrin",
+        "email": "perrin@emails.com"
+      },
+      "laSupporting": [
+        {
+          "name": "Matrim",
+          "email": "matrim@email.com"
+        },
+        {
+          "name": "Nynaeve",
+          "email": "nynaeve@email.com"
+        }
+      ]
+    },
+    "strategicLinks": {
+      "heProgrammeLinks": {
+        "programmes": "Property and Regeneration",
+        "descriptions": "Regenerating some properties",
+        "pcsRef": "ABC123"
+      },
+      "housingPolicyAreas": {
+        "policies": "Garden Policy",
+        "description": "Garden policy in effect"
+      },
+      "mhclgLinks": {
+        "programmes": "Make more houses",
+        "description": "Apartments division"
+      },
+      "ogdLinks": {
+        "programmes": "Underground Homes",
+        "description": "Build houses underground"
+      },
+      "otherGovDepts": "ABC",
+      "description": "Early development department"
+    }
   }
 }
