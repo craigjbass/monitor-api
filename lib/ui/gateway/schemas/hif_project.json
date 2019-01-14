@@ -810,6 +810,7 @@
     "infrastructures": {
       "type": "array",
       "addable": true,
+      "linkedArray": ["costs"],
       "title": "Infrastructures",
       "items": {
         "title": "Infrastructure",
