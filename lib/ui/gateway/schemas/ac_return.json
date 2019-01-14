@@ -2441,6 +2441,7 @@
     },
     "s151GrantClaimApproval": {
       "title": "S151 Officer Grant Claim Approval",
+      "description": "In advance of your first claim, please ensure that your bank details, the Programme (Local Authority Accelerated Construction) and your site reference number(s) have been emailed to apenquiries@homesengland.gov.uk. This will ensure that there are no delays in making payments.",
       "type": "object",
       "properties": {
         "claimSummary": {
