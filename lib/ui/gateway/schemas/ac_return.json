@@ -1907,10 +1907,10 @@
         "baseline": {
           "type": "array",
           "title": "Baseline",
-          "quarterly": true,
           "items": {
             "type": "object",
             "title": "",
+            "horizontal": true,
             "properties": {
               "year": {
                 "type": "string",
@@ -1926,8 +1926,7 @@
               "Q1Amount": {
                 "type": "string",
                 "title": "First Quarter",
-                "currency": true,
-                "readonly": true,
+                "hidden": true,
                 "sourceKey": [
                   "baseline_data",
                   "financials",
@@ -1938,8 +1937,7 @@
               "Q2Amount": {
                 "type": "string",
                 "title": "Second Quarter",
-                "currency": true,
-                "readonly": true,
+                "hidden": true,
                 "sourceKey": [
                   "baseline_data",
                   "financials",
@@ -1950,8 +1948,7 @@
               "Q3Amount": {
                 "type": "string",
                 "title": "Third Quarter",
-                "currency": true,
-                "readonly": true,
+                "hidden": true,
                 "sourceKey": [
                   "baseline_data",
                   "financials",
@@ -1962,8 +1959,7 @@
               "Q4Amount": {
                 "type": "string",
                 "title": "Fourth Quarter",
-                "currency": true,
-                "readonly": true,
+                "hidden": true,
                 "sourceKey": [
                   "baseline_data",
                   "financials",
