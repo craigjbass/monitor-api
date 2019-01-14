@@ -141,46 +141,6 @@
                   }
                 }
               },
-              "changesRequired": {
-                "type": "object",
-                "title": "",
-                "properties": {
-                  "changesConfirmation": {
-                    "type": "string",
-                    "enum": [
-                      "Do not change the baseline",
-                      "Request change to baseline to match latest estimates"
-                    ],
-                    "radio": true,
-                    "title": "Changes to Baseline?"
-                  }
-                },
-                "dependencies": {
-                  "changesConfirmation": {
-                    "oneOf": [
-                      {
-                        "properties": {
-                          "changesConfirmation": {
-                            "enum": ["Do not change the baseline"]
-                          }
-                        }
-                      },
-                      {
-                        "properties": {
-                          "changesConfirmation": {
-                            "enum": ["Request change to baseline to match latest estimates"]
-                          },
-                          "reason": {
-                            "type": "string",
-                            "title": "What is the reason for the change?",
-                            "extendedText": true
-                          }
-                        }
-                      }
-                    ]
-                  }
-                }
-              },
               "paceOfConstruction": {
                 "type": "object",
                 "title": "Pace of Construction",
@@ -336,6 +296,46 @@
                     "type": "string",
                     "extendedText": true,
                     "title": "Reason for change/variance, and steps being taken to address this."
+                  }
+                }
+              },
+              "changesRequired": {
+                "type": "object",
+                "title": "",
+                "properties": {
+                  "changesConfirmation": {
+                    "type": "string",
+                    "enum": [
+                      "Do not change the baseline for MMC, pace or scheme units – where there are variances these will be rectified in due course",
+                      "Request change to baseline to match latest estimates"
+                    ],
+                    "radio": true,
+                    "title": "Changes to Baseline?"
+                  }
+                },
+                "dependencies": {
+                  "changesConfirmation": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "changesConfirmation": {
+                            "enum": ["Do not change the baseline for MMC, pace or scheme units – where there are variances these will be rectified in due course"]
+                          }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "changesConfirmation": {
+                            "enum": ["Request change to baseline to match latest estimates"]
+                          },
+                          "reason": {
+                            "type": "string",
+                            "title": "What is the reason for the change?",
+                            "extendedText": true
+                          }
+                        }
+                      }
+                    ]
                   }
                 }
               }
