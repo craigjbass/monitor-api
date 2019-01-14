@@ -2214,6 +2214,7 @@
                 "type": "array",
                 "title": "Baseline",
                 "quarterly": true,
+                "addable": true,
                 "items": {
                   "type": "object",
                   "title": "",
@@ -2250,6 +2251,7 @@
                 "type": "array",
                 "title": "Achieved to date",
                 "quarterly": true,
+                "addable": true,
                 "items": {
                   "type": "object",
                   "title": "",
@@ -2291,6 +2293,7 @@
                 "type": "array",
                 "title": "Remaining Estimate",
                 "quarterly": true,
+                "addable": true,
                 "items": {
                   "type": "object",
                   "title": "",
