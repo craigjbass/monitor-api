@@ -6704,7 +6704,7 @@
                     },
                     "expectedAmountToRecover": {
                       "type": "object",
-                      "calculation": "set(formData, 'varianceAgainstBaseline', subtract(formData['currentReturn'], formData['baselineAmount'])); set(formData, 'varianceAgainstLastReturn', subtract(formData['currentReturn'], formData['lastReturn'])); set(formData['amountRecovered'], 'remaining', subtract(formData['amountRecovered']['cumulative'], formData['baselineAmount']));",
+                      "calculation": "get(formData,'changeToBaseline', 'currentReturn') ? setCreate(formData, ['changeToBaseline', 'currentCopy'], get(formData,'changeToBaseline', 'currentReturn')) : setCreate(formData, ['changeToBaseline', 'currentCopy'], get(formData, 'changeToBaseline', 'lastReturn')); setCreate(formData, ['changeToBaseline','varianceAgainstBaseline'], subtract(get(formData,'changeToBaseline', 'currentReturn'), get(formData, 'baselineAmount'))); get(formData,'changeToBaseline', 'lastReturn') ? setCreate(formData,['changeToBaseline', 'varianceAgainstLastReturn'], subtract(get(formData,'changeToBaseline', 'currentReturn'), get(formData,'changeToBaseline', 'lastReturn'))): setCreate(formData,['changeToBaseline', 'varianceAgainstLastReturn'], 'N/A'); get(formData,'changeToBaseline', 'currentCopy') ? setCreate(formData, ['amountRecovered', 'remaining'], subtract(get(formData, 'changeToBaseline', 'currentCopy'), get(formData, 'amountRecovered', 'cumulative'))) : setCreate(formData, ['amountRecovered', 'remaining'], subtract(get(formData, 'baselineAmount'), get(formData, 'amountRecovered', 'cumulative')));",
                       "title": "Expected Amount to Recover",
                       "properties": {
                         "baselineAmount": {
@@ -6721,105 +6721,111 @@
                           "sourceKey": ["baseline_data", "recovery", "methodOfRecovery"]
                         },
                         "changeToBaseline": {
-                          "title": "Any Change?",
-                          "type": "string",
-                          "enum": ["Yes", "No"],
-                          "radio": true
-                        }
-                      },
-                      "dependencies": {
-                        "changeToBaseline": {
-                          "oneOf": [
-                            {
-                              "properties": {
-                                "changeToBaseline": {
-                                  "type": "string",
-                                  "enum": ["No"]
-                                }
-                              }
-                            },
-                            {
-                              "properties": {
-                                "changeToBaseline": {
-                                  "type": "string",
-                                  "enum": ["Yes"]
-                                },
-                                "currentReturn": {
-                                  "title": "Current Return",
-                                  "type": "string",
-                                  "currency": true
-                                },
-                                "currentCopy": {
-                                  "type": "string",
-                                  "hidden": true,
-                                  "sourceKey": ["return_data", "hifRecovery", "recovery", "expectedAmountToRecover", "currentReturn"]
-                                },
-                                "lastReturn": {
-                                  "title": "Last Return",
-                                  "type": "string",
-                                  "currency": true,
-                                  "sourceKey": ["return_data", "hifRecovery", "recovery", "expectedAmountToRecover", "currentReturn"],
-                                  "readonly": true
-                                },
-                                "varianceAgainstBaseline": {
-                                  "title": "Variance Against Baseline (£)",
-                                  "type": "string",
-                                  "readonly": true
-                                },
-                                "varianceAgainstLastReturn": {
-                                  "title": "Variance Against Last Return (£)",
-                                  "type": "string",
-                                  "readonly": true
-                                },
-                                "reasonForVariance": {
-                                  "title": "Reason for Variance",
-                                  "type": "string",
-                                  "extendedText": true
-                                },
-                                "amountRecovered": {
-                                  "title": "Amount Recovered",
-                                  "type": "object",
-                                  "calculation": "set(formData, 'cumulative', add(formData['currentReturn'], formData['previousCumulator']));",
+                          "type": "object",
+                          "title": "",
+                          "properties": {
+                            "confirmation": {
+                              "title": "Any Change?",
+                              "type": "string",
+                              "enum": ["Yes", "No"],
+                              "radio": true
+                            }
+                          },
+                          "dependencies": {
+                            "confirmation": {
+                              "oneOf": [
+                                {
                                   "properties": {
+                                    "confirmation": {
+                                      "type": "string",
+                                      "enum": ["No"]
+                                    }
+                                  }
+                                },
+                                {
+                                  "properties": {
+                                    "confirmation": {
+                                      "type": "string",
+                                      "enum": ["Yes"]
+                                    },
                                     "currentReturn": {
                                       "title": "Current Return",
                                       "type": "string",
                                       "currency": true
                                     },
-                                    "previousCumulator": {
+                                    "currentCopy": {
                                       "type": "string",
-                                      "readonly": true,
                                       "hidden": true,
-                                      "sourceKey": ["return_data", "hifRecovery", "recovery", "expectedAmountToRecover", "amountRecovered", "cumulative"]
+                                      "sourceKey": ["return_data", "hifRecovery", "recovery", "expectedAmountToRecover","changeToBaseline", "currentCopy"]
                                     },
-                                    "cumulative": {
-                                      "title": "Cumulative Amount",
+                                    "lastReturn": {
+                                      "title": "Last Return",
                                       "type": "string",
                                       "currency": true,
+                                      "sourceKey": ["return_data", "hifRecovery", "recovery", "expectedAmountToRecover","changeToBaseline", "currentCopy"],
                                       "readonly": true
                                     },
-                                    "remaining": {
-                                      "title": "Remaining Amount",
+                                    "varianceAgainstBaseline": {
+                                      "title": "Variance Against Baseline (£)",
                                       "type": "string",
-                                      "currency": true,
                                       "readonly": true
                                     },
-                                    "useOfRecoveredFunding": {
-                                      "title": "Use of Recovered Funding",
+                                    "varianceAgainstLastReturn": {
+                                      "title": "Variance Against Last Return (£)",
+                                      "type": "string",
+                                      "readonly": true
+                                    },
+                                    "reasonForVariance": {
+                                      "title": "Reason for Variance",
                                       "type": "string",
                                       "extendedText": true
-                                    },
-                                    "planAttachment": {
-                                      "title": "",
-                                      "description": "Please attach the evidence here.",
-                                      "uploadFile": "single",
-                                      "type": "string"
                                     }
                                   }
                                 }
-                              }
+                              ]
                             }
-                          ]
+                          }
+                        },
+                        "amountRecovered": {
+                          "title": "Amount Recovered",
+                          "type": "object",
+                          "calculation": "set(formData, 'cumulative', add(get(formData, 'currentReturn'), get(formData, 'previousCumulator')));",
+                          "properties": {
+                            "currentReturn": {
+                              "title": "Current Return",
+                              "type": "string",
+                              "currency": true
+                            },
+                            "previousCumulator": {
+                              "type": "string",
+                              "readonly": true,
+                              "hidden": true,
+                              "sourceKey": ["return_data", "hifRecovery", "recovery", "expectedAmountToRecover", "amountRecovered", "cumulative"]
+                            },
+                            "cumulative": {
+                              "title": "Cumulative Amount",
+                              "type": "string",
+                              "currency": true,
+                              "readonly": true
+                            },
+                            "remaining": {
+                              "title": "Remaining Amount",
+                              "type": "string",
+                              "currency": true,
+                              "readonly": true
+                            },
+                            "useOfRecoveredFunding": {
+                              "title": "Use of Recovered Funding",
+                              "type": "string",
+                              "extendedText": true
+                            },
+                            "planAttachment": {
+                              "title": "",
+                              "description": "Please attach the evidence here.",
+                              "uploadFile": "single",
+                              "type": "string"
+                            }
+                          }
                         }
                       }
                     }

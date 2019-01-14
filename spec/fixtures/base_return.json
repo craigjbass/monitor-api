@@ -142,11 +142,15 @@
       "aimToRecoverFunding": "Yes",
       "expectedAmountToRecover": {
         "amountRecovered": {
-          "previousCumulator": null
+          "previousCumulator": null,
+          "cumulative": null
         },
         "baselineAmount": "1234",
-        "currentCopy": null,
-        "lastReturn": null,
+        "changeToBaseline": {
+          "confirmation": null,
+          "currentCopy": null,
+          "lastReturn": null
+        },
         "methodOfRecovery": "Recovery will be undertaken"
       }
     }

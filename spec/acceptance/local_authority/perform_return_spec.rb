@@ -238,6 +238,17 @@ describe 'Performing Return on HIF Project' do
         total_amount_estimated: '£ 1000000.00',
         total_amount_actual: nil,
         total_amount_changed_reason: nil
+      },
+      hifRecovery: {
+        recovery: {
+          expectedAmountToRecover: {
+            changeToBaseline: {
+              confirmation: "Yes",
+              lastReturn: "12",
+              currentCopy: "14"
+            }
+          }
+        }
       }
     }
 
