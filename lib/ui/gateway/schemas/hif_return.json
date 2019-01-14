@@ -2721,10 +2721,11 @@
             "properties": {
               "landAssembly": {
                 "type": "object",
-                "title": "Land Assembly",
+                "title": "",
                 "calculation": "get(formData, 'dates') ? set(formData, 'varianceAmount', weeksPassed(get(formData, 'dates', 'expectedCompletion'), get(formData, 'dates', 'currentReturnCompletionDate'))) : ''",
                 "properties": {
                   "riskHolder": {
+                    "title": "Land Assembly",
                     "horizontal": true,
                     "type": "object",
                     "properties": {
@@ -2948,10 +2949,11 @@
               },
               "procurementInfrastructure": {
                 "type": "object",
-                "title": "Procurement - Infrastructure",
+                "title": "",
                 "calculation": "get(formData, 'dates') ? set(formData, 'varianceAmount', weeksPassed(get(formData, 'dates', 'expectedCompletion'), get(formData, 'dates', 'currentReturnCompletionDate'))) : ''",
                 "properties": {
                   "riskHolder": {
+                    "title": "Procurement - Infrastructure",
                     "horizontal": true,
                     "type": "object",
                     "properties": {
@@ -3175,10 +3177,11 @@
               },
               "planningInfrastructure": {
                 "type": "object",
-                "title": "Planning- Infrastructure",
+                "title": "",
                 "calculation": "get(formData, 'dates') ? set(formData, 'varianceAmount', weeksPassed(get(formData, 'dates', 'expectedCompletion'), get(formData, 'dates', 'currentReturnCompletionDate'))) : ''",
                 "properties": {
                   "riskHolder": {
+                    "title": "Planning- Infrastructure",
                     "horizontal": true,
                     "type": "object",
                     "properties": {
@@ -3402,10 +3405,11 @@
               },
               "deliveryInfrastructure": {
                 "type": "object",
-                "title": "Delivery - Infrastructure",
+                "title": "",
                 "calculation": "get(formData, 'dates') ? set(formData, 'varianceAmount', weeksPassed(get(formData, 'dates', 'expectedCompletion'), get(formData, 'dates', 'currentReturnCompletionDate'))) : ''",
                 "properties": {
                   "riskHolder": {
+                    "title": "Delivery - Infrastructure",
                     "horizontal": true,
                     "type": "object",
                     "properties": {
@@ -3629,10 +3633,11 @@
               },
               "procurementHousing": {
                 "type": "object",
-                "title": "Procurement- Housing",
+                "title": "",
                 "calculation": "get(formData, 'dates') ? set(formData, 'varianceAmount', weeksPassed(get(formData, 'dates', 'expectedCompletion'), get(formData, 'dates', 'currentReturnCompletionDate'))) : ''",
                 "properties": {
                   "riskHolder": {
+                    "title": "Procurement- Housing",
                     "horizontal": true,
                     "type": "object",
                     "properties": {
@@ -3856,10 +3861,11 @@
               },
               "planningHousing": {
                 "type": "object",
-                "title": "Planning - Housing",
+                "title": "",
                 "calculation": "get(formData, 'dates') ? set(formData, 'varianceAmount', weeksPassed(get(formData, 'dates', 'expectedCompletion'), get(formData, 'dates', 'currentReturnCompletionDate'))) : ''",
                 "properties": {
                   "riskHolder": {
+                    "title": "Planning - Housing",
                     "horizontal": true,
                     "type": "object",
                     "properties": {
@@ -4083,10 +4089,11 @@
               },
               "delivery": {
                 "type": "object",
-                "title": "Delivery- Housing",
+                "title": "",
                 "calculation": "get(formData, 'dates') ? set(formData, 'varianceAmount', weeksPassed(get(formData, 'dates', 'expectedCompletion'), get(formData, 'dates', 'currentReturnCompletionDate'))) : ''",
                 "properties": {
                   "riskHolder": {
+                    "title": "Delivery- Housing",
                     "horizontal": true,
                     "type": "object",
                     "properties": {
@@ -4310,10 +4317,11 @@
               },
               "fundingPackage": {
                 "type": "object",
-                "title": "Funding Package",
+                "title": "",
                 "calculation": "get(formData, 'dates') ? set(formData, 'varianceAmount', weeksPassed(get(formData, 'dates', 'expectedCompletion'), get(formData, 'dates', 'currentReturnCompletionDate'))) : ''",
                 "properties": {
                   "riskHolder": {
+                    "title": "Funding Package",
                     "horizontal": true,
                     "type": "object",
                     "properties": {
@@ -4542,10 +4550,11 @@
                 "addable": true,
                 "items": {
                   "type": "object",
-                  "title": "Risk",
+                  "title": "",
                   "calculation": "get(formData, 'dates') ? set(formData, 'varianceAmount', weeksPassed(get(formData, 'dates', 'expectedCompletion'), get(formData, 'dates', 'currentReturnCompletionDate'))) : ''",
                   "properties": {
                     "riskHolder": {
+                      "title": "Risk",
                       "horizontal": true,
                       "type": "object",
                       "properties": {
