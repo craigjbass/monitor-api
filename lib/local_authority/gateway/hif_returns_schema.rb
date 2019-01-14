@@ -907,13 +907,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                             type: 'string',
                             title: 'Description'
                           },
-                          completion: {
+                          milestoneBaselineCompletion: {
                             type: 'string',
                             format: 'date',
                             title: 'Target date of completion'
                           },
                           # from milestones.summaryOfCriticalPath
-                          criticalPath: {
+                          milestoneSummaryOfCriticalPath: {
                             type: 'string',
                             title: 'Summary of Critical Path'
                           }
@@ -935,7 +935,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                             title: 'Description'
                           },
                           milestoneBaselineCompletion: {
-                            sourceKey: %i[return_data infrastructures milestones cumulativeadditionalMilestones completion],
+                            sourceKey: %i[return_data infrastructures milestones cumulativeadditionalMilestones milestoneBaselineCompletion],
                             readonly: true,
                             type: 'string',
                             format: 'date',
@@ -943,10 +943,16 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           # from milestones.summaryOfCriticalPath
                           milestoneSummaryOfCriticalPath: {
-                            sourceKey: %i[return_data infrastructures milestones cumulativeadditionalMilestones criticalPath],
+                            sourceKey: %i[return_data infrastructures milestones cumulativeadditionalMilestones milestoneSummaryOfCriticalPath],
                             type: 'string',
                             title: 'Summary of Baseline Critical Path',
                             readonly: true
+                          },
+                          milestoneLastReturnDate: {
+                            type: 'string',
+                            title: 'Last Return Date',
+                            hidden: true,
+                            sourceKey: %i[return_data infrastructures milestones cumulativeadditionalMilestones currentReturn]
                           },
                           milestoneVarianceAgainstLastReturn: {
                             type: 'string',
@@ -960,7 +966,18 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                             hidden: true,
                             title: 'Variance Against Baseline (weeks) (Calculated)'
                           },
-                          statusAgainstLastReturn: status_against_last_return,
+                          statusAgainstLastReturn: {
+                            title: 'Status against last return?',
+                            type: 'string',
+                            radio: true,
+                            sourceKey: %i[return_data infrastructures milestones cumulativeadditionalMilestones statusAgainstLastReturn],
+                            enum: [
+                              'Completed',
+                              'On schedule',
+                              'Delayed'
+                            ],
+                            default: 'On schedule'
+                          },
                           currentReturn: {
                             type: 'string',
                             format: 'date',
@@ -973,12 +990,14 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           milestonePercentCompleted: {
                             type: 'string',
                             title: 'Percent Complete',
+                            sourceKey: %i[return_data infrastructures milestones cumulativeadditionalMilestones milestonePercentCompleted],
                             percentage: true
                           },
                           milestoneCompletedDate: {
                             type: 'string',
                             format: 'date',
                             readonly: true,
+                            sourceKey: %i[return_data infrastructures milestones cumulativeadditionalMilestones milestoneCompletedDate],                      
                             hidden: true,
                             title: 'On Completed Date (Calculated)'
                           }

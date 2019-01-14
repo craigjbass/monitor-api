@@ -141,8 +141,8 @@
         "additionalMilestones": [
           {
             "description": "My new milestones",
-            "completion": "2019-02-03",
-            "criticalPath": "Not long"
+            "milestoneBaselineCompletion": "2019-02-03",
+            "milestoneSummaryOfCriticalPath": "Not long"
           }
         ],
         "previousMilestones": [
@@ -154,6 +154,7 @@
             "milestoneVarianceAgainstBaseline": "fhui",
             "statusAgainstLastReturn": "ewuhif",
             "currentReturn": "ewncwe",
+            "milestoneLastReturnDate": "1",
             "reasonForVariance": "fhewui",
             "milestonePercentCompleted": "rcwuio",
             "milestoneCompletedDate": "fewui"

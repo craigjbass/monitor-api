@@ -148,8 +148,8 @@ class UI::UseCase::ConvertUIHIFReturn
       new_milestones[:additionalMilestones] = milestones[:additionalMilestones].map do |milestone|
         {
           description: milestone[:description],
-          completion: milestone[:completion],
-          criticalPath: milestone[:criticalPath]
+          milestoneBaselineCompletion: milestone[:milestoneBaselineCompletion],
+          milestoneSummaryOfCriticalPath: milestone[:milestoneSummaryOfCriticalPath]
         }
       end
     end
@@ -158,8 +158,12 @@ class UI::UseCase::ConvertUIHIFReturn
       new_milestones[:cumulativeadditionalMilestones] = milestones[:cumulativeadditionalMilestones].map do |milestone|
         {
           description: milestone[:description],
-          completion: milestone[:completion],
-          criticalPath: milestone[:criticalPath]
+          milestoneBaselineCompletion: milestone[:milestoneBaselineCompletion],
+          milestoneSummaryOfCriticalPath: milestone[:milestoneSummaryOfCriticalPath],
+          currentReturn: milestone[:currentReturn],
+          milestonePercentCompleted: milestone[:milestonePercentCompleted],
+          milestoneCompletedDate: milestone[:milestoneCompletedDate],
+          statusAgainstLastReturn: milestone[:statusAgainstLastReturn]
         }
       end
     end
@@ -168,8 +172,9 @@ class UI::UseCase::ConvertUIHIFReturn
       new_milestones[:previousMilestones] = milestones[:previousMilestones].map do |milestone|
         {
           description: milestone[:description],
-          milestoneBaselineCompletion: milestone[:completion],
-          milestoneSummaryOfCriticalPath: milestone[:criticalPath],
+          milestoneBaselineCompletion: milestone[:milestoneBaselineCompletion],
+          milestoneSummaryOfCriticalPath: milestone[:milestoneSummaryOfCriticalPath],
+          milestoneLastReturnDate: milestone[:milestoneLastReturnDate],
           milestoneVarianceAgainstLastReturn: milestone[:milestoneVarianceAgainstLastReturn],
           milestoneVarianceAgainstBaseline: milestone[:milestoneVarianceAgainstBaseline],
           statusAgainstLastReturn: milestone[:statusAgainstLastReturn],
