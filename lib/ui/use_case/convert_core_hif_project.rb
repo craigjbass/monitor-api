@@ -13,6 +13,7 @@ class UI::UseCase::ConvertCoreHIFProject
     convert_s151
     convert_outputs
     convert_recovery
+    convert_rm_baseline
 
     @converted_project
   end
@@ -283,5 +284,11 @@ class UI::UseCase::ConvertCoreHIFProject
     }
 
     converted_outputs_actuals
+  end
+
+  def convert_rm_baseline
+    return if @project[:rmBaseline].nil?
+
+    @converted_project[:rmBaseline] = @project[:rmBaseline]
   end
 end
