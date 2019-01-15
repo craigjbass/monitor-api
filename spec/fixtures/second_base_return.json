@@ -13,11 +13,16 @@
           "reference": "Ref101",
           "planningSubmitted": {
             "baseline": "2020-01-01",
-            "previousReturn": null
+            "previousReturn": null,
+            "status": "Completed",
+            "completedDate": "111",
+            "onCompletedReference": "REFPLAN"
           },
           "planningGranted": {
             "baseline": "2020-02-01",
-            "previousReturn": null
+            "previousReturn": null,
+            "status": "On Schedule",
+            "completedDate": "222"
           }
         },
         "fullPlanning": {
@@ -26,11 +31,16 @@
           "reference": "1234",
           "submitted": {
             "baseline": "2020-03-01",
-            "previousReturn": null
+            "previousReturn": null,
+            "status": "On Shedule",
+            "completedDate": "211",
+            "onCompletedReference": "REF2PLAN"
           },
           "granted": {
             "baseline": "2020-04-01",
-            "previousReturn": null
+            "previousReturn": null,
+            "status": "Delayed",
+            "completedDate": "333"
           }
         },
         "section106": {

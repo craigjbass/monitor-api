@@ -197,6 +197,28 @@ describe 'Performing Return on HIF Project' do
                   }
                 }
               }
+            },
+            outlinePlanning: {
+              planningSubmitted: {
+                status: 'Completed',
+                completedDate: '111',
+                onCompletedReference: 'REFPLAN'
+              },
+              planningGranted: {
+                status: 'On Schedule',
+                completedDate: '222'
+              }
+            },
+            fullPlanning: {
+              submitted: {
+                status: 'On Shedule',
+                completedDate: '211',
+                onCompletedReference: 'REF2PLAN'
+              },
+              granted: {
+                status: 'Delayed',
+                completedDate: '333'
+              }
             }
           },
           landOwnership: {
