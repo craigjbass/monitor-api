@@ -2626,6 +2626,11 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
           type: 'string',
           format: 'date'
         },
+        dateRisk: {
+          title: 'Date risk ratings last updated',
+          type: 'string',
+          format: 'date'
+        },
         infrastructureDelivery: {
           type: 'object',
           title: '',
