@@ -208,6 +208,13 @@ describe 'Performing Return on HIF Project' do
               }
             }
           },
+          procurement: {
+            procurementStatusAgainstLastReturn: {
+              statusAgainstLastReturn: 'Complete'
+            },
+            procurementCompletedDate: '23',
+            procurementCompletedNameOfContractor: 'Mr'
+          },
           milestones: {
             keyMilestones: [
               { currentReturn: "12/12/2012" }

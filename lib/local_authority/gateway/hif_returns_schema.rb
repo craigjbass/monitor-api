@@ -779,6 +779,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                   title: 'Status Against Last Return?',
                                   type: 'string',
                                   radio: true,
+                                  sourceKey: %i[return_data infrastructures procurement procurementStatusAgainstLastReturn statusAgainstLastReturn],
                                   enum: [
                                     'Completed',
                                     'On schedule',
@@ -808,15 +809,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                             },
                             procurementCompletedDate: {
                               type: 'string',
-                              readonly: true,
-                              hidden: true,
-                              title: 'Completion Date (Calculated)'
+                              title: 'Completion Date',
+                              sourceKey: %i[return_data infrastructures procurement procurementCompletedDate]
                             },
                             procurementCompletedNameOfContractor: {
                               type: 'string',
-                              readonly: true,
-                              hidden: true,
-                              title: 'Completion Name of Contractor (Calculated)'
+                              title: 'Completion Name of Contractor',
+                              sourceKey: %i[return_data infrastructures procurement procurementCompletedNameOfContractor]
                             }
                           }
                         }
