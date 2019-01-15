@@ -92,6 +92,19 @@
                   "numberOfUnitsTotal"
                 ]
               },
+              "baselineAffordableHousingUnits": {
+                "type": "string",
+                "title": "Baseline Affordable Housing Units",
+                "readonly": true,
+                "sourceKey": [
+                  "baseline_data",
+                  "summary",
+                  "sitesSummary",
+                  "units",
+                  "numberOfUnits",
+                  "numberOfUnitsAffordable"
+                ]
+              },
               "affordableHousingUnits": {
                 "type": "string",
                 "title": "Affordable Housing Units",
