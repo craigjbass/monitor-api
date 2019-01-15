@@ -997,7 +997,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                             type: 'string',
                             format: 'date',
                             readonly: true,
-                            sourceKey: %i[return_data infrastructures milestones cumulativeadditionalMilestones milestoneCompletedDate],                      
+                            sourceKey: %i[return_data infrastructures milestones cumulativeadditionalMilestones milestoneCompletedDate],
                             hidden: true,
                             title: 'On Completed Date (Calculated)'
                           }
@@ -1181,7 +1181,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           riskMetDate: {
                             type: 'string',
-                            enum: %w[Yes No],                          
+                            enum: %w[Yes No],
                             title: 'Risk Met?',
                             sourceKey: %i[return_data infrastructures risks baselineRisks riskMetDate]
                           },
@@ -1326,7 +1326,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                         horizontal: true,
                         properties: {
                           description: {
-                            sourceKey: %i[return_data infrastructures progress actionsForNextQuarter description],
+                            sourceKey: %i[return_data infrastructures progress carriedForward description],
                             type: 'string',
                             readonly: true,
                             # from actions for next quarter
@@ -1349,6 +1349,20 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                       type: 'array',
                       title: 'Actions for next quarter',
                       addable: true,
+                      items: {
+                        type: 'object',
+                        properties: {
+                          description: {
+                            type: 'string',
+                            title: 'Action Description'
+                          }
+                        }
+                      }
+                    },
+                    carriedForward: {
+                      type: 'array',
+                      title: 'Pulled forward',
+                      hidden: true,
                       items: {
                         type: 'object',
                         properties: {
