@@ -2303,47 +2303,6 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                 sourceKey: %i[baseline_data summary sitesSummary innerSummary name]
 
               },
-              baseline: {
-                type: 'array',
-                title: 'Baseline',
-                quarterly: true,
-                items: {
-                  type: 'object',
-                  title: '',
-                  properties: {
-                    year: {
-                      type: 'string',
-                      title: 'Year',
-                      readonly: true
-                    },
-                    Q1Amount: {
-                      type: 'string',
-                      title: 'First Quarter',
-                      readonly: true
-                    },
-                    Q2Amount: {
-                      type: 'string',
-                      title: 'Second Quarter',
-                      readonly: true
-                    },
-                    Q3Amount: {
-                      type: 'string',
-                      title: 'Third Quarter',
-                      readonly: true
-                    },
-                    Q4Amount: {
-                      type: 'string',
-                      title: 'Fourth Quarter',
-                      readonly: true
-                    },
-                    total: {
-                      type: 'string',
-                      title: 'Total',
-                      readonly: true
-                    }
-                  }
-                }
-              },
               achievedToDate: {
                 type: 'array',
                 title: 'Achieved to date',
@@ -2418,31 +2377,10 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                       type: 'string',
                       title: 'Total',
                       readonly: true
-                    }
-                  }
-                }
-              },
-              riskRating: {
-                type: 'array',
-                title: 'Risk Rating on Remaining Estimates',
-                quarterly: true,
-                items: {
-                  type: 'object',
-                  title: '',
-                  properties: {
-                    year: {
-                      type: 'string',
-                      title: 'Year',
-                      sourceKey: %i[
-                        baseline_data
-                        financials
-                        expenditure
-                        year
-                      ]
                     },
-                    Q1Rating: {
-                      type: 'string',
-                      title: 'First Quarter',
+                    riskRating: {
+                      type: 'string', 
+                      title: 'Total', 
                       enum: [
                         'Already Achieved',
                         'Low',
@@ -2450,51 +2388,6 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                         'Medium High',
                         'High'
                       ]
-                    },
-                    Q2Rating: {
-                      type: 'string',
-                      title: 'Second Quarter',
-                      enum: [
-                        'Already Achieved',
-                        'Low',
-                        'Medium Low',
-                        'Medium High',
-                        'High'
-                      ]
-                    },
-                    Q3Rating: {
-                      type: 'string',
-                      title: 'Third Quarter',
-                      enum: [
-                        'Already Achieved',
-                        'Low',
-                        'Medium Low',
-                        'Medium High',
-                        'High'
-                      ]
-                    },
-                    Q4Rating: {
-                      type: 'string',
-                      title: 'Fourth Quarter',
-                      enum: [
-                        'Already Achieved',
-                        'Low',
-                        'Medium Low',
-                        'Medium High',
-                        'High'
-                      ]
-                    },
-                    total: {
-                      type: 'string',
-                      title: 'Total',
-                      enum: [
-                        'Already Achieved',
-                        'Low',
-                        'Medium Low',
-                        'Medium High',
-                        'High'
-                      ],
-                      readonly: true
                     }
                   }
                 }
