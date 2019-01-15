@@ -2211,7 +2211,7 @@
           "details": {
             "type": "object",
             "title": "Housing Completions",
-            "calculation": "periodTotal(formData, ['total'], 'baseline', 'Q1Amount', 'Q2Amount', 'Q3Amount', 'Q4Amount'); periodTotal(formData, ['total'], 'remainingEstimate', 'Q1Amount', 'Q2Amount', 'Q3Amount', 'Q4Amount'); periodTotal(formData, ['total'], 'claimedToDate', 'Q1Amount', 'Q2Amount', 'Q3Amount', 'Q4Amount');",
+            "calculation": "periodTotal(formData, ['total'], 'achievedToDate', 'Q1Amount', 'Q2Amount', 'Q3Amount', 'Q4Amount'); periodTotal(formData, ['total'], 'remainingEstimate', 'Q1Amount', 'Q2Amount', 'Q3Amount', 'Q4Amount');",
             "properties": {
               "siteName": {
                 "type": "string",
@@ -2294,25 +2294,10 @@
                       "type": "string",
                       "title": "Total",
                       "readonly": true
-                    }
-                  }
-                }
-              },
-              "riskRating": {
-                "type": "array",
-                "title": "Risk Rating on Remaining Estimates",
-                "quarterly": true,
-                "items": {
-                  "type": "object",
-                  "title": "",
-                  "properties": {
-                    "year": {
-                      "type": "string",
-                      "title": "Year"
                     },
-                    "Q1Rating": {
+                    "riskRating": {
                       "type": "string",
-                      "title": "First Quarter",
+                      "title": "Risk Rating",
                       "enum": [
                         "Already Achieved",
                         "Low",
@@ -2320,51 +2305,6 @@
                         "Medium High",
                         "High"
                       ]
-                    },
-                    "Q2Rating": {
-                      "type": "string",
-                      "title": "Second Quarter",
-                      "enum": [
-                        "Already Achieved",
-                        "Low",
-                        "Medium Low",
-                        "Medium High",
-                        "High"
-                      ]
-                    },
-                    "Q3Rating": {
-                      "type": "string",
-                      "title": "Third Quarter",
-                      "enum": [
-                        "Already Achieved",
-                        "Low",
-                        "Medium Low",
-                        "Medium High",
-                        "High"
-                      ]
-                    },
-                    "Q4Rating": {
-                      "type": "string",
-                      "title": "Fourth Quarter",
-                      "enum": [
-                        "Already Achieved",
-                        "Low",
-                        "Medium Low",
-                        "Medium High",
-                        "High"
-                      ]
-                    },
-                    "total": {
-                      "type": "string",
-                      "title": "Total",
-                      "enum": [
-                        "Already Achieved",
-                        "Low",
-                        "Medium Low",
-                        "Medium High",
-                        "High"
-                      ],
-                      "readonly": true
                     }
                   }
                 }
