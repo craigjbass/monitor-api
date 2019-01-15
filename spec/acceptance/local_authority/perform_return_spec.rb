@@ -217,8 +217,20 @@ describe 'Performing Return on HIF Project' do
           },
           milestones: {
             keyMilestones: [
-              { currentReturn: "12/12/2012" }
-            ]
+              {
+                currentReturn: "12/12/2012",
+                statusAgainstLastReturn: 'Complete',
+                milestoneCompletedDate: '1'
+              }
+            ],
+            expectedInfrastructureStartOnSite: {
+              status: 'Done',
+              completedDate: '2'
+            },
+            expectedCompletionDateOfInfra: {
+              status: 'not done',
+              completedDate: '3'
+            }
           },
           risks: {
             baselineRisks: [
@@ -290,7 +302,7 @@ describe 'Performing Return on HIF Project' do
 
     second_base_return = get_use_case(:get_base_return).execute(project_id: project_id)
 
-    expect(second_base_return[:base_return][:data]).to eq(expected_second_base_return)
+    expect(second_base_return[:base_return][:data][:infrastructures]).to eq(expected_second_base_return[:infrastructures])
   end
 
   def soft_update_return(id:, data:)

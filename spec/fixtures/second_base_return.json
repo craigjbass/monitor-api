@@ -78,17 +78,23 @@
             "description": "Milestone One",
             "milestoneBaselineCompletion": "2020-01-01",
             "milestoneLastReturnDate": "12/12/2012",
+            "statusAgainstLastReturn": "Complete",
+            "milestoneCompletedDate": "1",
             "milestoneSummaryOfCriticalPath": "Summary of critical path"
           }
         ],
         "previousMilestones": [],
         "expectedInfrastructureStartOnSite": {
           "baseline": "2020-01-01",
-          "previousReturn": null
+          "previousReturn": null,
+          "status": "Done",
+          "completedDate": "2"
         },
         "expectedCompletionDateOfInfra": {
           "baseline": "2020-01-01",
-          "previousReturn": null
+          "previousReturn": null,
+          "status": "not done",
+          "completedDate": "3"
         }
       },
       "risks": {
