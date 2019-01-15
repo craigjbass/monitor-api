@@ -202,7 +202,9 @@ describe 'Performing Return on HIF Project' do
           landOwnership: {
             laDoesNotControlSite: {
               allLandAssemblyAchieved: {
-                current: 'Tomorrow'
+                current: 'Tomorrow',
+                status: 'complete',
+                completedDate: 'today'
               }
             }
           },

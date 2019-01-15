@@ -652,6 +652,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                               title: 'Status against last return?',
                                               type: 'string',
                                               radio: true,
+                                              sourceKey: %i[return_data infrastructures landOwnership laDoesNotControlSite allLandAssemblyAchieved status],
                                               enum: [
                                                 'Completed',
                                                 'On schedule',
@@ -676,9 +677,8 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                             completedDate: {
                                               type: 'string',
                                               format: 'date',
-                                              readonly: true,
-                                              hidden: true,
-                                              title: 'On Completed Date (Calculated)'
+                                              sourceKey: %i[return_data infrastructures landOwnership laDoesNotControlSite allLandAssemblyAchieved completedDate],                                              
+                                              title: 'On Completed Date'
                                             }
                                           }
                                         }

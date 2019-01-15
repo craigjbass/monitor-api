@@ -812,8 +812,7 @@
                                         "type": "string",
                                         "format": "date",
                                         "readonly": true,
-                                        "hidden": true,
-                                        "title": "On Completed Date (Calculated)"
+                                        "title": "On Completed Date"
                                       }
                                     }
                                   }
