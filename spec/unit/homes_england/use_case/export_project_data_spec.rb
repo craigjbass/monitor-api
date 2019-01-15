@@ -66,7 +66,7 @@ describe HomesEngland::UseCase::ExportProjectData do
         {
           baseline: {
             name: 'Meow project',
-            project_id: 0,
+            monitor_project_id: 0,
             type: 'hif',
             data: {
               cats: 'meow'
@@ -74,8 +74,8 @@ describe HomesEngland::UseCase::ExportProjectData do
           },
           submitted_returns: [
             {
-              id: 0,
-              project_id: 0,
+              monitor_return_id: 0,
+              monitor_project_id: 0,
               data: {
                 dogs: 'woof'
               }
@@ -122,7 +122,7 @@ describe HomesEngland::UseCase::ExportProjectData do
         {
           baseline: {
             name: 'Mouse project',
-            project_id: 6,
+            monitor_project_id: 6,
             type: 'hif',
             data: {
               mouse: 'squeak'
@@ -130,8 +130,8 @@ describe HomesEngland::UseCase::ExportProjectData do
           },
           submitted_returns: [
             {
-              id: 66,
-              project_id: 6,
+              monitor_return_id: 66,
+              monitor_project_id: 6,
               data: {
                 cow: 'moo'
               }
@@ -191,7 +191,7 @@ describe HomesEngland::UseCase::ExportProjectData do
         {
           baseline: {
             name: 'squeak project',
-            project_id: 6,
+            monitor_project_id: 6,
             type: 'hif',
             data: {
               mouse: 'squeak'
@@ -199,15 +199,15 @@ describe HomesEngland::UseCase::ExportProjectData do
           },
           submitted_returns: [
             {
-              id: 66,
-              project_id: 6,
+              monitor_return_id: 66,
+              monitor_project_id: 6,
               data: {
                 cow: 'moo'
               }
             },
             {
-              id: 67,
-              project_id: 6,
+              monitor_return_id: 67,
+              monitor_project_id: 6,
               data: {
                 duck: 'quack'
               }
@@ -265,7 +265,7 @@ describe HomesEngland::UseCase::ExportProjectData do
         {
           baseline: {
             name: 'squeak project',
-            project_id: 8,
+            monitor_project_id: 8,
             type: 'hif',
             data: {
               mouse: 'squeak'
@@ -273,15 +273,15 @@ describe HomesEngland::UseCase::ExportProjectData do
           },
           submitted_returns: [
             {
-              id: 67,
-              project_id: 8,
+              monitor_return_id: 67,
+              monitor_project_id: 8,
               data: {
                 duck: 'quack'
               }
             },
             {
-              id: 86,
-              project_id: 8,
+              monitor_return_id: 86,
+              monitor_project_id: 8,
               data: {
                 wolf: 'awoo'
               }
@@ -347,7 +347,7 @@ describe HomesEngland::UseCase::ExportProjectData do
         {
           baseline: {
             name: 'squeak project',
-            project_id: 6,
+            monitor_project_id: 6,
             type: 'hif',
             data: {
               mouse: 'squeak'
@@ -355,15 +355,15 @@ describe HomesEngland::UseCase::ExportProjectData do
           },
           submitted_returns: [
             {
-              id: 66,
-              project_id: 6,
+              monitor_return_id: 66,
+              monitor_project_id: 6,
               data: {
                 cow: 'moo'
               }
             },
             {
-              id: 67,
-              project_id: 6,
+              monitor_return_id: 67,
+              monitor_project_id: 6,
               data: {
                 duck: 'quack'
               }
@@ -424,7 +424,7 @@ describe HomesEngland::UseCase::ExportProjectData do
         {
           baseline: {
             name: 'squeak project',
-            project_id: 8,
+            monitor_project_id: 8,
             type: 'hif',
             data: {
               mouse: 'squeak'
@@ -432,15 +432,15 @@ describe HomesEngland::UseCase::ExportProjectData do
           },
           submitted_returns: [
             {
-              id: 67,
-              project_id: 8,
+              monitor_return_id: 67,
+              monitor_project_id: 8,
               data: {
                 duck: 'quack'
               }
             },
             {
-              id: 86,
-              project_id: 8,
+              monitor_return_id: 86,
+              monitor_project_id: 8,
               data: {
                 wolf: 'awoo'
               }
@@ -500,7 +500,7 @@ describe HomesEngland::UseCase::ExportProjectData do
         {
           baseline: {
             name: 'squeak project',
-            project_id: 6,
+            monitor_project_id: 6,
             type: 'hif',
             data: {
               mouse: 'squeak'
@@ -508,8 +508,8 @@ describe HomesEngland::UseCase::ExportProjectData do
           },
           submitted_returns: [
             {
-              id: 67,
-              project_id: 6,
+              monitor_return_id: 67,
+              monitor_project_id: 6,
               data: {
                 duck: 'quack'
               }
@@ -577,7 +577,7 @@ describe HomesEngland::UseCase::ExportProjectData do
         {
           baseline: {
             name: 'squeak project',
-            project_id: 8,
+            monitor_project_id: 8,
             type: 'hif',
             data: {
               mouse: 'squeak'
@@ -585,8 +585,8 @@ describe HomesEngland::UseCase::ExportProjectData do
           },
           submitted_returns: [
             {
-              id: 61,
-              project_id: 8,
+              monitor_return_id: 61,
+              monitor_project_id: 8,
               data: {
                 raven: 'squark'
               }
