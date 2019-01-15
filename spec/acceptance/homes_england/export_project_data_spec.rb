@@ -10,7 +10,7 @@ describe 'Compiles project data' do
     {
       baseline: {
         name: 'project 1',
-        project_id: project_id,
+        monitor_project_id: project_id,
         type: 'hif',
         data: {
           summary: {
@@ -33,8 +33,8 @@ describe 'Compiles project data' do
       },
       submitted_returns: [
         {
-          id: return_id,
-          project_id: project_id,
+          monitor_return_id: return_id,
+          monitor_project_id: project_id,
           data: {
             summary: {
               project_name: 'Cats Protection League',

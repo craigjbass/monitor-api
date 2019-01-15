@@ -32,7 +32,7 @@ class HomesEngland::UseCase::ExportProjectData
 
   def format_baseline_data(baseline_data, project_id)
     {
-      project_id: project_id,
+      monitor_project_id: project_id,
       name: baseline_data[:name],
       type: baseline_data[:type],
       data: baseline_data[:data]
@@ -41,8 +41,8 @@ class HomesEngland::UseCase::ExportProjectData
 
   def format_return_data(return_data)
     {
-      id: return_data[:id],
-      project_id: return_data[:project_id],
+      monitor_return_id: return_data[:id],
+      monitor_project_id: return_data[:project_id],
       data: return_data.dig(:updates, -1)
     }
   end
