@@ -98,10 +98,12 @@
       "infrastructure": {
         "HIFAmount": "10000",
         "totalCostOfInfrastructure": "20000",
-        "totallyFundedThroughHIF": "No",
-        "descriptionOfFundingStack": "Funding stack description",
-        "totalPublic": "5000",
-        "totalPrivate": "5000"
+        "fundedThroughHif": {
+          "totallyFundedThroughHIF": "No",
+          "totalPublic": "5000",
+          "totalPrivate": "5000"
+        },
+        "descriptionOfFundingStack": "Funding stack description"
       }
     }
   ],

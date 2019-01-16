@@ -8,6 +8,8 @@ class UI::UseCase::ValidateProject
 
   def execute(type:, project_data:)
     schema = @project_schema_gateway.find_by(type: type)
+
+    project_data = compact_data(project_data)
     
     invalid_paths = schema.invalid_paths(project_data)
 
@@ -20,5 +22,16 @@ class UI::UseCase::ValidateProject
       invalid_paths: invalid_paths,
       pretty_invalid_paths: invalid_pretty_paths
     }
+  end
+
+  private 
+  
+  def compact_data(data)
+    if data.is_a?(Hash)
+      data.keep_if {|key, value| !value.nil?}
+      data.each_value { |child| compact_data(child) }
+    elsif data.is_a?(Array)
+      data.each { |item| compact_data(item)}
+    end
   end
 end
