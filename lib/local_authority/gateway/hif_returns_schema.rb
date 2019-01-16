@@ -1446,37 +1446,37 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                         period: {
                           title: "Period",
                           type: "string",
-                          sourceKey: %i[return_data fundingProfiles currentFunding forecast period],
+                          sourceKey: [:return_or_baseline, [:baseline_data, :fundingProfiles, :period],[:return_data, :fundingProfiles, :currentFunding, :forecast, :period]],
                           hidden: true
                         },
                         instalment1: {
                           title: "1st Quarter",
                           type: "string",
-                          sourceKey: %i[return_data fundingProfiles currentFunding forecast instalment1],
+                          sourceKey: [:return_or_baseline, [:baseline_data, :fundingProfiles, :instalment1],[:return_data, :fundingProfiles, :currentFunding, :forecast, :instalment1]],
                           hidden: true
                         },
                         instalment2: {
                           title: "2nd Quarter",
                           type: "string",
-                          sourceKey: %i[return_data fundingProfiles currentFunding forecast instalment2],
+                          sourceKey: [:return_or_baseline, [:baseline_data, :fundingProfiles, :instalment2],[:return_data, :fundingProfiles, :currentFunding, :forecast, :instalment2]],
                           hidden: true
                         },
                         instalment3: {
                           title: "3rd Quarter",
                           type: "string",
-                          sourceKey: %i[return_data fundingProfiles currentFunding forecast instalment3],
+                          sourceKey: [:return_or_baseline, [:baseline_data, :fundingProfiles, :instalment3],[:return_data, :fundingProfiles, :currentFunding, :forecast, :instalment3]],
                           hidden: true
                         },
                         instalment4: {
                           title: "4th Quarter",
                           type: "string",
-                          sourceKey: %i[return_data fundingProfiles currentFunding forecast instalment4],
+                          sourceKey: [:return_or_baseline, [:baseline_data, :fundingProfiles, :instalment4],[:return_data, :fundingProfiles, :currentFunding, :forecast, :instalment4]],
                           hidden: true
                         },
                         total: {
                           title: "Total",
                           type: "string",
-                          sourceKey: %i[return_data fundingProfiles currentFunding forecast total],
+                          sourceKey: [:return_or_baseline, [:baseline_data, :fundingProfiles, :total],[:return_data, :fundingProfiles, :currentFunding, :forecast, :total]],
                           hidden: true
                         }
                       }
