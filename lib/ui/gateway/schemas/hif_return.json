@@ -5611,7 +5611,7 @@
         "inYearHousingStarts": {
           "type": "object",
           "title": "",
-          "calculation": "( get(formData, 'newYear') && get(formData, 'newYear', 'setNewAmounts') === 'Set this years target.' )? set(formData, 'currentAmounts', get(formData, 'newYear', 'newStarts')) : set(formData, 'currentAmounts', get(formData, 'baselineAmounts')) ;get(formData, 'baselineAmounts') ? set(formData, 'progress', calculateVariance(sum(formData['actualAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'), sum(formData['baselineAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'))) : '0'; ",
+          "calculation": "(get(formData,'actualAmounts') && get(formData, 'baselineAmounts')) ? set(formData, 'progress', calculateVariance(sum(get(formData,'actualAmounts'), 'quarter1','quarter2','quarter3','quarter4'), sum(get(formData, 'baselineAmounts'), 'quarter1', 'quarter2', 'quarter3', 'quarter4'))): null;(get(formData, 'newYear') && get(formData, 'newYear', 'setNewAmounts') === 'Set this years target.' )? set(formData, 'currentAmounts', get(formData, 'newYear', 'newStarts')) : set(formData, 'currentAmounts', get(formData, 'baselineAmounts')) ;get(formData, 'baselineAmounts') ? set(formData, 'progress', calculateVariance(sum(formData['actualAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'), sum(formData['baselineAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'))) : '0'; ",
           "properties": {
             "newYear": {
               "type": "object",
@@ -5836,7 +5836,7 @@
         "inYearHousingCompletions": {
           "type": "object",
           "title": "",
-          "calculation": "( get(formData, 'newYear') && get(formData, 'newYear', 'setNewAmounts') === 'Set this years target.' )? set(formData, 'currentAmounts', get(formData, 'newYear', 'newCompletions')) : set(formData, 'currentAmounts', get(formData, 'baselineAmounts')) ;formData['baselineAmounts'] ? set(formData, 'progress', calculateVariance(sum(formData['actualAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'), sum(formData['baselineAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'))) : '0'; ",
+          "calculation": "(get(formData,'actualAmounts') && get(formData, 'baselineAmounts')) ? set(formData, 'progress', calculateVariance(sum(get(formData,'actualAmounts'), 'quarter1','quarter2','quarter3','quarter4'), sum(get(formData, 'baselineAmounts'), 'quarter1', 'quarter2', 'quarter3', 'quarter4'))): null;( get(formData, 'newYear') && get(formData, 'newYear', 'setNewAmounts') === 'Set this years target.' )? set(formData, 'currentAmounts', get(formData, 'newYear', 'newCompletions')) : set(formData, 'currentAmounts', get(formData, 'baselineAmounts')) ;formData['baselineAmounts'] ? set(formData, 'progress', calculateVariance(sum(formData['actualAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'), sum(formData['baselineAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'))) : '0'; ",
           "properties": {
             "newYear": {
               "type": "object",
