@@ -65,23 +65,23 @@
         },
         "section106": {
           "s106Requirement": "Yes",
-          "s106SummaryOfRequirement": "Required",
-          "statutoryConsents": {
-            "anyStatutoryConsents": "Yes",
-            "statutoryConsents": [
-              {
-                "baselineCompletion": "2020-01-01",
-                "detailsOfConsent": "A consent",
-                "varianceAgainstBaseline": "4",
-                "varianceAgainstLastReturn": "56",
-                "statusAgainstLastReturn": "On schedule",
-                "currentReturn": "Oasis",
-                "varianceReason": "Monolos",
-                "percentComplete": "78",
-                "completionDate": "2022-07-08"
-              }
-            ]
-          }
+          "s106SummaryOfRequirement": "Required"
+        },
+        "statutoryConsents": {
+          "anyStatutoryConsents": "Yes",
+          "statutoryConsents": [
+            {
+              "baselineCompletion": "2020-01-01",
+              "detailsOfConsent": "A consent",
+              "varianceAgainstBaseline": "4",
+              "varianceAgainstLastReturn": "56",
+              "statusAgainstLastReturn": "On schedule",
+              "currentReturn": "Oasis",
+              "varianceReason": "Monolos",
+              "percentComplete": "78",
+              "completionDate": "2022-07-08"
+            }
+          ]
         },
         "planningNotGranted": {
           "fieldOne": {

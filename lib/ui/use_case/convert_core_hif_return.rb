@@ -70,10 +70,11 @@ class UI::UseCase::ConvertCoreHIFReturn
     unless planning[:section106].nil?
       new_planning[:section106] = {
         s106Requirement: planning[:section106][:s106Requirement],
-        s106SummaryOfRequirement: planning[:section106][:s106SummaryOfRequirement],
-        statutoryConsents: planning[:section106][:statutoryConsents]
+        s106SummaryOfRequirement: planning[:section106][:s106SummaryOfRequirement]
       }
+      new_planning[:statutoryConsents] = planning[:section106][:statutoryConsents]
     end
+
 
     new_planning
   end

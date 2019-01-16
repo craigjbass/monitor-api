@@ -31,11 +31,11 @@
         },
         "section106": {
           "s106Requirement": "Yes",
-          "s106SummaryOfRequirement": "Required",
-          "statutoryConsents": {
-            "anyStatutoryConsents": "Yes",
-            "statutoryConsents": [{ "baselineCompletion": "2020-01-01", "detailsOfConsent": "Details of consent" }]
-          }
+          "s106SummaryOfRequirement": "Required"
+        },
+        "statutoryConsents": {
+          "anyStatutoryConsents": "Yes",
+          "statutoryConsents": [{ "baselineCompletion": "2020-01-01", "detailsOfConsent": "Details of consent" }]
         }
       },
       "landOwnership": {

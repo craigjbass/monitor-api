@@ -71,7 +71,7 @@ class UI::UseCase::ConvertUIHIFReturn
       new_planning[:section106] = {
         s106Requirement: planning[:section106][:s106Requirement],
         s106SummaryOfRequirement: planning[:section106][:s106SummaryOfRequirement],
-        statutoryConsents: planning[:section106][:statutoryConsents]
+        statutoryConsents: planning[:statutoryConsents]
       }
     end
 
