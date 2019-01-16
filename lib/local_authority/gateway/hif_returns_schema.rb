@@ -652,6 +652,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                               title: 'Status against last return?',
                                               type: 'string',
                                               radio: true,
+                                              sourceKey: %i[return_data infrastructures landOwnership laDoesNotControlSite allLandAssemblyAchieved status],
                                               enum: [
                                                 'Completed',
                                                 'On schedule',
@@ -676,9 +677,8 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                             completedDate: {
                                               type: 'string',
                                               format: 'date',
-                                              readonly: true,
-                                              hidden: true,
-                                              title: 'On Completed Date (Calculated)'
+                                              sourceKey: %i[return_data infrastructures landOwnership laDoesNotControlSite allLandAssemblyAchieved completedDate],                                              
+                                              title: 'On Completed Date'
                                             }
                                           }
                                         }
@@ -779,6 +779,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                   title: 'Status Against Last Return?',
                                   type: 'string',
                                   radio: true,
+                                  sourceKey: %i[return_data infrastructures procurement procurementStatusAgainstLastReturn statusAgainstLastReturn],
                                   enum: [
                                     'Completed',
                                     'On schedule',
@@ -808,15 +809,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                             },
                             procurementCompletedDate: {
                               type: 'string',
-                              readonly: true,
-                              hidden: true,
-                              title: 'Completion Date (Calculated)'
+                              title: 'Completion Date',
+                              sourceKey: %i[return_data infrastructures procurement procurementCompletedDate]
                             },
                             procurementCompletedNameOfContractor: {
                               type: 'string',
-                              readonly: true,
-                              hidden: true,
-                              title: 'Completion Name of Contractor (Calculated)'
+                              title: 'Completion Name of Contractor',
+                              sourceKey: %i[return_data infrastructures procurement procurementCompletedNameOfContractor]
                             }
                           }
                         }
@@ -869,7 +868,18 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                             readonly: true,
                             title: 'Variance Against Baseline (Calculated)'
                           },
-                          statusAgainstLastReturn: status_against_last_return,
+                          statusAgainstLastReturn: {
+                            title: 'Status against last return?',
+                            type: 'string',
+                            sourceKey: %i[return_data infrastructures milestones keyMilestones statusAgainstLastReturn],
+                            radio: true,
+                            enum: [
+                              'Completed',
+                              'On schedule',
+                              'Delayed'
+                            ],
+                            default: 'On schedule'
+                          },
                           currentReturn: {
                             type: 'string',
                             format: 'date',
@@ -887,9 +897,8 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           milestoneCompletedDate: {
                             type: 'string',
                             format: 'date',
-                            readonly: true,
-                            hidden: true,
-                            title: 'On Completed Date (Calculated)'
+                            sourceKey: %i[return_data infrastructures milestones keyMilestones milestoneCompletedDate],
+                            title: 'On Completed Date'
                           }
                         }
                       }
@@ -1036,6 +1045,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           title: 'Status against last return?',
                           type: 'string',
                           radio: true,
+                          sourceKey: %i[return_data infrastructures milestones expectedInfrastructureStartOnSite status],
                           enum: [
                             'Completed',
                             'On schedule',
@@ -1060,6 +1070,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                         completedDate: {
                           type: 'string',
                           format: 'date',
+                          sourceKey: %i[return_data infrastructures milestones expectedInfrastructureStartOnSite completedDate],                          
                           title: 'Completed Date'
                         }
                       }
@@ -1096,6 +1107,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                         status: {
                           title: 'Status against last return?',
                           type: 'string',
+                          sourceKey: %i[return_data infrastructures milestones expectedCompletionDateOfInfra status],
                           radio: true,
                           enum: [
                             'Completed',
@@ -1121,6 +1133,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                         completedDate: {
                           type: 'string',
                           format: 'date',
+                          sourceKey: %i[return_data infrastructures milestones expectedCompletionDateOfInfra completedDate],
                           title: 'Completed Date'
                         }
                       }
