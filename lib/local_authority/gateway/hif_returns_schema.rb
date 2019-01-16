@@ -98,6 +98,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                       title: 'Status Against Last Return?',
                                       type: 'string',
                                       radio: true,
+                                      sourceKey: %i[return_data infrastructures planning outlinePlanning planningSubmitted status],
                                       enum: [
                                         'Completed',
                                         'On schedule',
@@ -128,14 +129,12 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                     completedDate: {
                                       type: 'string',
                                       format: 'date',
-                                      readonly: true,
-                                      hidden: true,
+                                      sourceKey: %i[return_data infrastructures planning outlinePlanning planningSubmitted completedDate],
                                       title: 'Completed Date (Calculated)'
                                     },
                                     onCompletedReference: {
                                       type: 'string',
-                                      readonly: true,
-                                      hidden: true,
+                                      sourceKey: %i[return_data infrastructures planning outlinePlanning planningSubmitted onCompletedReference],
                                       title: 'Completed Reference (Calculated)'
                                     }
                                   }
@@ -168,6 +167,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                       title: 'Status against last return?',
                                       type: 'string',
                                       radio: true,
+                                      sourceKey: %i[return_data infrastructures planning outlinePlanning planningGranted status],
                                       enum: [
                                         'Completed',
                                         'On schedule',
@@ -198,8 +198,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                     completedDate: {
                                       type: 'string',
                                       format: 'date',
-                                      readonly: true,
-                                      hidden: true,
+                                      sourceKey: %i[return_data infrastructures planning outlinePlanning planningGranted completedDate],
                                       title: 'Completed Date (Calculated)'
                                     }
                                   }
@@ -286,6 +285,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                       title: 'Status against last return?',
                                       type: 'string',
                                       radio: true,
+                                      sourceKey: %i[return_data infrastructures planning fullPlanning submitted status],
                                       enum: [
                                         'Completed',
                                         'On schedule',
@@ -317,13 +317,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                       type: 'string',
                                       format: 'date',
                                       readonly: true,
-                                      hidden: true,
+                                      sourceKey: %i[return_data infrastructures planning fullPlanning submitted completedDate],
                                       title: 'Completed Date (Calculated)'
                                     },
                                     onCompletedReference: {
                                       type: 'string',
                                       readonly: true,
-                                      hidden: true,
+                                      sourceKey: %i[return_data infrastructures planning fullPlanning submitted onCompletedReference],
                                       title: 'Completed Reference (Calculated)'
                                     }
                                   }
@@ -356,6 +356,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                       title: 'Status against last return?',
                                       type: 'string',
                                       radio: true,
+                                      sourceKey: %i[return_data infrastructures planning fullPlanning granted status],
                                       enum: [
                                         'Completed',
                                         'On schedule',
@@ -386,8 +387,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                     completedDate: {
                                       type: 'string',
                                       format: 'date',
-                                      readonly: true,
-                                      hidden: true,
+                                      sourceKey: %i[return_data infrastructures planning fullPlanning granted completedDate],
                                       title: 'Completed Date (Calculated)'
                                     }
                                   }
