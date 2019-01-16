@@ -165,12 +165,6 @@
       "fundingStack": {
         "descriptionOfInfrastructure": "A house of cats",
         "currentFundingStackDescription": null,
-        "hifSpend": {
-          "previousAmounts": {
-            "baseline": "10000",
-            "lastReturn": null
-          }
-        },
         "totalCost": {
           "previousAmounts": {
             "baseline": "20000",
@@ -185,23 +179,31 @@
             "lastReturn": null
           }
         },
-        "fundedThroughHIF": "No",
-        "fundedThroughHIFbaseline": "No",
-        "descriptionOfFundingStack": "Funding stack description",
-        "public": {
-          "previousAmounts": {
-            "baseline": "5000",
-            "lastReturn": null
-          }
-        },
-        "private": {
-          "previousAmounts": {
-            "baseline": "5000",
-            "lastReturn": null
+        "fundedThroughHIF": {
+          "fundedThroughHIFCurrent": "No",
+          "fundedThroughHIFbaseline": "No",
+          "descriptionOfFundingStack": "Funding stack description",
+          "public": {
+            "previousAmounts": {
+              "baseline": "5000",
+              "lastReturn": null
+            }
           },
-          "anyChangeToBaseline": {
-            "confirmation": null,
-            "reason": null
+          "private": {
+            "previousAmounts": {
+              "baseline": "5000",
+              "lastReturn": null
+            },
+            "anyChangeToBaseline": {
+              "confirmation": null,
+              "reason": null
+            }
+          },
+          "hifSpend": {
+            "previousAmounts": {
+              "baseline": "10000",
+              "lastReturn": null
+            }
           }
         }
       }

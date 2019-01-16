@@ -285,22 +285,6 @@
       "fundingStack": {
         "descriptionOfInfrastructure": "infras",
         "currentFundingStackDescription": "fund",
-        "hifSpend": {
-          "previousAmounts": {
-            "baseline": "10000",
-            "lastReturn": "783273"
-          },
-          "anyChangeToBaseline": {
-            "confirmation": "Yes",
-            "variance": {
-              "current": "7685",
-              "currentAmount": "7654",
-              "baseline": "2333",
-              "lastReturn": "1234"
-            },
-            "varianceReason": "a reason"
-          }
-        },
         "hifSpendSinceLastReturn": {
           "hifSpendSinceLastReturnHolder": {
             "currentReturn": "123",
@@ -328,69 +312,87 @@
           },
           "varianceReason": "No more money"
         },
-        "fundedThroughHIFbaseline": "Yes",
-        "fundedThroughHIF": "No",
-        "anyChange": {
-          "confirmation": "Yes",
-          "descriptionOfChange": "change"
-        },
-        "descriptionOfFundingStack": "Funding stack description",
-        "anyChangeToDescription": {
-          "confirmation": "Yes",
-          "updatedFundingStack": "update"
-        },
-        "riskToFundingPackage": {
-          "risk": "No more houses",
-          "description": "build some"
-        },
-        "public": {
-          "previousAmounts": {
-            "baseline": "5000",
-            "lastReturn": "1000"
-          },
-          "anyChangeToBaseline": {
-            "confirmation": "Yes",
-            "variance": {
-              "current": "756",
-              "currentAmount": "5678",
-              "baselineVariance": "2345",
-              "lastReturnVariance": "12345"
+        "fundedThroughHIF": {
+          "hifSpend": {
+            "previousAmounts": {
+              "baseline": "10000",
+              "lastReturn": "783273"
             },
-            "reason": "298"
+            "anyChangeToBaseline": {
+              "confirmation": "Yes",
+              "variance": {
+                "current": "7685",
+                "currentAmount": "7654",
+                "baseline": "2333",
+                "lastReturn": "1234"
+              },
+              "varianceReason": "a reason"
+            }
           },
-          "balancesSecured": {
-            "amountSecured": "45782",
-            "amountSecuredLastReturn": "45781",
-            "remainingToBeSecured": "12321",
-            "securedAgainstBaseline": "122",
-            "securedAgainstBaselineLastReturn": "121",
-            "increaseOnLastReturn": "34",
-            "increaseOnLastReturnPercent": "98"
-          }
-        },
-        "private": {
-          "previousAmounts": {
-            "baseline": "5000",
-            "lastReturn": "1000"
-          },
-          "anyChangeToBaseline": {
+          "fundedThroughHIFbaseline": "Yes",
+          "fundedThroughHIFCurrent": "No",
+          "anyChange": {
             "confirmation": "Yes",
-            "variance": {
-              "current": "756",
-              "currentAmount": "9876",
-              "baselineVariance": "2345",
-              "lastReturnVariance": "12345"
-            },
-            "reason": "298"
+            "descriptionOfChange": "change"
           },
-          "balancesSecured": {
-            "amountSecured": "45782",
-            "amountSecuredLastReturn": "45781",
-            "remainingToBeSecured": "12321",
-            "securedAgainstBaseline": "12",
-            "securedAgainstBaselineLastReturn": "11",
-            "increaseOnLastReturn": "34",
-            "increaseOnLastReturnPercent": "98"
+          "descriptionOfFundingStack": "Funding stack description",
+          "anyChangeToDescription": {
+            "confirmation": "Yes",
+            "updatedFundingStack": "update"
+          },
+          "riskToFundingPackage": {
+            "risk": "No more houses",
+            "description": "build some"
+          },
+          "public": {
+            "previousAmounts": {
+              "baseline": "5000",
+              "lastReturn": "1000"
+            },
+            "anyChangeToBaseline": {
+              "confirmation": "Yes",
+              "variance": {
+                "current": "756",
+                "currentAmount": "5678",
+                "baselineVariance": "2345",
+                "lastReturnVariance": "12345"
+              },
+              "reason": "298"
+            },
+            "balancesSecured": {
+              "amountSecured": "45782",
+              "amountSecuredLastReturn": "45781",
+              "remainingToBeSecured": "12321",
+              "securedAgainstBaseline": "122",
+              "securedAgainstBaselineLastReturn": "121",
+              "increaseOnLastReturn": "34",
+              "increaseOnLastReturnPercent": "98"
+            }
+          },
+          "private": {
+            "previousAmounts": {
+              "baseline": "5000",
+              "lastReturn": "1000"
+            },
+            "anyChangeToBaseline": {
+              "confirmation": "Yes",
+              "variance": {
+                "current": "756",
+                "currentAmount": "9876",
+                "baselineVariance": "2345",
+                "lastReturnVariance": "12345"
+              },
+              "reason": "298"
+            },
+            "balancesSecured": {
+              "amountSecured": "45782",
+              "amountSecuredLastReturn": "45781",
+              "remainingToBeSecured": "12321",
+              "securedAgainstBaseline": "12",
+              "securedAgainstBaselineLastReturn": "11",
+              "increaseOnLastReturn": "34",
+              "increaseOnLastReturnPercent": "98"
+            }
           }
         }
       }
