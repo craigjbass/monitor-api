@@ -2148,6 +2148,91 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
           type: "object",
           title: "In Year Housing Starts",
           properties: {
+            newYear: {
+              type: "object",
+              title: "",
+              properties: {
+                setNewAmounts: {
+                  type: "string",
+                  title: "  ",
+                  enum: ["Set this years forecasted amounts.", "This years amounts have already been set."],
+                  radio: true
+                }
+              },
+              dependencies: {
+                setNewAmounts: {
+                  oneOf: [
+                    {
+                      properties: {
+                        setNewAmounts: {
+                          enum: ["Set this years forecasted housing starts."]
+                        },
+                        newStarts: {
+                          type: "object",
+                          horizontal: true,
+                          title: "This Years Forecasted Amounts",
+                          properties: {
+                            quarter1: {
+                              type: "string",
+                              title: "Q1 Current Year"
+                            },
+                            quarter2: {
+                              type: "string",
+                              title: "Q2 Current Year"
+                            },
+                            quarter3: {
+                              type: "string",
+                              title: "Q3 Current Year"
+                            },
+                            quarter4: {
+                              type: "string",
+                              title: "Q4 Current Year"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      properties: {
+                        setNewAmounts: {
+                          enum: ["This years housing starts have already been set."]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            currentAmounts: {
+              type: "object",
+              title: "Forecasted Amounts",
+              properties: {
+                quarter1: {
+                  type: "string",
+                  hidden: true,
+                  sourceKey: %i[return_data outputsForecast inYearHousingStarts currentAmounts quarter1],
+                  title: "Q1 Current Year"
+                },
+                quarter2: {
+                  type: "string",
+                  hidden: true,
+                  sourceKey: %i[return_data outputsForecast inYearHousingStarts currentAmounts quarter2],
+                  title: "Q2 Current Year"
+                },
+                quarter3: {
+                  type: "string",
+                  hidden: true,
+                  sourceKey: %i[return_data outputsForecast inYearHousingStarts currentAmounts quarter3],
+                  title: "Q3 Current Year"
+                },
+                quarter4: {
+                  type: "string",
+                  hidden: true,
+                  sourceKey: %i[return_data outputsForecast inYearHousingStarts currentAmounts quarter4],
+                  title: "Q4 Current Year"
+                }
+              }
+            },
             baselineAmounts: {
               type: "object",
               horizontal: true,
@@ -2155,18 +2240,22 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
               properties: {
                 quarter1:{
                   type: "string",
+                  sourceKey: %i[return_data outputsForecast inYearHousingStarts currentAmounts quarter1],
                   title: "Q1 Current Year"
                 },
                 quarter2:{
                   type: "string",
+                  sourceKey: %i[return_data outputsForecast inYearHousingStarts currentAmounts quarter2],
                   title: "Q2 Current Year"
                 },
                 quarter3:{
                   type: "string",
+                  sourceKey: %i[return_data outputsForecast inYearHousingStarts currentAmounts quarter3],
                   title: "Q3 Current Year"
                 },
                 quarter4:{
                   type: "string",
+                  sourceKey: %i[return_data outputsForecast inYearHousingStarts currentAmounts quarter4],
                   title: "Q4 Current Year"
                 }
               }
@@ -2178,18 +2267,22 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
               properties: {
                 quarter1:{
                   type: "string",
+                  sourceKey: %i[return_data outputsForecast inYearHousingStarts actualAmounts quarter1],
                   title: "Q1 Current Year"
                 },
                 quarter2:{
                   type: "string",
+                  sourceKey: %i[return_data outputsForecast inYearHousingStarts actualAmounts quarter2],
                   title: "Q2 Current Year"
                 },
                 quarter3:{
                   type: "string",
+                  sourceKey: %i[return_data outputsForecast inYearHousingStarts actualAmounts quarter3],
                   title: "Q3 Current Year"
                 },
                 quarter4:{
                   type: "string",
+                  sourceKey: %i[return_data outputsForecast inYearHousingStarts actualAmounts quarter4],
                   title: "Q4 Current Year"
                 }
               }
@@ -2276,8 +2369,93 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
         },
         inYearHousingCompletions: {
           type: "object",
-          title: "In Year Housing Starts",
+          title: "In Year Housing Completions",
           properties: {
+            newYear: {
+              type: "object",
+              title: "",
+              properties: {
+                setNewAmounts: {
+                  type: "string",
+                  title: "  ",
+                  enum: ["Set this years forecasted amounts.", "This years amounts have already been set."],
+                  radio: true
+                }
+              },
+              dependencies: {
+                setNewAmounts: {
+                  oneOf: [
+                    {
+                      properties: {
+                        setNewAmounts: {
+                          enum: ["Set this years forecasted housing starts."]
+                        },
+                        newCompletions: {
+                          type: "object",
+                          horizontal: true,
+                          title: "This Years Forecasted Amounts",
+                          properties: {
+                            quarter1: {
+                              type: "string",
+                              title: "Q1 Current Year"
+                            },
+                            quarter2: {
+                              type: "string",
+                              title: "Q2 Current Year"
+                            },
+                            quarter3: {
+                              type: "string",
+                              title: "Q3 Current Year"
+                            },
+                            quarter4: {
+                              type: "string",
+                              title: "Q4 Current Year"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      properties: {
+                        setNewAmounts: {
+                          enum: ["This years housing starts have already been set."]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            currentAmounts: {
+              type: "object",
+              title: "Forecasted Amounts",
+              properties: {
+                quarter1: {
+                  type: "string",
+                  hidden: true,
+                  sourceKey: %i[return_data outputsForecast inYearHousingCompletions currentAmounts quarter1],
+                  title: "Q1 Current Year"
+                },
+                quarter2: {
+                  type: "string",
+                  hidden: true,
+                  sourceKey: %i[return_data outputsForecast inYearHousingCompletions currentAmounts quarter2],
+                  title: "Q2 Current Year"
+                },
+                quarter3: {
+                  type: "string",
+                  hidden: true,
+                  sourceKey: %i[return_data outputsForecast inYearHousingCompletions currentAmounts quarter3],
+                  title: "Q3 Current Year"
+                },
+                quarter4: {
+                  type: "string",
+                  hidden: true,
+                  sourceKey: %i[return_data outputsForecast inYearHousingCompletions currentAmounts quarter4],
+                  title: "Q4 Current Year"
+                }
+              }
+            },
             baselineAmounts: {
               type: "object",
               horizontal: true,
@@ -2285,18 +2463,22 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
               properties: {
                 quarter1:{
                   type: "string",
+                  sourceKey: %i[return_data outputsForecast inYearHousingCompletions currentAmounts quarter1],
                   title: "Q1 Current Year"
                 },
                 quarter2:{
                   type: "string",
+                  sourceKey: %i[return_data outputsForecast inYearHousingCompletions currentAmounts quarter2],
                   title: "Q2 Current Year"
                 },
                 quarter3:{
                   type: "string",
+                  sourceKey: %i[return_data outputsForecast inYearHousingCompletions currentAmounts quarter3],
                   title: "Q3 Current Year"
                 },
                 quarter4:{
                   type: "string",
+                  sourceKey: %i[return_data outputsForecast inYearHousingCompletions currentAmounts quarter4],
                   title: "Q4 Current Year"
                 }
               }

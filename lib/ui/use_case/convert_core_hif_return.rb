@@ -669,10 +669,27 @@ class UI::UseCase::ConvertCoreHIFReturn
 
     unless @return[:outputsForecast][:inYearHousingStarts].nil?
       @converted_return[:outputsForecast][:inYearHousingStarts] = {
-        baselineAmounts: @return[:outputsForecast][:inYearHousingStarts][:baselineAmounts],
-        actualAmounts: @return[:outputsForecast][:inYearHousingStarts][:actualAmounts],
         progress: @return[:outputsForecast][:inYearHousingStarts][:progress]
       }
+
+      unless @return[:outputsForecast][:inYearHousingStarts][:baselineAmounts].nil?
+        @converted_return[:outputsForecast][:inYearHousingStarts][:baselineAmounts] = @return[:outputsForecast][:inYearHousingStarts][:baselineAmounts]
+      end
+
+      unless @return[:outputsForecast][:inYearHousingStarts][:currentAmounts].nil?
+        @converted_return[:outputsForecast][:inYearHousingStarts][:currentAmounts] = @return[:outputsForecast][:inYearHousingStarts][:currentAmounts]
+      end
+
+      unless @return[:outputsForecast][:inYearHousingStarts][:actualAmounts].nil?
+        @converted_return[:outputsForecast][:inYearHousingStarts][:actualAmounts] = @return[:outputsForecast][:inYearHousingStarts][:actualAmounts]
+      end
+
+      unless @return[:outputsForecast][:inYearHousingStarts][:newYear].nil?
+        @converted_return[:outputsForecast][:inYearHousingStarts][:newYear] = {
+          setNewAmounts: @return[:outputsForecast][:inYearHousingStarts][:newYear][:setNewAmounts],
+          newStarts: @return[:outputsForecast][:inYearHousingStarts][:newYear][:newStarts]
+        }
+      end
     end
 
     unless @return[:outputsForecast][:housingCompletions].nil?
@@ -698,10 +715,27 @@ class UI::UseCase::ConvertCoreHIFReturn
 
     unless @return[:outputsForecast][:inYearHousingCompletions].nil?
       @converted_return[:outputsForecast][:inYearHousingCompletions] = {
-        baselineAmounts: @return[:outputsForecast][:inYearHousingCompletions][:baselineAmounts],
-        actualAmounts: @return[:outputsForecast][:inYearHousingCompletions][:actualAmounts],
         progress: @return[:outputsForecast][:inYearHousingCompletions][:progress]
       }
+
+      unless @return[:outputsForecast][:inYearHousingCompletions][:baselineAmounts].nil?
+        @converted_return[:outputsForecast][:inYearHousingCompletions][:baselineAmounts] = @return[:outputsForecast][:inYearHousingCompletions][:baselineAmounts]
+      end
+
+      unless @return[:outputsForecast][:inYearHousingCompletions][:currentAmounts].nil?
+        @converted_return[:outputsForecast][:inYearHousingCompletions][:currentAmounts] = @return[:outputsForecast][:inYearHousingCompletions][:currentAmounts]
+      end
+
+      unless @return[:outputsForecast][:inYearHousingCompletions][:actualAmounts].nil?
+        @converted_return[:outputsForecast][:inYearHousingCompletions][:actualAmounts] = @return[:outputsForecast][:inYearHousingCompletions][:actualAmounts]
+      end
+
+      unless @return[:outputsForecast][:inYearHousingCompletions][:newYear].nil?
+        @converted_return[:outputsForecast][:inYearHousingCompletions][:newYear] = {
+          setNewAmounts: @return[:outputsForecast][:inYearHousingCompletions][:newYear][:setNewAmounts],
+          newCompletions: @return[:outputsForecast][:inYearHousingCompletions][:newYear][:newCompletions]
+        }
+      end
     end
   end
 

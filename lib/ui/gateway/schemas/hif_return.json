@@ -5610,28 +5610,113 @@
         },
         "inYearHousingStarts": {
           "type": "object",
-          "title": "In Year Housing Starts",
-          "calculation": "get(formData, 'baselineAmounts') ? set(formData, 'progress', calculateVariance(sum(formData['actualAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'), sum(formData['baselineAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'))) : '0'; ",
+          "title": "",
+          "calculation": "( get(formData, 'newYear') && get(formData, 'newYear', 'setNewAmounts') === 'Set this years target.' )? set(formData, 'currentAmounts', get(formData, 'newYear', 'newStarts')) : set(formData, 'currentAmounts', get(formData, 'baselineAmounts')) ;get(formData, 'baselineAmounts') ? set(formData, 'progress', calculateVariance(sum(formData['actualAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'), sum(formData['baselineAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'))) : '0'; ",
           "properties": {
-            "baselineAmounts": {
+            "newYear": {
               "type": "object",
-              "horizontal": true,
-              "title": "Baseline Amounts",
+              "title": "In Year Housing Starts",
+              "properties": {
+                "setNewAmounts": {
+                  "type": "string",
+                  "title": " ",
+                  "enum": ["Set this years target.", "This years target has already been set."],
+                  "radio": true
+                }
+              },
+              "dependencies": {
+                "setNewAmounts": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "setNewAmounts": {
+                          "enum": ["Set this years target."]
+                        },
+                        "newStarts": {
+                          "type": "object",
+                          "horizontal": true,
+                          "title": "This Years Forecasted Amounts",
+                          "properties": {
+                            "quarter1": {
+                              "type": "string",
+                              "title": "Q1 Current Year"
+                            },
+                            "quarter2": {
+                              "type": "string",
+                              "title": "Q2 Current Year"
+                            },
+                            "quarter3": {
+                              "type": "string",
+                              "title": "Q3 Current Year"
+                            },
+                            "quarter4": {
+                              "type": "string",
+                              "title": "Q4 Current Year"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "setNewAmounts": {
+                          "enum": ["This years target has already been set."]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            "currentAmounts": {
+              "type": "object",
+              "title": "",
               "properties": {
                 "quarter1": {
                   "type": "string",
+                  "hidden": true,
                   "title": "Q1 Current Year"
                 },
                 "quarter2": {
                   "type": "string",
+                  "hidden": true,
                   "title": "Q2 Current Year"
                 },
                 "quarter3": {
                   "type": "string",
+                  "hidden": true,
                   "title": "Q3 Current Year"
                 },
                 "quarter4": {
                   "type": "string",
+                  "hidden": true,
+                  "title": "Q4 Current Year"
+                }
+              }
+            },
+            "baselineAmounts": {
+              "type": "object",
+              "horizontal": true,
+              "title": "Forecasted Amounts",
+              "properties": {
+                "quarter1": {
+                  "type": "string",
+                  "readonly": true,
+                  "title": "Q1 Current Year"
+                },
+                "quarter2": {
+                  "type": "string",
+                  "readonly": true,
+                  "title": "Q2 Current Year"
+                },
+                "quarter3": {
+                  "type": "string",
+                  "readonly": true,
+                  "title": "Q3 Current Year"
+                },
+                "quarter4": {
+                  "type": "string",
+                  "readonly": true,
                   "title": "Q4 Current Year"
                 }
               }
@@ -5750,28 +5835,113 @@
         },
         "inYearHousingCompletions": {
           "type": "object",
-          "title": "In Year Housing Completions",
-          "calculation": "formData['baselineAmounts'] ? set(formData, 'progress', calculateVariance(sum(formData['actualAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'), sum(formData['baselineAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'))) : '0'; ",
+          "title": "",
+          "calculation": "( get(formData, 'newYear') && get(formData, 'newYear', 'setNewAmounts') === 'Set this years target.' )? set(formData, 'currentAmounts', get(formData, 'newYear', 'newCompletions')) : set(formData, 'currentAmounts', get(formData, 'baselineAmounts')) ;formData['baselineAmounts'] ? set(formData, 'progress', calculateVariance(sum(formData['actualAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'), sum(formData['baselineAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'))) : '0'; ",
           "properties": {
-            "baselineAmounts": {
+            "newYear": {
               "type": "object",
-              "horizontal": true,
-              "title": "Baseline Amounts",
+              "title": "In Year Housing Completions",
+              "properties": {
+                "setNewAmounts": {
+                  "type": "string",
+                  "title": " ",
+                  "enum": ["Set this years target.", "This years target has already been set."],
+                  "radio": true
+                }
+              },
+              "dependencies": {
+                "setNewAmounts": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "setNewAmounts": {
+                          "enum": ["Set this years target."]
+                        },
+                        "newCompletions": {
+                          "type": "object",
+                          "horizontal": true,
+                          "title": "This Years Forecasted Amounts",
+                          "properties": {
+                            "quarter1": {
+                              "type": "string",
+                              "title": "Q1 Current Year"
+                            },
+                            "quarter2": {
+                              "type": "string",
+                              "title": "Q2 Current Year"
+                            },
+                            "quarter3": {
+                              "type": "string",
+                              "title": "Q3 Current Year"
+                            },
+                            "quarter4": {
+                              "type": "string",
+                              "title": "Q4 Current Year"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "setNewAmounts": {
+                          "enum": ["This years target has already been set."]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            "currentAmounts": {
+              "type": "object",
+              "title": "",
               "properties": {
                 "quarter1": {
                   "type": "string",
+                  "hidden": true,
                   "title": "Q1 Current Year"
                 },
                 "quarter2": {
+                  "type": "string",
+                  "hidden": true,
+                  "title": "Q2 Current Year"
+                },
+                "quarter3": {
+                  "type": "string",
+                  "hidden": true,
+                  "title": "Q3 Current Year"
+                },
+                "quarter4": {
+                  "type": "string",
+                  "hidden": true,
+                  "title": "Q4 Current Year"
+                }
+              }
+            },
+            "baselineAmounts": {
+              "type": "object",
+              "horizontal": true,
+              "title": "Forecasted Amounts",
+              "properties": {
+                "quarter1": {
+                  "type": "string",
+                  "readonly": true,
+                  "title": "Q1 Current Year"
+                },
+                "quarter2": {
+                  "readonly": true,
                   "type": "string",
                   "title": "Q2 Current Year"
                 },
                 "quarter3": {
                   "type": "string",
+                  "readonly": true,
                   "title": "Q3 Current Year"
                 },
                 "quarter4": {
                   "type": "string",
+                  "readonly": true,
                   "title": "Q4 Current Year"
                 }
               }

@@ -231,6 +231,42 @@
       "anyChanges": null,
       "currentReturnAmounts": [{ "period": "18/19" }, { "period": "19/20" }]
     },
+    "inYearHousingCompletions": {
+      "baselineAmounts": {
+        "quarter1": null,
+        "quarter2": null,
+        "quarter3": null,
+        "quarter4": null
+      },
+      "currentAmounts": {
+        "quarter1": null,
+        "quarter2": null,
+        "quarter3": null,
+        "quarter4": null
+      },
+      "progress": null
+    },
+    "inYearHousingStarts": {
+      "actualAmounts": {
+        "quarter1": null,
+        "quarter2": null,
+        "quarter3": null,
+        "quarter4": null
+      },
+      "baselineAmounts": {
+        "quarter1": null,
+        "quarter2": null,
+        "quarter3": null,
+        "quarter4": null
+      },
+      "currentAmounts": {
+        "quarter1": null,
+        "quarter2": null,
+        "quarter3": null,
+        "quarter4": null
+      },
+      "progress": null
+    },
     "housingCompletions": {
       "baselineAmounts": [
         { "period": "18/19", "baselineAmounts": "0" },
