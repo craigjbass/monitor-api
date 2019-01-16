@@ -997,7 +997,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                             type: 'string',
                             format: 'date',
                             readonly: true,
-                            sourceKey: %i[return_data infrastructures milestones cumulativeadditionalMilestones milestoneCompletedDate],                      
+                            sourceKey: %i[return_data infrastructures milestones cumulativeadditionalMilestones milestoneCompletedDate],
                             hidden: true,
                             title: 'On Completed Date (Calculated)'
                           }
@@ -1181,7 +1181,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           riskMetDate: {
                             type: 'string',
-                            enum: %w[Yes No],                          
+                            enum: %w[Yes No],
                             title: 'Risk Met?',
                             sourceKey: %i[return_data infrastructures risks baselineRisks riskMetDate]
                           },
@@ -1546,15 +1546,10 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                   type: 'string',
                                   currency: true
                                 },
-                                totalHolder: {
-                                  type: 'object',
-                                  properties: {
-                                    total: {
-                                      title: 'Total',
-                                      type: 'string',
-                                      currency: true
-                                    }
-                                  }
+                                total: {
+                                  title: 'Total',
+                                  type: 'string',
+                                  currency: true
                                 }
                               }
                             }

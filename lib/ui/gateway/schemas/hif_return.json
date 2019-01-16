@@ -1699,12 +1699,17 @@
                     "readonly": true,
                     "currency": true
                   },
-                  "total": {
+                  "totalHolder": {
+                    "type": "object",
                     "title": "Total",
-                    "type": "string",
-                    "sourceKey": ["baseline_data", "fundingProfiles", "total"],
-                    "readonly": true,
-                    "currency": true
+                    "invalidText": "Total exceeds HIF grant",
+                    "properties": {
+                      "total": {
+                        "type": "string",
+                        "currency": true,
+                        "readonly": true
+                      }
+                    }
                   }
                 }
               }
@@ -1750,11 +1755,6 @@
                   },
                   "instalment4": {
                     "title": "4th Quarter",
-                    "type": "string",
-                    "hidden": true
-                  },
-                  "total": {
-                    "title": "Total",
                     "type": "string",
                     "hidden": true
                   }
@@ -1858,7 +1858,6 @@
                           },
                           "totalHolder": {
                             "type": "object",
-                            "validated": true,
                             "title": "Total",
                             "invalidText": "Total exceeds HIF grant",
                             "properties": {
