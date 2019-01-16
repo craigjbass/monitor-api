@@ -820,8 +820,10 @@
   "reviewAndAssurance": {
     "date": "01/01/1970",
     "assuranceManagerAttendance": "Yes",
+    "meetingsAttended": "2",
     "infrastructureDelivery": [
       {
+        "infrastructureDesc": "desc",
         "details": "Some information",
         "riskRating": "High"
       }
@@ -848,7 +850,9 @@
     "recommendForRegularMonitoring": {
       "isRecommendForRegularMonitoring": "Yes",
       "reasonAndProposedFrequency": "A reason and frequency"
-    }
+    },
+    "overviewOfEngagement": "Good",
+    "issuesToRaise": "None"
   },
   "hifRecovery": {
     "recovery": {

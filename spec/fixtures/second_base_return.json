@@ -254,5 +254,12 @@
       "hifTotalFundingRequest": "10000",
       "hifSpendToDate": null
     }
+  },
+  "reviewAndAssurance": {
+    "infrastructureDelivery": [
+      {
+        "infrastructureDesc": "A house of cats"
+      }
+    ]
   }
 }

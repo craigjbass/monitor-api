@@ -919,12 +919,21 @@ class UI::UseCase::ConvertUIHIFReturn
     @converted_return[:reviewAndAssurance] = {}
     @converted_return[:reviewAndAssurance][:date] = @return[:reviewAndAssurance][:date]
     @converted_return[:reviewAndAssurance][:assuranceManagerAttendance] = @return[:reviewAndAssurance][:assuranceManagerAttendance]
+    @converted_return[:reviewAndAssurance][:meetingsAttended] = @return[:reviewAndAssurance][:meetingsAttended]    
+    @converted_return[:reviewAndAssurance][:overviewOfEngagement] = @return[:reviewAndAssurance][:overviewOfEngagement]    
+    @converted_return[:reviewAndAssurance][:issuesToRaise] = @return[:reviewAndAssurance][:issuesToRaise]    
+    
+    
     unless @return[:reviewAndAssurance][:infrastructureDelivery].nil?
       @converted_return[:reviewAndAssurance][:infrastructureDelivery] = @return[:reviewAndAssurance][:infrastructureDelivery].map do |delivery|
-        {
-          details: delivery[:details],
-          riskRating: delivery[:riskRating]
+        new_delivery = {
+          infrastructureDesc: delivery[:infrastructureDesc]
         }
+        unless delivery[:reviewDetails].nil?
+          new_delivery[:details] = delivery[:reviewDetails][:details]
+          new_delivery[:riskRating] = delivery[:reviewDetails][:riskRating]
+        end
+        new_delivery
       end
     end
 

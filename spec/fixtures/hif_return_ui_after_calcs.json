@@ -880,10 +880,14 @@
   "reviewAndAssurance": {
     "date": "01/01/1970",
     "assuranceManagerAttendance": "Yes",
+    "meetingsAttended": "2",
     "infrastructureDelivery": [
       {
-        "details": "Some information",
-        "riskRating": "High"
+        "infrastructureDesc": "desc",
+        "reviewDetails": {
+          "details": "Some information",
+          "riskRating": "High"
+        }
       }
     ],
     "hifFundedFinancials": {
@@ -910,7 +914,9 @@
     "recommendForRegularMonitoring": {
       "isRecommendForRegularMonitoring": "Yes",
       "reasonAndProposedFrequency": "A reason and frequency"
-    }
+    },
+    "overviewOfEngagement": "Good",
+    "issuesToRaise": "None"
   },
   "hifRecovery": {
     "recovery": {

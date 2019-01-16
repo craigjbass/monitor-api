@@ -5111,6 +5111,11 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
             title: "",
             horizontal: true,
             properties: {
+              infrastructureDesc: {
+                type: 'string',
+                hidden: true,
+                sourceKey: %i[baseline_data  infrastructures description]
+              },
               details: {
                 type: "string",
                 title: "Infrastructure Delivery",
@@ -5483,6 +5488,16 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
               ]
             }
           }
+        },
+        overviewOfEngagement: {
+          title: "Overview of engagement since last review",
+          type: "string",
+          extendedText: true
+        },
+        issuesToRaise: {
+          title: "Issues to Raise",
+          type: "string",
+          extendedText: true
         }
       }
     }
