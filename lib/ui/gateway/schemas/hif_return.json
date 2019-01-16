@@ -6337,23 +6337,37 @@
           "radio": true,
           "enum": ["Yes", "No"]
         },
+        "meetingsAttended": {
+          "title": "Boards/Governance meetings attended",
+          "type": "string"
+        },
         "infrastructureDelivery": {
           "type": "array",
-          "title": "",
+          "title": "Summary of Infrastructures",
           "items": {
             "type": "object",
             "title": "",
-            "horizontal": true,
             "properties": {
-              "details": {
+              "infrastructureDesc": {
                 "type": "string",
-                "title": "Infrastructure Delivery",
-                "extendedText": true
+                "readonly": true,
+                "title": "Infrastructure Description"
               },
-              "riskRating": {
-                "type": "string",
-                "title": "Risk Rating",
-                "enum": ["High", "Medium High", "Medium Low", "Low", "Achieved"]
+              "reviewDetails": {
+                "type": "object",
+                "horizontal": true,
+                "title": "",
+                "properties": {
+                  "details": {
+                    "type": "string",
+                    "title": "Summary of Infrastructure Delivery"
+                  },
+                  "riskRating": {
+                    "type": "string",
+                    "title": "Risk Rating",
+                    "enum": ["High", "Medium High", "Medium Low", "Low", "Achieved"]
+                  }
+                }
               }
             }
           }
@@ -6361,6 +6375,7 @@
         "hifFundedFinancials": {
           "type": "object",
           "title": "HIF Funded Financials",
+          "horizontal": true,
           "properties": {
             "summary": {
               "title": "Summary",
@@ -6376,6 +6391,7 @@
         "hifWiderScheme": {
           "type": "object",
           "title": "Wider Scheme",
+          "horizontal": true,
           "properties": {
             "summary": {
               "title": "Summary",
@@ -6391,6 +6407,7 @@
         "outputForecast": {
           "type": "object",
           "title": "Output Forecast",
+          "horizontal": true,
           "properties": {
             "summary": {
               "title": "Summary",
@@ -6688,6 +6705,16 @@
               ]
             }
           }
+        },
+        "overviewOfEngagement": {
+          "title": "Overview of engagement since last review",
+          "type": "string",
+          "extendedText": true
+        },
+        "issuesToRaise": {
+          "title": "Issues to Raise",
+          "type": "string",
+          "extendedText": true
         }
       }
     },
