@@ -111,7 +111,7 @@
                                 "title": "Status against last return?",
                                 "type": "string",
                                 "radio": true,
-                                "enum": ["Completed", "On schedule", "Delayed"],
+                                "enum": ["Completed", "On schedule", "Delayed - minimal impact", "Delayed - moderate impact", "Delayed - critical"],
                                 "default": "On schedule"
                               },
                               "current": {
@@ -184,7 +184,7 @@
                                 "title": "Status against last return?",
                                 "type": "string",
                                 "radio": true,
-                                "enum": ["Completed", "On schedule", "Delayed"],
+                                "enum": ["Completed", "On schedule", "Delayed - minimal impact", "Delayed - moderate impact", "Delayed - critical"],
                                 "default": "On schedule"
                               },
                               "current": {
@@ -314,7 +314,7 @@
                                 "title": "Status against last return?",
                                 "type": "string",
                                 "radio": true,
-                                "enum": ["Completed", "On schedule", "Delayed"],
+                                "enum": ["Completed", "On schedule", "Delayed - minimal impact", "Delayed - moderate impact", "Delayed - critical"],
                                 "default": "On schedule"
                               },
                               "current": {
@@ -387,7 +387,7 @@
                                 "title": "Status against last return?",
                                 "type": "string",
                                 "radio": true,
-                                "enum": ["Completed", "On schedule", "Delayed"],
+                                "enum": ["Completed", "On schedule", "Delayed - minimal impact", "Delayed - moderate impact", "Delayed - critical"],
                                 "default": "On schedule"
                               },
                               "current": {
@@ -546,7 +546,7 @@
                                   "title": "Status against last return?",
                                   "type": "string",
                                   "radio": true,
-                                  "enum": ["Completed", "On schedule", "Delayed"],
+                                  "enum": ["Completed", "On schedule", "Delayed - minimal impact", "Delayed - moderate impact", "Delayed - critical"],
                                   "default": "On schedule"
                                 }
                               },
@@ -923,7 +923,7 @@
                             "title": "Status against last return?",
                             "type": "string",
                             "radio": true,
-                            "enum": ["Completed", "On schedule", "Delayed"],
+                            "enum": ["Completed", "On schedule", "Delayed - minimal impact", "Delayed - moderate impact", "Delayed - critical"],
                             "default": "On schedule"
                           },
                           "completedDate": {
