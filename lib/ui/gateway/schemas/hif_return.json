@@ -1595,10 +1595,36 @@
                       "title": "Action Met?",
                       "radio": true,
                       "enum": ["Yes", "No"]
-                    },
-                    "progress": {
-                      "type": "string",
-                      "title": "Progress against action if not met"
+                    }
+                  },
+                  "dependencies": {
+                    "met": {
+                      "oneOf": [
+                        {
+                          "properties": {
+                            "met": {
+                              "type": "string",
+                              "title": "Action Met?",
+                              "radio": true,
+                              "enum": ["Yes"]
+                            }
+                          }
+                        },
+                        {
+                          "properties": {
+                            "met": {
+                              "type": "string",
+                              "title": "Action Met?",
+                              "radio": true,
+                              "enum": ["No"]
+                            },
+                            "progress": {
+                              "type": "string",
+                              "title": "Progress against action if not met"
+                            }
+                          }
+                        }
+                      ]
                     }
                   }
                 }
