@@ -882,7 +882,7 @@
                 "required": ["targetDateOfAchievingCompletion"]
               }
             },
-            "required": ["housingSitesBenefitting"]
+            "required": ["housingSitesBenefitting", "expectedInfrastructureStart", "expectedInfrastructureCompletion"]
           },
           "planningStatus": {
             "type": "object",
@@ -890,6 +890,7 @@
             "properties": {
               "planningStatus": {
                 "type": "object",
+                "required": ["fullPlanningStatus", "outlinePlanningStatus"],
                 "title": "",
                 "properties": {
                   "outlinePlanningStatus": {
@@ -1336,6 +1337,7 @@
     "fundingProfiles": {
       "type": "object",
       "title": "Funding profiles",
+      "required": ["profiles"],
       "properties": {
         "profiles": {
           "type": "array",
@@ -1390,6 +1392,7 @@
           "infrastructure": {
             "type": "object",
             "title": "Cost",
+            "required": ["fundedThroughHif"],
             "properties": {
               "HIFAmount": {
                 "type": "string",
@@ -1409,7 +1412,8 @@
               },
               "fundedThroughHif": {
                 "type": "object",
-                "title": " ",
+                "title": "",
+                "required": ["totallyFundedThroughHIF"],
                 "properties": {
                   "totallyFundedThroughHIF": {
                     "type": "string",
@@ -1525,6 +1529,7 @@
       "items": {
         "type": "object",
         "title": "Outputs",
+        "required": ["outputsForecast", "outputsActuals"],
         "properties": {
           "outputsForecast": {
             "type": "object",
@@ -1542,6 +1547,7 @@
               },
               "housingForecast": {
                 "type": "object",
+                "required": ["forecast"],
                 "title": "Housing Forecast",
                 "properties": {
                   "forecast": {
@@ -1569,10 +1575,11 @@
                 }
               }
             },
-            "required": ["disposalStrategy"]
+            "required": ["disposalStrategy", "housingForecast"]
           },
           "outputsActuals": {
             "type": "object",
+            "required": ["siteOutputs"],
             "title": "Outputs Per Site",
             "properties": {
               "siteOutputs": {

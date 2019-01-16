@@ -173,8 +173,8 @@ describe HomesEngland::UseCase::ValidateProject do
 
         let(:valid_project_data) { { catsComplete: 'The Cat Plan', dogsComplete: 'The Dog Plan' } }
         let(:invalid_project_data) { { unrequiredComplete: 'Doo wap' } }
-        let(:invalid_project_data_paths) { [%i[catsComplete dogsComplete]] }
-        let(:invalid_project_data_pretty_paths) { [['Cats Complete', 'Dogs Complete']] }
+        let(:invalid_project_data_paths) { [[:catsComplete], [:dogsComplete]] }
+        let(:invalid_project_data_pretty_paths) { [['Cats Complete'], ['Dogs Complete']] }
       end
 
       context 'Example 2' do
@@ -206,8 +206,8 @@ describe HomesEngland::UseCase::ValidateProject do
 
         let(:valid_project_data) { { horsesComplete: 'The Cat Plan', cowsComplete: 'The Dog Plan' } }
         let(:invalid_project_data) { { randomComplete: 'Shoop da woop' } }
-        let(:invalid_project_data_paths) { [%i[horsesComplete cowsComplete]] }
-        let(:invalid_project_data_pretty_paths) { [['Horses Complete', 'Cows Complete']] }
+        let(:invalid_project_data_paths) { [[:horsesComplete], [:cowsComplete]] }
+        let(:invalid_project_data_pretty_paths) { [['Horses Complete'], ['Cows Complete']] }
       end
     end
 
