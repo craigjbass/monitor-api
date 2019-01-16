@@ -420,6 +420,21 @@
       ]
     },
     "inYearHousingStarts": {
+      "newYear": {
+        "setNewAmounts": "Yes",
+        "newStarts": {
+          "quarter1": "8",
+          "quarter2": "16",
+          "quarter3": "32",
+          "quarter4": "64"
+        }
+      },
+      "currentAmounts": {
+        "quarter1": "4",
+        "quarter2": "8",
+        "quarter3": "16",
+        "quarter4": "32"
+      },
       "baselineAmounts": {
         "quarter1": "2",
         "quarter2": "4",
@@ -452,6 +467,21 @@
       ]
     },
     "inYearHousingCompletions": {
+      "newYear": {
+        "setNewAmounts": "Yes",
+        "newCompletions": {
+          "quarter1": "8",
+          "quarter2": "16",
+          "quarter3": "32",
+          "quarter4": "64"
+        }
+      },
+      "currentAmounts": {
+        "quarter1": "4",
+        "quarter2": "8",
+        "quarter3": "16",
+        "quarter4": "32"
+      },
       "baselineAmounts": {
         "quarter1": "20",
         "quarter2": "40",

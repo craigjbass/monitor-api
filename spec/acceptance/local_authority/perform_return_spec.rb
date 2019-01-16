@@ -264,6 +264,24 @@ describe 'Performing Return on HIF Project' do
           }
         }
       ],
+      outputsForecast: {
+        inYearHousingStarts: {
+          currentAmounts: {
+            quarter1: '12',
+            quarter2: '23',
+            quarter3: '34',
+            quarter4: '45'
+          }
+        },
+        inYearHousingCompletions: {
+          currentAmounts: {
+            quarter1: '12',
+            quarter2: '23',
+            quarter3: '34',
+            quarter4: '45'
+          }
+        }
+      },
       funding: [
         {
           fundingPackages: [

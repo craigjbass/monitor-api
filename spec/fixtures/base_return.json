@@ -160,6 +160,40 @@
       "totalUnits": "10",
       "disposalStrategy": "Disposal strategy"
     },
+    "inYearHousingCompletions": {
+      "baselineAmounts": {
+        "quarter1": null,
+        "quarter2": null,
+        "quarter3": null,
+        "quarter4": null
+      },
+      "currentAmounts": {
+        "quarter1": null,
+        "quarter2": null,
+        "quarter3": null,
+        "quarter4": null
+      }
+    },
+    "inYearHousingStarts": {
+      "actualAmounts": {
+        "quarter1": null,
+        "quarter2": null,
+        "quarter3": null,
+        "quarter4": null
+      },
+      "baselineAmounts": {
+        "quarter1": null,
+        "quarter2": null,
+        "quarter3": null,
+        "quarter4": null
+      },
+      "currentAmounts": {
+        "quarter1": null,
+        "quarter2": null,
+        "quarter3": null,
+        "quarter4": null
+      }
+    },
     "housingStarts": {
       "baselineAmounts": [
         { "period": "18/19", "baselineAmounts": "100" },
