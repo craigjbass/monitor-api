@@ -297,7 +297,9 @@ class UI::UseCase::ConvertCoreHIFReturn
       new_request[:instalment2] = request[:forecast][:instalment2]
       new_request[:instalment3] = request[:forecast][:instalment3]
       new_request[:instalment4] = request[:forecast][:instalment4]
-      new_request[:total] = request[:forecast][:total]
+
+      new_request[:totalHolder] = {}
+      new_request[:totalHolder][:total] = request[:forecast][:total]
 
       new_request
     end
@@ -313,7 +315,7 @@ class UI::UseCase::ConvertCoreHIFReturn
           instalment2: request[:instalment2],
           instalment3: request[:instalment3],
           instalment4: request[:instalment4],
-          total: request[:total]
+          totalHolder: { total: request[:total] }
         }
       end
     end
