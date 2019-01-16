@@ -1981,6 +1981,7 @@
     "rmBaseline": {
       "type": "object",
       "title": "RM Baseline",
+      "laHidden": true,
       "properties": {
         "heContacts": {
           "type": "object",
