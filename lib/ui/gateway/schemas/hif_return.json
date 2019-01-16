@@ -1570,7 +1570,7 @@
           "progress": {
             "type": "object",
             "title": "Progress",
-            "calculation": "setCreate(formData, ['carriedForward'], combineArrays(get(formData, 'actionsForNextQuarter'), filterForProperty(get(formData, 'progressAgainstActions'), ['met'])));",
+            "calculation": "setCreate(formData, ['carriedForward'], combineArrays(get(formData, 'actionsForNextQuarter'), filterForNos(get(formData, 'progressAgainstActions'), ['met'])));",
             "properties": {
               "describeQuarterProgress": {
                 "type": "string",
