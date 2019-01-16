@@ -123,9 +123,6 @@
     {
       "descriptionOfInfrastructure": "A house of cats",
       "fundingStack": {
-        "hifSpend": {
-          "baseline": "10000"
-        },
         "totalCost": {
           "baseline": "20000"
         },
@@ -133,7 +130,10 @@
         "fundedThroughHIFbaseline": "No",
         "descriptionOfFundingStack": "Funding stack description",
         "public": { "baseline": "5000" },
-        "private": { "baseline": "5000" }
+        "private": { "baseline": "5000" },
+        "hifSpend": {
+          "baseline": "10000"
+        }
       }
     }
   ],
