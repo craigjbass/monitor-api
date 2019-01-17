@@ -435,20 +435,25 @@
     "overallRatingForScheme": null,
     "overviewOfEngagement": null
   }]},
-  "reviewAndAssurance": {
-    "date": null,
-    "assuranceManagerAttendance": null,
-    "meetingsAttended": null,
-    "issuesToRaise": null,
-    "infrastructureDelivery": [
-      {
-        "infrastructureDesc": "A house of cats",
-        "reviewDetails": {
-          "details": null,
-          "riskRating": null
-        }
+  "reviewAndAssurance": [
+    {
+      "rmReview": {
+        "date": null,
+        "assuranceManagerAttendance": null,
+        "meetingsAttended": null,
+        "reviewComplete": null,
+        "issuesToRaise": null,
+        "infrastructureDelivery": [
+          {
+            "infrastructureDesc": "A house of cats",
+            "reviewDetails": {
+              "details": null,
+              "riskRating": null
+            }
+          }
+        ],
+        "overviewOfEngagement": null
       }
-    ],
-    "overviewOfEngagement": null
-  }
+    }
+  ]
 }
