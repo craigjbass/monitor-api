@@ -277,6 +277,14 @@ class UI::UseCase::ConvertCoreHIFReturn
       end
     end
 
+    unless progress[:carriedForward].nil?
+      new_progress[:carriedForward] = progress[:carriedForward].map do |action|
+        {
+          description: action[:description]
+        }
+      end
+    end
+
     new_progress
   end
 

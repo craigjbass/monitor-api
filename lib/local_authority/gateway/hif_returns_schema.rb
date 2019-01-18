@@ -1339,7 +1339,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                         horizontal: true,
                         properties: {
                           description: {
-                            sourceKey: %i[return_data infrastructures progress actionsForNextQuarter description],
+                            sourceKey: %i[return_data infrastructures progress carriedForward description],
                             type: 'string',
                             readonly: true,
                             # from actions for next quarter
@@ -1362,6 +1362,20 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                       type: 'array',
                       title: 'Actions for next quarter',
                       addable: true,
+                      items: {
+                        type: 'object',
+                        properties: {
+                          description: {
+                            type: 'string',
+                            title: 'Action Description'
+                          }
+                        }
+                      }
+                    },
+                    carriedForward: {
+                      type: 'array',
+                      title: 'Pulled forward',
+                      hidden: true,
                       items: {
                         type: 'object',
                         properties: {
