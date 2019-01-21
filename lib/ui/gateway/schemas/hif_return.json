@@ -2848,7 +2848,6 @@
                     "title": "Is there a masterplan for the scheme?",
                     "type": "string",
                     "enum": ["Yes", "No"],
-                    "lockedField": true,
                     "radio": true
                   }
                 },
