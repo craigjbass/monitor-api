@@ -2365,7 +2365,7 @@
           "properties": {
             "TotalFundingRequest": {
               "type": "string",
-              "title": "Total Funding Request",
+              "title": "Total Grant in Contract",
               "s151WriteOnly": true,
               "currency": true
             },
