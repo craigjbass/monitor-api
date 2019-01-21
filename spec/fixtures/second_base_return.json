@@ -62,12 +62,12 @@
         "laHasControlOfSite": "Yes",
         "laDoesNotControlSite": {
           "whoOwnsSite": "Dave",
-          "landAcquisitionRequired": "Yes",
-          "howManySitesToAquire": "10",
-          "toBeAquiredBy": "LA",
-          "summaryOfAcquisitionRequired": "Summary of critical path",
+          "landAcquisitionRequired": "No",
+          "howManySitesToAquire": "23",
+          "toBeAquiredBy": "me",
+          "summaryOfAcquisitionRequired": "path",
           "allLandAssemblyAchieved": {
-            "baseline": "2020-01-01",
+            "baseline": "01/01/01",
             "status": "complete",
             "completedDate": "today",
             "previousReturn": "Tomorrow",
