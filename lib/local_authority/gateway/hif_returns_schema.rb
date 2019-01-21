@@ -124,6 +124,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                     percentComplete: {
                                       type: 'string',
                                       title: 'Percent Complete',
+                                      sourceKey: %i[return_data infrastructures planning outlinePlanning planningSubmitted percentComplete],
                                       percentage: true
                                     },
                                     completedDate: {
@@ -193,6 +194,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                     percentComplete: {
                                       type: 'string',
                                       title: 'Percent Complete',
+                                      sourceKey: %i[return_data infrastructures planning outlinePlanning planningGranted percentComplete],
                                       percentage: true
                                     },
                                     completedDate: {
@@ -311,6 +313,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                     percentComplete: {
                                       type: 'string',
                                       title: 'Percent Complete',
+                                      sourceKey: %i[return_data infrastructures planning fullPlanning submitted percentComplete],
                                       percentage: true
                                     },
                                     completedDate: {
@@ -382,6 +385,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                     percentComplete: {
                                       type: 'string',
                                       title: 'Percent Complete',
+                                      sourceKey: %i[return_data infrastructures planning fullPlanning granted percentComplete],
                                       percentage: true
                                     },
                                     completedDate: {
@@ -672,6 +676,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                             percentComplete: {
                                               type: 'string',
                                               title: 'Percent Complete',
+                                              sourceKey: %i[return_data infrastructures landOwnership laDoesNotControlSite allLandAssemblyAchieved percentComplete],                                              
                                               percentage: true
                                             },
                                             completedDate: {

@@ -14,6 +14,7 @@
           "planningSubmitted": {
             "baseline": "2020-01-01",
             "previousReturn": null,
+            "percentComplete": "12",
             "status": "Completed",
             "completedDate": "111",
             "onCompletedReference": "REFPLAN"
@@ -21,6 +22,7 @@
           "planningGranted": {
             "baseline": "2020-02-01",
             "previousReturn": null,
+            "percentComplete": "34",
             "status": "On Schedule",
             "completedDate": "222"
           }
@@ -34,12 +36,14 @@
             "previousReturn": null,
             "status": "On Shedule",
             "completedDate": "211",
+            "percentComplete": "45",
             "onCompletedReference": "REF2PLAN"
           },
           "granted": {
             "baseline": "2020-04-01",
             "previousReturn": null,
             "status": "Delayed",
+            "percentComplete": "56",
             "completedDate": "333"
           }
         },
@@ -66,7 +70,8 @@
             "baseline": "2020-01-01",
             "status": "complete",
             "completedDate": "today",
-            "previousReturn": "Tomorrow"
+            "previousReturn": "Tomorrow",
+            "percentComplete": "89"
           }
         }
       },
