@@ -2708,11 +2708,11 @@
               "type": "string"
             },
             "breakdownOfNextQuarterSpend": {
-              "title": "Next Quarter Spend",
+              "title": " ",
               "type": "object",
               "properties": {
                 "forecast": {
-                  "title": "Forecasted Spend (£)",
+                  "title": "Forecasted Spend",
                   "type": "string",
                   "currency": true
                 },
