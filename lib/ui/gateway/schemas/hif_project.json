@@ -777,6 +777,7 @@
           "title": "Polygons for housing sites",
           "type": "string",
           "description": "Paste a link here to the housing site polygons.",
+          "hidden": true,
           "format": "uri"
         },
         "totalArea": { "type": "string", "title": "Total Area (hectares)" },
