@@ -108,7 +108,7 @@ class UI::UseCase::ConvertCoreHIFProject
     unless infrastructure[:statutoryConsents].nil?
       
       converted_infrastructure[:planningStatus][:statutoryConsents] = {
-        anyConsents: infrastructure[:statutoryConsents][:anyConsents],
+        anyConsents: infrastructure[:statutoryConsents][:anyConsents]
       }
       
       unless infrastructure[:statutoryConsents][:consents].nil?
