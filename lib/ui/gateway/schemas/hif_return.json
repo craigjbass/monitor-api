@@ -1051,7 +1051,6 @@
                     "milestoneCompletedDate": {
                       "type": "string",
                       "format": "date",
-                      "readonly": true,
                       "title": "Baseline Target"
                     }
                   }
