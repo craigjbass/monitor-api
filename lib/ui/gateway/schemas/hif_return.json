@@ -74,7 +74,7 @@
     {
       "from": ["reviewAndAssurance", 0, "rmReview", "recommendForRegularMonitoring"],
       "to": ["reviewAndAssurance", 0, "assuranceReview", "moreRegularMonitoring", "recommendForRegularMonitoringReview"]
-    } 
+    }
   ],
   "properties": {
     "infrastructures": {
@@ -186,7 +186,7 @@
                                 "title": "Status against last return?",
                                 "type": "string",
                                 "radio": true,
-                                "enum": ["Completed", "On schedule", "Delayed"],
+                                "enum": ["Completed", "On schedule", "Delayed - minimal impact", "Delayed - moderate impact", "Delayed - critical"],
                                 "default": "On schedule"
                               },
                               "current": {
@@ -259,7 +259,7 @@
                                 "title": "Status against last return?",
                                 "type": "string",
                                 "radio": true,
-                                "enum": ["Completed", "On schedule", "Delayed"],
+                                "enum": ["Completed", "On schedule", "Delayed - minimal impact", "Delayed - moderate impact", "Delayed - critical"],
                                 "default": "On schedule"
                               },
                               "current": {
@@ -389,7 +389,7 @@
                                 "title": "Status against last return?",
                                 "type": "string",
                                 "radio": true,
-                                "enum": ["Completed", "On schedule", "Delayed"],
+                                "enum": ["Completed", "On schedule", "Delayed - minimal impact", "Delayed - moderate impact", "Delayed - critical"],
                                 "default": "On schedule"
                               },
                               "current": {
@@ -462,7 +462,7 @@
                                 "title": "Status against last return?",
                                 "type": "string",
                                 "radio": true,
-                                "enum": ["Completed", "On schedule", "Delayed"],
+                                "enum": ["Completed", "On schedule", "Delayed - minimal impact", "Delayed - moderate impact", "Delayed - critical"],
                                 "default": "On schedule"
                               },
                               "current": {
@@ -624,7 +624,9 @@
                                   "enum": [
                                     "Completed",
                                     "On schedule",
-                                    "Delayed"
+                                    "Delayed - minimal impact",
+                                    "Delayed - moderate impact",
+                                    "Delayed - critical"
                                   ],
                                   "default": "On schedule"
                                 }
@@ -1002,7 +1004,7 @@
                             "title": "Status against last return?",
                             "type": "string",
                             "radio": true,
-                            "enum": ["Completed", "On schedule", "Delayed"],
+                            "enum": ["Completed", "On schedule", "Delayed - minimal impact", "Delayed - moderate impact", "Delayed - critical"],
                             "default": "On schedule"
                           },
                           "completedDate": {
@@ -7224,7 +7226,7 @@
                 "type": "string",
                 "radio": true,
                 "readonly": true,
-                "enum": ["Yes", "No"]          
+                "enum": ["Yes", "No"]
               },
               "rmReviewComplete": {
                 "title": "",
@@ -8305,7 +8307,7 @@
                             "type": "string",
                             "title": "More regular monitoring required?",
                             "enum": ["Yes", "No"],
-                            "radio": true 
+                            "radio": true
                           }
                         },
                         "dependencies": {
