@@ -1,6 +1,7 @@
 {
   "title": "AC Project",
   "type": "object",
+  "required": ["sites", "grantExpenditure", "housingCompletions", "s151submission"],
   "properties": {
     "sites": {
       "type": "array",
@@ -8,10 +9,12 @@
       "items": {
         "type": "object",
         "title": "Site",
+        "required": ["summary", "housingOutputs", "milestonesAndProgress"],
         "properties": {
           "summary": {
             "type": "object",
             "title": "Summary",
+            "required": ["name", "ref"],
             "properties": {
               "name": {
                 "type": "string",
@@ -79,6 +82,7 @@
             "type": "object",
             "title": "Housing Outputs",
             "calculation": "set(formData, 'affordableHousingUnits', get(formData, 'units') ? parseMoney(get(formData, 'units', 'numberOfUnits', 'numberOfUnitsSharedOwnership')) + parseMoney(get(formData, 'units', 'numberOfUnits', 'numberOfUnitsAffordable')) :0)",
+            "required": ["units", "paceOfConstruction", "modernMethodsOfConstruction", "changesRequired"],
             "properties": {
               "baselineunits": {
                 "type": "string",
@@ -113,11 +117,19 @@
               "units": {
                 "type": "object",
                 "title": "",
+                "required": ["numberOfUnits"],
                 "calculation": "set(formData, 'numberOfUnitsTotal', get(formData, 'numberOfUnits') ? parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsMarket')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsSharedOwnership')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsAffordable')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsPRS')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsOther')): 0);",
                 "properties": {
                   "numberOfUnits": {
                     "type": "object",
                     "horizontal": true,
+                    "required": [
+                      "numberOfUnitsMarket",
+                      "numberOfUnitsSharedOwnership",
+                      "numberOfUnitsAffordable",
+                      "numberOfUnitsPRS",
+                      "numberOfUnitsOther"
+                    ],
                     "title": "Latest Units and Tenures",
                     "properties": {
                       "numberOfUnitsMarket": {
@@ -357,6 +369,26 @@
           "milestonesAndProgress": {
             "type": "object",
             "title": "Milestones and Progress",
+            "required": [
+              "commencementOfDueDiligence",
+              "completionOfSurveys",
+              "procurementOfWorksCommencementDate",
+              "provisionOfDetailedWorks",
+              "commencementDate",
+              "completionDate",
+              "outlinePlanningGrantedDate",
+              "reservedMatterPermissionGrantedDate",
+              "marketingCommenced",
+              "conditionalContractSigned",
+              "unconditionalContractSigned",
+              "startOnSiteDate",
+              "startOnFirstUnitDate",
+              "completionOfFinalUnitData",
+              "projectCompletionDate",
+              "customMileStones",
+              "planningStatus",
+              "changeRequired"
+            ],
             "properties": {
               "commencementOfDueDiligence": {
                 "type": "object",
@@ -364,6 +396,7 @@
                 "properties": {
                   "completion": {
                     "type": "object",
+                    "required": ["completed"],
                     "title": "",
                     "properties": {
                       "completed": {
@@ -384,7 +417,8 @@
                                 "title": "Date completed?",
                                 "format": "date"
                               }
-                            }
+                            },
+                            "required": ["dateOfCompletion"]
                           },
                           {
                             "properties": {
@@ -392,6 +426,7 @@
                               "details": {
                                 "horizontal": true,
                                 "type": "object",
+                                "required": ["estimatedPercentageComplete", "currentEstimatedDate"],
                                 "title": "",
                                 "properties": {
                                   "baselineDate": {
@@ -422,6 +457,7 @@
                                 "title": "",
                                 "type": "object",
                                 "horizontal": true,
+                                "required": ["riskToAchievingBaseline", "reasonForVariance"],
                                 "properties": {
                                   "riskToAchievingBaseline": {
                                     "type": "string",
@@ -442,7 +478,8 @@
                                   }
                                 }
                               }
-                            }
+                            },
+                            "required": ["details", "risk"]
                           }
                         ]
                       }
@@ -453,10 +490,12 @@
               "completionOfSurveys": {
                 "title": "Completion of surveys and due diligence",
                 "type": "object",
+                "required": ["completion"],
                 "properties": {
                   "completion": {
                     "type": "object",
                     "title": "",
+                    "required": ["completed"],
                     "properties": {
                       "completed": {
                         "title": "Completed?",
@@ -476,7 +515,8 @@
                                 "title": "Date completed?",
                                 "format": "date"
                               }
-                            }
+                            },
+                            "required": ["dateOfCompletion"]
                           },
                           {
                             "properties": {
@@ -485,6 +525,7 @@
                                 "horizontal": true,
                                 "type": "object",
                                 "title": "",
+                                "required": ["currentEstimatedDate", "estimatedPercentageComplete"],
                                 "properties": {
                                   "baselineDate": {
                                     "type": "string",
@@ -513,6 +554,7 @@
                               "risk": {
                                 "title": "",
                                 "type": "object",
+                                "required": ["riskToAchievingBaseline", "reasonForVariance"],
                                 "horizontal": true,
                                 "properties": {
                                   "riskToAchievingBaseline": {
@@ -534,7 +576,8 @@
                                   }
                                 }
                               }
-                            }
+                            },
+                            "required": ["details", "risk"]
                           }
                         ]
                       }
@@ -545,9 +588,11 @@
               "procurementOfWorksCommencementDate": {
                 "title": "Procurement of works commencement date",
                 "type": "object",
+                "required": ["completion"],
                 "properties": {
                   "completion": {
                     "type": "object",
+                    "required": ["completed"],
                     "title": "",
                     "properties": {
                       "completed": {
@@ -568,7 +613,8 @@
                                 "title": "Date completed?",
                                 "format": "date"
                               }
-                            }
+                            },
+                            "required": ["dateOfCompletion"]
                           },
                           {
                             "properties": {
@@ -577,6 +623,7 @@
                                 "type": "object",
                                 "horizontal": true,
                                 "title": "",
+                                "required": ["currentEstimatedDate", "estimatedPercentageComplete"],
                                 "properties": {
                                   "baselineDate": {
                                     "type": "string",
@@ -606,6 +653,7 @@
                                 "title": "",
                                 "type": "object",
                                 "horizontal": true,
+                                "required": ["riskToAchievingBaseline", "reasonForVariance"],
                                 "properties": {
                                   "riskToAchievingBaseline": {
                                     "type": "string",
@@ -626,7 +674,8 @@
                                   }
                                 }
                               }
-                            }
+                            },
+                            "required": ["details", "risk"]
                           }
                         ]
                       }
@@ -637,9 +686,11 @@
               "provisionOfDetailedWorks": {
                 "title": "Provision of detailed works specification and milestones",
                 "type": "object",
+                "required": ["completion"],
                 "properties": {
                   "completion": {
                     "type": "object",
+                    "required": ["completed"],
                     "title": "",
                     "properties": {
                       "completed": {
@@ -660,7 +711,8 @@
                                 "title": "Date completed?",
                                 "format": "date"
                               }
-                            }
+                            },
+                            "required": ["dateOfCompletion"]
                           },
                           {
                             "properties": {
@@ -669,6 +721,7 @@
                                 "horizontal": true,
                                 "type": "object",
                                 "title": "",
+                                "required": ["currentEstimatedDate", "estimatedPercentageComplete"],
                                 "properties": {
                                   "baselineDate": {
                                     "type": "string",
@@ -697,6 +750,7 @@
                               "risk": {
                                 "title": "",
                                 "type": "object",
+                                "required": ["riskToAchievingBaseline", "reasonForVariance"],
                                 "horizontal": true,
                                 "properties": {
                                   "riskToAchievingBaseline": {
@@ -718,7 +772,8 @@
                                   }
                                 }
                               }
-                            }
+                            },
+                            "required": ["details", "risk"]
                           }
                         ]
                       }
@@ -729,10 +784,12 @@
               "commencementDate": {
                 "title": "Commencement of works date (first, if multiple)",
                 "type": "object",
+                "required": ["completion"],
                 "properties": {
                   "completion": {
                     "type": "object",
                     "title": "",
+                    "required": ["completed"],
                     "properties": {
                       "completed": {
                         "title": "Completed?",
@@ -752,7 +809,8 @@
                                 "title": "Date completed?",
                                 "format": "date"
                               }
-                            }
+                            },
+                            "required": ["dateOfCompletion"]
                           },
                           {
                             "properties": {
@@ -760,6 +818,7 @@
                               "details": {
                                 "type": "object",
                                 "horizontal": true,
+                                "required": ["currentEstimatedDate", "estimatedPercentageComplete"],
                                 "title": "",
                                 "properties": {
                                   "baselineDate": {
@@ -790,6 +849,7 @@
                                 "title": "",
                                 "type": "object",
                                 "horizontal": true,
+                                "required": ["riskToAchievingBaseline", "reasonForVariance"],
                                 "properties": {
                                   "riskToAchievingBaseline": {
                                     "type": "string",
@@ -810,7 +870,8 @@
                                   }
                                 }
                               }
-                            }
+                            },
+                            "required": ["details", "risk"]
                           }
                         ]
                       }
@@ -821,9 +882,11 @@
               "completionDate": {
                 "title": "Completion of works date (last, if multiple)",
                 "type": "object",
+                "required": ["completion"],
                 "properties": {
                   "completion": {
                     "type": "object",
+                    "required": ["completed"],
                     "title": "",
                     "properties": {
                       "completed": {
@@ -844,7 +907,8 @@
                                 "title": "Date completed?",
                                 "format": "date"
                               }
-                            }
+                            },
+                            "required": ["dateOfCompletion"]
                           },
                           {
                             "properties": {
@@ -852,6 +916,7 @@
                               "details": {
                                 "type": "object",
                                 "horizontal": true,
+                                "required": ["currentEstimatedDate", "estimatedPercentageComplete"],
                                 "title": "",
                                 "properties": {
                                   "baselineDate": {
@@ -881,6 +946,7 @@
                               "risk": {
                                 "title": "",
                                 "type": "object",
+                                "required": ["riskToAchievingBaseline", "reasonForVariance"],
                                 "horizontal": true,
                                 "properties": {
                                   "riskToAchievingBaseline": {
@@ -902,7 +968,8 @@
                                   }
                                 }
                               }
-                            }
+                            },
+                            "required": ["details", "risk"]
                           }
                         ]
                       }
@@ -913,9 +980,11 @@
               "outlinePlanningGrantedDate": {
                 "title": "Outline planning permission granted date",
                 "type": "object",
+                "required": ["completion"],
                 "properties": {
                   "completion": {
                     "type": "object",
+                    "required":["completed"],
                     "title": "",
                     "properties": {
                       "completed": {
@@ -936,11 +1005,12 @@
                                 "title": "Date completed?",
                                 "format": "date"
                               },
-                              "planninfReferenceNumber": {
+                              "planningReferenceNumber": {
                                 "type": "string",
                                 "title": "Planning Reference Number"
                               }
-                            }
+                            },
+                            "required": ["dateOfCompletion", "planningReferenceNumber"]
                           },
                           {
                             "properties": {
@@ -998,7 +1068,8 @@
                                   }
                                 }
                               }
-                            }
+                            },
+                            "required":["details", "risk"]
                           }
                         ]
                       }
@@ -1009,9 +1080,11 @@
               "reservedMatterPermissionGrantedDate": {
                 "title": "Reserved Matter Permission Granted date",
                 "type": "object",
+                "required": ["completion"],
                 "properties": {
                   "completion": {
                     "type": "object",
+                    "required": ["completed"],
                     "title": "",
                     "properties": {
                       "completed": {
@@ -1036,7 +1109,8 @@
                                 "type": "string",
                                 "title": "Planning Reference Number"
                               }
-                            }
+                            },
+                            "required": ["dateOfCompletion", "planningReferenceNumber"]
                           },
                           {
                             "properties": {
@@ -1045,6 +1119,7 @@
                                 "type": "object",
                                 "horizontal": true,
                                 "title": "",
+                                "required": ["currentEstimatedDate", "estimatedPercentageComplete"],
                                 "properties": {
                                   "baselineDate": {
                                     "type": "string",
@@ -1074,6 +1149,7 @@
                                 "title": "",
                                 "type": "object",
                                 "horizontal": true,
+                                "required": ["riskToAchievingBaseline", "reasonForVariance"],
                                 "properties": {
                                   "riskToAchievingBaseline": {
                                     "type": "string",
@@ -1094,7 +1170,8 @@
                                   }
                                 }
                               }
-                            }
+                            },
+                            "required": ["details", "risk"]
                           }
                         ]
                       }
@@ -1105,9 +1182,11 @@
               "marketingCommenced": {
                 "title": "Developer Partner marketing commenced (EOI or formal tender)",
                 "type": "object",
+                "required": ["completion"],
                 "properties": {
                   "completion": {
                     "type": "object",
+                    "required": ["completed"],
                     "title": "",
                     "properties": {
                       "completed": {
@@ -1128,13 +1207,15 @@
                                 "title": "Date completed?",
                                 "format": "date"
                               }
-                            }
+                            },
+                            "required": ["dateOfCompletion"]
                           },
                           {
                             "properties": {
                               "completed": { "enum": ["No"] },
                               "details": {
                                 "type": "object",
+                                "required": ["currentEstimatedDate", "estimatedPercentageComplete"],
                                 "horizontal": true,
                                 "title": "",
                                 "properties": {
@@ -1164,6 +1245,7 @@
                               "risk": {
                                 "title": "",
                                 "type": "object",
+                                "required": ["reasonForVariance", "riskToAchievingBaseline"],
                                 "horizontal": true,
                                 "properties": {
                                   "riskToAchievingBaseline": {
@@ -1185,7 +1267,8 @@
                                   }
                                 }
                               }
-                            }
+                            },
+                            "required": ["details", "risk"]
                           }
                         ]
                       }
@@ -1196,10 +1279,12 @@
               "conditionalContractSigned": {
                 "title": "Conditional contract signed",
                 "type": "object",
+                "required": ["completion"],
                 "properties": {
                   "completion": {
                     "type": "object",
                     "title": "",
+                    "required": ["completed"],
                     "properties": {
                       "completed": {
                         "title": "Completed?",
@@ -1224,7 +1309,8 @@
                                 "title": "Name(s) of contracted housebuilders",
                                 "extendedText": true
                               }
-                            }
+                            },
+                            "required": ["dateOfCompletion", "namesOfContractors"]
                           },
                           {
                             "properties": {
@@ -1232,6 +1318,7 @@
                               "details": {
                                 "type": "object",
                                 "horizontal": true,
+                                "required": ["currentEstimatedDate", "estimatedPercentageComplete"],
                                 "title": "",
                                 "properties": {
                                   "baselineDate": {
@@ -1262,6 +1349,7 @@
                                 "title": "",
                                 "type": "object",
                                 "horizontal": true,
+                                "required": ["riskToAchievingBaseline", "reasonForVariance"],
                                 "properties": {
                                   "riskToAchievingBaseline": {
                                     "type": "string",
@@ -1282,7 +1370,8 @@
                                   }
                                 }
                               }
-                            }
+                            },
+                            "required": ["details", "risk"]
                           }
                         ]
                       }
@@ -1293,9 +1382,11 @@
               "unconditionalContractSigned": {
                 "title": "Unconditional contract signed",
                 "type": "object",
+                "required": ["completion"],
                 "properties": {
                   "completion": {
                     "type": "object",
+                    "required": ["completed"],
                     "title": "",
                     "properties": {
                       "completed": {
@@ -1316,7 +1407,8 @@
                                 "title": "Date completed?",
                                 "format": "date"
                               }
-                            }
+                            },
+                            "required": ["dateOfCompletion"]
                           },
                           {
                             "properties": {
@@ -1324,6 +1416,7 @@
                               "details": {
                                 "type": "object",
                                 "horizontal": true,
+                                "required": ["currentEstimatedDate", "estimatedPercentageComplete"],
                                 "title": "",
                                 "properties": {
                                   "baselineDate": {
@@ -1354,6 +1447,7 @@
                                 "title": "",
                                 "type": "object",
                                 "horizontal": true,
+                                "required": ["riskToAchievingBaseline", "reasonForVariance"],
                                 "properties": {
                                   "riskToAchievingBaseline": {
                                     "type": "string",
@@ -1374,7 +1468,8 @@
                                   }
                                 }
                               }
-                            }
+                            },
+                            "required": ["details", "risk"]
                           }
                         ]
                       }
@@ -1385,9 +1480,11 @@
               "startOnSiteDate": {
                 "title": "Start on site date",
                 "type": "object",
+                "required": ["completion"],
                 "properties": {
                   "completion": {
                     "type": "object",
+                    "required": ["completed"],
                     "title": "",
                     "properties": {
                       "completed": {
@@ -1408,7 +1505,8 @@
                                 "title": "Date completed?",
                                 "format": "date"
                               }
-                            }
+                            },
+                            "required": ["dateOfCompletion"]
                           },
                           {
                             "properties": {
@@ -1417,6 +1515,7 @@
                                 "horizontal": true,
                                 "type": "object",
                                 "title": "",
+                                "required": ["currentEstimatedDate", "estimatedPercentageComplete"],
                                 "properties": {
                                   "baselineDate": {
                                     "type": "string",
@@ -1445,6 +1544,7 @@
                               "risk": {
                                 "title": "",
                                 "type": "object",
+                                "required": ["riskToAchievingBaseline", "reasonForVariance"],
                                 "horizontal": true,
                                 "properties": {
                                   "riskToAchievingBaseline": {
@@ -1466,7 +1566,8 @@
                                   }
                                 }
                               }
-                            }
+                            },
+                            "required": ["details", "risk"]
                           }
                         ]
                       }
@@ -1477,10 +1578,12 @@
               "startOnFirstUnitDate": {
                 "title": "Start of first unit date",
                 "type": "object",
+                "required": ["completed"],
                 "properties": {
                   "completion": {
                     "type": "object",
                     "title": "",
+                    "required": ["completed"],
                     "properties": {
                       "completed": {
                         "title": "Completed?",
@@ -1500,7 +1603,8 @@
                                 "title": "Date completed?",
                                 "format": "date"
                               }
-                            }
+                            },
+                            "required": ["dateOfCompletion"]
                           },
                           {
                             "properties": {
@@ -1509,6 +1613,7 @@
                                 "horizontal": true,
                                 "type": "object",
                                 "title": "",
+                                "required": ["currentEstimatedDate", "estimatedPercentageComplete"],
                                 "properties": {
                                   "baselineDate": {
                                     "type": "string",
@@ -1538,6 +1643,7 @@
                                 "title": "",
                                 "type": "object",
                                 "horizontal": true,
+                                "required": ["riskToAchievingBaseline", "reasonForVariance"],
                                 "properties": {
                                   "riskToAchievingBaseline": {
                                     "type": "string",
@@ -1558,7 +1664,8 @@
                                   }
                                 }
                               }
-                            }
+                            },
+                            "required": ["details", "risk"]
                           }
                         ]
                       }
@@ -1569,10 +1676,12 @@
               "completionOfFinalUnitData": {
                 "title": "Completion of Final Unit Date",
                 "type": "object",
+                "required": ["completion"],
                 "properties": {
                   "completion": {
                     "type": "object",
                     "title": "",
+                    "required": ["completed"],
                     "properties": {
                       "completed": {
                         "title": "Completed?",
@@ -1592,7 +1701,8 @@
                                 "title": "Date completed?",
                                 "format": "date"
                               }
-                            }
+                            },
+                            "required": ["dateOfCompletion"]
                           },
                           {
                             "properties": {
@@ -1600,6 +1710,7 @@
                               "details": {
                                 "type": "object",
                                 "horizontal": true,
+                                "required": ["currentEstimatedDate", "estimatedPercentageComplete"],
                                 "title": "",
                                 "properties": {
                                   "baselineDate": {
@@ -1630,6 +1741,7 @@
                                 "title": "",
                                 "type": "object",
                                 "horizontal": true,
+                                "required": ["riskToAchievingBaseline", "reasonForVariance"],
                                 "properties": {
                                   "riskToAchievingBaseline": {
                                     "type": "string",
@@ -1650,7 +1762,8 @@
                                   }
                                 }
                               }
-                            }
+                            },
+                            "required": ["details", "risk"]
                           }
                         ]
                       }
@@ -1661,9 +1774,11 @@
               "projectCompletionDate": {
                 "title": "Project Completion Date",
                 "type": "object",
+                "required": ["completion"],
                 "properties": {
                   "completion": {
                     "type": "object",
+                    "required": ["completed"],
                     "title": "",
                     "properties": {
                       "completed": {
@@ -1684,7 +1799,8 @@
                                 "title": "Date completed?",
                                 "format": "date"
                               }
-                            }
+                            },
+                            "required": ["dateOfCompletion"]
                           },
                           {
                             "properties": {
@@ -1692,6 +1808,7 @@
                               "details": {
                                 "type": "object",
                                 "horizontal": true,
+                                "required": ["currentEstimatedDate", "estimatedPercentageComplete"],
                                 "title": "",
                                 "properties": {
                                   "baselineDate": {
@@ -1721,6 +1838,7 @@
                               "risk": {
                                 "title": "",
                                 "type": "object",
+                                "required": ["riskToAchievingBaseline", "reasonForVariance"],
                                 "horizontal": true,
                                 "properties": {
                                   "riskToAchievingBaseline": {
@@ -1742,7 +1860,8 @@
                                   }
                                 }
                               }
-                            }
+                            },
+                            "required":["details", "risk"]
                           }
                         ]
                       }
@@ -1756,6 +1875,7 @@
                 "title": "Custom Milestones",
                 "items": {
                   "type": "object",
+                  "required": ["completion", "milestoneName"],
                   "properties": {
                     "milestoneName": {
                       "type": "string",
@@ -1770,6 +1890,7 @@
                     "completion": {
                       "type": "object",
                       "title": "",
+                      "required": ["completed"],
                       "properties": {
                         "completed": {
                           "title": "Completed?",
@@ -1789,7 +1910,8 @@
                                   "title": "Date completed?",
                                   "format": "date"
                                 }
-                              }
+                              },
+                              "required": ["dateOfCompletion"]
                             },
                             {
                               "properties": {
@@ -1797,6 +1919,7 @@
                                 "details": {
                                   "type": "object",
                                   "horizontal": true,
+                                  "required": ["currentEstimatedDate", "estimatedPercentageComplete"],
                                   "title": "",
                                   "properties": {
                                     "baselineDate": {
@@ -1826,6 +1949,7 @@
                                 "risk": {
                                   "title": "",
                                   "type": "object",
+                                  "required": ["riskToAchievingBaseline", "reasonForVariance"],
                                   "horizontal": true,
                                   "properties": {
                                     "riskToAchievingBaseline": {
@@ -1847,7 +1971,8 @@
                                     }
                                   }
                                 }
-                              }
+                              },
+                              "required":["details", "risk"]
                             }
                           ]
                         }
@@ -1870,6 +1995,7 @@
               "changeRequired": {
                 "type": "object",
                 "title": "Change Required?",
+                "required": ["changeRequiredConfirmation"],
                 "properties": {
                   "changeRequiredConfirmation": {
                     "type": "string",
@@ -1896,7 +2022,8 @@
                             "extendedText": true,
                             "title": "Reason for change/variance, and steps being taken to address this"
                           }
-                        }
+                        },
+                        "required": ["reason"]
                       },
                       {
                         "properties": {
@@ -1915,6 +2042,7 @@
     "grantExpenditure": {
       "title": "Grant Expenditure Profile",
       "type": "object",
+      "required": ["remainingEstimate", "riskRating", "changesRequired"],
       "calculation": "periodTotal(formData, ['total'], 'baseline', 'Q1Amount', 'Q2Amount', 'Q3Amount', 'Q4Amount'); periodTotal(formData, ['total'], 'remainingEstimate', 'Q1Amount', 'Q2Amount', 'Q3Amount', 'Q4Amount'); periodTotal(formData, ['total'], 'claimedToDate', 'Q1Amount', 'Q2Amount', 'Q3Amount', 'Q4Amount');",
       "properties": {
         "baseline": {
@@ -2047,6 +2175,7 @@
           "quarterly": true,
           "items": {
             "type": "object",
+            "required": ["year", "Q1Amount", "Q2Amount", "Q3Amount", "Q4Amount"],
             "title": "",
             "properties": {
               "year": {
@@ -2092,6 +2221,7 @@
           "type": "array",
           "title": "Risk Rating on Remaining Estimates",
           "quarterly": true,
+          "required": ["year", "Q1Amount", "Q2Amount", "Q3Amount", "Q4Amount"],
           "items": {
             "type": "object",
             "title": "",
@@ -2195,7 +2325,8 @@
                   "title": "Reason for change/variance, and steps being taken to address this",
                   "extendedText": true
                 }
-              }
+              },
+              "required": ["reasonForChange"]
             }
           ]
         }
@@ -2206,11 +2337,13 @@
       "type": "array",
       "items": {
         "type": "object",
+        "required": ["details"],
         "title": "Site",
         "properties": {
           "details": {
             "type": "object",
             "title": "Housing Completions",
+            "required": ["remainingEstimate", "changesRequired"],
             "calculation": "periodTotal(formData, ['total'], 'achievedToDate', 'Q1Amount', 'Q2Amount', 'Q3Amount', 'Q4Amount'); periodTotal(formData, ['total'], 'remainingEstimate', 'Q1Amount', 'Q2Amount', 'Q3Amount', 'Q4Amount');",
             "properties": {
               "siteName": {
@@ -2264,6 +2397,7 @@
               "remainingEstimate": {
                 "type": "array",
                 "title": "Remaining Estimate",
+                "required": ["year", "Q1Amount", "Q2Amount", "Q3Amount", "Q4Amount", "total", "riskRating"],
                 "quarterly": true,
                 "addable": true,
                 "items": {
@@ -2312,6 +2446,7 @@
               "changesRequired": {
                 "type": "object",
                 "title": "Changes Required?",
+                "required": ["changesConfirmation"],
                 "properties": {
                   "changesConfirmation": {
                     "type": "string",
@@ -2343,7 +2478,8 @@
                             "title": "Reason for change/variance, and steps being taken to address this",
                             "extendedText": true
                           }
-                        }
+                        },
+                        "required": ["reasonForChange"]
                       }
                     ]
                   }
@@ -2422,13 +2558,24 @@
     "s151submission": {
       "title": "S151 Officer Submission Sign-Off",
       "type": "object",
+      "required": ["submission"],
       "properties": {
         "submission": {
           "type": "object",
           "title": "",
+          "required": ["confirmation"],
           "properties": {
             "confirmation": {
               "type": "object",
+              "required": [
+                "estimatedGrantProfiles",
+                "milestoneDateEstimates",
+                "milestoneDatesAchieved",
+                "housingOutputsEstimates",
+                "housingClaimedAsAchieved",
+                "receiptEstimates",
+                "noOtherGrantFunding"
+              ],
               "title": "Please confirm you are content with the submission, including:",
               "properties": {
                 "estimatedGrantProfiles": {
@@ -2473,7 +2620,7 @@
                   "s151WriteOnly": true,
                   "radio": true
                 },
-                "noOtherGrantFundin": {
+                "noOtherGrantFunding": {
                   "type": "string",
                   "title": "That no other Grant Funding Agreement conditions have been breached.",
                   "enum": ["Yes", "No"],
