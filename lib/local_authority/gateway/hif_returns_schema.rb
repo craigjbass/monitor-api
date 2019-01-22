@@ -124,6 +124,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                     percentComplete: {
                                       type: 'string',
                                       title: 'Percent Complete',
+                                      sourceKey: %i[return_data infrastructures planning outlinePlanning planningSubmitted percentComplete],
                                       percentage: true
                                     },
                                     completedDate: {
@@ -193,6 +194,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                     percentComplete: {
                                       type: 'string',
                                       title: 'Percent Complete',
+                                      sourceKey: %i[return_data infrastructures planning outlinePlanning planningGranted percentComplete],
                                       percentage: true
                                     },
                                     completedDate: {
@@ -311,6 +313,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                     percentComplete: {
                                       type: 'string',
                                       title: 'Percent Complete',
+                                      sourceKey: %i[return_data infrastructures planning fullPlanning submitted percentComplete],
                                       percentage: true
                                     },
                                     completedDate: {
@@ -382,6 +385,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                     percentComplete: {
                                       type: 'string',
                                       title: 'Percent Complete',
+                                      sourceKey: %i[return_data infrastructures planning fullPlanning granted percentComplete],
                                       percentage: true
                                     },
                                     completedDate: {
@@ -583,7 +587,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                 landAcquisitionRequired: {
                                   type: 'string',
                                   title: 'Land acquisition required (related to infrastructure)?',
-                                  sourceKey: %i[baseline_data infrastructures landOwnership landAcquisitionRequired],
+                                  sourceKey: %i[baseline_data infrastructures landOwnership isLandAcquisitionRequired],
                                   readonly: true,
                                   radio: true,
                                   enum: %w[Yes No]
@@ -600,21 +604,21 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                         howManySitesToAquire: {
                                           type: 'string',
                                           title: 'Number of Sites to aquire?',
-                                          sourceKey: %i[baseline_data infrastructures landOwnership howManySitesToAcquire],
+                                          sourceKey: %i[baseline_data infrastructures landOwnership sitesToAcquire],
                                           readonly: true
                                         },
                                         # from landOwnership.toBeAquiredBy
                                         toBeAquiredBy: {
                                           type: 'string',
                                           title: 'Acquired by LA or Developer?',
-                                          sourceKey: %i[baseline_data infrastructures landOwnership toBeAcquiredBy],
+                                          sourceKey: %i[baseline_data infrastructures landOwnership acquiredBy],
                                           readonly: true
                                         },
                                         # from landOwnership.summaryOfCriticalPath
                                         summaryOfAcquisitionRequired: {
                                           type: 'string',
                                           title: 'Summary of acquisition required',
-                                          sourceKey: %i[baseline_data infrastructures landOwnership summaryOfCriticalPath],
+                                          sourceKey: %i[baseline_data infrastructures landOwnership criticalPath],
                                           readonly: true
                                         },
                                         allLandAssemblyAchieved: {
@@ -627,7 +631,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                               type: 'string',
                                               format: 'date',
                                               title: 'Baseline Target',
-                                              sourceKey: %i[baseline_data infrastructures landOwnership targetDateToAcquire],
+                                              sourceKey: %i[baseline_data infrastructures landOwnership dateToAcquire],
                                               readonly: true
                                             },
                                             previousReturn: {
@@ -672,6 +676,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                             percentComplete: {
                                               type: 'string',
                                               title: 'Percent Complete',
+                                              sourceKey: %i[return_data infrastructures landOwnership laDoesNotControlSite allLandAssemblyAchieved percentComplete],                                              
                                               percentage: true
                                             },
                                             completedDate: {
