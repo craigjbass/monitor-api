@@ -1,18 +1,16 @@
 # frozen_string_literal: true
 
 class UI::UseCase::GetReturn
-  def initialize(get_return:, convert_core_hif_return:)
+  def initialize(get_return:, convert_core_return:)
     @get_return = get_return
-    @convert_core_hif_return = convert_core_hif_return
+    @convert_core_return = convert_core_return
   end
 
   def execute(id:)
     found_return = @get_return.execute(id: id)
 
-    if found_return[:type] == 'hif'
-      found_return[:updates] = found_return[:updates].map do |update|
-        @convert_core_hif_return.execute(return_data: update)
-      end
+    found_return[:updates] = found_return[:updates].map do |update|
+      @convert_core_return.execute(return_data: update, type: found_return[:type])
     end
 
     {
