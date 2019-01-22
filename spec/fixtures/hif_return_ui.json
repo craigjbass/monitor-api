@@ -906,45 +906,169 @@
       "mmcPercent": "43"
     }
   },
-  "reviewAndAssurance": {
-    "date": "01/01/1970",
-    "assuranceManagerAttendance": "Yes",
-    "meetingsAttended": "2",
-    "infrastructureDelivery": [
-      {
-        "infrastructureDesc": "desc",
-        "reviewDetails": {
-          "details": "Some information",
+  "reviewAndAssurance": [
+    {
+      "rmReview": {
+        "date": "01/01/1970",
+        "assuranceManagerAttendance": "Yes",
+        "meetingsAttended": "2",
+        "infrastructureDelivery": [
+          {
+            "infrastructureDesc": "desc",
+            "reviewDetails": {
+              "details": "Some information",
+              "riskRating": "High"
+            }
+          }
+        ],
+        "hifFundedFinancials": {
+          "summary": "The summary",
           "riskRating": "High"
-        }
+        },
+        "hifWiderScheme": {
+          "summary": "The summary",
+          "riskRating": "High"
+        },
+        "outputForecast": {
+          "summary": "The summary",
+          "riskRating": "High"
+        },
+        "barriers": {
+          "significantIssues": [{
+            "overview": "Some information",
+            "barrierType": "Other",
+            "details": "Some details"
+          }]
+        },
+        "recommendForRegularMonitoring": {
+          "isRecommendForRegularMonitoring": "Yes",
+          "reasonAndProposedFrequency": "A reason and frequency"
+        },
+        "overviewOfEngagement": "Good",
+        "issuesToRaise": "None",
+        "reviewComplete": "Yes"
+      },
+      "assuranceReview": {
+        "assuranceManagerAttendance": "Yes",
+        "rmReviewComplete": "Yes",
+        "summaryOfMeeting": "Summary",
+        "infrastructureDeliveryAssurance": [
+          {
+            "infrastructureDesc": "desc",
+            "reviewDetails": {
+              "details": "Some information",
+              "riskRating": "High"
+            },
+            "assuranceAgreement": {
+              "RAGAgreement": "No",
+              "commentary": "Comment",
+              "recommendedRAG": "Green"
+            }
+          }
+        ],
+        "hifFundedFinancials": {
+          "reviewDetails": {
+            "summary": "The summary",
+            "riskRating": "High"
+          },
+          "assuranceAgreement": {
+            "RAGAgreement": "No",
+            "commentary": "Funded",
+            "recommendedRAG": "Green"
+          }
+        },
+        "hifWiderScheme": {
+          "reviewDetails": {
+            "summary": "The summary",
+            "riskRating": "High"
+          },
+          "assuranceAgreement": {
+            "RAGAgreement": "No",
+            "commentary": "wider",
+            "recommendedRAG": "Green"
+          }
+        },
+        "outputForecast": {
+          "reviewDetails": {
+            "summary": "The summary",
+            "riskRating": "High"
+          },
+          "assuranceAgreement": {
+            "RAGAgreement": "No",
+            "commentary": "output",
+            "recommendedRAG": "Green"
+          }
+        },
+        "barriers": {
+          "significantIssues": [{
+            "overview": "Some information",
+            "barrierType": "Other",
+            "details": "Some details"
+          }],
+          "assuranceAgreementRed": {
+            "agreementWithBarriers": "Yes",
+            "commentary": "Red Barriers",
+            "recommendedSignificantIssues": [{
+              "overview": "Different information",
+              "barrierType": "Other",
+              "details": "Some details"
+            }]
+          },
+          "liveIssues": [{
+            "overview": "Some information",
+            "barrierType": "Other",
+            "details": "Some details"
+          }],
+          "assuranceAgreementAmber": {
+            "agreementWithBarriers": "Yes",
+            "commentary": "Red Barriers",
+            "recommendedLiveIssues": [{
+              "overview": "Different information",
+              "barrierType": "Other",
+              "details": "Some details"
+            }]
+          }
+        },
+        "overallRAGRating": {
+          "rating": "Yellow",
+          "reason": "yellowing"
+        },
+        "overallCommentary": "Overall commentary",
+        "riskAssessmentSpend": {
+          "currentYear": "risky",
+          "nextYear": "more risky"
+        },
+        "riskAssessmentOutputs": {
+          "currentYear": "less risky",
+          "nextYear": "not risky"
+        },
+        "raisedIssues": {
+          "issuesRaisedReview": "Issues",
+          "anyIssuesToEscalate": "Yes",
+          "escalationProposals": "Lots yes"
+        },
+        "moreRegularMonitoring": {
+          "recommendForRegularMonitoring": {
+            "isRecommendForRegularMonitoring": "Yes",
+            "reasonAndProposedFrequency": "A reason and frequency"
+          },
+          "moreMonitoringRequired": "Monitor",
+          "requiredFrequency": "Monthly"
+
+        },
+        "commentary": "Good",
+        "infrastructureDeliveryCopy": [
+          {
+            "infrastructureDesc": "desc",
+            "reviewDetails": {
+              "details": "Some information",
+              "riskRating": "High"
+            }
+          }
+        ]
       }
-    ],
-    "hifFundedFinancials": {
-      "summary": "The summary",
-      "riskRating": "High"
-    },
-    "hifWiderScheme": {
-      "summary": "The summary",
-      "riskRating": "High"
-    },
-    "outputForecast": {
-      "summary": "The summary",
-      "riskRating": "High"
-    },
-    "barriers": {
-      "significantIssues": [{
-        "overview": "Some information",
-        "barrierType": "Other",
-        "details": "Some details"
-      }]
-    },
-    "recommendForRegularMonitoring": {
-      "isRecommendForRegularMonitoring": "Yes",
-      "reasonAndProposedFrequency": "A reason and frequency"
-    },
-    "overviewOfEngagement": "Good",
-    "issuesToRaise": "None"
-  },
+    }
+  ],
   "hifRecovery": {
     "recovery": {
       "aimToRecoverFunding": "Yes",
