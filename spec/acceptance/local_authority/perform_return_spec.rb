@@ -202,10 +202,12 @@ describe 'Performing Return on HIF Project' do
               planningSubmitted: {
                 status: 'Completed',
                 completedDate: '111',
+                percentComplete: '12',
                 onCompletedReference: 'REFPLAN'
               },
               planningGranted: {
                 status: 'On Schedule',
+                percentComplete: '34',
                 completedDate: '222'
               }
             },
@@ -213,10 +215,12 @@ describe 'Performing Return on HIF Project' do
               submitted: {
                 status: 'On Shedule',
                 completedDate: '211',
+                percentComplete: '45',
                 onCompletedReference: 'REF2PLAN'
               },
               granted: {
                 status: 'Delayed',
+                percentComplete: '56',
                 completedDate: '333'
               }
             }
@@ -226,7 +230,8 @@ describe 'Performing Return on HIF Project' do
               allLandAssemblyAchieved: {
                 current: 'Tomorrow',
                 status: 'complete',
-                completedDate: 'today'
+                completedDate: 'today',
+                percentComplete: '89'
               }
             }
           },
@@ -264,6 +269,24 @@ describe 'Performing Return on HIF Project' do
           }
         }
       ],
+      outputsForecast: {
+        inYearHousingStarts: {
+          currentAmounts: {
+            quarter1: '12',
+            quarter2: '23',
+            quarter3: '34',
+            quarter4: '45'
+          }
+        },
+        inYearHousingCompletions: {
+          currentAmounts: {
+            quarter1: '12',
+            quarter2: '23',
+            quarter3: '34',
+            quarter4: '45'
+          }
+        }
+      },
       funding: [
         {
           fundingPackages: [

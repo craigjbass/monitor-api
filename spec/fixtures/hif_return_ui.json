@@ -233,6 +233,11 @@
           {
             "description": "Descriptive describes"
           }
+        ],
+        "carriedForward": [
+          {
+            "description": "Describing"
+          }
         ]
       }
     }
@@ -248,7 +253,7 @@
           "instalment2": "1000",
           "instalment3": "1000",
           "instalment4": "1000",
-          "total": "4000"
+          "totalHolder": {"total": "4000"}
         }
       ]
     },
@@ -260,7 +265,7 @@
           "instalment2": "1000",
           "instalment3": "1000",
           "instalment4": "1000",
-          "total": "4000"
+          "totalHolder": {"total": "4000"}
         }
       ]
     },
@@ -285,22 +290,6 @@
       "fundingStack": {
         "descriptionOfInfrastructure": "infras",
         "currentFundingStackDescription": "fund",
-        "hifSpend": {
-          "previousAmounts": {
-            "baseline": "10000",
-            "lastReturn": "783273"
-          },
-          "anyChangeToBaseline": {
-            "confirmation": "Yes",
-            "variance": {
-              "current": "7685",
-              "currentAmount": "7654",
-              "baseline": "2333",
-              "lastReturn": "1234"
-            },
-            "varianceReason": "a reason"
-          }
-        },
         "hifSpendSinceLastReturn": {
           "hifSpendSinceLastReturnHolder": {
             "currentReturn": "123",
@@ -328,69 +317,87 @@
           },
           "varianceReason": "No more money"
         },
-        "fundedThroughHIFbaseline": "Yes",
-        "fundedThroughHIF": "No",
-        "anyChange": {
-          "confirmation": "Yes",
-          "descriptionOfChange": "change"
-        },
-        "descriptionOfFundingStack": "Funding stack description",
-        "anyChangeToDescription": {
-          "confirmation": "Yes",
-          "updatedFundingStack": "update"
-        },
-        "riskToFundingPackage": {
-          "risk": "No more houses",
-          "description": "build some"
-        },
-        "public": {
-          "previousAmounts": {
-            "baseline": "5000",
-            "lastReturn": "1000"
-          },
-          "anyChangeToBaseline": {
-            "confirmation": "Yes",
-            "variance": {
-              "current": "756",
-              "currentAmount": "5678",
-              "baselineVariance": "2345",
-              "lastReturnVariance": "12345"
+        "fundedThroughHIF": {
+          "hifSpend": {
+            "previousAmounts": {
+              "baseline": "10000",
+              "lastReturn": "783273"
             },
-            "reason": "298"
+            "anyChangeToBaseline": {
+              "confirmation": "Yes",
+              "variance": {
+                "current": "7685",
+                "currentAmount": "7654",
+                "baseline": "2333",
+                "lastReturn": "1234"
+              },
+              "varianceReason": "a reason"
+            }
           },
-          "balancesSecured": {
-            "amountSecured": "45782",
-            "amountSecuredLastReturn": "45781",
-            "remainingToBeSecured": "12321",
-            "securedAgainstBaseline": "122",
-            "securedAgainstBaselineLastReturn": "121",
-            "increaseOnLastReturn": "34",
-            "increaseOnLastReturnPercent": "98"
-          }
-        },
-        "private": {
-          "previousAmounts": {
-            "baseline": "5000",
-            "lastReturn": "1000"
-          },
-          "anyChangeToBaseline": {
+          "fundedThroughHIFbaseline": "Yes",
+          "fundedThroughHIFCurrent": "No",
+          "anyChange": {
             "confirmation": "Yes",
-            "variance": {
-              "current": "756",
-              "currentAmount": "9876",
-              "baselineVariance": "2345",
-              "lastReturnVariance": "12345"
-            },
-            "reason": "298"
+            "descriptionOfChange": "change"
           },
-          "balancesSecured": {
-            "amountSecured": "45782",
-            "amountSecuredLastReturn": "45781",
-            "remainingToBeSecured": "12321",
-            "securedAgainstBaseline": "12",
-            "securedAgainstBaselineLastReturn": "11",
-            "increaseOnLastReturn": "34",
-            "increaseOnLastReturnPercent": "98"
+          "descriptionOfFundingStack": "Funding stack description",
+          "anyChangeToDescription": {
+            "confirmation": "Yes",
+            "updatedFundingStack": "update"
+          },
+          "riskToFundingPackage": {
+            "risk": "No more houses",
+            "description": "build some"
+          },
+          "public": {
+            "previousAmounts": {
+              "baseline": "5000",
+              "lastReturn": "1000"
+            },
+            "anyChangeToBaseline": {
+              "confirmation": "Yes",
+              "variance": {
+                "current": "756",
+                "currentAmount": "5678",
+                "baselineVariance": "2345",
+                "lastReturnVariance": "12345"
+              },
+              "reason": "298"
+            },
+            "balancesSecured": {
+              "amountSecured": "45782",
+              "amountSecuredLastReturn": "45781",
+              "remainingToBeSecured": "12321",
+              "securedAgainstBaseline": "122",
+              "securedAgainstBaselineLastReturn": "121",
+              "increaseOnLastReturn": "34",
+              "increaseOnLastReturnPercent": "98"
+            }
+          },
+          "private": {
+            "previousAmounts": {
+              "baseline": "5000",
+              "lastReturn": "1000"
+            },
+            "anyChangeToBaseline": {
+              "confirmation": "Yes",
+              "variance": {
+                "current": "756",
+                "currentAmount": "9876",
+                "baselineVariance": "2345",
+                "lastReturnVariance": "12345"
+              },
+              "reason": "298"
+            },
+            "balancesSecured": {
+              "amountSecured": "45782",
+              "amountSecuredLastReturn": "45781",
+              "remainingToBeSecured": "12321",
+              "securedAgainstBaseline": "12",
+              "securedAgainstBaselineLastReturn": "11",
+              "increaseOnLastReturn": "34",
+              "increaseOnLastReturnPercent": "98"
+            }
           }
         }
       }
@@ -420,6 +427,21 @@
       ]
     },
     "inYearHousingStarts": {
+      "newYear": {
+        "setNewAmounts": "Yes",
+        "newStarts": {
+          "quarter1": "8",
+          "quarter2": "16",
+          "quarter3": "32",
+          "quarter4": "64"
+        }
+      },
+      "currentAmounts": {
+        "quarter1": "4",
+        "quarter2": "8",
+        "quarter3": "16",
+        "quarter4": "32"
+      },
       "baselineAmounts": {
         "quarter1": "2",
         "quarter2": "4",
@@ -452,6 +474,21 @@
       ]
     },
     "inYearHousingCompletions": {
+      "newYear": {
+        "setNewAmounts": "Yes",
+        "newCompletions": {
+          "quarter1": "8",
+          "quarter2": "16",
+          "quarter3": "32",
+          "quarter4": "64"
+        }
+      },
+      "currentAmounts": {
+        "quarter1": "4",
+        "quarter2": "8",
+        "quarter3": "16",
+        "quarter4": "32"
+      },
       "baselineAmounts": {
         "quarter1": "20",
         "quarter2": "40",
@@ -869,39 +906,169 @@
       "mmcPercent": "43"
     }
   },
-  "reviewAndAssurance": {
-    "date": "01/01/1970",
-    "assuranceManagerAttendance": "Yes",
-    "infrastructureDelivery": [
-      {
-        "details": "Some information",
-        "riskRating": "High"
+  "reviewAndAssurance": [
+    {
+      "rmReview": {
+        "date": "01/01/1970",
+        "assuranceManagerAttendance": "Yes",
+        "meetingsAttended": "2",
+        "infrastructureDelivery": [
+          {
+            "infrastructureDesc": "desc",
+            "reviewDetails": {
+              "details": "Some information",
+              "riskRating": "High"
+            }
+          }
+        ],
+        "hifFundedFinancials": {
+          "summary": "The summary",
+          "riskRating": "High"
+        },
+        "hifWiderScheme": {
+          "summary": "The summary",
+          "riskRating": "High"
+        },
+        "outputForecast": {
+          "summary": "The summary",
+          "riskRating": "High"
+        },
+        "barriers": {
+          "significantIssues": [{
+            "overview": "Some information",
+            "barrierType": "Other",
+            "details": "Some details"
+          }]
+        },
+        "recommendForRegularMonitoring": {
+          "isRecommendForRegularMonitoring": "Yes",
+          "reasonAndProposedFrequency": "A reason and frequency"
+        },
+        "overviewOfEngagement": "Good",
+        "issuesToRaise": "None",
+        "reviewComplete": "Yes"
+      },
+      "assuranceReview": {
+        "assuranceManagerAttendance": "Yes",
+        "rmReviewComplete": "Yes",
+        "summaryOfMeeting": "Summary",
+        "infrastructureDeliveryAssurance": [
+          {
+            "infrastructureDesc": "desc",
+            "reviewDetails": {
+              "details": "Some information",
+              "riskRating": "High"
+            },
+            "assuranceAgreement": {
+              "RAGAgreement": "No",
+              "commentary": "Comment",
+              "recommendedRAG": "Green"
+            }
+          }
+        ],
+        "hifFundedFinancials": {
+          "reviewDetails": {
+            "summary": "The summary",
+            "riskRating": "High"
+          },
+          "assuranceAgreement": {
+            "RAGAgreement": "No",
+            "commentary": "Funded",
+            "recommendedRAG": "Green"
+          }
+        },
+        "hifWiderScheme": {
+          "reviewDetails": {
+            "summary": "The summary",
+            "riskRating": "High"
+          },
+          "assuranceAgreement": {
+            "RAGAgreement": "No",
+            "commentary": "wider",
+            "recommendedRAG": "Green"
+          }
+        },
+        "outputForecast": {
+          "reviewDetails": {
+            "summary": "The summary",
+            "riskRating": "High"
+          },
+          "assuranceAgreement": {
+            "RAGAgreement": "No",
+            "commentary": "output",
+            "recommendedRAG": "Green"
+          }
+        },
+        "barriers": {
+          "significantIssues": [{
+            "overview": "Some information",
+            "barrierType": "Other",
+            "details": "Some details"
+          }],
+          "assuranceAgreementRed": {
+            "agreementWithBarriers": "Yes",
+            "commentary": "Red Barriers",
+            "recommendedSignificantIssues": [{
+              "overview": "Different information",
+              "barrierType": "Other",
+              "details": "Some details"
+            }]
+          },
+          "liveIssues": [{
+            "overview": "Some information",
+            "barrierType": "Other",
+            "details": "Some details"
+          }],
+          "assuranceAgreementAmber": {
+            "agreementWithBarriers": "Yes",
+            "commentary": "Red Barriers",
+            "recommendedLiveIssues": [{
+              "overview": "Different information",
+              "barrierType": "Other",
+              "details": "Some details"
+            }]
+          }
+        },
+        "overallRAGRating": {
+          "rating": "Yellow",
+          "reason": "yellowing"
+        },
+        "overallCommentary": "Overall commentary",
+        "riskAssessmentSpend": {
+          "currentYear": "risky",
+          "nextYear": "more risky"
+        },
+        "riskAssessmentOutputs": {
+          "currentYear": "less risky",
+          "nextYear": "not risky"
+        },
+        "raisedIssues": {
+          "issuesRaisedReview": "Issues",
+          "anyIssuesToEscalate": "Yes",
+          "escalationProposals": "Lots yes"
+        },
+        "moreRegularMonitoring": {
+          "recommendForRegularMonitoring": {
+            "isRecommendForRegularMonitoring": "Yes",
+            "reasonAndProposedFrequency": "A reason and frequency"
+          },
+          "moreMonitoringRequired": "Monitor",
+          "requiredFrequency": "Monthly"
+
+        },
+        "commentary": "Good",
+        "infrastructureDeliveryCopy": [
+          {
+            "infrastructureDesc": "desc",
+            "reviewDetails": {
+              "details": "Some information",
+              "riskRating": "High"
+            }
+          }
+        ]
       }
-    ],
-    "hifFundedFinancials": {
-      "summary": "The summary",
-      "riskRating": "High"
-    },
-    "hifWiderScheme": {
-      "summary": "The summary",
-      "riskRating": "High"
-    },
-    "outputForecast": {
-      "summary": "The summary",
-      "riskRating": "High"
-    },
-    "barriers": {
-      "significantIssues": [{
-        "overview": "Some information",
-        "barrierType": "Other",
-        "details": "Some details"
-      }]
-    },
-    "recommendForRegularMonitoring": {
-      "isRecommendForRegularMonitoring": "Yes",
-      "reasonAndProposedFrequency": "A reason and frequency"
     }
-  },
+  ],
   "hifRecovery": {
     "recovery": {
       "aimToRecoverFunding": "Yes",

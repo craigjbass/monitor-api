@@ -231,6 +231,11 @@
           {
             "description": "Descriptive describes"
           }
+        ],
+        "carriedForward": [
+          {
+            "description": "Describing"
+          }
         ]
       }
     }
@@ -408,6 +413,21 @@
       ]
     },
     "inYearHousingStarts": {
+      "newYear": {
+        "setNewAmounts": "Yes",
+        "newStarts": {
+          "quarter1": "8",
+          "quarter2": "16",
+          "quarter3": "32",
+          "quarter4": "64"
+        }
+      },
+      "currentAmounts": {
+        "quarter1": "4",
+        "quarter2": "8",
+        "quarter3": "16",
+        "quarter4": "32"
+      },
       "baselineAmounts": {
         "quarter1": "2",
         "quarter2": "4",
@@ -440,6 +460,21 @@
       ]
     },
     "inYearHousingCompletions": {
+      "newYear": {
+        "setNewAmounts": "Yes",
+        "newCompletions": {
+          "quarter1": "8",
+          "quarter2": "16",
+          "quarter3": "32",
+          "quarter4": "64"
+        }
+      },
+      "currentAmounts": {
+        "quarter1": "4",
+        "quarter2": "8",
+        "quarter3": "16",
+        "quarter4": "32"
+      },
       "baselineAmounts": {
         "quarter1": "20",
         "quarter2": "40",
@@ -820,8 +855,11 @@
   "reviewAndAssurance": {
     "date": "01/01/1970",
     "assuranceManagerAttendance": "Yes",
+    "meetingsAttended": "2",
+    "reviewComplete": "Yes",
     "infrastructureDelivery": [
       {
+        "infrastructureDesc": "desc",
         "details": "Some information",
         "riskRating": "High"
       }
@@ -848,6 +886,127 @@
     "recommendForRegularMonitoring": {
       "isRecommendForRegularMonitoring": "Yes",
       "reasonAndProposedFrequency": "A reason and frequency"
+    },
+    "overviewOfEngagement": "Good",
+    "issuesToRaise": "None",
+    "assuranceReview": {
+      "assuranceManagerAttendance": "Yes",
+      "rmReviewComplete": "Yes",
+      "summaryOfMeeting": "Summary",
+      "infrastructureDeliveryAssurance": [
+        {
+          "infrastructureDesc": "desc",
+          "reviewDetails": {
+            "details": "Some information",
+            "riskRating": "High"
+          },
+          "assuranceAgreement": {
+            "RAGAgreement": "No",
+            "commentary": "Comment",
+            "recommendedRAG": "Green"
+          }
+        }
+      ],
+      "hifFundedFinancials": {
+        "reviewDetails": {
+          "summary": "The summary",
+          "riskRating": "High"
+        },
+        "assuranceAgreement": {
+          "RAGAgreement": "No",
+          "commentary": "Funded",
+          "recommendedRAG": "Green"
+        }
+      },
+      "hifWiderScheme": {
+        "reviewDetails": {
+          "summary": "The summary",
+          "riskRating": "High"
+        },
+        "assuranceAgreement": {
+          "RAGAgreement": "No",
+          "commentary": "wider",
+          "recommendedRAG": "Green"
+        }
+      },
+      "outputForecast": {
+        "reviewDetails": {
+          "summary": "The summary",
+          "riskRating": "High"
+        },
+        "assuranceAgreement": {
+          "RAGAgreement": "No",
+          "commentary": "output",
+          "recommendedRAG": "Green"
+        }
+      },
+      "barriers": {
+        "significantIssues": [{
+          "overview": "Some information",
+          "barrierType": "Other",
+          "details": "Some details"
+        }],
+        "assuranceAgreementRed": {
+          "agreementWithBarriers": "Yes",
+          "commentary": "Red Barriers",
+          "recommendedSignificantIssues": [{
+            "overview": "Different information",
+            "barrierType": "Other",
+            "details": "Some details"
+          }]
+        },
+        "liveIssues": [{
+          "overview": "Some information",
+          "barrierType": "Other",
+          "details": "Some details"
+        }],
+        "assuranceAgreementAmber": {
+          "agreementWithBarriers": "Yes",
+          "commentary": "Red Barriers",
+          "recommendedLiveIssues": [{
+            "overview": "Different information",
+            "barrierType": "Other",
+            "details": "Some details"
+          }]
+        }
+      },
+      "overallRAGRating": {
+        "rating": "Yellow",
+        "reason": "yellowing"
+      },
+      "overallCommentary": "Overall commentary",
+      "riskAssessmentSpend": {
+        "currentYear": "risky",
+        "nextYear": "more risky"
+      },
+      "riskAssessmentOutputs": {
+        "currentYear": "less risky",
+        "nextYear": "not risky"
+      },
+      "raisedIssues": {
+        "issuesRaisedReview": "Issues",
+        "anyIssuesToEscalate": "Yes",
+        "escalationProposals": "Lots yes"
+      },
+      "moreRegularMonitoring": {
+        "recommendForRegularMonitoring": {
+          "isRecommendForRegularMonitoring": "Yes",
+          "reasonAndProposedFrequency": "A reason and frequency"
+        },
+        "moreMonitoringRequired": "Monitor",
+        "requiredFrequency": "Monthly"
+
+      },
+      "commentary": "Good",
+      "infrastructureDeliveryCopy": [
+        {
+          "infrastructureDesc": "desc",
+          "reviewDetails": {
+            "details": "Some information",
+            "riskRating": "High"
+          }
+        }
+      ]
     }
   },
   "hifRecovery": {

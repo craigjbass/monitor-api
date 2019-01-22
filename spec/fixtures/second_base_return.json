@@ -14,6 +14,7 @@
           "planningSubmitted": {
             "baseline": "2020-01-01",
             "previousReturn": null,
+            "percentComplete": "12",
             "status": "Completed",
             "completedDate": "111",
             "onCompletedReference": "REFPLAN"
@@ -21,6 +22,7 @@
           "planningGranted": {
             "baseline": "2020-02-01",
             "previousReturn": null,
+            "percentComplete": "34",
             "status": "On Schedule",
             "completedDate": "222"
           }
@@ -34,12 +36,14 @@
             "previousReturn": null,
             "status": "On Shedule",
             "completedDate": "211",
+            "percentComplete": "45",
             "onCompletedReference": "REF2PLAN"
           },
           "granted": {
             "baseline": "2020-04-01",
             "previousReturn": null,
             "status": "Delayed",
+            "percentComplete": "56",
             "completedDate": "333"
           }
         },
@@ -58,15 +62,16 @@
         "laHasControlOfSite": "Yes",
         "laDoesNotControlSite": {
           "whoOwnsSite": "Dave",
-          "landAcquisitionRequired": "Yes",
-          "howManySitesToAquire": "10",
-          "toBeAquiredBy": "LA",
-          "summaryOfAcquisitionRequired": "Summary of critical path",
+          "landAcquisitionRequired": "No",
+          "howManySitesToAquire": "23",
+          "toBeAquiredBy": "me",
+          "summaryOfAcquisitionRequired": "path",
           "allLandAssemblyAchieved": {
-            "baseline": "2020-01-01",
+            "baseline": "01/01/01",
             "status": "complete",
             "completedDate": "today",
-            "previousReturn": "Tomorrow"
+            "previousReturn": "Tomorrow",
+            "percentComplete": "89"
           }
         }
       },
@@ -135,39 +140,41 @@
     {
       "descriptionOfInfrastructure": "A house of cats",
       "fundingStack": {
-        "fundedThroughHIFbaseline": "Yes",
-        "descriptionOfFundingStack": "describe",
-        "fundedThroughHIF": "Yes",
+        "fundedThroughHIF": {
+          "fundedThroughHIFbaseline": "Yes",
+          "descriptionOfFundingStack": "describe",
+          "fundedThroughHIFCurrent": "Yes",
+          "hifSpend": {
+            "baseline": "10000",
+            "currentAmount": "23",
+            "lastReturn": "23"
+          },
+          "public": {
+            "baseline": "5000",
+            "lastReturn": "23",
+            "currentAmount": "23",
+            "balancesSecured": {
+              "securedAgainstBaselineLastReturn": "123"
+            },
+            "amountSecuredLastReturn": "12"
+          },
+          "private": {
+            "lastReturn": "12",
+            "currentAmount": "12",
+            "baseline": "5000",
+            "balancesSecured": {
+              "securedAgainstBaselineLastReturn": "124"
+            },
+            "amountSecuredLastReturn": "13"
+          }
+        },
         "hifSpendSinceLastReturn": {
           "cumulativeExCurrentReturn": null
-        },
-        "hifSpend": {
-          "baseline": "10000",
-          "currentAmount": "23",
-          "lastReturn": "23"
         },
         "totalCost": {
           "baseline": "20000",
           "lastReturn": "34",
           "currentAmount": "34"
-        },
-        "public": {
-          "baseline": "5000",
-          "lastReturn": "23",
-          "currentAmount": "23",
-          "balancesSecured": {
-            "securedAgainstBaselineLastReturn": "123"
-          },
-          "amountSecuredLastReturn": "12"
-        },
-        "private": {
-          "lastReturn": "12",
-          "currentAmount": "12",
-          "baseline": "5000",
-          "balancesSecured": {
-            "securedAgainstBaselineLastReturn": "124"
-          },
-          "amountSecuredLastReturn": "13"
         }
       }
     }
@@ -202,12 +209,46 @@
       ],
       "currentReturnAmounts": [{ "period": "18/19" }, { "period": "19/20" }]
     },
+    "inYearHousingStarts": {
+      "actualAmounts": {
+        "quarter1": null,
+        "quarter2": null,
+        "quarter3": null,
+        "quarter4": null
+      },
+      "currentAmounts": {
+        "quarter1": "12",
+        "quarter2": "23",
+        "quarter3": "34",
+        "quarter4": "45"
+      },
+      "baselineAmounts": {
+        "quarter1": "12",
+        "quarter2": "23",
+        "quarter3": "34",
+        "quarter4": "45"
+      }
+    },
     "housingCompletions": {
       "baselineAmounts": [
         { "period": "18/19", "baselineAmounts": "0" },
         { "period": "19/20", "baselineAmounts": "50" }
       ],
       "currentReturnAmounts": [{ "period": "18/19" }, { "period": "19/20" }]
+    },
+    "inYearHousingCompletions": {
+      "currentAmounts": {
+        "quarter1": "12",
+        "quarter2": "23",
+        "quarter3": "34",
+        "quarter4": "45"
+      },
+      "baselineAmounts": {
+        "quarter1": "12",
+        "quarter2": "23",
+        "quarter3": "34",
+        "quarter4": "45"
+      }
     }
   },
   "outputsActuals": {
@@ -254,5 +295,12 @@
       "hifTotalFundingRequest": "10000",
       "hifSpendToDate": null
     }
+  },
+  "reviewAndAssurance": {
+    "infrastructureDelivery": [
+      {
+        "infrastructureDesc": "A house of cats"
+      }
+    ]
   }
 }

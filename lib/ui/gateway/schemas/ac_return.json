@@ -1863,8 +1863,8 @@
                   "Not in allocated for housing in Local Plan",
                   "Provisional allocation for housing",
                   "Allocated for housing in Local Plan",
-                  "Outline or Reserved Matters",
-                  "Consent granted"
+                  "Outline Consent granted",
+                  "Reserved Matters granted"
                 ]
               },
               "changeRequired": {
@@ -2365,7 +2365,7 @@
           "properties": {
             "TotalFundingRequest": {
               "type": "string",
-              "title": "Total Funding Request",
+              "title": "Total Grant in Contract",
               "s151WriteOnly": true,
               "currency": true
             },

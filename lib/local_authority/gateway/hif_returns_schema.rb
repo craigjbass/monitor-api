@@ -124,6 +124,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                     percentComplete: {
                                       type: 'string',
                                       title: 'Percent Complete',
+                                      sourceKey: %i[return_data infrastructures planning outlinePlanning planningSubmitted percentComplete],
                                       percentage: true
                                     },
                                     completedDate: {
@@ -193,6 +194,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                     percentComplete: {
                                       type: 'string',
                                       title: 'Percent Complete',
+                                      sourceKey: %i[return_data infrastructures planning outlinePlanning planningGranted percentComplete],
                                       percentage: true
                                     },
                                     completedDate: {
@@ -311,6 +313,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                     percentComplete: {
                                       type: 'string',
                                       title: 'Percent Complete',
+                                      sourceKey: %i[return_data infrastructures planning fullPlanning submitted percentComplete],
                                       percentage: true
                                     },
                                     completedDate: {
@@ -382,6 +385,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                     percentComplete: {
                                       type: 'string',
                                       title: 'Percent Complete',
+                                      sourceKey: %i[return_data infrastructures planning fullPlanning granted percentComplete],
                                       percentage: true
                                     },
                                     completedDate: {
@@ -583,7 +587,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                 landAcquisitionRequired: {
                                   type: 'string',
                                   title: 'Land acquisition required (related to infrastructure)?',
-                                  sourceKey: %i[baseline_data infrastructures landOwnership landAcquisitionRequired],
+                                  sourceKey: %i[baseline_data infrastructures landOwnership isLandAcquisitionRequired],
                                   readonly: true,
                                   radio: true,
                                   enum: %w[Yes No]
@@ -600,21 +604,21 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                         howManySitesToAquire: {
                                           type: 'string',
                                           title: 'Number of Sites to aquire?',
-                                          sourceKey: %i[baseline_data infrastructures landOwnership howManySitesToAcquire],
+                                          sourceKey: %i[baseline_data infrastructures landOwnership sitesToAcquire],
                                           readonly: true
                                         },
                                         # from landOwnership.toBeAquiredBy
                                         toBeAquiredBy: {
                                           type: 'string',
                                           title: 'Acquired by LA or Developer?',
-                                          sourceKey: %i[baseline_data infrastructures landOwnership toBeAcquiredBy],
+                                          sourceKey: %i[baseline_data infrastructures landOwnership acquiredBy],
                                           readonly: true
                                         },
                                         # from landOwnership.summaryOfCriticalPath
                                         summaryOfAcquisitionRequired: {
                                           type: 'string',
                                           title: 'Summary of acquisition required',
-                                          sourceKey: %i[baseline_data infrastructures landOwnership summaryOfCriticalPath],
+                                          sourceKey: %i[baseline_data infrastructures landOwnership criticalPath],
                                           readonly: true
                                         },
                                         allLandAssemblyAchieved: {
@@ -627,7 +631,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                               type: 'string',
                                               format: 'date',
                                               title: 'Baseline Target',
-                                              sourceKey: %i[baseline_data infrastructures landOwnership targetDateToAcquire],
+                                              sourceKey: %i[baseline_data infrastructures landOwnership dateToAcquire],
                                               readonly: true
                                             },
                                             previousReturn: {
@@ -672,6 +676,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                             percentComplete: {
                                               type: 'string',
                                               title: 'Percent Complete',
+                                              sourceKey: %i[return_data infrastructures landOwnership laDoesNotControlSite allLandAssemblyAchieved percentComplete],                                              
                                               percentage: true
                                             },
                                             completedDate: {
@@ -1006,7 +1011,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                             type: 'string',
                             format: 'date',
                             readonly: true,
-                            sourceKey: %i[return_data infrastructures milestones cumulativeadditionalMilestones milestoneCompletedDate],                      
+                            sourceKey: %i[return_data infrastructures milestones cumulativeadditionalMilestones milestoneCompletedDate],
                             hidden: true,
                             title: 'On Completed Date (Calculated)'
                           }
@@ -1194,7 +1199,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           },
                           riskMetDate: {
                             type: 'string',
-                            enum: %w[Yes No],                          
+                            enum: %w[Yes No],
                             title: 'Risk Met?',
                             sourceKey: %i[return_data infrastructures risks baselineRisks riskMetDate]
                           },
@@ -1339,7 +1344,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                         horizontal: true,
                         properties: {
                           description: {
-                            sourceKey: %i[return_data infrastructures progress actionsForNextQuarter description],
+                            sourceKey: %i[return_data infrastructures progress carriedForward description],
                             type: 'string',
                             readonly: true,
                             # from actions for next quarter
@@ -1362,6 +1367,20 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                       type: 'array',
                       title: 'Actions for next quarter',
                       addable: true,
+                      items: {
+                        type: 'object',
+                        properties: {
+                          description: {
+                            type: 'string',
+                            title: 'Action Description'
+                          }
+                        }
+                      }
+                    },
+                    carriedForward: {
+                      type: 'array',
+                      title: 'Pulled forward',
+                      hidden: true,
                       items: {
                         type: 'object',
                         properties: {
@@ -1459,37 +1478,37 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                         period: {
                           title: "Period",
                           type: "string",
-                          sourceKey: %i[return_data fundingProfiles currentFunding forecast period],
+                          sourceKey: [:return_or_baseline, [:baseline_data, :fundingProfiles, :period],[:return_data, :fundingProfiles, :currentFunding, :forecast, :period]],
                           hidden: true
                         },
                         instalment1: {
                           title: "1st Quarter",
                           type: "string",
-                          sourceKey: %i[return_data fundingProfiles currentFunding forecast instalment1],
+                          sourceKey: [:return_or_baseline, [:baseline_data, :fundingProfiles, :instalment1],[:return_data, :fundingProfiles, :currentFunding, :forecast, :instalment1]],
                           hidden: true
                         },
                         instalment2: {
                           title: "2nd Quarter",
                           type: "string",
-                          sourceKey: %i[return_data fundingProfiles currentFunding forecast instalment2],
+                          sourceKey: [:return_or_baseline, [:baseline_data, :fundingProfiles, :instalment2],[:return_data, :fundingProfiles, :currentFunding, :forecast, :instalment2]],
                           hidden: true
                         },
                         instalment3: {
                           title: "3rd Quarter",
                           type: "string",
-                          sourceKey: %i[return_data fundingProfiles currentFunding forecast instalment3],
+                          sourceKey: [:return_or_baseline, [:baseline_data, :fundingProfiles, :instalment3],[:return_data, :fundingProfiles, :currentFunding, :forecast, :instalment3]],
                           hidden: true
                         },
                         instalment4: {
                           title: "4th Quarter",
                           type: "string",
-                          sourceKey: %i[return_data fundingProfiles currentFunding forecast instalment4],
+                          sourceKey: [:return_or_baseline, [:baseline_data, :fundingProfiles, :instalment4],[:return_data, :fundingProfiles, :currentFunding, :forecast, :instalment4]],
                           hidden: true
                         },
                         total: {
                           title: "Total",
                           type: "string",
-                          sourceKey: %i[return_data fundingProfiles currentFunding forecast total],
+                          sourceKey: [:return_or_baseline, [:baseline_data, :fundingProfiles, :total],[:return_data, :fundingProfiles, :currentFunding, :forecast, :total]],
                           hidden: true
                         }
                       }
@@ -1559,15 +1578,10 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                   type: 'string',
                                   currency: true
                                 },
-                                totalHolder: {
-                                  type: 'object',
-                                  properties: {
-                                    total: {
-                                      title: 'Total',
-                                      type: 'string',
-                                      currency: true
-                                    }
-                                  }
+                                total: {
+                                  title: 'Total',
+                                  type: 'string',
+                                  currency: true
                                 }
                               }
                             }
@@ -2161,6 +2175,91 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
           type: "object",
           title: "In Year Housing Starts",
           properties: {
+            newYear: {
+              type: "object",
+              title: "",
+              properties: {
+                setNewAmounts: {
+                  type: "string",
+                  title: "  ",
+                  enum: ["Set this years forecasted amounts.", "This years amounts have already been set."],
+                  radio: true
+                }
+              },
+              dependencies: {
+                setNewAmounts: {
+                  oneOf: [
+                    {
+                      properties: {
+                        setNewAmounts: {
+                          enum: ["Set this years forecasted housing starts."]
+                        },
+                        newStarts: {
+                          type: "object",
+                          horizontal: true,
+                          title: "This Years Forecasted Amounts",
+                          properties: {
+                            quarter1: {
+                              type: "string",
+                              title: "Q1 Current Year"
+                            },
+                            quarter2: {
+                              type: "string",
+                              title: "Q2 Current Year"
+                            },
+                            quarter3: {
+                              type: "string",
+                              title: "Q3 Current Year"
+                            },
+                            quarter4: {
+                              type: "string",
+                              title: "Q4 Current Year"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      properties: {
+                        setNewAmounts: {
+                          enum: ["This years housing starts have already been set."]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            currentAmounts: {
+              type: "object",
+              title: "Forecasted Amounts",
+              properties: {
+                quarter1: {
+                  type: "string",
+                  hidden: true,
+                  sourceKey: %i[return_data outputsForecast inYearHousingStarts currentAmounts quarter1],
+                  title: "Q1 Current Year"
+                },
+                quarter2: {
+                  type: "string",
+                  hidden: true,
+                  sourceKey: %i[return_data outputsForecast inYearHousingStarts currentAmounts quarter2],
+                  title: "Q2 Current Year"
+                },
+                quarter3: {
+                  type: "string",
+                  hidden: true,
+                  sourceKey: %i[return_data outputsForecast inYearHousingStarts currentAmounts quarter3],
+                  title: "Q3 Current Year"
+                },
+                quarter4: {
+                  type: "string",
+                  hidden: true,
+                  sourceKey: %i[return_data outputsForecast inYearHousingStarts currentAmounts quarter4],
+                  title: "Q4 Current Year"
+                }
+              }
+            },
             baselineAmounts: {
               type: "object",
               horizontal: true,
@@ -2168,18 +2267,22 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
               properties: {
                 quarter1:{
                   type: "string",
+                  sourceKey: %i[return_data outputsForecast inYearHousingStarts currentAmounts quarter1],
                   title: "Q1 Current Year"
                 },
                 quarter2:{
                   type: "string",
+                  sourceKey: %i[return_data outputsForecast inYearHousingStarts currentAmounts quarter2],
                   title: "Q2 Current Year"
                 },
                 quarter3:{
                   type: "string",
+                  sourceKey: %i[return_data outputsForecast inYearHousingStarts currentAmounts quarter3],
                   title: "Q3 Current Year"
                 },
                 quarter4:{
                   type: "string",
+                  sourceKey: %i[return_data outputsForecast inYearHousingStarts currentAmounts quarter4],
                   title: "Q4 Current Year"
                 }
               }
@@ -2191,18 +2294,22 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
               properties: {
                 quarter1:{
                   type: "string",
+                  sourceKey: %i[return_data outputsForecast inYearHousingStarts actualAmounts quarter1],
                   title: "Q1 Current Year"
                 },
                 quarter2:{
                   type: "string",
+                  sourceKey: %i[return_data outputsForecast inYearHousingStarts actualAmounts quarter2],
                   title: "Q2 Current Year"
                 },
                 quarter3:{
                   type: "string",
+                  sourceKey: %i[return_data outputsForecast inYearHousingStarts actualAmounts quarter3],
                   title: "Q3 Current Year"
                 },
                 quarter4:{
                   type: "string",
+                  sourceKey: %i[return_data outputsForecast inYearHousingStarts actualAmounts quarter4],
                   title: "Q4 Current Year"
                 }
               }
@@ -2289,8 +2396,93 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
         },
         inYearHousingCompletions: {
           type: "object",
-          title: "In Year Housing Starts",
+          title: "In Year Housing Completions",
           properties: {
+            newYear: {
+              type: "object",
+              title: "",
+              properties: {
+                setNewAmounts: {
+                  type: "string",
+                  title: "  ",
+                  enum: ["Set this years forecasted amounts.", "This years amounts have already been set."],
+                  radio: true
+                }
+              },
+              dependencies: {
+                setNewAmounts: {
+                  oneOf: [
+                    {
+                      properties: {
+                        setNewAmounts: {
+                          enum: ["Set this years forecasted housing starts."]
+                        },
+                        newCompletions: {
+                          type: "object",
+                          horizontal: true,
+                          title: "This Years Forecasted Amounts",
+                          properties: {
+                            quarter1: {
+                              type: "string",
+                              title: "Q1 Current Year"
+                            },
+                            quarter2: {
+                              type: "string",
+                              title: "Q2 Current Year"
+                            },
+                            quarter3: {
+                              type: "string",
+                              title: "Q3 Current Year"
+                            },
+                            quarter4: {
+                              type: "string",
+                              title: "Q4 Current Year"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      properties: {
+                        setNewAmounts: {
+                          enum: ["This years housing starts have already been set."]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            currentAmounts: {
+              type: "object",
+              title: "Forecasted Amounts",
+              properties: {
+                quarter1: {
+                  type: "string",
+                  hidden: true,
+                  sourceKey: %i[return_data outputsForecast inYearHousingCompletions currentAmounts quarter1],
+                  title: "Q1 Current Year"
+                },
+                quarter2: {
+                  type: "string",
+                  hidden: true,
+                  sourceKey: %i[return_data outputsForecast inYearHousingCompletions currentAmounts quarter2],
+                  title: "Q2 Current Year"
+                },
+                quarter3: {
+                  type: "string",
+                  hidden: true,
+                  sourceKey: %i[return_data outputsForecast inYearHousingCompletions currentAmounts quarter3],
+                  title: "Q3 Current Year"
+                },
+                quarter4: {
+                  type: "string",
+                  hidden: true,
+                  sourceKey: %i[return_data outputsForecast inYearHousingCompletions currentAmounts quarter4],
+                  title: "Q4 Current Year"
+                }
+              }
+            },
             baselineAmounts: {
               type: "object",
               horizontal: true,
@@ -2298,18 +2490,22 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
               properties: {
                 quarter1:{
                   type: "string",
+                  sourceKey: %i[return_data outputsForecast inYearHousingCompletions currentAmounts quarter1],
                   title: "Q1 Current Year"
                 },
                 quarter2:{
                   type: "string",
+                  sourceKey: %i[return_data outputsForecast inYearHousingCompletions currentAmounts quarter2],
                   title: "Q2 Current Year"
                 },
                 quarter3:{
                   type: "string",
+                  sourceKey: %i[return_data outputsForecast inYearHousingCompletions currentAmounts quarter3],
                   title: "Q3 Current Year"
                 },
                 quarter4:{
                   type: "string",
+                  sourceKey: %i[return_data outputsForecast inYearHousingCompletions currentAmounts quarter4],
                   title: "Q4 Current Year"
                 }
               }
@@ -5094,6 +5290,11 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
           type: "string",
           format: "date"
         },
+        reviewComplete: {
+          title: '',
+          type: 'string',
+          enum: ['Yes', 'No']
+        },
         assuranceManagerAttendance: {
           title: "Was the assurance manager in attendance?",
           type: "string",
@@ -5111,6 +5312,11 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
             title: "",
             horizontal: true,
             properties: {
+              infrastructureDesc: {
+                type: 'string',
+                hidden: true,
+                sourceKey: %i[baseline_data  infrastructures description]
+              },
               details: {
                 type: "string",
                 title: "Infrastructure Delivery",
@@ -5477,6 +5683,1199 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                       title: "Reason And Proposed Frequency",
                       type: "string",
                       extendedText: true
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        overviewOfEngagement: {
+          title: "Overview of engagement since last review",
+          type: "string",
+          extendedText: true
+        },
+        issuesToRaise: {
+          title: "Issues to Raise",
+          type: "string",
+          extendedText: true
+        },
+        assuranceReview: {
+          type: "object",
+          title: "Assurance Review",
+          calculation: "set(formData, 'infrastructureDeliveryAssurance', setArrayField(get(formData,'infrastructureDeliveryCopy'), ['infrastructureDesc'], get(formData, 'infrastructureDeliveryAssurance'))); set(formData, 'infrastructureDeliveryAssurance', setArrayField(get(formData,'infrastructureDeliveryCopy'), ['reviewDetails'], get(formData, 'infrastructureDeliveryAssurance')));",
+          description: "Only to be completed by the assurance team. This page will only become available when the RM review is complete.",
+          properties: {
+            assuranceManagerAttendance: {
+              title: "Was the assurance manager in attendance?",
+              type: "string",
+              radio: true,
+              readonly: true,
+              enum: ["Yes", "No"]          
+            },
+            rmReviewComplete: {
+              title: "",
+              type: "string",
+              hidden: true,
+              enum: ["Yes", "No"]
+            }
+          },
+          dependencies: {
+            rmReviewComplete: {
+              oneOf: [
+                {
+                  properties: {
+                    rmReviewComplete: {
+                      enum: ["Yes"]
+                    },
+                    summaryOfMeeting: {
+                      type: "string",
+                      title: "Summary Of Meeting",
+                      extendedText: true
+                    },
+                    infrastructureDeliveryAssurance: {
+                      type: "array",
+                      title: "Summary of Infrastructures",
+                      items: {
+                        type: "object",
+                        title: "",
+                        properties: {
+                          infrastructureDesc: {
+                            type: "string",
+                            readonly: true,
+                            title: "Infrastructure Description"
+                          },
+                          reviewDetails: {
+                            type: "object",
+                            horizontal: true,
+                            title: "",
+                            properties: {
+                              details: {
+                                type: "string",
+                                readonly: true,
+                                title: "Summary of Infrastructure Delivery"
+                              },
+                              riskRating: {
+                                type: "string",
+                                title: "Risk Rating",
+                                readonly: true,
+                                enum: [
+                                  "High",
+                                  "Medium High",
+                                  "Medium Low",
+                                  "Low",
+                                  "Achieved"
+                                ]
+                              }
+                            }
+                          },
+                          assuranceAgreement: {
+                            type: "object",
+                            title: "",
+                            properties: {
+                              RAGAgreement: {
+                                type: "string",
+                                title: "Agreement with RAG?",
+                                enum: ["Yes", "No"]
+                              }
+                            },
+                            dependencies: {
+                              RAGAgreement: {
+                                oneOf: [
+                                  {
+                                    properties: {
+                                      RAGAgreement: {
+                                        enum: ["Yes"]
+                                      },
+                                      commentary: {
+                                        title: "Commentary",
+                                        type: "string",
+                                        extendedText: true
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      RAGAgreement: {
+                                        enum: ["No"]
+                                      },
+                                      recommendedRAG: {
+                                        title: "Recommended RAG",
+                                        type: "string",
+                                        enum: [
+                                          "High",
+                                          "Medium High",
+                                          "Medium Low",
+                                          "Low",
+                                          "Achieved"
+                                        ]
+                                      },
+                                      commentary: {
+                                        title: "Commentary",
+                                        type: "string",
+                                        extendedText: true
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    hifFundedFinancials: {
+                      type: "object",
+                      title: "HIF Funded Financials",
+                      properties: {
+                        reviewDetails: {
+                          type: "object",
+                          title: "",
+                          horizontal: true,
+                          properties: {
+                            summary: {
+                              title: "Summary",
+                              readonly: true,
+                              type: "string"
+                            },
+                            riskRating: {
+                              type: "string",
+                              title: "Risk Rating",
+                              readonly: true,
+                              enum: [
+                                "High",
+                                "Medium High",
+                                "Medium Low",
+                                "Low",
+                                "Achieved"
+                              ]
+                            }
+                          }
+                        },
+                        assuranceAgreement: {
+                          type: "object",
+                          title: "",
+                          properties: {
+                            RAGAgreement: {
+                              type: "string",
+                              title: "Agreement with RAG?",
+                              enum: ["Yes", "No"]
+                            }
+                          },
+                          dependencies: {
+                            RAGAgreement: {
+                              oneOf: [
+                                {
+                                  properties: {
+                                    RAGAgreement: {
+                                      enum: ["Yes"]
+                                    },
+                                    commentary: {
+                                      title: "Commentary",
+                                      type: "string",
+                                      extendedText: true
+                                    }
+                                  }
+                                },
+                                {
+                                  properties: {
+                                    RAGAgreement: {
+                                      enum: ["No"]
+                                    },
+                                    recommendedRAG: {
+                                      title: "Recommended RAG",
+                                      type: "string",
+                                      enum: [
+                                        "High",
+                                        "Medium High",
+                                        "Medium Low",
+                                        "Low",
+                                        "Achieved"
+                                      ]
+                                    },
+                                    commentary: {
+                                      title: "Commentary",
+                                      type: "string",
+                                      extendedText: true
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    hifWiderScheme: {
+                      type: "object",
+                      title: "HIF Wider Scheme",
+                      properties: {
+                        reviewDetails: {
+                          type: "object",
+                          title: "",
+                          horizontal: true,
+                          properties: {
+                            summary: {
+                              title: "Summary",
+                              readonly: true,
+                              type: "string"
+                            },
+                            riskRating: {
+                              type: "string",
+                              title: "Risk Rating",
+                              readonly: true,
+                              enum: [
+                                "High",
+                                "Medium High",
+                                "Medium Low",
+                                "Low",
+                                "Achieved"
+                              ]
+                            }
+                          }
+                        },
+                        assuranceAgreement: {
+                          type: "object",
+                          title: "",
+                          properties: {
+                            RAGAgreement: {
+                              type: "string",
+                              title: "Agreement with RAG?",
+                              enum: ["Yes", "No"]
+                            }
+                          },
+                          dependencies: {
+                            RAGAgreement: {
+                              oneOf: [
+                                {
+                                  properties: {
+                                    RAGAgreement: {
+                                      enum: ["Yes"]
+                                    },
+                                    commentary: {
+                                      title: "Commentary",
+                                      type: "string",
+                                      extendedText: true
+                                    }
+                                  }
+                                },
+                                {
+                                  properties: {
+                                    RAGAgreement: {
+                                      enum: ["No"]
+                                    },
+                                    recommendedRAG: {
+                                      title: "Recommended RAG",
+                                      type: "string",
+                                      enum: [
+                                        "High",
+                                        "Medium High",
+                                        "Medium Low",
+                                        "Low",
+                                        "Achieved"
+                                      ]
+                                    },
+                                    commentary: {
+                                      title: "Commentary",
+                                      type: "string",
+                                      extendedText: true
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    outputForecast: {
+                      type: "object",
+                      title: "Output Forecast",
+                      properties: {
+                        reviewDetails: {
+                          type: "object",
+                          title: "",
+                          horizontal: true,
+                          properties: {
+                            summary: {
+                              title: "Summary",
+                              readonly: true,
+                              type: "string"
+                            },
+                            riskRating: {
+                              type: "string",
+                              readonly: true,
+                              title: "Risk Rating",
+                              enum: [
+                                "High",
+                                "Medium High",
+                                "Medium Low",
+                                "Low",
+                                "Achieved"
+                              ]
+                            }
+                          }
+                        },
+                        assuranceAgreement: {
+                          type: "object",
+                          title: "",
+                          properties: {
+                            RAGAgreement: {
+                              type: "string",
+                              title: "Agreement with RAG?",
+                              enum: ["Yes", "No"]
+                            }
+                          },
+                          dependencies: {
+                            RAGAgreement: {
+                              oneOf: [
+                                {
+                                  properties: {
+                                    RAGAgreement: {
+                                      enum: ["Yes"]
+                                    },
+                                    commentary: {
+                                      title: "Commentary",
+                                      type: "string",
+                                      extendedText: true
+                                    }
+                                  }
+                                },
+                                {
+                                  properties: {
+                                    RAGAgreement: {
+                                      enum: ["No"]
+                                    },
+                                    recommendedRAG: {
+                                      title: "Recommended RAG",
+                                      type: "string",
+                                      enum: [
+                                        "High",
+                                        "Medium High",
+                                        "Medium Low",
+                                        "Low",
+                                        "Achieved"
+                                      ]
+                                    },
+                                    commentary: {
+                                      title: "Commentary",
+                                      type: "string",
+                                      extendedText: true
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    barriers: {
+                      type: "object",
+                      title: "Barriers",
+                      properties: {
+                        significantIssues: {
+                          type: "array",
+                          title: "Significant Issues",
+                          items: {
+                            type: "object",
+                            properties: {
+                              barrierType: {
+                                title: "Type",
+                                readonly: true,
+                                type: "string",
+                                enum: [
+                                  "Land acquisition",
+                                  "Site Access - Road",
+                                  "Site Access - Railway",
+                                  "Flood risk",
+                                  "Funding - sources / cashflow",
+                                  "Planning",
+                                  "Land Remediation",
+                                  "Utilities Provision",
+                                  "Procurement",
+                                  "Other"
+                                ]
+                              },
+                              overview: {
+                                title: "Overview",
+                                readonly: true,
+                                type: "string",
+                                extendedText: true
+                              }
+                            },
+                            dependencies: {
+                              barrierType: {
+                                oneOf: [
+                                  {
+                                    properties: {
+                                      barrierType: {
+                                        type: "string",
+                                        enum: ["Land acquisition"]
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      barrierType: {
+                                        type: "string",
+                                        enum: ["Site Access - Road"]
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      barrierType: {
+                                        type: "string",
+                                        enum: ["Site Access - Railway"]
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      barrierType: {
+                                        type: "string",
+                                        enum: ["Flood risk"]
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      barrierType: {
+                                        type: "string",
+                                        enum: ["Funding - sources / cashflow"]
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      barrierType: {
+                                        type: "string",
+                                        enum: ["Planning"]
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      barrierType: {
+                                        type: "string",
+                                        enum: ["Land Remediation"]
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      barrierType: {
+                                        type: "string",
+                                        enum: ["Utilities Provision"]
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      barrierType: {
+                                        type: "string",
+                                        enum: ["Procurement"]
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      barrierType: {
+                                        type: "string",
+                                        enum: ["Other"]
+                                      },
+                                      details: {
+                                        title: "Details",
+                                        type: "string"
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        assuranceAgreementRed: {
+                          type: "object",
+                          title: "",
+                          properties: {
+                            agreementWithBarriers: {
+                              type: "string",
+                              title: "Agreement with Red Barriers?",
+                              enum: ["Yes", "No"]
+                            }
+                          },
+                          dependencies: {
+                            agreementWithBarriers: {
+                              oneOf: [
+                                {
+                                  properties: {
+                                    agreementWithBarriers: {
+                                      enum: ["Yes"]
+                                    },
+                                    commentary: {
+                                      title: "Commentary",
+                                      type: "string",
+                                      extendedText: true
+                                    }
+                                  }
+                                },
+                                {
+                                  properties: {
+                                    agreementWithBarriers: {
+                                      enum: ["No"]
+                                    },
+                                    recommendedSignificantIssues: {
+                                      type: "array",
+                                      title: "Recommended Significant Issues",
+                                      addable: true,
+                                      items: {
+                                        type: "object",
+                                        properties: {
+                                          barrierType: {
+                                            title: "Type",
+                                            type: "string",
+                                            enum: [
+                                              "Land acquisition",
+                                              "Site Access - Road",
+                                              "Site Access - Railway",
+                                              "Flood risk",
+                                              "Funding - sources / cashflow",
+                                              "Planning",
+                                              "Land Remediation",
+                                              "Utilities Provision",
+                                              "Procurement",
+                                              "Other"
+                                            ]
+                                          },
+                                          overview: {
+                                            title: "Overview",
+                                            type: "string",
+                                            extendedText: true
+                                          }
+                                        },
+                                        dependencies: {
+                                          barrierType: {
+                                            oneOf: [
+                                              {
+                                                properties: {
+                                                  barrierType: {
+                                                    type: "string",
+                                                    enum: ["Land acquisition"]
+                                                  }
+                                                }
+                                              },
+                                              {
+                                                properties: {
+                                                  barrierType: {
+                                                    type: "string",
+                                                    enum: ["Site Access - Road"]
+                                                  }
+                                                }
+                                              },
+                                              {
+                                                properties: {
+                                                  barrierType: {
+                                                    type: "string",
+                                                    enum: ["Site Access - Railway"]
+                                                  }
+                                                }
+                                              },
+                                              {
+                                                properties: {
+                                                  barrierType: {
+                                                    type: "string",
+                                                    enum: ["Flood risk"]
+                                                  }
+                                                }
+                                              },
+                                              {
+                                                properties: {
+                                                  barrierType: {
+                                                    type: "string",
+                                                    enum: ["Funding - sources / cashflow"]
+                                                  }
+                                                }
+                                              },
+                                              {
+                                                properties: {
+                                                  barrierType: {
+                                                    type: "string",
+                                                    enum: ["Planning"]
+                                                  }
+                                                }
+                                              },
+                                              {
+                                                properties: {
+                                                  barrierType: {
+                                                    type: "string",
+                                                    enum: ["Land Remediation"]
+                                                  }
+                                                }
+                                              },
+                                              {
+                                                properties: {
+                                                  barrierType: {
+                                                    type: "string",
+                                                    enum: ["Utilities Provision"]
+                                                  }
+                                                }
+                                              },
+                                              {
+                                                properties: {
+                                                  barrierType: {
+                                                    type: "string",
+                                                    enum: ["Procurement"]
+                                                  }
+                                                }
+                                              },
+                                              {
+                                                properties: {
+                                                  barrierType: {
+                                                    type: "string",
+                                                    enum: ["Other"]
+                                                  },
+                                                  details: {
+                                                    title: "Details",
+                                                    type: "string"
+                                                  }
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    },
+                                    commentary: {
+                                      title: "Commentary",
+                                      type: "string",
+                                      extendedText: true
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        liveIssues: {
+                          type: "array",
+                          title: "Live Issues (with mitigation)",
+                          items: {
+                            type: "object",
+                            properties: {
+                              barrierType: {
+                                title: "Type",
+                                readonly: true,
+                                type: "string",
+                                enum: [
+                                  "Land acquisition",
+                                  "Site Access - Road",
+                                  "Site Access - Railway",
+                                  "Flood risk",
+                                  "Funding - sources / cashflow",
+                                  "Planning",
+                                  "Land Remediation",
+                                  "Utilities Provision",
+                                  "Procurement",
+                                  "Other"
+                                ]
+                              },
+                              overview: {
+                                title: "Overview",
+                                type: "string",
+                                readonly: true,
+                                extendedText: true
+                              }
+                            },
+                            dependencies: {
+                              barrierType: {
+                                oneOf: [
+                                  {
+                                    properties: {
+                                      barrierType: {
+                                        type: "string",
+                                        enum: ["Land acquisition"]
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      barrierType: {
+                                        type: "string",
+                                        enum: ["Site Access - Road"]
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      barrierType: {
+                                        type: "string",
+                                        enum: ["Site Access - Railway"]
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      barrierType: {
+                                        type: "string",
+                                        enum: ["Flood risk"]
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      barrierType: {
+                                        type: "string",
+                                        enum: ["Funding - sources / cashflow"]
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      barrierType: {
+                                        type: "string",
+                                        enum: ["Planning"]
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      barrierType: {
+                                        type: "string",
+                                        enum: ["Land Remediation"]
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      barrierType: {
+                                        type: "string",
+                                        enum: ["Utilities Provision"]
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      barrierType: {
+                                        type: "string",
+                                        enum: ["Procurement"]
+                                      }
+                                    }
+                                  },
+                                  {
+                                    properties: {
+                                      barrierType: {
+                                        type: "string",
+                                        enum: ["Other"]
+                                      },
+                                      details: {
+                                        title: "Details",
+                                        type: "string"
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        assuranceAgreementAmber: {
+                          type: "object",
+                          title: "",
+                          properties: {
+                            agreementWithBarriers: {
+                              type: "string",
+                              title: "Agreement with Amber Barriers?",
+                              enum: ["Yes", "No"]
+                            }
+                          },
+                          dependencies: {
+                            agreementWithBarriers: {
+                              oneOf: [
+                                {
+                                  properties: {
+                                    agreementWithBarriers: {
+                                      enum: ["Yes"]
+                                    },
+                                    commentary: {
+                                      title: "Commentary",
+                                      type: "string",
+                                      extendedText: true
+                                    }
+                                  }
+                                },
+                                {
+                                  properties: {
+                                    agreementWithBarriers: {
+                                      enum: ["No"]
+                                    },
+                                    recommendedLiveIssues: {
+                                      type: "array",
+                                      title: "Recommended Live Issues (with mitigation)",
+                                      addable: true,
+                                      items: {
+                                        type: "object",
+                                        properties: {
+                                          barrierType: {
+                                            title: "Type",
+                                            type: "string",
+                                            enum: [
+                                              "Land acquisition",
+                                              "Site Access - Road",
+                                              "Site Access - Railway",
+                                              "Flood risk",
+                                              "Funding - sources / cashflow",
+                                              "Planning",
+                                              "Land Remediation",
+                                              "Utilities Provision",
+                                              "Procurement",
+                                              "Other"
+                                            ]
+                                          },
+                                          overview: {
+                                            title: "Overview",
+                                            type: "string",
+                                            extendedText: true
+                                          }
+                                        },
+                                        dependencies: {
+                                          barrierType: {
+                                            oneOf: [
+                                              {
+                                                properties: {
+                                                  barrierType: {
+                                                    type: "string",
+                                                    enum: ["Land acquisition"]
+                                                  }
+                                                }
+                                              },
+                                              {
+                                                properties: {
+                                                  barrierType: {
+                                                    type: "string",
+                                                    enum: ["Site Access - Road"]
+                                                  }
+                                                }
+                                              },
+                                              {
+                                                properties: {
+                                                  barrierType: {
+                                                    type: "string",
+                                                    enum: ["Site Access - Railway"]
+                                                  }
+                                                }
+                                              },
+                                              {
+                                                properties: {
+                                                  barrierType: {
+                                                    type: "string",
+                                                    enum: ["Flood risk"]
+                                                  }
+                                                }
+                                              },
+                                              {
+                                                properties: {
+                                                  barrierType: {
+                                                    type: "string",
+                                                    enum: ["Funding - sources / cashflow"]
+                                                  }
+                                                }
+                                              },
+                                              {
+                                                properties: {
+                                                  barrierType: {
+                                                    type: "string",
+                                                    enum: ["Planning"]
+                                                  }
+                                                }
+                                              },
+                                              {
+                                                properties: {
+                                                  barrierType: {
+                                                    type: "string",
+                                                    enum: ["Land Remediation"]
+                                                  }
+                                                }
+                                              },
+                                              {
+                                                properties: {
+                                                  barrierType: {
+                                                    type: "string",
+                                                    enum: ["Utilities Provision"]
+                                                  }
+                                                }
+                                              },
+                                              {
+                                                properties: {
+                                                  barrierType: {
+                                                    type: "string",
+                                                    enum: ["Procurement"]
+                                                  }
+                                                }
+                                              },
+                                              {
+                                                properties: {
+                                                  barrierType: {
+                                                    type: "string",
+                                                    enum: ["Other"]
+                                                  },
+                                                  details: {
+                                                    title: "Details",
+                                                    type: "string"
+                                                  }
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    },
+                                    commentary: {
+                                      title: "Commentary",
+                                      type: "string",
+                                      extendedText: true
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    overallRAGRating: {
+                      type: "object",
+                      title: "Overall RAG Rating",
+                      horizontal: true,
+                      properties: {
+                        rating: {
+                          type: "string",
+                          title: "",
+                          radio: true,
+                          enum: ["Red", "Amber", "Green"]
+                        },
+                        reason: {
+                          type: "string",
+                          title: "Reason for Rating",
+                          extendedText: true
+                        }
+                      }
+                    },
+                    overallCommentary: {
+                      type: "string",
+                      title: "Overall Commentary on Performance",
+                      extendedText: true
+                    },
+                    riskAssessmentSpend: {
+                      type: "object",
+                      horizontal: true,
+                      title: "Risk Assessment - Spend",
+                      properties: {
+                        currentYear: {
+                          type: "string",
+                          title: "Current Year",
+                          enum: ["Low", "Medium Low", "Medium High", "High"]
+                        },
+                        nextYear: {
+                          type: "string",
+                          title: "Next Year",
+                          enum: ["Low", "Medium Low", "Medium High", "High"]
+                        }
+                      }
+                    },
+                    riskAssessmentOutputs: {
+                      type: "object",
+                      title: "Risk Assessment - Outputs",
+                      horizontal: true,
+                      properties: {
+                        currentYear: {
+                          type: "string",
+                          title: "Current Year",
+                          enum: ["Low", "Medium Low", "Medium High", "High"]
+                        },
+                        nextYear: {
+                          type: "string",
+                          title: "Next Year",
+                          enum: ["Low", "Medium Low", "Medium High", "High"]
+                        }
+                      }
+                    },
+                    raisedIssues: {
+                      type: "object",
+                      title: "Issues Raised",
+                      properties: {
+                        issuesRaisedReview: {
+                          type: "string",
+                          title: " ",
+                          extendedText: true,
+                          readonly: true
+                        },
+                        anyIssuesToEscalate: {
+                          type: "string",
+                          title: "Any issues requiring escalation?",
+                          radio: true,
+                          enum: ["Yes", "No"]
+                        }
+                      },
+                      dependencies: {
+                        anyIssuesToEscalate: {
+                          oneOf: [
+                            {
+                              properties: {
+                                anyIssuesToEscalate: {
+                                  enum: ["Yes"]
+                                },
+                                escalationProposals: {
+                                  type: "string",
+                                  title: "Escalation Proposals",
+                                  extendedText: true
+                                }
+                              }
+                            },
+                            {
+                              properties: {
+                                anyIssuesToEscalate: {
+                                  enum: ["No"]
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    moreRegularMonitoring: {
+                      type: "object",
+                      title: "",
+                      properties: {
+                        recommendForRegularMonitoringReview: {
+                          title: "Regular Monitoring",
+                          type: "object",
+                          properties: {
+                            isRecommendForRegularMonitoring: {
+                              title: "Recommended For Regular Monitoring",
+                              radio: true,
+                              readonly: true,
+                              enum: ["Yes", "No"]
+                            }
+                          },
+                          dependencies: {
+                            isRecommendForRegularMonitoring: {
+                              oneOf: [
+                                {
+                                  properties: {
+                                    isRecommendForRegularMonitoring: {
+                                      type: "string",
+                                      enum: ["No"]
+                                    }
+                                  }
+                                },
+                                {
+                                  properties: {
+                                    isRecommendForRegularMonitoring: {
+                                      type: "string",
+                                      enum: ["Yes"]
+                                    },
+                                    reasonAndProposedFrequency: {
+                                      title: "Reason And Proposed Frequency",
+                                      type: "string",
+                                      readonly: true,
+                                      extendedText: true
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        moreMonitoringRequired: {
+                          type: "string",
+                          title: "More regular monitoring required?",
+                          enum: ["Yes", "No"],
+                          radio: true 
+                        }
+                      },
+                      dependencies: {
+                        moreMonitoringRequired: {
+                          oneOf: [
+                            {
+                              properties: {
+                                moreMonitoringRequired: {
+                                  enum: ["Yes"]
+                                },
+                                requiredFrequency: {
+                                  type: "string",
+                                  title: "Required Frequency",
+                                  enum: [
+                                    "Fortnightly",
+                                    "Monthly",
+                                    "Two-Monthly",
+                                    "Six-Monthly",
+                                    "Yearly"
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              properties: {
+                                moreMonitoringRequired: {
+                                  enum: ["No"]
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    commentary: {
+                      type: "string",
+                      title: "Commentary",
+                      extendedText: true
+                    },
+                    infrastructureDeliveryCopy: {
+                      type: "array",
+                      title: "",
+                      items: {
+                        type: "object",
+                        title: "",
+                        properties: {
+                          infrastructureDesc: {
+                            hidden: true,
+                            type: "string",
+                            title: ""
+                          },
+                          reviewDetails: {
+                            type: "object",
+                            title: "",
+                            properties: {
+                              details: {
+                                type: "string",
+                                hidden: true,
+                                title: ""
+                              },
+                              riskRating: {
+                                type: "string",
+                                hidden: true,
+                                title: "",
+                                enum: [
+                                  "High",
+                                  "Medium High",
+                                  "Medium Low",
+                                  "Low",
+                                  "Achieved"
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  properties: {
+                    rmReviewComplete: {
+                      enum: ["No"]
                     }
                   }
                 }

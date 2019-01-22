@@ -1,6 +1,81 @@
 {
   "title": "HIF Project",
   "type": "object",
+  "sharedData": [
+    {
+      "from": [
+        "reviewAndAssurance",
+        0,
+        "rmReview",
+        "assuranceManagerAttendance"
+      ],
+      "to": [
+        "reviewAndAssurance",
+        0,
+        "assuranceReview",
+        "assuranceManagerAttendance"
+      ]
+    },
+    {
+      "from": ["reviewAndAssurance", 0, "rmReview", "reviewComplete"],
+      "to": ["reviewAndAssurance", 0, "assuranceReview", "rmReviewComplete"]
+    },
+    {
+      "from": ["reviewAndAssurance", 0, "rmReview", "infrastructureDelivery"],
+      "to": [
+        "reviewAndAssurance",
+        0,
+        "assuranceReview",
+        "infrastructureDeliveryCopy"
+      ]
+    },
+    {
+      "from": ["reviewAndAssurance", 0, "rmReview", "hifFundedFinancials"],
+      "to": [
+        "reviewAndAssurance",
+        0,
+        "assuranceReview",
+        "hifFundedFinancials",
+        "reviewDetails"
+      ]
+    },
+    {
+      "from": ["reviewAndAssurance", 0, "rmReview", "hifWiderScheme"],
+      "to": [
+        "reviewAndAssurance",
+        0,
+        "assuranceReview",
+        "hifWiderScheme",
+        "reviewDetails"
+      ]
+    },
+    {
+      "from": ["reviewAndAssurance", 0, "rmReview", "outputForecast"],
+      "to": [
+        "reviewAndAssurance",
+        0,
+        "assuranceReview",
+        "outputForecast",
+        "reviewDetails"
+      ]
+    },
+    {
+      "from": ["reviewAndAssurance", 0, "rmReview", "barriers", "significantIssues"],
+      "to": ["reviewAndAssurance", 0, "assuranceReview", "barriers", "significantIssues"]
+    },
+    {
+      "from": ["reviewAndAssurance", 0, "rmReview", "barriers", "liveIssues"],
+      "to": ["reviewAndAssurance", 0, "assuranceReview", "barriers", "liveIssues"]
+    },
+    {
+      "from": ["reviewAndAssurance", 0, "rmReview", "issuesToRaise"],
+      "to": ["reviewAndAssurance", 0, "assuranceReview", "raisedIssues", "issuesRaisedReview"]
+    },
+    {
+      "from": ["reviewAndAssurance", 0, "rmReview", "recommendForRegularMonitoring"],
+      "to": ["reviewAndAssurance", 0, "assuranceReview", "moreRegularMonitoring", "recommendForRegularMonitoringReview"]
+    }
+  ],
   "properties": {
     "infrastructures": {
       "type": "array",
@@ -546,7 +621,13 @@
                                   "title": "Status against last return?",
                                   "type": "string",
                                   "radio": true,
-                                  "enum": ["Completed", "On schedule", "Delayed - minimal impact", "Delayed - moderate impact", "Delayed - critical"],
+                                  "enum": [
+                                    "Completed",
+                                    "On schedule",
+                                    "Delayed - minimal impact",
+                                    "Delayed - moderate impact",
+                                    "Delayed - critical"
+                                  ],
                                   "default": "On schedule"
                                 }
                               },
@@ -1051,7 +1132,6 @@
                     "milestoneCompletedDate": {
                       "type": "string",
                       "format": "date",
-                      "readonly": true,
                       "title": "Baseline Target"
                     }
                   }
@@ -1235,15 +1315,15 @@
                       "type": "string",
                       "hidden": true
                     },
-                   "milestoneCompletedDate": {
-                     "type": "string",
-                     "hidden": true
-                   },
-                   "statusAgainstLastReturn": {
-                     "type": "string",
-                     "hidden": true,
-                     "enum": ["Completed", "On schedule", "Delayed"]
-                   }
+                    "milestoneCompletedDate": {
+                      "type": "string",
+                      "hidden": true
+                    },
+                    "statusAgainstLastReturn": {
+                      "type": "string",
+                      "hidden": true,
+                      "enum": ["Completed", "On schedule", "Delayed"]
+                    }
                   }
                 }
               },
@@ -1566,6 +1646,7 @@
           "progress": {
             "type": "object",
             "title": "Progress",
+            "calculation": "setCreate(formData, ['carriedForward'], combineArrays(get(formData, 'actionsForNextQuarter'), filterForNos(get(formData, 'progressAgainstActions'), ['met'])));",
             "properties": {
               "describeQuarterProgress": {
                 "type": "string",
@@ -1645,8 +1726,8 @@
               }
             }
           }
+        }
       }
-    }
     },
     "fundingProfiles": {
       "type": "object",
@@ -1721,12 +1802,17 @@
                     "readonly": true,
                     "currency": true
                   },
-                  "total": {
+                  "totalHolder": {
+                    "type": "object",
                     "title": "Total",
-                    "type": "string",
-                    "sourceKey": ["baseline_data", "fundingProfiles", "total"],
-                    "readonly": true,
-                    "currency": true
+                    "invalidText": "Total exceeds HIF grant",
+                    "properties": {
+                      "total": {
+                        "type": "string",
+                        "currency": true,
+                        "readonly": true
+                      }
+                    }
                   }
                 }
               }
@@ -1772,11 +1858,6 @@
                   },
                   "instalment4": {
                     "title": "4th Quarter",
-                    "type": "string",
-                    "hidden": true
-                  },
-                  "total": {
-                    "title": "Total",
                     "type": "string",
                     "hidden": true
                   }
@@ -1880,7 +1961,6 @@
                           },
                           "totalHolder": {
                             "type": "object",
-                            "validated": true,
                             "title": "Total",
                             "invalidText": "Total exceeds HIF grant",
                             "properties": {
@@ -1913,7 +1993,7 @@
           "fundingStack": {
             "type": "object",
             "title": "Funding stack",
-            "calculation": "setCreate(formData, ['hifSpendSinceLastReturn', 'hifSpendSinceLastReturnHolder', 'remaining'], ''+(parseMoney(get(formData, 'totalCost', 'previousAmounts', 'baseline')) - parseMoney(get(formData, 'hifSpendSinceLastReturn', 'hifSpendSinceLastReturnHolder', 'cumulativeIncCurrentReturn')))); get(formData, 'anyChangeToDescription', 'confirmation') === 'Yes' ? set(formData, 'currentFundingStackDescription', get(formData, 'anyChangeToDescription', 'updatedFundingStack')) : set(formData, 'currentFundingStackDescription', get(formData, 'descriptionOfFundingStack')); set(formData['totalCost'], 'percentComplete', calculateVariance(parseMoney(get(formData,'totalCost', 'current')), parseMoney(get(formData,'totalCost', 'baseline'))));get(formData, 'anyChange', 'confirmation') === 'Yes' ? get(formData, 'fundedThroughHIFbaseline') === 'Yes' ? set(formData, 'fundedThroughHIF', 'No') : set(formData, 'fundedThroughHIF', 'Yes') : set(formData, 'fundedThroughHIF', get(formData, 'fundedThroughHIFbaseline')); get(formData, 'anyChangeToDescription', 'confirmation') === 'Yes' ? set(formData, 'currentFundingStackDescription', get(formData, 'anyChangeToDescription', 'updatedFundingStack')) : set(formData, 'currentFundingStackDescription', get(formData, 'descriptionOfFundingStack')); set(formData['totalCost'], 'percentComplete', calculateVariance(parseMoney(get(formData,'totalCost', 'current')), parseMoney(get(formData,'totalCost', 'baseline'))));",
+            "calculation": "  setCreate(formData, ['hifSpendSinceLastReturn', 'hifSpendSinceLastReturnHolder', 'remaining'], ''+(parseMoney(get(formData, 'totalCost', 'previousAmounts', 'baseline')) - parseMoney(get(formData, 'hifSpendSinceLastReturn', 'hifSpendSinceLastReturnHolder', 'cumulativeIncCurrentReturn')))); get(formData, 'anyChangeToDescription', 'confirmation') === 'Yes' ? set(formData, 'currentFundingStackDescription', get(formData, 'anyChangeToDescription', 'updatedFundingStack')) : set(formData, 'currentFundingStackDescription', get(formData, 'descriptionOfFundingStack')); set(formData['totalCost'], 'percentComplete', calculateVariance(parseMoney(get(formData,'totalCost', 'current')), parseMoney(get(formData,'totalCost', 'baseline'))));",
             "properties": {
               "currentFundingStackDescription": {
                 "type": "string",
@@ -2065,61 +2145,558 @@
                   }
                 }
               },
-              "fundedThroughHIFbaseline": {
-                "type": "string",
-                "title": "Totally funded through HIF?",
-                "radio": true,
-                "enum": ["Yes", "No"],
-                "readonly": true,
-                "sourceKey": [
-                  "baseline_data",
-                  "costs",
-                  "infrastructure",
-                  "totallyFundedThroughHIF"
-                ]
-              },
               "fundedThroughHIF": {
-                "type": "string",
-                "title": "Totally funded through HIF?",
-                "enum": ["Yes", "No"],
-                "hidden": true,
-                "sourceKey": [
-                  "baseline_data",
-                  "costs",
-                  "infrastructure",
-                  "totallyFundedThroughHIF"
-                ]
-              },
-              "anyChange": {
                 "type": "object",
+                "calculation": "get(formData, 'anyChange', 'confirmation') === 'Yes' ? get(formData, 'fundedThroughHIFbaseline') === 'Yes' ? set(formData, 'fundedThroughHIFCurrent', 'No') : set(formData, 'fundedThroughHIFCurrent', 'Yes') : set(formData, 'fundedThroughHIFCurrent', get(formData, 'fundedThroughHIFbaseline'));",
                 "title": "",
                 "properties": {
-                  "confirmation": {
+                  "fundedThroughHIFbaseline": {
                     "type": "string",
-                    "title": "Has position changed from baseline/ last return?",
+                    "title": "Totally funded through HIF?",
+                    "radio": true,
                     "enum": ["Yes", "No"],
-                    "radio": true
+                    "readonly": true,
+                    "sourceKey": [
+                      "baseline_data",
+                      "costs",
+                      "infrastructure",
+                      "totallyFundedThroughHIF"
+                    ]
+                  },
+                  "fundedThroughHIFCurrent": {
+                    "type": "string",
+                    "title": "Totally funded through HIF?",
+                    "enum": ["Yes", "No"],
+                    "hidden": true,
+                    "sourceKey": [
+                      "baseline_data",
+                      "costs",
+                      "infrastructure",
+                      "totallyFundedThroughHIF"
+                    ]
+                  },
+                  "anyChange": {
+                    "type": "object",
+                    "title": "",
+                    "properties": {
+                      "confirmation": {
+                        "type": "string",
+                        "title": "Has position changed from baseline/ last return?",
+                        "enum": ["Yes", "No"],
+                        "radio": true
+                      }
+                    },
+                    "dependencies": {
+                      "confirmation": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "confirmation": {
+                                "enum": ["Yes"]
+                              },
+                              "descriptionOfChange": {
+                                "type": "string",
+                                "title": "Description of Change",
+                                "extendedText": true
+                              }
+                            }
+                          },
+                          {
+                            "properties": {
+                              "confirmation": {
+                                "enum": ["No"]
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
                   }
                 },
                 "dependencies": {
-                  "confirmation": {
+                  "fundedThroughHIFCurrent": {
                     "oneOf": [
                       {
                         "properties": {
-                          "confirmation": {
+                          "fundedThroughHIFCurrent": {
                             "enum": ["Yes"]
-                          },
-                          "descriptionOfChange": {
-                            "type": "string",
-                            "title": "Description of Change",
-                            "extendedText": true
                           }
                         }
                       },
                       {
                         "properties": {
-                          "confirmation": {
+                          "fundedThroughHIFCurrent": {
                             "enum": ["No"]
+                          },
+                          "descriptionOfFundingStack": {
+                            "type": "string",
+                            "title": "Description of funding stack",
+                            "readonly": true,
+                            "sourceKey": [
+                              "baseline_data",
+                              "costs",
+                              "infrastructure",
+                              "descriptionOfFundingStack"
+                            ]
+                          },
+                          "anyChangeToDescription": {
+                            "type": "object",
+                            "title": "",
+                            "properties": {
+                              "confirmation": {
+                                "title": "Any change to baseline/last return?",
+                                "type": "string",
+                                "radio": true,
+                                "enum": ["Yes", "No"]
+                              }
+                            },
+                            "dependencies": {
+                              "confirmation": {
+                                "oneOf": [
+                                  {
+                                    "properties": {
+                                      "confirmation": {
+                                        "enum": ["Yes"]
+                                      },
+                                      "updatedFundingStack": {
+                                        "type": "string",
+                                        "title": "Updated Description Funding Stack",
+                                        "extendedText": true
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "properties": {
+                                      "confirmation": {
+                                        "enum": ["No"]
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "hifSpend": {
+                            "title": "",
+                            "calculation": "get(formData, 'anyChangeToBaseline', 'confirmation') === 'Yes' ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'currentAmount'], get(formData,'anyChangeToBaseline', 'variance', 'current')) : setCreate(formData, ['anyChangeToBaseline','variance', 'currentAmount'], get(formData, 'previousAmounts', 'lastReturn')); setCreate(formData, ['anyChangeToBaseline', 'variance', 'baseline'], '' + parseMoney(get(formData,'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline')));get(formData,'previousAmounts', 'lastReturn') ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturn'], '' + parseMoney(get(formData,'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData,'previousAmounts', 'lastReturn'))) : setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturn'], 'N/A');",
+                            "type": "object",
+                            "properties": {
+                              "previousAmounts": {
+                                "type": "object",
+                                "title": "HIF Amount",
+                                "horizontal": true,
+                                "properties": {
+                                  "baseline": {
+                                    "type": "string",
+                                    "title": "HIF Baseline Amount",
+                                    "sourceKey": [
+                                      "baseline_data",
+                                      "costs",
+                                      "infrastructure",
+                                      "HIFAmount"
+                                    ],
+                                    "readonly": true,
+                                    "currency": true
+                                  },
+                                  "lastReturn": {
+                                    "type": "string",
+                                    "title": "Last Return",
+                                    "readonly": true,
+                                    "currency": true,
+                                    "sourceKey": [
+                                      "return_data",
+                                      "fundingPackages",
+                                      "fundingStack",
+                                      "hifSpend",
+                                      "current"
+                                    ]
+                                  }
+                                }
+                              },
+                              "anyChangeToBaseline": {
+                                "type": "object",
+                                "title": "",
+                                "properties": {
+                                  "confirmation": {
+                                    "title": "Any change to baseline/ last return?",
+                                    "type": "string",
+                                    "enum": ["Yes", "No"],
+                                    "radio": true
+                                  }
+                                },
+                                "dependencies": {
+                                  "confirmation": {
+                                    "oneOf": [
+                                      {
+                                        "properties": {
+                                          "confirmation": {
+                                            "enum": ["Yes"]
+                                          },
+                                          "variance": {
+                                            "type": "object",
+                                            "title": "",
+                                            "horizontal": true,
+                                            "properties": {
+                                              "current": {
+                                                "type": "string",
+                                                "title": "Current return",
+                                                "currency": true
+                                              },
+                                              "currentAmount": {
+                                                "type": "string",
+                                                "title": "",
+                                                "hidden": true
+                                              },
+                                              "baseline": {
+                                                "type": "string",
+                                                "title": "Variance against baseline (£)",
+                                                "readonly": true
+                                              },
+                                              "lastReturn": {
+                                                "type": "string",
+                                                "title": "Variance Against Last Return (£)",
+                                                "readonly": true
+                                              }
+                                            }
+                                          },
+                                          "varianceReason": {
+                                            "type": "string",
+                                            "title": "Reason for variance",
+                                            "extendedText": true
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "properties": {
+                                          "confirmation": { "enum": ["No"] }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "public": {
+                            "title": "",
+                            "type": "object",
+                            "calculation": "setCreate(formData, ['balancesSecured', 'securedAgainstBaseline'], calculateVariance(parseMoney(get(formData, 'balancesSecured', 'amountSecured')), parseMoney(get(formData, 'previousAmounts', 'baseline')))); (get(formData, 'balancesSecured', 'amountSecuredLastReturn') && get(formData, 'balancesSecured', 'amountSecured'))? setCreate(formData, ['balancesSecured', 'increaseOnLastReturn'], '£ ' +(''+parseMoney(get(formData, 'balancesSecured', 'amountSecured')) - parseMoney(get(formData, 'balancesSecured', 'amountSecuredLastReturn')))) : setCreate(formData, ['balancesSecured', 'increaseOnLastReturn'], '');(get(formData, 'balancesSecured', 'securedAgainstBaselineLastReturn') && get(formData, 'balancesSecured', 'amountSecured')) ? setCreate(formData, ['balancesSecured', 'increaseOnLastReturnPercent'], ''+get(formData, 'balancesSecured', 'securedAgainstBaseline') -get(formData, 'balancesSecured', 'securedAgainstBaselineLastReturn')) : setCreate(formData, ['balancesSecured', 'increaseOnLastReturnPercent'], ''); get(formData, 'anyChangeToBaseline', 'confirmation') === 'Yes' ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'currentAmount'], get(formData,'anyChangeToBaseline', 'variance', 'current')) : setCreate(formData, ['anyChangeToBaseline','variance', 'currentAmount'], get(formData, 'previousAmounts', 'lastReturn')); setCreate(formData, ['balancesSecured','remainingToBeSecured'], ''+parseMoney(get(formData, 'previousAmounts', 'baseline')) -parseMoney(get(formData, 'balancesSecured', 'amountSecured')));;setCreate(formData, ['anyChangeToBaseline', 'variance', 'baselineVariance'], ''+parseMoney(get(formData, 'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline'))); get(formData, 'previousAmounts', 'lastReturn') ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturnVariance'], ''+parseMoney(get(formData, 'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'lastReturn'))) : setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturnVariance'], 'N/A');",
+                            "properties": {
+                              "previousAmounts": {
+                                "type": "object",
+                                "title": "Total Public",
+                                "horizontal": true,
+                                "properties": {
+                                  "baseline": {
+                                    "title": "Total baseline Amount",
+                                    "type": "string",
+                                    "readonly": true,
+                                    "currency": true,
+                                    "sourceKey": [
+                                      "baseline_data",
+                                      "costs",
+                                      "infrastructure",
+                                      "totalPublic"
+                                    ]
+                                  },
+                                  "lastReturn": {
+                                    "title": "Total Last Return Amount",
+                                    "type": "string",
+                                    "readonly": true,
+                                    "currency": true
+                                  }
+                                }
+                              },
+                              "anyChangeToBaseline": {
+                                "title": "",
+                                "type": "object",
+                                "properties": {
+                                  "confirmation": {
+                                    "title": "Any Change to Baseline/ Last Return.",
+                                    "type": "string",
+                                    "enum": ["Yes", "No"],
+                                    "radio": true
+                                  }
+                                },
+                                "dependencies": {
+                                  "confirmation": {
+                                    "oneOf": [
+                                      {
+                                        "properties": {
+                                          "confirmation": {
+                                            "enum": ["Yes"]
+                                          },
+                                          "variance": {
+                                            "type": "object",
+                                            "title": "",
+                                            "horizontal": true,
+                                            "properties": {
+                                              "current": {
+                                                "title": "Current Return",
+                                                "type": "string",
+                                                "currency": true
+                                              },
+                                              "currentAmount": {
+                                                "title": "",
+                                                "type": "string",
+                                                "hidden": true
+                                              },
+                                              "baselineVariance": {
+                                                "title": "Variance Against Baseline",
+                                                "type": "string",
+                                                "readonly": true
+                                              },
+                                              "lastReturnVariance": {
+                                                "title": "Variance Against Last Return",
+                                                "type": "string",
+                                                "readonly": true
+                                              }
+                                            }
+                                          },
+                                          "reason": {
+                                            "title": "Reason for Variance",
+                                            "type": "string",
+                                            "extendedText": true
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "properties": {
+                                          "confirmation": {
+                                            "enum": ["No"]
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              },
+                              "balancesSecured": {
+                                "type": "object",
+                                "title": "Amount Secured",
+                                "horizontal": true,
+                                "properties": {
+                                  "amountSecured": {
+                                    "title": "To Date",
+                                    "type": "string",
+                                    "currency": true
+                                  },
+                                  "amountSecuredLastReturn": {
+                                    "title": "",
+                                    "type": "string",
+                                    "hidden": true
+                                  },
+                                  "remainingToBeSecured": {
+                                    "title": "Remaining",
+                                    "type": "string",
+                                    "currency": true,
+                                    "readonly": true
+                                  },
+                                  "securedAgainstBaseline": {
+                                    "title": "Against the Baseline",
+                                    "type": "string",
+                                    "percentage": true,
+                                    "readonly": true
+                                  },
+                                  "securedAgainstBaselineLastReturn": {
+                                    "title": "",
+                                    "type": "string",
+                                    "hidden": true
+                                  },
+                                  "increaseOnLastReturn": {
+                                    "title": "Increase on Last Return",
+                                    "type": "string",
+                                    "readonly": true
+                                  },
+                                  "increaseOnLastReturnPercent": {
+                                    "title": "% Increase on Last Return",
+                                    "type": "string",
+                                    "percentage": true,
+                                    "readonly": true
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "private": {
+                            "title": "",
+                            "type": "object",
+                            "calculation": "setCreate(formData, ['balancesSecured', 'securedAgainstBaseline'], calculateVariance(parseMoney(get(formData, 'balancesSecured', 'amountSecured')), parseMoney(get(formData, 'previousAmounts', 'baseline')))); (get(formData, 'balancesSecured', 'amountSecuredLastReturn') && get(formData, 'balancesSecured', 'amountSecured'))? setCreate(formData, ['balancesSecured', 'increaseOnLastReturn'], '£ ' +(''+parseMoney(get(formData, 'balancesSecured', 'amountSecured')) - parseMoney(get(formData, 'balancesSecured', 'amountSecuredLastReturn')))) : setCreate(formData, ['balancesSecured', 'increaseOnLastReturn'], '');(get(formData, 'balancesSecured', 'securedAgainstBaselineLastReturn') && get(formData, 'balancesSecured', 'amountSecured')) ? setCreate(formData, ['balancesSecured', 'increaseOnLastReturnPercent'], ''+get(formData, 'balancesSecured', 'securedAgainstBaseline') -get(formData, 'balancesSecured', 'securedAgainstBaselineLastReturn')) : setCreate(formData, ['balancesSecured', 'increaseOnLastReturnPercent'], ''); get(formData, 'anyChangeToBaseline', 'confirmation') === 'Yes' ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'currentAmount'], get(formData,'anyChangeToBaseline', 'variance', 'current')) : setCreate(formData, ['anyChangeToBaseline','variance', 'currentAmount'], get(formData, 'previousAmounts', 'lastReturn')); setCreate(formData, ['balancesSecured','remainingToBeSecured'], ''+parseMoney(get(formData, 'previousAmounts', 'baseline')) -parseMoney(get(formData, 'balancesSecured', 'amountSecured')));setCreate(formData, ['anyChangeToBaseline', 'variance', 'baselineVariance'], ''+parseMoney(get(formData, 'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline'))); get(formData, 'previousAmounts', 'lastReturn') ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturnVariance'], ''+parseMoney(get(formData, 'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'lastReturn'))) : setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturnVariance'], 'N/A');",
+                            "properties": {
+                              "previousAmounts": {
+                                "type": "object",
+                                "horizontal": true,
+                                "title": "Total Private",
+                                "properties": {
+                                  "baseline": {
+                                    "title": "Total baseline amount",
+                                    "type": "string",
+                                    "readonly": true,
+                                    "currency": true,
+                                    "sourceKey": [
+                                      "baseline_data",
+                                      "costs",
+                                      "infrastructure",
+                                      "totalPrivate"
+                                    ]
+                                  },
+                                  "lastReturn": {
+                                    "title": "Total Last Return Amount",
+                                    "type": "string",
+                                    "currency": true,
+                                    "readonly": true
+                                  }
+                                }
+                              },
+                              "anyChangeToBaseline": {
+                                "title": "",
+                                "type": "object",
+                                "properties": {
+                                  "confirmation": {
+                                    "title": "Any Change to Baseline/ Last Return.",
+                                    "type": "string",
+                                    "enum": ["Yes", "No"],
+                                    "radio": true
+                                  }
+                                },
+                                "dependencies": {
+                                  "confirmation": {
+                                    "oneOf": [
+                                      {
+                                        "properties": {
+                                          "confirmation": {
+                                            "enum": ["Yes"]
+                                          },
+                                          "variance": {
+                                            "type": "object",
+                                            "title": "",
+                                            "horizontal": true,
+                                            "properties": {
+                                              "current": {
+                                                "title": "Current Return",
+                                                "type": "string",
+                                                "currency": true
+                                              },
+                                              "currentAmount": {
+                                                "title": "",
+                                                "type": "string",
+                                                "hidden": true
+                                              },
+                                              "baselineVariance": {
+                                                "title": "Variance Against Baseline",
+                                                "type": "string",
+                                                "readonly": true
+                                              },
+                                              "lastReturnVariance": {
+                                                "title": "Variance Against Last Return",
+                                                "type": "string",
+                                                "readonly": true
+                                              }
+                                            }
+                                          },
+                                          "reason": {
+                                            "title": "Reason for Variance",
+                                            "type": "string",
+                                            "extendedText": true
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "properties": {
+                                          "confirmation": {
+                                            "enum": ["No"]
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              },
+                              "balancesSecured": {
+                                "type": "object",
+                                "title": "Amount Secured",
+                                "horizontal": true,
+                                "properties": {
+                                  "amountSecured": {
+                                    "title": "To date",
+                                    "type": "string",
+                                    "currency": true
+                                  },
+                                  "amountSecuredLastReturn": {
+                                    "title": "",
+                                    "type": "string",
+                                    "hidden": true
+                                  },
+                                  "remainingToBeSecured": {
+                                    "title": "Remaining",
+                                    "type": "string",
+                                    "currency": true,
+                                    "readonly": true
+                                  },
+                                  "securedAgainstBaseline": {
+                                    "title": "Against the Baseline",
+                                    "type": "string",
+                                    "percentage": true,
+                                    "readonly": true
+                                  },
+                                  "securedAgainstBaselineLastReturn": {
+                                    "title": "",
+                                    "type": "string",
+                                    "hidden": true
+                                  },
+                                  "increaseOnLastReturn": {
+                                    "title": "Increase on Last Return",
+                                    "type": "string",
+                                    "currency": true,
+                                    "readonly": true
+                                  },
+                                  "increaseOnLastReturnPercent": {
+                                    "title": "% Increase on Last Return",
+                                    "type": "string",
+                                    "percentage": true,
+                                    "readonly": true
+                                  }
+                                }
+                              },
+                              "comparisons": {
+                                "type": "object",
+                                "title": "",
+                                "horizontal": true,
+                                "properties": {}
+                              }
+                            }
+                          },
+                          "riskToFundingPackage": {
+                            "type": "object",
+                            "title": "Funding Package Risk",
+                            "properties": {
+                              "risk": {
+                                "title": "Are there any risks to the funding package?",
+                                "type": "string",
+                                "radio": true,
+                                "enum": ["Yes", "No"]
+                              }
+                            },
+                            "dependencies": {
+                              "risk": {
+                                "oneOf": [
+                                  {
+                                    "properties": {
+                                      "risk": { "enum": ["Yes"] },
+                                      "description": {
+                                        "title": "Description of risk",
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "properties": {
+                                      "risk": { "enum": ["No"] }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
                           }
                         }
                       }
@@ -2158,497 +2735,203 @@
                   }
                 }
               }
-            },
-            "dependencies": {
-              "fundedThroughHIF": {
-                "oneOf": [
-                  {
-                    "properties": {
-                      "fundedThroughHIF": {
-                        "enum": ["Yes"]
-                      }
+            }
+          }
+        }
+      }
+    },
+    "hifRecovery": {
+      "title": "HIF Recovery",
+      "type": "object",
+      "properties": {
+        "recovery": {
+          "title": "",
+          "type": "object",
+          "properties": {
+            "aimToRecoverFunding": {
+              "title": "Aim to recover funding?",
+              "radio": true,
+              "enum": ["Yes", "No"],
+              "sourceKey": ["baseline_data", "recovery", "aimToRecover"],
+              "readonly": true
+            }
+          },
+          "dependencies": {
+            "aimToRecoverFunding": {
+              "oneOf": [
+                {
+                  "properties": {
+                    "aimToRecoverFunding": {
+                      "type": "string",
+                      "enum": ["No"]
                     }
-                  },
-                  {
-                    "properties": {
-                      "fundedThroughHIF": {
-                        "enum": ["No"]
-                      },
-                      "descriptionOfFundingStack": {
-                        "type": "string",
-                        "title": "Description of funding stack",
-                        "readonly": true,
-                        "sourceKey": [
-                          "baseline_data",
-                          "costs",
-                          "infrastructure",
-                          "descriptionOfFundingStack"
-                        ]
-                      },
-                      "anyChangeToDescription": {
-                        "type": "object",
-                        "title": "",
-                        "properties": {
-                          "confirmation": {
-                            "title": "Any change to baseline/last return?",
-                            "type": "string",
-                            "radio": true,
-                            "enum": ["Yes", "No"]
+                  }
+                },
+                {
+                  "properties": {
+                    "aimToRecoverFunding": {
+                      "type": "string",
+                      "enum": ["Yes"]
+                    },
+                    "expectedAmountToRecover": {
+                      "type": "object",
+                      "calculation": "get(formData,'changeToBaseline', 'currentReturn') ? setCreate(formData, ['changeToBaseline', 'currentCopy'], get(formData,'changeToBaseline', 'currentReturn')) : setCreate(formData, ['changeToBaseline', 'currentCopy'], get(formData, 'changeToBaseline', 'lastReturn')); setCreate(formData, ['changeToBaseline','varianceAgainstBaseline'], subtract(get(formData,'changeToBaseline', 'currentReturn'), get(formData, 'baselineAmount'))); get(formData,'changeToBaseline', 'lastReturn') ? setCreate(formData,['changeToBaseline', 'varianceAgainstLastReturn'], subtract(get(formData,'changeToBaseline', 'currentReturn'), get(formData,'changeToBaseline', 'lastReturn'))): setCreate(formData,['changeToBaseline', 'varianceAgainstLastReturn'], 'N/A'); get(formData,'changeToBaseline', 'currentCopy') ? setCreate(formData, ['amountRecovered', 'remaining'], subtract(get(formData, 'changeToBaseline', 'currentCopy'), get(formData, 'amountRecovered', 'cumulative'))) : setCreate(formData, ['amountRecovered', 'remaining'], subtract(get(formData, 'baselineAmount'), get(formData, 'amountRecovered', 'cumulative')));",
+                      "title": "Expected Amount to Recover",
+                      "properties": {
+                        "baselineAmount": {
+                          "title": "Baseline Amount",
+                          "type": "string",
+                          "readonly": true,
+                          "currency": true,
+                          "sourceKey": [
+                            "baseline_data",
+                            "recovery",
+                            "expectedAmount"
+                          ]
+                        },
+                        "methodOfRecovery": {
+                          "title": "Method of Recovery",
+                          "type": "string",
+                          "readonly": true,
+                          "sourceKey": [
+                            "baseline_data",
+                            "recovery",
+                            "methodOfRecovery"
+                          ]
+                        },
+                        "changeToBaseline": {
+                          "type": "object",
+                          "title": "",
+                          "properties": {
+                            "confirmation": {
+                              "title": "Any Change?",
+                              "type": "string",
+                              "enum": ["Yes", "No"],
+                              "radio": true
+                            }
+                          },
+                          "dependencies": {
+                            "confirmation": {
+                              "oneOf": [
+                                {
+                                  "properties": {
+                                    "confirmation": {
+                                      "type": "string",
+                                      "enum": ["No"]
+                                    }
+                                  }
+                                },
+                                {
+                                  "properties": {
+                                    "confirmation": {
+                                      "type": "string",
+                                      "enum": ["Yes"]
+                                    },
+                                    "currentReturn": {
+                                      "title": "Current Return",
+                                      "type": "string",
+                                      "currency": true
+                                    },
+                                    "currentCopy": {
+                                      "type": "string",
+                                      "hidden": true,
+                                      "sourceKey": [
+                                        "return_data",
+                                        "hifRecovery",
+                                        "recovery",
+                                        "expectedAmountToRecover",
+                                        "changeToBaseline",
+                                        "currentCopy"
+                                      ]
+                                    },
+                                    "lastReturn": {
+                                      "title": "Last Return",
+                                      "type": "string",
+                                      "currency": true,
+                                      "sourceKey": [
+                                        "return_data",
+                                        "hifRecovery",
+                                        "recovery",
+                                        "expectedAmountToRecover",
+                                        "changeToBaseline",
+                                        "currentCopy"
+                                      ],
+                                      "readonly": true
+                                    },
+                                    "varianceAgainstBaseline": {
+                                      "title": "Variance Against Baseline (£)",
+                                      "type": "string",
+                                      "readonly": true
+                                    },
+                                    "varianceAgainstLastReturn": {
+                                      "title": "Variance Against Last Return (£)",
+                                      "type": "string",
+                                      "readonly": true
+                                    },
+                                    "reasonForVariance": {
+                                      "title": "Reason for Variance",
+                                      "type": "string",
+                                      "extendedText": true
+                                    }
+                                  }
+                                }
+                              ]
+                            }
                           }
                         },
-                        "dependencies": {
-                          "confirmation": {
-                            "oneOf": [
-                              {
-                                "properties": {
-                                  "confirmation": {
-                                    "enum": ["Yes"]
-                                  },
-                                  "updatedFundingStack": {
-                                    "type": "string",
-                                    "title": "Updated Description Funding Stack",
-                                    "extendedText": true
-                                  }
-                                }
-                              },
-                              {
-                                "properties": {
-                                  "confirmation": {
-                                    "enum": ["No"]
-                                  }
-                                }
-                              }
-                            ]
-                          }
-                        }
-                      },
-                      "hifSpend": {
-                        "title": "",
-                        "calculation": "get(formData, 'anyChangeToBaseline', 'confirmation') === 'Yes' ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'currentAmount'], get(formData,'anyChangeToBaseline', 'variance', 'current')) : setCreate(formData, ['anyChangeToBaseline','variance', 'currentAmount'], get(formData, 'previousAmounts', 'lastReturn')); setCreate(formData, ['anyChangeToBaseline', 'variance', 'baseline'], '' + parseMoney(get(formData,'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline')));get(formData,'previousAmounts', 'lastReturn') ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturn'], '' + parseMoney(get(formData,'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData,'previousAmounts', 'lastReturn'))) : setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturn'], 'N/A');",
-                        "type": "object",
-                        "properties": {
-                          "previousAmounts": {
-                            "type": "object",
-                            "title": "HIF Amount",
-                            "horizontal": true,
-                            "properties": {
-                              "baseline": {
-                                "type": "string",
-                                "title": "HIF Baseline Amount",
-                                "sourceKey": [
-                                  "baseline_data",
-                                  "costs",
-                                  "infrastructure",
-                                  "HIFAmount"
-                                ],
-                                "readonly": true,
-                                "currency": true
-                              },
-                              "lastReturn": {
-                                "type": "string",
-                                "title": "Last Return",
-                                "readonly": true,
-                                "currency": true,
-                                "sourceKey": [
-                                  "return_data",
-                                  "fundingPackages",
-                                  "fundingStack",
-                                  "hifSpend",
-                                  "current"
-                                ]
-                              }
-                            }
-                          },
-                          "anyChangeToBaseline": {
-                            "type": "object",
-                            "title": "",
-                            "properties": {
-                              "confirmation": {
-                                "title": "Any change to baseline/ last return?",
-                                "type": "string",
-                                "enum": ["Yes", "No"],
-                                "radio": true
-                              }
+                        "amountRecovered": {
+                          "title": "Amount Recovered",
+                          "type": "object",
+                          "calculation": "set(formData, 'cumulative', add(get(formData, 'currentReturn'), get(formData, 'previousCumulator')));",
+                          "properties": {
+                            "currentReturn": {
+                              "title": "Current Return",
+                              "type": "string",
+                              "currency": true
                             },
-                            "dependencies": {
-                              "confirmation": {
-                                "oneOf": [
-                                  {
-                                    "properties": {
-                                      "confirmation": {
-                                        "enum": ["Yes"]
-                                      },
-                                      "variance": {
-                                        "type": "object",
-                                        "title": "",
-                                        "horizontal": true,
-                                        "properties": {
-                                          "current": {
-                                            "type": "string",
-                                            "title": "Current return",
-                                            "currency": true
-                                          },
-                                          "currentAmount": {
-                                            "type": "string",
-                                            "title": "",
-                                            "hidden": true
-                                          },
-                                          "baseline": {
-                                            "type": "string",
-                                            "title": "Variance against baseline (£)",
-                                            "readonly": true
-                                          },
-                                          "lastReturn": {
-                                            "type": "string",
-                                            "title": "Variance Against Last Return (£)",
-                                            "readonly": true
-                                          }
-                                        }
-                                      },
-                                      "varianceReason": {
-                                        "type": "string",
-                                        "title": "Reason for variance",
-                                        "extendedText": true
-                                      }
-                                    }
-                                  },
-                                  {
-                                    "properties": {
-                                      "confirmation": { "enum": ["No"] }
-                                    }
-                                  }
-                                ]
-                              }
-                            }
-                          }
-                        }
-                      },
-                      "public": {
-                        "title": "",
-                        "type": "object",
-                        "calculation": "setCreate(formData, ['balancesSecured', 'securedAgainstBaseline'], calculateVariance(parseMoney(get(formData, 'balancesSecured', 'amountSecured')), parseMoney(get(formData, 'previousAmounts', 'baseline')))); (get(formData, 'balancesSecured', 'amountSecuredLastReturn') && get(formData, 'balancesSecured', 'amountSecured'))? setCreate(formData, ['balancesSecured', 'increaseOnLastReturn'], '£ ' +(''+parseMoney(get(formData, 'balancesSecured', 'amountSecured')) - parseMoney(get(formData, 'balancesSecured', 'amountSecuredLastReturn')))) : setCreate(formData, ['balancesSecured', 'increaseOnLastReturn'], '');(get(formData, 'balancesSecured', 'securedAgainstBaselineLastReturn') && get(formData, 'balancesSecured', 'amountSecured')) ? setCreate(formData, ['balancesSecured', 'increaseOnLastReturnPercent'], ''+get(formData, 'balancesSecured', 'securedAgainstBaseline') -get(formData, 'balancesSecured', 'securedAgainstBaselineLastReturn')) : setCreate(formData, ['balancesSecured', 'increaseOnLastReturnPercent'], ''); get(formData, 'anyChangeToBaseline', 'confirmation') === 'Yes' ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'currentAmount'], get(formData,'anyChangeToBaseline', 'variance', 'current')) : setCreate(formData, ['anyChangeToBaseline','variance', 'currentAmount'], get(formData, 'previousAmounts', 'lastReturn')); setCreate(formData, ['balancesSecured','remainingToBeSecured'], ''+parseMoney(get(formData, 'previousAmounts', 'baseline')) -parseMoney(get(formData, 'balancesSecured', 'amountSecured')));;setCreate(formData, ['anyChangeToBaseline', 'variance', 'baselineVariance'], ''+parseMoney(get(formData, 'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline'))); get(formData, 'previousAmounts', 'lastReturn') ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturnVariance'], ''+parseMoney(get(formData, 'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'lastReturn'))) : setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturnVariance'], 'N/A');",
-                        "properties": {
-                          "previousAmounts": {
-                            "type": "object",
-                            "title": "Total Public",
-                            "horizontal": true,
-                            "properties": {
-                              "baseline": {
-                                "title": "Total baseline Amount",
-                                "type": "string",
-                                "readonly": true,
-                                "currency": true,
-                                "sourceKey": [
-                                  "baseline_data",
-                                  "costs",
-                                  "infrastructure",
-                                  "totalPublic"
-                                ]
-                              },
-                              "lastReturn": {
-                                "title": "Total Last Return Amount",
-                                "type": "string",
-                                "readonly": true,
-                                "currency": true
-                              }
-                            }
-                          },
-                          "anyChangeToBaseline": {
-                            "title": "",
-                            "type": "object",
-                            "properties": {
-                              "confirmation": {
-                                "title": "Any Change to Baseline/ Last Return.",
-                                "type": "string",
-                                "enum": ["Yes", "No"],
-                                "radio": true
-                              }
+                            "previousCumulator": {
+                              "type": "string",
+                              "readonly": true,
+                              "hidden": true,
+                              "sourceKey": [
+                                "return_data",
+                                "hifRecovery",
+                                "recovery",
+                                "expectedAmountToRecover",
+                                "amountRecovered",
+                                "cumulative"
+                              ]
                             },
-                            "dependencies": {
-                              "confirmation": {
-                                "oneOf": [
-                                  {
-                                    "properties": {
-                                      "confirmation": {
-                                        "enum": ["Yes"]
-                                      },
-                                      "variance": {
-                                        "type": "object",
-                                        "title": "",
-                                        "horizontal": true,
-                                        "properties": {
-                                          "current": {
-                                            "title": "Current Return",
-                                            "type": "string",
-                                            "currency": true
-                                          },
-                                          "currentAmount": {
-                                            "title": "",
-                                            "type": "string",
-                                            "hidden": true
-                                          },
-                                          "baselineVariance": {
-                                            "title": "Variance Against Baseline",
-                                            "type": "string",
-                                            "readonly": true
-                                          },
-                                          "lastReturnVariance": {
-                                            "title": "Variance Against Last Return",
-                                            "type": "string",
-                                            "readonly": true
-                                          }
-                                        }
-                                      },
-                                      "reason": {
-                                        "title": "Reason for Variance",
-                                        "type": "string",
-                                        "extendedText": true
-                                      }
-                                    }
-                                  },
-                                  {
-                                    "properties": {
-                                      "confirmation": {
-                                        "enum": ["No"]
-                                      }
-                                    }
-                                  }
-                                ]
-                              }
-                            }
-                          },
-                          "balancesSecured": {
-                            "type": "object",
-                            "title": "Amount Secured",
-                            "horizontal": true,
-                            "properties": {
-                              "amountSecured": {
-                                "title": "To Date",
-                                "type": "string",
-                                "currency": true
-                              },
-                              "amountSecuredLastReturn": {
-                                "title": "",
-                                "type": "string",
-                                "hidden": true
-                              },
-                              "remainingToBeSecured": {
-                                "title": "Remaining",
-                                "type": "string",
-                                "currency": true,
-                                "readonly": true
-                              },
-                              "securedAgainstBaseline": {
-                                "title": "Against the Baseline",
-                                "type": "string",
-                                "percentage": true,
-                                "readonly": true
-                              },
-                              "securedAgainstBaselineLastReturn": {
-                                "title": "",
-                                "type": "string",
-                                "hidden": true
-                              },
-                              "increaseOnLastReturn": {
-                                "title": "Increase on Last Return",
-                                "type": "string",
-                                "readonly": true
-                              },
-                              "increaseOnLastReturnPercent": {
-                                "title": "% Increase on Last Return",
-                                "type": "string",
-                                "percentage": true,
-                                "readonly": true
-                              }
-                            }
-                          }
-                        }
-                      },
-                      "private": {
-                        "title": "",
-                        "type": "object",
-                        "calculation": "setCreate(formData, ['balancesSecured', 'securedAgainstBaseline'], calculateVariance(parseMoney(get(formData, 'balancesSecured', 'amountSecured')), parseMoney(get(formData, 'previousAmounts', 'baseline')))); (get(formData, 'balancesSecured', 'amountSecuredLastReturn') && get(formData, 'balancesSecured', 'amountSecured'))? setCreate(formData, ['balancesSecured', 'increaseOnLastReturn'], '£ ' +(''+parseMoney(get(formData, 'balancesSecured', 'amountSecured')) - parseMoney(get(formData, 'balancesSecured', 'amountSecuredLastReturn')))) : setCreate(formData, ['balancesSecured', 'increaseOnLastReturn'], '');(get(formData, 'balancesSecured', 'securedAgainstBaselineLastReturn') && get(formData, 'balancesSecured', 'amountSecured')) ? setCreate(formData, ['balancesSecured', 'increaseOnLastReturnPercent'], ''+get(formData, 'balancesSecured', 'securedAgainstBaseline') -get(formData, 'balancesSecured', 'securedAgainstBaselineLastReturn')) : setCreate(formData, ['balancesSecured', 'increaseOnLastReturnPercent'], ''); get(formData, 'anyChangeToBaseline', 'confirmation') === 'Yes' ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'currentAmount'], get(formData,'anyChangeToBaseline', 'variance', 'current')) : setCreate(formData, ['anyChangeToBaseline','variance', 'currentAmount'], get(formData, 'previousAmounts', 'lastReturn')); setCreate(formData, ['balancesSecured','remainingToBeSecured'], ''+parseMoney(get(formData, 'previousAmounts', 'baseline')) -parseMoney(get(formData, 'balancesSecured', 'amountSecured')));setCreate(formData, ['anyChangeToBaseline', 'variance', 'baselineVariance'], ''+parseMoney(get(formData, 'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'baseline'))); get(formData, 'previousAmounts', 'lastReturn') ? setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturnVariance'], ''+parseMoney(get(formData, 'anyChangeToBaseline', 'variance', 'current')) - parseMoney(get(formData, 'previousAmounts', 'lastReturn'))) : setCreate(formData, ['anyChangeToBaseline', 'variance', 'lastReturnVariance'], 'N/A');",
-                        "properties": {
-                          "previousAmounts": {
-                            "type": "object",
-                            "horizontal": true,
-                            "title": "Total Private",
-                            "properties": {
-                              "baseline": {
-                                "title": "Total baseline amount",
-                                "type": "string",
-                                "readonly": true,
-                                "currency": true,
-                                "sourceKey": [
-                                  "baseline_data",
-                                  "costs",
-                                  "infrastructure",
-                                  "totalPrivate"
-                                ]
-                              },
-                              "lastReturn": {
-                                "title": "Total Last Return Amount",
-                                "type": "string",
-                                "currency": true,
-                                "readonly": true
-                              }
-                            }
-                          },
-                          "anyChangeToBaseline": {
-                            "title": "",
-                            "type": "object",
-                            "properties": {
-                              "confirmation": {
-                                "title": "Any Change to Baseline/ Last Return.",
-                                "type": "string",
-                                "enum": ["Yes", "No"],
-                                "radio": true
-                              }
+                            "cumulative": {
+                              "title": "Cumulative Amount",
+                              "type": "string",
+                              "currency": true,
+                              "readonly": true
                             },
-                            "dependencies": {
-                              "confirmation": {
-                                "oneOf": [
-                                  {
-                                    "properties": {
-                                      "confirmation": {
-                                        "enum": ["Yes"]
-                                      },
-                                      "variance": {
-                                        "type": "object",
-                                        "title": "",
-                                        "horizontal": true,
-                                        "properties": {
-                                          "current": {
-                                            "title": "Current Return",
-                                            "type": "string",
-                                            "currency": true
-                                          },
-                                          "currentAmount": {
-                                            "title": "",
-                                            "type": "string",
-                                            "hidden": true
-                                          },
-                                          "baselineVariance": {
-                                            "title": "Variance Against Baseline",
-                                            "type": "string",
-                                            "readonly": true
-                                          },
-                                          "lastReturnVariance": {
-                                            "title": "Variance Against Last Return",
-                                            "type": "string",
-                                            "readonly": true
-                                          }
-                                        }
-                                      },
-                                      "reason": {
-                                        "title": "Reason for Variance",
-                                        "type": "string",
-                                        "extendedText": true
-                                      }
-                                    }
-                                  },
-                                  {
-                                    "properties": {
-                                      "confirmation": {
-                                        "enum": ["No"]
-                                      }
-                                    }
-                                  }
-                                ]
-                              }
+                            "remaining": {
+                              "title": "Remaining Amount",
+                              "type": "string",
+                              "currency": true,
+                              "readonly": true
+                            },
+                            "useOfRecoveredFunding": {
+                              "title": "Use of Recovered Funding",
+                              "type": "string",
+                              "extendedText": true
+                            },
+                            "planAttachment": {
+                              "title": "",
+                              "description": "Please attach the evidence here.",
+                              "uploadFile": "single",
+                              "type": "string"
                             }
-                          },
-                          "balancesSecured": {
-                            "type": "object",
-                            "title": "Amount Secured",
-                            "horizontal": true,
-                            "properties": {
-                              "amountSecured": {
-                                "title": "To date",
-                                "type": "string",
-                                "currency": true
-                              },
-                              "amountSecuredLastReturn": {
-                                "title": "",
-                                "type": "string",
-                                "hidden": true
-                              },
-                              "remainingToBeSecured": {
-                                "title": "Remaining",
-                                "type": "string",
-                                "currency": true,
-                                "readonly": true
-                              },
-                              "securedAgainstBaseline": {
-                                "title": "Against the Baseline",
-                                "type": "string",
-                                "percentage": true,
-                                "readonly": true
-                              },
-                              "securedAgainstBaselineLastReturn": {
-                                "title": "",
-                                "type": "string",
-                                "hidden": true
-                              },
-                              "increaseOnLastReturn": {
-                                "title": "Increase on Last Return",
-                                "type": "string",
-                                "currency": true,
-                                "readonly": true
-                              },
-                              "increaseOnLastReturnPercent": {
-                                "title": "% Increase on Last Return",
-                                "type": "string",
-                                "percentage": true,
-                                "readonly": true
-                              }
-                            }
-                          },
-                          "comparisons": {
-                            "type": "object",
-                            "title": "",
-                            "horizontal": true,
-                            "properties": {
-                            }
-                          }
-                        }
-                      },
-                      "riskToFundingPackage": {
-                        "type": "object",
-                        "title": "Funding Package Risk",
-                        "properties": {
-                          "risk": {
-                            "title": "Are there any risks to the funding package?",
-                            "type": "string",
-                            "radio": true,
-                            "enum": ["Yes", "No"]
-                          }
-                        },
-                        "dependencies": {
-                          "risk": {
-                            "oneOf": [
-                              {
-                                "properties": {
-                                  "risk": { "enum": ["Yes"] },
-                                  "description": {
-                                    "title": "Description of risk",
-                                    "type": "string"
-                                  }
-                                }
-                              },
-                              {
-                                "properties": {
-                                  "risk": { "enum": ["No"] }
-                                }
-                              }
-                            ]
                           }
                         }
                       }
                     }
                   }
-                ]
-              }
+                }
+              ]
             }
           }
         }
@@ -4979,7 +5262,7 @@
                   "extendedText": true
                 },
                 "evidenceOfSpendNextQuarter": {
-                  "title": "Evidence of Spend for the Past Quarter.",
+                  "title": "Evidence to Support Forecast Spend for Next Quarter.",
                   "description": "Evidence can include contract/ quotes. Please attach here.",
                   "uploadFile": "multiple",
                   "type": "string",
@@ -5632,28 +5915,116 @@
         },
         "inYearHousingStarts": {
           "type": "object",
-          "title": "In Year Housing Starts",
-          "calculation": "get(formData, 'baselineAmounts') ? set(formData, 'progress', calculateVariance(sum(formData['actualAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'), sum(formData['baselineAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'))) : '0'; ",
+          "title": "",
+          "calculation": "(get(formData,'actualAmounts') && get(formData, 'baselineAmounts')) ? set(formData, 'progress', calculateVariance(sum(get(formData,'actualAmounts'), 'quarter1','quarter2','quarter3','quarter4'), sum(get(formData, 'baselineAmounts'), 'quarter1', 'quarter2', 'quarter3', 'quarter4'))): null;(get(formData, 'newYear') && get(formData, 'newYear', 'setNewAmounts') === 'Set this years target.' )? set(formData, 'currentAmounts', get(formData, 'newYear', 'newStarts')) : set(formData, 'currentAmounts', get(formData, 'baselineAmounts')) ;get(formData, 'baselineAmounts') ? set(formData, 'progress', calculateVariance(sum(formData['actualAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'), sum(formData['baselineAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'))) : '0'; ",
           "properties": {
-            "baselineAmounts": {
+            "newYear": {
               "type": "object",
-              "horizontal": true,
-              "title": "Baseline Amounts",
+              "title": "In Year Housing Starts",
+              "properties": {
+                "setNewAmounts": {
+                  "type": "string",
+                  "title": " ",
+                  "enum": [
+                    "Set this years target.",
+                    "This years target has already been set."
+                  ],
+                  "radio": true
+                }
+              },
+              "dependencies": {
+                "setNewAmounts": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "setNewAmounts": {
+                          "enum": ["Set this years target."]
+                        },
+                        "newStarts": {
+                          "type": "object",
+                          "horizontal": true,
+                          "title": "This Years Forecasted Amounts",
+                          "properties": {
+                            "quarter1": {
+                              "type": "string",
+                              "title": "Q1 Current Year"
+                            },
+                            "quarter2": {
+                              "type": "string",
+                              "title": "Q2 Current Year"
+                            },
+                            "quarter3": {
+                              "type": "string",
+                              "title": "Q3 Current Year"
+                            },
+                            "quarter4": {
+                              "type": "string",
+                              "title": "Q4 Current Year"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "setNewAmounts": {
+                          "enum": ["This years target has already been set."]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            "currentAmounts": {
+              "type": "object",
+              "title": "",
               "properties": {
                 "quarter1": {
                   "type": "string",
+                  "hidden": true,
                   "title": "Q1 Current Year"
                 },
                 "quarter2": {
                   "type": "string",
+                  "hidden": true,
                   "title": "Q2 Current Year"
                 },
                 "quarter3": {
                   "type": "string",
+                  "hidden": true,
                   "title": "Q3 Current Year"
                 },
                 "quarter4": {
                   "type": "string",
+                  "hidden": true,
+                  "title": "Q4 Current Year"
+                }
+              }
+            },
+            "baselineAmounts": {
+              "type": "object",
+              "horizontal": true,
+              "title": "Forecasted Amounts",
+              "properties": {
+                "quarter1": {
+                  "type": "string",
+                  "readonly": true,
+                  "title": "Q1 Current Year"
+                },
+                "quarter2": {
+                  "type": "string",
+                  "readonly": true,
+                  "title": "Q2 Current Year"
+                },
+                "quarter3": {
+                  "type": "string",
+                  "readonly": true,
+                  "title": "Q3 Current Year"
+                },
+                "quarter4": {
+                  "type": "string",
+                  "readonly": true,
                   "title": "Q4 Current Year"
                 }
               }
@@ -5772,28 +6143,116 @@
         },
         "inYearHousingCompletions": {
           "type": "object",
-          "title": "In Year Housing Completions",
-          "calculation": "formData['baselineAmounts'] ? set(formData, 'progress', calculateVariance(sum(formData['actualAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'), sum(formData['baselineAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'))) : '0'; ",
+          "title": "",
+          "calculation": "(get(formData,'actualAmounts') && get(formData, 'baselineAmounts')) ? set(formData, 'progress', calculateVariance(sum(get(formData,'actualAmounts'), 'quarter1','quarter2','quarter3','quarter4'), sum(get(formData, 'baselineAmounts'), 'quarter1', 'quarter2', 'quarter3', 'quarter4'))): null;( get(formData, 'newYear') && get(formData, 'newYear', 'setNewAmounts') === 'Set this years target.' )? set(formData, 'currentAmounts', get(formData, 'newYear', 'newCompletions')) : set(formData, 'currentAmounts', get(formData, 'baselineAmounts')) ;formData['baselineAmounts'] ? set(formData, 'progress', calculateVariance(sum(formData['actualAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'), sum(formData['baselineAmounts'], 'quarter1', 'quarter2', 'quarter3', 'quarter4'))) : '0'; ",
           "properties": {
-            "baselineAmounts": {
+            "newYear": {
               "type": "object",
-              "horizontal": true,
-              "title": "Baseline Amounts",
+              "title": "In Year Housing Completions",
+              "properties": {
+                "setNewAmounts": {
+                  "type": "string",
+                  "title": " ",
+                  "enum": [
+                    "Set this years target.",
+                    "This years target has already been set."
+                  ],
+                  "radio": true
+                }
+              },
+              "dependencies": {
+                "setNewAmounts": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "setNewAmounts": {
+                          "enum": ["Set this years target."]
+                        },
+                        "newCompletions": {
+                          "type": "object",
+                          "horizontal": true,
+                          "title": "This Years Forecasted Amounts",
+                          "properties": {
+                            "quarter1": {
+                              "type": "string",
+                              "title": "Q1 Current Year"
+                            },
+                            "quarter2": {
+                              "type": "string",
+                              "title": "Q2 Current Year"
+                            },
+                            "quarter3": {
+                              "type": "string",
+                              "title": "Q3 Current Year"
+                            },
+                            "quarter4": {
+                              "type": "string",
+                              "title": "Q4 Current Year"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "properties": {
+                        "setNewAmounts": {
+                          "enum": ["This years target has already been set."]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            "currentAmounts": {
+              "type": "object",
+              "title": "",
               "properties": {
                 "quarter1": {
                   "type": "string",
+                  "hidden": true,
                   "title": "Q1 Current Year"
                 },
                 "quarter2": {
+                  "type": "string",
+                  "hidden": true,
+                  "title": "Q2 Current Year"
+                },
+                "quarter3": {
+                  "type": "string",
+                  "hidden": true,
+                  "title": "Q3 Current Year"
+                },
+                "quarter4": {
+                  "type": "string",
+                  "hidden": true,
+                  "title": "Q4 Current Year"
+                }
+              }
+            },
+            "baselineAmounts": {
+              "type": "object",
+              "horizontal": true,
+              "title": "Forecasted Amounts",
+              "properties": {
+                "quarter1": {
+                  "type": "string",
+                  "readonly": true,
+                  "title": "Q1 Current Year"
+                },
+                "quarter2": {
+                  "readonly": true,
                   "type": "string",
                   "title": "Q2 Current Year"
                 },
                 "quarter3": {
                   "type": "string",
+                  "readonly": true,
                   "title": "Q3 Current Year"
                 },
                 "quarter4": {
                   "type": "string",
+                  "readonly": true,
                   "title": "Q4 Current Year"
                 }
               }
@@ -6323,537 +6782,1620 @@
     },
     "reviewAndAssurance": {
       "title": "Review and Assurance",
-      "type": "object",
+      "type": "array",
       "laHidden": true,
-      "properties": {
-        "date": {
-          "title": "Date of most recent quarterly meeting",
-          "type": "string",
-          "format": "date"
-        },
-        "assuranceManagerAttendance": {
-          "title": "Was the assurance manager in attendance?",
-          "type": "string",
-          "radio": true,
-          "enum": ["Yes", "No"]
-        },
-        "infrastructureDelivery": {
-          "type": "array",
-          "title": "",
-          "items": {
+      "items": {
+        "type": "object",
+        "title": "",
+        "properties": {
+          "rmReview": {
             "type": "object",
-            "title": "",
-            "horizontal": true,
+            "title": "RM Review",
             "properties": {
-              "details": {
+              "date": {
+                "title": "Date of most recent quarterly meeting",
                 "type": "string",
-                "title": "Infrastructure Delivery",
+                "format": "date"
+              },
+              "assuranceManagerAttendance": {
+                "title": "Was the assurance manager in attendance?",
+                "description": "",
+                "type": "string",
+                "radio": true,
+                "enum": ["Yes", "No"]
+              },
+              "meetingsAttended": {
+                "title": "Boards/Governance meetings attended",
+                "type": "string"
+              },
+              "infrastructureDelivery": {
+                "type": "array",
+                "title": "Summary of Infrastructures",
+                "items": {
+                  "type": "object",
+                  "title": "",
+                  "properties": {
+                    "infrastructureDesc": {
+                      "type": "string",
+                      "readonly": true,
+                      "title": "Infrastructure Description"
+                    },
+                    "reviewDetails": {
+                      "type": "object",
+                      "horizontal": true,
+                      "title": "",
+                      "properties": {
+                        "details": {
+                          "type": "string",
+                          "title": "Summary of Infrastructure Delivery"
+                        },
+                        "riskRating": {
+                          "type": "string",
+                          "title": "Risk Rating",
+                          "enum": [
+                            "High",
+                            "Medium High",
+                            "Medium Low",
+                            "Low",
+                            "Achieved"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "hifFundedFinancials": {
+                "type": "object",
+                "title": "HIF Funded Financials",
+                "horizontal": true,
+                "properties": {
+                  "summary": {
+                    "title": "Summary",
+                    "type": "string"
+                  },
+                  "riskRating": {
+                    "type": "string",
+                    "title": "Risk Rating",
+                    "enum": [
+                      "High",
+                      "Medium High",
+                      "Medium Low",
+                      "Low",
+                      "Achieved"
+                    ]
+                  }
+                }
+              },
+              "hifWiderScheme": {
+                "type": "object",
+                "title": "Wider Scheme",
+                "horizontal": true,
+                "properties": {
+                  "summary": {
+                    "title": "Summary",
+                    "type": "string"
+                  },
+                  "riskRating": {
+                    "type": "string",
+                    "title": "Risk Rating",
+                    "enum": [
+                      "High",
+                      "Medium High",
+                      "Medium Low",
+                      "Low",
+                      "Achieved"
+                    ]
+                  }
+                }
+              },
+              "outputForecast": {
+                "type": "object",
+                "title": "Output Forecast",
+                "horizontal": true,
+                "properties": {
+                  "summary": {
+                    "title": "Summary",
+                    "type": "string"
+                  },
+                  "riskRating": {
+                    "type": "string",
+                    "title": "Risk Rating",
+                    "enum": [
+                      "High",
+                      "Medium High",
+                      "Medium Low",
+                      "Low",
+                      "Achieved"
+                    ]
+                  }
+                }
+              },
+              "barriers": {
+                "type": "object",
+                "title": "Barriers",
+                "properties": {
+                  "significantIssues": {
+                    "type": "array",
+                    "title": "Significant Issues",
+                    "addable": true,
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "barrierType": {
+                          "title": "Type",
+                          "type": "string",
+                          "enum": [
+                            "Land acquisition",
+                            "Site Access - Road",
+                            "Site Access - Railway",
+                            "Flood risk",
+                            "Funding - sources / cashflow",
+                            "Planning",
+                            "Land Remediation",
+                            "Utilities Provision",
+                            "Procurement",
+                            "Other"
+                          ]
+                        },
+                        "overview": {
+                          "title": "Overview",
+                          "type": "string",
+                          "extendedText": true
+                        }
+                      },
+                      "dependencies": {
+                        "barrierType": {
+                          "oneOf": [
+                            {
+                              "properties": {
+                                "barrierType": {
+                                  "type": "string",
+                                  "enum": ["Land acquisition"]
+                                }
+                              }
+                            },
+                            {
+                              "properties": {
+                                "barrierType": {
+                                  "type": "string",
+                                  "enum": ["Site Access - Road"]
+                                }
+                              }
+                            },
+                            {
+                              "properties": {
+                                "barrierType": {
+                                  "type": "string",
+                                  "enum": ["Site Access - Railway"]
+                                }
+                              }
+                            },
+                            {
+                              "properties": {
+                                "barrierType": {
+                                  "type": "string",
+                                  "enum": ["Flood risk"]
+                                }
+                              }
+                            },
+                            {
+                              "properties": {
+                                "barrierType": {
+                                  "type": "string",
+                                  "enum": ["Funding - sources / cashflow"]
+                                }
+                              }
+                            },
+                            {
+                              "properties": {
+                                "barrierType": {
+                                  "type": "string",
+                                  "enum": ["Planning"]
+                                }
+                              }
+                            },
+                            {
+                              "properties": {
+                                "barrierType": {
+                                  "type": "string",
+                                  "enum": ["Land Remediation"]
+                                }
+                              }
+                            },
+                            {
+                              "properties": {
+                                "barrierType": {
+                                  "type": "string",
+                                  "enum": ["Utilities Provision"]
+                                }
+                              }
+                            },
+                            {
+                              "properties": {
+                                "barrierType": {
+                                  "type": "string",
+                                  "enum": ["Procurement"]
+                                }
+                              }
+                            },
+                            {
+                              "properties": {
+                                "barrierType": {
+                                  "type": "string",
+                                  "enum": ["Other"]
+                                },
+                                "details": {
+                                  "title": "Details",
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "liveIssues": {
+                    "type": "array",
+                    "title": "Live Issues (with mitigation)",
+                    "addable": true,
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "barrierType": {
+                          "title": "Type",
+                          "type": "string",
+                          "enum": [
+                            "Land acquisition",
+                            "Site Access - Road",
+                            "Site Access - Railway",
+                            "Flood risk",
+                            "Funding - sources / cashflow",
+                            "Planning",
+                            "Land Remediation",
+                            "Utilities Provision",
+                            "Procurement",
+                            "Other"
+                          ]
+                        },
+                        "overview": {
+                          "title": "Overview",
+                          "type": "string",
+                          "extendedText": true
+                        }
+                      },
+                      "dependencies": {
+                        "barrierType": {
+                          "oneOf": [
+                            {
+                              "properties": {
+                                "barrierType": {
+                                  "type": "string",
+                                  "enum": ["Land acquisition"]
+                                }
+                              }
+                            },
+                            {
+                              "properties": {
+                                "barrierType": {
+                                  "type": "string",
+                                  "enum": ["Site Access - Road"]
+                                }
+                              }
+                            },
+                            {
+                              "properties": {
+                                "barrierType": {
+                                  "type": "string",
+                                  "enum": ["Site Access - Railway"]
+                                }
+                              }
+                            },
+                            {
+                              "properties": {
+                                "barrierType": {
+                                  "type": "string",
+                                  "enum": ["Flood risk"]
+                                }
+                              }
+                            },
+                            {
+                              "properties": {
+                                "barrierType": {
+                                  "type": "string",
+                                  "enum": ["Funding - sources / cashflow"]
+                                }
+                              }
+                            },
+                            {
+                              "properties": {
+                                "barrierType": {
+                                  "type": "string",
+                                  "enum": ["Planning"]
+                                }
+                              }
+                            },
+                            {
+                              "properties": {
+                                "barrierType": {
+                                  "type": "string",
+                                  "enum": ["Land Remediation"]
+                                }
+                              }
+                            },
+                            {
+                              "properties": {
+                                "barrierType": {
+                                  "type": "string",
+                                  "enum": ["Utilities Provision"]
+                                }
+                              }
+                            },
+                            {
+                              "properties": {
+                                "barrierType": {
+                                  "type": "string",
+                                  "enum": ["Procurement"]
+                                }
+                              }
+                            },
+                            {
+                              "properties": {
+                                "barrierType": {
+                                  "type": "string",
+                                  "enum": ["Other"]
+                                },
+                                "details": {
+                                  "title": "Details",
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "recommendForRegularMonitoring": {
+                "title": "Regular Monitoring",
+                "type": "object",
+                "properties": {
+                  "isRecommendForRegularMonitoring": {
+                    "title": "Recommended For Regular Monitoring",
+                    "radio": true,
+                    "enum": ["Yes", "No"]
+                  }
+                },
+                "dependencies": {
+                  "isRecommendForRegularMonitoring": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "isRecommendForRegularMonitoring": {
+                            "type": "string",
+                            "enum": ["No"]
+                          }
+                        }
+                      },
+                      {
+                        "properties": {
+                          "isRecommendForRegularMonitoring": {
+                            "type": "string",
+                            "enum": ["Yes"]
+                          },
+                          "reasonAndProposedFrequency": {
+                            "title": "Reason And Proposed Frequency",
+                            "type": "string",
+                            "extendedText": true
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "overviewOfEngagement": {
+                "title": "Overview of engagement since last review",
+                "type": "string",
                 "extendedText": true
               },
-              "riskRating": {
+              "issuesToRaise": {
+                "title": "Issues to Raise",
                 "type": "string",
-                "title": "Risk Rating",
-                "enum": ["High", "Medium High", "Medium Low", "Low", "Achieved"]
+                "extendedText": true
+              },
+              "reviewComplete": {
+                "title": "Please tick 'Yes' when you have completed the review.",
+                "type": "string",
+                "radio": true,
+                "enum": ["Yes", "No"]
               }
-            }
-          }
-        },
-        "hifFundedFinancials": {
-          "type": "object",
-          "title": "HIF Funded Financials",
-          "properties": {
-            "summary": {
-              "title": "Summary",
-              "type": "string"
-            },
-            "riskRating": {
-              "type": "string",
-              "title": "Risk Rating",
-              "enum": ["High", "Medium High", "Medium Low", "Low", "Achieved"]
-            }
-          }
-        },
-        "hifWiderScheme": {
-          "type": "object",
-          "title": "Wider Scheme",
-          "properties": {
-            "summary": {
-              "title": "Summary",
-              "type": "string"
-            },
-            "riskRating": {
-              "type": "string",
-              "title": "Risk Rating",
-              "enum": ["High", "Medium High", "Medium Low", "Low", "Achieved"]
-            }
-          }
-        },
-        "outputForecast": {
-          "type": "object",
-          "title": "Output Forecast",
-          "properties": {
-            "summary": {
-              "title": "Summary",
-              "type": "string"
-            },
-            "riskRating": {
-              "type": "string",
-              "title": "Risk Rating",
-              "enum": ["High", "Medium High", "Medium Low", "Low", "Achieved"]
-            }
-          }
-        },
-        "barriers": {
-          "type": "object",
-          "title": "Barriers",
-          "properties": {
-            "significantIssues": {
-              "type": "array",
-              "title": "Significant Issues",
-              "addable": true,
-              "items": {
-                "type": "object",
-                "properties": {
-                  "barrierType": {
-                    "title": "Type",
-                    "type": "string",
-                    "enum": [
-                      "Land acquisition",
-                      "Site Access - Road",
-                      "Site Access - Railway",
-                      "Flood risk",
-                      "Funding - sources / cashflow",
-                      "Planning",
-                      "Land Remediation",
-                      "Utilities Provision",
-                      "Procurement",
-                      "Other"
-                    ]
-                  },
-                  "overview": {
-                    "title": "Overview",
-                    "type": "string",
-                    "extendedText": true
-                  }
-                },
-                "dependencies": {
-                  "barrierType": {
-                    "oneOf": [
-                      {
-                        "properties": {
-                          "barrierType": {
-                            "type": "string",
-                            "enum": ["Land acquisition"]
-                          }
-                        }
-                      },
-                      {
-                        "properties": {
-                          "barrierType": {
-                            "type": "string",
-                            "enum": ["Site Access - Road"]
-                          }
-                        }
-                      },
-                      {
-                        "properties": {
-                          "barrierType": {
-                            "type": "string",
-                            "enum": ["Site Access - Railway"]
-                          }
-                        }
-                      },
-                      {
-                        "properties": {
-                          "barrierType": {
-                            "type": "string",
-                            "enum": ["Flood risk"]
-                          }
-                        }
-                      },
-                      {
-                        "properties": {
-                          "barrierType": {
-                            "type": "string",
-                            "enum": ["Funding - sources / cashflow"]
-                          }
-                        }
-                      },
-                      {
-                        "properties": {
-                          "barrierType": {
-                            "type": "string",
-                            "enum": ["Planning"]
-                          }
-                        }
-                      },
-                      {
-                        "properties": {
-                          "barrierType": {
-                            "type": "string",
-                            "enum": ["Land Remediation"]
-                          }
-                        }
-                      },
-                      {
-                        "properties": {
-                          "barrierType": {
-                            "type": "string",
-                            "enum": ["Utilities Provision"]
-                          }
-                        }
-                      },
-                      {
-                        "properties": {
-                          "barrierType": {
-                            "type": "string",
-                            "enum": ["Procurement"]
-                          }
-                        }
-                      },
-                      {
-                        "properties": {
-                          "barrierType": {
-                            "type": "string",
-                            "enum": ["Other"]
-                          },
-                          "details": {
-                            "title": "Details",
-                            "type": "string"
-                          }
-                        }
-                      }
-                    ]
-                  }
-                }
-              }
-            },
-            "liveIssues": {
-              "type": "array",
-              "title": "Live Issues (with mitigation)",
-              "addable": true,
-              "items": {
-                "type": "object",
-                "properties": {
-                  "barrierType": {
-                    "title": "Type",
-                    "type": "string",
-                    "enum": [
-                      "Land acquisition",
-                      "Site Access - Road",
-                      "Site Access - Railway",
-                      "Flood risk",
-                      "Funding - sources / cashflow",
-                      "Planning",
-                      "Land Remediation",
-                      "Utilities Provision",
-                      "Procurement",
-                      "Other"
-                    ]
-                  },
-                  "overview": {
-                    "title": "Overview",
-                    "type": "string",
-                    "extendedText": true
-                  }
-                },
-                "dependencies": {
-                  "barrierType": {
-                    "oneOf": [
-                      {
-                        "properties": {
-                          "barrierType": {
-                            "type": "string",
-                            "enum": ["Land acquisition"]
-                          }
-                        }
-                      },
-                      {
-                        "properties": {
-                          "barrierType": {
-                            "type": "string",
-                            "enum": ["Site Access - Road"]
-                          }
-                        }
-                      },
-                      {
-                        "properties": {
-                          "barrierType": {
-                            "type": "string",
-                            "enum": ["Site Access - Railway"]
-                          }
-                        }
-                      },
-                      {
-                        "properties": {
-                          "barrierType": {
-                            "type": "string",
-                            "enum": ["Flood risk"]
-                          }
-                        }
-                      },
-                      {
-                        "properties": {
-                          "barrierType": {
-                            "type": "string",
-                            "enum": ["Funding - sources / cashflow"]
-                          }
-                        }
-                      },
-                      {
-                        "properties": {
-                          "barrierType": {
-                            "type": "string",
-                            "enum": ["Planning"]
-                          }
-                        }
-                      },
-                      {
-                        "properties": {
-                          "barrierType": {
-                            "type": "string",
-                            "enum": ["Land Remediation"]
-                          }
-                        }
-                      },
-                      {
-                        "properties": {
-                          "barrierType": {
-                            "type": "string",
-                            "enum": ["Utilities Provision"]
-                          }
-                        }
-                      },
-                      {
-                        "properties": {
-                          "barrierType": {
-                            "type": "string",
-                            "enum": ["Procurement"]
-                          }
-                        }
-                      },
-                      {
-                        "properties": {
-                          "barrierType": {
-                            "type": "string",
-                            "enum": ["Other"]
-                          },
-                          "details": {
-                            "title": "Details",
-                            "type": "string"
-                          }
-                        }
-                      }
-                    ]
-                  }
-                }
-              }
-            }
-          }
-        },
-        "recommendForRegularMonitoring": {
-          "title": "Regular Monitoring",
-          "type": "object",
-          "properties": {
-            "isRecommendForRegularMonitoring": {
-              "title": "Recommended For Regular Monitoring",
-              "radio": true,
-              "enum": ["Yes", "No"]
             }
           },
-          "dependencies": {
-            "isRecommendForRegularMonitoring": {
-              "oneOf": [
-                {
-                  "properties": {
-                    "isRecommendForRegularMonitoring": {
-                      "type": "string",
-                      "enum": ["No"]
-                    }
-                  }
-                },
-                {
-                  "properties": {
-                    "isRecommendForRegularMonitoring": {
-                      "type": "string",
-                      "enum": ["Yes"]
-                    },
-                    "reasonAndProposedFrequency": {
-                      "title": "Reason And Proposed Frequency",
-                      "type": "string",
-                      "extendedText": true
-                    }
-                  }
-                }
-              ]
-            }
-          }
-        }
-      }
-    },
-    "hifRecovery": {
-      "title": "HIF Recovery",
-      "type": "object",
-      "properties": {
-        "recovery": {
-          "title": "",
-          "type": "object",
-          "properties": {
-            "aimToRecoverFunding": {
-              "title": "Aim to recover funding?",
-              "radio": true,
-              "enum": ["Yes", "No"],
-              "sourceKey": ["baseline_data", "recovery", "aimToRecover"],
-              "readonly": true
-            }
-          },
-          "dependencies": {
-            "aimToRecoverFunding": {
-              "oneOf": [
-                {
-                  "properties": {
-                    "aimToRecoverFunding": {
-                      "type": "string",
-                      "enum": ["No"]
-                    }
-                  }
-                },
-                {
-                  "properties": {
-                    "aimToRecoverFunding": {
-                      "type": "string",
-                      "enum": ["Yes"]
-                    },
-                    "expectedAmountToRecover": {
-                      "type": "object",
-                      "calculation": "get(formData,'changeToBaseline', 'currentReturn') ? setCreate(formData, ['changeToBaseline', 'currentCopy'], get(formData,'changeToBaseline', 'currentReturn')) : setCreate(formData, ['changeToBaseline', 'currentCopy'], get(formData, 'changeToBaseline', 'lastReturn')); setCreate(formData, ['changeToBaseline','varianceAgainstBaseline'], subtract(get(formData,'changeToBaseline', 'currentReturn'), get(formData, 'baselineAmount'))); get(formData,'changeToBaseline', 'lastReturn') ? setCreate(formData,['changeToBaseline', 'varianceAgainstLastReturn'], subtract(get(formData,'changeToBaseline', 'currentReturn'), get(formData,'changeToBaseline', 'lastReturn'))): setCreate(formData,['changeToBaseline', 'varianceAgainstLastReturn'], 'N/A'); get(formData,'changeToBaseline', 'currentCopy') ? setCreate(formData, ['amountRecovered', 'remaining'], subtract(get(formData, 'changeToBaseline', 'currentCopy'), get(formData, 'amountRecovered', 'cumulative'))) : setCreate(formData, ['amountRecovered', 'remaining'], subtract(get(formData, 'baselineAmount'), get(formData, 'amountRecovered', 'cumulative')));",
-                      "title": "Expected Amount to Recover",
-                      "properties": {
-                        "baselineAmount": {
-                          "title": "Baseline Amount",
-                          "type": "string",
-                          "readonly": true,
-                          "currency": true,
-                          "sourceKey": ["baseline_data", "recovery", "expectedAmount"]
-                        },
-                        "methodOfRecovery": {
-                          "title": "Method of Recovery",
-                          "type": "string",
-                          "readonly": true,
-                          "sourceKey": ["baseline_data", "recovery", "methodOfRecovery"]
-                        },
-                        "changeToBaseline": {
+          "assuranceReview": {
+            "type": "object",
+            "title": "Assurance Review",
+            "calculation": "set(formData, 'infrastructureDeliveryAssurance', setArrayField(get(formData,'infrastructureDeliveryCopy'), ['infrastructureDesc'], get(formData, 'infrastructureDeliveryAssurance'))); set(formData, 'infrastructureDeliveryAssurance', setArrayField(get(formData,'infrastructureDeliveryCopy'), ['reviewDetails'], get(formData, 'infrastructureDeliveryAssurance')));",
+            "description": "Only to be completed by the assurance team. This page will only become available when the RM review is complete.",
+            "properties": {
+              "assuranceManagerAttendance": {
+                "title": "Was the assurance manager in attendance?",
+                "type": "string",
+                "radio": true,
+                "readonly": true,
+                "enum": ["Yes", "No"]
+              },
+              "rmReviewComplete": {
+                "title": "",
+                "type": "string",
+                "hidden": true,
+                "enum": ["Yes", "No"]
+              }
+            },
+            "dependencies": {
+              "rmReviewComplete": {
+                "oneOf": [
+                  {
+                    "properties": {
+                      "rmReviewComplete": {
+                        "enum": ["Yes"]
+                      },
+                      "summaryOfMeeting": {
+                        "type": "string",
+                        "title": "Summary Of Meeting",
+                        "extendedText": true
+                      },
+                      "infrastructureDeliveryAssurance": {
+                        "type": "array",
+                        "title": "Summary of Infrastructures",
+                        "items": {
                           "type": "object",
                           "title": "",
                           "properties": {
-                            "confirmation": {
-                              "title": "Any Change?",
-                              "type": "string",
-                              "enum": ["Yes", "No"],
-                              "radio": true
-                            }
-                          },
-                          "dependencies": {
-                            "confirmation": {
-                              "oneOf": [
-                                {
-                                  "properties": {
-                                    "confirmation": {
-                                      "type": "string",
-                                      "enum": ["No"]
-                                    }
-                                  }
-                                },
-                                {
-                                  "properties": {
-                                    "confirmation": {
-                                      "type": "string",
-                                      "enum": ["Yes"]
-                                    },
-                                    "currentReturn": {
-                                      "title": "Current Return",
-                                      "type": "string",
-                                      "currency": true
-                                    },
-                                    "currentCopy": {
-                                      "type": "string",
-                                      "hidden": true,
-                                      "sourceKey": ["return_data", "hifRecovery", "recovery", "expectedAmountToRecover","changeToBaseline", "currentCopy"]
-                                    },
-                                    "lastReturn": {
-                                      "title": "Last Return",
-                                      "type": "string",
-                                      "currency": true,
-                                      "sourceKey": ["return_data", "hifRecovery", "recovery", "expectedAmountToRecover","changeToBaseline", "currentCopy"],
-                                      "readonly": true
-                                    },
-                                    "varianceAgainstBaseline": {
-                                      "title": "Variance Against Baseline (£)",
-                                      "type": "string",
-                                      "readonly": true
-                                    },
-                                    "varianceAgainstLastReturn": {
-                                      "title": "Variance Against Last Return (£)",
-                                      "type": "string",
-                                      "readonly": true
-                                    },
-                                    "reasonForVariance": {
-                                      "title": "Reason for Variance",
-                                      "type": "string",
-                                      "extendedText": true
-                                    }
-                                  }
-                                }
-                              ]
-                            }
-                          }
-                        },
-                        "amountRecovered": {
-                          "title": "Amount Recovered",
-                          "type": "object",
-                          "calculation": "set(formData, 'cumulative', add(get(formData, 'currentReturn'), get(formData, 'previousCumulator')));",
-                          "properties": {
-                            "currentReturn": {
-                              "title": "Current Return",
-                              "type": "string",
-                              "currency": true
-                            },
-                            "previousCumulator": {
+                            "infrastructureDesc": {
                               "type": "string",
                               "readonly": true,
-                              "hidden": true,
-                              "sourceKey": ["return_data", "hifRecovery", "recovery", "expectedAmountToRecover", "amountRecovered", "cumulative"]
+                              "title": "Infrastructure Description"
                             },
-                            "cumulative": {
-                              "title": "Cumulative Amount",
-                              "type": "string",
-                              "currency": true,
-                              "readonly": true
-                            },
-                            "remaining": {
-                              "title": "Remaining Amount",
-                              "type": "string",
-                              "currency": true,
-                              "readonly": true
-                            },
-                            "useOfRecoveredFunding": {
-                              "title": "Use of Recovered Funding",
-                              "type": "string",
-                              "extendedText": true
-                            },
-                            "planAttachment": {
+                            "reviewDetails": {
+                              "type": "object",
+                              "horizontal": true,
                               "title": "",
-                              "description": "Please attach the evidence here.",
-                              "uploadFile": "single",
-                              "type": "string"
+                              "properties": {
+                                "details": {
+                                  "type": "string",
+                                  "readonly": true,
+                                  "title": "Summary of Infrastructure Delivery"
+                                },
+                                "riskRating": {
+                                  "type": "string",
+                                  "title": "Risk Rating",
+                                  "readonly": true,
+                                  "enum": [
+                                    "High",
+                                    "Medium High",
+                                    "Medium Low",
+                                    "Low",
+                                    "Achieved"
+                                  ]
+                                }
+                              }
+                            },
+                            "assuranceAgreement": {
+                              "type": "object",
+                              "title": "",
+                              "properties": {
+                                "RAGAgreement": {
+                                  "type": "string",
+                                  "title": "Agreement with RAG?",
+                                  "enum": ["Yes", "No"]
+                                }
+                              },
+                              "dependencies": {
+                                "RAGAgreement": {
+                                  "oneOf": [
+                                    {
+                                      "properties": {
+                                        "RAGAgreement": {
+                                          "enum": ["Yes"]
+                                        },
+                                        "commentary": {
+                                          "title": "Commentary",
+                                          "type": "string",
+                                          "extendedText": true
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "properties": {
+                                        "RAGAgreement": {
+                                          "enum": ["No"]
+                                        },
+                                        "recommendedRAG": {
+                                          "title": "Recommended RAG",
+                                          "type": "string",
+                                          "enum": [
+                                            "High",
+                                            "Medium High",
+                                            "Medium Low",
+                                            "Low",
+                                            "Achieved"
+                                          ]
+                                        },
+                                        "commentary": {
+                                          "title": "Commentary",
+                                          "type": "string",
+                                          "extendedText": true
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "hifFundedFinancials": {
+                        "type": "object",
+                        "title": "HIF Funded Financials",
+                        "properties": {
+                          "reviewDetails": {
+                            "type": "object",
+                            "title": "",
+                            "horizontal": true,
+                            "properties": {
+                              "summary": {
+                                "title": "Summary",
+                                "readonly": true,
+                                "type": "string"
+                              },
+                              "riskRating": {
+                                "type": "string",
+                                "title": "Risk Rating",
+                                "readonly": true,
+                                "enum": [
+                                  "High",
+                                  "Medium High",
+                                  "Medium Low",
+                                  "Low",
+                                  "Achieved"
+                                ]
+                              }
+                            }
+                          },
+                          "assuranceAgreement": {
+                            "type": "object",
+                            "title": "",
+                            "properties": {
+                              "RAGAgreement": {
+                                "type": "string",
+                                "title": "Agreement with RAG?",
+                                "enum": ["Yes", "No"]
+                              }
+                            },
+                            "dependencies": {
+                              "RAGAgreement": {
+                                "oneOf": [
+                                  {
+                                    "properties": {
+                                      "RAGAgreement": {
+                                        "enum": ["Yes"]
+                                      },
+                                      "commentary": {
+                                        "title": "Commentary",
+                                        "type": "string",
+                                        "extendedText": true
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "properties": {
+                                      "RAGAgreement": {
+                                        "enum": ["No"]
+                                      },
+                                      "recommendedRAG": {
+                                        "title": "Recommended RAG",
+                                        "type": "string",
+                                        "enum": [
+                                          "High",
+                                          "Medium High",
+                                          "Medium Low",
+                                          "Low",
+                                          "Achieved"
+                                        ]
+                                      },
+                                      "commentary": {
+                                        "title": "Commentary",
+                                        "type": "string",
+                                        "extendedText": true
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "hifWiderScheme": {
+                        "type": "object",
+                        "title": "HIF Wider Scheme",
+                        "properties": {
+                          "reviewDetails": {
+                            "type": "object",
+                            "title": "",
+                            "horizontal": true,
+                            "properties": {
+                              "summary": {
+                                "title": "Summary",
+                                "readonly": true,
+                                "type": "string"
+                              },
+                              "riskRating": {
+                                "type": "string",
+                                "title": "Risk Rating",
+                                "readonly": true,
+                                "enum": [
+                                  "High",
+                                  "Medium High",
+                                  "Medium Low",
+                                  "Low",
+                                  "Achieved"
+                                ]
+                              }
+                            }
+                          },
+                          "assuranceAgreement": {
+                            "type": "object",
+                            "title": "",
+                            "properties": {
+                              "RAGAgreement": {
+                                "type": "string",
+                                "title": "Agreement with RAG?",
+                                "enum": ["Yes", "No"]
+                              }
+                            },
+                            "dependencies": {
+                              "RAGAgreement": {
+                                "oneOf": [
+                                  {
+                                    "properties": {
+                                      "RAGAgreement": {
+                                        "enum": ["Yes"]
+                                      },
+                                      "commentary": {
+                                        "title": "Commentary",
+                                        "type": "string",
+                                        "extendedText": true
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "properties": {
+                                      "RAGAgreement": {
+                                        "enum": ["No"]
+                                      },
+                                      "recommendedRAG": {
+                                        "title": "Recommended RAG",
+                                        "type": "string",
+                                        "enum": [
+                                          "High",
+                                          "Medium High",
+                                          "Medium Low",
+                                          "Low",
+                                          "Achieved"
+                                        ]
+                                      },
+                                      "commentary": {
+                                        "title": "Commentary",
+                                        "type": "string",
+                                        "extendedText": true
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "outputForecast": {
+                        "type": "object",
+                        "title": "Output Forecast",
+                        "properties": {
+                          "reviewDetails": {
+                            "type": "object",
+                            "title": "",
+                            "horizontal": true,
+                            "properties": {
+                              "summary": {
+                                "title": "Summary",
+                                "readonly": true,
+                                "type": "string"
+                              },
+                              "riskRating": {
+                                "type": "string",
+                                "readonly": true,
+                                "title": "Risk Rating",
+                                "enum": [
+                                  "High",
+                                  "Medium High",
+                                  "Medium Low",
+                                  "Low",
+                                  "Achieved"
+                                ]
+                              }
+                            }
+                          },
+                          "assuranceAgreement": {
+                            "type": "object",
+                            "title": "",
+                            "properties": {
+                              "RAGAgreement": {
+                                "type": "string",
+                                "title": "Agreement with RAG?",
+                                "enum": ["Yes", "No"]
+                              }
+                            },
+                            "dependencies": {
+                              "RAGAgreement": {
+                                "oneOf": [
+                                  {
+                                    "properties": {
+                                      "RAGAgreement": {
+                                        "enum": ["Yes"]
+                                      },
+                                      "commentary": {
+                                        "title": "Commentary",
+                                        "type": "string",
+                                        "extendedText": true
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "properties": {
+                                      "RAGAgreement": {
+                                        "enum": ["No"]
+                                      },
+                                      "recommendedRAG": {
+                                        "title": "Recommended RAG",
+                                        "type": "string",
+                                        "enum": [
+                                          "High",
+                                          "Medium High",
+                                          "Medium Low",
+                                          "Low",
+                                          "Achieved"
+                                        ]
+                                      },
+                                      "commentary": {
+                                        "title": "Commentary",
+                                        "type": "string",
+                                        "extendedText": true
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "barriers": {
+                        "type": "object",
+                        "title": "Barriers",
+                        "properties": {
+                          "significantIssues": {
+                            "type": "array",
+                            "title": "Significant Issues",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "barrierType": {
+                                  "title": "Type",
+                                  "readonly": true,
+                                  "type": "string",
+                                  "enum": [
+                                    "Land acquisition",
+                                    "Site Access - Road",
+                                    "Site Access - Railway",
+                                    "Flood risk",
+                                    "Funding - sources / cashflow",
+                                    "Planning",
+                                    "Land Remediation",
+                                    "Utilities Provision",
+                                    "Procurement",
+                                    "Other"
+                                  ]
+                                },
+                                "overview": {
+                                  "title": "Overview",
+                                  "readonly": true,
+                                  "type": "string",
+                                  "extendedText": true
+                                }
+                              },
+                              "dependencies": {
+                                "barrierType": {
+                                  "oneOf": [
+                                    {
+                                      "properties": {
+                                        "barrierType": {
+                                          "type": "string",
+                                          "enum": ["Land acquisition"]
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "properties": {
+                                        "barrierType": {
+                                          "type": "string",
+                                          "enum": ["Site Access - Road"]
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "properties": {
+                                        "barrierType": {
+                                          "type": "string",
+                                          "enum": ["Site Access - Railway"]
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "properties": {
+                                        "barrierType": {
+                                          "type": "string",
+                                          "enum": ["Flood risk"]
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "properties": {
+                                        "barrierType": {
+                                          "type": "string",
+                                          "enum": ["Funding - sources / cashflow"]
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "properties": {
+                                        "barrierType": {
+                                          "type": "string",
+                                          "enum": ["Planning"]
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "properties": {
+                                        "barrierType": {
+                                          "type": "string",
+                                          "enum": ["Land Remediation"]
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "properties": {
+                                        "barrierType": {
+                                          "type": "string",
+                                          "enum": ["Utilities Provision"]
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "properties": {
+                                        "barrierType": {
+                                          "type": "string",
+                                          "enum": ["Procurement"]
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "properties": {
+                                        "barrierType": {
+                                          "type": "string",
+                                          "enum": ["Other"]
+                                        },
+                                        "details": {
+                                          "title": "Details",
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "assuranceAgreementRed": {
+                            "type": "object",
+                            "title": "",
+                            "properties": {
+                              "agreementWithBarriers": {
+                                "type": "string",
+                                "title": "Agreement with Red Barriers?",
+                                "enum": ["Yes", "No"]
+                              }
+                            },
+                            "dependencies": {
+                              "agreementWithBarriers": {
+                                "oneOf": [
+                                  {
+                                    "properties": {
+                                      "agreementWithBarriers": {
+                                        "enum": ["Yes"]
+                                      },
+                                      "commentary": {
+                                        "title": "Commentary",
+                                        "type": "string",
+                                        "extendedText": true
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "properties": {
+                                      "agreementWithBarriers": {
+                                        "enum": ["No"]
+                                      },
+                                      "recommendedSignificantIssues": {
+                                        "type": "array",
+                                        "title": "Recommended Significant Issues",
+                                        "addable": true,
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "barrierType": {
+                                              "title": "Type",
+                                              "type": "string",
+                                              "enum": [
+                                                "Land acquisition",
+                                                "Site Access - Road",
+                                                "Site Access - Railway",
+                                                "Flood risk",
+                                                "Funding - sources / cashflow",
+                                                "Planning",
+                                                "Land Remediation",
+                                                "Utilities Provision",
+                                                "Procurement",
+                                                "Other"
+                                              ]
+                                            },
+                                            "overview": {
+                                              "title": "Overview",
+                                              "type": "string",
+                                              "extendedText": true
+                                            }
+                                          },
+                                          "dependencies": {
+                                            "barrierType": {
+                                              "oneOf": [
+                                                {
+                                                  "properties": {
+                                                    "barrierType": {
+                                                      "type": "string",
+                                                      "enum": ["Land acquisition"]
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "properties": {
+                                                    "barrierType": {
+                                                      "type": "string",
+                                                      "enum": ["Site Access - Road"]
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "properties": {
+                                                    "barrierType": {
+                                                      "type": "string",
+                                                      "enum": ["Site Access - Railway"]
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "properties": {
+                                                    "barrierType": {
+                                                      "type": "string",
+                                                      "enum": ["Flood risk"]
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "properties": {
+                                                    "barrierType": {
+                                                      "type": "string",
+                                                      "enum": ["Funding - sources / cashflow"]
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "properties": {
+                                                    "barrierType": {
+                                                      "type": "string",
+                                                      "enum": ["Planning"]
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "properties": {
+                                                    "barrierType": {
+                                                      "type": "string",
+                                                      "enum": ["Land Remediation"]
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "properties": {
+                                                    "barrierType": {
+                                                      "type": "string",
+                                                      "enum": ["Utilities Provision"]
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "properties": {
+                                                    "barrierType": {
+                                                      "type": "string",
+                                                      "enum": ["Procurement"]
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "properties": {
+                                                    "barrierType": {
+                                                      "type": "string",
+                                                      "enum": ["Other"]
+                                                    },
+                                                    "details": {
+                                                      "title": "Details",
+                                                      "type": "string"
+                                                    }
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "commentary": {
+                                        "title": "Commentary",
+                                        "type": "string",
+                                        "extendedText": true
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "liveIssues": {
+                            "type": "array",
+                            "title": "Live Issues (with mitigation)",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "barrierType": {
+                                  "title": "Type",
+                                  "readonly": true,
+                                  "type": "string",
+                                  "enum": [
+                                    "Land acquisition",
+                                    "Site Access - Road",
+                                    "Site Access - Railway",
+                                    "Flood risk",
+                                    "Funding - sources / cashflow",
+                                    "Planning",
+                                    "Land Remediation",
+                                    "Utilities Provision",
+                                    "Procurement",
+                                    "Other"
+                                  ]
+                                },
+                                "overview": {
+                                  "title": "Overview",
+                                  "type": "string",
+                                  "readonly": true,
+                                  "extendedText": true
+                                }
+                              },
+                              "dependencies": {
+                                "barrierType": {
+                                  "oneOf": [
+                                    {
+                                      "properties": {
+                                        "barrierType": {
+                                          "type": "string",
+                                          "enum": ["Land acquisition"]
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "properties": {
+                                        "barrierType": {
+                                          "type": "string",
+                                          "enum": ["Site Access - Road"]
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "properties": {
+                                        "barrierType": {
+                                          "type": "string",
+                                          "enum": ["Site Access - Railway"]
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "properties": {
+                                        "barrierType": {
+                                          "type": "string",
+                                          "enum": ["Flood risk"]
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "properties": {
+                                        "barrierType": {
+                                          "type": "string",
+                                          "enum": ["Funding - sources / cashflow"]
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "properties": {
+                                        "barrierType": {
+                                          "type": "string",
+                                          "enum": ["Planning"]
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "properties": {
+                                        "barrierType": {
+                                          "type": "string",
+                                          "enum": ["Land Remediation"]
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "properties": {
+                                        "barrierType": {
+                                          "type": "string",
+                                          "enum": ["Utilities Provision"]
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "properties": {
+                                        "barrierType": {
+                                          "type": "string",
+                                          "enum": ["Procurement"]
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "properties": {
+                                        "barrierType": {
+                                          "type": "string",
+                                          "enum": ["Other"]
+                                        },
+                                        "details": {
+                                          "title": "Details",
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "assuranceAgreementAmber": {
+                            "type": "object",
+                            "title": "",
+                            "properties": {
+                              "agreementWithBarriers": {
+                                "type": "string",
+                                "title": "Agreement with Amber Barriers?",
+                                "enum": ["Yes", "No"]
+                              }
+                            },
+                            "dependencies": {
+                              "agreementWithBarriers": {
+                                "oneOf": [
+                                  {
+                                    "properties": {
+                                      "agreementWithBarriers": {
+                                        "enum": ["Yes"]
+                                      },
+                                      "commentary": {
+                                        "title": "Commentary",
+                                        "type": "string",
+                                        "extendedText": true
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "properties": {
+                                      "agreementWithBarriers": {
+                                        "enum": ["No"]
+                                      },
+                                      "recommendedLiveIssues": {
+                                        "type": "array",
+                                        "title": "Recommended Live Issues (with mitigation)",
+                                        "addable": true,
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "barrierType": {
+                                              "title": "Type",
+                                              "type": "string",
+                                              "enum": [
+                                                "Land acquisition",
+                                                "Site Access - Road",
+                                                "Site Access - Railway",
+                                                "Flood risk",
+                                                "Funding - sources / cashflow",
+                                                "Planning",
+                                                "Land Remediation",
+                                                "Utilities Provision",
+                                                "Procurement",
+                                                "Other"
+                                              ]
+                                            },
+                                            "overview": {
+                                              "title": "Overview",
+                                              "type": "string",
+                                              "extendedText": true
+                                            }
+                                          },
+                                          "dependencies": {
+                                            "barrierType": {
+                                              "oneOf": [
+                                                {
+                                                  "properties": {
+                                                    "barrierType": {
+                                                      "type": "string",
+                                                      "enum": ["Land acquisition"]
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "properties": {
+                                                    "barrierType": {
+                                                      "type": "string",
+                                                      "enum": ["Site Access - Road"]
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "properties": {
+                                                    "barrierType": {
+                                                      "type": "string",
+                                                      "enum": ["Site Access - Railway"]
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "properties": {
+                                                    "barrierType": {
+                                                      "type": "string",
+                                                      "enum": ["Flood risk"]
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "properties": {
+                                                    "barrierType": {
+                                                      "type": "string",
+                                                      "enum": ["Funding - sources / cashflow"]
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "properties": {
+                                                    "barrierType": {
+                                                      "type": "string",
+                                                      "enum": ["Planning"]
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "properties": {
+                                                    "barrierType": {
+                                                      "type": "string",
+                                                      "enum": ["Land Remediation"]
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "properties": {
+                                                    "barrierType": {
+                                                      "type": "string",
+                                                      "enum": ["Utilities Provision"]
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "properties": {
+                                                    "barrierType": {
+                                                      "type": "string",
+                                                      "enum": ["Procurement"]
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "properties": {
+                                                    "barrierType": {
+                                                      "type": "string",
+                                                      "enum": ["Other"]
+                                                    },
+                                                    "details": {
+                                                      "title": "Details",
+                                                      "type": "string"
+                                                    }
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "commentary": {
+                                        "title": "Commentary",
+                                        "type": "string",
+                                        "extendedText": true
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "overallRAGRating": {
+                        "type": "object",
+                        "title": "Overall RAG Rating",
+                        "horizontal": true,
+                        "properties": {
+                          "rating": {
+                            "type": "string",
+                            "title": "",
+                            "radio": true,
+                            "enum": ["Red", "Amber", "Green"]
+                          },
+                          "reason": {
+                            "type": "string",
+                            "title": "Reason for Rating",
+                            "extendedText": true
+                          }
+                        }
+                      },
+                      "overallCommentary": {
+                        "type": "string",
+                        "title": "Overall Commentary on Performance",
+                        "extendedText": true
+                      },
+                      "riskAssessmentSpend": {
+                        "type": "object",
+                        "horizontal": true,
+                        "title": "Risk Assessment - Spend",
+                        "properties": {
+                          "currentYear": {
+                            "type": "string",
+                            "title": "Current Year",
+                            "enum": ["Low", "Medium Low", "Medium High", "High"]
+                          },
+                          "nextYear": {
+                            "type": "string",
+                            "title": "Next Year",
+                            "enum": ["Low", "Medium Low", "Medium High", "High"]
+                          }
+                        }
+                      },
+                      "riskAssessmentOutputs": {
+                        "type": "object",
+                        "title": "Risk Assessment - Outputs",
+                        "horizontal": true,
+                        "properties": {
+                          "currentYear": {
+                            "type": "string",
+                            "title": "Current Year",
+                            "enum": ["Low", "Medium Low", "Medium High", "High"]
+                          },
+                          "nextYear": {
+                            "type": "string",
+                            "title": "Next Year",
+                            "enum": ["Low", "Medium Low", "Medium High", "High"]
+                          }
+                        }
+                      },
+                      "raisedIssues": {
+                        "type": "object",
+                        "title": "Issues Raised",
+                        "properties": {
+                          "issuesRaisedReview": {
+                            "type": "string",
+                            "title": " ",
+                            "extendedText": true,
+                            "readonly": true
+                          },
+                          "anyIssuesToEscalate": {
+                            "type": "string",
+                            "title": "Any issues requiring escalation?",
+                            "radio": true,
+                            "enum": ["Yes", "No"]
+                          }
+                        },
+                        "dependencies": {
+                          "anyIssuesToEscalate": {
+                            "oneOf": [
+                              {
+                                "properties": {
+                                  "anyIssuesToEscalate": {
+                                    "enum": ["Yes"]
+                                  },
+                                  "escalationProposals": {
+                                    "type": "string",
+                                    "title": "Escalation Proposals",
+                                    "extendedText": true
+                                  }
+                                }
+                              },
+                              {
+                                "properties": {
+                                  "anyIssuesToEscalate": {
+                                    "enum": ["No"]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      "moreRegularMonitoring": {
+                        "type": "object",
+                        "title": "",
+                        "properties": {
+                          "recommendForRegularMonitoringReview": {
+                            "title": "Regular Monitoring",
+                            "type": "object",
+                            "properties": {
+                              "isRecommendForRegularMonitoring": {
+                                "title": "Recommended For Regular Monitoring",
+                                "radio": true,
+                                "readonly": true,
+                                "enum": ["Yes", "No"]
+                              }
+                            },
+                            "dependencies": {
+                              "isRecommendForRegularMonitoring": {
+                                "oneOf": [
+                                  {
+                                    "properties": {
+                                      "isRecommendForRegularMonitoring": {
+                                        "type": "string",
+                                        "enum": ["No"]
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "properties": {
+                                      "isRecommendForRegularMonitoring": {
+                                        "type": "string",
+                                        "enum": ["Yes"]
+                                      },
+                                      "reasonAndProposedFrequency": {
+                                        "title": "Reason And Proposed Frequency",
+                                        "type": "string",
+                                        "readonly": true,
+                                        "extendedText": true
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "moreMonitoringRequired": {
+                            "type": "string",
+                            "title": "More regular monitoring required?",
+                            "enum": ["Yes", "No"],
+                            "radio": true
+                          }
+                        },
+                        "dependencies": {
+                          "moreMonitoringRequired": {
+                            "oneOf": [
+                              {
+                                "properties": {
+                                  "moreMonitoringRequired": {
+                                    "enum": ["Yes"]
+                                  },
+                                  "requiredFrequency": {
+                                    "type": "string",
+                                    "title": "Required Frequency",
+                                    "enum": [
+                                      "Fortnightly",
+                                      "Monthly",
+                                      "Two-Monthly",
+                                      "Six-Monthly",
+                                      "Yearly"
+                                    ]
+                                  }
+                                }
+                              },
+                              {
+                                "properties": {
+                                  "moreMonitoringRequired": {
+                                    "enum": ["No"]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      "commentary": {
+                        "type": "string",
+                        "title": "Commentary",
+                        "extendedText": true
+                      },
+                      "infrastructureDeliveryCopy": {
+                        "type": "array",
+                        "title": "",
+                        "items": {
+                          "type": "object",
+                          "title": "",
+                          "properties": {
+                            "infrastructureDesc": {
+                              "hidden": true,
+                              "type": "string",
+                              "title": ""
+                            },
+                            "reviewDetails": {
+                              "type": "object",
+                              "title": "",
+                              "properties": {
+                                "details": {
+                                  "type": "string",
+                                  "hidden": true,
+                                  "title": ""
+                                },
+                                "riskRating": {
+                                  "type": "string",
+                                  "hidden": true,
+                                  "title": "",
+                                  "enum": [
+                                    "High",
+                                    "Medium High",
+                                    "Medium Low",
+                                    "Low",
+                                    "Achieved"
+                                  ]
+                                }
+                              }
                             }
                           }
                         }
                       }
                     }
+                  },
+                  {
+                    "properties": {
+                      "rmReviewComplete": {
+                        "enum": ["No"]
+                      }
+                    }
                   }
-                }
-              ]
+                ]
+              }
             }
           }
         }

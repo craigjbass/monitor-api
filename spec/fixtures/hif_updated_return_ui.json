@@ -53,12 +53,12 @@
         "laHasControlOfSite": "Yes",
         "laDoesNotControlSite": {
           "whoOwnsSite": "Dave",
-          "landAcquisitionRequired": "Yes",
-          "howManySitesToAquire": "10",
-          "toBeAquiredBy": "LA",
-          "summaryOfAcquisitionRequired": "Summary of critical path",
+          "landAcquisitionRequired": "No",
+          "howManySitesToAquire": "23",
+          "toBeAquiredBy": "me",
+          "summaryOfAcquisitionRequired": "path",
           "allLandAssemblyAchieved": {
-            "baseline": "2020-01-01"
+            "baseline": "01/01/01"
           }
         }
       },
@@ -125,7 +125,26 @@
   "fundingProfiles": {
     "totalHIFGrant": "10000",
     "projectCashflows": null,
-    "currentFunding": {"forecast": []},
+    "currentFunding": {
+      "forecast": [
+        {
+        "period": "2019/2020",
+        "instalment1": "1000",
+        "instalment2": "1000",
+        "instalment3": "1000",
+        "instalment4": "1000",
+        "totalHolder": {"total": "4000"}
+        },
+        {
+          "period": null,
+          "instalment1": null,
+          "instalment2": null,
+          "instalment3": null,
+          "instalment4": null,
+          "totalHolder": {"total": null}
+        }
+      ]
+    },
     "fundingRequest": {
       "forecast":
       [
@@ -135,7 +154,7 @@
         "instalment2": "1000",
         "instalment3": "1000",
         "instalment4": "1000",
-        "total": "4000"
+        "totalHolder": {"total": "4000"}
         },
         {
           "period": null,
@@ -143,7 +162,7 @@
           "instalment2": null,
           "instalment3": null,
           "instalment4": null,
-          "total": null
+          "totalHolder": {"total": null}
         }
       ]
     },
@@ -176,12 +195,6 @@
       "fundingStack": {
         "descriptionOfInfrastructure": "A house of cats",
         "currentFundingStackDescription": null,
-        "hifSpend": {
-          "previousAmounts": {
-            "baseline": "10000",
-            "lastReturn": null
-          }
-        },
         "totalCost": {
           "previousAmounts": {
             "baseline": "20000",
@@ -196,23 +209,31 @@
             "lastReturn": null
           }
         },
-        "fundedThroughHIF": "No",
-        "fundedThroughHIFbaseline": "No",
-        "descriptionOfFundingStack": "Funding stack description",
-        "public": {
-          "previousAmounts": {
-            "baseline": "5000",
-            "lastReturn": null
-          }
-        },
-        "private": {
-          "previousAmounts": {
-            "baseline": "5000",
-            "lastReturn": null
+        "fundedThroughHIF": {
+          "fundedThroughHIFCurrent": "No",
+          "fundedThroughHIFbaseline": "No",
+          "descriptionOfFundingStack": "Funding stack description",
+          "public": {
+            "previousAmounts": {
+              "baseline": "5000",
+              "lastReturn": null
+            }
           },
-          "anyChangeToBaseline": {
-            "reason": null,
-            "confirmation": null
+          "private": {
+            "previousAmounts": {
+              "baseline": "5000",
+              "lastReturn": null
+            },
+            "anyChangeToBaseline": {
+              "reason": null,
+              "confirmation": null
+            }
+          },
+          "hifSpend": {
+            "previousAmounts": {
+              "baseline": "10000",
+              "lastReturn": null
+            }
           }
         }
       }
@@ -230,6 +251,42 @@
       ],
       "anyChanges": null,
       "currentReturnAmounts": [{ "period": "18/19" }, { "period": "19/20" }]
+    },
+    "inYearHousingCompletions": {
+      "baselineAmounts": {
+        "quarter1": null,
+        "quarter2": null,
+        "quarter3": null,
+        "quarter4": null
+      },
+      "currentAmounts": {
+        "quarter1": null,
+        "quarter2": null,
+        "quarter3": null,
+        "quarter4": null
+      },
+      "progress": null
+    },
+    "inYearHousingStarts": {
+      "actualAmounts": {
+        "quarter1": null,
+        "quarter2": null,
+        "quarter3": null,
+        "quarter4": null
+      },
+      "baselineAmounts": {
+        "quarter1": null,
+        "quarter2": null,
+        "quarter3": null,
+        "quarter4": null
+      },
+      "currentAmounts": {
+        "quarter1": null,
+        "quarter2": null,
+        "quarter3": null,
+        "quarter4": null
+      },
+      "progress": null
     },
     "housingCompletions": {
       "baselineAmounts": [
@@ -377,5 +434,26 @@
     "issuesToRaise": null,
     "overallRatingForScheme": null,
     "overviewOfEngagement": null
-  }]}
+  }]},
+  "reviewAndAssurance": [
+    {
+      "rmReview": {
+        "date": null,
+        "assuranceManagerAttendance": null,
+        "meetingsAttended": null,
+        "reviewComplete": null,
+        "issuesToRaise": null,
+        "infrastructureDelivery": [
+          {
+            "infrastructureDesc": "A house of cats",
+            "reviewDetails": {
+              "details": null,
+              "riskRating": null
+            }
+          }
+        ],
+        "overviewOfEngagement": null
+      }
+    }
+  ]
 }

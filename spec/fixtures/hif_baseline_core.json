@@ -53,10 +53,10 @@
         "toBeAcquiredBy": "LA",
         "targetDateToAcquire": "2020-01-01",
         "summaryOfCriticalPath": "Summary of critical path",
-        "criticalPath": null,
-        "dateToAcquire": null,
-        "acquiredBy" :null,
-        "sitesToAcquire": null
+        "criticalPath": "path",
+        "dateToAcquire": "01/01/01",
+        "acquiredBy" :"me",
+        "sitesToAcquire": "23"
       },
       "procurement": {
         "contractorProcured": "Yes",

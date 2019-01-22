@@ -68,7 +68,14 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                     planningStatus: {
                       type: 'string',
                       title: 'Planning Status',
-                      readonly: true
+                      readonly: true,
+                      sourceKey: %i[
+                            baseline_data
+                            summary
+                            sitesSummary
+                            innerSummary
+                            planningStatus
+                          ]
                     }
                   }
                 },
@@ -180,7 +187,6 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                 }
                               }
                             }
-
                           ]
                         }
                       }
