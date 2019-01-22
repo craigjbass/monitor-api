@@ -6,8 +6,30 @@ class UI::UseCases
       UI::UseCase::ConvertCoreHIFProject.new
     end
 
+    builder.define_use_case :convert_core_ac_project do
+      UI::UseCase::ConvertCoreACProject.new
+    end
+
     builder.define_use_case :convert_ui_hif_project do
       UI::UseCase::ConvertUIHIFProject.new
+    end
+
+    builder.define_use_case :convert_ui_ac_project do
+      UI::UseCase::ConvertUIACProject.new
+    end
+
+    builder.define_use_case :convert_core_project do
+      UI::UseCase::ConvertCoreProject.new(
+        convert_core_hif_project: builder.get_use_case(:convert_core_hif_project),
+        convert_core_ac_project: builder.get_use_case(:convert_core_ac_project)
+      )
+    end
+
+    builder.define_use_case :convert_ui_project do
+      UI::UseCase::ConvertUIProject.new(
+        convert_ui_hif_project: builder.get_use_case(:convert_ui_hif_project),
+        convert_ui_ac_project: builder.get_use_case(:convert_ui_ac_project)
+      )
     end
 
     builder.define_use_case :convert_core_hif_return do
@@ -21,14 +43,14 @@ class UI::UseCases
     builder.define_use_case :ui_create_project do
       UI::UseCase::CreateProject.new(
         create_project: builder.get_use_case(:create_new_project),
-        convert_ui_hif_project: builder.get_use_case(:convert_ui_hif_project)
+        convert_ui_project: builder.get_use_case(:convert_ui_project)
       )
     end
 
     builder.define_use_case :ui_get_project do
       UI::UseCase::GetProject.new(
         find_project: builder.get_use_case(:populate_baseline),
-        convert_core_hif_project: builder.get_use_case(:convert_core_hif_project),
+        convert_core_project: builder.get_use_case(:convert_core_project),
         project_schema_gateway: builder.get_gateway(:ui_project_schema)
       )
     end
@@ -36,7 +58,7 @@ class UI::UseCases
     builder.define_use_case :ui_update_project do
       UI::UseCase::UpdateProject.new(
         update_project: builder.get_use_case(:update_project),
-        convert_ui_hif_project: builder.get_use_case(:convert_ui_hif_project)
+        convert_ui_project: builder.get_use_case(:convert_ui_project)
       )
     end
 
