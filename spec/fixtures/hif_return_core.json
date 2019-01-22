@@ -835,7 +835,7 @@
     }
   },
   "rmMonthlyCatchup": {"catchUp":[null]},
-  "outputsActuals": {
+  "outputsActuals": [{
     "localAuthority": "Local Authority",
     "noOfUnits": "123",
     "size": "10",
@@ -851,7 +851,7 @@
     "leaseholdPercent": "98",
     "smePercent": "23",
     "mmcPercent": "43"
-  },
+  }],
   "reviewAndAssurance": {
     "date": "01/01/1970",
     "assuranceManagerAttendance": "Yes",

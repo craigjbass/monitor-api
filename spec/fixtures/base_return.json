@@ -228,17 +228,10 @@
       "currentReturnAmounts": [{ "period": "18/19" }, { "period": "19/20" }]
     }
   },
-  "outputsActuals": {
-    "localAuthority": [
-      "Local Authority"
-    ],
-    "noOfUnits": [
-      "123"
-    ],
-    "previousStarts": null,
-    "previousCompletions": null,
-    "size": "10"
-  },
+  "outputsActuals": [{
+    "localAuthority": "Local Authority",
+    "noOfUnits": "123"
+  }],
   "s151Confirmation": {
     "hifFunding": {
       "hifTotalFundingRequest": "10000",

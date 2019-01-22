@@ -931,35 +931,41 @@ class UI::UseCase::ConvertUIHIFReturn
 
   def convert_outputs_actuals
     return if @return[:outputsActuals].nil?
-    @converted_return[:outputsActuals] = {}
+    @converted_return[:outputsActuals] = @return[:outputsActuals].map do |site_output|
+      new_site_output = {}
+      
+      next if site_output[:siteOutputs].nil?
 
-    unless @return[:outputsActuals][:details].nil?
-      @converted_return[:outputsActuals][:localAuthority] = @return[:outputsActuals][:details][:localAuthority]
-      @converted_return[:outputsActuals][:noOfUnits] = @return[:outputsActuals][:details][:noOfUnits]
-      @converted_return[:outputsActuals][:size] = @return[:outputsActuals][:details][:size]
-    end
-
-    unless @return[:outputsActuals][:starts].nil?
-      unless @return[:outputsActuals][:starts][:starts].nil?
-        @converted_return[:outputsActuals][:previousStarts] = @return[:outputsActuals][:starts][:starts][:previousStarts]
-        @converted_return[:outputsActuals][:startsSinceLastReturn] = @return[:outputsActuals][:starts][:starts][:startsSinceLastReturn]
-        @converted_return[:outputsActuals][:previousCompletions] = @return[:outputsActuals][:starts][:starts][:previousCompletions]
-        @converted_return[:outputsActuals][:completionsSinceLastReturn] = @return[:outputsActuals][:starts][:starts][:completionsSinceLastReturn]
-        @converted_return[:outputsActuals][:currentStarts] = @return[:outputsActuals][:starts][:starts][:currentStarts]
-        @converted_return[:outputsActuals][:currentCompletions] = @return[:outputsActuals][:starts][:starts][:currentCompletions]
+      unless site_output[:siteOutputs][:details].nil?
+        new_site_output[:localAuthority] = site_output[:siteOutputs][:details][:localAuthority]
+        new_site_output[:noOfUnits] = site_output[:siteOutputs][:details][:noOfUnits]
+        new_site_output[:size] = site_output[:siteOutputs][:details][:size]
       end
-    end
-
-    unless @return[:outputsActuals][:ownership].nil?
-      @converted_return[:outputsActuals][:laOwned] = @return[:outputsActuals][:ownership][:laOwned]
-      @converted_return[:outputsActuals][:pslLand] = @return[:outputsActuals][:ownership][:pslLand]
-    end
-
-    unless @return[:outputsActuals][:percentages].nil?
-      @converted_return[:outputsActuals][:brownfieldPercent] = @return[:outputsActuals][:percentages][:brownfieldPercent]
-      @converted_return[:outputsActuals][:leaseholdPercent] = @return[:outputsActuals][:percentages][:leaseholdPercent]
-      @converted_return[:outputsActuals][:smePercent] = @return[:outputsActuals][:percentages][:smePercent]
-      @converted_return[:outputsActuals][:mmcPercent] = @return[:outputsActuals][:percentages][:mmcPercent]
+  
+      unless site_output[:siteOutputs][:starts].nil?
+        unless site_output[:siteOutputs][:starts][:starts].nil?
+          new_site_output[:previousStarts] = site_output[:siteOutputs][:starts][:starts][:previousStarts]
+          new_site_output[:startsSinceLastReturn] = site_output[:siteOutputs][:starts][:starts][:startsSinceLastReturn]
+          new_site_output[:previousCompletions] = site_output[:siteOutputs][:starts][:starts][:previousCompletions]
+          new_site_output[:completionsSinceLastReturn] = site_output[:siteOutputs][:starts][:starts][:completionsSinceLastReturn]
+          new_site_output[:currentStarts] = site_output[:siteOutputs][:starts][:starts][:currentStarts]
+          new_site_output[:currentCompletions] = site_output[:siteOutputs][:starts][:starts][:currentCompletions]
+        end
+      end
+  
+      unless site_output[:siteOutputs][:ownership].nil?
+        new_site_output[:laOwned] = site_output[:siteOutputs][:ownership][:laOwned]
+        new_site_output[:pslLand] = site_output[:siteOutputs][:ownership][:pslLand]
+      end
+  
+      unless site_output[:siteOutputs][:percentages].nil?
+        new_site_output[:brownfieldPercent] = site_output[:siteOutputs][:percentages][:brownfieldPercent]
+        new_site_output[:leaseholdPercent] = site_output[:siteOutputs][:percentages][:leaseholdPercent]
+        new_site_output[:smePercent] = site_output[:siteOutputs][:percentages][:smePercent]
+        new_site_output[:mmcPercent] = site_output[:siteOutputs][:percentages][:mmcPercent]
+      end
+      
+      new_site_output
     end
   end
 
