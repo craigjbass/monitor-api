@@ -926,36 +926,43 @@ class UI::UseCase::ConvertCoreHIFReturn
 
   def convert_outputs_actuals
     return if @return[:outputsActuals].nil?
-    @converted_return[:outputsActuals] = {}
+    @converted_return[:outputsActuals] = @return[:outputsActuals].map do |site_output|
+      new_site_output = {
+        siteOutputs: {}
+      }
 
-    @converted_return[:outputsActuals][:details] = {
-      localAuthority: @return[:outputsActuals][:localAuthority],
-      noOfUnits: @return[:outputsActuals][:noOfUnits],
-      size: @return[:outputsActuals][:size]
-    }
+      new_site_output[:siteOutputs][:details] = {
+        localAuthority: site_output[:localAuthority],
+        noOfUnits: site_output[:noOfUnits],
+        size: site_output[:size]
+      }
+  
+      new_site_output[:siteOutputs][:starts] = {}
+  
+      new_site_output[:siteOutputs][:starts][:starts] = {
+        previousStarts: site_output[:previousStarts],
+        currentStarts: site_output[:currentStarts],
+        startsSinceLastReturn: site_output[:startsSinceLastReturn],
+        previousCompletions: site_output[:previousCompletions],
+        currentCompletions: site_output[:currentCompletions],
+        completionsSinceLastReturn: site_output[:completionsSinceLastReturn]
+      }
+  
+      new_site_output[:siteOutputs][:ownership] = {
+        laOwned: site_output[:laOwned],
+        pslLand: site_output[:pslLand]
+      }
+  
+      new_site_output[:siteOutputs][:percentages] = {
+        brownfieldPercent: site_output[:brownfieldPercent],
+        leaseholdPercent: site_output[:leaseholdPercent],
+        smePercent: site_output[:smePercent],
+        mmcPercent: site_output[:mmcPercent]
+      }
 
-    @converted_return[:outputsActuals][:starts] = {}
+      new_site_output
+    end
 
-    @converted_return[:outputsActuals][:starts][:starts] = {
-      previousStarts: @return[:outputsActuals][:previousStarts],
-      currentStarts: @return[:outputsActuals][:currentStarts],
-      startsSinceLastReturn: @return[:outputsActuals][:startsSinceLastReturn],
-      previousCompletions: @return[:outputsActuals][:previousCompletions],
-      currentCompletions: @return[:outputsActuals][:currentCompletions],
-      completionsSinceLastReturn: @return[:outputsActuals][:completionsSinceLastReturn]
-    }
-
-    @converted_return[:outputsActuals][:ownership] = {
-      laOwned: @return[:outputsActuals][:laOwned],
-      pslLand: @return[:outputsActuals][:pslLand]
-    }
-
-    @converted_return[:outputsActuals][:percentages] = {
-      brownfieldPercent: @return[:outputsActuals][:brownfieldPercent],
-      leaseholdPercent: @return[:outputsActuals][:leaseholdPercent],
-      smePercent: @return[:outputsActuals][:smePercent],
-      mmcPercent: @return[:outputsActuals][:mmcPercent]
-    }
   end
 
   def convert_mr_review_tab

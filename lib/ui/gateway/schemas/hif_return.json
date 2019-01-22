@@ -6292,128 +6292,136 @@
     },
     "outputsActuals": {
       "title": "Output - Actuals",
-      "type": "object",
-      "properties": {
-        "details": {
-          "title": "",
-          "type": "object",
-          "horizontal": true,
-          "properties": {
-            "localAuthority": {
-              "type": "string",
-              "title": "Local Authority",
-              "readonly": true,
-              "sourceKey": [
-                "baseline_data",
-                "outputsActuals",
-                "siteOutputs",
-                "siteLocalAuthority"
-              ]
-            },
-            "noOfUnits": {
-              "type": "string",
-              "title": "No. of Units",
-              "readonly": true,
-              "sourceKey": [
-                "baseline_data",
-                "outputsActuals",
-                "siteOutputs",
-                "siteNumberOfUnits"
-              ]
-            },
-            "size": {
-              "type": "string",
-              "title": "Size (hectares)",
-              "readonly": true,
-              "sourceKey": ["baseline_data", "summary", "totalArea"]
-            }
-          }
-        },
-        "starts": {
-          "title": "",
-          "type": "object",
-          "calculation": "set(formData['starts'], 'currentStarts', ''+sum(formData['starts'], 'previousStarts', 'startsSinceLastReturn')); set(formData['starts'], 'currentCompletions', ''+sum(formData['starts'], 'previousCompletions', 'completionsSinceLastReturn'));",
-          "properties": {
-            "starts": {
-              "type": "object",
-              "horizontal": true,
-              "title": "",
-              "properties": {
-                "previousStarts": {
-                  "type": "string",
-                  "title": "Previous Starts",
-                  "readonly": true
-                },
-                "currentStarts": {
-                  "type": "string",
-                  "title": "Previous Starts",
-                  "hidden": true
-                },
-                "startsSinceLastReturn": {
-                  "type": "string",
-                  "title": "Starts since last return"
-                },
-                "previousCompletions": {
-                  "type": "string",
-                  "title": "Previous Completions",
-                  "readonly": true
-                },
-                "currentCompletions": {
-                  "type": "string",
-                  "title": "Previous Completions",
-                  "hidden": true
-                },
-                "completionsSinceLastReturn": {
-                  "type": "string",
-                  "title": "Completions since last return"
+      "type": "array",
+      "items": {
+        "type": "object",
+        "title": "Site",
+        "properties": {
+          "siteOutputs": {
+            "type": "object",
+            "title": "Outputs",
+            "properties": {
+              "details": {
+                "title": "",
+                "type": "object",
+                "horizontal": true,
+                "properties": {
+                  "localAuthority": {
+                    "type": "string",
+                    "title": "Local Authority",
+                    "readonly": true,
+                    "sourceKey": [
+                      "baseline_data",
+                      "outputsActuals",
+                      "siteOutputs",
+                      "siteLocalAuthority"
+                    ]
+                  },
+                  "noOfUnits": {
+                    "type": "string",
+                    "title": "No. of Units",
+                    "readonly": true,
+                    "sourceKey": [
+                      "baseline_data",
+                      "outputsActuals",
+                      "siteOutputs",
+                      "siteNumberOfUnits"
+                    ]
+                  },
+                  "size": {
+                    "type": "string",
+                    "title": "Size (hectares)"
+                  }
+                }
+              },
+              "starts": {
+                "title": "",
+                "type": "object",
+                "calculation": "set(formData['starts'], 'currentStarts', ''+sum(formData['starts'], 'previousStarts', 'startsSinceLastReturn')); set(formData['starts'], 'currentCompletions', ''+sum(formData['starts'], 'previousCompletions', 'completionsSinceLastReturn'));",
+                "properties": {
+                  "starts": {
+                    "type": "object",
+                    "horizontal": true,
+                    "title": "",
+                    "properties": {
+                      "previousStarts": {
+                        "type": "string",
+                        "title": "Previous Starts",
+                        "readonly": true
+                      },
+                      "currentStarts": {
+                        "type": "string",
+                        "title": "Previous Starts",
+                        "hidden": true
+                      },
+                      "startsSinceLastReturn": {
+                        "type": "string",
+                        "title": "Starts since last return"
+                      },
+                      "previousCompletions": {
+                        "type": "string",
+                        "title": "Previous Completions",
+                        "readonly": true
+                      },
+                      "currentCompletions": {
+                        "type": "string",
+                        "title": "Previous Completions",
+                        "hidden": true
+                      },
+                      "completionsSinceLastReturn": {
+                        "type": "string",
+                        "title": "Completions since last return"
+                      }
+                    }
+                  }
+                }
+              },
+              "ownership": {
+                "type": "object",
+                "title": "",
+                "horizontal": true,
+                "properties": {
+                  "laOwned": {
+                    "type": "string",
+                    "title": "Local Authority owned land?",
+                    "radio": true,
+                    "enum": ["Yes", "No"]
+                  },
+                  "pslLand": {
+                    "type": "string",
+                    "radio": true,
+                    "title": "Public Sector Land?",
+                    "enum": ["Yes", "No"]
+                  }
+                }
+              },
+              "percentages": {
+                "type": "object",
+                "title": "",
+                "horizontal": true,
+                "properties": {
+                  "brownfieldPercent": {
+                    "type": "string",
+                    "title": "Brownfield",
+                    "percentage": true
+                  },
+                  "leaseholdPercent": {
+                    "type": "string",
+                    "title": "Leasehold",
+                    "percentage": true
+                  },
+                  "smePercent": {
+                    "type": "string",
+                    "title": "SME",
+                    "percentage": true
+                  },
+                  "mmcPercent": {
+                    "type": "string",
+                    "title": "MMC",
+                    "percentage": true
+                  }
                 }
               }
-            }
-          }
-        },
-        "ownership": {
-          "type": "object",
-          "title": "",
-          "horizontal": true,
-          "properties": {
-            "laOwned": {
-              "type": "string",
-              "title": "Local Authority owned land?",
-              "radio": true,
-              "enum": ["Yes", "No"]
-            },
-            "pslLand": {
-              "type": "string",
-              "radio": true,
-              "title": "Public Sector Land?",
-              "enum": ["Yes", "No"]
-            }
-          }
-        },
-        "percentages": {
-          "type": "object",
-          "title": "",
-          "horizontal": true,
-          "properties": {
-            "brownfieldPercent": {
-              "type": "string",
-              "title": "Brownfield",
-              "percentage": true
-            },
-            "leaseholdPercent": {
-              "type": "string",
-              "title": "Leasehold",
-              "percentage": true
-            },
-            "smePercent": {
-              "type": "string",
-              "title": "SME",
-              "percentage": true
-            },
-            "mmcPercent": {
-              "type": "string",
-              "title": "MMC",
-              "percentage": true
             }
           }
         }

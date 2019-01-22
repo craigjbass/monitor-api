@@ -286,33 +286,35 @@
       "currentReturnAmounts": [{ "period": "18/19" }, { "period": "19/20" }]
     }
   },
-  "outputsActuals": {
-    "details": {
-      "localAuthority": ["Local Authority"],
-      "noOfUnits": ["123"],
-      "size": "10"
-    },
-    "starts": {
+  "outputsActuals": [{
+    "siteOutputs": {
+      "details": {
+        "localAuthority": "Local Authority",
+        "noOfUnits": "123",
+        "size": null
+      },
       "starts": {
-        "previousStarts": null,
-        "startsSinceLastReturn": null,
-        "previousCompletions": null,
-        "completionsSinceLastReturn": null,
-        "currentCompletions": null,
-        "currentStarts": null
+        "starts": {
+          "previousStarts": null,
+          "startsSinceLastReturn": null,
+          "previousCompletions": null,
+          "completionsSinceLastReturn": null,
+          "currentCompletions": null,
+          "currentStarts": null
+        }
+      },
+      "ownership": {
+        "laOwned": null,
+        "pslLand": null
+      },
+      "percentages": {
+        "brownfieldPercent": null,
+        "leaseholdPercent": null,
+        "smePercent": null,
+        "mmcPercent": null
       }
-    },
-    "ownership": {
-      "laOwned": null,
-      "pslLand": null
-    },
-    "percentages": {
-      "brownfieldPercent": null,
-      "leaseholdPercent": null,
-      "smePercent": null,
-      "mmcPercent": null
     }
-  },
+  }],
   "widerScheme": [
     {
       "keyLiveIssues": [{"description": null, "mitigationActions": null, "ratingAfterMitigation": null}]

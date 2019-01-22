@@ -5174,91 +5174,93 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
     return if ENV['OUTPUTS_ACTUALS_TAB'].nil?
     @return_template.schema[:properties][:outputsActuals] = {
       title: 'Output - Actuals',
-      type: 'object',
-      properties: {
-        localAuthority: {
-          type: 'string',
-          title: 'Local Authority',
-          readonly: true,
-          sourceKey: %i[baseline_data outputsActuals siteOutputs siteLocalAuthority]
-        },
-        noOfUnits: {
-          type: 'string',
-          title: 'No. of Units',
-          readonly: true,
-          sourceKey: %i[baseline_data outputsActuals siteOutputs siteNumberOfUnits]
-        },
-        size: {
-          type: 'string',
-          title: 'Size (hectares)',
-          readonly: true,
-          sourceKey: %i[baseline_data summary totalArea]
-        },
-        previousStarts: {
-          type: 'string',
-          title: 'Previous Starts',
-          readonly: true,
-          sourceKey: %i[return_data outputsActuals currentStarts]
-        },
-        currentStarts: {
-          type: 'string',
-          hidden: true
-        },
-        startsSinceLastReturn: {
-          type: 'string',
-          title: 'Starts since last return'
-        },
-        previousCompletions: {
-          type: 'string',
-          title: 'Previous Completions',
-          sourceKey: %i[return_data outputsActuals currentCompletions],
-          readonly: true
-        },
-        currentCompletions: {
-          type: 'string',
-          hidden: true
-        },
-        completionsSinceLastReturn: {
-          type: 'string',
-          title: 'Completions since last return'
-        },
-        laOwned: {
-          type: 'string',
-          title: 'Local Authority owned land?',
-          radio: true,
-          enum: %w[
-            Yes
-            No
-          ]
-        },
-        pslLand: {
-          type: 'string',
-          radio: true,
-          title: 'Public Sector Land?',
-          enum: %w[
-            Yes
-            No
-          ]
-        },
-        brownfieldPercent: {
-          type: 'string',
-          title: 'Brownfield',
-          percentage: true
-        },
-        leaseholdPercent: {
-          type: 'string',
-          title: 'Leasehold',
-          percentage: true
-        },
-        smePercent: {
-          type: 'string',
-          title: 'SME',
-          percentage: true
-        },
-        mmcPercent: {
-          type: 'string',
-          title: 'MMC',
-          percentage: true
+      type: 'array',
+      items: {
+        type: 'object',
+        title: 'Site',
+        properties: {
+          localAuthority: {
+            type: 'string',
+            title: 'Local Authority',
+            readonly: true,
+            sourceKey: %i[baseline_data outputsActuals siteOutputs siteLocalAuthority]
+          },
+          noOfUnits: {
+            type: 'string',
+            title: 'No. of Units',
+            readonly: true,
+            sourceKey: %i[baseline_data outputsActuals siteOutputs siteNumberOfUnits]
+          },
+          size: {
+            type: 'string',
+            title: 'Size (hectares)'
+          },
+          previousStarts: {
+            type: 'string',
+            title: 'Previous Starts',
+            readonly: true,
+            sourceKey: %i[return_data outputsActuals currentStarts]
+          },
+          currentStarts: {
+            type: 'string',
+            hidden: true
+          },
+          startsSinceLastReturn: {
+            type: 'string',
+            title: 'Starts since last return'
+          },
+          previousCompletions: {
+            type: 'string',
+            title: 'Previous Completions',
+            sourceKey: %i[return_data outputsActuals currentCompletions],
+            readonly: true
+          },
+          currentCompletions: {
+            type: 'string',
+            hidden: true
+          },
+          completionsSinceLastReturn: {
+            type: 'string',
+            title: 'Completions since last return'
+          },
+          laOwned: {
+            type: 'string',
+            title: 'Local Authority owned land?',
+            radio: true,
+            enum: %w[
+              Yes
+              No
+            ]
+          },
+          pslLand: {
+            type: 'string',
+            radio: true,
+            title: 'Public Sector Land?',
+            enum: %w[
+              Yes
+              No
+            ]
+          },
+          brownfieldPercent: {
+            type: 'string',
+            title: 'Brownfield',
+            percentage: true
+          },
+          leaseholdPercent: {
+            type: 'string',
+            title: 'Leasehold',
+            percentage: true
+          },
+          smePercent: {
+            type: 'string',
+            title: 'SME',
+            percentage: true
+          },
+          mmcPercent: {
+            type: 'string',
+            title: 'MMC',
+            percentage: true
+          }
         }
       }
     }

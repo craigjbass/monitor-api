@@ -887,33 +887,35 @@
   "rmMonthlyCatchup": {
     "catchUp": [null]
   },
-  "outputsActuals": {
-    "details": {
-      "localAuthority": "Local Authority",
-      "noOfUnits": "123",
-      "size": "10"
-    },
-    "ownership": {
-      "laOwned": "Yes",
-      "pslLand": "No"
-    },
-    "percentages": {
-      "brownfieldPercent": "78",
-      "leaseholdPercent": "98",
-      "smePercent": "23",
-      "mmcPercent": "43"
-    },
-    "starts": {
+  "outputsActuals": [{
+    "siteOutputs": {
+      "details": {
+        "localAuthority": "Local Authority",
+        "noOfUnits": "123",
+        "size": "10"
+      },
+      "ownership": {
+        "laOwned": "Yes",
+        "pslLand": "No"
+      },
+      "percentages": {
+        "brownfieldPercent": "78",
+        "leaseholdPercent": "98",
+        "smePercent": "23",
+        "mmcPercent": "43"
+      },
       "starts": {
-        "startsSinceLastReturn": "5",
-        "previousCompletions": "56",
-        "completionsSinceLastReturn": "3",
-        "currentCompletions": "345",
-        "currentStarts": "768",
-        "previousStarts": "starting"
+        "starts": {
+          "startsSinceLastReturn": "5",
+          "previousCompletions": "56",
+          "completionsSinceLastReturn": "3",
+          "currentCompletions": "345",
+          "currentStarts": "768",
+          "previousStarts": "starting"
+        }
       }
     }
-  },
+  }],
   "reviewAndAssurance": [
     {
       "rmReview": {

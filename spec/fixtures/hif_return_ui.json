@@ -45,7 +45,7 @@
             "varianceLastReturnFullPlanningPermissionSubmitted": "89",
             "status": "Completed",
             "current": "Dogs",
-            "reason":"Uggs",
+            "reason": "Uggs",
             "previousReturn": "21/21/21",
             "percentComplete": "77",
             "completedDate": "2019-09-09",
@@ -58,7 +58,7 @@
             "status": "Completed",
             "current": "Dogs",
             "previousReturn": "21/21/21",
-            "reason":"Uggs",
+            "reason": "Uggs",
             "percentComplete": "75",
             "completedDate": "2017-09-09"
           }
@@ -80,8 +80,8 @@
               "varianceReason": "Monolos",
               "percentComplete": "78",
               "completionDate": "2022-07-08"
-              }
-            ]
+            }
+          ]
         }
       },
       "landOwnership": {
@@ -149,7 +149,7 @@
           {
             "description": "describing a mielstone",
             "milestoneBaselineCompletion": "djeioq",
-            "milestoneSummaryOfCriticalPath":  "jreu",
+            "milestoneSummaryOfCriticalPath": "jreu",
             "milestoneLastReturnDate": "1",
             "milestoneVarianceAgainstLastReturn": "2",
             "milestoneVarianceAgainstBaseline": "fhui",
@@ -225,7 +225,7 @@
         "progressAgainstActions": [
           {
             "description": "been on holiday",
-            "met" : "Yes",
+            "met": "Yes",
             "progress": "Running"
           }
         ],
@@ -253,7 +253,7 @@
           "instalment2": "1000",
           "instalment3": "1000",
           "instalment4": "1000",
-          "totalHolder": {"total": "4000"}
+          "totalHolder": { "total": "4000" }
         }
       ]
     },
@@ -265,7 +265,7 @@
           "instalment2": "1000",
           "instalment3": "1000",
           "instalment4": "1000",
-          "totalHolder": {"total": "4000"}
+          "totalHolder": { "total": "4000" }
         }
       ]
     },
@@ -274,13 +274,13 @@
     "mitigationInPlace": "buy more",
     "requestedProfiles": {
       "newProfile": [
-      {
-        "period": "2019/2020",
-        "instalment1": "1000",
-        "instalment2": "1000",
-        "instalment3": "1000",
-        "instalment4": "1000",
-        "totalHolder": {"total": "4000"}
+        {
+          "period": "2019/2020",
+          "instalment1": "1000",
+          "instalment2": "1000",
+          "instalment3": "1000",
+          "instalment4": "1000",
+          "totalHolder": { "total": "4000" }
         }
       ]
     }
@@ -790,7 +790,7 @@
         "requestedAmount": "money",
         "reasonForRequest": "reasoning",
         "variance": "varying",
-        "varianceFromBaselinePercent" : "67",
+        "varianceFromBaselinePercent": "67",
         "mitigationInPlace": "mitigating"
       },
       "hifFundingProfile": [
@@ -877,35 +877,39 @@
     }
   },
   "rmMonthlyCatchup": {
-      "catchUp":[null]
+    "catchUp": [null]
   },
-  "outputsActuals": {
-    "details": {
-      "localAuthority": "Local Authority",
-      "noOfUnits": "123",
-      "size": "10"
-    },
-    "starts": {
-      "starts": {
-        "previousStarts": "starting",
-        "startsSinceLastReturn": "5",
-        "previousCompletions": "56",
-        "currentCompletions": "345",
-        "currentStarts": "768",
-        "completionsSinceLastReturn": "3"
+  "outputsActuals": [
+    {
+      "siteOutputs": {
+        "details": {
+          "localAuthority": "Local Authority",
+          "noOfUnits": "123",
+          "size": "10"
+        },
+        "starts": {
+          "starts": {
+            "previousStarts": "starting",
+            "startsSinceLastReturn": "5",
+            "previousCompletions": "56",
+            "currentCompletions": "345",
+            "currentStarts": "768",
+            "completionsSinceLastReturn": "3"
+          }
+        },
+        "ownership": {
+          "laOwned": "Yes",
+          "pslLand": "No"
+        },
+        "percentages": {
+          "brownfieldPercent": "78",
+          "leaseholdPercent": "98",
+          "smePercent": "23",
+          "mmcPercent": "43"
+        }
       }
-    },
-    "ownership": {
-      "laOwned": "Yes",
-      "pslLand": "No"
-    },
-    "percentages": {
-      "brownfieldPercent": "78",
-      "leaseholdPercent": "98",
-      "smePercent": "23",
-      "mmcPercent": "43"
     }
-  },
+  ],
   "reviewAndAssurance": [
     {
       "rmReview": {
@@ -934,11 +938,13 @@
           "riskRating": "High"
         },
         "barriers": {
-          "significantIssues": [{
-            "overview": "Some information",
-            "barrierType": "Other",
-            "details": "Some details"
-          }]
+          "significantIssues": [
+            {
+              "overview": "Some information",
+              "barrierType": "Other",
+              "details": "Some details"
+            }
+          ]
         },
         "recommendForRegularMonitoring": {
           "isRecommendForRegularMonitoring": "Yes",
@@ -1000,33 +1006,41 @@
           }
         },
         "barriers": {
-          "significantIssues": [{
-            "overview": "Some information",
-            "barrierType": "Other",
-            "details": "Some details"
-          }],
+          "significantIssues": [
+            {
+              "overview": "Some information",
+              "barrierType": "Other",
+              "details": "Some details"
+            }
+          ],
           "assuranceAgreementRed": {
             "agreementWithBarriers": "Yes",
             "commentary": "Red Barriers",
-            "recommendedSignificantIssues": [{
-              "overview": "Different information",
+            "recommendedSignificantIssues": [
+              {
+                "overview": "Different information",
+                "barrierType": "Other",
+                "details": "Some details"
+              }
+            ]
+          },
+          "liveIssues": [
+            {
+              "overview": "Some information",
               "barrierType": "Other",
               "details": "Some details"
-            }]
-          },
-          "liveIssues": [{
-            "overview": "Some information",
-            "barrierType": "Other",
-            "details": "Some details"
-          }],
+            }
+          ],
           "assuranceAgreementAmber": {
             "agreementWithBarriers": "Yes",
             "commentary": "Red Barriers",
-            "recommendedLiveIssues": [{
-              "overview": "Different information",
-              "barrierType": "Other",
-              "details": "Some details"
-            }]
+            "recommendedLiveIssues": [
+              {
+                "overview": "Different information",
+                "barrierType": "Other",
+                "details": "Some details"
+              }
+            ]
           }
         },
         "overallRAGRating": {
@@ -1054,7 +1068,6 @@
           },
           "moreMonitoringRequired": "Monitor",
           "requiredFrequency": "Monthly"
-
         },
         "commentary": "Good",
         "infrastructureDeliveryCopy": [
