@@ -1493,6 +1493,7 @@
                     },
                     "riskMet": {
                       "type": "string",
+                      "radio": true,
                       "enum": ["Yes", "No"],
                       "title": "Risk Met?"
                     },
