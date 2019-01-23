@@ -1,12 +1,12 @@
 describe UI::UseCase::ConvertCoreACReturn do
-  let(:return_to_convert) do
+  let(:ui_data_return) do
     JSON.parse(
       File.open("#{__dir__}/../../../fixtures/ac_return_ui.json").read,
       symbolize_names: true
     )
   end
 
-  let(:core_data_return) do
+  let(:return_to_convert) do
     JSON.parse(
       File.open("#{__dir__}/../../../fixtures/ac_return_core.json").read,
       symbolize_names: true
@@ -16,6 +16,6 @@ describe UI::UseCase::ConvertCoreACReturn do
   it 'Converts the project correctly' do
     converted_project = described_class.new.execute(return_data: return_to_convert)
 
-    expect(converted_project).to eq(core_data_return)
+    expect(converted_project).to eq(ui_data_return)
   end
 end

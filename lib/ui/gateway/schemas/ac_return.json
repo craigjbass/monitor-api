@@ -81,44 +81,45 @@
           "housingOutputs": {
             "type": "object",
             "title": "Housing Outputs",
-            "calculation": "set(formData, 'affordableHousingUnits', get(formData, 'units') ? parseMoney(get(formData, 'units', 'numberOfUnits', 'numberOfUnitsSharedOwnership')) + parseMoney(get(formData, 'units', 'numberOfUnits', 'numberOfUnitsAffordable')) :0)",
             "required": ["units", "paceOfConstruction", "modernMethodsOfConstruction", "changesRequired"],
             "properties": {
-              "baselineunits": {
-                "type": "string",
-                "title": "Baseline Total Units",
-                "readonly": true,
-                "sourceKey": [
-                  "baseline_data",
-                  "summary",
-                  "sitesSummary",
-                  "units",
-                  "numberOfUnitsTotal"
-                ]
-              },
-              "baselineAffordableHousingUnits": {
-                "type": "string",
-                "title": "Baseline Affordable Housing Units",
-                "readonly": true,
-                "sourceKey": [
-                  "baseline_data",
-                  "summary",
-                  "sitesSummary",
-                  "units",
-                  "numberOfUnits",
-                  "numberOfUnitsAffordable"
-                ]
-              },
-              "affordableHousingUnits": {
-                "type": "string",
-                "title": "Affordable Housing Units",
-                "readonly": true
+              "baselineTotals": {
+                "type": "object",
+                "title": "",
+                "horizontal": true,
+                "properties": {
+                  "baselineunits": {
+                    "type": "string",
+                    "title": "Baseline Total Units",
+                    "readonly": true,
+                    "sourceKey": [
+                      "baseline_data",
+                      "summary",
+                      "sitesSummary",
+                      "units",
+                      "numberOfUnitsTotal"
+                    ]
+                  },
+                  "baselineAffordableHousingUnits": {
+                    "type": "string",
+                    "title": "Baseline Affordable Housing Units",
+                    "readonly": true,
+                    "sourceKey": [
+                      "baseline_data",
+                      "summary",
+                      "sitesSummary",
+                      "units",
+                      "numberOfUnits",
+                      "numberOfUnitsAffordable"
+                    ]
+                  }
+                }
               },
               "units": {
                 "type": "object",
                 "title": "",
                 "required": ["numberOfUnits"],
-                "calculation": "set(formData, 'numberOfUnitsTotal', get(formData, 'numberOfUnits') ? parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsMarket')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsSharedOwnership')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsAffordable')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsPRS')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsOther')): 0);",
+                "calculation": "setCreate(formData, [ 'affordableHousingUnits'], get(formData, 'numberOfUnits') ? parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsSharedOwnership')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsAffordable')) :0); setCreate(formData,[ 'numberOfUnitsTotal'], get(formData, 'numberOfUnits') ? parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsMarket')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsSharedOwnership')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsAffordable')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsPRS')) + parseMoney(get(formData, 'numberOfUnits', 'numberOfUnitsOther')): 0);",
                 "properties": {
                   "numberOfUnits": {
                     "type": "object",
@@ -157,6 +158,11 @@
                   "numberOfUnitsTotal": {
                     "title": "Total",
                     "type": "string",
+                    "readonly": true
+                  },
+                  "affordableHousingUnits": {
+                    "type": "string",
+                    "title": "Affordable Housing Units",
                     "readonly": true
                   },
                   "reasonForOther": {
