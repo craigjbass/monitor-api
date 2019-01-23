@@ -367,7 +367,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                               title: 'Completed?',
                               type: 'string',
                               radio: true,
-                              enum: ['Yes', 'No']
+                              enum: ['Yes', 'No', 'N/A']
                             }
                           },
                           dependencies: {
@@ -440,6 +440,17 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                       }
                                     }
                                   }
+                                },
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['N/A']
+                                    },
+                                    reason: {
+                                      type: 'string',
+                                      title: 'Reason that this is not applicable'
+                                    }
+                                  }
                                 }
                               ]
                             }
@@ -459,7 +470,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                               title: 'Completed?',
                               type: 'string',
                               radio: true,
-                              enum: ['Yes', 'No']
+                              enum: ['Yes', 'No', 'N/A']
                             }
                           },
                           dependencies: {
@@ -532,6 +543,17 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                       }
                                     }
                                   }
+                                },
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['N/A']
+                                    },
+                                    reason: {
+                                      type: 'string',
+                                      title: 'Reason that this is not applicable'
+                                    }
+                                  }
                                 }
                               ]
                             }
@@ -550,7 +572,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                             completed: {
                               title: 'Completed?',
                               type: 'string',
-                              enum: ['Yes', 'No'],
+                              enum: ['Yes', 'No', 'N/A'],
                               radio: true
                             }
                           },
@@ -624,6 +646,17 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                       }
                                     }
                                   }
+                                },
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['N/A']
+                                    },
+                                    reason: {
+                                      type: 'string',
+                                      title: 'Reason that this is not applicable'
+                                    }
+                                  }
                                 }
                               ]
                             }
@@ -643,7 +676,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                               title: 'Completed?',
                               type: 'string',
                               radio: true,
-                              enum: ['Yes', 'No']
+                              enum: ['Yes', 'No', 'N/A']
                             }
                           },
                           dependencies: {
@@ -716,6 +749,17 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                       }
                                     }
                                   }
+                                },
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['N/A']
+                                    },
+                                    reason: {
+                                      type: 'string',
+                                      title: 'Reason that this is not applicable'
+                                    }
+                                  }
                                 }
                               ]
                             }
@@ -735,7 +779,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                               title: 'Completed?',
                               type: 'string',
                               radio: true,
-                              enum: ['Yes', 'No']
+                              enum: ['Yes', 'No', 'N/A']
                             }
                           },
                           dependencies: {
@@ -808,6 +852,17 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                       }
                                     }
                                   }
+                                },
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['N/A']
+                                    },
+                                    reason: {
+                                      type: 'string',
+                                      title: 'Reason that this is not applicable'
+                                    }
+                                  }
                                 }
                               ]
                             }
@@ -827,7 +882,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                               title: 'Completed?',
                               type: 'string',
                               radio: true,
-                              enum: ['Yes', 'No']
+                              enum: ['Yes', 'No', 'N/A']
                             }
                           },
                           dependencies: {
@@ -900,6 +955,17 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                       }
                                     }
                                   }
+                                },
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['N/A']
+                                    },
+                                    reason: {
+                                      type: 'string',
+                                      title: 'Reason that this is not applicable'
+                                    }
+                                  }
                                 }
                               ]
                             }
@@ -919,7 +985,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                               title: 'Completed?',
                               type: 'string',
                               radio: true,
-                              enum: ['Yes', 'No']
+                              enum: ['Yes', 'No', 'N/A']
                             }
                           },
                           dependencies: {
@@ -996,6 +1062,17 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                       }
                                     }
                                   }
+                                },
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['N/A']
+                                    },
+                                    reason: {
+                                      type: 'string',
+                                      title: 'Reason that this is not applicable'
+                                    }
+                                  }
                                 }
                               ]
                             }
@@ -1015,7 +1092,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                               title: 'Completed?',
                               type: 'string',
                               radio: true,
-                              enum: ['Yes', 'No']
+                              enum: ['Yes', 'No', 'N/A']
                             }
                           },
                           dependencies: {
@@ -1092,6 +1169,17 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                       }
                                     }
                                   }
+                                },
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['N/A']
+                                    },
+                                    reason: {
+                                      type: 'string',
+                                      title: 'Reason that this is not applicable'
+                                    }
+                                  }
                                 }
                               ]
                             }
@@ -1111,7 +1199,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                               title: 'Completed?',
                               type: 'string',
                               radio: true,
-                              enum: ['Yes', 'No']
+                              enum: ['Yes', 'No', 'N/A']
                             }
                           },
                           dependencies: {
@@ -1183,6 +1271,17 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                       }
                                     }
                                   }
+                                },
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['N/A']
+                                    },
+                                    reason: {
+                                      type: 'string',
+                                      title: 'Reason that this is not applicable'
+                                    }
+                                  }
                                 }
                               ]
                             }
@@ -1202,7 +1301,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                               title: 'Completed?',
                               type: 'string',
                               radio: true,
-                              enum: ['Yes', 'No']
+                              enum: ['Yes', 'No', 'N/A']
                             }
                           },
                           dependencies: {
@@ -1280,6 +1379,17 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                       }
                                     }
                                   }
+                                },
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['N/A']
+                                    },
+                                    reason: {
+                                      type: 'string',
+                                      title: 'Reason that this is not applicable'
+                                    }
+                                  }
                                 }
                               ]
                             }
@@ -1299,7 +1409,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                               title: 'Completed?',
                               type: 'string',
                               radio: true,
-                              enum: ['Yes', 'No']
+                              enum: ['Yes', 'No', 'N/A']
                             }
                           },
                           dependencies: {
@@ -1372,6 +1482,17 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                       }
                                     }
                                   }
+                                },
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['N/A']
+                                    },
+                                    reason: {
+                                      type: 'string',
+                                      title: 'Reason that this is not applicable'
+                                    }
+                                  }
                                 }
                               ]
                             }
@@ -1391,7 +1512,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                               title: 'Completed?',
                               type: 'string',
                               radio: true,
-                              enum: ['Yes', 'No']
+                              enum: ['Yes', 'No', 'N/A']
                             }
                           },
                           dependencies: {
@@ -1464,6 +1585,17 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                       }
                                     }
                                   }
+                                },
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['N/A']
+                                    },
+                                    reason: {
+                                      type: 'string',
+                                      title: 'Reason that this is not applicable'
+                                    }
+                                  }
                                 }
                               ]
                             }
@@ -1483,7 +1615,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                               title: 'Completed?',
                               type: 'string',
                               radio: true,
-                              enum: ['Yes', 'No']
+                              enum: ['Yes', 'No', 'N/A']
                             }
                           },
                           dependencies: {
@@ -1556,6 +1688,17 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                       }
                                     }
                                   }
+                                },
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['N/A']
+                                    },
+                                    reason: {
+                                      type: 'string',
+                                      title: 'Reason that this is not applicable'
+                                    }
+                                  }
                                 }
                               ]
                             }
@@ -1575,7 +1718,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                               title: 'Completed?',
                               type: 'string',
                               radio: true,
-                              enum: ['Yes', 'No']
+                              enum: ['Yes', 'No', 'N/A']
                             }
                           },
                           dependencies: {
@@ -1648,6 +1791,17 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                       }
                                     }
                                   }
+                                },
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['N/A']
+                                    },
+                                    reason: {
+                                      type: 'string',
+                                      title: 'Reason that this is not applicable'
+                                    }
+                                  }
                                 }
                               ]
                             }
@@ -1667,7 +1821,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                               title: 'Completed?',
                               type: 'string',
                               radio: true,
-                              enum: ['Yes', 'No']
+                              enum: ['Yes', 'No', 'N/A']
                             }
                           },
                           dependencies: {
@@ -1740,6 +1894,17 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                       }
                                     }
                                   }
+                                },
+                                {
+                                  properties: {
+                                    completed: {
+                                      enum: ['N/A']
+                                    },
+                                    reason: {
+                                      type: 'string',
+                                      title: 'Reason that this is not applicable'
+                                    }
+                                  }
                                 }
                               ]
                             }
@@ -1772,7 +1937,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                 title: 'Completed?',
                                 type: 'string',
                                 radio: true,
-                                enum: ['Yes', 'No']
+                                enum: ['Yes', 'No', 'N/A']
                               }
                             },
                             dependencies: {
@@ -1845,7 +2010,18 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                         }
                                       }
                                     }
+                                  },
+                                  {
+                                  properties: {
+                                    completed: {
+                                      enum: ['N/A']
+                                    },
+                                    reason: {
+                                      type: 'string',
+                                      title: 'Reason that this is not applicable'
+                                    }
                                   }
+                                }
                                 ]
                               }
                             }
