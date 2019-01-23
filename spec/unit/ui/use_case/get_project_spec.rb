@@ -21,11 +21,11 @@ describe UI::UseCase::GetProject do
         }
       )
     end
-    let(:convert_core_hif_project_spy) { spy(execute: { building2: 'a house' }) }
+    let(:convert_core_project_spy) { spy(execute: { building2: 'a house' }) }
     let(:use_case) do
       described_class.new(
         find_project: find_project_spy,
-        convert_core_hif_project: convert_core_hif_project_spy,
+        convert_core_project: convert_core_project_spy,
         project_schema_gateway: project_schema_gateway_spy
       )
     end
@@ -69,43 +69,20 @@ describe UI::UseCase::GetProject do
       expect(response[:timestamp]).to eq(0)
     end
 
-    context 'Given a hif project' do
-      it 'Calls execute on the convert core hif project use case' do
-        expect(convert_core_hif_project_spy).to have_received(:execute)
-      end
-
-      it 'Passes the project data to the converter' do
-        expect(convert_core_hif_project_spy).to(
-          have_received(:execute).with(
-            project_data: { building1: 'a house' }
-          )
-        )
-      end
-
-      it 'Returns the converted data from find project' do
-        expect(response[:data]).to eq(building2: 'a house')
-      end
+    it 'Calls execute on the convert core hif project use case' do
+      expect(convert_core_project_spy).to have_received(:execute)
     end
 
-    context 'Given a non hif project' do
-      let(:find_project_spy) do
-        spy(
-          execute: {
-            name: 'Big Buildings',
-            type: 'ac',
-            data: { building1: 'a house' },
-            status: 'Draft'
-          }
+    it 'Passes the project data to the converter' do
+      expect(convert_core_project_spy).to(
+        have_received(:execute).with(
+          project_data: { building1: 'a house' }, type: 'hif'
         )
-      end
+      )
+    end
 
-      it 'Does not execute the converted' do
-        expect(convert_core_hif_project_spy).not_to have_received(:execute)
-      end
-
-      it 'Returns the original data' do
-        expect(response[:data]).to eq(building1: 'a house')
-      end
+    it 'Returns the converted data from find project' do
+      expect(response[:data]).to eq(building2: 'a house')
     end
   end
 
@@ -129,11 +106,11 @@ describe UI::UseCase::GetProject do
         }
       )
     end
-    let(:convert_core_hif_project_spy) { spy(execute: { noiseMade: 'bark' }) }
+    let(:convert_core_project_spy) { spy(execute: { noiseMade: 'bark' }) }
     let(:use_case) do
       described_class.new(
         find_project: find_project_spy,
-        convert_core_hif_project: convert_core_hif_project_spy,
+        convert_core_project: convert_core_project_spy,
         project_schema_gateway: project_schema_gateway_spy
       )
     end
@@ -177,43 +154,20 @@ describe UI::UseCase::GetProject do
       expect(response[:timestamp]).to eq(345)
     end
 
-    context 'Given a hif project' do
-      it 'Calls execute on the convert core hif project use case' do
-        expect(convert_core_hif_project_spy).to have_received(:execute)
-      end
-
-      it 'Passes the project data to the converter' do
-        expect(convert_core_hif_project_spy).to(
-          have_received(:execute).with(
-            project_data: { noise: 'bark' }
-          )
-        )
-      end
-
-      it 'Returns the converted data from find project' do
-        expect(response[:data]).to eq(noiseMade: 'bark')
-      end
+    it 'Calls execute on the convert core hif project use case' do
+      expect(convert_core_project_spy).to have_received(:execute)
     end
 
-    context 'Given a non hif project' do
-      let(:find_project_spy) do
-        spy(
-          execute: {
-            name: 'Big Buildings',
-            type: 'cattos',
-            data: { noise: 'bark' },
-            status: 'Draft'
-          }
+    it 'Passes the project data to the converter' do
+      expect(convert_core_project_spy).to(
+        have_received(:execute).with(
+          project_data: { noise: 'bark' }, type: 'hif'
         )
-      end
+      )
+    end
 
-      it 'Does not execute the converted' do
-        expect(convert_core_hif_project_spy).not_to have_received(:execute)
-      end
-
-      it 'Returns the original data' do
-        expect(response[:data]).to eq(noise: 'bark')
-      end
+    it 'Returns the converted data from find project' do
+      expect(response[:data]).to eq(noiseMade: 'bark')
     end
   end
 end

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class UI::UseCase::GetProject
-  def initialize(find_project:, convert_core_hif_project:, project_schema_gateway:)
+  def initialize(find_project:, convert_core_project:, project_schema_gateway:)
     @find_project = find_project
     @project_schema_gateway = project_schema_gateway
-    @convert_core_hif_project = convert_core_hif_project
+    @convert_core_project = convert_core_project
   end
 
   def execute(id:)
@@ -12,7 +12,7 @@ class UI::UseCase::GetProject
 
     template = @project_schema_gateway.find_by(type: found_project[:type])
 
-    found_project[:data] = convert_data(found_project) if found_project[:type] == 'hif'
+    found_project[:data] = @convert_core_project.execute(project_data: found_project[:data], type: found_project[:type])
 
     {
       name: found_project[:name],

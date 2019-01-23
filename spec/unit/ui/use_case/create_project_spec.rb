@@ -3,11 +3,11 @@
 describe UI::UseCase::CreateProject do
   context 'Example one' do
     let(:create_project_spy) { spy(execute: { id: 1 }) }
-    let(:convert_ui_hif_project_spy) { spy(execute: { cattos: 'purr' }) }
+    let(:convert_ui_project_spy) { spy(execute: { cattos: 'purr' }) }
     let(:use_case) do
       described_class.new(
         create_project: create_project_spy,
-        convert_ui_hif_project: convert_ui_hif_project_spy
+        convert_ui_project: convert_ui_project_spy
       )
     end
     let(:response) do
@@ -38,48 +38,30 @@ describe UI::UseCase::CreateProject do
       expect(response).to eq(id: 1)
     end
 
-    context 'Given hif project' do
-      it 'Calls execute on the convert use case' do
-        expect(convert_ui_hif_project_spy).to have_received(:execute)
-      end
-
-      it 'Passes the project data to the converter' do
-        expect(convert_ui_hif_project_spy).to have_received(:execute).with(
-          project_data: { Cats: 'purr' }
-        )
-      end
-
-      it 'Creates the project with the converted data' do
-        expect(create_project_spy).to(
-          have_received(:execute).with(hash_including(baseline: { cattos: 'purr' }))
-        )
-      end
+    it 'Calls execute on the convert use case' do
+      expect(convert_ui_project_spy).to have_received(:execute)
     end
 
-    context 'Given non hif project' do
-      let(:response) do
-        use_case.execute(type: 'laac', name: 'Cats', baseline: { Cats: 'purr' })
-      end
+    it 'Passes the project data to the converter' do
+      expect(convert_ui_project_spy).to have_received(:execute).with(
+        project_data: { Cats: 'purr' }, type: 'hif'
+      )
+    end
 
-      it 'Does not call execute on the convert use case' do
-        expect(convert_ui_hif_project_spy).not_to have_received(:execute)
-      end
-
-      it 'Creates the project with the non-converted data' do
-        expect(create_project_spy).to(
-          have_received(:execute).with(hash_including(baseline: { Cats: 'purr' }))
-        )
-      end
+    it 'Creates the project with the converted data' do
+      expect(create_project_spy).to(
+        have_received(:execute).with(hash_including(baseline: { cattos: 'purr' }))
+      )
     end
   end
 
   context 'Example two' do
     let(:create_project_spy) { spy(execute: { id: 5 }) }
-    let(:convert_ui_hif_project_spy) { spy(execute: { dogs: 'woof' }) }
+    let(:convert_ui_project_spy) { spy(execute: { dogs: 'woof' }) }
     let(:use_case) do
       described_class.new(
         create_project: create_project_spy,
-        convert_ui_hif_project: convert_ui_hif_project_spy
+        convert_ui_project: convert_ui_project_spy
       )
     end
     let(:response) do
@@ -110,7 +92,7 @@ describe UI::UseCase::CreateProject do
       expect(create_project_spy).to(
         have_received(:execute).with(
           hash_including(
-            baseline: { doggos: 'woof' }
+            baseline: { dogs: 'woof' }
           )
         )
       )
@@ -120,38 +102,20 @@ describe UI::UseCase::CreateProject do
       expect(response).to eq(id: 5)
     end
 
-    context 'Given hif project' do
-      let(:response) do
-        use_case.execute(type: 'hif', name: 'Dogs', baseline: { doggos: 'woof' })
-      end
-
-      it 'Calls execute on the convert use case' do
-        expect(convert_ui_hif_project_spy).to have_received(:execute)
-      end
-
-      it 'Passes the project data to the converter' do
-        expect(convert_ui_hif_project_spy).to have_received(:execute).with(
-          project_data: { doggos: 'woof' }
-        )
-      end
-
-      it 'Creates the project with the converted data' do
-        expect(create_project_spy).to(
-          have_received(:execute).with(hash_including(baseline: { dogs: 'woof' }))
-        )
-      end
+    it 'Calls execute on the convert use case' do
+      expect(convert_ui_project_spy).to have_received(:execute)
     end
 
-    context 'Given non hif project' do
-      it 'Does not call execute on the convert use case' do
-        expect(convert_ui_hif_project_spy).not_to have_received(:execute)
-      end
+    it 'Passes the project data to the converter' do
+      expect(convert_ui_project_spy).to have_received(:execute).with(
+        project_data: { doggos: 'woof' }, type: 'laac'
+      )
+    end
 
-      it 'Creates the project with the non-converted data' do
-        expect(create_project_spy).to(
-          have_received(:execute).with(hash_including(baseline: { doggos: 'woof' }))
-        )
-      end
+    it 'Creates the project with the converted data' do
+      expect(create_project_spy).to(
+        have_received(:execute).with(hash_including(baseline: { dogs: 'woof' }))
+      )
     end
   end
 end
