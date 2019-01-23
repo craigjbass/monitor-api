@@ -2578,6 +2578,7 @@
                     "year": {
                       "type": "string",
                       "title": "Year",
+                      "enum": ["2018/19", "2019/20", "2020/21"],
                       "laReadOnly": true
                     },
                     "Q1Amount": {
@@ -2620,7 +2621,8 @@
                   "properties": {
                     "year": {
                       "type": "string",
-                      "title": "Year"
+                      "title": "Year",
+                      "enum": ["2018/19", "2019/20", "2020/21"],
                     },
                     "Q1Amount": {
                       "type": "string",
