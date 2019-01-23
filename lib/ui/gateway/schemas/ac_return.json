@@ -2262,10 +2262,10 @@
         "baseline": {
           "type": "array",
           "title": "Baseline",
+          "periods": true,
           "items": {
             "type": "object",
             "title": "",
-            "horizontal": true,
             "properties": {
               "year": {
                 "type": "string",
