@@ -9,9 +9,10 @@
         "planningStatus": "Not in allocated for housing in Local Plan"
       },
       "housingOutputs": {
-        "baselineunits": 115,
-        "baselineAffordableHousingUnits": "56",
-        "affordableHousingUnits": 4,
+        "baselineTotals": {
+          "baselineunits": 115,
+          "baselineAffordableHousingUnits": "56"
+        },
         "units": {
           "numberOfUnits": {
             "numberOfUnitsMarket": "2",
@@ -21,6 +22,7 @@
             "numberOfUnitsOther": "4"
           },
           "numberOfUnitsTotal": 12,
+          "affordableHousingUnits": 4,
           "reasonForOther": "blah"
         },
         "paceOfConstruction": {
