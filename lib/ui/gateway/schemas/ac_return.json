@@ -409,7 +409,7 @@
                         "title": "Completed?",
                         "type": "string",
                         "radio": true,
-                        "enum": ["Yes", "No"]
+                        "enum": ["Yes", "No", "N/A"]
                       }
                     },
                     "dependencies": {
@@ -486,6 +486,19 @@
                               }
                             },
                             "required": ["details", "risk"]
+                          },
+                          {
+                            "properties": {
+                              "completed": {
+                                "enum": ["N/A"]
+                              },
+                              "reason": {
+                                "type": "string",
+                                "title": "Reason that this is not applicable",
+                                "extendedText": true
+                              }
+                            },
+                            "required": ["reason"]
                           }
                         ]
                       }
@@ -507,7 +520,7 @@
                         "title": "Completed?",
                         "type": "string",
                         "radio": true,
-                        "enum": ["Yes", "No"]
+                        "enum": ["Yes", "No", "N/A"]
                       }
                     },
                     "dependencies": {
@@ -584,6 +597,19 @@
                               }
                             },
                             "required": ["details", "risk"]
+                          },
+                          {
+                            "properties": {
+                              "completed": {
+                                "enum": ["N/A"]
+                              },
+                              "reason": {
+                                "type": "string",
+                                "title": "Reason that this is not applicable",
+                                "extendedText": true
+                              }
+                            },
+                            "required": ["reason"]
                           }
                         ]
                       }
@@ -604,7 +630,7 @@
                       "completed": {
                         "title": "Completed?",
                         "type": "string",
-                        "enum": ["Yes", "No"],
+                        "enum": ["Yes", "No", "N/A"],
                         "radio": true
                       }
                     },
@@ -682,6 +708,19 @@
                               }
                             },
                             "required": ["details", "risk"]
+                          },
+                          {
+                            "properties": {
+                              "completed": {
+                                "enum": ["N/A"]
+                              },
+                              "reason": {
+                                "type": "string",
+                                "title": "Reason that this is not applicable",
+                                "extendedText": true
+                              }
+                            },
+                            "required": ["reason"]
                           }
                         ]
                       }
@@ -703,7 +742,7 @@
                         "title": "Completed?",
                         "type": "string",
                         "radio": true,
-                        "enum": ["Yes", "No"]
+                        "enum": ["Yes", "No", "N/A"]
                       }
                     },
                     "dependencies": {
@@ -780,6 +819,19 @@
                               }
                             },
                             "required": ["details", "risk"]
+                          },
+                          {
+                            "properties": {
+                              "completed": {
+                                "enum": ["N/A"]
+                              },
+                              "reason": {
+                                "type": "string",
+                                "title": "Reason that this is not applicable",
+                                "extendedText": true
+                              }
+                            },
+                            "required": ["reason"]
                           }
                         ]
                       }
@@ -801,7 +853,7 @@
                         "title": "Completed?",
                         "type": "string",
                         "radio": true,
-                        "enum": ["Yes", "No"]
+                        "enum": ["Yes", "No", "N/A"]
                       }
                     },
                     "dependencies": {
@@ -878,6 +930,19 @@
                               }
                             },
                             "required": ["details", "risk"]
+                          },
+                          {
+                            "properties": {
+                              "completed": {
+                                "enum": ["N/A"]
+                              },
+                              "reason": {
+                                "type": "string",
+                                "title": "Reason that this is not applicable",
+                                "extendedText": true
+                              }
+                            },
+                            "required": ["reason"]
                           }
                         ]
                       }
@@ -899,7 +964,7 @@
                         "title": "Completed?",
                         "type": "string",
                         "radio": true,
-                        "enum": ["Yes", "No"]
+                        "enum": ["Yes", "No", "N/A"]
                       }
                     },
                     "dependencies": {
@@ -976,6 +1041,19 @@
                               }
                             },
                             "required": ["details", "risk"]
+                          },
+                          {
+                            "properties": {
+                              "completed": {
+                                "enum": ["N/A"]
+                              },
+                              "reason": {
+                                "type": "string",
+                                "title": "Reason that this is not applicable",
+                                "extendedText": true
+                              }
+                            },
+                            "required": ["reason"]
                           }
                         ]
                       }
@@ -997,7 +1075,7 @@
                         "title": "Completed?",
                         "type": "string",
                         "radio": true,
-                        "enum": ["Yes", "No"]
+                        "enum": ["Yes", "No", "N/A"]
                       }
                     },
                     "dependencies": {
@@ -1076,6 +1154,19 @@
                               }
                             },
                             "required":["details", "risk"]
+                          },
+                          {
+                            "properties": {
+                              "completed": {
+                                "enum": ["N/A"]
+                              },
+                              "reason": {
+                                "type": "string",
+                                "title": "Reason that this is not applicable",
+                                "extendedText": true
+                              }
+                            },
+                            "required": ["reason"]
                           }
                         ]
                       }
@@ -1097,7 +1188,7 @@
                         "title": "Completed?",
                         "type": "string",
                         "radio": true,
-                        "enum": ["Yes", "No"]
+                        "enum": ["Yes", "No", "N/A"]
                       }
                     },
                     "dependencies": {
@@ -1178,6 +1269,19 @@
                               }
                             },
                             "required": ["details", "risk"]
+                          },
+                          {
+                            "properties": {
+                              "completed": {
+                                "enum": ["N/A"]
+                              },
+                              "reason": {
+                                "type": "string",
+                                "title": "Reason that this is not applicable",
+                                "extendedText": true
+                              }
+                            },
+                            "required": ["reason"]
                           }
                         ]
                       }
@@ -1199,7 +1303,7 @@
                         "title": "Completed?",
                         "type": "string",
                         "radio": true,
-                        "enum": ["Yes", "No"]
+                        "enum": ["Yes", "No", "N/A"]
                       }
                     },
                     "dependencies": {
@@ -1275,6 +1379,19 @@
                               }
                             },
                             "required": ["details", "risk"]
+                          },
+                          {
+                            "properties": {
+                              "completed": {
+                                "enum": ["N/A"]
+                              },
+                              "reason": {
+                                "type": "string",
+                                "title": "Reason that this is not applicable",
+                                "extendedText": true
+                              }
+                            },
+                            "required": ["reason"]
                           }
                         ]
                       }
@@ -1296,7 +1413,7 @@
                         "title": "Completed?",
                         "type": "string",
                         "radio": true,
-                        "enum": ["Yes", "No"]
+                        "enum": ["Yes", "No", "N/A"]
                       }
                     },
                     "dependencies": {
@@ -1378,6 +1495,19 @@
                               }
                             },
                             "required": ["details", "risk"]
+                          },
+                          {
+                            "properties": {
+                              "completed": {
+                                "enum": ["N/A"]
+                              },
+                              "reason": {
+                                "type": "string",
+                                "title": "Reason that this is not applicable",
+                                "extendedText": true
+                              }
+                            },
+                            "required": ["reason"]
                           }
                         ]
                       }
@@ -1399,7 +1529,7 @@
                         "title": "Completed?",
                         "type": "string",
                         "radio": true,
-                        "enum": ["Yes", "No"]
+                        "enum": ["Yes", "No", "N/A"]
                       }
                     },
                     "dependencies": {
@@ -1476,6 +1606,19 @@
                               }
                             },
                             "required": ["details", "risk"]
+                          },
+                          {
+                            "properties": {
+                              "completed": {
+                                "enum": ["N/A"]
+                              },
+                              "reason": {
+                                "type": "string",
+                                "title": "Reason that this is not applicable",
+                                "extendedText": true
+                              }
+                            },
+                            "required": ["reason"]
                           }
                         ]
                       }
@@ -1497,7 +1640,7 @@
                         "title": "Completed?",
                         "type": "string",
                         "radio": true,
-                        "enum": ["Yes", "No"]
+                        "enum": ["Yes", "No", "N/A"]
                       }
                     },
                     "dependencies": {
@@ -1574,6 +1717,19 @@
                               }
                             },
                             "required": ["details", "risk"]
+                          },
+                          {
+                            "properties": {
+                              "completed": {
+                                "enum": ["N/A"]
+                              },
+                              "reason": {
+                                "type": "string",
+                                "title": "Reason that this is not applicable",
+                                "extendedText": true
+                              }
+                            },
+                            "required": ["reason"]
                           }
                         ]
                       }
@@ -1595,7 +1751,7 @@
                         "title": "Completed?",
                         "type": "string",
                         "radio": true,
-                        "enum": ["Yes", "No"]
+                        "enum": ["Yes", "No", "N/A"]
                       }
                     },
                     "dependencies": {
@@ -1672,6 +1828,19 @@
                               }
                             },
                             "required": ["details", "risk"]
+                          },
+                          {
+                            "properties": {
+                              "completed": {
+                                "enum": ["N/A"]
+                              },
+                              "reason": {
+                                "type": "string",
+                                "title": "Reason that this is not applicable",
+                                "extendedText": true
+                              }
+                            },
+                            "required": ["reason"]
                           }
                         ]
                       }
@@ -1693,7 +1862,7 @@
                         "title": "Completed?",
                         "type": "string",
                         "radio": true,
-                        "enum": ["Yes", "No"]
+                        "enum": ["Yes", "No", "N/A"]
                       }
                     },
                     "dependencies": {
@@ -1770,6 +1939,19 @@
                               }
                             },
                             "required": ["details", "risk"]
+                          },
+                          {
+                            "properties": {
+                              "completed": {
+                                "enum": ["N/A"]
+                              },
+                              "reason": {
+                                "type": "string",
+                                "title": "Reason that this is not applicable",
+                                "extendedText": true
+                              }
+                            },
+                            "required": ["reason"]
                           }
                         ]
                       }
@@ -1791,7 +1973,7 @@
                         "title": "Completed?",
                         "type": "string",
                         "radio": true,
-                        "enum": ["Yes", "No"]
+                        "enum": ["Yes", "No", "N/A"]
                       }
                     },
                     "dependencies": {
@@ -1868,6 +2050,19 @@
                               }
                             },
                             "required":["details", "risk"]
+                          },
+                          {
+                            "properties": {
+                              "completed": {
+                                "enum": ["N/A"]
+                              },
+                              "reason": {
+                                "type": "string",
+                                "title": "Reason that this is not applicable",
+                                "extendedText": true
+                              }
+                            },
+                            "required": ["reason"]
                           }
                         ]
                       }
@@ -1902,7 +2097,7 @@
                           "title": "Completed?",
                           "type": "string",
                           "radio": true,
-                          "enum": ["Yes", "No"]
+                          "enum": ["Yes", "No", "N/A"]
                         }
                       },
                       "dependencies": {
@@ -1979,6 +2174,19 @@
                                 }
                               },
                               "required":["details", "risk"]
+                            },
+                            {
+                              "properties": {
+                                "completed": {
+                                  "enum": ["N/A"]
+                                },
+                                "reason": {
+                                  "type": "string",
+                                  "title": "Reason that this is not applicable",
+                                  "extendedText": true
+                                }
+                              },
+                              "required": ["reason"]
                             }
                           ]
                         }
