@@ -226,6 +226,8 @@ class UI::UseCase::ConvertUIHIFProject
   end
 
   def convert_outputs_forecast
+    return if @project[:outputs].nil?
+    return if @project[:outputs][0].nil?
     return if @project[:outputs][0][:outputsForecast].nil?
 
     @converted_project[:outputsForecast] = {
@@ -247,6 +249,8 @@ class UI::UseCase::ConvertUIHIFProject
   end
 
   def convert_outputs_actuals
+    return if @project[:outputs].nil?
+    return if @project[:outputs][0].nil?
     return if @project[:outputs][0][:outputsActuals].nil?
 
     @converted_project[:outputsActuals] = {}

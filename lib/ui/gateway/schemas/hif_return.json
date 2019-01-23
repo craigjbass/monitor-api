@@ -6398,7 +6398,7 @@
               },
               "percentages": {
                 "type": "object",
-                "title": "",
+                "title": "Percentage of the current years starts and completions that are:",
                 "horizontal": true,
                 "properties": {
                   "brownfieldPercent": {
