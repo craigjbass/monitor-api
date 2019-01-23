@@ -2271,6 +2271,7 @@
                 "type": "string",
                 "title": "Year",
                 "readonly": true,
+                "enum": ["2018/19", "2019/20", "2020/21"],
                 "sourceKey": [
                   "baseline_data",
                   "financials",
@@ -2342,6 +2343,7 @@
               "year": {
                 "type": "string",
                 "title": "Year",
+                "enum": ["2018/19", "2019/20", "2020/21"],
                 "laReadOnly": true,
                 "sourceKey": [
                   "baseline_data",
@@ -2395,6 +2397,7 @@
               "year": {
                 "type": "string",
                 "title": "Year",
+                "enum": ["2018/19", "2019/20", "2020/21"],
                 "sourceKey": [
                   "baseline_data",
                   "financials",
@@ -2443,6 +2446,7 @@
               "year": {
                 "type": "string",
                 "title": "Year",
+                "enum": ["2018/19", "2019/20", "2020/21"],
                 "sourceKey": [
                   "baseline_data",
                   "financials",
@@ -2578,6 +2582,7 @@
                     "year": {
                       "type": "string",
                       "title": "Year",
+                      "enum": ["2018/19", "2019/20", "2020/21"],
                       "laReadOnly": true
                     },
                     "Q1Amount": {
@@ -2620,7 +2625,8 @@
                   "properties": {
                     "year": {
                       "type": "string",
-                      "title": "Year"
+                      "title": "Year",
+                      "enum": ["2018/19", "2019/20", "2020/21"],
                     },
                     "Q1Amount": {
                       "type": "string",
