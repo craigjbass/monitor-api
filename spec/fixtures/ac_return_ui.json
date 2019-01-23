@@ -1,0 +1,418 @@
+{
+  "sites": [
+    {
+      "summary": {
+        "name": "The Consortium",
+        "ref": "HAV/C391/TIM",
+        "totalNoOfUnits": { "baseline": 115, "live": 100 },
+        "affordableHousingUnits": { "baseline": "56", "live": 50 },
+        "planningStatus": "Not in allocated for housing in Local Plan"
+      },
+      "housingOutputs": {
+        "baselineunits": 115,
+        "baselineAffordableHousingUnits": "56",
+        "affordableHousingUnits": 4,
+        "units": {
+          "numberOfUnits": {
+            "numberOfUnitsMarket": "2",
+            "numberOfUnitsSharedOwnership": "2",
+            "numberOfUnitsAffordable": "2",
+            "numberOfUnitsPRS": "2",
+            "numberOfUnitsOther": "4"
+          },
+          "numberOfUnitsTotal": 12,
+          "reasonForOther": "blah"
+        },
+        "paceOfConstruction": {
+          "timeBetweenStartAndCompletion": {"baselin": "3", "latestEstimate": "3" },
+          "reasonForChange": "blah"
+        },
+        "modernMethodsOfConstruction": {
+          "categoryA": {"baseline": "12", "latestEstimate": "17" },
+          "categoryB": {"baseline": "13", "latestEstimate": "18" },
+          "categoryC": {"baseline": "14", "latestEstimate": "19" },
+          "categoryD": {"baseline": "15", "latestEstimate": "123" },
+          "categoryE": {"baseline": "16", "latestEstimate": "134" },
+          "reasonForChange": "change"
+        },
+        "changesRequired": {
+          "changesConfirmation": "Request change to baseline to match latest estimates",
+          "reason": "blah"
+        }
+      },
+      "milestonesAndProgress": {
+        "commencementOfDueDiligence": {
+          "completion": {
+            "completed": "No",
+            "dateOfCompletion": "23",
+            "details": {
+              "baselineDate": "12",
+              "currentEstimatedDate": "2011-01-01",
+              "estimatedPercentageComplete": "1"
+            },
+            "risk": {
+              "riskToAchievingBaseline": "Already Achieved",
+              "reasonForVariance": "risk"
+            }
+          }
+        },
+        "completionOfSurveys": {
+          "completion": {
+            "completed": "No",
+            "dateOfCompletion": "23",
+            "details": {
+              "baselineDate": "12",
+              "currentEstimatedDate": "2011-01-01",
+              "estimatedPercentageComplete": "1"
+            },
+            "risk": {
+              "riskToAchievingBaseline": "Already Achieved",
+              "reasonForVariance": "risk"
+            }
+          }
+        },
+        "procurementOfWorksCommencementDate": {
+          "completion": {
+            "completed": "No",
+            "dateOfCompletion": "23",
+            "details": {
+              "baselineDate": "12",
+              "currentEstimatedDate": "2011-01-01",
+              "estimatedPercentageComplete": "1"
+            },
+            "risk": {
+              "riskToAchievingBaseline": "Already Achieved",
+              "reasonForVariance": "risk"
+            }
+          }
+        },
+        "provisionOfDetailedWorks": {
+          "completion": {
+            "completed": "No",
+            "dateOfCompletion": "23",
+            "details": {
+              "baselineDate": "12",
+              "currentEstimatedDate": "2011-01-01",
+              "estimatedPercentageComplete": "1"
+            },
+            "risk": {
+              "riskToAchievingBaseline": "Already Achieved",
+              "reasonForVariance": "risk"
+            }
+          }
+        },
+        "commencementDate": {
+          "completion": {
+            "completed": "No",
+            "dateOfCompletion": "23",
+            "details": {
+              "baselineDate": "12",
+              "currentEstimatedDate": "2011-01-01",
+              "estimatedPercentageComplete": "1"
+            },
+            "risk": {
+              "riskToAchievingBaseline": "Already Achieved",
+              "reasonForVariance": "risk"
+            }
+          }
+        },
+        "completionDate": {
+          "completion": {
+            "completed": "No",
+            "dateOfCompletion": "23",
+            "details": {
+              "baselineDate": "12",
+              "currentEstimatedDate": "2011-01-01",
+              "estimatedPercentageComplete": "1"
+            },
+            "risk": {
+              "riskToAchievingBaseline": "Already Achieved",
+              "reasonForVariance": "risk"
+            }
+          }
+        },
+        "outlinePlanningGrantedDate": {
+          "completion": {
+            "completed": "No",
+            "planningReferenceNumber": "ref",
+            "dateOfCompletion": "23",
+            "details": {
+              "baselineDate": "12",
+              "currentEstimatedDate": "2011-01-01",
+              "estimatedPercentageComplete": "1"
+            },
+            "risk": {
+              "riskToAchievingBaseline": "Already Achieved",
+              "reasonForVariance": "risk"
+            }
+          }
+        },
+        "reservedMatterPermissionGrantedDate": {
+          "completion": {
+            "completed": "No",
+            "planningReferenceNumber": "ref2",
+            "dateOfCompletion": "23",
+            "details": {
+              "baselineDate": "12",
+              "currentEstimatedDate": "2011-01-01",
+              "estimatedPercentageComplete": "1"
+            },
+            "risk": {
+              "riskToAchievingBaseline": "Already Achieved",
+              "reasonForVariance": "risk"
+            }
+          }
+        },
+        "marketingCommenced": {
+          "completion": {
+            "completed": "No",
+            "dateOfCompletion": "23",
+            "details": {
+              "baselineDate": "12",
+              "currentEstimatedDate": "2011-01-01",
+              "estimatedPercentageComplete": "1"
+            },
+            "risk": {
+              "riskToAchievingBaseline": "Already Achieved",
+              "reasonForVariance": "risk"
+            }
+          }
+        },
+        "conditionalContractSigned": {
+          "completion": {
+            "completed": "No",
+            "namesOfContractors": "john",
+            "dateOfCompletion": "23",
+            "details": {
+              "baselineDate": "12",
+              "currentEstimatedDate": "2011-01-01",
+              "estimatedPercentageComplete": "1"
+            },
+            "risk": {
+              "riskToAchievingBaseline": "Already Achieved",
+              "reasonForVariance": "risk"
+            }
+          }
+        },
+        "unconditionalContractSigned": {
+          "completion": {
+            "completed": "No",
+            "dateOfCompletion": "23",
+            "details": {
+              "baselineDate": "12",
+              "currentEstimatedDate": "2011-01-01",
+              "estimatedPercentageComplete": "1"
+            },
+            "risk": {
+              "riskToAchievingBaseline": "Already Achieved",
+              "reasonForVariance": "risk"
+            }
+          }
+        },
+        "startOnSiteDate": {
+          "completion": {
+            "completed": "No",
+            "dateOfCompletion": "23",
+            "details": {
+              "baselineDate": "12",
+              "currentEstimatedDate": "2011-01-01",
+              "estimatedPercentageComplete": "1"
+            },
+            "risk": {
+              "riskToAchievingBaseline": "Already Achieved",
+              "reasonForVariance": "risk"
+            }
+          }  
+        },
+        "startOnFirstUnitDate": {
+          "completion": {
+            "completed": "No",
+            "dateOfCompletion": "23",
+            "details": {
+              "baselineDate": "12",
+              "currentEstimatedDate": "2011-01-01",
+              "estimatedPercentageComplete": "1"
+            },
+            "risk": {
+              "riskToAchievingBaseline": "Already Achieved",
+              "reasonForVariance": "risk"
+            }
+          }
+        },
+        "completionOfFinalUnitData": {
+          "completion": {
+            "completed": "No",
+            "dateOfCompletion": "23",
+            "details": {
+              "baselineDate": "12",
+              "currentEstimatedDate": "2011-01-01",
+              "estimatedPercentageComplete": "1"
+            },
+            "risk": {
+              "riskToAchievingBaseline": "Already Achieved",
+              "reasonForVariance": "risk"
+            }
+          }
+        },
+        "projectCompletionDate": {
+          "completion": {
+            "completed": "No",
+            "dateOfCompletion": "23",
+            "details": {
+              "baselineDate": "12",
+              "currentEstimatedDate": "2011-01-01",
+              "estimatedPercentageComplete": "1"
+            },
+            "risk": {
+              "riskToAchievingBaseline": "Already Achieved",
+              "reasonForVariance": "risk"
+            }
+          }
+        },
+        "customMileStones": [{
+          "milestoneName": "name",
+          "completion": {
+            "completed": "No",
+            "dateOfCompletion": "23",
+            "details": {
+              "baselineDate": "12",
+              "currentEstimatedDate": "2011-01-01",
+              "estimatedPercentageComplete": "1"
+            },
+            "risk": {
+              "riskToAchievingBaseline": "Already Achieved",
+              "reasonForVariance": "risk"
+            }
+          }
+        }],
+        "planningStatus": "Required",
+        "changeRequired": {
+          "changeRequiredConfirmation": "confirmed",
+          "reason": "reason"
+        }
+      }
+    }
+  ],
+  "grantExpenditure": {
+    "baseline": [
+      {
+        "year": "2018/19",
+        "Q1Amount": "15,000",
+        "Q2Amount": "12,000",
+        "Q3Amount": "20,000",
+        "Q4Amount": "12,000",
+        "total": "59000.00"
+      }
+    ],
+    "claimedToDate": [
+      {
+        "year": "2018/19",
+        "total": "4.00",
+        "Q1Amount": "1",
+        "Q2Amount": "1",
+        "Q3Amount": "1",
+        "Q4Amount": "1"
+      }
+    ],
+    "remainingEstimate": [
+      {
+        "year": "2018/19",
+        "total": "8.00",
+        "Q1Amount": "2",
+        "Q2Amount": "2",
+        "Q3Amount": "2",
+        "Q4Amount": "2"
+      }
+    ],
+    "riskRating": [
+      {
+        "year": "2018/19",
+        "Q1Rating": "Already Achieved",
+        "Q2Rating": "Medium Low",
+        "Q3Rating": "Low",
+        "Q4Rating": "Medium Low",
+        "total": "12"
+      }
+    ],
+    "changesRequired": "Request change to baseline to match latest estimates",
+    "reasonForChange": "change"
+  },
+  "housingCompletions": [
+    {
+      "details": {
+        "siteName": "The Consortium",
+        "achievedToDate": [
+          {
+            "year": "2018",
+            "total": "48.00",
+            "Q1Amount": "12",
+            "Q2Amount": "12",
+            "Q3Amount": "12",
+            "Q4Amount": "12"
+          }
+        ],
+        "remainingEstimate": [
+          {
+            "year": "2012",
+            "total": "4.00",
+            "Q1Amount": "1",
+            "Q2Amount": "1",
+            "Q3Amount": "1",
+            "Q4Amount": "1",
+            "riskRating": "Medium Low"
+          }
+        ],
+        "changesRequired": {
+          "changesConfirmation": "Request change to baseline to match latest estimates",
+          "reasonForChange": "change"
+        }
+      }
+    }
+  ],
+  "s151submission": {
+    "submission": {
+      "confirmation": {
+        "estimatedGrantProfiles": "Yes",
+        "milestoneDateEstimates": "No",
+        "milestoneDatesAchieved": "No",
+        "housingOutputsEstimates": "Yes",
+        "housingClaimedAsAchieved": "Yes",
+        "receiptEstimates": "No",
+        "noOtherGrantFunding": "No"
+      }
+    }
+  },
+  "reviewAndAssurance": {
+    "date": "2018-01-01",
+    "dateRisk": "2018-02-02",
+    "infrastructureDelivery": {
+      "details": "infra",
+      "riskRating": "Medium High"
+    },
+    "planningAndProcurement": {
+      "details": "plan",
+      "riskRating": "Medium High"
+    },
+    "expenditure": { "details": "expen", "riskRating": "Medium High" },
+    "deliverablesObjectivesAndOutputs": {
+      "details": "deliv",
+      "riskRating": "Medium High"
+    },
+    "overallSummary": { "details": "overall", "riskRating": "Medium Low" }
+  },
+  "s151GrantClaimApproval": {
+    "claimSummary": {
+      "TotalFundingRequest": "12,000",
+      "SpendToDate": "12,000",
+      "AmountOfThisClaim": "12,000"
+    },
+    "supportingEvidence": {
+      "evidenceOfSpendPastQuarter": "a file",
+      "breakdownOfNextQuarterSpend": {
+        "forecast": "2,333",
+        "descriptionOfSpend": "describe",
+        "evidenceOfSpendNextQuarter": "another file"
+      }
+    }
+  }
+}

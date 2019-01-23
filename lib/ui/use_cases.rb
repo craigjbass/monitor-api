@@ -36,8 +36,30 @@ class UI::UseCases
       UI::UseCase::ConvertCoreHIFReturn.new
     end
 
+    builder.define_use_case :convert_core_ac_return do
+      UI::UseCase::ConvertCoreACReturn.new
+    end
+
+    builder.define_use_case :convert_core_return do
+      UI::UseCase::ConvertCoreReturn.new(
+        convert_core_hif_return: builder.get_use_case(:convert_core_hif_return),
+        convert_core_ac_return: builder.get_use_case(:convert_core_ac_return)
+      )
+    end
+
     builder.define_use_case :convert_ui_hif_return do
       UI::UseCase::ConvertUIHIFReturn.new
+    end
+
+    builder.define_use_case :convert_ui_ac_return do
+      UI::UseCase::ConvertUIACReturn.new
+    end
+
+    builder.define_use_case :convert_ui_return do
+      UI::UseCase::ConvertUIReturn.new(
+        convert_ui_hif_return: builder.get_use_case(:convert_ui_hif_return),
+        convert_ui_ac_return: builder.get_use_case(:convert_ui_ac_return)
+      )
     end
 
     builder.define_use_case :ui_create_project do
@@ -81,7 +103,7 @@ class UI::UseCases
         get_base_return: builder.get_use_case(:get_base_return),
         return_schema: builder.get_gateway(:ui_return_schema),
         find_project: builder.get_use_case(:find_project),
-        convert_core_hif_return: builder.get_use_case(:convert_core_hif_return)
+        convert_core_return: builder.get_use_case(:convert_core_return)
       )
     end
 
@@ -89,7 +111,7 @@ class UI::UseCases
       UI::UseCase::CreateReturn.new(
         create_return: builder.get_use_case(:create_return),
         find_project: builder.get_use_case(:find_project),
-        convert_ui_hif_return: builder.get_use_case(:convert_ui_hif_return)
+        convert_ui_return: builder.get_use_case(:convert_ui_return)
       )
     end
 
@@ -97,14 +119,14 @@ class UI::UseCases
       UI::UseCase::UpdateReturn.new(
         update_return: builder.get_use_case(:soft_update_return),
         get_return: builder.get_use_case(:get_return),
-        convert_ui_hif_return: builder.get_use_case(:convert_ui_hif_return)
+        convert_ui_return: builder.get_use_case(:convert_ui_return)
       )
     end
 
     builder.define_use_case :ui_get_return do
       UI::UseCase::GetReturn.new(
         get_return: builder.get_use_case(:get_return),
-        convert_core_hif_return: builder.get_use_case(:convert_core_hif_return)
+        convert_core_return: builder.get_use_case(:convert_core_return)
       )
     end
 
@@ -119,7 +141,7 @@ class UI::UseCases
       UI::UseCase::GetReturns.new(
         get_returns: builder.get_use_case(:get_returns),
         find_project: builder.get_use_case(:find_project),
-        convert_core_hif_return: builder.get_use_case(:convert_core_hif_return)
+        convert_core_return: builder.get_use_case(:convert_core_return)
       )
     end
   end
