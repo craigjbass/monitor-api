@@ -676,13 +676,13 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                                             percentComplete: {
                                               type: 'string',
                                               title: 'Percent Complete',
-                                              sourceKey: %i[return_data infrastructures landOwnership laDoesNotControlSite allLandAssemblyAchieved percentComplete],                                              
+                                              sourceKey: %i[return_data infrastructures landOwnership laDoesNotControlSite allLandAssemblyAchieved percentComplete],
                                               percentage: true
                                             },
                                             completedDate: {
                                               type: 'string',
                                               format: 'date',
-                                              sourceKey: %i[return_data infrastructures landOwnership laDoesNotControlSite allLandAssemblyAchieved completedDate],                                              
+                                              sourceKey: %i[return_data infrastructures landOwnership laDoesNotControlSite allLandAssemblyAchieved completedDate],
                                               title: 'On Completed Date'
                                             }
                                           }
@@ -1075,7 +1075,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                         completedDate: {
                           type: 'string',
                           format: 'date',
-                          sourceKey: %i[return_data infrastructures milestones expectedInfrastructureStartOnSite completedDate],                          
+                          sourceKey: %i[return_data infrastructures milestones expectedInfrastructureStartOnSite completedDate],
                           title: 'Completed Date'
                         }
                       }
@@ -4793,7 +4793,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                   extendedText: true
                 },
                 evidenceOfSpendNextQuarter: {
-                  title: 'Evidence of Spend for the Past Quarter.',
+                  title: 'Evidence to Support Forecast Spend for Next Quarter',
                   type: 'string',
                   s151WriteOnly: true,
                   hidden: true
@@ -5713,7 +5713,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
               type: "string",
               radio: true,
               readonly: true,
-              enum: ["Yes", "No"]          
+              enum: ["Yes", "No"]
             },
             rmReviewComplete: {
               title: "",
@@ -6794,7 +6794,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
                           type: "string",
                           title: "More regular monitoring required?",
                           enum: ["Yes", "No"],
-                          radio: true 
+                          radio: true
                         }
                       },
                       dependencies: {
