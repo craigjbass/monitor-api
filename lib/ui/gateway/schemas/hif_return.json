@@ -5240,7 +5240,7 @@
               }
             },
             "evidenceOfSpendPastQuarter": {
-              "title": "Evidence to Support Forecast Spend for Next Quarter",
+              "title": "Evidence of Spend for the Past Quarter",
               "description": "Evidence can include invoices/ contracts/ accounting system print off. Please attach here.",
               "uploadFile": "multiple",
               "type": "string",
@@ -5263,7 +5263,7 @@
                   "extendedText": true
                 },
                 "evidenceOfSpendNextQuarter": {
-                  "title": "Evidence to Support Forecast Spend for Next Quarter.",
+                  "title": "Evidence to Support Forecast Spend for Next Quarter",
                   "description": "Evidence can include contract/ quotes. Please attach here.",
                   "uploadFile": "multiple",
                   "type": "string",
