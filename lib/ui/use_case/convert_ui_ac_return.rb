@@ -72,7 +72,27 @@ class UI::UseCase::ConvertUIACReturn
 
   def convert_housing_completions
     return if @return_data[:housingCompletions].nil?
-    @converted_return[:housingCompletions] = @return_data[:housingCompletions]
+    @converted_return[:housingCompletions] = @return_data[:housingCompletions].map do |site|
+      next if site.nil?
+      next if site[:details].nil?
+      new_site = {
+        details: {}
+      }
+      unless site[:details][:siteDetails].nil?
+        new_site[:details][:siteName] = site[:details][:siteDetails][:siteName]
+        new_site[:details][:totalLiveUnits] = site[:details][:siteDetails][:totalLiveUnits]
+      end
+
+      unless site[:details][:achievedToDate].nil?
+        new_site[:details][:achievedToDate] = site[:details][:achievedToDate]
+      end
+
+      unless site[:details][:remainingEstimate].nil?
+        new_site[:details][:remainingEstimate] = site[:details][:remainingEstimate]
+      end
+      
+      new_site
+    end
   end
 
   def convert_s151_submission
