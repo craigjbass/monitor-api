@@ -1043,7 +1043,6 @@
                 "properties": {
                   "anyConsents": {
                     "type": "string",
-                    "laReadOnly": true,
                     "title": "Any Statutory Consents?",
                     "enum": ["Yes", "No"],
                     "radio": true
