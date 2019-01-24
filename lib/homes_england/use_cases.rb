@@ -58,6 +58,12 @@ class HomesEngland::UseCases
       )
     end
 
+    builder.define_use_case :delete_user do
+      HomesEngland::UseCase::DeleteUser.new(
+        user_gateway: builder.get_gateway(:users)
+      )
+    end
+
     builder.define_use_case :add_user_to_project do
       HomesEngland::UseCase::AddUserToProject.new(
         user_gateway: builder.get_gateway(:users)
