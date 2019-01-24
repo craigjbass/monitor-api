@@ -72,6 +72,14 @@ describe LocalAuthority::Gateway::SequelUsers do
       expect(users[1].email).to eq('cat@cathouse.com')
       expect(users[1].role).to eq('Local Authority')
     end
+
+    it 'deletes a user' do
+      new_user_id
+      user_to_delete = gateway.find_by(email: 'example@example.com')
+      gateway.delete_user(user_to_delete)
+      user = gateway.find_by(email: 'example@example.com')
+      expect(user).to eq(nil)
+    end
   end
 
   context 'example two' do
@@ -140,6 +148,14 @@ describe LocalAuthority::Gateway::SequelUsers do
       expect(users[0].role).to eq('Local Authority')
       expect(users[1].email).to eq('moo@cowhouse.com')
       expect(users[1].role).to eq('Homes England')
+    end
+
+    it 'deletes a user' do
+      new_user_id
+      user_to_delete = gateway.find_by(email: 'cats@cathouse.com')
+      gateway.delete_user(user_to_delete)
+      user = gateway.find_by(email: 'cats@cathouse.com')
+      expect(user).to eq(nil)
     end
   end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LocalAuthority::Gateway::SequelUsers
   def initialize(database:)
     @database = database
@@ -45,5 +47,9 @@ class LocalAuthority::Gateway::SequelUsers
         u.projects = user[:projects].to_a unless user[:projects].nil?
       end
     end
+  end
+
+  def delete_user(user)
+    @database[:users].where(email: user.email).delete
   end
 end
