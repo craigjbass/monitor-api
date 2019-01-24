@@ -76,7 +76,7 @@ describe LocalAuthority::Gateway::SequelUsers do
     it 'deletes a user' do
       new_user_id
       user_to_delete = gateway.find_by(email: 'example@example.com')
-      gateway.delete_user(user_to_delete)
+      gateway.delete_user('example@example.com')
       user = gateway.find_by(email: 'example@example.com')
       expect(user).to eq(nil)
     end
@@ -153,7 +153,7 @@ describe LocalAuthority::Gateway::SequelUsers do
     it 'deletes a user' do
       new_user_id
       user_to_delete = gateway.find_by(email: 'cats@cathouse.com')
-      gateway.delete_user(user_to_delete)
+      gateway.delete_user('cats@cathouse.com')
       user = gateway.find_by(email: 'cats@cathouse.com')
       expect(user).to eq(nil)
     end

@@ -49,7 +49,7 @@ class LocalAuthority::Gateway::SequelUsers
     end
   end
 
-  def delete_user(user)
-    @database[:users].where(email: user.email).delete
+  def delete_user(email)
+    @database[:users].where(email: email).delete
   end
 end
