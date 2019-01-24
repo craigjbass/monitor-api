@@ -2,6 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema",
   "title": "HIF Project",
   "type": "object",
+  "required": ["summary", "infrastructures", "fundingProfiles", "costs", "recovery", "s151", "outputs", "rmBaseline"],
   "properties": {
     "summary": {
       "type": "object",
@@ -806,7 +807,20 @@
           "type": "string"
         }
       },
-      "required": ["jointBidAreas", "totalArea"]
+      "required": [
+        "BIDReference",
+        "projectName",
+        "leadAuthority",
+        "projectDescription",
+        "greenOrBrownField",
+        "noOfHousingSites",
+        "hifFundingAmount",
+        "jointBidAreas",
+        "totalArea",
+        "descriptionOfInfrastructure",
+        "descriptionOfWiderProjectDeliverables",
+        "sitePlans"
+      ]
     },
     "infrastructures": {
       "type": "array",
@@ -816,6 +830,7 @@
       "items": {
         "title": "Infrastructure",
         "type": "object",
+        "required": ["summary", "planningStatus", "landOwnership", "procurement", "milestones", "risksToAchievingTimescales"],
         "properties": {
           "summary": {
             "type": "object",
@@ -883,7 +898,13 @@
                 "required": ["targetDateOfAchievingCompletion"]
               }
             },
-            "required": ["housingSitesBenefitting", "expectedInfrastructureStart", "expectedInfrastructureCompletion"]
+            "required": [
+              "type",
+              "description",
+              "housingSitesBenefitting",
+              "expectedInfrastructureStart",
+              "expectedInfrastructureCompletion"
+            ]
           },
           "planningStatus": {
             "type": "object",
@@ -1082,7 +1103,8 @@
                               ]
                             }
                           }
-                        }
+                        },
+                        "required": ["consents"]
                       },
                       { "properties": { "anyConsents": { "enum": ["No"] } } }
                     ]
@@ -1329,7 +1351,7 @@
                   "extendedText": true
                 }
               },
-              "required": ["mitigationOfRisk"]
+              "required": ["mitigationOfRisk", "descriptionOfRisk", "impactOfRisk", "likelihoodOfRisk"]
             }
           }
         }
@@ -1347,6 +1369,7 @@
           "title": "Funding Profile",
           "items": {
             "type": "object",
+            "title": "",
             "properties": {
               "period": { "type": "string", "title": "Period" },
               "instalment1": {
@@ -1389,11 +1412,12 @@
       "items": {
         "type": "object",
         "title": "Infrastructure",
+        "required": ["infrastructure"],
         "properties": {
           "infrastructure": {
             "type": "object",
             "title": "Cost",
-            "required": ["fundedThroughHif"],
+            "required": ["HIFAmount", "fundedThroughHif", "totalCostOfInfrastructure", "baselineCashflows"],
             "properties": {
               "HIFAmount": {
                 "type": "string",
@@ -1467,6 +1491,7 @@
     "recovery": {
       "type": "object",
       "title": "Recovery",
+      "required": ["aimToRecover"],
       "properties": {
         "aimToRecover": {
           "type": "string",
@@ -1493,7 +1518,8 @@
                   "title": "Method of Recovery",
                   "extendedText": true
                 }
-              }
+              },
+              "required": ["expectedAmount", "methodOfRecovery"]
             },
             {
               "properties": {
@@ -1509,6 +1535,7 @@
     "s151": {
       "type": "object",
       "title": "Section 151",
+      "required": ["s151FundingEndDate", "s151ProjectLongstopDate"],
       "properties": {
         "s151FundingEndDate": {
           "type": "string",
@@ -1576,7 +1603,7 @@
                 }
               }
             },
-            "required": ["disposalStrategy", "housingForecast"]
+            "required": ["disposalStrategy", "housingForecast", "totalUnits"]
           },
           "outputsActuals": {
             "type": "object",
@@ -1983,10 +2010,12 @@
       "type": "object",
       "title": "RM Baseline",
       "laHidden": true,
+      "required": ["heContacts", "strategicLinks", "laContacts"],
       "properties": {
         "heContacts": {
           "type": "object",
           "horizontal": true,
+          "required": ["relationshipManager", "projectAssuranceManager"],
           "title": "Homes England Contacts",
           "properties": {
             "relationshipManager": {
@@ -2002,16 +2031,19 @@
         "strategicLinks": {
           "type": "object",
           "title": "Strategic Links",
+          "required": ["heProgrammeLinks", "mhclgLinks", "ogdLinks", "otherGovDepts", "housingPolicyAreas"],
           "properties": {
             "heProgrammeLinks": {
               "type": "object",
               "title": "Links with Homes England Programmes",
+              "required": ["programmes", "description", "pcsRef"],
               "horizontal": true,
               "properties": {
                 "programmes": {
                   "type": "string",
                   "title": "Programmes",
                   "enum": [
+                    "N/A",
                     "Accelerated Construction",
                     "Accelerated Land Disposal",
                     "Affordable Homes Programme",
@@ -2044,6 +2076,7 @@
               "type": "object",
               "title": "Links with other MHCLG Programmes",
               "horizontal": true,
+              "required": ["programmes", "description"],
               "properties": {
                 "programmes": {
                   "type": "string",
@@ -2076,12 +2109,14 @@
             "ogdLinks": {
               "type": "object",
               "title": "Links with OGB programmes",
+              "required": ["programmes", "description"],
               "horizontal": true,
               "properties": {
                 "programmes": {
                   "type": "string",
                   "title": "Programmes",
                   "enum": [
+                    "N/A",
                     "NPIF",
                     "Growth and Housing Fund",
                     "RIS",
@@ -2099,11 +2134,13 @@
               "type": "object",
               "title": "Other Government Deparments interested",
               "horizontal": true,
+              "required": ["departments", "description"],
               "properties": {
                 "departments": {
                   "type": "string",
                   "title": "Departments",
                   "enum": [
+                    "N/A",
                     "DfT",
                     "MHCLG",
                     "BEIS",
@@ -2125,6 +2162,7 @@
               "type": "object",
               "title": "Housing Policy Areas",
               "horizontal": true,
+              "required": ["policies", "description"],
               "properties": {
                 "policies": {
                   "type": "string",
@@ -2153,11 +2191,13 @@
         "laContacts": {
           "type": "object",
           "title": "LA Contacts",
+          "required": ["laLead", "laSupporting", "laS151"],
           "properties": {
             "laLead": {
               "type": "object",
               "title": "LA Lead Contact",
               "horizontal": true,
+              "required": ["name", "email"],
               "properties": {
                 "name": {
                   "type": "string",
@@ -2177,6 +2217,7 @@
               "items": {
                 "title": "Contacts",
                 "type": "object",
+                "required": ["name", "email"],
                 "horizontal": true,
                 "properties": {
                   "name": {
@@ -2194,6 +2235,7 @@
               "type": "object",
               "title": "LA S151 Officer",
               "horizontal": true,
+              "required": ["name", "email"],
               "properties": {
                 "name": {
                   "type": "string",
