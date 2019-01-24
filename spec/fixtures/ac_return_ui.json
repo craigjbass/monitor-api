@@ -358,7 +358,10 @@
   "housingCompletions": [
     {
       "details": {
-        "siteName": "The Consortium",
+        "siteDetails": {
+          "siteName": "The Consortium",
+          "totalLiveUnits": "23"
+        },
         "achievedToDate": [
           {
             "year": "2018",
