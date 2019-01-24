@@ -1033,7 +1033,6 @@
                 "properties": {
                   "requirement": {
                     "type": "string",
-                    "laReadOnly": true,
                     "title": "Is this a requirement?",
                     "enum": ["Yes", "No"],
                     "radio": true
@@ -1065,7 +1064,6 @@
                 "properties": {
                   "anyConsents": {
                     "type": "string",
-                    "laReadOnly": true,
                     "title": "Any Statutory Consents?",
                     "enum": ["Yes", "No"],
                     "radio": true
