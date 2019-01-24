@@ -377,11 +377,7 @@
             "Q4Amount": "1",
             "riskRating": "Medium Low"
           }
-        ],
-        "changesRequired": {
-          "changesConfirmation": "Request change to baseline to match latest estimates",
-          "reasonForChange": "change"
-        }
+        ]
       }
     }
   ],

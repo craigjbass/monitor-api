@@ -2626,7 +2626,7 @@
                     "year": {
                       "type": "string",
                       "title": "Year",
-                      "enum": ["2018/19", "2019/20", "2020/21"],
+                      "enum": ["2018/19", "2019/20", "2020/21"]
                     },
                     "Q1Amount": {
                       "type": "string",
@@ -2660,48 +2660,6 @@
                         "High"
                       ]
                     }
-                  }
-                }
-              },
-              "changesRequired": {
-                "type": "object",
-                "title": "Changes Required?",
-                "required": ["changesConfirmation"],
-                "properties": {
-                  "changesConfirmation": {
-                    "type": "string",
-                    "title": " ",
-                    "radio": true,
-                    "enum": [
-                      "Do not change the baseline - Where there are variances, these will be rectified in due course",
-                      "Request change to baseline to match latest estimates"
-                    ]
-                  }
-                },
-                "dependencies": {
-                  "changesConfirmation": {
-                    "oneOf": [
-                      {
-                        "properties": {
-                          "changesConfirmation": { "enum": ["Do not change the baseline - Where there are variances, these will be rectified in due course"] }
-                        }
-                      },
-                      {
-                        "properties": {
-                          "changesConfirmation": {
-                            "enum": [
-                              "Request change to baseline to match latest estimates"
-                            ]
-                          },
-                          "reasonForChange": {
-                            "type": "string",
-                            "title": "Reason for change/variance, and steps being taken to address this",
-                            "extendedText": true
-                          }
-                        },
-                        "required": ["reasonForChange"]
-                      }
-                    ]
                   }
                 }
               }
