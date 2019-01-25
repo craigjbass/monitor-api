@@ -10,8 +10,13 @@ Sequel.migration do
       next if project[:type] != 'hif'
 
       return_update_data = return_update[:data]
-      return_update_data['reviewAndAssurance']['infrastructureDeliveries'] = return_update_data['reviewAndAssurance']['infrastructureDelivery']
-      return_update_data['reviewAndAssurance'].delete('infrastructureDelivery')
+      if (
+        return_update_data.has_key?('reviewAndAssurance') &&
+        return_update_data['reviewAndAssurance'].has_key?('infrastructureDelivery')
+      )
+        return_update_data['reviewAndAssurance']['infrastructureDeliveries'] = return_update_data['reviewAndAssurance']['infrastructureDelivery']
+        return_update_data['reviewAndAssurance'].delete('infrastructureDelivery')
+      end
 
       from(:return_updates).where(id: return_update[:id]).update(data: return_update_data)
     end
