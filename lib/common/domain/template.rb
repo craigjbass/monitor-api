@@ -35,9 +35,32 @@ class Common::Domain::Template
           full_path = Array.new(error_path).push(error)
           all_error_paths.push(symbolize_path(full_path))
         end
+      elsif error.type = :one_of_failed
+        get_dependency_failed_path_names(error, project_data).each do |path|
+          all_error_paths.push(symbolize_path(path))
+        end
       end
     end
     all_error_paths
+  end
+
+  def get_dependency_failed_path_names(error, project_data)
+    paths = []
+    error.sub_errors.each do |error|
+      error.each do |message|
+        next if message.to_s.include? "is not a member of"
+        next if message.data.nil?
+
+        path =  message.path
+        path.shift
+
+        message.data.each do |node|
+          full_path = Array.new(path)
+          paths.push(full_path.push(node))
+        end
+      end
+    end
+    paths
   end
 
   def get_required_failed_node_names(error)
@@ -46,7 +69,7 @@ class Common::Domain::Template
 
   def get_supported_errors(aggregated_errors)
     aggregated_errors.errors.select do |error|
-      %i[required_failed].include? error.type
+      %i[required_failed one_of_failed].include? error.type
     end
   end
 
