@@ -936,9 +936,9 @@ class UI::UseCase::ConvertCoreHIFReturn
         noOfUnits: site_output[:noOfUnits],
         size: site_output[:size]
       }
-  
+
       new_site_output[:siteOutputs][:starts] = {}
-  
+
       new_site_output[:siteOutputs][:starts][:starts] = {
         previousStarts: site_output[:previousStarts],
         currentStarts: site_output[:currentStarts],
@@ -947,12 +947,12 @@ class UI::UseCase::ConvertCoreHIFReturn
         currentCompletions: site_output[:currentCompletions],
         completionsSinceLastReturn: site_output[:completionsSinceLastReturn]
       }
-  
+
       new_site_output[:siteOutputs][:ownership] = {
         laOwned: site_output[:laOwned],
         pslLand: site_output[:pslLand]
       }
-  
+
       new_site_output[:siteOutputs][:percentages] = {
         brownfieldPercent: site_output[:brownfieldPercent],
         leaseholdPercent: site_output[:leaseholdPercent],
@@ -972,12 +972,12 @@ class UI::UseCase::ConvertCoreHIFReturn
     @converted_return[:reviewAndAssurance][0][:rmReview][:date] = @return[:reviewAndAssurance][:date]
     @converted_return[:reviewAndAssurance][0][:rmReview][:assuranceManagerAttendance] = @return[:reviewAndAssurance][:assuranceManagerAttendance]
     @converted_return[:reviewAndAssurance][0][:rmReview][:meetingsAttended] = @return[:reviewAndAssurance][:meetingsAttended]
-    @converted_return[:reviewAndAssurance][0][:rmReview][:overviewOfEngagement] = @return[:reviewAndAssurance][:overviewOfEngagement]    
+    @converted_return[:reviewAndAssurance][0][:rmReview][:overviewOfEngagement] = @return[:reviewAndAssurance][:overviewOfEngagement]
     @converted_return[:reviewAndAssurance][0][:rmReview][:issuesToRaise] = @return[:reviewAndAssurance][:issuesToRaise]
-    @converted_return[:reviewAndAssurance][0][:rmReview][:reviewComplete] = @return[:reviewAndAssurance][:reviewComplete]    
-    
-    unless @return[:reviewAndAssurance][:infrastructureDelivery].nil?
-      @converted_return[:reviewAndAssurance][0][:rmReview][:infrastructureDelivery] = @return[:reviewAndAssurance][:infrastructureDelivery].map do |delivery|
+    @converted_return[:reviewAndAssurance][0][:rmReview][:reviewComplete] = @return[:reviewAndAssurance][:reviewComplete]
+
+    unless @return[:reviewAndAssurance][:infrastructureDeliveries].nil?
+      @converted_return[:reviewAndAssurance][0][:rmReview][:infrastructureDelivery] = @return[:reviewAndAssurance][:infrastructureDeliveries].map do |delivery|
         {
           infrastructureDesc: delivery[:infrastructureDesc],
           reviewDetails: {
@@ -1025,7 +1025,7 @@ class UI::UseCase::ConvertCoreHIFReturn
       @converted_return[:reviewAndAssurance][0][:rmReview][:recommendForRegularMonitoring][:reasonAndProposedFrequency] = @return[:reviewAndAssurance][:recommendForRegularMonitoring][:reasonAndProposedFrequency]
     end
 
-    unless @return[:reviewAndAssurance][:assuranceReview].nil? 
+    unless @return[:reviewAndAssurance][:assuranceReview].nil?
       @converted_return[:reviewAndAssurance][0][:assuranceReview] = @return[:reviewAndAssurance][:assuranceReview]
     end
   end

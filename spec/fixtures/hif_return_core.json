@@ -857,7 +857,7 @@
     "assuranceManagerAttendance": "Yes",
     "meetingsAttended": "2",
     "reviewComplete": "Yes",
-    "infrastructureDelivery": [
+    "infrastructureDeliveries": [
       {
         "infrastructureDesc": "desc",
         "details": "Some information",
