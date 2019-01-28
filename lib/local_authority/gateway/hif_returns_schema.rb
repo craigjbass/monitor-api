@@ -5306,7 +5306,7 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
             "No"
           ]
         },
-        infrastructureDelivery: {
+        infrastructureDeliveries: {
           type: "array",
           title: "",
           items: {

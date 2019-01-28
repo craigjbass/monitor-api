@@ -2730,7 +2730,7 @@
               "type": "object",
               "properties": {
                 "forecast": {
-                  "title": "Forecasted Spend (£)",
+                  "title": "Forecast Spend",
                   "type": "string",
                   "currency": true
                 },
