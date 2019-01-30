@@ -4217,63 +4217,41 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
               currency: true
             },
             changesToRequest: {
-              title: '',
-              type: 'object',
-              properties: {
-                changesToRequestConfirmation: {
-                  type: 'string',
-                  title: 'Please confirm there are no changes to the total HIF request',
-                  radio: true,
-                  s151WriteOnly: true,
-                  enum: ['Confirmed', 'Changes Required']
-                }
-              },
-              dependencies: {
-                changesToRequestConfirmation: {
-                  oneOf: [
-                    {
-                      properties: {
-                        changesToRequestConfirmation: { enum: ['Confirmed'] }
-                      }
-                    },
-                    {
-                      properties: {
-                        changesToRequestConfirmation: { enum: ['Changes Required'] },
-                        reasonForRequest: {
-                          type: 'string',
-                          title: 'Reason for Request',
-                          s151WriteOnly: true
-                        },
-                        requestedAmount: {
-                          type: 'string',
-                          title: 'Requested amount',
-                          s151WriteOnly: true,
-                          currency: true
-                        },
-                        varianceFromBaseline: {
-                          type:'string',
-                          title: 'Variance from Baseline',
-                          readonly: true,
-                          hidden: true,
-                          currency: true
-                        },
-                        varianceFromBaselinePercent: {
-                          type: 'string',
-                          title: 'Variance from Baseline',
-                          percentage: true,
-                          readonly: true,
-                          hidden: true
-                        },
-                        mitigationInPlace: {
-                          type: 'string',
-                          s151WriteOnly: true,
-                          title: 'Mitigation in place to reduce further slippage'
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
+              type: 'string',
+              title: 'Please confirm there are no changes to the total HIF request',
+              radio: true,
+              s151WriteOnly: true,
+              enum: ['Confirmed', 'Changes Required']
+            },
+            reasonForRequest: {
+              type: 'string',
+              title: 'Reason for Request',
+              s151WriteOnly: true
+            },
+            requestedAmount: {
+              type: 'string',
+              title: 'Requested amount',
+              s151WriteOnly: true,
+              currency: true
+            },
+            varianceFromBaseline: {
+              type:'string',
+              title: 'Variance from Baseline',
+              readonly: true,
+              hidden: true,
+              currency: true
+            },
+            varianceFromBaselinePercent: {
+              type: 'string',
+              title: 'Variance from Baseline',
+              percentage: true,
+              readonly: true,
+              hidden: true
+            },
+            mitigationInPlace: {
+              type: 'string',
+              s151WriteOnly: true,
+              title: 'Mitigation in place to reduce further slippage'
             },
             hifFundingProfile: {
               title: 'Funding Profiles',
@@ -4476,49 +4454,31 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
           type: 'object',
           title: 'Submission',
           properties: {
+            signoff: {
+              title: 'Signoff',
+              type: 'string'
+            },
             changeToMilestones: {
-              title: '',
-              type: 'object',
-              properties: {
-                changeToMilestonesConfirmation: {
-                  type: 'string',
-                  title: 'Please confirm that no changes are required to contractual milestones',
-                  s151WriteOnly: true,
-                  radio: true,
-                  enum: ['Confirmed', 'Changes Required']
-                }
-              },
-              dependencies: {
-                changeToMilestonesConfirmation: {
-                  oneOf: [
-                    {
-                      properties: {
-                        changeToMilestonesConfirmation: { enum: ['Confirmed'] }
-                      }
-                    },
-                    {
-                      properties: {
-                        changeToMilestonesConfirmation: { enum: ['Changes Required'] },
-                        reasonForRequestOfMilestoneChange: {
-                          type: 'string',
-                          s151WriteOnly: true,
-                          title: 'Reason for Request'
-                        },
-                        requestedAmendments: {
-                          s151WriteOnly: true,
-                          type: 'string',
-                          title: 'Requested amendments to milestones'
-                        },
-                        mitigationInPlaceMilestone: {
-                          type: 'string',
-                          s151WriteOnly: true,
-                          title: 'Mitigation in place to reduce further amendments'
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
+              type: 'string',
+              title: 'Please confirm that no changes are required to contractual milestones',
+              s151WriteOnly: true,
+              radio: true,
+              enum: ['Confirmed', 'Changes Required']
+            },
+            reasonForRequestOfMilestoneChange: {
+              type: 'string',
+              s151WriteOnly: true,
+              title: 'Reason for Request'
+            },
+            requestedAmendments: {
+              s151WriteOnly: true,
+              type: 'string',
+              title: 'Requested amendments to milestones'
+            },
+            mitigationInPlaceMilestone: {
+              type: 'string',
+              s151WriteOnly: true,
+              title: 'Mitigation in place to reduce further amendments'
             },
             hifFundingEndDate: {
               type: 'string',
@@ -4527,61 +4487,39 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
               sourceKey: %i[baseline_data s151 s151FundingEndDate]
             },
             changesToEndDate: {
-              title: '',
-              type: 'object',
-              properties: {
-                changesToEndDateConfirmation: {
-                  type: 'string',
-                  title: 'Please confirm that no changes are required to Funding End Date',
-                  radio: true,
-                  s151WriteOnly: true,
-                  enum: ['Confirmed', 'Changes Required']
-                }
-              },
-              dependencies: {
-                changesToEndDateConfirmation: {
-                  oneOf: [
-                    {
-                      properties: {
-                        changesToEndDateConfirmation: { enum: ['Confirmed'] }
-                      }
-                    },
-                    {
-                      properties: {
-                        changesToEndDateConfirmation: { enum: ['Changes Required'] },
-                        reasonForRequestOfDateChange: {
-                          type: 'string',
-                          s151WriteOnly: true,
-                          title: 'Reason for Request'
-                        },
-                        requestedChangedEndDate: {
-                          type: 'string',
-                          s151WriteOnly: true,
-                          title: 'Requested new end date'
-                        },
-                        varianceFromEndDateBaseline: {
-                          type: 'string',
-                          title: 'Variance from Baseline',
-                          readonly: true,
-                          hidden: true
-                        },
-                        mitigationInPlaceEndDate: {
-                          type: 'string',
-                          s151WriteOnly: true,
-                          title: 'Mitigation in place to reduce further slippage'
-                        },
-                        evidenceUpload: {
-                          title: "Evidence of Change to End Date",
-                          description: "Evidence can include invoices/ contracts/ accounting system print off. Please attach here.",
-                          uploadFile: "multiple",
-                          type: "string",
-                          s151WriteOnly: true
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
+              type: 'string',
+              title: 'Please confirm that no changes are required to Funding End Date',
+              radio: true,
+              s151WriteOnly: true,
+              enum: ['Confirmed', 'Changes Required']
+            },
+            reasonForRequestOfDateChange: {
+              type: 'string',
+              s151WriteOnly: true,
+              title: 'Reason for Request'
+            },
+            requestedChangedEndDate: {
+              type: 'string',
+              s151WriteOnly: true,
+              title: 'Requested new end date'
+            },
+            varianceFromEndDateBaseline: {
+              type: 'string',
+              title: 'Variance from Baseline',
+              readonly: true,
+              hidden: true
+            },
+            mitigationInPlaceEndDate: {
+              type: 'string',
+              s151WriteOnly: true,
+              title: 'Mitigation in place to reduce further slippage'
+            },
+            evidenceUpload: {
+              title: "Evidence of Change to End Date",
+              description: "Evidence can include invoices/ contracts/ accounting system print off. Please attach here.",
+              uploadFile: "multiple",
+              type: "string",
+              s151WriteOnly: true
             },
             projectLongstopDate: {
               type: 'string',
@@ -4590,97 +4528,53 @@ class LocalAuthority::Gateway::HIFReturnsSchemaTemplate
               sourceKey: %i[baseline_data s151 s151ProjectLongstopDate]
             },
             changesToLongstopDate: {
-              title: '',
-              type: 'object',
-              properties: {
-                changesToLongstopDateConfirmation: {
-                  type: 'string',
-                  title: 'Please confirm that no changes are required to project completion date',
-                  radio: true,
-                  s151WriteOnly: true,
-                  enum: ['Confirmed', 'Changes Required']
-                }
-              },
-              dependencies: {
-                changesToLongstopDateConfirmation: {
-                  oneOf: [
-                    {
-                      properties: {
-                        changesToLongstopDateConfirmation: { enum: ['Confirmed'] }
-                      }
-                    },
-                    {
-                      properties: {
-                        changesToLongstopDateConfirmation: { enum: ['Changes Required'] },
-                        reasonForRequestOfLongstopChange: {
-                          type: 'string',
-                          s151WriteOnly: true,
-                          title: 'Reason for Request'
-                        },
-                        requestedLongstopEndDate: {
-                          type: 'string',
-                          s151WriteOnly: true,
-                          title: 'Requested new end date'
-                        },
-                        varianceFromLongStopBaseline: {
-                          type: 'string',
-                          title: 'Variance from Baseline',
-                          readonly: true,
-                          hidden: true
-                        },
-                        mitigationInPlaceLongstopDate: {
-                          type: 'string',
-                          s151WriteOnly: true,
-                          title: 'Mitigation in place to reduce further slippage'
-                        },
-                        evidenceUploadLongstopDate: {
-                          title: "Evidence of Change to Project Longstop Date",
-                          description: "Evidence can include invoices/ contracts/ accounting system print off. Please attach here.",
-                          uploadFile: "multiple",
-                          type: "string",
-                          s151WriteOnly: true
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
+              type: 'string',
+              title: 'Please confirm that no changes are required to project completion date',
+              radio: true,
+              s151WriteOnly: true,
+              enum: ['Confirmed', 'Changes Required']
+            },
+            reasonForRequestOfLongstopChange: {
+              type: 'string',
+              s151WriteOnly: true,
+              title: 'Reason for Request'
+            },
+            requestedLongstopEndDate: {
+              type: 'string',
+              s151WriteOnly: true,
+              title: 'Requested new end date'
+            },
+            varianceFromLongStopBaseline: {
+              type: 'string',
+              title: 'Variance from Baseline',
+              readonly: true,
+              hidden: true
+            },
+            mitigationInPlaceLongstopDate: {
+              type: 'string',
+              s151WriteOnly: true,
+              title: 'Mitigation in place to reduce further slippage'
+            },
+            evidenceUploadLongstopDate: {
+              title: "Evidence of Change to Project Longstop Date",
+              description: "Evidence can include invoices/ contracts/ accounting system print off. Please attach here.",
+              uploadFile: "multiple",
+              type: "string",
+              s151WriteOnly: true
             },
             recoverFunding: {
-              title: '',
-              type: 'object',
-              properties: {
-                recoverFundingConfirmation: {
-                  type: 'string',
-                  title: 'Has any funding been recovered since last return?',
-                  radio: true,
-                  s151WriteOnly: true,
-                  enum: %w[Yes No]
-                }
-              },
-              dependencies: {
-                recoverFundingConfirmation: {
-                  oneOf: [
-                    {
-                      properties: {
-                        recoverFundingConfirmation: { enum: ['Yes'] },
-                        usedOnFutureHosuing: {
-                          type: 'string',
-                          title: 'Will/Has this been used on future housing?',
-                          radio: true,
-                          s151WriteOnly: true,
-                          enum: %w[Yes No]
-                        }
-                      }
-                    },
-                    {
-                      properties: {
-                        recoverFundingConfirmation: { enum: ['No'] }
-                      }
-                    }
-                  ]
-                }
-              }
+              type: 'string',
+              title: 'Has any funding been recovered since last return?',
+              radio: true,
+              s151WriteOnly: true,
+              enum: %w[Yes No]
+            },
+            usedOnFutureHosuing: {
+              type: 'string',
+              title: 'Will/Has this been used on future housing?',
+              radio: true,
+              s151WriteOnly: true,
+              enum: %w[Yes No]
             }
           }
         }
