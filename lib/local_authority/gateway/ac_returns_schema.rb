@@ -999,7 +999,7 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                       title: 'Date completed?',
                                       format: 'date'
                                     },
-                                    planninfReferenceNumber: {
+                                    planningReferenceNumber: {
                                       type: 'string',
                                       title: 'Planning Reference Number'
                                     }
@@ -2561,8 +2561,8 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                       readonly: true
                     },
                     riskRating: {
-                      type: 'string', 
-                      title: 'Total', 
+                      type: 'string',
+                      title: 'Total',
                       enum: [
                         'Already Achieved',
                         'Low',
