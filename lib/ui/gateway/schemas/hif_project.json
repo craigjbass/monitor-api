@@ -392,6 +392,7 @@
           "type": "string",
           "title": "Joint Bid Areas",
           "enum": [
+            "N/A",
             "Adur",
             "Allerdale",
             "Amber Valley",
