@@ -50,6 +50,7 @@ class Common::Domain::Template
       error.each do |message|
         next if message.to_s.include? "is not a member of"
         next if message.data.nil?
+        next if message.data.is_a? Integer
 
         path =  message.path
         path.shift
