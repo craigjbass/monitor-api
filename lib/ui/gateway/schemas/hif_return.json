@@ -7227,7 +7227,7 @@
           "assuranceReview": {
             "type": "object",
             "title": "Assurance Review",
-            "calculation": "set(formData, 'infrastructureDeliveryAssurance', setArrayField(get(formData,'infrastructureDeliveryCopy'), ['infrastructureDesc'], get(formData, 'infrastructureDeliveryAssurance'))); set(formData, 'infrastructureDeliveryAssurance', setArrayField(get(formData,'infrastructureDeliveryCopy'), ['reviewDetails'], get(formData, 'infrastructureDeliveryAssurance')));",
+            "calculation": "set(formData, 'infrastructureDeliveryAssurance', setArrayField(get(formData,'infrastructureDeliveryCopy'), ['infrastructureDesc'], get(formData, 'infrastructureDeliveryAssurance'), ['infrastructureDesc'])); set(formData, 'infrastructureDeliveryAssurance', setArrayField(get(formData,'infrastructureDeliveryCopy'), ['reviewDetails'], get(formData, 'infrastructureDeliveryAssurance'), ['reviewDetails']));",
             "description": "Only to be completed by the assurance team. This page will only become available when the RM review is complete.",
             "properties": {
               "assuranceManagerAttendance": {
