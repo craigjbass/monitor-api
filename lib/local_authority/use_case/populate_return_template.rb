@@ -13,7 +13,6 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
 
     paths = @get_schema_copy_paths.execute(type: type)[:paths]
     paths.each do |copy_path_pair|
-      pp copy_path_pair
       populated_return = copy_data(
         copy_path_pair,
         source_data,
@@ -29,7 +28,7 @@ class LocalAuthority::UseCase::PopulateReturnTemplate
 
   def copy_data(copy_path_pair, source_data, type, return_data)
     path_types = @get_return_template_path_types.execute(type: type, path: copy_path_pair[:to])[:path_types].drop(1)
-    pp path_types
+
     found_data = @find_path_data.execute(
       baseline_data: source_data,
       path: copy_path_pair[:from]

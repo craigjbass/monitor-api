@@ -66,6 +66,10 @@
     {
       "from": ["milestones", "dates", "customMileStones"],
       "to": ["summary", "sitesSummary", "#", "hiddenMilestones", "customMileStones"]
+    },
+    {
+      "from": ["outputs", "mmcCategory"],
+      "to": ["summary", "sitesSummary", "#", "hiddenMmcCategory"]
     }
   ],
   "properties": {
@@ -196,6 +200,42 @@
                         }
                       }
                     }
+                  }
+                }
+              },
+              "hiddenMmcCategory": {
+                "title": "MMC Category",
+                "type": "object",
+                "properties": {
+                  "catA": {
+                    "type": "string",
+                    "hidden": true,
+                    "title": "Category A - Volumetric",
+                    "percentage": true
+                  },
+                  "catB": {
+                    "type": "string",
+                    "hidden": true,
+                    "title": "Category B - Hybrid",
+                    "percentage": true
+                  },
+                  "catC": {
+                    "type": "string",
+                    "hidden": true,
+                    "title": "Category C - Panellised",
+                    "percentage": true
+                  },
+                  "catD": {
+                    "type": "string",
+                    "hidden": true,
+                    "title": "Category D -  Sub-Assemblies and Components",
+                    "percentage": true
+                  },
+                  "catE": {
+                    "type": "string",
+                    "hidden": true,
+                    "title": "Category E - Non-OSM/MMC Construction",
+                    "percentage": true
                   }
                 }
               },

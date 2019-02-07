@@ -151,6 +151,37 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
                   }
                 }
               },
+              mmcCategory: {
+                title: "MMC Category",
+                type: "object",
+                properties: {
+                  catA: {
+                    type: "string",
+                    title: "Category A - Volumetric",
+                    percentage: true
+                  },
+                  catB: {
+                    type: "string",
+                    title: "Category B - Hybrid",
+                    percentage: true
+                  },
+                  catC: {
+                    type: "string",
+                    title: "Category C - Panellised",
+                    percentage: true
+                  },
+                  catD: {
+                    type: "string",
+                    title: "Category D -  Sub-Assemblies and Components",
+                    percentage: true
+                  },
+                  catE: {
+                    type: "string",
+                    title: "Category E - Non-OSM/MMC Construction",
+                    percentage: true
+                  }
+                }
+              },
               innerSummary: {
                 type: "object",
                 title: "",

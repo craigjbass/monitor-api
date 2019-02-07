@@ -234,8 +234,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                               percentage: true,
                               sourceKey: %i[
                                 baseline_data
-                                outputs
-                                mmcCategory
+                                summary
+                                sitesSummary
+                                hiddenMmcCategory
                                 catA
                               ]
                             },
@@ -258,8 +259,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                               percentage: true,
                               sourceKey: %i[
                                 baseline_data
-                                outputs
-                                mmcCategory
+                                summary
+                                sitesSummary
+                                hiddenMmcCategory
                                 catB
                               ]
                             },
@@ -282,8 +284,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                               readonly: true,
                               sourceKey: %i[
                                 baseline_data
-                                outputs
-                                mmcCategory
+                                summary
+                                sitesSummary
+                                hiddenMmcCategory
                                 catC
                               ]
                             },
@@ -306,8 +309,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                               readonly: true,
                               sourceKey: %i[
                                 baseline_data
-                                outputs
-                                mmcCategory
+                                summary
+                                sitesSummary
+                                hiddenMmcCategory
                                 catD
                               ]
                             },
@@ -330,8 +334,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                               readonly: true,
                               sourceKey: %i[
                                 baseline_data
-                                outputs
-                                mmcCategory
+                                summary
+                                sitesSummary
+                                hiddenMmcCategory
                                 catE
                               ]
                             },

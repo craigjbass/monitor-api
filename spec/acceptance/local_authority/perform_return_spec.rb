@@ -372,10 +372,10 @@ describe 'Performing Return on HIF Project' do
     expect(second_base_return[:base_return][:data][:infrastructures]).to eq(expected_second_base_return[:infrastructures])
   end
 
-  fit 'should keep track of LAAC Returns' do
+  it 'should keep track of LAAC Returns' do
     base_return = get_use_case(:get_base_return).execute(project_id: ac_project_id)
 
-    expect(base_return[:base_return][:data]).to eq(expected_ac_base_return)
+    expect(base_return[:base_return][:data][:sites]).to eq(expected_ac_base_return[:sites])
   end
 
   def soft_update_return(id:, data:)
