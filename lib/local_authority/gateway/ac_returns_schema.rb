@@ -397,8 +397,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                           title: 'Baseline Date',
                                           sourceKey: %i[
                                             baseline_data
-                                            milestones
-                                            surveysAndDueDiligence
+                                            summary
+                                            sitesSummary
+                                            hiddenMilestones
                                             commencementOfDueDiligence
                                           ],
                                           readonly: true
@@ -500,8 +501,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                           title: 'Baseline Date',
                                           sourceKey: %i[
                                             baseline_data
-                                            milestones
-                                            surveysAndDueDiligence
+                                            summary
+                                            sitesSummary
+                                            hiddenMilestones
                                             completionOfSurveys
                                           ],
                                           readonly: true
@@ -603,8 +605,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                           title: 'Baseline Date',
                                           sourceKey: %i[
                                             baseline_data
-                                            milestones
-                                            procurementProvision
+                                            summary
+                                            sitesSummary
+                                            hiddenMilestones
                                             procurementOfWorksCommencementDate
                                           ],
                                           readonly: true
@@ -706,8 +709,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                           title: 'Baseline Date',
                                           sourceKey: %i[
                                             baseline_data
-                                            milestones
-                                            procurementProvision
+                                            summary
+                                            sitesSummary
+                                            hiddenMilestones
                                             provisionOfDetailedWorks
                                           ],
                                           readonly: true
@@ -809,8 +813,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                           title: 'Baseline Date',
                                           sourceKey: %i[
                                             baseline_data
-                                            milestones
-                                            worksDate
+                                            summary
+                                            sitesSummary
+                                            hiddenMilestones
                                             commencementDate
                                           ],
                                           readonly: true
@@ -912,8 +917,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                           title: 'Baseline Date',
                                           sourceKey: %i[
                                             baseline_data
-                                            milestones
-                                            worksDate
+                                            summary
+                                            sitesSummary
+                                            hiddenMilestones
                                             completionDate
                                           ],
                                           readonly: true
@@ -1019,8 +1025,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                           title: 'Baseline Date',
                                           sourceKey: %i[
                                             baseline_data
-                                            milestones
-                                            outlinePlanning
+                                            summary
+                                            sitesSummary
+                                            hiddenMilestones
                                             outlinePlanningGrantedDate
                                           ],
                                           readonly: true
@@ -1126,8 +1133,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                           title: 'Baseline Date',
                                           sourceKey: %i[
                                             baseline_data
-                                            milestones
-                                            outlinePlanning
+                                            summary
+                                            sitesSummary
+                                            hiddenMilestones
                                             reservedMatterPermissionGrantedDate
                                           ],
                                           readonly: true
@@ -1229,7 +1237,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                           title: 'Baseline Date',
                                           sourceKey: %i[
                                             baseline_data
-                                            milestones
+                                            summary
+                                            sitesSummary
+                                            hiddenMilestones
                                             marketingCommenced
                                           ],
                                           readonly: true
@@ -1336,8 +1346,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                           title: 'Baseline Date',
                                           sourceKey: %i[
                                             baseline_data
-                                            milestones
-                                            contractSigned
+                                            summary
+                                            sitesSummary
+                                            hiddenMilestones
                                             conditionalContractSigned
                                           ],
                                           readonly: true
@@ -1439,8 +1450,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                           title: 'Baseline Date',
                                           sourceKey: %i[
                                             baseline_data
-                                            milestones
-                                            contractSigned
+                                            summary
+                                            sitesSummary
+                                            hiddenMilestones
                                             unconditionalContractSigned
                                           ],
                                           readonly: true
@@ -1542,8 +1554,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                           title: 'Baseline Date',
                                           sourceKey: %i[
                                             baseline_data
-                                            milestones
-                                            workDates
+                                            summary
+                                            sitesSummary
+                                            hiddenMilestones
                                             startOnSiteDate
                                           ],
                                           readonly: true
@@ -1645,8 +1658,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                           title: 'Baseline Date',
                                           sourceKey: %i[
                                             baseline_data
-                                            milestones
-                                            workDates
+                                            summary
+                                            sitesSummary
+                                            hiddenMilestones
                                             startOnFirstUnitDate
                                           ],
                                           readonly: true
@@ -1748,8 +1762,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                           title: 'Baseline Date',
                                           sourceKey: %i[
                                             baseline_data
-                                            milestones
-                                            completionDates
+                                            summary
+                                            sitesSummary
+                                            hiddenMilestones
                                             completionOfFinalUnitData
                                           ],
                                           readonly: true
@@ -1851,8 +1866,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                           title: 'Baseline Date',
                                           sourceKey: %i[
                                             baseline_data
-                                            milestones
-                                            completionDates
+                                            summary
+                                            sitesSummary
+                                            hiddenMilestones
                                             projectCompletionDate
                                           ],
                                           readonly: true
@@ -1924,7 +1940,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                             title: 'Name of custom milestone',
                             sourceKey: %i[
                               baseline_data
-                              milestones
+                              summary
+                              sitesSummary
+                              hiddenMilestones
                               customMileStones
                               customTitle
                             ]
@@ -1967,7 +1985,9 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                                             title: 'Baseline Date',
                                             sourceKey: %i[
                                               baseline_data
-                                              milestones
+                                              summary
+                                              sitesSummary
+                                              hiddenMilestones
                                               customMileStones
                                               customDate
                                             ],

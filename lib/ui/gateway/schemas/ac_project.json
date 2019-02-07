@@ -2,6 +2,72 @@
   "$schema": "http://json-schema.org/draft-07/schema",
   "title": "AC Project",
   "type": "object",
+  "sharedData": [
+    {
+      "from": ["milestones", "dates", "surveysAndDueDiligence", "commencementOfDueDiligence"],
+      "to": ["summary", "sitesSummary", "#", "hiddenMilestones", "commencementOfDueDiligence"]
+    },
+    {
+      "from": ["milestones", "dates", "surveysAndDueDiligence", "completionOfSurveysHolder", "completionOfSurveys"],
+      "to": ["summary", "sitesSummary", "#", "hiddenMilestones", "completionOfSurveys"]
+    },
+    {
+      "from": ["milestones", "dates", "procurementProvision", "procurementOfWorksCommencementDate"],
+      "to": ["summary", "sitesSummary", "#", "hiddenMilestones", "procurementOfWorksCommencementDate"]
+    },
+    {
+      "from": ["milestones", "dates", "procurementProvision", "provisionOfDetailedWorksHolder", "provisionOfDetailedWorks"],
+      "to": ["summary", "sitesSummary", "#", "hiddenMilestones", "provisionOfDetailedWorks"]
+    },
+    {
+      "from": ["milestones", "dates", "worksDate", "commencementDateHolder", "commencementDate"],
+      "to": ["summary", "sitesSummary", "#", "hiddenMilestones", "commencementDate"]
+    },
+    {
+      "from": ["milestones", "dates", "worksDate", "completionDateHolder", "completionDate"],
+      "to": ["summary", "sitesSummary", "#", "hiddenMilestones", "completionDate"]
+    },
+    {
+      "from": ["milestones", "dates", "outlinePlanning", "outlinePlanningGrantedDate"],
+      "to": ["summary", "sitesSummary", "#", "hiddenMilestones", "outlinePlanningGrantedDate"]
+    },
+    {
+      "from": ["milestones", "dates", "outlinePlanning", "reservedMatterPermissionGrantedDateHolder", "reservedMatterPermissionGrantedDate"],
+      "to": ["summary", "sitesSummary", "#", "hiddenMilestones", "reservedMatterPermissionGrantedDate"]
+    },
+    {
+      "from": ["milestones", "dates", "marketingCommenced"],
+      "to": ["summary", "sitesSummary", "#", "hiddenMilestones", "marketingCommenced"]
+    },
+    {
+      "from": ["milestones", "dates", "contractSigned", "conditionalContractSignedHolder", "conditionalContractSigned"],
+      "to": ["summary", "sitesSummary", "#", "hiddenMilestones", "conditionalContractSigned"]
+    },
+    {
+      "from": ["milestones", "dates", "contractSigned", "unconditionalContractSignedHolder", "unconditionalContractSigned"],
+      "to": ["summary", "sitesSummary", "#", "hiddenMilestones", "unconditionalContractSigned"]
+    },
+    {
+      "from": ["milestones", "dates", "workDates", "startOnSiteDateHolder", "startOnSiteDate"],
+      "to": ["summary", "sitesSummary", "#", "hiddenMilestones", "startOnSiteDate"]
+    },
+    {
+      "from": ["milestones", "dates", "workDates", "startOnFirstUnitDateHolder", "startOnFirstUnitDate"],
+      "to": ["summary", "sitesSummary", "#", "hiddenMilestones", "startOnFirstUnitDate"]
+    },
+    {
+      "from": ["milestones", "dates", "completionDates", "completionOfFinalUnitDateHolder", "completionOfFinalUnitData"],
+      "to": ["summary", "sitesSummary", "#", "hiddenMilestones", "completionOfFinalUnitData"]
+    },
+    {
+      "from": ["milestones", "dates", "completionDates", "projectCompletionDate"],
+      "to": ["summary", "sitesSummary", "#", "hiddenMilestones", "projectCompletionDate"]
+    },
+    {
+      "from": ["milestones", "dates", "customMileStones"],
+      "to": ["summary", "sitesSummary", "#", "hiddenMilestones", "customMileStones"]
+    }
+  ],
   "properties": {
     "summary": {
       "type": "object",
@@ -31,6 +97,108 @@
           "items": {
             "type": "object",
             "properties": {
+              "hiddenMilestones": {
+                "type": "object",
+                "title": "",
+                "properties": {
+                  "commencementOfDueDiligence": {
+                    "type": "string",
+                    "title": "",
+                    "hidden": true
+                  },
+                  "completionOfSurveys": {
+                    "type": "string",
+                    "title": "",
+                    "hidden": true
+                  },
+                  "procurementOfWorksCommencementDate": {
+                    "type": "string",
+                    "title": "",
+                    "hidden": true
+                  },
+                  "provisionOfDetailedWorks": {
+                    "type": "string",
+                    "title": "",
+                    "hidden": true
+                  },
+                  "commencementDate": {
+                    "type": "string",
+                    "title": "",
+                    "hidden": true
+                  },
+                  "completionDate": {
+                    "type": "string",
+                    "title": "",
+                    "hidden": true
+                  },
+                  "outlinePlanningGrantedDate": {
+                    "type": "string",
+                    "title": "",
+                    "hidden": true
+                  },
+                  "reservedMatterPermissionGrantedDate": {
+                    "type": "string",
+                    "title": "",
+                    "hidden": true
+                  },
+                  "marketingCommenced": {
+                    "type": "string",
+                    "title": "",
+                    "hidden": true
+                  },
+                  "conditionalContractSigned": {
+                    "type": "string",
+                    "title": "",
+                    "hidden": true
+                  },
+                  "unconditionalContractSigned": {
+                    "type": "string",
+                    "title": "",
+                    "hidden": true
+                  },
+                  "startOnSiteDate": {
+                    "type": "string",
+                    "title": "",
+                    "hidden": true
+                  },
+                  "startOnFirstUnitDate": {
+                    "type": "string",
+                    "title": "",
+                    "hidden": true
+                  },
+                  "completionOfFinalUnitData": {
+                    "type": "string",
+                    "title": "",
+                    "hidden": true
+                  },
+                  "projectCompletionDate": {
+                    "type": "string",
+                    "title": "",
+                    "hidden": true
+                  },
+                  "customMileStones": {
+                    "type": "array",
+                    "title": "",
+                    "items": {
+                      "type": "object",
+                      "title": "",
+                      "properties": {
+                        "customTitle": {
+                          "type": "string",
+                          "hidden": true,
+                          "title": "Milestone"
+                        },
+                        "customDate": {
+                          "type": "string",
+                          "title": "Date",
+                          "hidden": true,
+                          "format": "date"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
               "innerSummary": {
                 "type": "object",
                 "title": "",
