@@ -13,7 +13,9 @@
           "contacts": {
             "laContact": "havant@la.gov.uk",
             "heContact": "ac@homesegland.gov.uk"
-          }
+          },
+          "incomeReceived": "12345",
+          "finalIncome": "54321"
         },
         "units": {
           "numberOfUnits": {
