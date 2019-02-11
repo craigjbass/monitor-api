@@ -2386,6 +2386,11 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                   type: 'string',
                   title: 'Reason for change/variance, and steps being taken to address this',
                   extendedText: true
+                },
+                evidenceUpload: {
+                  type: "string",
+                  title: "Please upload any evidence demonstrating the need to change the baseline, for example responses to tenders.",
+                  uploadFile: "multiple"
                 }
               }
             }
