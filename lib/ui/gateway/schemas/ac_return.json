@@ -2525,7 +2525,7 @@
           "title": "Changes Required?",
           "enum": [
             "Do not change the baseline - Where there are variances, these will be rectified in due course",
-            "Request change to baseline to match latest estimates"
+            "Request change to baseline to match latest estimates (changes to timing or overall amount)"
           ]
         }
       },
@@ -2541,13 +2541,18 @@
               "properties": {
                 "changesRequired": {
                   "enum": [
-                    "Request change to baseline to match latest estimates"
+                    "Request change to baseline to match latest estimates (changes to timing or overall amount)"
                   ]
                 },
                 "reasonForChange": {
                   "type": "string",
                   "title": "Reason for change/variance, and steps being taken to address this",
                   "extendedText": true
+                },
+                "evidenceUpload": {
+                  "type": "string",
+                  "title": "Please upload any evidence demonstrating the need to change the baseline, for example responses to tenders.",
+                  "uploadFile": "multiple"
                 }
               },
               "required": ["reasonForChange"]
