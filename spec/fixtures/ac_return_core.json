@@ -234,7 +234,7 @@
               "reasonForVariance": "risk"
             },
             "reason": "my reason"
-          }  
+          }
         },
         "startOnFirstUnitDate": {
           "completion": {
@@ -412,7 +412,8 @@
       "details": "deliv",
       "riskRating": "Medium High"
     },
-    "overallSummary": { "details": "overall", "riskRating": "Medium Low" }
+    "overallSummary": { "details": "overall", "riskRating": "Medium Low" },
+    "heAuthorisation": "Catty McBooterson"
   },
   "s151GrantClaimApproval": {
     "claimSummary": {
