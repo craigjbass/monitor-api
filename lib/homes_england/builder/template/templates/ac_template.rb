@@ -49,6 +49,139 @@ class HomesEngland::Builder::Template::Templates::ACTemplate
           items: {
             type: "object",
             properties: {
+              hiddenMilestones: {
+                type: "object",
+                title: "",
+                properties: {
+                  commencementOfDueDiligence: {
+                    type: "string",
+                    title: "",
+                    hidden: true
+                  },
+                  completionOfSurveys: {
+                    type: "string",
+                    title: "",
+                    hidden: true
+                  },
+                  procurementOfWorksCommencementDate: {
+                    type: "string",
+                    title: "",
+                    hidden: true
+                  },
+                  provisionOfDetailedWorks: {
+                    type: "string",
+                    title: "",
+                    hidden: true
+                  },
+                  commencementDate: {
+                    type: "string",
+                    title: "",
+                    hidden: true
+                  },
+                  completionDate: {
+                    type: "string",
+                    title: "",
+                    hidden: true
+                  },
+                  outlinePlanningGrantedDate: {
+                    type: "string",
+                    title: "",
+                    hidden: true
+                  },
+                  reservedMatterPermissionGrantedDate: {
+                    type: "string",
+                    title: "",
+                    hidden: true
+                  },
+                  marketingCommenced: {
+                    type: "string",
+                    title: "",
+                    hidden: true
+                  },
+                  conditionalContractSigned: {
+                    type: "string",
+                    title: "",
+                    hidden: true
+                  },
+                  unconditionalContractSigned: {
+                    type: "string",
+                    title: "",
+                    hidden: true
+                  },
+                  startOnSiteDate: {
+                    type: "string",
+                    title: "",
+                    hidden: true
+                  },
+                  startOnFirstUnitDate: {
+                    type: "string",
+                    title: "",
+                    hidden: true
+                  },
+                  completionOfFinalUnitData: {
+                    type: "string",
+                    title: "",
+                    hidden: true
+                  },
+                  projectCompletionDate: {
+                    type: "string",
+                    title: "",
+                    hidden: true
+                  },
+                  customMileStones: {
+                    type: "array",
+                    title: "",
+                    items: {
+                      type: "object",
+                      title: "",
+                      properties: {
+                        customTitle: {
+                          type: "string",
+                          hidden: true,
+                          title: "Milestone"
+                        },
+                        customDate: {
+                          type: "string",
+                          title: "Date",
+                          hidden: true,
+                          format: "date"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              mmcCategory: {
+                title: "MMC Category",
+                type: "object",
+                properties: {
+                  catA: {
+                    type: "string",
+                    title: "Category A - Volumetric",
+                    percentage: true
+                  },
+                  catB: {
+                    type: "string",
+                    title: "Category B - Hybrid",
+                    percentage: true
+                  },
+                  catC: {
+                    type: "string",
+                    title: "Category C - Panellised",
+                    percentage: true
+                  },
+                  catD: {
+                    type: "string",
+                    title: "Category D -  Sub-Assemblies and Components",
+                    percentage: true
+                  },
+                  catE: {
+                    type: "string",
+                    title: "Category E - Non-OSM/MMC Construction",
+                    percentage: true
+                  }
+                }
+              },
               innerSummary: {
                 type: "object",
                 title: "",
