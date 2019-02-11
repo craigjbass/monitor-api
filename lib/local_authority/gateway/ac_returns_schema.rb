@@ -2447,6 +2447,12 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
               title: 'Amount of this Claim',
               s151WriteOnly: true,
               currency: true
+            },
+            conditionsToGrantDrawdown: {
+              type: "string",
+              title: "Conditions precedent to draw down of grant",
+              uploadFile: "multiple",
+              description: "If you have conditions to meet before you can draw down grant, please email any evidence for meeting these to your Homes England projects lead, or attach the documents below."
             }
           }
         },
