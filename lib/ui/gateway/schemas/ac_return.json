@@ -2738,12 +2738,6 @@
                   "title": "Description of Spend",
                   "type": "string",
                   "extendedText": true
-                },
-                "evidenceOfSpendNextQuarter": {
-                  "title": "Evidence of Spend for the Next Quarter.",
-                  "description": "Evidence can include contract/ quotes. Please attach here.",
-                  "uploadFile": "multiple",
-                  "type": "string"
                 }
               }
             }

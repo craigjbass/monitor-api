@@ -2475,13 +2475,6 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
                   type: 'string',
                   s151WriteOnly: true,
                   extendedText: true
-                },
-                evidenceOfSpendNextQuarter: {
-                  title: "Evidence of Spend for the Past Quarter.",
-                  description: "Evidence can include contract/ quotes. Please attach here.",
-                  uploadFile: "multiple",
-                  type: "string",
-                  s151WriteOnly: true
                 }
               }
             }

@@ -427,8 +427,7 @@
       "evidenceOfSpendPastQuarter": "a file",
       "breakdownOfNextQuarterSpend": {
         "forecast": "2,333",
-        "descriptionOfSpend": "describe",
-        "evidenceOfSpendNextQuarter": "another file"
+        "descriptionOfSpend": "describe"
       }
     }
   }
