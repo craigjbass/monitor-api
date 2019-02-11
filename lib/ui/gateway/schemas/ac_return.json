@@ -2956,6 +2956,17 @@
               "enum": ["High", "Medium High", "Medium Low", "Low", "Contractual"]
             }
           }
+        },
+        "heAuthorisation": {
+          "type": "object",
+          "title": "Homes England Authorisation",
+          "properties": {
+            "heAuthoriser": {
+              "type": "string",
+              "title": "Authorised by:",
+              "laReadOnly": true
+            }
+          }
         }
       }
     }

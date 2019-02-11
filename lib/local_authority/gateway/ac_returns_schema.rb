@@ -2854,6 +2854,17 @@ class LocalAuthority::Gateway::ACReturnsSchemaTemplate
               ]
             }
           }
+        },
+        heAuthorisation: {
+          type: 'object',
+          title: 'Homes England Authorisation',
+          properties: {
+            heAuthoriser: {
+              type: 'string',
+              title: 'Authorised by:',
+              laReadOnly: true
+            }
+          }
         }
       }
     }
